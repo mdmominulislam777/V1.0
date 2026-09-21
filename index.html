@@ -13,7 +13,7 @@
   <meta name="format-detection" content="telephone=no" />
 
   <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json" />
+  <link rel="manifest" href="./manifest.json" />
 
   <!-- Fonts: Plus Jakarta Sans -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -21,8 +21,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/src/assets/images/highfy_clean_badge.png" />
-  <link rel="apple-touch-icon" href="/src/assets/images/highfy_clean_badge.png" />
+  <link rel="icon" type="image/png" href="./src/assets/images/highfy_clean_badge.png" />
+  <link rel="apple-touch-icon" href="./src/assets/images/highfy_clean_badge.png" />
 
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -42,7 +42,7 @@
 
   <!-- HIGHFY TV Custom Android TV Stylesheet -->
   <link rel="stylesheet" href="./style.css?v=20260915_0201" />
-  <script src="/clear-cache.js"></script>
+  <script src="./clear-cache.js"></script>
 </head>
 <body>
 
@@ -57,11 +57,11 @@
         <div class="cricfy-emblem-wrap">
           <img 
             id="cricfy-splash-logo-img"
-            src="/highfy_logo_official.svg" 
+            src="./highfy_logo_official.svg" 
             alt="HighFy TV" 
             class="cricfy-emblem-img"
             referrerpolicy="no-referrer"
-            onerror="if(this.src.indexOf('/highfy_logo.png') === -1) this.src='/highfy_logo.png';"
+            onerror="if(this.src.indexOf('./highfy_logo.png') === -1) this.src='./highfy_logo.png';"
           />
         </div>
         <h1 class="cricfy-splash-title">HighFy <span class="splash-badge-blue">TV</span></h1>
@@ -106,9 +106,9 @@
       </div>
 
       <div class="header-actions">
-        <button id="btn-header-notice" class="btn-header-icon relative z-10" title="Notifications" onclick="document.getElementById('modal-notice').classList.add('active'); if(typeof combineAndRenderNotifications === 'function') combineAndRenderNotifications();">
-          <i class="fa-solid fa-bell"></i>
-          <span id="header-notif-badge" class="absolute top-[6px] right-[6px] w-[14px] h-[14px] rounded-full bg-rose-600 text-[8px] font-bold text-white flex items-center justify-center hidden border border-[#0f172a]" style="display: none;">0</span>
+        <button id="btn-header-notice" class="btn-header-icon relative z-10 cursor-pointer" title="Notifications" aria-label="Notifications" onclick="if(typeof openModal === 'function'){ openModal('modal-notice'); } else { const m = document.getElementById('modal-notice'); if(m){ m.classList.add('active'); m.style.display = 'flex'; m.style.visibility = 'visible'; m.style.opacity = '1'; m.style.pointerEvents = 'auto'; if(window.combineAndRenderNotifications) window.combineAndRenderNotifications(); } }">
+          <i class="fa-solid fa-bell pointer-events-none"></i>
+          <span id="header-notif-badge" class="absolute top-[6px] right-[6px] w-[14px] h-[14px] rounded-full bg-rose-600 text-[8px] font-bold text-white flex items-center justify-center hidden border border-[#0f172a] pointer-events-none" style="display: none;">0</span>
         </button>
         <button id="btn-header-favs" class="btn-header-icon" title="Favorites">
           <i class="fa-solid fa-star"></i>
@@ -612,11 +612,11 @@
       <div class="drawer-big-logo-frame">
         <img 
           id="drawer-header-logo-img"
-          src="/highfy_logo_official.svg" 
+          src="./highfy_logo_official.svg" 
           alt="HighFy TV Logo" 
           class="drawer-big-logo-img" 
           referrerpolicy="no-referrer"
-          onerror="if(this.src.indexOf('/highfy_logo.png') === -1) this.src='/highfy_logo.png';"
+          onerror="if(this.src.indexOf('./highfy_logo.png') === -1) this.src='./highfy_logo.png';"
         />
       </div>
       <h3 class="drawer-app-title">HighFy TV</h3>
@@ -1244,7 +1244,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-splash-img" src="/highfy_logo_official.svg" alt="Splash Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-splash-img" src="./highfy_logo_official.svg" alt="Splash Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <div class="flex items-center gap-1.5">
@@ -1284,7 +1284,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-drawer-img" src="/highfy_logo_official.svg" alt="Drawer Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-drawer-img" src="./highfy_logo_official.svg" alt="Drawer Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <div class="flex items-center gap-1.5">
@@ -1684,7 +1684,7 @@
       </div>
       <div class="flex flex-col items-center text-center gap-2 py-3 border-b border-slate-200 dark:border-slate-800">
         <div class="w-24 h-24 overflow-hidden flex items-center justify-center">
-          <img src="/src/assets/images/highfy_clean_badge.png" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
+          <img src="./src/assets/images/highfy_clean_badge.png" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
         </div>
         <h4 class="text-base font-extrabold text-slate-800 dark:text-white">HighFy TV</h4>
         <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">Version: 1.0</span>

@@ -6281,6 +6281,16 @@
       });
     });
 
+    // Dismiss modals when clicking on background backdrop
+    document.querySelectorAll('.custom-modal-backdrop').forEach(backdrop => {
+      backdrop.addEventListener('click', (e) => {
+        if (e.target === backdrop) {
+          closeModal(backdrop.id);
+        }
+      });
+    });
+
+
     // Network Stream Dialog Modal
     const btnHeaderStream = document.getElementById('btn-header-stream');
     const drawerStream = document.getElementById('drawer-network-stream');
@@ -8153,12 +8163,12 @@
       const sportSelect = document.getElementById('admin-notif-sport');
       const bodyInput = document.getElementById('admin-notif-body');
       const targetMatchSelect = document.getElementById('admin-notif-target-match');
-      const targetChannelSelect = document.getElementById('admin-notif-target-channel');
+      const targetChannelSelect = document.getElementById('admin-notif-target-channel') || document.getElementById('admin-notif-channel');
       const actionUrlInput = document.getElementById('admin-notif-action-url');
-      const btnPublish = document.getElementById('btn-admin-notif-publish');
-      const btnClearAllNotifs = document.getElementById('btn-admin-clear-all-notifs');
-      const customNotifsList = document.getElementById('admin-custom-notifs-list');
-      const customNotifsCount = document.getElementById('admin-custom-notifs-count');
+      const btnPublish = document.getElementById('btn-admin-notif-publish') || document.getElementById('btn-admin-add-notif');
+      const btnClearAllNotifs = document.getElementById('btn-admin-clear-all-notifs') || document.getElementById('btn-admin-clear-notifs');
+      const customNotifsList = document.getElementById('admin-custom-notifs-list') || document.getElementById('admin-notifs-list-container');
+      const customNotifsCount = document.getElementById('admin-custom-notifs-count') || document.getElementById('admin-notif-count');
 
       // Populate target match dropdown
       if (targetMatchSelect) {
@@ -9437,6 +9447,31 @@
   /**
    * Render notifications list in modal-notice based on filter tab
    */
+  /**
+   * Helper function to play a channel safely
+   */
+  function playChannel(ch) {
+    if (!ch) return;
+    playChannelDirectly(ch);
+  }
+
+  /**
+   * Helper function to play an event stream or open match details safely
+   */
+  function playEvent(ev) {
+    if (!ev) return;
+    if (Array.isArray(ev.streams) && ev.streams.length > 0) {
+      playMedia({
+        title: ev.title || `${ev.team1 || ''} vs ${ev.team2 || ''}`,
+        streams: ev.streams,
+        id: ev.id,
+        category: ev.sport || 'Sports'
+      });
+    } else {
+      openMatchDetails(ev.id);
+    }
+  }
+
   function renderNotificationList(allNotifs) {
     const container = document.getElementById('notification-list-container');
     if (!container) return;
@@ -9482,32 +9517,38 @@
       const cardBg = isUnread ? 'bg-sky-50/70 dark:bg-sky-950/20 border-sky-300/60 dark:border-sky-500/30' :
                                 'bg-white dark:bg-slate-900/80 border-slate-200/80 dark:border-slate-800/80';
 
+      let actionType = n.actionType || (n.channelId ? 'open_channel' : ((n.matchId || n.eventId) ? 'watch_match' : ((n.link || n.url) ? 'external_link' : null)));
+      let actionPayload = n.actionPayload || n.channelId || n.matchId || n.eventId || n.link || n.url || null;
+      let actionLabel = n.actionLabel || (actionType === 'open_channel' ? 'Watch Channel' : (actionType === 'watch_match' ? 'Watch Match Live' : 'Open Link'));
+
       let actionButtonHtml = '';
-      if (n.actionType === 'watch_match' && n.actionPayload) {
+      if (actionType === 'watch_match' && actionPayload) {
         actionButtonHtml = `
-          <button type="button" class="btn-notif-action px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" data-action="watch_match" data-payload="${escapeHtml(n.actionPayload)}" data-notif-id="${escapeHtml(n.id)}">
+          <button type="button" class="btn-notif-action px-3 py-1.5 rounded-lg bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" data-action="watch_match" data-payload="${escapeHtml(actionPayload)}" data-notif-id="${escapeHtml(n.id)}">
             <i class="fa-solid fa-play text-[10px]"></i>
-            <span>${escapeHtml(n.actionLabel || 'Watch Match Live')}</span>
+            <span>${escapeHtml(actionLabel || 'Watch Match Live')}</span>
           </button>
         `;
-      } else if (n.actionType === 'open_channel' && n.actionPayload) {
+      } else if (actionType === 'open_channel' && actionPayload) {
         actionButtonHtml = `
-          <button type="button" class="btn-notif-action px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" data-action="open_channel" data-payload="${escapeHtml(n.actionPayload)}" data-notif-id="${escapeHtml(n.id)}">
+          <button type="button" class="btn-notif-action px-3 py-1.5 rounded-lg bg-sky-600 hover:bg-sky-500 text-white font-bold text-xs flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" data-action="open_channel" data-payload="${escapeHtml(actionPayload)}" data-notif-id="${escapeHtml(n.id)}">
             <i class="fa-solid fa-tv text-[10px]"></i>
-            <span>${escapeHtml(n.actionLabel || 'Watch Channel')}</span>
+            <span>${escapeHtml(actionLabel || 'Watch Channel')}</span>
           </button>
         `;
-      } else if (n.actionType === 'external_link' && n.actionPayload) {
+      } else if (actionType === 'external_link' && actionPayload) {
         actionButtonHtml = `
-          <a href="${escapeHtml(n.actionPayload)}" target="_blank" rel="noopener noreferrer" class="btn-notif-action px-3 py-1.5 rounded-lg bg-slate-800 dark:bg-slate-700 hover:bg-sky-600 text-white font-bold text-xs inline-flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" data-action="link" data-notif-id="${escapeHtml(n.id)}">
+          <a href="${escapeHtml(actionPayload)}" target="_blank" rel="noopener noreferrer" class="btn-notif-action px-3 py-1.5 rounded-lg bg-slate-800 dark:bg-slate-700 hover:bg-sky-600 text-white font-bold text-xs inline-flex items-center gap-1.5 shadow-sm transition active:scale-95 cursor-pointer" data-action="external_link" data-notif-id="${escapeHtml(n.id)}">
             <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
-            <span>${escapeHtml(n.actionLabel || 'Learn More')}</span>
+            <span>${escapeHtml(actionLabel || 'Learn More')}</span>
           </a>
         `;
       }
 
+      const hasAction = Boolean(actionType && actionPayload);
+
       return `
-        <div class="p-3.5 rounded-xl border ${cardBg} shadow-sm transition notif-card-glow relative overflow-hidden" data-card-notif-id="${escapeHtml(n.id)}">
+        <div class="p-3.5 rounded-xl border ${cardBg} shadow-sm transition notif-card-glow relative overflow-hidden cursor-pointer hover:border-sky-400/50 hover:bg-slate-800/40 active:scale-[0.99]" data-card-notif-id="${escapeHtml(n.id)}" data-action="${escapeHtml(actionType || '')}" data-payload="${escapeHtml(actionPayload || '')}">
           ${isUnread ? '<span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-rose-500 ring-2 ring-white dark:ring-slate-900 animate-pulse"></span>' : ''}
           <div class="flex items-start gap-3">
             <div class="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0 text-sm ${typeBadgeColor}">
@@ -9519,63 +9560,74 @@
                   ${typeLabel}
                 </span>
                 <span class="text-[11px] text-slate-400 dark:text-slate-500 font-medium">
-                  <i class="fa-regular fa-clock text-[10px] mr-1"></i>${escapeHtml(n.timestamp || 'Just now')}
+                  <i class="fa-regular fa-clock text-[10px] mr-1"></i>${escapeHtml(n.timestamp || n.time || 'Just now')}
                 </span>
               </div>
               <h4 class="text-sm font-bold text-slate-900 dark:text-white leading-snug">${escapeHtml(n.title)}</h4>
               <p class="text-xs text-slate-600 dark:text-slate-300 mt-1 leading-relaxed">${escapeHtml(n.message || n.body || '')}</p>
               ${actionButtonHtml ? `<div class="mt-3 flex items-center gap-2">${actionButtonHtml}</div>` : ''}
             </div>
+            ${hasAction ? '<div class="text-slate-500 self-center text-xs ml-1"><i class="fa-solid fa-chevron-right"></i></div>' : ''}
           </div>
         </div>
       `;
     }).join('');
 
+    // Reusable handler for notification actions
+    const handleNotificationAction = (action, payload) => {
+      if (!action || !payload) return;
+      closeModal('modal-notice');
+
+      if (action === 'watch_match') {
+        const ev = (state.events || []).find(e => e.id === payload);
+        if (ev) {
+          if (ev.status === 'LIVE' && ev.streams && ev.streams.length > 0) {
+            playEvent(ev);
+          } else {
+            openMatchDetails(payload);
+          }
+        } else {
+          switchView('view-events');
+          showToast('Opening match...');
+        }
+      } else if (action === 'open_channel') {
+        const ch = (state.channels || []).find(c => c.id === payload || (c.name && c.name.toLowerCase() === payload.toLowerCase()));
+        if (ch) {
+          playChannelDirectly(ch);
+        } else {
+          switchView('view-categories');
+          showToast('Opening channels...');
+        }
+      } else if (action === 'external_link') {
+        window.open(payload, '_blank', 'noopener,noreferrer');
+      }
+    };
+
     // Attach click listeners to notification action buttons
     container.querySelectorAll('.btn-notif-action').forEach(btn => {
       btn.onclick = (e) => {
+        e.stopPropagation();
         const notifId = btn.getAttribute('data-notif-id');
         const action = btn.getAttribute('data-action');
         const payload = btn.getAttribute('data-payload');
 
-        // Mark as read
         markNotificationAsRead(notifId);
-
-        if (action === 'watch_match' && payload) {
-          closeModal('modal-notice');
-          // Find matching event
-          const ev = (state.events || []).find(e => e.id === payload);
-          if (ev) {
-            // Open match details or play directly if live
-            if (ev.status === 'LIVE' && ev.streams && ev.streams.length > 0) {
-              playEvent(ev);
-            } else {
-              openMatchDetails(payload);
-            }
-          } else {
-            // Fallback: search or open events view
-            switchView('view-events');
-            showToast('Loading selected match...');
-          }
-        } else if (action === 'open_channel' && payload) {
-          closeModal('modal-notice');
-          const ch = (state.channels || []).find(c => c.id === payload);
-          if (ch) {
-            playChannel(ch);
-          } else {
-            switchView('view-categories');
-            showToast('Opening channels...');
-          }
-        }
+        handleNotificationAction(action, payload);
       };
     });
 
-    // Mark notification as read when clicking card
+    // Mark notification as read and trigger action when tapping card
     container.querySelectorAll('[data-card-notif-id]').forEach(card => {
       card.onclick = (e) => {
         if (e.target.closest('.btn-notif-action')) return;
         const notifId = card.getAttribute('data-card-notif-id');
+        const action = card.getAttribute('data-action');
+        const payload = card.getAttribute('data-payload');
+
         markNotificationAsRead(notifId);
+        if (action && payload) {
+          handleNotificationAction(action, payload);
+        }
       };
     });
   }
@@ -9596,20 +9648,16 @@
    * Setup Notification Center UI Listeners (Tabs, Filter, Mark All as Read, Drawer link, Banner buttons)
    */
   function setupNotificationsUI() {
-    // Side Drawer Notice & Alerts button
-    const drawerNoticeBtn = document.getElementById('btn-header-notice');
-    if (drawerNoticeBtn) {
-      drawerNoticeBtn.addEventListener('click', (e) => {
+    // Header Notice button
+    const headerNoticeBtn = document.getElementById('btn-header-notice');
+    if (headerNoticeBtn) {
+      headerNoticeBtn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log("Notice header button clicked");
-        const sideDrawer = document.getElementById('side-drawer');
-        const drawerOverlay = document.getElementById('drawer-overlay');
-        if (sideDrawer) sideDrawer.classList.remove('active');
-        if (drawerOverlay) drawerOverlay.classList.remove('active');
         openModal('modal-notice');
       });
     }
+
 
     // Modal Notification Filter Tabs
     const notifFilterBtns = document.querySelectorAll('.notif-filter-pill, .notif-filter-btn');
@@ -9780,6 +9828,13 @@
       }
     }
   }
+
+  // Expose key modal and notification functions to window for global access
+  window.openModal = openModal;
+  window.closeModal = closeModal;
+  window.combineAndRenderNotifications = combineAndRenderNotifications;
+  window.playChannel = playChannel;
+  window.playEvent = playEvent;
 
   function showToast(message) {
     const container = document.getElementById('toast-container');

@@ -956,6 +956,7 @@ body #app {
   box-shadow: none;
   flex-shrink: 0;
   outline: none;
+  cursor: pointer;
 }
 
 #main-header .btn-header-icon {

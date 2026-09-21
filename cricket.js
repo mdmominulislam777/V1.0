@@ -184,47 +184,430 @@ class CricketEngine {
     }
 
     // 2. Query backend server proxy (Cricbuzz RapidAPI + Sportradar unified engine)
-    try {
-      if (endpoint.includes('currentMatches') || endpoint.includes('matches')) {
-        const queryParts = [];
-        if (rapidKey) queryParts.push(`rapidapikey=${encodeURIComponent(rapidKey)}`);
-        if (sportradarKey) queryParts.push(`sportradar_key=${encodeURIComponent(sportradarKey)}`);
-        const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
+    const isStaticHost = typeof window !== 'undefined' && (
+      (window.location.hostname && window.location.hostname.includes('github.io')) ||
+      window.location.protocol === 'file:' ||
+      (!window.location.port && window.location.hostname !== 'localhost') ||
+      (window.location.hostname === 'localhost' && window.location.port !== '3000')
+    );
 
-        const proxyUrl = `/api/cricket/matches${queryString}`;
-        const headers = {};
-        if (rapidKey) headers['x-rapidapi-key'] = rapidKey;
-        if (sportradarKey) headers['x-sportradar-api-key'] = sportradarKey;
-
-        const proxyRes = await fetch(proxyUrl, { headers });
-        if (proxyRes.ok) {
-          const json = await proxyRes.json();
-          if (json && Array.isArray(json.data) && json.data.length > 0) {
-            return { success: true, data: json.data, source: json.source || 'CricketData' };
-          }
-        }
-      } else if (endpoint.includes('match_info') || endpoint.includes('scorecard') || endpoint.includes('details')) {
-        const cleanId = (endpoint.split('id=')[1] || '').split('&')[0];
-        if (cleanId) {
-          const queryParts = [`id=${encodeURIComponent(cleanId)}`];
+    // If on full-stack server (e.g. AI Studio / Node environment), try backend proxy first
+    if (!isStaticHost) {
+      try {
+        if (endpoint.includes('currentMatches') || endpoint.includes('matches')) {
+          const queryParts = [];
           if (rapidKey) queryParts.push(`rapidapikey=${encodeURIComponent(rapidKey)}`);
-          const queryString = `?${queryParts.join('&')}`;
+          if (sportradarKey) queryParts.push(`sportradar_key=${encodeURIComponent(sportradarKey)}`);
+          const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
 
+          const proxyUrl = `/api/cricket/matches${queryString}`;
           const headers = {};
           if (rapidKey) headers['x-rapidapi-key'] = rapidKey;
+          if (sportradarKey) headers['x-sportradar-api-key'] = sportradarKey;
 
-          const scardRes = await fetch(`/api/cricket/scorecard${queryString}`, { headers });
-          if (scardRes.ok) {
-            const scardJson = await scardRes.json();
-            if (scardJson && scardJson.data) {
-              return { success: true, data: scardJson.data, source: 'Cricbuzz Scorecard' };
+          const proxyRes = await fetch(proxyUrl, { headers });
+          if (proxyRes.ok) {
+            const json = await proxyRes.json();
+            if (json && Array.isArray(json.data) && json.data.length > 0) {
+              return { success: true, data: json.data, source: json.source || 'Cricbuzz RapidAPI' };
+            }
+          }
+        } else if (endpoint.includes('match_info') || endpoint.includes('scorecard') || endpoint.includes('details')) {
+          const cleanId = (endpoint.split('id=')[1] || '').split('&')[0];
+          if (cleanId) {
+            const queryParts = [`id=${encodeURIComponent(cleanId)}`];
+            if (rapidKey) queryParts.push(`rapidapikey=${encodeURIComponent(rapidKey)}`);
+            const queryString = `?${queryParts.join('&')}`;
+
+            const headers = {};
+            if (rapidKey) headers['x-rapidapi-key'] = rapidKey;
+
+            const scardRes = await fetch(`/api/cricket/scorecard${queryString}`, { headers });
+            if (scardRes.ok) {
+              const scardJson = await scardRes.json();
+              if (scardJson && scardJson.data) {
+                return { success: true, data: scardJson.data, source: 'Cricbuzz Scorecard' };
+              }
             }
           }
         }
+      } catch (proxyErr) {
+        console.warn('[CricketEngine] Backend proxy unavailable, activating client direct mode:', proxyErr.message);
       }
-    } catch (proxyErr) {
-      console.warn('[CricketEngine] Backend proxy note:', proxyErr.message);
     }
+
+    // 3. Client-Direct Mode (Essential for GitHub Pages & Static Deployments)
+    if (endpoint.includes('currentMatches') || endpoint.includes('matches')) {
+      const directMatchesResult = await this.fetchDirectCricbuzzMatches(rapidKey);
+      if (directMatchesResult && directMatchesResult.success) {
+        return directMatchesResult;
+      }
+    } else if (endpoint.includes('match_info') || endpoint.includes('scorecard') || endpoint.includes('details')) {
+      const cleanId = (endpoint.split('id=')[1] || '').split('&')[0];
+      if (cleanId) {
+        const host = 'cricbuzz-cricket2.p.rapidapi.com';
+        const key = rapidKey || this.getRapidApiKey() || window.CONFIG?.RAPIDAPI_KEY || '2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81';
+        try {
+          const [mCenterRes, scardRes] = await Promise.allSettled([
+            fetch(`https://${host}/mcenter/v1/${encodeURIComponent(cleanId)}`, {
+              headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }
+            }).then(r => r.ok && r.status !== 204 ? r.json() : null),
+            fetch(`https://${host}/mcenter/v1/${encodeURIComponent(cleanId)}/scard`, {
+              headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }
+            }).then(r => r.ok && r.status !== 204 ? r.json() : null)
+          ]);
+
+          const mCenter = mCenterRes.status === 'fulfilled' ? mCenterRes.value : null;
+          const scard = scardRes.status === 'fulfilled' ? scardRes.value : null;
+
+          if (mCenter || scard) {
+            return {
+              success: true,
+              data: {
+                matchId: cleanId,
+                matchInfo: mCenter,
+                scorecard: scard?.scorecard || scard
+              },
+              source: 'Cricbuzz Direct Scorecard'
+            };
+          }
+        } catch (scardErr) {
+          console.warn('[CricketEngine] Direct scorecard note:', scardErr);
+        }
+      }
+    }
+
+    return { error: 'no_matches', message: 'No live cricket matches at this time.' };
+  }
+
+  /**
+   * Helper to format Cricbuzz innings score
+   */
+  formatCricbuzzScore(scoreObj) {
+    if (!scoreObj) return { score: '', overs: '' };
+    const inng1 = scoreObj.inngs1 || {};
+    const inng2 = scoreObj.inngs2 || {};
+    const parts = [];
+    let mainOvers = '';
+
+    if (inng1.runs !== undefined) {
+      parts.push(`${inng1.runs}/${inng1.wickets !== undefined ? inng1.wickets : 0}`);
+      if (inng1.overs) mainOvers = `${inng1.overs} ov`;
+    }
+    if (inng2.runs !== undefined) {
+      parts.push(`${inng2.runs}/${inng2.wickets !== undefined ? inng2.wickets : 0}`);
+      if (inng2.overs) mainOvers = `${inng2.overs} ov`;
+    }
+
+    return {
+      score: parts.join(' & '),
+      overs: mainOvers
+    };
+  }
+
+  /**
+   * Parse Cricbuzz JSON datasets from /matches/v1/{live,upcoming,recent}
+   */
+  parseCricbuzzDatasets(datasets) {
+    const events = [];
+    const seenIds = new Set();
+    const curNow = Date.now();
+    const timezone = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
+
+    for (const json of datasets) {
+      if (!json) continue;
+      const typeMatches = Array.isArray(json.typeMatches) ? json.typeMatches : [];
+      for (const tm of typeMatches) {
+        const matchTypeCategory = tm.matchType || 'Cricket';
+        const seriesMatches = Array.isArray(tm.seriesMatches) ? tm.seriesMatches : [tm];
+        for (const sm of seriesMatches) {
+          const seriesName = sm.seriesAdWrapper?.seriesName || sm.seriesName || matchTypeCategory || 'Cricket Series';
+          const matches = sm.seriesAdWrapper?.matches || sm.matches || (sm.matchInfo ? [sm] : []);
+
+          for (const m of matches) {
+            const info = m.matchInfo || m;
+            const matchId = String(info.matchId || info.id || '');
+            if (!matchId || seenIds.has(matchId)) continue;
+            seenIds.add(matchId);
+
+            const t1 = info.team1 || {};
+            const t2 = info.team2 || {};
+            const t1Name = t1.teamName || t1.name || 'Team 1';
+            const t2Name = t2.teamName || t2.name || 'Team 2';
+
+            const t1Logo = this.resolveHDLogo(
+              t1Name,
+              t1.imageId ? `https://static.cricbuzz.com/a/img/v1/300x300/i1/c${t1.imageId}/team.jpg` : ''
+            );
+            const t2Logo = this.resolveHDLogo(
+              t2Name,
+              t2.imageId ? `https://static.cricbuzz.com/a/img/v1/300x300/i1/c${t2.imageId}/team.jpg` : ''
+            );
+
+            let startTimestamp = parseInt(info.startDate) || curNow;
+            if (startTimestamp < 10000000000) startTimestamp *= 1000;
+            const endTimestamp = parseInt(info.endDate)
+              ? (parseInt(info.endDate) < 10000000000 ? parseInt(info.endDate) * 1000 : parseInt(info.endDate))
+              : startTimestamp + 4 * 3600 * 1000;
+
+            const rawState = String(info.state || '').toLowerCase();
+            const rawStatus = String(info.status || '').toLowerCase();
+
+            let status = 'upcoming';
+            let statusText = info.status || info.matchDesc || 'Scheduled';
+
+            if (
+              rawState.includes('complete') ||
+              rawStatus.includes('won by') ||
+              rawStatus.includes('won the') ||
+              rawStatus.includes('tied') ||
+              rawStatus.includes('no result') ||
+              rawStatus.includes('abandon') ||
+              rawStatus.includes('drawn') ||
+              rawStatus.includes('concluded')
+            ) {
+              status = 'finished';
+              statusText = info.status || 'Match Concluded';
+            } else if (
+              rawState.includes('progress') ||
+              rawState.includes('live') ||
+              rawState.includes('toss') ||
+              rawState.includes('stump') ||
+              rawState.includes('delay') ||
+              rawState.includes('rain') ||
+              rawState.includes('break') ||
+              rawStatus.includes('opt to') ||
+              rawStatus.includes('need ') ||
+              rawStatus.includes('trail by') ||
+              rawStatus.includes('lead by')
+            ) {
+              status = 'live';
+              statusText = info.status || 'LIVE NOW';
+            } else if (curNow >= startTimestamp && curNow <= endTimestamp) {
+              status = 'live';
+              statusText = info.status || 'LIVE NOW';
+            } else if (curNow > endTimestamp) {
+              status = 'finished';
+              statusText = info.status || 'Match Concluded';
+            }
+
+            const matchScore = m.matchScore || info.matchScore || {};
+            const t1Score = this.formatCricbuzzScore(matchScore.team1Score);
+            const t2Score = this.formatCricbuzzScore(matchScore.team2Score);
+
+            const matchTimeStr = this.formatMatchTime(new Date(startTimestamp).toISOString(), timezone);
+
+            const sNameLower = seriesName.toLowerCase();
+            const t1Lower = t1Name.toLowerCase();
+            const t2Lower = t2Name.toLowerCase();
+
+            const isHot =
+              status === 'live' ||
+              sNameLower.includes('tour of') ||
+              sNameLower.includes('tri-series') ||
+              sNameLower.includes('world cup') ||
+              sNameLower.includes('asia cup') ||
+              sNameLower.includes('ipl') ||
+              sNameLower.includes('bpl') ||
+              sNameLower.includes('psl') ||
+              sNameLower.includes('cpl') ||
+              sNameLower.includes('hundred') ||
+              sNameLower.includes('trophy') ||
+              sNameLower.includes('india') ||
+              sNameLower.includes('bangladesh') ||
+              sNameLower.includes('pakistan') ||
+              sNameLower.includes('australia') ||
+              sNameLower.includes('england') ||
+              sNameLower.includes('south africa') ||
+              sNameLower.includes('sri lanka') ||
+              sNameLower.includes('new zealand') ||
+              sNameLower.includes('west indies') ||
+              sNameLower.includes('afghanistan') ||
+              t1Lower.includes('bangladesh') ||
+              t2Lower.includes('bangladesh') ||
+              t1Lower.includes('india') ||
+              t2Lower.includes('india');
+
+            let finalFormat = info.matchFormat || 'Cricket';
+            if (sNameLower.includes('t20') || sNameLower.includes('blast') || sNameLower.includes('premier league')) {
+              finalFormat = 'T20';
+            } else if (sNameLower.includes('odi') || sNameLower.includes('one day')) {
+              finalFormat = 'ODI';
+            } else if (sNameLower.includes('test')) {
+              finalFormat = 'Test';
+            } else if (sNameLower.includes('hundred')) {
+              finalFormat = 'Hundred';
+            }
+
+            const venueName = `${info.venueInfo?.ground || ''}${info.venueInfo?.city ? `, ${info.venueInfo.city}` : ''}`;
+
+            events.push({
+              id: `cr-cricbuzz-${matchId}`,
+              matchId: matchId,
+              seriesId: info.seriesId,
+              sport: 'cricket',
+              sportName: 'Cricket',
+              sportIcon: 'fa-baseball-bat-ball',
+              title: `${t1Name} vs ${t2Name}`,
+              name: `${t1Name} vs ${t2Name}`,
+              seriesName: seriesName,
+              tournament: seriesName,
+              league: seriesName,
+              matchDesc: info.matchDesc || 'Match',
+              matchFormat: finalFormat,
+              matchType: finalFormat,
+              status: status,
+              statusText: statusText,
+              statusLabel: status === 'live' ? 'LIVE' : (status === 'finished' ? 'FT' : 'Upcoming'),
+              timestamp: startTimestamp,
+              date: new Intl.DateTimeFormat('en-CA', {
+                timeZone: timezone,
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+              }).format(new Date(startTimestamp)),
+              matchTime: matchTimeStr,
+              timeOrTimer: status === 'live' ? 'LIVE' : (status === 'finished' ? 'FT' : matchTimeStr),
+              venue: venueName,
+              isHot: isHot,
+              isSpecial: isHot,
+              team1: {
+                teamId: t1.teamId || t1.id,
+                name: t1Name,
+                shortName: t1.teamSName || '',
+                logo: t1Logo,
+                score: t1Score.score,
+                overs: t1Score.overs,
+              },
+              team2: {
+                teamId: t2.teamId || t2.id,
+                name: t2Name,
+                shortName: t2.teamSName || '',
+                logo: t2Logo,
+                score: t2Score.score,
+                overs: t2Score.overs,
+              },
+              homeTeam: {
+                name: t1Name,
+                logo: t1Logo,
+                score: t1Score.score,
+                overs: t1Score.overs,
+              },
+              awayTeam: {
+                name: t2Name,
+                logo: t2Logo,
+                score: t2Score.score,
+                overs: t2Score.overs,
+              },
+              broadcaster: (info.broadcaster || info.tvStation || info.broadcastInfo || info.channelId || null),
+              broadcasters: (info.broadcaster || info.tvStation || info.broadcastInfo || info.channelId ? [info.broadcaster || info.tvStation || info.broadcastInfo || info.channelId] : []),
+              subText: `${finalFormat} • ${venueName || seriesName}`,
+              source: 'Cricbuzz RapidAPI',
+              streams: [],
+            });
+          }
+        }
+      }
+    }
+    return events;
+  }
+
+  /**
+   * Direct fetch from Cricbuzz RapidAPI with multi-tier fallback (Direct -> CORS Proxies -> TheSportsDB)
+   */
+  async fetchDirectCricbuzzMatches(rapidKey) {
+    const key = rapidKey || this.getRapidApiKey() || window.CONFIG?.RAPIDAPI_KEY || '2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81';
+    const host = 'cricbuzz-cricket2.p.rapidapi.com';
+    const endpoints = ['live', 'upcoming', 'recent'];
+
+    const fetchEndpoint = async (ep) => {
+      const targetUrl = `https://${host}/matches/v1/${ep}`;
+      const headers = {
+        'x-rapidapi-key': key,
+        'x-rapidapi-host': host
+      };
+
+      // Tier 1: Direct browser fetch to RapidAPI (Fastest, works on GitHub Pages)
+      try {
+        const res = await fetch(targetUrl, { headers });
+        if (res.ok) {
+          return await res.json();
+        }
+      } catch (err) {
+        console.warn(`[CricketEngine] Direct fetch for ${ep} failed, trying CORS proxy fallback...`);
+      }
+
+      // Tier 2: Public CORS Proxy fallback (for restricted networks / adblockers)
+      const corsProxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+        `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`
+      ];
+
+      for (const proxyUrl of corsProxies) {
+        try {
+          const pRes = await fetch(proxyUrl, { headers });
+          if (pRes.ok) {
+            return await pRes.json();
+          }
+        } catch (e) {}
+      }
+
+      return null;
+    };
+
+    try {
+      const results = await Promise.allSettled(endpoints.map(ep => fetchEndpoint(ep)));
+      const datasets = results
+        .filter(r => r.status === 'fulfilled' && r.value)
+        .map(r => r.value);
+
+      if (datasets.length > 0) {
+        const parsedMatches = this.parseCricbuzzDatasets(datasets);
+        if (parsedMatches.length > 0) {
+          console.log(`[CricketEngine] Successfully extracted ${parsedMatches.length} Cricbuzz matches on client!`);
+          return { success: true, data: parsedMatches, source: 'Cricbuzz RapidAPI' };
+        }
+      }
+    } catch (e) {
+      console.warn('[CricketEngine] Direct Cricbuzz error:', e);
+    }
+
+    // Tier 3: TheSportsDB Cricket endpoint fallback
+    try {
+      const todayStr = new Intl.DateTimeFormat('en-CA', {
+        timeZone: window.CONFIG?.TIMEZONE || 'Asia/Dhaka',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      }).format(new Date());
+
+      const tsdbRes = await fetch(`https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${todayStr}&s=Cricket`);
+      if (tsdbRes.ok) {
+        const tsdbJson = await tsdbRes.json();
+        if (tsdbJson && Array.isArray(tsdbJson.events) && tsdbJson.events.length > 0) {
+          const tsdbMatches = tsdbJson.events.map(ev => ({
+            id: `cr-tsdb-${ev.idEvent}`,
+            matchId: ev.idEvent,
+            sport: 'cricket',
+            sportName: 'Cricket',
+            sportIcon: 'fa-baseball-bat-ball',
+            title: ev.strEvent || `${ev.strHomeTeam} vs ${ev.strAwayTeam}`,
+            name: ev.strEvent || `${ev.strHomeTeam} vs ${ev.strAwayTeam}`,
+            league: ev.strLeague || 'Cricket',
+            status: (ev.strStatus === 'Match Finished' || ev.strStatus === 'FT') ? 'finished' : (ev.strStatus?.toLowerCase().includes('live') ? 'live' : 'upcoming'),
+            statusText: ev.strStatus || 'Scheduled',
+            team1: { name: ev.strHomeTeam || 'Team 1', logo: ev.strThumb || '', score: ev.intHomeScore || '' },
+            team2: { name: ev.strAwayTeam || 'Team 2', logo: ev.strThumb || '', score: ev.intAwayScore || '' },
+            homeTeam: { name: ev.strHomeTeam || 'Team 1', logo: ev.strThumb || '', score: ev.intHomeScore || '' },
+            awayTeam: { name: ev.strAwayTeam || 'Team 2', logo: ev.strThumb || '', score: ev.intAwayScore || '' },
+            broadcaster: ev.strTVStation || null,
+            source: 'TheSportsDB',
+            streams: []
+          }));
+          return { success: true, data: tsdbMatches, source: 'TheSportsDB' };
+        }
+      }
+    } catch (tsdbErr) {}
 
     return { error: 'no_matches', message: 'No live cricket matches at this time.' };
   }
@@ -733,7 +1116,20 @@ class CricketEngine {
       if (res.ok) {
         return await res.json();
       }
-      return { valid: false, message: `Server returned HTTP ${res.status}` };
+    } catch (e) {}
+
+    // Direct browser test for GitHub Pages / static hosting:
+    try {
+      const directRes = await fetch(`https://${host}/matches/v1/live`, {
+        headers: {
+          'x-rapidapi-key': key,
+          'x-rapidapi-host': host
+        }
+      });
+      if (directRes.ok) {
+        return { valid: true, message: 'RapidAPI Cricket key is active & verified!' };
+      }
+      return { valid: false, message: `RapidAPI returned status HTTP ${directRes.status}` };
     } catch (e) {
       return { valid: false, message: e.message || 'Connection failed' };
     }
