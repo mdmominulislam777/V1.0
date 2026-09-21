@@ -9,6 +9,7 @@
     "start": "node dist/server.cjs",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
+    "sync:android": "node scripts/sync-android-assets.cjs",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

@@ -1,0 +1,72 @@
+plugins {
+    id 'com.android.application'
+}
+
+def versionJsonFile = file("${rootDir}/../version.json")
+def vCode = 1
+def vName = "1.0.0"
+
+if (versionJsonFile.exists()) {
+    try {
+        def jsonSlurper = new groovy.json.JsonSlurper()
+        def vObj = jsonSlurper.parse(versionJsonFile)
+        vCode = (vObj.versionCode ?: 1) as Integer
+        vName = (vObj.versionName ?: vObj.version ?: "1.0.0") as String
+        println "[HighFy Build] Parsed from version.json: versionCode=${vCode}, versionName=${vName}"
+    } catch (Exception e) {
+        println "[HighFy Build] Warning: Failed to parse version.json, using defaults: " + e.getMessage()
+    }
+}
+
+android {
+    namespace "com.highfy.tv"
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.highfy.tv"
+        minSdk 21
+        targetSdk 34
+        versionCode vCode
+        versionName vName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        release {
+            def keystorePath = System.getenv("KEYSTORE_PATH") ?: "${rootDir}/keystore/release.jks"
+            def keystoreFile = file(keystorePath)
+            if (keystoreFile.exists()) {
+                storeFile keystoreFile
+                storePassword System.getenv("KEYSTORE_PASSWORD")
+                keyAlias System.getenv("KEY_ALIAS")
+                keyPassword System.getenv("KEY_PASSWORD")
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    sourceSets {
+        main {
+            assets.srcDirs = ['src/main/assets']
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core:1.13.1'
+}

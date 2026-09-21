@@ -19,11 +19,11 @@ permissions:
 
 jobs:
   build:
-    name: Build & Sign APK (Mobile & TV)
+    name: Build & Sign Production Release APK (Mobile & TV)
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Java JDK 17
@@ -32,223 +32,144 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Setup Node.js
+      - name: Setup Android SDK 34
+        uses: android-actions/setup-android@v3
+        with:
+          cmdline-tools-version: 11076708
+          packages: 'platforms;android-34 build-tools;34.0.0'
+
+      - name: Setup Gradle 8.6
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.6'
+
+      - name: Setup Node.js 20
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Read App Version
+      - name: Read App Version from version.json
+        id: get_version
         run: |
-          VERSION_NAME=$(node -e "try { console.log(require('./version.json').versionName || '1.0.1'); } catch(e) { console.log('1.0.1'); }")
-          VERSION_CODE=$(node -e "try { console.log(require('./version.json').versionCode || '101'); } catch(e) { console.log('101'); }")
+          VERSION_NAME=$(node -e "const v=require('./version.json'); console.log(v.versionName || v.version || '1.0.0');")
+          VERSION_CODE=$(node -e "const v=require('./version.json'); console.log(v.versionCode || 1);")
           echo "VERSION_NAME=$VERSION_NAME" >> $GITHUB_ENV
           echo "VERSION_CODE=$VERSION_CODE" >> $GITHUB_ENV
-          echo "Target Version: $VERSION_NAME ($VERSION_CODE)"
+          echo "version_name=$VERSION_NAME" >> $GITHUB_OUTPUT
+          echo "version_code=$VERSION_CODE" >> $GITHUB_OUTPUT
+          echo "=========================================="
+          echo " HIGHFY TV PRODUCTION BUILD TARGET"
+          echo " Application ID : com.highfy.tv"
+          echo " Version Name   : $VERSION_NAME"
+          echo " Version Code   : $VERSION_CODE"
+          echo " Java Version   : 17 (Temurin)"
+          echo " Android SDK    : 34"
+          echo " Target Build   : Release APK (Signed)"
+          echo "=========================================="
 
-      - name: Build Web Application Assets
+      - name: Install Dependencies & Build Web Assets
         run: |
-          npm ci || npm install
+          if [ -f "package-lock.json" ]; then
+            echo "Installing dependencies using npm ci..."
+            npm ci
+          else
+            echo "Installing dependencies using npm install..."
+            npm install
+          fi
+          echo "Building production web assets..."
           npm run build
-          ls -lh dist/
+          echo "Synchronizing assets to Android assets folder..."
+          npm run sync:android
+          echo "Verifying synchronized Android assets:"
+          ls -la android/app/src/main/assets/
 
-      - name: Scaffold Standalone Android App (Offline & Online Bundled)
+      - name: Configure Production Signing Keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          rm -rf android-project
-          mkdir -p android-project/app/src/main/java/com/highfy/tv
-          mkdir -p android-project/app/src/main/res/values
-          mkdir -p android-project/app/src/main/assets
-          mkdir -p android-project/keystore
-          mkdir -p android-project/gradle/wrapper
+          mkdir -p android/keystore
 
-          # Copy built web app into assets
-          cp -r dist/* android-project/app/src/main/assets/
+          if [ -z "$KEYSTORE_BASE64" ] || [ -z "$KEYSTORE_PASSWORD" ] || [ -z "$KEY_ALIAS" ] || [ -z "$KEY_PASSWORD" ]; then
+            echo "::error::CRITICAL PRODUCTION SIGNING CONFIGURATION MISSING!"
+            echo "::error::The following required GitHub Secrets must be set in Repository Settings -> Secrets and variables -> Actions:"
+            echo "::error::  1. KEYSTORE_BASE64   (Base64 encoded production .jks/.keystore)"
+            echo "::error::  2. KEYSTORE_PASSWORD (Keystore store password)"
+            echo "::error::  3. KEY_ALIAS         (Keystore key alias)"
+            echo "::error::  4. KEY_PASSWORD      (Keystore key password)"
+            echo "::error::Halting build to prevent producing unsigned, unauthenticated, or mismatched release APKs."
+            exit 1
+          fi
 
-          # 1. settings.gradle
-          cat << 'EOF' > android-project/settings.gradle
-          pluginManagement {
-              repositories {
-                  google()
-                  mavenCentral()
-                  gradlePluginPortal()
-              }
-          }
-          dependencyResolutionManagement {
-              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-              repositories {
-                  google()
-                  mavenCentral()
-              }
-          }
-          rootProject.name = "HighFyTV"
-          include ':app'
-          EOF
+          echo "Configuring Official Production Keystore from GitHub Secrets..."
+          echo "$KEYSTORE_BASE64" | base64 --decode > android/keystore/release.jks
+          
+          if [ ! -s "android/keystore/release.jks" ]; then
+            echo "::error::Decoded production keystore file is empty or corrupted! Check KEYSTORE_BASE64 secret formatting."
+            exit 1
+          fi
 
-          # 2. Root build.gradle
-          cat << 'EOF' > android-project/build.gradle
-          plugins {
-              id 'com.android.application' version '8.2.2' apply false
-          }
-          EOF
-
-          # 3. Release Keystore
-          keytool -genkey -v -keystore android-project/keystore/release.jks \
-            -alias highfy -keyalg RSA -keysize 2048 -validity 10000 \
-            -storepass highfy_tv_secret -keypass highfy_tv_secret \
-            -dname "CN=HighFyTV, O=HighFy, C=BD"
-
-          # 4. App Module build.gradle
-          cat << EOF > android-project/app/build.gradle
-          plugins {
-              id 'com.android.application'
-          }
-
-          android {
-              namespace "com.highfy.tv"
-              compileSdk 34
-
-              defaultConfig {
-                  applicationId "com.highfy.tv"
-                  minSdk 21
-                  targetSdk 34
-                  versionCode ${{ env.VERSION_CODE }}
-                  versionName "${{ env.VERSION_NAME }}"
-              }
-
-              signingConfigs {
-                  release {
-                      storeFile file("../keystore/release.jks")
-                      storePassword "highfy_tv_secret"
-                      keyAlias "highfy"
-                      keyPassword "highfy_tv_secret"
-                  }
-              }
-
-              buildTypes {
-                  release {
-                      minifyEnabled false
-                      shrinkResources false
-                      signingConfig signingConfigs.release
-                  }
-              }
-
-              compileOptions {
-                  sourceCompatibility JavaVersion.VERSION_17
-                  targetCompatibility JavaVersion.VERSION_17
-              }
-          }
-          EOF
-
-          # 5. AndroidManifest.xml
-          cat << 'EOF' > android-project/app/src/main/AndroidManifest.xml
-          <?xml version="1.0" encoding="utf-8"?>
-          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
-              <uses-permission android:name="android.permission.INTERNET" />
-              <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-              <uses-permission android:name="android.permission.WAKE_LOCK" />
-              <uses-feature android:name="android.software.leanback" android:required="false" />
-              <uses-feature android:name="android.hardware.touchscreen" android:required="false" />
-
-              <application
-                  android:label="@string/app_name"
-                  android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-                  android:hardwareAccelerated="true"
-                  android:usesCleartextTraffic="true">
-                  <activity
-                      android:name=".MainActivity"
-                      android:exported="true"
-                      android:configChanges="orientation|screenSize|screenLayout|keyboard|navigation">
-                      <intent-filter>
-                          <action android:name="android.intent.action.MAIN" />
-                          <category android:name="android.intent.category.LAUNCHER" />
-                          <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
-                      </intent-filter>
-                  </activity>
-              </application>
-          </manifest>
-          EOF
-
-          # 6. Strings XML
-          cat << 'EOF' > android-project/app/src/main/res/values/strings.xml
-          <resources>
-              <string name="app_name">HighFy TV</string>
-          </resources>
-          EOF
-
-          # 7. MainActivity.java
-          cat << EOF > android-project/app/src/main/java/com/highfy/tv/MainActivity.java
-          package com.highfy.tv;
-          import android.app.Activity;
-          import android.os.Bundle;
-          import android.view.KeyEvent;
-          import android.view.WindowManager;
-          import android.webkit.WebSettings;
-          import android.webkit.WebView;
-          import android.webkit.WebViewClient;
-          import android.webkit.WebChromeClient;
-          import android.webkit.PermissionRequest;
-
-          public class MainActivity extends Activity {
-              private WebView webView;
-              @Override
-              protected void onCreate(Bundle savedInstanceState) {
-                  super.onCreate(savedInstanceState);
-                  getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-                  webView = new WebView(this);
-                  setContentView(webView);
-                  WebSettings s = webView.getSettings();
-                  s.setJavaScriptEnabled(true);
-                  s.setDomStorageEnabled(true);
-                  s.setDatabaseEnabled(true);
-                  s.setAllowFileAccess(true);
-                  s.setAllowContentAccess(true);
-                  s.setAllowFileAccessFromFileURLs(true);
-                  s.setAllowUniversalAccessFromFileURLs(true);
-                  s.setMediaPlaybackRequiresUserGesture(false);
-                  s.setUserAgentString("HighFyTV-App/${{ env.VERSION_NAME }} (AndroidTV & Mobile)");
-                  
-                  webView.setWebViewClient(new WebViewClient());
-                  webView.setWebChromeClient(new WebChromeClient() {
-                      @Override
-                      public void onPermissionRequest(final PermissionRequest request) {
-                          request.grant(request.getResources());
-                      }
-                  });
-
-                  webView.loadUrl("file:///android_asset/index.html");
-              }
-              @Override
-              public boolean onKeyDown(int keyCode, KeyEvent event) {
-                  if (keyCode == KeyEvent.KEYCODE_BACK && webView.canGoBack()) {
-                      webView.goBack();
-                      return true;
-                  }
-                  return super.onKeyDown(keyCode, event);
-              }
-          }
-          EOF
+          echo "KEYSTORE_PATH=${GITHUB_WORKSPACE}/android/keystore/release.jks" >> $GITHUB_ENV
+          echo "KEYSTORE_PASSWORD=$KEYSTORE_PASSWORD" >> $GITHUB_ENV
+          echo "KEY_ALIAS=$KEY_ALIAS" >> $GITHUB_ENV
+          echo "KEY_PASSWORD=$KEY_PASSWORD" >> $GITHUB_ENV
+          echo "SIGNING_MODE=OFFICIAL_PRODUCTION_SECRETS" >> $GITHUB_ENV
 
       - name: Build Android Release APK
         run: |
-          cd android-project
-          gradle wrapper --gradle-version 8.2
+          cd android
+          gradle wrapper --gradle-version 8.6
           chmod +x gradlew
+          echo "Executing Gradle Release Build..."
           ./gradlew :app:assembleRelease --no-daemon --stacktrace
 
-      - name: Package Release APK
+      - name: Verify and Package Release APK
         run: |
           mkdir -p output_apk
-          find android-project/app/build/outputs/apk -name "*.apk" -exec cp {} output_apk/highfy-tv-v${{ env.VERSION_NAME }}.apk \;
-          
-          if [ ! -f "output_apk/highfy-tv-v${{ env.VERSION_NAME }}.apk" ]; then
-            echo "Error: Release APK not generated!"
+          APK_SOURCE=$(find android/app/build/outputs/apk/release -name "*release*.apk" | head -n 1)
+
+          if [ -z "$APK_SOURCE" ] || [ ! -f "$APK_SOURCE" ]; then
+            echo "::error::Release APK was not generated in android/app/build/outputs/apk/release!"
+            ls -laR android/app/build/outputs/ || true
             exit 1
           fi
-          
-          ls -lh output_apk/highfy-tv-v${{ env.VERSION_NAME }}.apk
 
-      - name: Upload APK
+          FINAL_APK_NAME="highfy-tv-v${{ env.VERSION_NAME }}-release.apk"
+          cp "$APK_SOURCE" "output_apk/$FINAL_APK_NAME"
+
+          echo "=========================================="
+          echo " RELEASE APK VERIFICATION PASSED"
+          echo " Filename : output_apk/$FINAL_APK_NAME"
+          echo " Size     : $(ls -lh "output_apk/$FINAL_APK_NAME" | awk '{print $5}')"
+          echo " Signing  : ${{ env.SIGNING_MODE }}"
+          echo " SHA256   : $(sha256sum "output_apk/$FINAL_APK_NAME" | awk '{print $1}')"
+          echo "=========================================="
+
+      - name: Upload Release APK Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: highfy-tv-v${{ env.VERSION_NAME }}-apk
-          path: output_apk/highfy-tv-v${{ env.VERSION_NAME }}.apk
+          name: highfy-tv-v${{ env.VERSION_NAME }}-release-apk
+          path: output_apk/highfy-tv-v${{ env.VERSION_NAME }}-release.apk
           retention-days: 30
+
+      - name: Publish GitHub Release
+        if: startsWith(github.ref, 'refs/tags/v') || github.event.inputs.create_release == 'true'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: output_apk/highfy-tv-v${{ env.VERSION_NAME }}-release.apk
+          name: HighFy TV v${{ env.VERSION_NAME }} (Production Release)
+          tag_name: ${{ github.ref_name }}
+          body: |
+            ## HighFy TV Official Production Release v${{ env.VERSION_NAME }}
+            
+            - **Application ID**: `com.highfy.tv`
+            - **Version Code**: `${{ env.VERSION_CODE }}`
+            - **Version Name**: `${{ env.VERSION_NAME }}`
+            - **Target Platforms**: Universal Android (Mobile Phones, Tablets & Android TV / Google TV)
+            - **Remote / D-Pad Support**: Complete 5-way D-Pad navigation for Smart TV
+            - **Streaming Engine**: HLS.js + mpegts.js Multi-Server Live Streaming Engine
+            - **Build Type**: Production Signed Release APK
+          draft: false
+          prerelease: false
