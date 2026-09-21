@@ -69,4 +69,17 @@ android {
 dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.core:core:1.13.1'
+
+    // Align all Kotlin stdlib variants to 1.8.22 to eliminate duplicate classes between kotlin-stdlib-1.8.22 and kotlin-stdlib-jdk7/jdk8
+    constraints {
+        implementation('org.jetbrains.kotlin:kotlin-stdlib:1.8.22') {
+            because 'Align Kotlin standard library to 1.8.22 and eliminate legacy jdk7/jdk8 duplicate classes'
+        }
+        implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.22') {
+            because 'Align Kotlin JDK 7 standard library'
+        }
+        implementation('org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.22') {
+            because 'Align Kotlin JDK 8 standard library'
+        }
+    }
 }

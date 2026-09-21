@@ -122,6 +122,8 @@ jobs:
           cd android
           gradle wrapper --gradle-version 8.6
           chmod +x gradlew
+          echo "Inspecting dependency resolution tree for Kotlin stdlib..."
+          ./gradlew :app:dependencies --configuration releaseRuntimeClasspath | grep -i "kotlin-stdlib" || true
           echo "Executing Gradle Release Build..."
           ./gradlew :app:assembleRelease --no-daemon --stacktrace
 
