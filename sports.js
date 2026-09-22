@@ -37,7 +37,7 @@ class SportsCoordinator {
   }
 
   /**
-   * Hydrate events from localStorage with strict staleness validation
+   * Hydrate events from localStorage with stale-while-revalidate resilience
    */
   loadLocalCache() {
     try {
@@ -45,9 +45,8 @@ class SportsCoordinator {
       if (stored) {
         const parsed = JSON.parse(stored);
         const now = Date.now();
-        // Strict TTL: Discard cache if older than 5 minutes
-        if (parsed && (now - (parsed.timestamp || 0) < 5 * 60 * 1000) && Array.isArray(parsed.events) && parsed.events.length > 0) {
-          // Clean any stale "live" matches or legacy mock matches from cache
+        // Stale-while-revalidate TTL: Keep cache up to 24 hours as resilient fallback
+        if (parsed && (now - (parsed.timestamp || 0) < 24 * 60 * 60 * 1000) && Array.isArray(parsed.events) && parsed.events.length > 0) {
           const cleanedEvents = parsed.events
             .filter(ev => {
               if (!ev || !ev.id) return false;
@@ -67,14 +66,24 @@ class SportsCoordinator {
           this.events = cleanedEvents;
           this.lastFetchTime = parsed.timestamp || 0;
           this.lastUpdated = new Date(this.lastFetchTime);
-        } else {
-          localStorage.removeItem(this.cacheKey);
-          this.events = [];
-          this.lastFetchTime = 0;
         }
       }
-    } catch (e) {
-      localStorage.removeItem(this.cacheKey);
+    } catch (e) {}
+
+    // If events are still empty on cold boot, hydrate from local events.json seed
+    if ((!this.events || this.events.length === 0) && typeof fetch !== 'undefined') {
+      try {
+        fetch('./events.json')
+          .then(r => r.ok ? r.json() : null)
+          .then(list => {
+            if (Array.isArray(list) && list.length > 0 && (!this.events || this.events.length === 0)) {
+              this.events = list;
+              this.lastFetchTime = Date.now() - 10000;
+              this.lastUpdated = new Date(this.lastFetchTime);
+            }
+          })
+          .catch(() => {});
+      } catch (_) {}
     }
   }
 
@@ -1931,6 +1940,8 @@ class SportsCoordinator {
 
       if (curated.length > 0) {
         this.saveLocalCache(curated, Date.now());
+      } else if (this.events && this.events.length > 0) {
+        console.warn('[SportsCoordinator] Fresh fetch returned 0 events; retaining current cached events');
       } else {
         this.events = curated;
       }

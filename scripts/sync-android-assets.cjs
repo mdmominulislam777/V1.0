@@ -69,14 +69,22 @@ if (fs.existsSync(sportsApiSrc)) {
   console.log('[SyncAndroidAssets] Copied sportsApi directory');
 }
 
-// 5. Copy public folder assets
+// 5. Copy local assets folder (category-logos, channel-logos)
+const localAssetsSrc = path.join(rootDir, 'assets');
+const localAssetsDest = path.join(assetsDir, 'assets');
+if (fs.existsSync(localAssetsSrc)) {
+  copyFolderRecursive(localAssetsSrc, localAssetsDest);
+  console.log('[SyncAndroidAssets] Copied assets directory (category-logos and channel-logos)');
+}
+
+// 6. Copy public folder assets
 const publicDir = path.join(rootDir, 'public');
 if (fs.existsSync(publicDir)) {
   copyFolderRecursive(publicDir, assetsDir);
   console.log('[SyncAndroidAssets] Copied public assets');
 }
 
-// 6. Copy src directory if exists
+// 7. Copy src directory if exists
 const srcDir = path.join(rootDir, 'src');
 const srcDest = path.join(assetsDir, 'src');
 if (fs.existsSync(srcDir)) {

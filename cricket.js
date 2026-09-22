@@ -18,7 +18,7 @@ class CricketEngine {
   }
 
   /**
-   * Hydrate cricket events from localStorage with strict staleness validation
+   * Hydrate cricket events from localStorage with stale-while-revalidate resilience
    */
   loadLocalCache() {
     try {
@@ -26,9 +26,8 @@ class CricketEngine {
       if (stored) {
         const parsed = JSON.parse(stored);
         const now = Date.now();
-        // Strict TTL: purge cache if older than 5 minutes
-        if (parsed && (now - (parsed.timestamp || 0) < 5 * 60 * 1000) && Array.isArray(parsed.data) && parsed.data.length > 0) {
-          // Sanitize any stale "live" matches (> 12h past start) or legacy mock matches
+        // Stale-while-revalidate TTL: keep up to 24 hours as fallback
+        if (parsed && (now - (parsed.timestamp || 0) < 24 * 60 * 60 * 1000) && Array.isArray(parsed.data) && parsed.data.length > 0) {
           const cleanData = parsed.data
             .filter(ev => {
               if (!ev || !ev.id) return false;
@@ -47,14 +46,26 @@ class CricketEngine {
             });
           this.cache.timestamp = parsed.timestamp || 0;
           this.cache.data = cleanData;
-        } else {
-          localStorage.removeItem(this.cacheKey);
-          this.cache.data = [];
-          this.cache.timestamp = 0;
         }
       }
-    } catch (e) {
-      localStorage.removeItem(this.cacheKey);
+    } catch (e) {}
+
+    // If cache is empty, hydrate from local events.json seed if available
+    if ((!this.cache.data || this.cache.data.length === 0) && typeof fetch !== 'undefined') {
+      try {
+        fetch('./events.json')
+          .then(r => r.ok ? r.json() : null)
+          .then(list => {
+            if (Array.isArray(list) && list.length > 0) {
+              const crSeed = list.filter(e => e && (e.sport || '').toLowerCase() === 'cricket');
+              if (crSeed.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
+                this.cache.data = crSeed;
+                this.cache.timestamp = Date.now() - 10000;
+              }
+            }
+          })
+          .catch(() => {});
+      } catch (_) {}
     }
   }
 
@@ -527,25 +538,31 @@ class CricketEngine {
         'x-rapidapi-host': host
       };
 
-      // Tier 1: Direct browser fetch to RapidAPI (Fastest, works on GitHub Pages)
+      // Tier 1: Direct browser fetch to RapidAPI (Fastest, works on GitHub Pages & Android WebView)
       try {
-        const res = await fetch(targetUrl, { headers });
+        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+        const timer = controller ? setTimeout(() => controller.abort(), 6000) : null;
+        const res = await fetch(targetUrl, { headers, signal: controller?.signal });
+        if (timer) clearTimeout(timer);
         if (res.ok) {
           return await res.json();
         }
       } catch (err) {
-        console.warn(`[CricketEngine] Direct fetch for ${ep} failed, trying CORS proxy fallback...`);
+        console.warn(`[CricketEngine] Direct fetch for ${ep} failed:`, err.message);
       }
 
       // Tier 2: Public CORS Proxy fallback (for restricted networks / adblockers)
       const corsProxies = [
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-        `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`
+        `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`,
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`
       ];
 
       for (const proxyUrl of corsProxies) {
         try {
-          const pRes = await fetch(proxyUrl, { headers });
+          const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
+          const timer = controller ? setTimeout(() => controller.abort(), 5000) : null;
+          const pRes = await fetch(proxyUrl, { headers, signal: controller?.signal });
+          if (timer) clearTimeout(timer);
           if (pRes.ok) {
             return await pRes.json();
           }
@@ -977,16 +994,19 @@ class CricketEngine {
         return (a.timestamp || 0) - (b.timestamp || 0);
       });
 
-      const curatedCricket = [...liveMatches, ...upcomingMatches, ...topFinished];
+      let finalEvents = [...liveMatches, ...upcomingMatches, ...topFinished];
 
-      if (curatedCricket.length > 0) {
-        this.saveLocalCache(curatedCricket, Date.now());
+      if (finalEvents.length > 0) {
+        this.saveLocalCache(finalEvents, Date.now());
+      } else if (Array.isArray(this.cache.data) && this.cache.data.length > 0) {
+        console.log(`[CricketEngine] Network returned 0 matches, serving ${this.cache.data.length} cached matches.`);
+        finalEvents = this.cache.data;
       }
 
       this.inFlightPromise = null;
       return {
         configured: true,
-        events: curatedCricket
+        events: finalEvents
       };
     })();
 

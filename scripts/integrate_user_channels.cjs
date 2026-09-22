@@ -489,7 +489,7 @@ let addedCount = 0;
 liveChannels.forEach(item => {
   const meta = channelMetadata[item.name] || {};
   const targetCategory = meta.category || "Bangla";
-  const targetCategories = meta.categories || [targetCategory];
+  const targetCategories = Array.from(new Set([...(meta.categories || [targetCategory]), "Akash Go"]));
   const targetSports = meta.sports || [];
   const targetLogo = meta.logo || "./assets/channel-logos/ch-btv-world.svg";
   const targetId = meta.id || ("ch-" + norm(item.name));
@@ -503,7 +503,11 @@ liveChannels.forEach(item => {
     existing.url = item.url;
     existing.stream_url = item.url;
     existing.category = targetCategory;
-    existing.categories = Array.from(new Set([...(existing.categories || []), ...targetCategories, targetCategory]));
+    existing.categories = Array.from(new Set([...(existing.categories || []), ...targetCategories, targetCategory, "Akash Go"]));
+    existing.isAkashGo = true;
+    if (!existing.provider || existing.provider === 'Standard') {
+      existing.provider = 'Akash Go';
+    }
     if (targetSports.length > 0) {
       existing.sports = Array.from(new Set([...(existing.sports || []), ...targetSports]));
     }
@@ -526,7 +530,8 @@ liveChannels.forEach(item => {
       url: item.url,
       stream_url: item.url,
       logo: targetLogo,
-      provider: "HighFy"
+      provider: "Akash Go",
+      isAkashGo: true
     };
     channels.push(newChan);
     existingMap.set(norm(item.name), channels.length - 1);

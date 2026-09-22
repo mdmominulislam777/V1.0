@@ -349,6 +349,12 @@ if (fs.existsSync('scripts/integrate_user_channels.cjs')) {
 if (fs.existsSync('scripts/integrate_sports_channels.cjs')) {
   require('./integrate_sports_channels.cjs');
 }
+if (fs.existsSync('scripts/integrate_jio_channels.cjs')) {
+  require('./integrate_jio_channels.cjs');
+}
+if (fs.existsSync('scripts/integrate_pdf_sports_channels.cjs')) {
+  require('./integrate_pdf_sports_channels.cjs');
+}
 channelArray = JSON.parse(fs.readFileSync('channels.json', 'utf8'));
 
 console.log('Successfully wrote', channelArray.length, 'unique authentic channels into channels.json');

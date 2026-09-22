@@ -297,9 +297,6 @@ http://151.80.18.177:86/Eurosport_HD/index.m3u8
 #EXTINF:-1 group-title="Sports" tvg-id="ch-eurosport-2" tvg-name="Eurosport 2" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Eurosport_2_logo_2015.svg/320px-Eurosport_2_logo_2015.svg.png",Eurosport 2
 http://151.80.18.177:86/Eurosport_2_HD/index.m3u8
 
-#EXTINF:-1 group-title="Sports" tvg-id="ch-trace-sport-stars" tvg-name="Trace Sport" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Trace_Sport_Stars_logo.svg/320px-Trace_Sport_Stars_logo.svg.png",Trace Sport
-https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8
-
 #EXTINF:-1 group-title="Sports" tvg-id="ch-sky-sports-racing" tvg-name="Sky Sports Racing" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Sky_Sports_Racing_logo_2020.svg/320px-Sky_Sports_Racing_logo_2020.svg.png",Sky Sports Racing
 http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7341/index.m3u8
 
@@ -670,7 +667,7 @@ https://ua101.online24.pm:8443/9999/tracks-v1/mono.m3u8
 /api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2853
 
 #EXTINF:-1 group-title="Sports" tvg-id="ch-star-sports-khel" tvg-name="Star Sports Khel" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Star_Sports_Khel.png/320px-Star_Sports_Khel.png",Star Sports Khel
-http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/4255/index.m3u8
+http://103.175.73.12:8080/live/151/151_0.m3u8
 
 #EXTINF:-1 group-title="Jio TV" tvg-id="jio-875" tvg-name="Eurosport HD" tvg-logo="https://jiotv.catchup.cdn.jio.com/dare_images/images/DSports_HD.png",Eurosport HD
 /api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D875
@@ -1086,6 +1083,9 @@ http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2533/index.m3u8
 #EXTINF:-1 group-title="Sports" tvg-id="ch-espn" tvg-name="ESPN" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/320px-ESPN_wordmark.svg.png",ESPN
 http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/19056/index.m3u8
 
+#EXTINF:-1 group-title="Sports" tvg-id="ch-trace-sport-stars" tvg-name="Trace Sport" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Trace_Sport_Stars_logo.svg/320px-Trace_Sport_Stars_logo.svg.png",Trace Sport
+https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8
+
 #EXTINF:-1 group-title="Sports" tvg-id="ch-sky-sports-action" tvg-name="Sky Sports Action" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Sky_Sports_Action_logo_2020.svg/320px-Sky_Sports_Action_logo_2020.svg.png",Sky Sports Action
 http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9155/index.m3u8
 
@@ -1117,7 +1117,7 @@ http://212.102.38.45/live/test_sport1_25p/playlist.m3u8
 http://212.102.38.45/live/test_sport_2/playlist.m3u8
 
 #EXTINF:-1 group-title="Sports" tvg-id="ch-football-worldcup-2026" tvg-name="Football World Cup 2026" tvg-logo="https://upload.wikimedia.org/wikipedia/en/thumb/1/10/2026_FIFA_World_Cup_logo.svg/320px-2026_FIFA_World_Cup_logo.svg.png",Football World Cup 2026
-https://4397879b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWRlX0ZJRkFQbHVzR2VybWFuX0hMUw/playlist.m3u8
+https://live.inplyr.com/room/168740.m3u8
 
 #EXTINF:-1 group-title="Sports" tvg-id="ch-go3-sport-1-hd" tvg-name="GO3 Sport 1 HD" tvg-logo="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Go3_Sport_logo.png/320px-Go3_Sport_logo.png",GO3 Sport 1 HD
 http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18000/index.m3u8

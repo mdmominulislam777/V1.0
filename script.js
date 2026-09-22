@@ -752,15 +752,21 @@
       window.sportsCoordinator.setChannels(state.channels);
     }
 
-    await loadSportsEvents(true);
-    updatePreloader(95, 'Starting Live Engine...');
+    // Fast initial load using cached/seeded events for instant startup (<300ms)
+    await loadSportsEvents(false);
+    updatePreloader(100, 'Starting Live Engine...');
+
+    // Smoothly hide preloader immediately so user gets an ultra-responsive UI
+    hidePreloader();
 
     // 3. Start Auto-Refresh and Live Countdown Timers
     startAutoRefresh();
     startCountdownTimer();
 
-    // Smoothly hide preloader
-    hidePreloader();
+    // Trigger fresh live sports sync in background after UI renders
+    setTimeout(() => {
+      loadSportsEvents(true).catch(() => {});
+    }, 1200);
   }
 
   /**
@@ -797,7 +803,10 @@
     try {
       console.log('[HighFy] Fetching events via sportsCoordinator...');
       if (window.sportsCoordinator) {
-        state.events = await window.sportsCoordinator.fetchAllEvents(isManualRefresh);
+        // Enforce 6s race timeout to prevent slow network from freezing UI
+        const fetchPromise = window.sportsCoordinator.fetchAllEvents(isManualRefresh);
+        const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(window.sportsCoordinator.events || []), 6000));
+        state.events = await Promise.race([fetchPromise, timeoutPromise]);
       } else {
         state.events = [];
       }
