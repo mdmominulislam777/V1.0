@@ -37,7 +37,7 @@ class SportsCoordinator {
   }
 
   /**
-   * Hydrate events from localStorage with strict staleness validation
+   * Hydrate events from localStorage with stale-while-revalidate resilience
    */
   loadLocalCache() {
     try {
@@ -45,9 +45,8 @@ class SportsCoordinator {
       if (stored) {
         const parsed = JSON.parse(stored);
         const now = Date.now();
-        // Strict TTL: Discard cache if older than 5 minutes
-        if (parsed && (now - (parsed.timestamp || 0) < 5 * 60 * 1000) && Array.isArray(parsed.events) && parsed.events.length > 0) {
-          // Clean any stale "live" matches or legacy mock matches from cache
+        // Stale-while-revalidate TTL: Keep cache up to 24 hours as resilient fallback
+        if (parsed && (now - (parsed.timestamp || 0) < 24 * 60 * 60 * 1000) && Array.isArray(parsed.events) && parsed.events.length > 0) {
           const cleanedEvents = parsed.events
             .filter(ev => {
               if (!ev || !ev.id) return false;
@@ -67,14 +66,24 @@ class SportsCoordinator {
           this.events = cleanedEvents;
           this.lastFetchTime = parsed.timestamp || 0;
           this.lastUpdated = new Date(this.lastFetchTime);
-        } else {
-          localStorage.removeItem(this.cacheKey);
-          this.events = [];
-          this.lastFetchTime = 0;
         }
       }
-    } catch (e) {
-      localStorage.removeItem(this.cacheKey);
+    } catch (e) {}
+
+    // If events are still empty on cold boot, hydrate from local events.json seed
+    if ((!this.events || this.events.length === 0) && typeof fetch !== 'undefined') {
+      try {
+        fetch('./events.json')
+          .then(r => r.ok ? r.json() : null)
+          .then(list => {
+            if (Array.isArray(list) && list.length > 0 && (!this.events || this.events.length === 0)) {
+              this.events = list;
+              this.lastFetchTime = Date.now() - 10000;
+              this.lastUpdated = new Date(this.lastFetchTime);
+            }
+          })
+          .catch(() => {});
+      } catch (_) {}
     }
   }
 
@@ -296,7 +305,7 @@ class SportsCoordinator {
         name: "T Sports HD",
         category: "Sports",
         categories: ["Sports", "Bangla", "Cricket", "Football"],
-        logo: "./assets/channel-logos/ch-t-sports-bd.svg",
+        logo: "./assets/channel-logos/ch-t-sports-bd.png",
         stream_url: "https://tvsen3.aynaott.com/Sports1/mono.m3u8",
         url: "https://tvsen3.aynaott.com/Sports1/mono.m3u8",
         backupUrls: ["https://s1.itcnbd.live/T-Sports-HD/tracks-v1a1/mono.m3u8"],
@@ -307,7 +316,7 @@ class SportsCoordinator {
         name: "T Sports Live 01",
         category: "Sports",
         categories: ["Sports", "Bangla", "Cricket"],
-        logo: "./assets/channel-logos/sports-t-sports-1.svg",
+        logo: "./assets/channel-logos/sports-t-sports-1.png",
         stream_url: "https://tvsen3.aynaott.com/Sports1/mono.m3u8",
         url: "https://tvsen3.aynaott.com/Sports1/mono.m3u8",
         backupUrls: ["https://s1.itcnbd.live/T-Sports-HD/tracks-v1a1/mono.m3u8"],
@@ -318,7 +327,7 @@ class SportsCoordinator {
         name: "Star Sports 1",
         category: "Sports",
         categories: ["Sports", "Cricket", "India"],
-        logo: "./assets/channel-logos/sports-star-sports-1.svg",
+        logo: "./assets/channel-logos/sports-star-sports-1.png",
         stream_url: "https://cdn10.zohanayaan.com:1686/hls/star1in.m3u8?md5=_OOHBfSs4-F7nrHWdaOvRA&expires=1787160100",
         url: "https://cdn10.zohanayaan.com:1686/hls/star1in.m3u8?md5=_OOHBfSs4-F7nrHWdaOvRA&expires=1787160100",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -329,7 +338,7 @@ class SportsCoordinator {
         name: "Star Sports 1 Hindi",
         category: "Sports",
         categories: ["Sports", "Cricket", "India"],
-        logo: "./assets/channel-logos/sports-star-sports-1-hindi.svg",
+        logo: "./assets/channel-logos/sports-star-sports-1-hindi.png",
         stream_url: "https://cdn6.zohanayaan.com:1686/hls/starhindi.m3u8?md5=3uGoFkUteXHTq00tfl42UA&expires=1787160100",
         url: "https://cdn6.zohanayaan.com:1686/hls/starhindi.m3u8?md5=3uGoFkUteXHTq00tfl42UA&expires=1787160100",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -340,7 +349,7 @@ class SportsCoordinator {
         name: "Sony Ten Cricket",
         category: "Sports",
         categories: ["Sports", "Cricket", "International"],
-        logo: "./assets/channel-logos/sports-sony-ten-cricket.svg",
+        logo: "./assets/channel-logos/sports-sony-ten-cricket.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/ten_cricket/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/ten_cricket/playlist.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -351,7 +360,7 @@ class SportsCoordinator {
         name: "Sony Ten Sports 1 HD",
         category: "Sports",
         categories: ["Sports", "WWE", "Football", "Combat"],
-        logo: "./assets/channel-logos/sports-sony-ten-1.svg",
+        logo: "./assets/channel-logos/sports-sony-ten-1.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_1_hd/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_1_hd/playlist.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -362,7 +371,7 @@ class SportsCoordinator {
         name: "Sony Ten Sports 2 HD",
         category: "Sports",
         categories: ["Sports", "Football", "Champions League", "UEFA"],
-        logo: "./assets/channel-logos/sports-sony-ten-2.svg",
+        logo: "./assets/channel-logos/sports-sony-ten-2.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_2_hd/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_2_hd/playlist.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -373,7 +382,7 @@ class SportsCoordinator {
         name: "Sony Ten Sports 5 HD",
         category: "Sports",
         categories: ["Sports", "Cricket", "Football"],
-        logo: "./assets/channel-logos/sports-sony-ten-5.svg",
+        logo: "./assets/channel-logos/sports-sony-ten-5.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_5_hd/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_5_hd/playlist.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -384,7 +393,7 @@ class SportsCoordinator {
         name: "Willow HD",
         category: "Sports",
         categories: ["Sports", "Cricket", "International", "USA"],
-        logo: "./assets/channel-logos/sports-willow-hd.svg",
+        logo: "./assets/channel-logos/sports-willow-hd.png",
         stream_url: "https://cdn9.zohanayaan.com:1686/hls/willowusa.m3u8?md5=CYVJUG-GwQ16dfctgP2pOw&expires=1787160100",
         url: "https://cdn9.zohanayaan.com:1686/hls/willowusa.m3u8?md5=CYVJUG-GwQ16dfctgP2pOw&expires=1787160100",
         backupUrls: ["https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8"],
@@ -395,7 +404,7 @@ class SportsCoordinator {
         name: "Willow HD 2",
         category: "Sports",
         categories: ["Sports", "Cricket", "CPL"],
-        logo: "./assets/channel-logos/sports-willow-hd-2.svg",
+        logo: "./assets/channel-logos/sports-willow-hd-2.png",
         stream_url: "https://cdn9.zohanayaan.com:1686/hls/willowextra.m3u8?md5=hqyptd61oG74sdoV7hBQ5Q&expires=1787160101",
         url: "https://cdn9.zohanayaan.com:1686/hls/willowextra.m3u8?md5=hqyptd61oG74sdoV7hBQ5Q&expires=1787160101",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -406,7 +415,7 @@ class SportsCoordinator {
         name: "PTV Sports HD",
         category: "Sports",
         categories: ["Sports", "Cricket", "Pakistan"],
-        logo: "./assets/channel-logos/ch-ptv-sports.svg",
+        logo: "./assets/channel-logos/ch-ptv-sports.png",
         stream_url: "https://cdn1.zohanayaan.com:1686/hls/ptvpk.m3u8?md5=r8px8GYKCr8Q05R23jrFEg&expires=1787160100",
         url: "https://cdn1.zohanayaan.com:1686/hls/ptvpk.m3u8?md5=r8px8GYKCr8Q05R23jrFEg&expires=1787160100",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -417,7 +426,7 @@ class SportsCoordinator {
         name: "Ten Sports Pakistan",
         category: "Sports",
         categories: ["Sports", "Cricket", "PSL"],
-        logo: "./assets/channel-logos/ch-ten-sports-pk.svg",
+        logo: "./assets/channel-logos/ch-ten-sports-pk.png",
         stream_url: "https://cdn3.zohanayaan.com:1686/hls/tenspk.m3u8?md5=CN2FaffVJgR6__z8ctOa0Q&expires=1787160101",
         url: "https://cdn3.zohanayaan.com:1686/hls/tenspk.m3u8?md5=CN2FaffVJgR6__z8ctOa0Q&expires=1787160101",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -428,7 +437,7 @@ class SportsCoordinator {
         name: "A Sports HD",
         category: "Sports",
         categories: ["Sports", "Cricket", "Pakistan"],
-        logo: "./assets/channel-logos/ch-a-sports-hd.svg",
+        logo: "./assets/channel-logos/ch-a-sports-hd.png",
         stream_url: "https://cdn8.zohanayaan.com:1686/hls/asportshd.m3u8?md5=IxS649coN83ERcq0m5uUrA&expires=1787160101",
         url: "https://cdn8.zohanayaan.com:1686/hls/asportshd.m3u8?md5=IxS649coN83ERcq0m5uUrA&expires=1787160101",
         backupUrls: ["https://playztv-apps.pages.dev/asports/index.m3u8"],
@@ -439,7 +448,7 @@ class SportsCoordinator {
         name: "Sky Sports Cricket",
         category: "Sports",
         categories: ["Sports", "Cricket", "UK", "Ashes"],
-        logo: "./assets/channel-logos/sports-sky-sports-cricket.svg",
+        logo: "./assets/channel-logos/sports-sky-sports-cricket.png",
         stream_url: "https://cdn9.zohanayaan.com:1686/hls/skyscric.m3u8?md5=vKqnXIQMF2pTw-rdyHo_dQ&expires=1787160102",
         url: "https://cdn9.zohanayaan.com:1686/hls/skyscric.m3u8?md5=vKqnXIQMF2pTw-rdyHo_dQ&expires=1787160102",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -450,7 +459,7 @@ class SportsCoordinator {
         name: "SuperSport Premier League",
         category: "Sports",
         categories: ["Sports", "Football", "EPL", "Premier League"],
-        logo: "./assets/channel-logos/sports-supersport-premier.svg",
+        logo: "./assets/channel-logos/sports-supersport-premier.png",
         stream_url: "https://s3.itcnbd.live/channel/ea25a516d781cb1c.m3u8",
         url: "https://s3.itcnbd.live/channel/ea25a516d781cb1c.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -461,7 +470,7 @@ class SportsCoordinator {
         name: "beIN Sports HD",
         category: "Sports",
         categories: ["Sports", "Football", "La Liga", "Champions League"],
-        logo: "./assets/channel-logos/sports-bein-sports-hd.svg",
+        logo: "./assets/channel-logos/sports-bein-sports-hd.png",
         stream_url: "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
         url: "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -472,7 +481,7 @@ class SportsCoordinator {
         name: "WWE Network Live",
         category: "Sports",
         categories: ["Sports", "WWE", "Combat", "Wrestling"],
-        logo: "/assets/wwe-logos/wwe_official.svg",
+        logo: "/assets/wwe-logos/wwe_official.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_1_hd/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/sony_sports_1_hd/playlist.m3u8",
         backupUrls: ["https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8"],
@@ -483,7 +492,7 @@ class SportsCoordinator {
         name: "NBA TV",
         category: "Sports",
         categories: ["Sports", "Basketball", "NBA"],
-        logo: "./assets/channel-logos/sports-sky-sports-cricket.svg",
+        logo: "./assets/channel-logos/sports-sky-sports-cricket.png",
         stream_url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         backupUrls: [],
@@ -494,7 +503,7 @@ class SportsCoordinator {
         name: "Sky Sports F1",
         category: "Sports",
         categories: ["Sports", "Motorsport", "F1"],
-        logo: "./assets/channel-logos/sports-sky-sports-cricket.svg",
+        logo: "./assets/channel-logos/sports-sky-sports-cricket.png",
         stream_url: "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
         url: "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
         backupUrls: ["http://fastshare1.com:8080//live/25711345/late8airline/384213.ts"],
@@ -505,7 +514,7 @@ class SportsCoordinator {
         name: "Tennis Channel",
         category: "Sports",
         categories: ["Sports", "Tennis"],
-        logo: "./assets/channel-logos/sports-bein-sports-hd.svg",
+        logo: "./assets/channel-logos/sports-bein-sports-hd.png",
         stream_url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         backupUrls: [],
@@ -516,7 +525,7 @@ class SportsCoordinator {
         name: "ESPN HD",
         category: "Sports",
         categories: ["Sports", "Football", "Basketball", "Tennis", "Motorsport"],
-        logo: "./assets/channel-logos/sports-bein-sports-hd.svg",
+        logo: "./assets/channel-logos/sports-bein-sports-hd.png",
         stream_url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         backupUrls: [],
@@ -527,7 +536,7 @@ class SportsCoordinator {
         name: "Eurosport HD",
         category: "Sports",
         categories: ["Sports", "Tennis", "Motorsport", "Hockey", "Kabaddi"],
-        logo: "./assets/channel-logos/sports-sony-ten-1.svg",
+        logo: "./assets/channel-logos/sports-sony-ten-1.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/euro_sports_hd/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/euro_sports_hd/playlist.m3u8",
         backupUrls: ["http://151.80.18.177:86/Eurosport_2_HD/index.m3u8"],
@@ -538,7 +547,7 @@ class SportsCoordinator {
         name: "USA Network",
         category: "Sports",
         categories: ["Sports", "WWE", "Combat"],
-        logo: "/assets/wwe-logos/wwe_official.svg",
+        logo: "/assets/wwe-logos/wwe_official.png",
         stream_url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         url: "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         backupUrls: [],
@@ -763,6 +772,11 @@ class SportsCoordinator {
       'nagorik tv': ['ch-nagorik-tv'],
 
       // Star Sports Specific Channels (Strict 1-to-1, No network-wide expansion)
+      'star sports network': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-star-sports-select-1', 'jio-1984'],
+      'star sports': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-star-sports-select-1', 'jio-1984'],
+      'disney+ hotstar': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-star-sports-select-1', 'jio-1984'],
+      'disney hotstar': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-star-sports-select-1', 'jio-1984'],
+      'hotstar': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-star-sports-select-1', 'jio-1984'],
       'star sports 1 hindi': ['ch-star-sports-1-hindi'],
       'star sports hindi': ['ch-star-sports-1-hindi'],
       'ss1 hindi': ['ch-star-sports-1-hindi'],
@@ -805,6 +819,11 @@ class SportsCoordinator {
       'ten sports pk': ['ch-ten-sports-pk'],
 
       // Sony Specific Channels (Strict 1-to-1, No network-wide expansion)
+      'sony sports network': ['jio-162', 'jio-3510', 'ch-sony-sports-2-hd', 'jio-892', 'jio-514'],
+      'sony sports': ['jio-162', 'jio-3510', 'ch-sony-sports-2-hd', 'jio-892', 'jio-514'],
+      'sonyliv': ['jio-162', 'jio-3510', 'ch-sony-sports-2-hd', 'jio-892', 'jio-514'],
+      'sony liv': ['jio-162', 'jio-3510', 'ch-sony-sports-2-hd', 'jio-892', 'jio-514'],
+      'sony network': ['jio-162', 'jio-3510', 'ch-sony-sports-2-hd', 'jio-892', 'jio-514'],
       'sony ten 1': ['jio-162', 'jio-3510', 'jio-514'],
       'sony ten 1 hd': ['jio-162', 'jio-3510', 'jio-514'],
       'sony sports ten 1': ['jio-162', 'jio-3510', 'jio-514'],
@@ -946,9 +965,6 @@ class SportsCoordinator {
     const banned = [
       'fancode',
       'cricbuzz',
-      'hotstar',
-      'disney+ hotstar',
-      'disney hotstar',
       'peacock',
       'paramount',
       'paramount+',
@@ -957,8 +973,6 @@ class SportsCoordinator {
       'prime video',
       'amazon prime video',
       'amazon prime',
-      'canal+',
-      'canal plus',
       'viaplay',
       'stan sport',
       'jiocinema',
@@ -974,21 +988,7 @@ class SportsCoordinator {
       'supersport epl',
       'supersport grandstand',
       'supersport variety',
-      'supersport rugby',
-      'star sports network',
-      'star sports',
-      'sony sports network',
-      'sony network',
-      'sony sports',
-      'sonyliv',
-      'sony liv',
-      'sky sports',
-      'tnt sports',
-      'dazn',
-      'tsn',
-      'bein sports',
-      'bein',
-      'wwe network'
+      'supersport rugby'
     ];
     return banned.includes(n);
   }
@@ -1509,7 +1509,7 @@ class SportsCoordinator {
             serverLabel: serverLabel,
             channelName: st.channelName || stName,
             channelId: st.channelId || `api-stream-${sIdx}`,
-            channelLogo: st.channelLogo || st.logo || './assets/category-logos/live-events-hd.svg',
+            channelLogo: st.channelLogo || st.logo || './assets/category-logos/live-events-hd.png',
             url: st.url,
             backupUrls: [],
             quality: st.quality || (sIdx === 0 ? '1080p FHD' : '720p HD'),
@@ -1931,6 +1931,8 @@ class SportsCoordinator {
 
       if (curated.length > 0) {
         this.saveLocalCache(curated, Date.now());
+      } else if (this.events && this.events.length > 0) {
+        console.warn('[SportsCoordinator] Fresh fetch returned 0 events; retaining current cached events');
       } else {
         this.events = curated;
       }

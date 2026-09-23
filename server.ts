@@ -3396,7 +3396,7 @@ async function startServer() {
               quality: ch.quality || "1080p FHD",
               url: streamUrl,
               channelName: ch.name,
-              channelLogo: ch.logo || "./assets/category-logos/sports.svg",
+              channelLogo: ch.logo || "./assets/category-logos/sports.png",
               channelId: ch.id
             }];
             if (Array.isArray(ch.backupUrls)) {
@@ -3408,7 +3408,7 @@ async function startServer() {
                     quality: "720p HD",
                     url: bu,
                     channelName: ch.name,
-                    channelLogo: ch.logo || "./assets/category-logos/sports.svg",
+                    channelLogo: ch.logo || "./assets/category-logos/sports.png",
                     channelId: ch.id
                   });
                 }
@@ -3422,7 +3422,7 @@ async function startServer() {
             return {
               channelId: ch.id,
               channelName: ch.name,
-              channelLogo: ch.logo || "./assets/category-logos/sports.svg",
+              channelLogo: ch.logo || "./assets/category-logos/sports.png",
               streams
             };
           }
@@ -3785,7 +3785,7 @@ async function startServer() {
     }
   });
 
-  // Universal Real Image Proxy (Allows any image URL to load safely bypassing CORS & hotlinking blocks)
+  // Universal Real Image Proxy (Allows any image URL or Google Drive link to load safely bypassing CORS & hotlinking blocks)
   app.get("/api/image-proxy", async (req, res) => {
     try {
       const rawUrl = req.query.url;
@@ -3793,7 +3793,7 @@ async function startServer() {
         return res.status(400).json({ error: "Missing image url parameter" });
       }
 
-      const decodedUrl = decodeURIComponent(rawUrl.trim());
+      let decodedUrl = decodeURIComponent(rawUrl.trim());
       if (!/^https?:\/\//i.test(decodedUrl)) {
         return res.status(400).json({ error: "Invalid URL protocol" });
       }
@@ -3801,10 +3801,49 @@ async function startServer() {
       res.setHeader("Access-Control-Allow-Origin", "*");
       res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
 
+      // Special handler for Google Drive file links
+      if (decodedUrl.includes("drive.google.com") || decodedUrl.includes("googleusercontent.com")) {
+        const driveMatch = decodedUrl.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || decodedUrl.match(/[?&]id=([a-zA-Z0-9_-]+)/) || decodedUrl.match(/\/d\/([a-zA-Z0-9_-]+)/);
+        if (driveMatch && driveMatch[1]) {
+          const fileId = driveMatch[1];
+          const directUrls = [
+            `https://lh3.googleusercontent.com/d/${fileId}=w1000`,
+            `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`,
+            `https://drive.google.com/uc?export=download&id=${fileId}`
+          ];
+
+          for (const directUrl of directUrls) {
+            try {
+              const driveRes = await fetch(directUrl, {
+                headers: {
+                  "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+                  "Accept": "image/avif,image/webp,image/apng,image/png,image/*,*/*;q=0.8"
+                }
+              });
+              const cType = driveRes.headers.get("content-type") || "";
+              if (driveRes.ok && cType.startsWith("image/")) {
+                res.setHeader("Content-Type", cType);
+                res.setHeader("Cache-Control", "public, max-age=86400, stale-while-revalidate=604800");
+                const arrayBuf = await driveRes.arrayBuffer();
+                return res.send(Buffer.from(arrayBuf));
+              }
+            } catch {}
+          }
+
+          // If drive image requires private auth, fallback gracefully to official HighFy TV logo asset
+          const fallbackPath = path.join(process.cwd(), "public", "highfy_logo_official.png");
+          if (fs.existsSync(fallbackPath)) {
+            res.setHeader("Content-Type", "image/png");
+            res.setHeader("Cache-Control", "public, max-age=86400");
+            return res.sendFile(fallbackPath);
+          }
+        }
+      }
+
       const imgRes = await fetch(decodedUrl, {
         headers: {
           "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-          "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          "Accept": "image/avif,image/webp,image/apng,image/png,image/*,*/*;q=0.8",
           "Referer": new URL(decodedUrl).origin
         }
       });
@@ -3823,6 +3862,91 @@ async function startServer() {
       if (!res.headersSent) {
         res.status(500).json({ error: "Image proxy error", message: err.message });
       }
+    }
+  });
+
+  // GitHub Logo Uploader Proxy (Uploads logo files directly to GitHub repository)
+  app.post("/api/github/upload-logo", async (req, res) => {
+    try {
+      const { token, repo, branch = "main", path: filePath, content, message } = req.body;
+
+      if (!token || !repo || !filePath || !content) {
+        return res.status(400).json({
+          error: "Missing required fields: token, repo (owner/repo), path, and content (base64) are required."
+        });
+      }
+
+      // Normalize repo and file path
+      const cleanRepo = repo.trim().replace(/^https?:\/\/github\.com\//i, "").replace(/\.git$/i, "");
+      const cleanPath = filePath.trim().replace(/^\/+/, "");
+      const cleanBranch = (branch || "main").trim();
+      const commitMsg = message || `Upload logo: ${path.basename(cleanPath)} via HighFy TV`;
+
+      // Check if file already exists to obtain SHA for commit update
+      let currentSha: string | null = null;
+      try {
+        const getUrl = `https://api.github.com/repos/${cleanRepo}/contents/${cleanPath}?ref=${cleanBranch}`;
+        const checkRes = await fetch(getUrl, {
+          headers: {
+            "Accept": "application/vnd.github.v3+json",
+            "Authorization": `Bearer ${token.trim()}`,
+            "User-Agent": "HighFy-TV-Logo-Uploader"
+          }
+        });
+        if (checkRes.ok) {
+          const checkData: any = await checkRes.json();
+          currentSha = checkData.sha || null;
+        }
+      } catch {}
+
+      // Prepare PUT body
+      const cleanContent = content.includes("base64,") ? content.split("base64,")[1] : content;
+      const putBody: any = {
+        message: commitMsg,
+        content: cleanContent,
+        branch: cleanBranch
+      };
+      if (currentSha) {
+        putBody.sha = currentSha;
+      }
+
+      const putUrl = `https://api.github.com/repos/${cleanRepo}/contents/${cleanPath}`;
+      const putRes = await fetch(putUrl, {
+        method: "PUT",
+        headers: {
+          "Accept": "application/vnd.github.v3+json",
+          "Authorization": `Bearer ${token.trim()}`,
+          "Content-Type": "application/json",
+          "User-Agent": "HighFy-TV-Logo-Uploader"
+        },
+        body: JSON.stringify(putBody)
+      });
+
+      const putData: any = await putRes.json();
+
+      if (!putRes.ok) {
+        return res.status(putRes.status).json({
+          error: putData.message || "Failed to commit image to GitHub",
+          details: putData
+        });
+      }
+
+      const rawUrl = `https://raw.githubusercontent.com/${cleanRepo}/${cleanBranch}/${cleanPath}`;
+      const cdnUrl = `https://cdn.jsdelivr.net/gh/${cleanRepo}@${cleanBranch}/${cleanPath}`;
+
+      return res.json({
+        success: true,
+        repo: cleanRepo,
+        branch: cleanBranch,
+        path: cleanPath,
+        sha: putData.content?.sha,
+        rawUrl,
+        cdnUrl,
+        downloadUrl: putData.content?.download_url || rawUrl,
+        htmlUrl: putData.content?.html_url
+      });
+    } catch (err: any) {
+      return res.status(500).json({ error: "Server error during GitHub upload", message: err.message });
     }
   });
 

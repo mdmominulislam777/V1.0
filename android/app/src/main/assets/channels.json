@@ -88,7 +88,7 @@
     "active": true,
     "provider": "Akash Go",
     "isAkashGo": true,
-    "logo": "./assets/channel-logos/ch-my-tv.svg",
+    "logo": "./assets/channel-logos/ch-my-tv.png",
     "url": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
     "streamUrl": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
@@ -3465,7 +3465,7 @@
     "streamUrl": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
     "url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
     "stream_url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
-    "logo": "./assets/channel-logos/ch-atn-bangla.svg",
+    "logo": "./assets/channel-logos/ch-atn-bangla.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -3679,7 +3679,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
     "url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
-    "logo": "./assets/channel-logos/ch-channel-i.svg",
+    "logo": "./assets/channel-logos/ch-channel-i.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -3721,7 +3721,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
     "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
-    "logo": "./assets/channel-logos/ch-btv-world.svg",
+    "logo": "./assets/channel-logos/ch-btv-world.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -3767,7 +3767,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/cnn/index.m3u8",
     "url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
-    "logo": "./assets/channel-logos/news-cnn.svg",
+    "logo": "./assets/channel-logos/news-cnn.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -3965,7 +3965,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/N8Xbo5vdwVU6sF43RsW0/index.m3u8",
     "url": "https://tvsen6.aynaott.com/N8Xbo5vdwVU6sF43RsW0/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/N8Xbo5vdwVU6sF43RsW0/index.m3u8",
-    "logo": "./assets/channel-logos/ch-bijoy-tv.svg",
+    "logo": "./assets/channel-logos/ch-bijoy-tv.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -4007,7 +4007,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
     "url": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
-    "logo": "./assets/channel-logos/ch-desh-tv.svg",
+    "logo": "./assets/channel-logos/ch-desh-tv.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -4054,7 +4054,7 @@
     "streamUrl": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
     "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
     "stream_url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
-    "logo": "./assets/channel-logos/ch-deepto-tv.svg",
+    "logo": "./assets/channel-logos/ch-deepto-tv.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -4350,7 +4350,7 @@
     "streamUrl": "https://tvsen5.aynaott.com/SyQuXz8sC3TB/index.m3u8",
     "url": "https://tvsen5.aynaott.com/SyQuXz8sC3TB/index.m3u8",
     "stream_url": "https://tvsen5.aynaott.com/SyQuXz8sC3TB/index.m3u8",
-    "logo": "./assets/channel-logos/ch-ekushey-tv.svg",
+    "logo": "./assets/channel-logos/ch-ekushey-tv.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -4542,7 +4542,7 @@
     "streamUrl": "https://feeds.intoday.in/hltapps/api/master.m3u8",
     "url": "https://feeds.intoday.in/hltapps/api/master.m3u8",
     "stream_url": "https://feeds.intoday.in/hltapps/api/master.m3u8",
-    "logo": "./assets/channel-logos/news-india-today.svg",
+    "logo": "./assets/channel-logos/news-india-today.png",
     "provider": "Ayana",
     "isAyana": true,
     "isAyna": true,
@@ -4588,7 +4588,7 @@
     "streamUrl": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
     "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
     "stream_url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
-    "logo": "./assets/channel-logos/ch-ntv-bd.svg",
+    "logo": "./assets/channel-logos/ch-ntv-bd.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -4703,7 +4703,7 @@
     "streamUrl": "https://tvsen5.aynaott.com/skynews/index.m3u8",
     "url": "https://tvsen5.aynaott.com/skynews/index.m3u8",
     "stream_url": "https://tvsen5.aynaott.com/skynews/index.m3u8",
-    "logo": "./assets/channel-logos/news-sky-news.svg",
+    "logo": "./assets/channel-logos/news-sky-news.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -4722,7 +4722,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
     "url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
-    "logo": "./assets/channel-logos/ch-somoy-tv.svg",
+    "logo": "./assets/channel-logos/ch-somoy-tv.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -4798,7 +4798,7 @@
     "streamUrl": "https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8",
     "url": "https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8",
     "stream_url": "https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8",
-    "logo": "./assets/channel-logos/news-sky-news.svg",
+    "logo": "./assets/channel-logos/news-sky-news.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -4837,7 +4837,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/mtv/index.m3u8",
     "url": "https://tvsen6.aynaott.com/mtv/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/mtv/index.m3u8",
-    "logo": "./assets/channel-logos/music-mtv-beats.svg",
+    "logo": "./assets/channel-logos/music-mtv-beats.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -4935,7 +4935,7 @@
     "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
     "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
-    "logo": "./assets/channel-logos/ch-sony-aath.svg",
+    "logo": "./assets/channel-logos/ch-sony-aath.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -5015,7 +5015,7 @@
     "streamUrl": "https://tvsen6.aynaott.com/kolkatatv/index.m3u8",
     "url": "https://tvsen6.aynaott.com/kolkatatv/index.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/kolkatatv/index.m3u8",
-    "logo": "./assets/channel-logos/ch-kolkata-tv.svg",
+    "logo": "./assets/channel-logos/ch-kolkata-tv.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -5055,7 +5055,7 @@
     "streamUrl": "https://tvsen3.aynaott.com/Zht5VqBb/index.m3u8",
     "url": "https://tvsen3.aynaott.com/Zht5VqBb/index.m3u8",
     "stream_url": "https://tvsen3.aynaott.com/Zht5VqBb/index.m3u8",
-    "logo": "./assets/channel-logos/info-discovery.svg",
+    "logo": "./assets/channel-logos/info-discovery.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -5133,7 +5133,7 @@
     "streamUrl": "https://tvsen3.aynaott.com/wpa56Uk3/index.m3u8",
     "url": "https://tvsen3.aynaott.com/wpa56Uk3/index.m3u8",
     "stream_url": "https://tvsen3.aynaott.com/wpa56Uk3/index.m3u8",
-    "logo": "./assets/channel-logos/info-animal-planet.svg",
+    "logo": "./assets/channel-logos/info-animal-planet.png",
     "provider": "Akash Go",
     "isAkashGo": true
   },
@@ -5259,7 +5259,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/channel-logos/ch-ptv-sports.svg",
+    "logo": "./assets/channel-logos/ch-ptv-sports.png",
     "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
     "streamUrl": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
     "stream_url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
@@ -5292,7 +5292,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/sports-channels.svg",
+    "logo": "./assets/category-logos/sports-channels.png",
     "url": "https://tvsen7.aynascope.net/Sports1/index.m3u8",
     "streamUrl": "https://tvsen7.aynascope.net/Sports1/index.m3u8",
     "stream_url": "https://tvsen7.aynascope.net/Sports1/index.m3u8",
@@ -5328,7 +5328,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/tsn.svg",
+    "logo": "./assets/category-logos/tsn.png",
     "url": "https://tvsen7.aynascope.net/tsn1/index.m3u8",
     "streamUrl": "https://tvsen7.aynascope.net/tsn1/index.m3u8",
     "stream_url": "https://tvsen7.aynascope.net/tsn1/index.m3u8",
@@ -5364,7 +5364,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/tsn.svg",
+    "logo": "./assets/category-logos/tsn.png",
     "url": "https://tvsen7.aynascope.net/tsn2/index.m3u8",
     "streamUrl": "https://tvsen7.aynascope.net/tsn2/index.m3u8",
     "stream_url": "https://tvsen7.aynascope.net/tsn2/index.m3u8",
@@ -5400,7 +5400,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/tsn.svg",
+    "logo": "./assets/category-logos/tsn.png",
     "url": "https://tvsen7.aynascope.net/tsn3/index.m3u8",
     "streamUrl": "https://tvsen7.aynascope.net/tsn3/index.m3u8",
     "stream_url": "https://tvsen7.aynascope.net/tsn3/index.m3u8",
@@ -5467,7 +5467,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/bein-sports.svg",
+    "logo": "./assets/category-logos/bein-sports.png",
     "url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
     "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
     "stream_url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
@@ -5505,7 +5505,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/channel-logos/sports-sony-ten-2.svg",
+    "logo": "./assets/channel-logos/sports-sony-ten-2.png",
     "url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
     "streamUrl": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
     "stream_url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
@@ -5541,7 +5541,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/star-sports.svg",
+    "logo": "./assets/category-logos/star-sports.png",
     "url": "https://tvsen7.aynascope.net/Sports1/tracks-v1a1/mono.ts.m3u8",
     "streamUrl": "https://tvsen7.aynascope.net/Sports1/tracks-v1a1/mono.ts.m3u8",
     "stream_url": "https://tvsen7.aynascope.net/Sports1/tracks-v1a1/mono.ts.m3u8",
@@ -5574,7 +5574,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/sports-channels.svg",
+    "logo": "./assets/category-logos/sports-channels.png",
     "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
     "streamUrl": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
     "stream_url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
@@ -5607,7 +5607,7 @@
     "priority": 1,
     "active": true,
     "provider": "HighFy",
-    "logo": "./assets/category-logos/sports-channels.svg",
+    "logo": "./assets/category-logos/sports-channels.png",
     "url": "https://ua101.online24.pm:8443/9999/tracks-v1/mono.m3u8",
     "streamUrl": "https://ua101.online24.pm:8443/9999/tracks-v1/mono.m3u8",
     "stream_url": "https://ua101.online24.pm:8443/9999/tracks-v1/mono.m3u8",
@@ -5632,7 +5632,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -5681,7 +5683,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Football",
@@ -5729,7 +5733,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -5777,7 +5783,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Football"
@@ -5824,7 +5832,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -5872,7 +5882,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Football"
@@ -5919,7 +5931,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Football"
@@ -5966,7 +5980,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6014,7 +6030,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6062,7 +6080,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6110,7 +6130,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6158,7 +6180,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Football"
@@ -6205,7 +6229,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6253,7 +6279,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6301,7 +6329,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Cricket",
@@ -6349,7 +6379,9 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Sony Sports",
+      "Sony LIV"
     ],
     "sports": [
       "Football"
@@ -6396,7 +6428,8 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Star Sports"
     ],
     "sports": [
       "Cricket",
@@ -6444,7 +6477,8 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Star Sports"
     ],
     "sports": [
       "Cricket",
@@ -6492,7 +6526,8 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Star Sports"
     ],
     "sports": [
       "Cricket"
@@ -6539,7 +6574,8 @@
     "categories": [
       "LiveTV",
       "Jio TV",
-      "Sports"
+      "Sports",
+      "Star Sports"
     ],
     "sports": [
       "Cricket"

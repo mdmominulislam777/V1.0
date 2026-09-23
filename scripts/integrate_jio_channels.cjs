@@ -244,6 +244,14 @@ const newJioChannels = liveChannels.map((ch, idx) => {
   if (ch.isBangla) {
     categories.push('Bangla', 'Bengali');
   }
+  if (isSports) {
+    const lowerName = (ch.name || '').toLowerCase();
+    if (lowerName.includes('sony') || lowerName.includes('ten')) {
+      categories.push('Sony Sports', 'Sony LIV');
+    } else if (lowerName.includes('star') && !lowerName.includes('movie') && !lowerName.includes('gold')) {
+      categories.push('Star Sports');
+    }
+  }
 
   return {
     id: `jio-${ch.id}`,

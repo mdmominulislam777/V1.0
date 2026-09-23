@@ -56,6 +56,9 @@
     CHANNELS_JSON_URL: env.CHANNELS_JSON_URL || "",
     MATCHES_JSON_URL: env.MATCHES_JSON_URL || "",
 
+    // Official Player Watermark Link (Google Drive Source)
+    WATERMARK_LOGO_URL: "https://drive.google.com/file/d/1cXaXDCvYAU3vq1kzFTPdijKjAXNPOBff/view?usp=drivesdk",
+
     // Application Info
     appName: "HIGHFY TV",
     version: "4.2",

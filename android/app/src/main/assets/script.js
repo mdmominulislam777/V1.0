@@ -466,6 +466,8 @@
       // Player
       playerModal: document.getElementById('player-modal'),
       videoElement: document.getElementById('hls-video-element'),
+      playerWatermark: document.getElementById('player-watermark'),
+      playerWatermarkLogo: document.getElementById('player-watermark-logo'),
       playerTitle: document.getElementById('player-media-title'),
       playerSpinner: document.getElementById('player-spinner'),
       playerError: document.getElementById('player-error'),
@@ -613,7 +615,7 @@
       if (state.customSplashLogo) {
         splashImg.src = state.customSplashLogo;
       } else {
-        splashImg.src = '/highfy_logo_official.svg';
+        splashImg.src = '/highfy_logo_official.png';
       }
     }
 
@@ -621,7 +623,7 @@
       if (state.customDrawerLogo) {
         drawerImg.src = state.customDrawerLogo;
       } else {
-        drawerImg.src = '/highfy_logo_official.svg';
+        drawerImg.src = '/highfy_logo_official.png';
       }
     }
 
@@ -631,7 +633,7 @@
     const badgeSplashStatus = document.getElementById('badge-loading-img-status');
 
     if (adminSplashPreview) {
-      adminSplashPreview.src = state.customSplashLogo || '/highfy_logo_official.svg';
+      adminSplashPreview.src = state.customSplashLogo || '/highfy_logo_official.png';
     }
     if (adminSplashInput && !adminSplashInput.matches(':focus')) {
       adminSplashInput.value = state.customSplashLogo || '';
@@ -651,7 +653,7 @@
     const badgeDrawerStatus = document.getElementById('badge-drawer-img-status');
 
     if (adminDrawerPreview) {
-      adminDrawerPreview.src = state.customDrawerLogo || '/highfy_logo_official.svg';
+      adminDrawerPreview.src = state.customDrawerLogo || '/highfy_logo_official.png';
     }
     if (adminDrawerInput && !adminDrawerInput.matches(':focus')) {
       adminDrawerInput.value = state.customDrawerLogo || '';
@@ -752,15 +754,21 @@
       window.sportsCoordinator.setChannels(state.channels);
     }
 
-    await loadSportsEvents(true);
-    updatePreloader(95, 'Starting Live Engine...');
+    // Fast initial load using cached/seeded events for instant startup (<300ms)
+    await loadSportsEvents(false);
+    updatePreloader(100, 'Starting Live Engine...');
+
+    // Smoothly hide preloader immediately so user gets an ultra-responsive UI
+    hidePreloader();
 
     // 3. Start Auto-Refresh and Live Countdown Timers
     startAutoRefresh();
     startCountdownTimer();
 
-    // Smoothly hide preloader
-    hidePreloader();
+    // Trigger fresh live sports sync in background after UI renders
+    setTimeout(() => {
+      loadSportsEvents(true).catch(() => {});
+    }, 1200);
   }
 
   /**
@@ -797,7 +805,10 @@
     try {
       console.log('[HighFy] Fetching events via sportsCoordinator...');
       if (window.sportsCoordinator) {
-        state.events = await window.sportsCoordinator.fetchAllEvents(isManualRefresh);
+        // Enforce 6s race timeout to prevent slow network from freezing UI
+        const fetchPromise = window.sportsCoordinator.fetchAllEvents(isManualRefresh);
+        const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(window.sportsCoordinator.events || []), 6000));
+        state.events = await Promise.race([fetchPromise, timeoutPromise]);
       } else {
         state.events = [];
       }
@@ -840,7 +851,7 @@
                 name: `${ev.title || 'Live Match'} (Server 1 HD)`,
                 serverLabel: 'SERVER 1 (1080P HD)',
                 channelName: ev.title || 'Live Match',
-                channelLogo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.svg',
+                channelLogo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.png',
                 url: custom.directUrl,
                 backupUrls: [],
                 quality: '1080p FHD',
@@ -851,7 +862,7 @@
               ev.broadcastingChannelDetails = [{
                 id: `custom-stream-${ev.id}`,
                 name: 'Live HD Stream',
-                logo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.svg',
+                logo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.png',
                 category: ev.sport || 'Sports',
                 quality: '1080p FHD',
                 streamUrl: custom.directUrl,
@@ -1155,43 +1166,43 @@
     'pbks': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170824/punjab-kings.jpg',
 
     // WWE & AEW Official Brand & Superstar Logos (Crisp High-Res)
-    'wwe raw': '/assets/wwe-logos/wwe_raw.svg',
-    'raw': '/assets/wwe-logos/wwe_raw.svg',
-    'wwe smackdown': '/assets/wwe-logos/wwe_smackdown.svg',
-    'wwe smackdown live': '/assets/wwe-logos/wwe_smackdown.svg',
-    'smackdown': '/assets/wwe-logos/wwe_smackdown.svg',
-    'wwe nxt': '/assets/wwe-logos/wwe_nxt.svg',
-    'nxt': '/assets/wwe-logos/wwe_nxt.svg',
-    'wwe special': '/assets/wwe-logos/wwe_special.svg',
-    'wwe': '/assets/wwe-logos/wwe_official.svg',
-    'wwe network': '/assets/wwe-logos/wwe_official.svg',
-    'aew': '/assets/wwe-logos/aew_official.svg',
-    'all elite wrestling': '/assets/wwe-logos/aew_official.svg',
-    'dynamite': '/assets/wwe-logos/aew_official.svg',
+    'wwe raw': '/assets/wwe-logos/wwe_raw.png',
+    'raw': '/assets/wwe-logos/wwe_raw.png',
+    'wwe smackdown': '/assets/wwe-logos/wwe_smackdown.png',
+    'wwe smackdown live': '/assets/wwe-logos/wwe_smackdown.png',
+    'smackdown': '/assets/wwe-logos/wwe_smackdown.png',
+    'wwe nxt': '/assets/wwe-logos/wwe_nxt.png',
+    'nxt': '/assets/wwe-logos/wwe_nxt.png',
+    'wwe special': '/assets/wwe-logos/wwe_special.png',
+    'wwe': '/assets/wwe-logos/wwe_official.png',
+    'wwe network': '/assets/wwe-logos/wwe_official.png',
+    'aew': '/assets/wwe-logos/aew_official.png',
+    'all elite wrestling': '/assets/wwe-logos/aew_official.png',
+    'dynamite': '/assets/wwe-logos/aew_official.png',
 
     // WWE Superstars (Crisp High-Res Badges & Crests)
-    'cm punk': '/assets/wwe-logos/cmpunk.svg',
-    'drew mcintyre': '/assets/wwe-logos/drew_mcintyre.svg',
-    'cody rhodes': '/assets/wwe-logos/cody_rhodes.svg',
-    'roman reigns': '/assets/wwe-logos/roman_reigns.svg',
-    'solo sikoa': '/assets/wwe-logos/solo_sikoa.svg',
-    'the bloodline': '/assets/wwe-logos/solo_sikoa.svg',
-    'bloodline': '/assets/wwe-logos/solo_sikoa.svg',
-    'gunther': '/assets/wwe-logos/gunther.svg',
-    'damian priest': '/assets/wwe-logos/wwe_raw.svg',
-    'rhea ripley': '/assets/wwe-logos/rhea_ripley.svg',
-    'liv morgan': '/assets/wwe-logos/liv_morgan.svg',
-    'jey uso': '/assets/wwe-logos/wwe_raw.svg',
-    'bron breakker': '/assets/wwe-logos/wwe_raw.svg',
-    'la knight': '/assets/wwe-logos/wwe_smackdown.svg',
-    'trick williams': '/assets/wwe-logos/trick_williams.svg',
-    'ethan page': '/assets/wwe-logos/ethan_page.svg',
-    'swerve strickland': '/assets/wwe-logos/swerve_strickland.svg',
-    'bryan danielson': '/assets/wwe-logos/bryan_danielson.svg',
-    'will ospreay': '/assets/wwe-logos/will_ospreay.svg',
-    'mjf': '/assets/wwe-logos/mjf.svg',
-    'toni storm': '/assets/wwe-logos/aew_official.svg',
-    'mariah may': '/assets/wwe-logos/aew_official.svg'
+    'cm punk': '/assets/wwe-logos/cmpunk.png',
+    'drew mcintyre': '/assets/wwe-logos/drew_mcintyre.png',
+    'cody rhodes': '/assets/wwe-logos/cody_rhodes.png',
+    'roman reigns': '/assets/wwe-logos/roman_reigns.png',
+    'solo sikoa': '/assets/wwe-logos/solo_sikoa.png',
+    'the bloodline': '/assets/wwe-logos/solo_sikoa.png',
+    'bloodline': '/assets/wwe-logos/solo_sikoa.png',
+    'gunther': '/assets/wwe-logos/gunther.png',
+    'damian priest': '/assets/wwe-logos/wwe_raw.png',
+    'rhea ripley': '/assets/wwe-logos/rhea_ripley.png',
+    'liv morgan': '/assets/wwe-logos/liv_morgan.png',
+    'jey uso': '/assets/wwe-logos/wwe_raw.png',
+    'bron breakker': '/assets/wwe-logos/wwe_raw.png',
+    'la knight': '/assets/wwe-logos/wwe_smackdown.png',
+    'trick williams': '/assets/wwe-logos/trick_williams.png',
+    'ethan page': '/assets/wwe-logos/ethan_page.png',
+    'swerve strickland': '/assets/wwe-logos/swerve_strickland.png',
+    'bryan danielson': '/assets/wwe-logos/bryan_danielson.png',
+    'will ospreay': '/assets/wwe-logos/will_ospreay.png',
+    'mjf': '/assets/wwe-logos/mjf.png',
+    'toni storm': '/assets/wwe-logos/aew_official.png',
+    'mariah may': '/assets/wwe-logos/aew_official.png'
   };
 
   // Pure base64 data URI without unescaped XML quotes or scheme syntax collision in HTML attributes
@@ -1442,29 +1453,29 @@
       const matchText = `${event.title || ''} ${event.tournament || ''} ${event.league || ''} ${event.subText || ''} ${t1Name} ${t2Name}`.toLowerCase();
       if (matchText.includes('raw')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'RAW';
-        t2Logo = '/assets/wwe-logos/wwe_raw.svg';
+        t2Logo = '/assets/wwe-logos/wwe_raw.png';
       } else if (matchText.includes('smackdown') || matchText.includes('smack down')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'SmackDown';
-        t2Logo = '/assets/wwe-logos/wwe_smackdown.svg';
+        t2Logo = '/assets/wwe-logos/wwe_smackdown.png';
       } else if (matchText.includes('nxt')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'NXT';
-        t2Logo = '/assets/wwe-logos/wwe_nxt.svg';
+        t2Logo = '/assets/wwe-logos/wwe_nxt.png';
       } else if (matchText.includes('aew') || matchText.includes('dynamite')) {
         t1Name = 'AEW';
-        t1Logo = '/assets/wwe-logos/aew_official.svg';
+        t1Logo = '/assets/wwe-logos/aew_official.png';
         t2Name = 'Dynamite';
-        t2Logo = '/assets/wwe-logos/aew_official.svg';
+        t2Logo = '/assets/wwe-logos/aew_official.png';
       } else {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'Special PLE';
-        t2Logo = '/assets/wwe-logos/wwe_special.svg';
+        t2Logo = '/assets/wwe-logos/wwe_special.png';
       }
     }
 
@@ -2017,7 +2028,7 @@
     if ((!streams || streams.length === 0) && !isEvent && (item.url || item.stream_url || item.streamUrl)) {
       const pUrl = item.stream_url || item.url || item.streamUrl;
       const bUrls = item.backupUrls || (item.backup_stream_url ? [item.backup_stream_url] : []);
-      const chLogo = item.logo || './assets/category-logos/sports.svg';
+      const chLogo = item.logo || './assets/category-logos/sports.png';
       streams = [
         { name: `${item.name || 'Channel'} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: item.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
         ...bUrls.map((u, i) => ({ name: `${item.name || 'Server'} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: item.name, channelLogo: chLogo, quality: '720p HD', url: u }))
@@ -2047,7 +2058,7 @@
           chMap.set(cName, {
             id: st.channelId || 'ch-single',
             name: cName,
-            logo: st.channelLogo || item.channelLogo || './assets/category-logos/sports.svg',
+            logo: st.channelLogo || item.channelLogo || './assets/category-logos/sports.png',
             source: st.source || (item.broadcaster ? 'Verified Broadcaster' : 'Direct API'),
             quality: st.quality || '1080p FHD',
             servers: []
@@ -2086,7 +2097,7 @@
       // If we have structured channel details, render channel cards with their servers
       if (channelDetails && channelDetails.length > 0) {
         listContainer.innerHTML = channelDetails.map((ch, chIdx) => {
-          const chLogo = ch.logo || './assets/category-logos/sports.svg';
+          const chLogo = ch.logo || './assets/category-logos/sports.png';
           const chName = ch.name || `Broadcaster ${chIdx + 1}`;
           const sourceText = ch.source || (ch.sourceType === 'direct_api' ? 'Direct API' : 'Official Rights');
           const chServers = Array.isArray(ch.servers) && ch.servers.length > 0 ? ch.servers : [
@@ -2139,7 +2150,7 @@
                 <div class="flex items-center gap-2.5 min-w-0">
                   <img src="${escapeHtml(chLogo)}" 
                        alt="${escapeHtml(chName)}"
-                       onerror="this.src='./assets/category-logos/sports.svg'"
+                       onerror="this.src='./assets/category-logos/sports.png'"
                        class="w-7 h-7 rounded-lg object-contain bg-black/40 p-1 border border-white/10 shrink-0" />
                   <div class="min-w-0">
                     <div class="font-extrabold text-xs text-white truncate">${escapeHtml(chName)}</div>
@@ -2482,29 +2493,29 @@
       const matchText = `${match.title || ''} ${match.tournament || ''} ${match.league || ''} ${match.subText || ''} ${t1Name} ${t2Name}`.toLowerCase();
       if (matchText.includes('raw')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'RAW';
-        t2Logo = '/assets/wwe-logos/wwe_raw.svg';
+        t2Logo = '/assets/wwe-logos/wwe_raw.png';
       } else if (matchText.includes('smackdown') || matchText.includes('smack down')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'SmackDown';
-        t2Logo = '/assets/wwe-logos/wwe_smackdown.svg';
+        t2Logo = '/assets/wwe-logos/wwe_smackdown.png';
       } else if (matchText.includes('nxt')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'NXT';
-        t2Logo = '/assets/wwe-logos/wwe_nxt.svg';
+        t2Logo = '/assets/wwe-logos/wwe_nxt.png';
       } else if (matchText.includes('aew') || matchText.includes('dynamite')) {
         t1Name = 'AEW';
-        t1Logo = '/assets/wwe-logos/aew_official.svg';
+        t1Logo = '/assets/wwe-logos/aew_official.png';
         t2Name = 'Dynamite';
-        t2Logo = '/assets/wwe-logos/aew_official.svg';
+        t2Logo = '/assets/wwe-logos/aew_official.png';
       } else {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.svg';
+        t1Logo = '/assets/wwe-logos/wwe_official.png';
         t2Name = 'Special PLE';
-        t2Logo = '/assets/wwe-logos/wwe_special.svg';
+        t2Logo = '/assets/wwe-logos/wwe_special.png';
       }
     }
 
@@ -2826,7 +2837,7 @@
       : ((Array.isArray(match.streams) && match.streams.length > 0) ? match.streams.map((st, idx) => ({
           id: st.channelId || `ch-${idx}`,
           name: st.channelName || (st.name ? st.name.replace(/\(.*\)/, '').trim() : `Server ${idx + 1}`),
-          logo: st.channelLogo || st.logo || './assets/category-logos/live-events-hd.svg',
+          logo: st.channelLogo || st.logo || './assets/category-logos/live-events-hd.png',
           serverIdx: idx,
           quality: st.quality || '1080p FHD',
           url: st.url
@@ -3109,7 +3120,7 @@
     
     // 8. Star Sports
     const isStar = n.includes('star') || id.includes('star') || cats.some(c => c.includes('star'));
-    const isStarSports = (ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('sports') || n.includes('khel') || n.includes('select');
+    const isStarSports = ((ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('sports') || n.includes('khel') || n.includes('select')) && !n.includes('movie') && !n.includes('gold');
     if (isStar && isStarSports) return true;
     
     // 9. FanCode
@@ -3233,7 +3244,7 @@
         const id = (ch.id || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
         const isStar = n.includes('star') || id.includes('star') || cats.some(c => c.includes('star'));
-        const isSports = (ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('sports') || n.includes('khel') || n.includes('select');
+        const isSports = ((ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('sports') || n.includes('khel') || n.includes('select')) && !n.includes('movie') && !n.includes('gold');
         return isStar && isSports;
       });
     }
@@ -3351,119 +3362,119 @@
       id: 'sports',
       name: 'Sports',
       filterKey: 'Sports',
-      logo: './assets/category-logos/sports-channels.svg',
+      logo: './assets/category-logos/sports-channels.png',
       ringColor: '#10b981'
     },
     {
       id: 'sky-sports',
       name: 'Sky Sports',
       filterKey: 'Sky Sports',
-      logo: './assets/category-logos/sky-sports.svg',
+      logo: './assets/category-logos/sky-sports.png',
       ringColor: '#0284c7'
     },
     {
       id: 'bein-sports',
       name: 'beIN Sports',
       filterKey: 'beIN Sports',
-      logo: './assets/category-logos/bein-sports.svg',
+      logo: './assets/category-logos/bein-sports.png',
       ringColor: '#9333ea'
     },
     {
       id: 'tnt-sports',
       name: 'TNT Sports',
       filterKey: 'TNT Sports',
-      logo: './assets/category-logos/tnt-sports.svg',
+      logo: './assets/category-logos/tnt-sports.png',
       ringColor: '#e11d48'
     },
     {
       id: 'icc',
       name: 'ICC',
       filterKey: 'ICC',
-      logo: './assets/category-logos/icc.svg',
+      logo: './assets/category-logos/icc.png',
       ringColor: '#0284c7'
     },
     {
       id: 'tapmad',
       name: 'Tapmad',
       filterKey: 'Tapmad',
-      logo: './assets/category-logos/tapmad.svg',
+      logo: './assets/category-logos/tapmad.png',
       ringColor: '#06b6d4'
     },
     {
       id: 'myco',
       name: 'Myco',
       filterKey: 'Myco',
-      logo: './assets/category-logos/myco.svg',
+      logo: './assets/category-logos/myco.png',
       ringColor: '#10b981'
     },
     {
       id: 'sony-liv',
-      name: 'Sony LIV',
-      filterKey: 'Sony LIV',
-      logo: './assets/category-logos/sony-liv.svg',
+      name: 'SonyLiv',
+      filterKey: 'SonyLiv',
+      logo: './assets/category-logos/sony-liv.png',
       ringColor: '#f59e0b'
     },
     {
       id: 'star-sports',
-      name: 'Star Sports',
-      filterKey: 'Star Sports',
-      logo: './assets/category-logos/star-sports.svg',
+      name: 'Star Sports Network',
+      filterKey: 'Star Sports Network',
+      logo: './assets/category-logos/star-sports.png',
       ringColor: '#38bdf8'
     },
     {
       id: 'fancode',
       name: 'FanCode',
       filterKey: 'FanCode',
-      logo: './assets/category-logos/fancode.svg',
+      logo: './assets/category-logos/fancode.png',
       ringColor: '#f97316'
     },
     {
       id: 'dazn',
       name: 'DAZN',
       filterKey: 'DAZN',
-      logo: './assets/category-logos/dazn.svg',
+      logo: './assets/category-logos/dazn.png',
       ringColor: '#eab308'
     },
     {
       id: 'fox-sports',
       name: 'Fox Sports',
       filterKey: 'Fox Sports',
-      logo: './assets/category-logos/fox-sports.svg',
+      logo: './assets/category-logos/fox-sports.png',
       ringColor: '#3b82f6'
     },
     {
       id: 'espn',
       name: 'ESPN',
       filterKey: 'ESPN',
-      logo: './assets/category-logos/espn.svg',
+      logo: './assets/category-logos/espn.png',
       ringColor: '#dc2626'
     },
     {
       id: 'tsn',
       name: 'TSN',
       filterKey: 'TSN',
-      logo: './assets/category-logos/tsn.svg',
+      logo: './assets/category-logos/tsn.png',
       ringColor: '#dc2626'
     },
     {
       id: 'canal-plus-sport',
       name: 'Canal+ Sport',
       filterKey: 'Canal+ Sport',
-      logo: './assets/category-logos/canal-plus-sport.svg',
+      logo: './assets/category-logos/canal-plus-sport.png',
       ringColor: '#0284c7'
     },
     {
       id: 'ziggo-sport',
       name: 'Ziggo Sport',
       filterKey: 'Ziggo',
-      logo: './assets/category-logos/ziggo-sport.svg',
+      logo: './assets/category-logos/ziggo-sport.png',
       ringColor: '#f97316'
     },
     {
       id: 'eurosport',
       name: 'Eurosport',
       filterKey: 'Eurosport',
-      logo: './assets/category-logos/eurosport.svg',
+      logo: './assets/category-logos/eurosport.png',
       ringColor: '#0284c7'
     }
   ];
@@ -3472,23 +3483,24 @@
    * Default Sports Category Logos backup to guarantee reliable reset
    */
   const DEFAULT_SPORTS_CATEGORY_LOGOS = {
-    'sports': './assets/category-logos/sports-channels.svg',
-    'sky-sports': './assets/category-logos/sky-sports.svg',
-    'bein-sports': './assets/category-logos/bein-sports.svg',
-    'tnt-sports': './assets/category-logos/tnt-sports.svg',
-    'icc': './assets/category-logos/icc.svg',
-    'tapmad': './assets/category-logos/tapmad.svg',
-    'myco': './assets/category-logos/myco.svg',
-    'sony-liv': './assets/category-logos/sony-liv.svg',
-    'star-sports': './assets/category-logos/star-sports.svg',
-    'fancode': './assets/category-logos/fancode.svg',
-    'dazn': './assets/category-logos/dazn.svg',
-    'fox-sports': './assets/category-logos/fox-sports.svg',
-    'espn': './assets/category-logos/espn.svg',
-    'tsn': './assets/category-logos/tsn.svg',
-    'canal-plus-sport': './assets/category-logos/canal-plus-sport.svg',
-    'ziggo-sport': './assets/category-logos/ziggo-sport.svg',
-    'eurosport': './assets/category-logos/eurosport.svg'
+    'sports': './assets/category-logos/sports-channels.png',
+    'sky-sports': './assets/category-logos/sky-sports.png',
+    'bein-sports': './assets/category-logos/bein-sports.png',
+    'tnt-sports': './assets/category-logos/tnt-sports.png',
+    'icc': './assets/category-logos/icc.png',
+    'tapmad': './assets/category-logos/tapmad.png',
+    'myco': './assets/category-logos/myco.png',
+    'sony-sports': './assets/category-logos/sony-liv.png',
+    'sony-liv': './assets/category-logos/sony-liv.png',
+    'star-sports': './assets/category-logos/star-sports.png',
+    'fancode': './assets/category-logos/fancode.png',
+    'dazn': './assets/category-logos/dazn.png',
+    'fox-sports': './assets/category-logos/fox-sports.png',
+    'espn': './assets/category-logos/espn.png',
+    'tsn': './assets/category-logos/tsn.png',
+    'canal-plus-sport': './assets/category-logos/canal-plus-sport.png',
+    'ziggo-sport': './assets/category-logos/ziggo-sport.png',
+    'eurosport': './assets/category-logos/eurosport.png'
   };
 
   /**
@@ -3515,7 +3527,7 @@
     }
 
     // 3. Fallback to default
-    return cat.logo || DEFAULT_SPORTS_CATEGORY_LOGOS[id] || './assets/category-logos/sports-channels.svg';
+    return cat.logo || DEFAULT_SPORTS_CATEGORY_LOGOS[id] || './assets/category-logos/sports-channels.png';
   }
 
   /**
@@ -3524,7 +3536,7 @@
   function createSportsCategoryCardHtml(cat) {
     const channelCount = getSportsChannels(cat.filterKey).length;
     const fallbackLetter = ((cat.name || 'SP').charAt(0) || 'S').toUpperCase();
-    const fallbackSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="cg" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#cg)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
+    const fallbackSvg = `data:image/png;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="cg" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#cg)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
     const resolvedLogo = getSportsCategoryLogo(cat);
     const logoSrc = resolvedLogo || fallbackSvg;
 
@@ -4368,7 +4380,7 @@
     }
     const letter = ((name || 'TV').charAt(0) || 'T').toUpperCase();
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="dom" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#dom)"/><text x="50%" y="54%" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${letter}</text></svg>`;
-    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+    return `data:image/png;charset=utf-8,${encodeURIComponent(svg)}`;
   }
 
   /**
@@ -4379,7 +4391,7 @@
     const cleanDisplayName = sanitizeChannelName(channel.name);
     const logoSrc = getSafeLogoUrl(channel.logo, cleanDisplayName, channel.id);
     const fallbackLetter = ((cleanDisplayName || 'TV').charAt(0) || 'T').toUpperCase();
-    const fallbackSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
+    const fallbackSvg = `data:image/png;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
 
     return `
       <div class="channel-card" data-channel-id="${escapeHtml(channel.id)}">
@@ -4566,7 +4578,7 @@
     const statusTag = document.getElementById('player-bar-status-tag');
     const team2Disk = document.getElementById('player-bar-team2-disk');
 
-    const defaultFlag = window.DEFAULT_SPORTS_FALLBACK_LOGO || '/assets/wwe-logos/wwe_official.svg';
+    const defaultFlag = window.DEFAULT_SPORTS_FALLBACK_LOGO || '/assets/wwe-logos/wwe_official.png';
 
     if (item.team1 && item.team2) {
       let t1Name = item.team1.name || '';
@@ -4584,29 +4596,29 @@
         const matchText = `${item.title || ''} ${item.tournament || ''} ${item.league || ''} ${item.subText || ''} ${t1Name} ${t2Name}`.toLowerCase();
         if (matchText.includes('raw')) {
           t1Name = 'WWE';
-          t1Logo = '/assets/wwe-logos/wwe_official.svg';
+          t1Logo = '/assets/wwe-logos/wwe_official.png';
           t2Name = 'RAW';
-          t2Logo = '/assets/wwe-logos/wwe_raw.svg';
+          t2Logo = '/assets/wwe-logos/wwe_raw.png';
         } else if (matchText.includes('smackdown') || matchText.includes('smack down')) {
           t1Name = 'WWE';
-          t1Logo = '/assets/wwe-logos/wwe_official.svg';
+          t1Logo = '/assets/wwe-logos/wwe_official.png';
           t2Name = 'SmackDown';
-          t2Logo = '/assets/wwe-logos/wwe_smackdown.svg';
+          t2Logo = '/assets/wwe-logos/wwe_smackdown.png';
         } else if (matchText.includes('nxt')) {
           t1Name = 'WWE';
-          t1Logo = '/assets/wwe-logos/wwe_official.svg';
+          t1Logo = '/assets/wwe-logos/wwe_official.png';
           t2Name = 'NXT';
-          t2Logo = '/assets/wwe-logos/wwe_nxt.svg';
+          t2Logo = '/assets/wwe-logos/wwe_nxt.png';
         } else if (matchText.includes('aew') || matchText.includes('dynamite')) {
           t1Name = 'AEW';
-          t1Logo = '/assets/wwe-logos/aew_official.svg';
+          t1Logo = '/assets/wwe-logos/aew_official.png';
           t2Name = 'Dynamite';
-          t2Logo = '/assets/wwe-logos/aew_official.svg';
+          t2Logo = '/assets/wwe-logos/aew_official.png';
         } else {
           t1Name = 'WWE';
-          t1Logo = '/assets/wwe-logos/wwe_official.svg';
+          t1Logo = '/assets/wwe-logos/wwe_official.png';
           t2Name = 'Special PLE';
-          t2Logo = '/assets/wwe-logos/wwe_special.svg';
+          t2Logo = '/assets/wwe-logos/wwe_special.png';
         }
       }
 
@@ -4694,7 +4706,7 @@
             const isFav = state.favorites.includes(ch.id);
             const logoSrc = getSafeLogoUrl(ch.logo, chNameClean, ch.id);
             const fallbackLetter = ((chNameClean || 'TV').charAt(0) || 'T').toUpperCase();
-            const fallbackSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#64748b" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
+            const fallbackSvg = `data:image/png;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#64748b" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
 
             return `
               <div class="channel-card ${isPlayingThis ? 'is-current-stream' : ''}" data-switch-channel-id="${escapeHtml(ch.id)}" title="Switch to ${escapeHtml(chNameClean)}">
@@ -7269,7 +7281,7 @@
                   name: `${ev.title || 'Live Match'} (Server 1 HD)`,
                   serverLabel: 'SERVER 1 (1080P HD)',
                   channelName: ev.title || 'Live Match',
-                  channelLogo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.svg',
+                  channelLogo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.png',
                   url: directUrl,
                   backupUrls: [],
                   quality: '1080p FHD',
@@ -7280,7 +7292,7 @@
                 ev.broadcastingChannelDetails = [{
                   id: `custom-stream-${ev.id}`,
                   name: 'Live HD Stream',
-                  logo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.svg',
+                  logo: ev.team1?.logo || ev.homeTeam?.logo || './assets/category-logos/live-events-hd.png',
                   category: ev.sport || 'Sports',
                   quality: '1080p FHD',
                   streamUrl: directUrl,
@@ -7372,7 +7384,7 @@
       if (adminSplashInput && adminSplashPreview) {
         adminSplashInput.addEventListener('input', () => {
           const val = adminSplashInput.value.trim();
-          adminSplashPreview.src = val || state.customSplashLogo || '/highfy_logo_official.svg';
+          adminSplashPreview.src = val || state.customSplashLogo || '/highfy_logo_official.png';
         });
       }
 
@@ -7437,7 +7449,7 @@
       if (adminDrawerInput && adminDrawerPreview) {
         adminDrawerInput.addEventListener('input', () => {
           const val = adminDrawerInput.value.trim();
-          adminDrawerPreview.src = val || state.customDrawerLogo || '/highfy_logo_official.svg';
+          adminDrawerPreview.src = val || state.customDrawerLogo || '/highfy_logo_official.png';
         });
       }
 
@@ -7521,7 +7533,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customSplashLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='/highfy_logo_official.svg'" />
+                <img src="${state.customSplashLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='/highfy_logo_official.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">লোডিং পেজ (Splash) ইমেজ</p>
                   <p class="text-[9.5px] text-amber-400">অ্যাপ স্প্ল্যাশ লোগো</p>
@@ -7539,7 +7551,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customDrawerLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='/highfy_logo_official.svg'" />
+                <img src="${state.customDrawerLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='/highfy_logo_official.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">স্লাইড মেনু (Drawer) ইমেজ</p>
                   <p class="text-[9.5px] text-emerald-400">মেনু হেডার লোগো</p>
@@ -7559,7 +7571,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${logoUrl}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./assets/category-logos/sports-channels.svg'" />
+                <img src="${logoUrl}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./assets/category-logos/sports-channels.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">${escapeHtml(ch.name)}</p>
                   <p class="text-[9.5px] text-sky-400">চ্যানেল লোগো</p>
@@ -7579,7 +7591,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${logoUrl}" class="w-6 h-6 object-contain rounded bg-purple-950/40 p-0.5" onerror="this.src='./assets/category-logos/sports-channels.svg'" />
+                <img src="${logoUrl}" class="w-6 h-6 object-contain rounded bg-purple-950/40 p-0.5" onerror="this.src='./assets/category-logos/sports-channels.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">${escapeHtml(cat.name)}</p>
                   <p class="text-[9.5px] text-purple-400">ক্যাটাগরি ইমেজ</p>
@@ -7599,7 +7611,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${logoUrl}" class="w-6 h-6 object-contain rounded bg-emerald-950/40 p-0.5" onerror="this.src='./assets/category-logos/sports-channels.svg'" />
+                <img src="${logoUrl}" class="w-6 h-6 object-contain rounded bg-emerald-950/40 p-0.5" onerror="this.src='./assets/category-logos/sports-channels.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">${escapeHtml(sCat.name)}</p>
                   <p class="text-[9.5px] text-emerald-400 font-semibold">স্পোর্টস ক্যাটাগরি লোগো</p>
@@ -7816,7 +7828,7 @@
           if (currentLogo) {
             inlineCatImg.src = currentLogo;
           } else {
-            inlineCatImg.src = './assets/category-logos/sports-channels.svg';
+            inlineCatImg.src = './assets/category-logos/sports-channels.png';
           }
         }
       }
@@ -7941,7 +7953,7 @@
           inlineSportsCatUrl.value = hasCustom ? ((state.customSportsCategoryLogos && (state.customSportsCategoryLogos[cat.id] || state.customSportsCategoryLogos[cat.filterKey] || state.customSportsCategoryLogos[cat.name])) || '') : '';
         }
         if (inlineSportsCatImg) {
-          inlineSportsCatImg.src = currentLogo || './assets/category-logos/sports-channels.svg';
+          inlineSportsCatImg.src = currentLogo || './assets/category-logos/sports-channels.png';
         }
       }
 
@@ -8404,6 +8416,344 @@
       });
     }
 
+    // =======================================================================
+    // GitHub Logo Uploader & CDN Generator Integration
+    // =======================================================================
+    function initGitHubLogoUploader() {
+      const ghTokenInput = document.getElementById('gh-token-input');
+      const btnTogglePat = document.getElementById('btn-toggle-gh-pat');
+      const ghRepoInput = document.getElementById('gh-repo-input');
+      const ghBranchInput = document.getElementById('gh-branch-input');
+      const ghFolderSelect = document.getElementById('gh-folder-select');
+      const ghFilenameInput = document.getElementById('gh-filename-input');
+      const ghDropzone = document.getElementById('gh-dropzone');
+      const ghFileInput = document.getElementById('gh-file-input');
+      const ghPreviewEmpty = document.getElementById('gh-preview-empty');
+      const ghPreviewLoaded = document.getElementById('gh-preview-loaded');
+      const ghPreviewImg = document.getElementById('gh-preview-img');
+      const ghPreviewName = document.getElementById('gh-preview-name');
+      const ghPreviewMeta = document.getElementById('gh-preview-meta');
+      const btnGhRemoveFile = document.getElementById('btn-gh-remove-file');
+      const btnGhUpload = document.getElementById('btn-gh-upload');
+      const ghUploadBtnText = document.getElementById('gh-upload-btn-text');
+      const ghResultBox = document.getElementById('gh-result-box');
+      const ghResultImg = document.getElementById('gh-result-img');
+      const ghResultCdnUrl = document.getElementById('gh-result-cdn-url');
+      const btnCopyGhCdn = document.getElementById('btn-copy-gh-cdn');
+      const btnApplyWatermark = document.getElementById('btn-apply-gh-watermark');
+      const btnApplySplash = document.getElementById('btn-apply-gh-splash');
+      const btnApplyDrawer = document.getElementById('btn-apply-gh-drawer');
+      const drawerGhBtn = document.getElementById('drawer-github-uploader');
+
+      let currentBase64Data = '';
+      let lastUploadedCdnUrl = '';
+
+      // Load saved credentials & preferences
+      if (ghTokenInput) {
+        ghTokenInput.value = localStorage.getItem('highfy_github_pat') || '';
+        ghTokenInput.addEventListener('input', () => {
+          localStorage.setItem('highfy_github_pat', ghTokenInput.value.trim());
+        });
+      }
+
+      if (btnTogglePat && ghTokenInput) {
+        btnTogglePat.addEventListener('click', () => {
+          const isPass = ghTokenInput.type === 'password';
+          ghTokenInput.type = isPass ? 'text' : 'password';
+          btnTogglePat.innerHTML = isPass 
+            ? '<i class="fa-solid fa-eye-slash mr-0.5"></i> <span>লুকান</span>'
+            : '<i class="fa-solid fa-eye mr-0.5"></i> <span>দেখান</span>';
+        });
+      }
+
+      if (ghRepoInput) {
+        ghRepoInput.value = localStorage.getItem('highfy_github_repo') || '';
+        ghRepoInput.addEventListener('input', () => {
+          localStorage.setItem('highfy_github_repo', ghRepoInput.value.trim());
+        });
+      }
+
+      if (ghBranchInput) {
+        ghBranchInput.value = localStorage.getItem('highfy_github_branch') || 'main';
+        ghBranchInput.addEventListener('input', () => {
+          localStorage.setItem('highfy_github_branch', ghBranchInput.value.trim());
+        });
+      }
+
+      if (ghFolderSelect) {
+        ghFolderSelect.value = localStorage.getItem('highfy_github_folder') || 'assets/channel-logos/';
+        ghFolderSelect.addEventListener('change', () => {
+          localStorage.setItem('highfy_github_folder', ghFolderSelect.value);
+        });
+      }
+
+      // Drawer trigger
+      if (drawerGhBtn) {
+        drawerGhBtn.addEventListener('click', () => {
+          closeSideDrawer();
+          openModal('modal-stream-source');
+          // Switch to GitHub Tab
+          const tabs = document.querySelectorAll('.admin-tab-btn');
+          const contents = document.querySelectorAll('.admin-tab-content');
+          tabs.forEach(t => {
+            if (t.getAttribute('data-admin-tab') === 'tab-admin-github') {
+              t.classList.add('active', 'text-white');
+              t.classList.remove('text-slate-400');
+            } else {
+              t.classList.remove('active', 'text-white');
+              t.classList.add('text-slate-400');
+            }
+          });
+          contents.forEach(c => {
+            if (c.id === 'tab-admin-github') {
+              c.classList.remove('hidden');
+            } else {
+              c.classList.add('hidden');
+            }
+          });
+        });
+      }
+
+      // Dropzone & File Handling
+      const processSelectedFile = (file) => {
+        if (!file) return;
+        if (!file.type.startsWith('image/')) {
+          showToast('শুধুমাত্র ইমেজ ফাইল (PNG, JPG, WEBP) গ্রহণযোগ্য');
+          return;
+        }
+
+        // Sanitize and set filename
+        const safeName = file.name.toLowerCase().replace(/[^a-z0-9._-]/g, '-');
+        if (ghFilenameInput) ghFilenameInput.value = safeName;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          currentBase64Data = e.target.result;
+          if (ghPreviewImg) ghPreviewImg.src = currentBase64Data;
+          if (ghPreviewName) ghPreviewName.textContent = file.name;
+          
+          const sizeKb = Math.round(file.size / 1024);
+          const img = new Image();
+          img.onload = () => {
+            if (ghPreviewMeta) ghPreviewMeta.textContent = `${sizeKb} KB • ${img.naturalWidth}x${img.naturalHeight} px`;
+          };
+          img.src = currentBase64Data;
+
+          if (ghPreviewEmpty) ghPreviewEmpty.classList.add('hidden');
+          if (ghPreviewLoaded) ghPreviewLoaded.classList.remove('hidden');
+        };
+        reader.readAsDataURL(file);
+      };
+
+      if (ghDropzone && ghFileInput) {
+        ghDropzone.addEventListener('click', (e) => {
+          if (e.target.closest('#btn-gh-remove-file')) return;
+          ghFileInput.click();
+        });
+
+        ghDropzone.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          ghDropzone.classList.add('border-emerald-500', 'bg-emerald-500/10');
+        });
+
+        ghDropzone.addEventListener('dragleave', () => {
+          ghDropzone.classList.remove('border-emerald-500', 'bg-emerald-500/10');
+        });
+
+        ghDropzone.addEventListener('drop', (e) => {
+          e.preventDefault();
+          ghDropzone.classList.remove('border-emerald-500', 'bg-emerald-500/10');
+          if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+            processSelectedFile(e.dataTransfer.files[0]);
+          }
+        });
+
+        ghFileInput.addEventListener('change', (e) => {
+          if (e.target.files && e.target.files[0]) {
+            processSelectedFile(e.target.files[0]);
+          }
+        });
+      }
+
+      if (btnGhRemoveFile) {
+        btnGhRemoveFile.addEventListener('click', (e) => {
+          e.stopPropagation();
+          currentBase64Data = '';
+          if (ghFileInput) ghFileInput.value = '';
+          if (ghPreviewEmpty) ghPreviewEmpty.classList.remove('hidden');
+          if (ghPreviewLoaded) ghPreviewLoaded.classList.add('hidden');
+        });
+      }
+
+      // Upload Handler
+      if (btnGhUpload) {
+        btnGhUpload.addEventListener('click', async () => {
+          const token = ghTokenInput ? ghTokenInput.value.trim() : '';
+          const repo = ghRepoInput ? ghRepoInput.value.trim() : '';
+          const branch = (ghBranchInput ? ghBranchInput.value.trim() : '') || 'main';
+          const folder = ghFolderSelect ? ghFolderSelect.value.trim() : 'assets/channel-logos/';
+          let filename = ghFilenameInput ? ghFilenameInput.value.trim() : '';
+
+          if (!token) {
+            showToast('দয়া করে GitHub Personal Access Token (PAT) দিন');
+            ghTokenInput?.focus();
+            return;
+          }
+
+          if (!repo) {
+            showToast('দয়া করে GitHub Repository নাম (owner/repo) দিন');
+            ghRepoInput?.focus();
+            return;
+          }
+
+          if (!currentBase64Data) {
+            showToast('দয়া করে একটি ইমেজ ফাইল নির্বাচন করুন');
+            return;
+          }
+
+          if (!filename) {
+            filename = `logo-${Date.now()}.png`;
+            if (ghFilenameInput) ghFilenameInput.value = filename;
+          }
+
+          const fullPath = (folder + filename).replace(/^\/+/, '');
+
+          // UI Loading state
+          btnGhUpload.disabled = true;
+          if (ghUploadBtnText) ghUploadBtnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1"></i> গিটহাবে আপলোড হচ্ছে...';
+
+          try {
+            // First attempt server-side proxy
+            const res = await fetch('/api/github/upload-logo', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                token,
+                repo,
+                branch,
+                path: fullPath,
+                content: currentBase64Data,
+                message: `Upload logo: ${filename} via HighFy TV Admin`
+              })
+            });
+
+            const data = await res.json();
+
+            if (res.ok && data.success) {
+              lastUploadedCdnUrl = data.cdnUrl || `https://cdn.jsdelivr.net/gh/${repo}@${branch}/${fullPath}`;
+              if (ghResultBox) ghResultBox.classList.remove('hidden');
+              if (ghResultImg) ghResultImg.src = lastUploadedCdnUrl;
+              if (ghResultCdnUrl) ghResultCdnUrl.value = lastUploadedCdnUrl;
+              showToast(`✅ ${filename} গিটহাবে সফলভাবে আপলোড হয়েছে!`);
+            } else {
+              throw new Error(data.error || data.message || 'GitHub Upload Failed');
+            }
+          } catch (err) {
+            console.warn('[GitHub Uploader] Proxy error, attempting direct client PUT:', err);
+            // Client-side fallback direct to GitHub API
+            try {
+              const cleanRepo = repo.replace(/^https?:\/\/github\.com\//i, '').replace(/\.git$/i, '');
+              const cleanContent = currentBase64Data.includes('base64,') ? currentBase64Data.split('base64,')[1] : currentBase64Data;
+              
+              // Get existing SHA if file exists
+              let existingSha = null;
+              try {
+                const getRes = await fetch(`https://api.github.com/repos/${cleanRepo}/contents/${fullPath}?ref=${branch}`, {
+                  headers: {
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Authorization': `Bearer ${token}`
+                  }
+                });
+                if (getRes.ok) {
+                  const checkJson = await getRes.json();
+                  existingSha = checkJson.sha;
+                }
+              } catch {}
+
+              const putBody = {
+                message: `Upload logo: ${filename} via HighFy TV`,
+                content: cleanContent,
+                branch: branch
+              };
+              if (existingSha) putBody.sha = existingSha;
+
+              const putRes = await fetch(`https://api.github.com/repos/${cleanRepo}/contents/${fullPath}`, {
+                method: 'PUT',
+                headers: {
+                  'Accept': 'application/vnd.github.v3+json',
+                  'Authorization': `Bearer ${token}`,
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(putBody)
+              });
+
+              if (!putRes.ok) {
+                const errData = await putRes.json();
+                throw new Error(errData.message || 'GitHub Direct Upload Failed');
+              }
+
+              lastUploadedCdnUrl = `https://cdn.jsdelivr.net/gh/${cleanRepo}@${branch}/${fullPath}`;
+              if (ghResultBox) ghResultBox.classList.remove('hidden');
+              if (ghResultImg) ghResultImg.src = lastUploadedCdnUrl;
+              if (ghResultCdnUrl) ghResultCdnUrl.value = lastUploadedCdnUrl;
+              showToast(`✅ ${filename} সরাসরি গিটহাবে সফলভাবে আপলোড হয়েছে!`);
+            } catch (fallbackErr) {
+              console.error('[GitHub Uploader] All attempts failed:', fallbackErr);
+              showToast(`❌ আপলোড ব্যর্থ: ${fallbackErr.message || 'Error uploading'}`);
+            }
+          } finally {
+            btnGhUpload.disabled = false;
+            if (ghUploadBtnText) ghUploadBtnText.innerHTML = 'গিটহাবে আপলোড করুন (Upload to GitHub)';
+          }
+        });
+      }
+
+      // Copy CDN URL
+      if (btnCopyGhCdn && ghResultCdnUrl) {
+        btnCopyGhCdn.addEventListener('click', () => {
+          if (!ghResultCdnUrl.value) return;
+          navigator.clipboard.writeText(ghResultCdnUrl.value).then(() => {
+            showToast('✅ CDN লিংক ক্লিপবোর্ডে কপি করা হয়েছে!');
+          });
+        });
+      }
+
+      // Quick Apply as Watermark
+      if (btnApplyWatermark) {
+        btnApplyWatermark.addEventListener('click', () => {
+          if (!lastUploadedCdnUrl) return;
+          localStorage.setItem('highfy_custom_watermark_url', lastUploadedCdnUrl);
+          if (DOM.playerWatermarkLogo) {
+            DOM.playerWatermarkLogo.src = lastUploadedCdnUrl;
+          }
+          showToast('✅ লাইভ প্লেয়ার ওয়াটারমার্ক সফলভাবে আপডেট করা হয়েছে!');
+        });
+      }
+
+      // Quick Apply as Splash Logo
+      if (btnApplySplash) {
+        btnApplySplash.addEventListener('click', () => {
+          if (!lastUploadedCdnUrl) return;
+          state.customSplashLogo = lastUploadedCdnUrl;
+          safeSetLocalStorage('highfy_custom_splash_logo', lastUploadedCdnUrl);
+          applyCustomAppBranding();
+          showToast('✅ অ্যাপ স্প্ল্যাশ লোগো আপডেট করা হয়েছে!');
+        });
+      }
+
+      // Quick Apply as Drawer Logo
+      if (btnApplyDrawer) {
+        btnApplyDrawer.addEventListener('click', () => {
+          if (!lastUploadedCdnUrl) return;
+          state.customDrawerLogo = lastUploadedCdnUrl;
+          safeSetLocalStorage('highfy_custom_drawer_logo', lastUploadedCdnUrl);
+          applyCustomAppBranding();
+          showToast('✅ সাইড ড্রয়ার মেনু লোগো আপডেট করা হয়েছে!');
+        });
+      }
+    }
+    initGitHubLogoUploader();
+
     // Save custom logo
     const btnSaveLogo = document.getElementById('btn-logo-editor-save');
     if (btnSaveLogo) {
@@ -8750,20 +9100,20 @@
   // Category Logo & Real Image Manager Logic (Module Scoped & Globally Accessible)
   // =========================================================================
   const PRESET_CATEGORY_LOGOS = [
-    { name: 'Akash Go', url: './assets/category-logos/akash-go.svg', ringColor: '#0284c7', glowColor: 'rgba(2, 132, 199, 0.4)' },
-    { name: 'Bangla TV', url: './assets/category-logos/bangla.svg', ringColor: '#059669', glowColor: 'rgba(5, 150, 105, 0.4)' },
-    { name: 'Sports 3D', url: './assets/category-logos/sports-channels.svg', ringColor: '#eab308', glowColor: 'rgba(234, 179, 8, 0.4)' },
-    { name: 'All Channels', url: './assets/category-logos/livetv.svg', ringColor: '#38bdf8', glowColor: 'rgba(56, 189, 248, 0.4)' },
-    { name: 'India Hub', url: './assets/category-logos/india.svg', ringColor: '#f97316', glowColor: 'rgba(249, 115, 22, 0.4)' },
-    { name: 'Kolkata', url: './assets/category-logos/kolkata.svg', ringColor: '#0284c7', glowColor: 'rgba(2, 132, 199, 0.4)' },
-    { name: 'Pakistan', url: './assets/category-logos/pakistan.svg', ringColor: '#16a34a', glowColor: 'rgba(22, 163, 74, 0.4)' },
-    { name: 'News 24/7', url: './assets/category-logos/news.svg', ringColor: '#10b981', glowColor: 'rgba(16, 185, 129, 0.4)' },
-    { name: 'Movie Flix', url: './assets/category-logos/movie.svg', ringColor: '#ef4444', glowColor: 'rgba(239, 68, 68, 0.4)' },
-    { name: 'Entertainment', url: './assets/category-logos/entertainment.svg', ringColor: '#ea580c', glowColor: 'rgba(234, 88, 12, 0.4)' },
-    { name: 'Kids World', url: './assets/category-logos/kids.svg', ringColor: '#ec4899', glowColor: 'rgba(236, 72, 153, 0.4)' },
-    { name: 'Music Hit', url: './assets/category-logos/music.svg', ringColor: '#8b5cf6', glowColor: 'rgba(139, 92, 246, 0.4)' },
-    { name: 'Islamic TV', url: './assets/category-logos/islamic.svg', ringColor: '#059669', glowColor: 'rgba(5, 150, 105, 0.4)' },
-    { name: 'Radio FM', url: './assets/category-logos/radio.svg', ringColor: '#06b6d4', glowColor: 'rgba(6, 182, 212, 0.4)' }
+    { name: 'Akash Go', url: './assets/category-logos/akash-go.png', ringColor: '#0284c7', glowColor: 'rgba(2, 132, 199, 0.4)' },
+    { name: 'Bangla TV', url: './assets/category-logos/bangla.png', ringColor: '#059669', glowColor: 'rgba(5, 150, 105, 0.4)' },
+    { name: 'Sports 3D', url: './assets/category-logos/sports-channels.png', ringColor: '#eab308', glowColor: 'rgba(234, 179, 8, 0.4)' },
+    { name: 'All Channels', url: './assets/category-logos/livetv.png', ringColor: '#38bdf8', glowColor: 'rgba(56, 189, 248, 0.4)' },
+    { name: 'India Hub', url: './assets/category-logos/india.png', ringColor: '#f97316', glowColor: 'rgba(249, 115, 22, 0.4)' },
+    { name: 'Kolkata', url: './assets/category-logos/kolkata.png', ringColor: '#0284c7', glowColor: 'rgba(2, 132, 199, 0.4)' },
+    { name: 'Pakistan', url: './assets/category-logos/pakistan.png', ringColor: '#16a34a', glowColor: 'rgba(22, 163, 74, 0.4)' },
+    { name: 'News 24/7', url: './assets/category-logos/news.png', ringColor: '#10b981', glowColor: 'rgba(16, 185, 129, 0.4)' },
+    { name: 'Movie Flix', url: './assets/category-logos/movie.png', ringColor: '#ef4444', glowColor: 'rgba(239, 68, 68, 0.4)' },
+    { name: 'Entertainment', url: './assets/category-logos/entertainment.png', ringColor: '#ea580c', glowColor: 'rgba(234, 88, 12, 0.4)' },
+    { name: 'Kids World', url: './assets/category-logos/kids.png', ringColor: '#ec4899', glowColor: 'rgba(236, 72, 153, 0.4)' },
+    { name: 'Music Hit', url: './assets/category-logos/music.png', ringColor: '#8b5cf6', glowColor: 'rgba(139, 92, 246, 0.4)' },
+    { name: 'Islamic TV', url: './assets/category-logos/islamic.png', ringColor: '#059669', glowColor: 'rgba(5, 150, 105, 0.4)' },
+    { name: 'Radio FM', url: './assets/category-logos/radio.png', ringColor: '#06b6d4', glowColor: 'rgba(6, 182, 212, 0.4)' }
   ];
 
   function hexToRgba(hex, alpha = 0.4) {
@@ -8790,21 +9140,21 @@
 
     if (!catSelect) return;
     const baseCats = (state.categories && state.categories.length > 0 ? state.categories : [
-      { id: 'all-channels', name: 'All Channels', logo: './assets/category-logos/livetv.svg' },
-      { id: 'bangla', name: 'Bangla', logo: './assets/category-logos/bangla.svg' },
-      { id: 'akash-go', name: 'Akash Go', logo: './assets/category-logos/akash-go.svg' },
-      { id: 'sports', name: 'Sports', logo: './assets/category-logos/sports-channels.svg' },
-      { id: 'india', name: 'India', logo: './assets/category-logos/india.svg' },
-      { id: 'kolkata', name: 'Kolkata', logo: './assets/category-logos/kolkata.svg' },
-      { id: 'pakistan', name: 'Pakistan', logo: './assets/category-logos/pakistan.svg' },
-      { id: 'news', name: 'News', logo: './assets/category-logos/news.svg' },
-      { id: 'movie', name: 'Movie', logo: './assets/category-logos/movie.svg' },
-      { id: 'entertainment', name: 'Entertainment', logo: './assets/category-logos/entertainment.svg' },
-      { id: 'kids', name: 'Kids', logo: './assets/category-logos/kids.svg' },
-      { id: 'music', name: 'Music', logo: './assets/category-logos/music.svg' },
-      { id: 'infotainment', name: 'Infotainment', logo: './assets/category-logos/infotainment.svg' },
-      { id: 'islamic', name: 'Islamic', logo: './assets/category-logos/islamic.svg' },
-      { id: 'radio', name: 'Radio', logo: './assets/category-logos/radio.svg' }
+      { id: 'all-channels', name: 'All Channels', logo: './assets/category-logos/livetv.png' },
+      { id: 'bangla', name: 'Bangla', logo: './assets/category-logos/bangla.png' },
+      { id: 'akash-go', name: 'Akash Go', logo: './assets/category-logos/akash-go.png' },
+      { id: 'sports', name: 'Sports', logo: './assets/category-logos/sports-channels.png' },
+      { id: 'india', name: 'India', logo: './assets/category-logos/india.png' },
+      { id: 'kolkata', name: 'Kolkata', logo: './assets/category-logos/kolkata.png' },
+      { id: 'pakistan', name: 'Pakistan', logo: './assets/category-logos/pakistan.png' },
+      { id: 'news', name: 'News', logo: './assets/category-logos/news.png' },
+      { id: 'movie', name: 'Movie', logo: './assets/category-logos/movie.png' },
+      { id: 'entertainment', name: 'Entertainment', logo: './assets/category-logos/entertainment.png' },
+      { id: 'kids', name: 'Kids', logo: './assets/category-logos/kids.png' },
+      { id: 'music', name: 'Music', logo: './assets/category-logos/music.png' },
+      { id: 'infotainment', name: 'Infotainment', logo: './assets/category-logos/infotainment.png' },
+      { id: 'islamic', name: 'Islamic', logo: './assets/category-logos/islamic.png' },
+      { id: 'radio', name: 'Radio', logo: './assets/category-logos/radio.png' }
     ]).slice();
 
     const allCatsMap = new Map();

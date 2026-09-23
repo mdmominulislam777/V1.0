@@ -41,7 +41,7 @@
   <script src="./security.js"></script>
 
   <!-- HIGHFY TV Custom Android TV Stylesheet -->
-  <link rel="stylesheet" href="./style.css?v=20260915_0201" />
+  <link rel="stylesheet" href="./style.css?v=20260923_1050" />
   <script src="./clear-cache.js"></script>
 </head>
 <body>
@@ -57,7 +57,7 @@
         <div class="cricfy-emblem-wrap">
           <img 
             id="cricfy-splash-logo-img"
-            src="./highfy_logo_official.svg" 
+            src="./highfy_logo_official.png" 
             alt="HighFy TV" 
             class="cricfy-emblem-img"
             referrerpolicy="no-referrer"
@@ -400,6 +400,18 @@
         x-webkit-airplay="allow"
       ></video>
 
+      <!-- Live Video Player Watermark Overlay (Original HighFy TV Logo Image Asset) -->
+      <div class="player-watermark" id="player-watermark" aria-hidden="true">
+        <img 
+          id="player-watermark-logo"
+          src="./highfy_logo_transparent.png" 
+          alt="HighFy TV" 
+          class="player-watermark-img" 
+          loading="eager"
+          onerror="if(this.src.indexOf('./highfy_logo_official.png') === -1) { this.src='./highfy_logo_official.png'; }" 
+        />
+      </div>
+
       <!-- Error Overlay with Close Cross & Exit Buttons -->
       <div id="player-error" class="player-error-overlay">
         <!-- Close Cross Icon top-right of error overlay -->
@@ -612,7 +624,7 @@
       <div class="drawer-big-logo-frame">
         <img 
           id="drawer-header-logo-img"
-          src="./highfy_logo_official.svg" 
+          src="./highfy_logo_official.png" 
           alt="HighFy TV Logo" 
           class="drawer-big-logo-img" 
           referrerpolicy="no-referrer"
@@ -702,6 +714,14 @@
 
       <!-- Section 3: APP CONTROL -->
       <div class="drawer-section-title">APP CONTROL</div>
+
+      <div class="drawer-item" id="drawer-github-uploader">
+        <div class="drawer-item-left">
+          <i class="fa-brands fa-github text-emerald-400"></i>
+          <span>GitHub Logo Uploader</span>
+        </div>
+        <i class="fa-solid fa-chevron-right drawer-item-arrow"></i>
+      </div>
 
       <div class="drawer-item btn-open-settings-modal" id="drawer-settings">
         <div class="drawer-item-left">
@@ -825,20 +845,23 @@
       </div>
 
       <!-- Admin Navigation Tabs -->
-      <div class="grid grid-cols-5 gap-1 p-1 bg-slate-900/90 rounded-xl border border-slate-800 my-1 text-center">
-        <button type="button" class="admin-tab-btn active py-2 px-0.5 text-[10.5px] font-bold rounded-lg transition" data-admin-tab="tab-admin-channels">
+      <div class="grid grid-cols-6 gap-1 p-1 bg-slate-900/90 rounded-xl border border-slate-800 my-1 text-center">
+        <button type="button" class="admin-tab-btn active py-2 px-0.5 text-[10px] font-bold rounded-lg transition" data-admin-tab="tab-admin-channels">
           <i class="fa-solid fa-tv block text-xs mb-0.5"></i>চ্যানেল
         </button>
-        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10.5px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-events">
+        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-events">
           <i class="fa-solid fa-trophy block text-xs mb-0.5"></i>ইভেন্ট
         </button>
-        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10.5px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-notifs">
-          <i class="fa-solid fa-bell block text-xs mb-0.5 text-amber-400"></i>নোটিশ/অ্যালার্ট
+        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-notifs">
+          <i class="fa-solid fa-bell block text-xs mb-0.5 text-amber-400"></i>নোটিশ
         </button>
-        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10.5px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-images">
+        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-images">
           <i class="fa-solid fa-image block text-xs mb-0.5"></i>লোগো
         </button>
-        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10.5px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-sources">
+        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-github">
+          <i class="fa-brands fa-github block text-xs mb-0.5 text-emerald-400"></i>গিটহাব
+        </button>
+        <button type="button" class="admin-tab-btn py-2 px-0.5 text-[10px] font-bold rounded-lg transition text-slate-400 hover:text-white" data-admin-tab="tab-admin-sources">
           <i class="fa-solid fa-cloud-arrow-down block text-xs mb-0.5"></i>সোর্স
         </button>
       </div>
@@ -1105,7 +1128,7 @@
             </div>
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-                <img id="admin-preview-channel-img" src="./assets/category-logos/sports-channels.svg" alt="Preview" class="w-full h-full object-contain" />
+                <img id="admin-preview-channel-img" src="./assets/category-logos/sports-channels.png" alt="Preview" class="w-full h-full object-contain" />
               </div>
               <div class="flex-1 min-w-0 flex flex-col gap-1.5">
                 <div class="flex items-center gap-1.5">
@@ -1156,7 +1179,7 @@
             </div>
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-                <img id="admin-preview-category-img" src="./assets/category-logos/sports-channels.svg" alt="Preview" class="w-full h-full object-contain" />
+                <img id="admin-preview-category-img" src="./assets/category-logos/sports-channels.png" alt="Preview" class="w-full h-full object-contain" />
               </div>
               <div class="flex-1 min-w-0 flex flex-col gap-1.5">
                 <div class="flex items-center gap-1.5">
@@ -1205,7 +1228,7 @@
             </div>
             <div class="flex items-center gap-3">
               <div class="w-12 h-12 rounded-xl bg-slate-900 border border-emerald-500/40 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-                <img id="admin-preview-sports-category-img" src="./assets/category-logos/sports-channels.svg" alt="Preview" class="w-full h-full object-contain" />
+                <img id="admin-preview-sports-category-img" src="./assets/category-logos/sports-channels.png" alt="Preview" class="w-full h-full object-contain" />
               </div>
               <div class="flex-1 min-w-0 flex flex-col gap-1.5">
                 <div class="flex items-center gap-1.5">
@@ -1244,7 +1267,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-splash-img" src="./highfy_logo_official.svg" alt="Splash Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-splash-img" src="./highfy_logo_official.png" alt="Splash Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <div class="flex items-center gap-1.5">
@@ -1284,7 +1307,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-drawer-img" src="./highfy_logo_official.svg" alt="Drawer Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-drawer-img" src="./highfy_logo_official.png" alt="Drawer Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <div class="flex items-center gap-1.5">
@@ -1327,7 +1350,140 @@
         </div>
       </div>
 
-      <!-- TAB 4: JSON Sources & Master Reset -->
+      <!-- TAB 5: GitHub Logo Uploader & CDN Generator -->
+      <div id="tab-admin-github" class="admin-tab-content hidden flex flex-col gap-3">
+        <div class="p-2.5 rounded-xl bg-gradient-to-r from-emerald-500/15 via-teal-500/10 to-slate-900 border border-emerald-500/30 text-xs text-emerald-300 leading-relaxed">
+          <div class="flex items-center gap-2 font-bold mb-1 text-white">
+            <i class="fa-brands fa-github text-emerald-400 text-sm"></i>
+            <span>GitHub লোগো আপলোডার ও সিডিএন জেনারেটর</span>
+          </div>
+          <p class="text-[11px] text-slate-300">যেকোনো চ্যানেল, ক্যাটাগরি বা ওয়াটারমার্ক লোগো সরাসরি আপনার GitHub রিপোজিটরিতে আপলোড করুন এবং তাৎক্ষণিক হাই-স্পিড Raw/CDN লিংক তৈরি করুন।</p>
+        </div>
+
+        <!-- GitHub Credentials Config -->
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-key text-emerald-400"></i> গিটহাব অ্যাক্সেস তথ্য (GitHub Credentials)
+            </span>
+            <span class="text-[9.5px] text-slate-400 bg-slate-800 px-1.5 py-0.5 rounded font-mono">Encrypted Local</span>
+          </div>
+
+          <div class="modal-input-group">
+            <label class="modal-label flex items-center justify-between">
+              <span>GitHub Personal Access Token (PAT)</span>
+              <button type="button" id="btn-toggle-gh-pat" class="text-[10px] text-sky-400 hover:text-sky-300 font-bold">
+                <i class="fa-solid fa-eye mr-0.5"></i> <span>দেখান</span>
+              </button>
+            </label>
+            <input type="password" id="gh-token-input" class="modal-input font-mono text-xs" placeholder="ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" />
+            <p class="text-[10px] text-slate-400 mt-1">Repo permissions (Contents: Read and write) যুক্ত Classic বা Fine-grained Token দিন।</p>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="text-[10px] text-slate-400 font-bold block mb-1">Repository (Owner/Repo)</label>
+              <input type="text" id="gh-repo-input" class="modal-input text-xs font-mono" placeholder="username/highfy-tv" />
+            </div>
+            <div>
+              <label class="text-[10px] text-slate-400 font-bold block mb-1">Branch (ব্রাঞ্চ)</label>
+              <input type="text" id="gh-branch-input" class="modal-input text-xs font-mono" placeholder="main" value="main" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Target Destination & Upload Box -->
+        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-cloud-arrow-up text-sky-400"></i> লোগো ফাইল নির্বাচন ও ফোল্ডার
+            </span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="text-[10px] text-slate-400 font-bold block mb-1">টার্গেট ফোল্ডার</label>
+              <select id="gh-folder-select" class="modal-input text-xs">
+                <option value="assets/channel-logos/">assets/channel-logos/</option>
+                <option value="assets/category-logos/">assets/category-logos/</option>
+                <option value="assets/images/">assets/images/</option>
+                <option value="logos/">logos/</option>
+                <option value="public/assets/channel-logos/">public/assets/channel-logos/</option>
+              </select>
+            </div>
+            <div>
+              <label class="text-[10px] text-slate-400 font-bold block mb-1">ফাইলের নাম (Filename)</label>
+              <input type="text" id="gh-filename-input" class="modal-input text-xs font-mono" placeholder="logo-name.png" />
+            </div>
+          </div>
+
+          <!-- Drag & Drop / File Input Box -->
+          <div id="gh-dropzone" class="p-4 border-2 border-dashed border-slate-700 hover:border-emerald-500 rounded-xl bg-slate-950/60 transition cursor-pointer flex flex-col items-center justify-center gap-2 text-center">
+            <input type="file" id="gh-file-input" accept="image/png,image/jpeg,image/webp,image/gif" class="hidden" />
+            
+            <div id="gh-preview-empty" class="flex flex-col items-center gap-1.5 py-2">
+              <div class="w-12 h-12 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xl border border-emerald-500/20">
+                <i class="fa-solid fa-image"></i>
+              </div>
+              <p class="text-xs font-bold text-slate-200">লোগো ছবি সিলেক্ট বা ড্র্যাগ করুন</p>
+              <p class="text-[10px] text-slate-400">PNG, JPG, WEBP ফরম্যাট সমর্থিত</p>
+            </div>
+
+            <div id="gh-preview-loaded" class="hidden flex items-center gap-3 w-full p-2 bg-slate-900 rounded-lg border border-slate-700">
+              <img id="gh-preview-img" src="" alt="Preview" class="w-14 h-14 object-contain rounded bg-slate-950 p-1 border border-slate-800 flex-shrink-0" />
+              <div class="flex-1 min-w-0 text-left">
+                <p id="gh-preview-name" class="text-xs font-bold text-white truncate">image.png</p>
+                <p id="gh-preview-meta" class="text-[10px] text-emerald-400 font-mono">0 KB • 0x0</p>
+                <button type="button" id="btn-gh-remove-file" class="text-[10px] text-rose-400 hover:text-rose-300 font-bold mt-0.5">
+                  <i class="fa-solid fa-xmark mr-0.5"></i> পরিবর্তন করুন
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <button type="button" id="btn-gh-upload" class="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-900/30 disabled:opacity-50 disabled:cursor-not-allowed">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+            <span id="gh-upload-btn-text">গিটহাবে আপলোড করুন (Upload to GitHub)</span>
+          </button>
+        </div>
+
+        <!-- Success Result Display -->
+        <div id="gh-result-box" class="hidden p-3 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex flex-col gap-2.5">
+          <div class="flex items-center justify-between text-emerald-400 font-bold text-xs">
+            <span class="flex items-center gap-1.5">
+              <i class="fa-solid fa-circle-check"></i> সফলভাবে আপলোড সম্পন্ন হয়েছে!
+            </span>
+          </div>
+
+          <div class="flex items-center gap-3 p-2 rounded-lg bg-slate-950 border border-slate-800">
+            <img id="gh-result-img" src="" alt="Uploaded Logo" class="w-12 h-12 object-contain rounded bg-slate-900 p-1 border border-slate-800 flex-shrink-0" />
+            <div class="flex-1 min-w-0">
+              <div class="text-[10px] text-slate-400 font-bold mb-0.5">Global jsDelivr CDN URL:</div>
+              <div class="flex items-center gap-1">
+                <input type="text" id="gh-result-cdn-url" class="modal-input font-mono text-[10px] py-1 px-2 flex-1" readonly />
+                <button type="button" id="btn-copy-gh-cdn" class="py-1 px-2 rounded-lg bg-emerald-500/20 text-emerald-300 hover:bg-emerald-500/30 text-[10px] font-bold border border-emerald-500/40 flex-shrink-0 transition">
+                  <i class="fa-solid fa-copy"></i> কপি
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Direct Apply Actions -->
+          <div class="grid grid-cols-3 gap-1.5 pt-0.5">
+            <button type="button" id="btn-apply-gh-watermark" class="py-1.5 px-2 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition">
+              <i class="fa-solid fa-tv"></i> ওয়াটারমার্ক
+            </button>
+            <button type="button" id="btn-apply-gh-splash" class="py-1.5 px-2 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition">
+              <i class="fa-solid fa-mobile-screen"></i> স্প্ল্যাশ লোগো
+            </button>
+            <button type="button" id="btn-apply-gh-drawer" class="py-1.5 px-2 rounded-lg bg-purple-500/15 hover:bg-purple-500/25 text-purple-300 border border-purple-500/30 text-[10px] font-bold flex items-center justify-center gap-1 transition">
+              <i class="fa-solid fa-bars"></i> ড্রয়ার লোগো
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: JSON Sources & Master Reset -->
       <div id="tab-admin-sources" class="admin-tab-content hidden flex flex-col gap-3">
         <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-xs text-emerald-300 leading-relaxed">
           <i class="fa-solid fa-circle-check mr-1"></i> <strong>অনলাইন JSON সোর্স:</strong> রিমোট Raw JSON URL (GitHub Gist, Pastebin বা নিজস্ব সার্ভার) দিয়ে স্বয়ংক্রিয়ভাবে চ্যানেল ও খেলা লোড করুন:
@@ -2028,8 +2184,8 @@
   <script src="./cricket.js"></script>
   <script src="./sofascore.js"></script>
   <script src="./wwe.js"></script>
-  <script src="./sports.js?v=20260917_1850_v16"></script>
+  <script src="./sports.js?v=20260923_1050"></script>
   <script src="./tv-remote.js"></script>
-  <script src="./script.js?v=20260917_1850_v16" defer></script>
+  <script src="./script.js?v=20260923_1050" defer></script>
 </body>
 </html>

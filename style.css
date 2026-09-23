@@ -3708,6 +3708,81 @@ body .category-name,
   background: #000000;
 }
 
+/* ==========================================================================
+   HighFy TV Player Live Watermark System (Responsive Broadcast Overlay)
+   ========================================================================== */
+.player-watermark {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  z-index: 8;
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.25s ease, transform 0.25s ease, bottom 0.25s ease, right 0.25s ease;
+}
+
+.player-watermark-img {
+  display: block;
+  width: clamp(36px, 5vw, 48px);
+  height: auto;
+  max-height: clamp(28px, 4vw, 36px);
+  object-fit: contain !important;
+  object-position: center !important;
+  opacity: 0.82;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.75));
+  pointer-events: none !important;
+  user-select: none !important;
+  -webkit-user-select: none !important;
+}
+
+/* Tablet & Medium Screen adjustments */
+@media (min-width: 640px) {
+  .player-watermark {
+    bottom: 14px;
+    right: 16px;
+  }
+  .player-watermark-img {
+    width: clamp(44px, 4.5vw, 56px);
+    max-height: clamp(32px, 3.5vw, 42px);
+    opacity: 0.84;
+  }
+}
+
+/* Desktop & TV Viewport adjustments */
+@media (min-width: 1024px) {
+  .player-watermark {
+    bottom: 18px;
+    right: 22px;
+  }
+  .player-watermark-img {
+    width: clamp(54px, 4vw, 76px);
+    max-height: clamp(38px, 3vw, 54px);
+    opacity: 0.86;
+  }
+}
+
+/* Fullscreen Mode (Native & CSS Fullscreen) */
+.player-video-wrapper:fullscreen .player-watermark,
+.player-video-wrapper:-webkit-full-screen .player-watermark,
+.player-video-wrapper.fullscreen .player-watermark,
+#player-modal.fullscreen .player-watermark {
+  bottom: max(20px, env(safe-area-inset-bottom, 20px)) !important;
+  right: max(24px, env(safe-area-inset-right, 24px)) !important;
+}
+
+.player-video-wrapper:fullscreen .player-watermark-img,
+.player-video-wrapper:-webkit-full-screen .player-watermark-img,
+.player-video-wrapper.fullscreen .player-watermark-img,
+#player-modal.fullscreen .player-watermark-img {
+  width: clamp(60px, 6vw, 96px) !important;
+  max-height: clamp(44px, 4.5vw, 70px) !important;
+  opacity: 0.88;
+}
+
 .player-loading-spinner {
   display: none !important;
   visibility: hidden !important;
