@@ -7,6 +7,9 @@ const STATIC_ASSETS = [
   '/manifest.json',
   '/highfy_logo1.png',
   '/highfy_watermark1.png',
+  '/highfy_logo_official.png',
+  '/highfy_logo_transparent.png',
+  '/highfy_watermark.png'
 ];
 
 self.addEventListener('install', (event) => {

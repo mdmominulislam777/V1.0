@@ -615,7 +615,7 @@
       if (state.customSplashLogo) {
         splashImg.src = state.customSplashLogo;
       } else {
-        splashImg.src = '/highfy_logo_official.png';
+        splashImg.src = './highfy_logo1.png';
       }
     }
 
@@ -623,7 +623,17 @@
       if (state.customDrawerLogo) {
         drawerImg.src = state.customDrawerLogo;
       } else {
-        drawerImg.src = '/highfy_logo_official.png';
+        drawerImg.src = './highfy_logo1.png';
+      }
+    }
+
+    const watermarkImg = document.getElementById('player-watermark-logo');
+    if (watermarkImg) {
+      const customWatermark = localStorage.getItem('highfy_custom_watermark_url');
+      if (customWatermark) {
+        watermarkImg.src = customWatermark;
+      } else {
+        watermarkImg.src = './highfy_watermark1.png';
       }
     }
 
@@ -633,7 +643,7 @@
     const badgeSplashStatus = document.getElementById('badge-loading-img-status');
 
     if (adminSplashPreview) {
-      adminSplashPreview.src = state.customSplashLogo || '/highfy_logo_official.png';
+      adminSplashPreview.src = state.customSplashLogo || './highfy_logo1.png';
     }
     if (adminSplashInput && !adminSplashInput.matches(':focus')) {
       adminSplashInput.value = state.customSplashLogo || '';
@@ -653,7 +663,7 @@
     const badgeDrawerStatus = document.getElementById('badge-drawer-img-status');
 
     if (adminDrawerPreview) {
-      adminDrawerPreview.src = state.customDrawerLogo || '/highfy_logo_official.png';
+      adminDrawerPreview.src = state.customDrawerLogo || './highfy_logo1.png';
     }
     if (adminDrawerInput && !adminDrawerInput.matches(':focus')) {
       adminDrawerInput.value = state.customDrawerLogo || '';
@@ -7533,7 +7543,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customSplashLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='/highfy_logo_official.png'" />
+                <img src="${state.customSplashLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_logo1.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">লোডিং পেজ (Splash) ইমেজ</p>
                   <p class="text-[9.5px] text-amber-400">অ্যাপ স্প্ল্যাশ লোগো</p>
@@ -7551,7 +7561,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customDrawerLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='/highfy_logo_official.png'" />
+                <img src="${state.customDrawerLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_logo1.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">স্লাইড মেনু (Drawer) ইমেজ</p>
                   <p class="text-[9.5px] text-emerald-400">মেনু হেডার লোগো</p>

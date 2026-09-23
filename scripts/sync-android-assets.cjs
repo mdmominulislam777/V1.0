@@ -49,7 +49,11 @@ const coreFiles = [
   'clear-cache.js',
   'security.js',
   'config.js',
-  'highfy_logo_official.svg'
+  'highfy_logo1.png',
+  'highfy_watermark1.png',
+  'highfy_logo_official.png',
+  'highfy_logo_transparent.png',
+  'highfy_watermark.png'
 ];
 
 coreFiles.forEach(file => {
@@ -82,14 +86,6 @@ const publicDir = path.join(rootDir, 'public');
 if (fs.existsSync(publicDir)) {
   copyFolderRecursive(publicDir, assetsDir);
   console.log('[SyncAndroidAssets] Copied public assets');
-}
-
-// 7. Copy src directory if exists
-const srcDir = path.join(rootDir, 'src');
-const srcDest = path.join(assetsDir, 'src');
-if (fs.existsSync(srcDir)) {
-  copyFolderRecursive(srcDir, srcDest);
-  console.log('[SyncAndroidAssets] Copied src directory');
 }
 
 function copyFolderRecursive(source, target) {

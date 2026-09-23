@@ -21,8 +21,8 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="./src/assets/images/highfy_clean_badge.png" />
-  <link rel="apple-touch-icon" href="./src/assets/images/highfy_clean_badge.png" />
+  <link rel="icon" type="image/png" href="./highfy_logo1.png" />
+  <link rel="apple-touch-icon" href="./highfy_logo1.png" />
 
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -57,11 +57,11 @@
         <div class="cricfy-emblem-wrap">
           <img 
             id="cricfy-splash-logo-img"
-            src="./highfy_logo_official.png" 
+            src="./highfy_logo1.png" 
             alt="HighFy TV" 
             class="cricfy-emblem-img"
             referrerpolicy="no-referrer"
-            onerror="if(this.src.indexOf('./highfy_logo.png') === -1) this.src='./highfy_logo.png';"
+            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
           />
         </div>
         <h1 class="cricfy-splash-title">HighFy <span class="splash-badge-blue">TV</span></h1>
@@ -400,15 +400,15 @@
         x-webkit-airplay="allow"
       ></video>
 
-      <!-- Live Video Player Watermark Overlay (Original HighFy TV Logo Image Asset) -->
+      <!-- Live Video Player Watermark Overlay (Original HighFy TV Watermark Asset) -->
       <div class="player-watermark" id="player-watermark" aria-hidden="true">
         <img 
           id="player-watermark-logo"
-          src="./highfy_logo_transparent.png" 
+          src="./highfy_watermark1.png" 
           alt="HighFy TV" 
           class="player-watermark-img" 
           loading="eager"
-          onerror="if(this.src.indexOf('./highfy_logo_official.png') === -1) { this.src='./highfy_logo_official.png'; }" 
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/highfy_watermark1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/assets/images/highfy_watermark1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/highfy_watermark1.png';}" 
         />
       </div>
 
@@ -624,11 +624,11 @@
       <div class="drawer-big-logo-frame">
         <img 
           id="drawer-header-logo-img"
-          src="./highfy_logo_official.png" 
+          src="./highfy_logo1.png" 
           alt="HighFy TV Logo" 
           class="drawer-big-logo-img" 
           referrerpolicy="no-referrer"
-          onerror="if(this.src.indexOf('./highfy_logo.png') === -1) this.src='./highfy_logo.png';"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
         />
       </div>
       <h3 class="drawer-app-title">HighFy TV</h3>
@@ -1267,7 +1267,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-splash-img" src="./highfy_logo_official.png" alt="Splash Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-splash-img" src="./highfy_logo1.png" alt="Splash Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <div class="flex items-center gap-1.5">
@@ -1307,7 +1307,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-drawer-img" src="./highfy_logo_official.png" alt="Drawer Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-drawer-img" src="./highfy_logo1.png" alt="Drawer Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <div class="flex items-center gap-1.5">
@@ -1840,7 +1840,7 @@
       </div>
       <div class="flex flex-col items-center text-center gap-2 py-3 border-b border-slate-200 dark:border-slate-800">
         <div class="w-24 h-24 overflow-hidden flex items-center justify-center">
-          <img src="./src/assets/images/highfy_clean_badge.png" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
+          <img src="./highfy_logo1.png" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
         </div>
         <h4 class="text-base font-extrabold text-slate-800 dark:text-white">HighFy TV</h4>
         <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">Version: 1.0</span>

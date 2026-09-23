@@ -3715,7 +3715,7 @@ body .category-name,
   position: absolute;
   bottom: 12px;
   right: 14px;
-  z-index: 8;
+  z-index: 15;
   pointer-events: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
@@ -3727,13 +3727,13 @@ body .category-name,
 
 .player-watermark-img {
   display: block;
-  width: clamp(36px, 5vw, 48px);
+  width: clamp(44px, 7vw, 72px);
   height: auto;
-  max-height: clamp(28px, 4vw, 36px);
+  max-height: clamp(32px, 5.5vw, 52px);
   object-fit: contain !important;
   object-position: center !important;
-  opacity: 0.82;
-  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.75));
+  opacity: 0.90;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.85));
   pointer-events: none !important;
   user-select: none !important;
   -webkit-user-select: none !important;
