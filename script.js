@@ -4961,6 +4961,9 @@
     // Harden video element against link extraction & inspection
     DOM.videoElement.setAttribute('controlslist', 'nodownload noplaybackrate noremoteplayback');
     DOM.videoElement.setAttribute('draggable', 'false');
+    DOM.videoElement.setAttribute('playsinline', 'true');
+    DOM.videoElement.setAttribute('webkit-playsinline', 'true');
+    DOM.videoElement.preload = 'auto';
     DOM.videoElement.oncontextmenu = (e) => { e.preventDefault(); return false; };
 
     if (streamLoadWatchdog) {
@@ -4995,6 +4998,7 @@
     }
 
     if (DOM.playerError) DOM.playerError.style.display = 'none';
+    if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'block';
     hidePlayerWatermark();
 
     // Clean up any existing player instances
@@ -5012,34 +5016,47 @@
       state.mpegtsInstance = null;
     }
 
-    const tryNextServerOrFallback = () => {
+    let isFailoverTriggered = false;
+
+    const tryNextServerOrFallback = (immediate = false) => {
+      if (isFailoverTriggered) return;
+      isFailoverTriggered = true;
+
       if (streamLoadWatchdog) {
         clearTimeout(streamLoadWatchdog);
         streamLoadWatchdog = null;
       }
 
-      // Step 1: If original URL failed and is not already proxied, try backend proxy
+      // If stream has multiple servers, switch to next server within 1 second
+      if (state.currentPlayingItem && Array.isArray(state.currentPlayingItem.streams)) {
+        const nextIdx = state.currentServerIndex + 1;
+        if (nextIdx < state.currentPlayingItem.streams.length) {
+          const nextServer = state.currentPlayingItem.streams[nextIdx];
+          const nextLabel = nextServer.serverLabel || `Server ${nextIdx + 1}`;
+          console.warn(`[HighFy Fast Player] Auto-switching to ${nextLabel} (1s failover)...`);
+          showToast(`⚡ Server ${state.currentServerIndex + 1} unavailable, switching to ${nextLabel}...`);
+          
+          state.currentServerIndex = nextIdx;
+          renderServerPills();
+          renderPlayerRelatedEvents();
+
+          const delay = immediate ? 50 : 200;
+          setTimeout(() => {
+            loadStreamUrl(nextServer.url, false);
+          }, delay);
+          return;
+        }
+      }
+
+      // If all servers failed and primary stream was direct HTTP/HTTPS, try stream proxy once
       if (!hasTriedProxy && !targetUrl.startsWith('/api/stream-proxy') && /^https?:\/\//i.test(targetUrl)) {
-        console.warn('[HighFy Fast Player] Direct stream failed, switching to HighFy Stream Proxy...');
+        console.warn('[HighFy Fast Player] Direct streams exhausted, attempting HighFy Stream Proxy...');
         const proxyUrl = `/api/stream-proxy?url=${encodeURIComponent(targetUrl)}`;
         loadStreamUrl(proxyUrl, true);
         return;
       }
 
-      // Step 2: Try next server in item's streams list
-      if (state.currentPlayingItem && Array.isArray(state.currentPlayingItem.streams)) {
-        const nextIdx = state.currentServerIndex + 1;
-        if (nextIdx < state.currentPlayingItem.streams.length) {
-          console.warn(`[HighFy Fast Player] Auto-switching to Server ${nextIdx + 1}`);
-          state.currentServerIndex = nextIdx;
-          renderServerPills();
-          renderPlayerRelatedEvents();
-          loadStreamUrl(state.currentPlayingItem.streams[nextIdx].url, false);
-          return;
-        }
-      }
-
-      // Step 3: If all servers failed for this channel/item, display clean channel status error
+      // If all options exhausted, display clean error
       const channelTitle = state.currentPlayingItem?.title || 'this channel';
       showPlayerError(`Live stream is temporarily unavailable for ${channelTitle}. Please select another server or tap Retry.`);
     };
@@ -5065,13 +5082,13 @@
       showPlayerWatermark();
     };
 
-    // Resilient Watchdog: 12s startup timeout before failover to backup
+    // Fast 1-Second Watchdog: If stream doesn't start or load within 1000ms, auto-failover to next server
     streamLoadWatchdog = setTimeout(() => {
-      if (!state.isUserPaused && DOM.videoElement && DOM.videoElement.paused && DOM.videoElement.readyState < 2) {
-        console.warn('[HighFy Fast Player] Stream startup timeout, switching to next server or proxy...');
-        tryNextServerOrFallback();
+      if (!state.isUserPaused && DOM.videoElement && (DOM.videoElement.paused || DOM.videoElement.readyState < 2) && DOM.videoElement.currentTime === 0) {
+        console.warn('[HighFy Fast Player] 1-second startup timeout reached, auto-switching server...');
+        tryNextServerOrFallback(true);
       }
-    }, 12000);
+    }, 1000);
 
     const isHlsSupported = window.Hls && window.Hls.isSupported();
     const isMpegtsSupported = window.mpegts && window.mpegts.isSupported();
@@ -5109,7 +5126,7 @@
       }
     };
 
-    // 1. Direct MPEG-TS Stream Playback via mpegts.js
+    // 1. Direct MPEG-TS Stream Playback via mpegts.js (Ultra Fast Config)
     if (isDirectTsStream && isMpegtsSupported) {
       try {
         console.log('[HighFy Player] Initializing mpegts.js for TS stream:', targetUrl);
@@ -5120,19 +5137,20 @@
           cors: true
         }, {
           enableWorker: true,
-          lazyLoadMaxDuration: 2 * 60,
+          lazyLoad: false,
+          lazyLoadMaxDuration: 0,
           seekType: 'range',
           liveBufferLatencyChasing: true,
-          liveBufferLatencyMaxLatency: 3.0,
-          liveBufferLatencyMinRemain: 0.5
+          liveBufferLatencyMaxLatency: 1.5,
+          liveBufferLatencyMinRemain: 0.3
         });
 
         mpegtsPlayer.attachMediaElement(DOM.videoElement);
         mpegtsPlayer.load();
         
         mpegtsPlayer.on(window.mpegts.Events.ERROR, (errorType, errorDetail) => {
-          console.warn('[HighFy Player] mpegts.js error:', errorType, errorDetail);
-          tryNextServerOrFallback();
+          console.warn('[HighFy Player] mpegts.js error, fast switching server within 1s:', errorType, errorDetail);
+          tryNextServerOrFallback(true);
         });
 
         mpegtsPlayer.play().then(triggerInstantPlay).catch(() => {
@@ -5147,7 +5165,7 @@
       }
     }
 
-    // 2. HLS Playback via Hls.js (.m3u8, mono.ts.m3u8, etc.) - Fast Ultra-Low-Latency Config
+    // 2. HLS Playback via Hls.js (.m3u8, mono.ts.m3u8, etc.) - Ultra-Fast Low-Latency & Instant Failover Config
     if (isHlsSupported && isM3U8Stream) {
       const hls = new window.Hls({
         debug: false,
@@ -5156,28 +5174,28 @@
         capLevelToPlayerSize: false,
         startLevel: -1,
         initialLiveManifestSize: 1,
-        maxBufferLength: 10,
-        maxMaxBufferLength: 20,
-        maxBufferSize: 40 * 1024 * 1024,
-        maxBufferHole: 0.5,
-        highBufferWatchdogPeriod: 2,
-        nudgeOffset: 0.1,
-        nudgeMaxRetry: 5,
-        maxFragLookUpTolerance: 0.25,
-        liveSyncDurationCount: 3,
-        liveMaxLatencyDurationCount: 8,
+        maxBufferLength: 4,
+        maxMaxBufferLength: 8,
+        maxBufferSize: 15 * 1024 * 1024,
+        maxBufferHole: 0.2,
+        highBufferWatchdogPeriod: 1,
+        nudgeOffset: 0.05,
+        nudgeMaxRetry: 2,
+        maxFragLookUpTolerance: 0.2,
+        liveSyncDurationCount: 2,
+        liveMaxLatencyDurationCount: 4,
         liveDurationInfinity: true,
-        manifestLoadingTimeOut: 12000,
-        manifestLoadingMaxRetry: 3,
-        levelLoadingTimeOut: 12000,
-        levelLoadingMaxRetry: 3,
-        fragLoadingTimeOut: 15000,
-        fragLoadingMaxRetry: 4,
+        manifestLoadingTimeOut: 1000,
+        manifestLoadingMaxRetry: 0,
+        levelLoadingTimeOut: 1000,
+        levelLoadingMaxRetry: 0,
+        fragLoadingTimeOut: 1200,
+        fragLoadingMaxRetry: 1,
         startFragPrefetch: true,
         testBandwidth: false,
         progressive: true,
         autoStartLoad: true,
-        backBufferLength: 15
+        backBufferLength: 5
       });
 
       hls.attachMedia(DOM.videoElement);
@@ -5195,7 +5213,7 @@
       hls.on(window.Hls.Events.ERROR, (event, data) => {
         if (!data.fatal) {
           if (data.details === 'bufferStalledError') {
-            console.log('[HighFy Player] Buffer stall, fast recovering...');
+            console.log('[HighFy Player] Buffer stall, instant nudge...');
             if (!state.isUserPaused && DOM.videoElement && DOM.videoElement.paused) {
               DOM.videoElement.play().catch(() => {});
             }
@@ -5205,24 +5223,24 @@
 
         switch (data.type) {
           case window.Hls.ErrorTypes.NETWORK_ERROR:
-            // Direct CORS failure or blocked network request -> Switch immediately to proxy/next server
-            console.warn('[HighFy Fast Player] Network error detected:', data.details);
+            // Direct CORS failure or blocked network request -> Switch to next server immediately within 1s
+            console.warn('[HighFy Fast Player] Network error detected, switching server immediately:', data.details);
             hls.destroy();
-            if (!hasTriedProxy && !targetUrl.includes('/api/stream-proxy') && /^https?:\/\//i.test(targetUrl)) {
-              const proxyUrl = `/api/stream-proxy?url=${encodeURIComponent(targetUrl)}`;
-              loadStreamUrl(proxyUrl, true);
-              return;
-            }
-            tryNextServerOrFallback();
+            tryNextServerOrFallback(true);
             break;
           case window.Hls.ErrorTypes.MEDIA_ERROR:
-            console.warn('[HighFy Fast Player] Media error, recovering...');
-            hls.recoverMediaError();
+            console.warn('[HighFy Fast Player] Media error, fast recovering or failover...');
+            try {
+              hls.recoverMediaError();
+            } catch (err) {
+              hls.destroy();
+              tryNextServerOrFallback(true);
+            }
             break;
           default:
-            console.error('[HighFy Fast Player] Fatal error:', data);
+            console.error('[HighFy Fast Player] Fatal HLS error, auto-switching server within 1s:', data);
             hls.destroy();
-            tryNextServerOrFallback();
+            tryNextServerOrFallback(true);
             break;
         }
       });
@@ -5245,7 +5263,7 @@
 
       DOM.videoElement.addEventListener('error', () => {
         hideSpinnerAndClearWatchdog();
-        tryNextServerOrFallback();
+        tryNextServerOrFallback(true);
       }, { once: true });
     }
   }
