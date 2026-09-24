@@ -1487,23 +1487,28 @@ body .sports-view-sticky-header {
 }
 
 .sports-shortcuts-container {
-  padding: 8px 4px 4px 4px;
+  padding: 10px 14px 6px 14px;
   overflow-x: auto;
+  overflow-y: visible;
   display: flex;
-  align-items: center;
-  gap: 3px;
+  align-items: flex-start;
+  gap: 12px;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sport-shortcut-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   cursor: pointer;
   flex-shrink: 0;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 0 1px;
+  padding: 2px 2px 4px 2px;
+  min-width: 52px;
+  max-width: 64px;
+  text-align: center;
 }
 
 .sport-shortcut-item:hover {
@@ -1516,8 +1521,8 @@ body .sports-view-sticky-header {
 
 .sport-shortcut-circle {
   position: relative;
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--bg-shortcut);
   border: 1.5px solid var(--border-subtle);
@@ -1525,14 +1530,14 @@ body .sports-view-sticky-header {
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
-  font-size: 23px;
+  font-size: 20px;
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: var(--shadow-card);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sport-shortcut-circle i {
-  font-size: 23px;
+  font-size: 20px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -1549,30 +1554,38 @@ body .sports-view-sticky-header {
 
 .sport-count-badge {
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: -4px;
+  right: -4px;
   background: linear-gradient(135deg, #ef4444, #dc2626);
   color: #ffffff;
   font-size: 9.5px;
   font-weight: 800;
   padding: 1px 5px;
-  min-width: 17px;
-  height: 17px;
-  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--bg-app);
-  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
-  z-index: 2;
+  border: 2px solid var(--bg-app);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.45);
+  z-index: 5;
+  line-height: 1;
 }
 
 .sport-shortcut-label {
-  font-size: 10.5px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--text-secondary);
   white-space: nowrap;
+  text-align: center;
+  line-height: 1.25;
+  display: block;
+  width: 100%;
+  overflow: visible;
   transition: color 0.2s ease;
+  margin-top: 1px;
+  padding-bottom: 2px;
 }
 
 /* Active Sport Shortcut Glow */

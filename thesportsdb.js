@@ -32,6 +32,24 @@ class TheSportsDBEngine {
         }
       }
     } catch (e) {}
+
+    // If cache is empty, hydrate from local events.json seed
+    if ((!this.cache.data || this.cache.data.length === 0) && typeof fetch !== 'undefined') {
+      try {
+        fetch('./events.json')
+          .then(r => r.ok ? r.json() : null)
+          .then(list => {
+            if (Array.isArray(list) && list.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
+              const sportsEvents = list.filter(e => e && (!e.sport || e.sport.toLowerCase() !== 'wwe'));
+              if (sportsEvents.length > 0) {
+                this.cache.data = sportsEvents;
+                this.cache.timestamp = Date.now();
+              }
+            }
+          })
+          .catch(() => {});
+      } catch (_) {}
+    }
   }
 
   /**
@@ -388,6 +406,27 @@ class TheSportsDBEngine {
         console.warn('[TheSportsDB] Direct fetch failed:', e.message);
       } finally {
         this.inFlightPromise = null;
+      }
+
+      // Fallback: If still empty (e.g. on GitHub Pages static deployment), load from events.json
+      if (!this.cache.data || this.cache.data.length === 0) {
+        try {
+          const evRes = await fetch('./events.json');
+          if (evRes.ok) {
+            const evJson = await evRes.json();
+            if (Array.isArray(evJson) && evJson.length > 0) {
+              const sportsEvents = evJson.filter(e => e && (!e.sport || e.sport.toLowerCase() !== 'wwe'));
+              if (sportsEvents.length > 0) {
+                this.saveLocalCache(sportsEvents, Date.now());
+                return {
+                  configured: true,
+                  source: 'TheSportsDB (Seed)',
+                  events: sportsEvents
+                };
+              }
+            }
+          }
+        } catch (_) {}
       }
 
       return {

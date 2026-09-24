@@ -51,7 +51,10 @@ class SportsCoordinator {
             .filter(ev => {
               if (!ev || !ev.id) return false;
               const id = String(ev.id);
-              if (id.startsWith('cricket-upcoming-') || id.startsWith('cricket-live-') || id.startsWith('football-live-') || id.startsWith('dummy-') || id.startsWith('mock-') || id.startsWith('sample-')) {
+              if (id.startsWith('cricket-upcoming-') || id.startsWith('cricket-live-') || id.startsWith('football-live-') || id.startsWith('dummy-') || id.startsWith('mock-') || id.startsWith('sample-') || id.startsWith('cr-cricbuzz-')) {
+                return false;
+              }
+              if (ev.source && String(ev.source).toLowerCase().includes('cricbuzz')) {
                 return false;
               }
               return true;

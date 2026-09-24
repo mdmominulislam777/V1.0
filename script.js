@@ -823,6 +823,32 @@
         state.events = [];
       }
 
+      // If state.events is empty (e.g. on GitHub Pages static deployment), fallback to ./events.json
+      if (!state.events || state.events.length === 0) {
+        try {
+          const fallbackRes = await fetch('./events.json');
+          if (fallbackRes.ok) {
+            const list = await fallbackRes.json();
+            if (Array.isArray(list) && list.length > 0) {
+              state.events = list;
+              if (window.sportsCoordinator) {
+                window.sportsCoordinator.events = list;
+              }
+            }
+          }
+        } catch (_) {}
+      }
+
+      // Strictly purge any obsolete Cricbuzz items per user request
+      if (Array.isArray(state.events)) {
+        state.events = state.events.filter(e => {
+          if (!e || !e.id) return false;
+          if (String(e.id).startsWith('cr-cricbuzz-')) return false;
+          if (e.source && String(e.source).toLowerCase().includes('cricbuzz')) return false;
+          return true;
+        });
+      }
+
       // Apply Admin Custom Match Assignments & Direct Streams
       if (state.customEventStreams && typeof state.customEventStreams === 'object' && Array.isArray(state.events)) {
         state.events.forEach(ev => {
@@ -1211,8 +1237,8 @@
     'mariah may': '/assets/wwe-logos/aew_official.png'
   };
 
-  // Pure base64 data URI without unescaped XML quotes or scheme syntax collision in HTML attributes
-  const DEFAULT_SPORTS_FALLBACK_LOGO = "https://flagcdn.com/w160/un.png";
+  // Clean neutral sports shield crest fallback (never un.png)
+  const DEFAULT_SPORTS_FALLBACK_LOGO = "https://images.fotmob.com/image_resources/team_default.png";
   window.DEFAULT_SPORTS_FALLBACK_LOGO = DEFAULT_SPORTS_FALLBACK_LOGO;
 
   window.handleTeamLogoError = function(img) {
@@ -1245,6 +1271,17 @@
 
     if (!teamName) return DEFAULT_SPORTS_FALLBACK_LOGO;
     const nameClean = teamName.toLowerCase().trim();
+
+    // Direct motorsport & wrestling logo resolution
+    if (nameClean === 'formula 1' || nameClean === 'f1' || nameClean.includes('formula 1')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/512px-F1.svg.png';
+    }
+    if (nameClean === 'wwe' || nameClean.includes('wwe')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png';
+    }
+    if (nameClean === 'aew' || nameClean.includes('aew')) {
+      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png';
+    }
 
     // 2. Curated database check (only when rawLogo is missing or un.png):
     // First: exact key match
@@ -1457,31 +1494,37 @@
 
     if (isWrestlingEvent) {
       const matchText = `${event.title || ''} ${event.tournament || ''} ${event.league || ''} ${event.subText || ''} ${t1Name} ${t2Name}`.toLowerCase();
+      const wweMainLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png';
+      const wweRawLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WWE_Raw_logo_2023.svg/512px-WWE_Raw_logo_2023.svg.png';
+      const wweSdLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/WWE_SmackDown_2024_logo.svg/512px-WWE_SmackDown_2024_logo.svg.png';
+      const wweNxtLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/WWE_NXT_logo_2024.svg/512px-WWE_NXT_logo_2024.svg.png';
+      const aewLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png';
+
       if (matchText.includes('raw')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.png';
+        t1Logo = wweMainLogo;
         t2Name = 'RAW';
-        t2Logo = '/assets/wwe-logos/wwe_raw.png';
+        t2Logo = wweRawLogo;
       } else if (matchText.includes('smackdown') || matchText.includes('smack down')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.png';
+        t1Logo = wweMainLogo;
         t2Name = 'SmackDown';
-        t2Logo = '/assets/wwe-logos/wwe_smackdown.png';
+        t2Logo = wweSdLogo;
       } else if (matchText.includes('nxt')) {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.png';
+        t1Logo = wweMainLogo;
         t2Name = 'NXT';
-        t2Logo = '/assets/wwe-logos/wwe_nxt.png';
+        t2Logo = wweNxtLogo;
       } else if (matchText.includes('aew') || matchText.includes('dynamite')) {
         t1Name = 'AEW';
-        t1Logo = '/assets/wwe-logos/aew_official.png';
+        t1Logo = aewLogo;
         t2Name = 'Dynamite';
-        t2Logo = '/assets/wwe-logos/aew_official.png';
+        t2Logo = aewLogo;
       } else {
         t1Name = 'WWE';
-        t1Logo = '/assets/wwe-logos/wwe_official.png';
+        t1Logo = wweMainLogo;
         t2Name = 'Special PLE';
-        t2Logo = '/assets/wwe-logos/wwe_special.png';
+        t2Logo = wweMainLogo;
       }
     }
 
