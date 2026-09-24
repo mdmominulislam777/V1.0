@@ -1584,11 +1584,12 @@ class SportsCoordinator {
   static isEventFinished(event) {
     if (!event) return false;
     const status = String(event.status || '').toLowerCase().trim();
-    // Catch all typical API-Football, CricketData, and common finished statuses
+    if (status === 'live') return false;
+    // Catch all typical API-Football, ESPN, TheSportsDB, and Cricket finished statuses
     const finishedStatuses = [
       'finished', 'ft', 'ended', 'completed', 'match finished', 'abandoned',
       'postponed', 'cancelled', 'match abandoned', 'match drawn', 'no result',
-      'stumped', 'innings break', 'lunch', 'tea', 'match won', 'won by'
+      'match won', 'won by', 'final', 'status_final'
     ];
     
     // Check strict status match
@@ -1639,6 +1640,117 @@ class SportsCoordinator {
 
 
   /**
+   * Generate a canonical fingerprint for matching identical sports events across different APIs
+   */
+  static getMatchFingerprint(ev) {
+    if (!ev) return null;
+    const sp = (ev.sport || '').toLowerCase().trim().replace(/soccer/, 'football');
+
+    const cleanTeam = (name) => (name || '')
+      .toLowerCase()
+      .replace(/\b(fc|cf|sc|ac|afc|club|the|women|w)\b/gi, '')
+      .replace(/[^a-z0-9]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const isPlaceholder = (s) => {
+      if (!s) return true;
+      const lower = s.toLowerCase().trim();
+      return lower === 'team 1' || lower === 'team 2' || lower === 'player 1' || lower === 'player 2' ||
+             lower === 'home team' || lower === 'away team' || lower === 'home' || lower === 'away' ||
+             lower === 'tbd' || lower === 'tba' || lower === 'unknown' || lower === 'to be decided';
+    };
+
+    const t1Raw = (ev.team1?.name || ev.homeTeam?.name || '').trim();
+    const t2Raw = (ev.team2?.name || ev.awayTeam?.name || '').trim();
+
+    // If either participant is an unconfirmed placeholder, reject it
+    if (isPlaceholder(t1Raw) || isPlaceholder(t2Raw)) {
+      return null;
+    }
+
+    const t1 = cleanTeam(t1Raw);
+    const t2 = cleanTeam(t2Raw);
+
+    let dateStr = (ev.date || '').split('T')[0];
+    if (!dateStr && ev.timestamp) {
+      try {
+        const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+        dateStr = new Date(ts).toISOString().split('T')[0];
+      } catch (e) {}
+    }
+
+    if (t1 && t2) {
+      const sorted = [t1, t2].sort().join('__vs__');
+      return `${sp}::${sorted}::${dateStr || 'nodate'}`;
+    }
+
+    const title = cleanTeam(ev.title || ev.name || '');
+    if (!title || title.includes('tbd vs tbd') || title.includes('player 1 vs player 2') || title.includes('tba vs tba')) {
+      return null;
+    }
+    return `${sp}::${title}::${dateStr || 'nodate'}`;
+  }
+
+  /**
+   * Merge two instances of the same logical match from different sources
+   */
+  static mergeMatchEvents(existing, incoming) {
+    if (!existing || !incoming) return existing || incoming;
+
+    const statusPriority = { live: 3, upcoming: 2, finished: 1 };
+    const exP = statusPriority[(existing.status || '').toLowerCase()] || 0;
+    const inP = statusPriority[(incoming.status || '').toLowerCase()] || 0;
+
+    if (inP > exP) {
+      existing.status = incoming.status;
+      existing.statusText = incoming.statusText || existing.statusText;
+      existing.statusLabel = incoming.statusLabel || existing.statusLabel;
+      existing.timeOrTimer = incoming.timeOrTimer || existing.timeOrTimer;
+    }
+
+    // Stream & broadcaster priority: if incoming has authentic stream, merge it
+    if ((!existing.hasStream || !existing.channelId) && (incoming.hasStream && incoming.channelId)) {
+      existing.hasStream = true;
+      existing.channelId = incoming.channelId;
+      existing.channelName = incoming.channelName || existing.channelName;
+      existing.channelLogo = incoming.channelLogo || existing.channelLogo;
+      existing.streams = incoming.streams || existing.streams;
+      existing.broadcastChannels = incoming.broadcastChannels || existing.broadcastChannels;
+      existing.broadcastingChannelDetails = incoming.broadcastingChannelDetails || existing.broadcastingChannelDetails;
+      existing.verificationSource = incoming.verificationSource || existing.verificationSource;
+      existing.sourceField = incoming.sourceField || existing.sourceField;
+      existing.verificationDetail = incoming.verificationDetail || existing.verificationDetail;
+    }
+
+    if (!existing.broadcaster && incoming.broadcaster) {
+      existing.broadcaster = incoming.broadcaster;
+      existing.broadcasters = incoming.broadcasters || [incoming.broadcaster];
+    }
+
+    // Scores & logos enrichment
+    if (!existing.score && incoming.score) {
+      existing.score = incoming.score;
+    }
+    if (existing.team1 && incoming.team1) {
+      if (!existing.team1.score && incoming.team1.score) existing.team1.score = incoming.team1.score;
+      if (!existing.team1.overs && incoming.team1.overs) existing.team1.overs = incoming.team1.overs;
+      if ((!existing.team1.logo || existing.team1.logo.includes('placeholder')) && incoming.team1.logo && !incoming.team1.logo.includes('placeholder')) {
+        existing.team1.logo = incoming.team1.logo;
+      }
+    }
+    if (existing.team2 && incoming.team2) {
+      if (!existing.team2.score && incoming.team2.score) existing.team2.score = incoming.team2.score;
+      if (!existing.team2.overs && incoming.team2.overs) existing.team2.overs = incoming.team2.overs;
+      if ((!existing.team2.logo || existing.team2.logo.includes('placeholder')) && incoming.team2.logo && !incoming.team2.logo.includes('placeholder')) {
+        existing.team2.logo = incoming.team2.logo;
+      }
+    }
+
+    return existing;
+  }
+
+  /**
    * Determine if an event is obscure/noise and should be hidden
    */
   isObscureNoiseMatch(ev) {
@@ -1671,9 +1783,20 @@ class SportsCoordinator {
     const liveList = [];
     const upcomingList = [];
     const finishedList = [];
+    const seenCurationFingerprints = new Map();
 
     rawEvents.forEach(ev => {
       if (!ev || !ev.id) return;
+      
+      const fp = SportsCoordinator.getMatchFingerprint(ev);
+      if (!fp) return; // Discard invalid or placeholder events
+
+      if (seenCurationFingerprints.has(fp)) {
+        const existing = seenCurationFingerprints.get(fp);
+        SportsCoordinator.mergeMatchEvents(existing, ev);
+        return;
+      }
+      seenCurationFingerprints.set(fp, ev);
       
       // Ensure proper timestamp parsing and format matchTime in Asia/Dhaka BST
       if (ev.timestamp && ev.timestamp < 10000000000) {
@@ -1868,12 +1991,14 @@ class SportsCoordinator {
         total: wweEvents.length
       };
 
-      // Deduplicate and merge events
+      // Deduplicate and merge events across all sources
       const eventMap = new Map();
+      const fingerprintMap = new Map();
 
       const addList = (list) => {
+        if (!Array.isArray(list)) return;
         list.forEach(ev => {
-          if (!ev || !ev.id || eventMap.has(ev.id)) return;
+          if (!ev || !ev.id) return;
 
           // Reject corrupt, placeholder or mock events
           const id = String(ev.id || '');
@@ -1881,13 +2006,27 @@ class SportsCoordinator {
             return;
           }
 
-          const t1 = (ev.team1?.name || ev.homeTeam?.name || '').trim().toLowerCase();
-          const t2 = (ev.team2?.name || ev.awayTeam?.name || '').trim().toLowerCase();
-          if ((t1 === 'home team' && t2 === 'away team') || (t1 === 'home' && t2 === 'away') || (!t1 && !t2)) {
+          const fp = SportsCoordinator.getMatchFingerprint(ev);
+          if (!fp) {
             return;
           }
 
+          const t1 = (ev.team1?.name || ev.homeTeam?.name || '').trim().toLowerCase();
+          const t2 = (ev.team2?.name || ev.awayTeam?.name || '').trim().toLowerCase();
+
           const sp = (ev.sport || '').toLowerCase();
+
+          // Cricket data MUST strictly come ONLY from Sportradar API
+          if (sp === 'cricket') {
+            const isSportradar = (ev.source && String(ev.source).toLowerCase().includes('sportradar')) ||
+                                 String(ev.id).startsWith('cr-sportradar-') ||
+                                 String(ev.id).startsWith('sr:sport_event:') ||
+                                 String(ev.id).startsWith('sr-');
+            if (!isSportradar) {
+              return; // Block all other cricket sources
+            }
+          }
+
           // WWE Tab strictly accepts authentic WWE and AEW fixtures
           if (sp === 'wwe') {
             const text = `${ev.title || ''} ${ev.league || ''} ${ev.tournament || ''} ${t1} ${t2}`.toLowerCase();
@@ -1916,6 +2055,24 @@ class SportsCoordinator {
             ev.hasStream = false;
             ev.channelId = null;
           }
+
+          // Deduplicate: if match already seen by ID or canonical fingerprint, merge
+          if (eventMap.has(ev.id)) {
+            const existing = eventMap.get(ev.id);
+            SportsCoordinator.mergeMatchEvents(existing, ev);
+            return;
+          }
+
+          if (fingerprintMap.has(fp)) {
+            const existingId = fingerprintMap.get(fp);
+            const existing = eventMap.get(existingId);
+            if (existing) {
+              SportsCoordinator.mergeMatchEvents(existing, ev);
+              return;
+            }
+          }
+
+          fingerprintMap.set(fp, ev.id);
           eventMap.set(ev.id, ev);
         });
       };
@@ -2060,22 +2217,24 @@ class SportsCoordinator {
     }
 
     // 2. Status Filter (ALL, TODAY, LIVE, UPCOMING, FINISHED, FAVORITES)
-    if (status && status.toUpperCase() !== 'ALL') {
-      const st = status.toUpperCase();
-      if (st === 'FAVORITES') {
-        const favs = this.getFavorites();
-        list = list.filter(e => favs.includes(e.id));
-      } else if (st === 'TODAY') {
-        list = list.filter(e => this.isEventToday(e));
-      } else if (st === 'FINISHED') {
-        list = list.filter(e => this.isEventFinished(e));
-      } else if (st === 'LIVE') {
-        list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'live');
-      } else if (st === 'UPCOMING') {
-        list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming');
-      } else {
-        list = list.filter(e => (e.status || '').toUpperCase() === st);
-      }
+    // Strictly per user command: "লাল চিহ্নিত করা ফিনিস হ ওয়া ম্যাচ গুলো এখান থেকে মুছে দাও। এবং finished এর ওখানে রাখো"
+    // Concluded/finished matches must NOT appear in ALL, TODAY, LIVE, UPCOMING or FAVORITES feeds.
+    // Finished matches must only be shown under the dedicated 'FINISHED' tab.
+    const st = (status || 'ALL').toUpperCase();
+    if (st === 'FINISHED') {
+      list = list.filter(e => this.isEventFinished(e));
+    } else if (st === 'LIVE') {
+      list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'live');
+    } else if (st === 'UPCOMING') {
+      list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming');
+    } else if (st === 'TODAY') {
+      list = list.filter(e => !this.isEventFinished(e) && this.isEventToday(e));
+    } else if (st === 'FAVORITES') {
+      const favs = this.getFavorites();
+      list = list.filter(e => !this.isEventFinished(e) && favs.includes(e.id));
+    } else {
+      // Default / 'ALL' tab: only active (live + upcoming) matches
+      list = list.filter(e => !this.isEventFinished(e));
     }
 
     // 3. Search Query Filter (team, league, tournament, venue, title)

@@ -19,6 +19,23 @@ async function getTheSportsDbEvents() {
   });
 }
 
+async function getCricketEvents() {
+  return new Promise((resolve) => {
+    http.get('http://localhost:3000/api/cricket/matches', (res) => {
+      let d = '';
+      res.on('data', c => d += c);
+      res.on('end', () => {
+        try {
+          const j = JSON.parse(d);
+          resolve(Array.isArray(j.data) ? j.data : []);
+        } catch (e) {
+          resolve([]);
+        }
+      });
+    }).on('error', () => resolve([]));
+  });
+}
+
 function getWweEvents() {
   const wweLogos = {
     wwe: './assets/wwe-logos/wwe_official.png',
@@ -208,10 +225,14 @@ async function run() {
   const tsdbEvents = await getTheSportsDbEvents();
   console.log(`[Script] Fetched ${tsdbEvents.length} events from TheSportsDB.`);
 
+  console.log('[Script] Fetching Sportradar Cricket real events...');
+  const cricketEvents = await getCricketEvents();
+  console.log(`[Script] Fetched ${cricketEvents.length} events from Sportradar Cricket.`);
+
   const wweEvents = getWweEvents();
   console.log(`[Script] Added ${wweEvents.length} WWE/AEW authentic fixtures.`);
 
-  const combined = [...tsdbEvents, ...wweEvents];
+  const combined = [...tsdbEvents, ...cricketEvents, ...wweEvents];
   console.log(`[Script] Total combined events: ${combined.length}`);
 
   const jsonStr = JSON.stringify(combined, null, 2);

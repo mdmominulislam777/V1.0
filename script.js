@@ -847,6 +847,11 @@
           if (e.source && String(e.source).toLowerCase().includes('cricbuzz')) return false;
           return true;
         });
+
+        // Deduplicate using sportsCoordinator canonical fingerprint
+        if (window.sportsCoordinator && typeof window.sportsCoordinator.curateEvents === 'function') {
+          state.events = window.sportsCoordinator.curateEvents(state.events);
+        }
       }
 
       // Apply Admin Custom Match Assignments & Direct Streams
@@ -1007,17 +1012,18 @@
     const coordinator = window.sportsCoordinator;
     let list = state.events || [];
 
-    // Count by individual sport for top circular badges
-    const totalAllEvents = list.length;
-    const totalFootball = list.filter(e => (e.sport || '').toLowerCase() === 'football').length;
-    const totalCricket = list.filter(e => (e.sport || '').toLowerCase() === 'cricket').length;
-    const totalBaseball = list.filter(e => (e.sport || '').toLowerCase() === 'baseball').length;
-    const totalBasketball = list.filter(e => (e.sport || '').toLowerCase() === 'basketball').length;
-    const totalTennis = list.filter(e => (e.sport || '').toLowerCase() === 'tennis').length;
-    const totalMotorsport = list.filter(e => (e.sport || '').toLowerCase() === 'motorsport' || (e.sport || '').toLowerCase() === 'f1').length;
-    const totalWWE = list.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling').length;
-    const totalHockey = list.filter(e => (e.sport || '').toLowerCase() === 'hockey').length;
-    const totalRugby = list.filter(e => (e.sport || '').toLowerCase() === 'rugby').length;
+    // Count by individual sport for top circular badges (active matches only)
+    const activeList = list.filter(e => !isAppEventFinished(e));
+    const totalAllEvents = activeList.length;
+    const totalFootball = activeList.filter(e => (e.sport || '').toLowerCase() === 'football').length;
+    const totalCricket = activeList.filter(e => (e.sport || '').toLowerCase() === 'cricket').length;
+    const totalBaseball = activeList.filter(e => (e.sport || '').toLowerCase() === 'baseball').length;
+    const totalBasketball = activeList.filter(e => (e.sport || '').toLowerCase() === 'basketball').length;
+    const totalTennis = activeList.filter(e => (e.sport || '').toLowerCase() === 'tennis').length;
+    const totalMotorsport = activeList.filter(e => (e.sport || '').toLowerCase() === 'motorsport' || (e.sport || '').toLowerCase() === 'f1').length;
+    const totalWWE = activeList.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling').length;
+    const totalHockey = activeList.filter(e => (e.sport || '').toLowerCase() === 'hockey').length;
+    const totalRugby = activeList.filter(e => (e.sport || '').toLowerCase() === 'rugby').length;
 
     const bAll = document.getElementById('scBadgeAll');
     const bFoot = document.getElementById('scBadgeFootball');
@@ -1083,12 +1089,12 @@
       return false;
     };
 
-    const allCount = list.length;
-    const todayCount = list.filter(isTodayEv).length;
+    const allCount = list.filter(e => !isAppEventFinished(e)).length;
+    const todayCount = list.filter(e => !isAppEventFinished(e) && isTodayEv(e)).length;
     const finishedCount = list.filter(e => isAppEventFinished(e)).length;
     const liveCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'live').length;
     const upcomingCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming').length;
-    const favCount = list.filter(e => state.eventFavorites.includes(e.id)).length;
+    const favCount = list.filter(e => !isAppEventFinished(e) && state.eventFavorites.includes(e.id)).length;
 
     if (DOM.cntAll) DOM.cntAll.textContent = `(${allCount})`;
     if (DOM.cntToday) DOM.cntToday.textContent = `(${todayCount})`;
@@ -1238,7 +1244,7 @@
   };
 
   // Clean neutral sports shield crest fallback (never un.png)
-  const DEFAULT_SPORTS_FALLBACK_LOGO = "https://images.fotmob.com/image_resources/team_default.png";
+  const DEFAULT_SPORTS_FALLBACK_LOGO = "./assets/team-placeholder.svg";
   window.DEFAULT_SPORTS_FALLBACK_LOGO = DEFAULT_SPORTS_FALLBACK_LOGO;
 
   window.handleTeamLogoError = function(img) {
@@ -1269,7 +1275,7 @@
     // 1. HIGHEST PRIORITY: If authentic original team logo is provided by feed/API, preserve and upgrade it!
     if (rawLogo && typeof rawLogo === 'string') {
       let cleanRaw = rawLogo.trim();
-      if (cleanRaw) {
+      if (cleanRaw && !cleanRaw.includes('un.png') && !cleanRaw.includes('team_default.png')) {
         // Upgrade Cricbuzz low-res 72x54 thumbnails to 300x300 crisp image
         if (cleanRaw.includes('cricbuzz.com') && cleanRaw.includes('/72x54/')) {
           cleanRaw = cleanRaw.replace('/72x54/', '/300x300/');
@@ -1290,8 +1296,14 @@
     const nameClean = teamName.toLowerCase().trim();
 
     // Direct motorsport & wrestling logo resolution
-    if (nameClean === 'formula 1' || nameClean === 'f1' || nameClean.includes('formula 1')) {
-      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/512px-F1.svg.png';
+    if (nameClean === 'formula 1' || nameClean === 'f1' || nameClean.includes('formula 1') || nameClean.includes('motorsport') || nameClean.includes('racing') || nameClean.includes('grand prix')) {
+      return 'https://r2.thesportsdb.com/images/media/league/badge/g8cofl1513623681.png';
+    }
+    if (nameClean.includes('hong kong')) {
+      return 'https://flagcdn.com/w320/hk.png';
+    }
+    if (nameClean.includes('oman')) {
+      return 'https://flagcdn.com/w320/om.png';
     }
     if (nameClean.includes('smackdown') || nameClean.includes('smack down')) {
       return './assets/wwe-logos/wwe_smackdown.png';
@@ -1843,7 +1855,27 @@
       filtered = filtered.filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'live');
     } else if (state.selectedFilter === 'UPCOMING') {
       filtered = filtered.filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'upcoming');
+    } else if (state.selectedFilter === 'TODAY') {
+      filtered = filtered.filter(ev => !isAppEventFinished(ev) && isTodayEv(ev));
+    } else if (state.selectedFilter === 'FAVORITES') {
+      filtered = filtered.filter(ev => !isAppEventFinished(ev) && state.eventFavorites.includes(ev.id));
+    } else {
+      // Default / 'ALL' tab: strictly active matches only, excluding finished games
+      filtered = filtered.filter(ev => !isAppEventFinished(ev));
     }
+
+    // Strictly deduplicate filtered events by canonical match fingerprint
+    const seenCardKeys = new Set();
+    filtered = filtered.filter(ev => {
+      if (!ev || !ev.id) return false;
+      const fp = window.SportsCoordinator && typeof window.SportsCoordinator.getMatchFingerprint === 'function'
+        ? window.SportsCoordinator.getMatchFingerprint(ev)
+        : null;
+      const key = fp || ev.id;
+      if (seenCardKeys.has(key)) return false;
+      seenCardKeys.add(key);
+      return true;
+    });
 
     if (filtered.length === 0) {
       let emptyTitle = 'No events available';
@@ -2750,10 +2782,10 @@
             ${players.slice(0, 16).map(p => `
               <div class="flex items-center gap-2.5 p-2 rounded-xl bg-slate-900/50 border border-slate-800/60 hover:border-slate-700 transition">
                 <img 
-                  src="${escapeHtml(p.image || 'https://flagcdn.com/w160/un.png')}" 
+                  src="${escapeHtml(p.image || './assets/team-placeholder.svg')}" 
                   alt="${escapeHtml(p.title || p.name || 'Player')}" 
                   class="w-8 h-8 rounded-full object-cover bg-slate-800 border border-slate-700 flex-shrink-0"
-                  onerror="this.src='https://flagcdn.com/w160/un.png'"
+                  onerror="this.src='./assets/team-placeholder.svg'"
                 />
                 <div class="flex-1 min-w-0">
                   <p class="text-xs font-semibold text-slate-200 truncate">${escapeHtml(p.title || p.name || 'Player')}</p>
@@ -2903,7 +2935,7 @@
         return `
           <div class="flex items-center justify-between p-2.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-sky-500/40 transition mb-2">
             <div class="flex items-center gap-3 min-w-0">
-              <img src="${escapeHtml(logo)}" class="w-8 h-8 rounded-lg object-contain bg-white/5 p-1 border border-white/10 flex-shrink-0" onerror="this.src='https://flagcdn.com/w160/un.png'" alt="${name}" />
+              <img src="${escapeHtml(logo)}" class="w-8 h-8 rounded-lg object-contain bg-white/5 p-1 border border-white/10 flex-shrink-0" onerror="this.src='./assets/team-placeholder.svg'" alt="${name}" />
               <div class="min-w-0">
                 <div class="text-xs font-bold text-slate-100 truncate">${name}</div>
                 <div class="text-[10px] text-sky-400 font-semibold flex items-center gap-1.5 mt-0.5">

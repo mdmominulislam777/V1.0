@@ -62,7 +62,7 @@ function sanitizeSportradarTier(t?: any): string {
   return str;
 }
 
-const SPORTRADAR_CRICKET_API_KEY = envSrKey || (isLikelyApiKey(envSrTierRaw) ? envSrTierRaw : "");
+const SPORTRADAR_CRICKET_API_KEY = envSrKey || (isLikelyApiKey(envSrTierRaw) ? envSrTierRaw : "JMrqYPy7ajprQxflthCOqu9lQN6J2yWU5SOWRXv8");
 const SPORTRADAR_CRICKET_TIER = sanitizeSportradarTier(envSrTierRaw);
 
 // Cricbuzz API toggle: Permanently disabled per user request
@@ -549,7 +549,7 @@ async function startServer() {
       }
     }
 
-    if (!teamName) return "https://flagcdn.com/w320/un.png";
+    if (!teamName) return "./assets/team-placeholder.svg";
     const tLower = teamName.toLowerCase().trim();
 
     // 2. Exact match in curated database
@@ -571,7 +571,7 @@ async function startServer() {
       }
     }
 
-    return "https://flagcdn.com/w320/un.png";
+    return "./assets/team-placeholder.svg";
   }
 
   // Helper: Format team score from Cricbuzz matchScore
@@ -656,11 +656,11 @@ async function startServer() {
 
                   const t1Logo = resolveHDTeamLogo(
                     t1Name,
-                    t1.imageId ? `https://static.cricbuzz.com/a/img/v1/300x300/i1/c${t1.imageId}/team.jpg` : "https://flagcdn.com/w320/un.png"
+                    t1.imageId ? `https://static.cricbuzz.com/a/img/v1/300x300/i1/c${t1.imageId}/team.jpg` : "./assets/team-placeholder.svg"
                   );
                   const t2Logo = resolveHDTeamLogo(
                     t2Name,
-                    t2.imageId ? `https://static.cricbuzz.com/a/img/v1/300x300/i1/c${t2.imageId}/team.jpg` : "https://flagcdn.com/w320/un.png"
+                    t2.imageId ? `https://static.cricbuzz.com/a/img/v1/300x300/i1/c${t2.imageId}/team.jpg` : "./assets/team-placeholder.svg"
                   );
 
                   let startTimestamp = parseInt(info.startDate) || curNow;
@@ -840,8 +840,8 @@ async function startServer() {
               for (const ev of (tsdbJson.events || [])) {
                 const t1N = ev.strHomeTeam || "Team 1";
                 const t2N = ev.strAwayTeam || "Team 2";
-                const t1L = resolveHDTeamLogo(t1N, ev.strHomeTeamBadge || "https://flagcdn.com/w320/un.png");
-                const t2L = resolveHDTeamLogo(t2N, ev.strAwayTeamBadge || "https://flagcdn.com/w320/un.png");
+                const t1L = resolveHDTeamLogo(t1N, ev.strHomeTeamBadge || "./assets/team-placeholder.svg");
+                const t2L = resolveHDTeamLogo(t2N, ev.strAwayTeamBadge || "./assets/team-placeholder.svg");
                 let sTs = curNow;
                 if (ev.strTimestamp) sTs = new Date(ev.strTimestamp).getTime();
                 else if (ev.dateEvent && ev.strTime) sTs = new Date(`${ev.dateEvent}T${ev.strTime}`).getTime();
@@ -1309,6 +1309,54 @@ async function startServer() {
       try {
         const events: any[] = [];
         const seenIds = new Set<string>();
+        const seenFingerprints = new Map<string, any>();
+
+        const getCricketFingerprint = (ev: any) => {
+          if (!ev) return null;
+          const t1 = (ev.team1?.name || ev.homeTeam?.name || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+          const t2 = (ev.team2?.name || ev.awayTeam?.name || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+          const date = (ev.date || "").split("T")[0];
+          if (t1 && t2) {
+            const sorted = [t1, t2].sort().join("__vs__");
+            return `${sorted}::${date}`;
+          }
+          return ev.id;
+        };
+
+        const addCricketEvent = (ev: any) => {
+          if (!ev || !ev.id) return;
+          if (seenIds.has(ev.id)) return;
+          const fp = getCricketFingerprint(ev);
+          if (fp && seenFingerprints.has(fp)) {
+            const existing = seenFingerprints.get(fp);
+            if (existing.status !== "live" && ev.status === "live") {
+              existing.status = "live";
+              existing.statusText = ev.statusText || "LIVE NOW";
+              existing.statusLabel = "LIVE";
+              existing.timeOrTimer = "LIVE";
+            }
+            if (ev.team1?.score && !existing.team1?.score) {
+              existing.team1.score = ev.team1.score;
+              existing.team1.overs = ev.team1.overs;
+            }
+            if (ev.team2?.score && !existing.team2?.score) {
+              existing.team2.score = ev.team2.score;
+              existing.team2.overs = ev.team2.overs;
+            }
+            return;
+          }
+          seenIds.add(ev.id);
+          if (fp) seenFingerprints.set(fp, ev);
+          events.push(ev);
+        };
 
         // 1. Fetch live schedule (Sportradar Cricket v2 route: schedules/live/schedule.json)
         const liveRes = await fetchSportradarApi("schedules/live/schedule.json", activeKey, cleanTier);
@@ -1320,10 +1368,7 @@ async function startServer() {
             : [];
           for (const item of list) {
             const ev = normalizeSportradarEvent(item);
-            if (ev && !seenIds.has(ev.id)) {
-              seenIds.add(ev.id);
-              events.push(ev);
-            }
+            if (ev) addCricketEvent(ev);
           }
         }
 
@@ -1345,10 +1390,7 @@ async function startServer() {
             : [];
           for (const item of list) {
             const ev = normalizeSportradarEvent(item);
-            if (ev && !seenIds.has(ev.id)) {
-              seenIds.add(ev.id);
-              events.push(ev);
-            }
+            if (ev) addCricketEvent(ev);
           }
         }
 
@@ -1370,10 +1412,7 @@ async function startServer() {
             : [];
           for (const item of list) {
             const ev = normalizeSportradarEvent(item);
-            if (ev && !seenIds.has(ev.id)) {
-              seenIds.add(ev.id);
-              events.push(ev);
-            }
+            if (ev) addCricketEvent(ev);
           }
         }
 
@@ -1401,15 +1440,9 @@ async function startServer() {
     return inFlightPromises.sportradarCricketMatches;
   }
 
-  // Proxy: Cricket Data API (RapidAPI live cricket engine + optional Sportradar integration)
+  // Proxy: Cricket Data API (Strictly Sportradar Official Cricket API only)
   app.get("/api/cricket/matches", async (req, res) => {
     try {
-      const rapidKey = (typeof req.query.rapidapikey === "string" && req.query.rapidapikey.trim())
-        ? req.query.rapidapikey.trim()
-        : (typeof req.headers["x-rapidapi-key"] === "string" && req.headers["x-rapidapi-key"].trim()
-          ? req.headers["x-rapidapi-key"].trim()
-          : RAPIDAPI_KEY);
-      
       const srKey = (typeof req.query.sportradar_key === "string" && req.query.sportradar_key.trim())
         ? req.query.sportradar_key.trim()
         : (typeof req.headers["x-sportradar-api-key"] === "string" && req.headers["x-sportradar-api-key"].trim()
@@ -1418,65 +1451,26 @@ async function startServer() {
 
       const srTier = sanitizeSportradarTier(req.query.sportradar_tier || req.headers["x-sportradar-tier"]);
 
-      // If requested only from Sportradar:
-      if (req.query.provider === "sportradar") {
-        if (!srKey) {
-          return res.status(400).json({ status: "error", message: "Sportradar API key required." });
-        }
-        const srMatches = await getNormalizedSportradarCricketMatches(srKey, srTier);
-        return res.json({
-          status: "success",
-          source: "Sportradar",
-          total: srMatches.length,
-          data: srMatches,
-        });
-      }
-
-      // If Cricbuzz API is paused, prioritize Sportradar as the primary engine:
-      if (!ENABLE_CRICBUZZ_API) {
-        if (srKey) {
-          const srMatches = await getNormalizedSportradarCricketMatches(srKey, srTier);
-          return res.json({
-            status: "success",
-            source: "Sportradar",
-            total: srMatches.length,
-            data: srMatches,
-          });
-        }
+      if (!srKey) {
         return res.json({
           status: "success",
           source: "Sportradar",
           total: 0,
           data: [],
-          message: "Cricbuzz API is temporarily paused per user configuration. Provide Sportradar API key to view cricket matches.",
+          message: "Sportradar API key required for cricket matches."
         });
       }
 
-      // Automatically fetch from high-speed RapidAPI Cricket Engine (if enabled)
-      let rapidEvents = await getNormalizedRapidCricketMatches(rapidKey);
-
-      // Merge Sportradar matches if key is configured or explicitly requested
-      if (srKey && (req.query.includesportradar === "true" || !!process.env.SPORTRADAR_CRICKET_API_KEY)) {
-        try {
-          const srMatches = await getNormalizedSportradarCricketMatches(srKey, srTier);
-          if (srMatches && srMatches.length > 0) {
-            const existingTitles = new Set(rapidEvents.map((e: any) => (e.title || "").toLowerCase()));
-            const newSr = srMatches.filter((e: any) => !existingTitles.has((e.title || "").toLowerCase()));
-            rapidEvents = [...newSr, ...rapidEvents];
-          }
-        } catch (e: any) {
-          console.warn("[Backend Proxy] Sportradar auto-merge note:", e.message);
-        }
-      }
-
-      res.json({
+      const srMatches = await getNormalizedSportradarCricketMatches(srKey, srTier);
+      return res.json({
         status: "success",
-        source: rapidEvents.some((e: any) => e.source === "Sportradar") ? "Sportradar + RapidAPI" : "RapidAPI",
-        data: rapidEvents,
+        source: "Sportradar",
+        total: srMatches.length,
+        data: srMatches,
       });
     } catch (err: any) {
-      console.warn("[Backend Proxy] Cricket error:", err.message);
-      res.json({ status: "ok", data: [], error: "Failed to fetch cricket matches" });
+      console.warn("[Backend Proxy] Sportradar cricket error:", err.message);
+      res.json({ status: "ok", data: [], error: "Failed to fetch cricket matches from Sportradar" });
     }
   });
 
@@ -1973,20 +1967,23 @@ async function startServer() {
   // Helper: Normalize Sport Name from TheSportsDB
   function normalizeSportsDbSport(strSport: string = ""): { sport: string; sportName: string; sportIcon: string } {
     const s = strSport.toLowerCase();
-    if (s.includes("soccer") || s.includes("football") && !s.includes("american")) {
+    if (s.includes("rugby")) {
+      return { sport: "rugby", sportName: "Rugby", sportIcon: "fa-football" };
+    }
+    if (s.includes("baseball") || s.includes("mlb")) {
+      return { sport: "baseball", sportName: "Baseball", sportIcon: "fa-baseball" };
+    }
+    if (s.includes("soccer") || (s.includes("football") && !s.includes("american"))) {
       return { sport: "football", sportName: "Football", sportIcon: "fa-futbol" };
     }
     if (s.includes("cricket")) {
       return { sport: "cricket", sportName: "Cricket", sportIcon: "fa-baseball-bat-ball" };
     }
-    if (s.includes("basketball") || s.includes("nba")) {
+    if (s.includes("basketball") || s.includes("nba") || s.includes("wnba")) {
       return { sport: "basketball", sportName: "Basketball", sportIcon: "fa-basketball" };
     }
     if (s.includes("motorsport") || s.includes("racing") || s.includes("formula")) {
       return { sport: "motorsport", sportName: "Motorsport", sportIcon: "fa-car-side" };
-    }
-    if (s.includes("baseball") || s.includes("mlb")) {
-      return { sport: "baseball", sportName: "Baseball", sportIcon: "fa-baseball" };
     }
     if (s.includes("tennis")) {
       return { sport: "tennis", sportName: "Tennis", sportIcon: "fa-table-tennis-paddle-ball" };
@@ -2007,6 +2004,11 @@ async function startServer() {
   function normalizeSportsDbEvent(raw: any): any {
     if (!raw || !raw.idEvent) return null;
     const { sport, sportName, sportIcon } = normalizeSportsDbSport(raw.strSport);
+
+    // Strictly enforce: Cricket is ONLY from Sportradar API
+    if (sport === "cricket" || (raw.strSport && raw.strSport.toLowerCase() === "cricket")) {
+      return null;
+    }
 
     let timestamp = Date.now();
     if (raw.strTimestamp) {
@@ -2137,6 +2139,236 @@ async function startServer() {
     };
   }
 
+  // Helper: Fetch all curated live/scheduled events from ESPN official public API
+  let espnCache: { timestamp: number; data: any[] } = { timestamp: 0, data: [] };
+  const ESPN_CACHE_TTL = 3 * 60 * 1000;
+
+  async function fetchEspnAllEvents(): Promise<any[]> {
+    const now = Date.now();
+    if (espnCache.data.length > 0 && now - espnCache.timestamp < ESPN_CACHE_TTL) {
+      return espnCache.data;
+    }
+
+    const events: any[] = [];
+    const todayStr = new Date().toISOString().split("T")[0].replace(/-/g, "");
+
+    const normalizeEspnEvent = (ev: any, sport: string, sportName: string, sportIcon: string, defaultLeague: string) => {
+      try {
+        const comp = ev.competitions?.[0];
+        const competitors = comp?.competitors || [];
+        const home = competitors.find((c: any) => c.homeAway === "home") || competitors[0];
+        const away = competitors.find((c: any) => c.homeAway === "away") || competitors[1];
+
+        const t1Name = (home?.team?.displayName || home?.athlete?.displayName || home?.team?.name || "").trim();
+        const t2Name = (away?.team?.displayName || away?.athlete?.displayName || away?.team?.name || "").trim();
+
+        const isPlaceholder = (s: string) => {
+          if (!s) return true;
+          const lower = s.toLowerCase().trim();
+          return lower === "team 1" || lower === "team 2" || lower === "player 1" || lower === "player 2" ||
+                 lower === "home team" || lower === "away team" || lower === "tbd" || lower === "tba" || lower === "unknown";
+        };
+        if (isPlaceholder(t1Name) || isPlaceholder(t2Name)) {
+          return null;
+        }
+
+        const t1Logo = home?.team?.logo || home?.athlete?.flag?.href || "./assets/team-placeholder.svg";
+        const t2Logo = away?.team?.logo || away?.athlete?.flag?.href || "./assets/team-placeholder.svg";
+
+        const t1Score = home?.score !== undefined ? String(home.score) : "";
+        const t2Score = away?.score !== undefined ? String(away.score) : "";
+
+        const statusObj = ev.status?.type || {};
+        let status = "upcoming";
+        let statusLabel = "Upcoming";
+        let statusText = "Scheduled";
+
+        if (statusObj.completed || statusObj.name === "STATUS_FINAL" || statusObj.state === "post") {
+          status = "finished";
+          statusLabel = "FT";
+          statusText = statusObj.detail || "Final";
+        } else if (statusObj.state === "in" || statusObj.name?.includes("LIVE") || statusObj.name?.includes("IN_PROGRESS")) {
+          status = "live";
+          statusLabel = "LIVE";
+          statusText = statusObj.detail || "LIVE";
+        }
+
+        const timestamp = Date.parse(ev.date) || Date.now();
+        const dateStr = ev.date ? ev.date.split("T")[0] : new Date(timestamp).toISOString().split("T")[0];
+
+        const broadcasts = (comp?.broadcasts?.[0]?.names || []).concat(comp?.geoBroadcasts?.map((b: any) => b.media?.shortName).filter(Boolean) || []);
+        const broadcaster = broadcasts.length > 0 ? broadcasts[0] : "";
+        const league = defaultLeague || comp?.league?.name || sportName;
+
+        return {
+          id: `espn-${ev.id}`,
+          idEvent: ev.id,
+          sport,
+          sportName,
+          sportIcon,
+          title: t1Name && t2Name ? `${t1Name} vs ${t2Name}` : ev.name,
+          name: ev.name,
+          league,
+          tournament: league,
+          status,
+          statusText,
+          statusLabel,
+          timestamp,
+          date: dateStr,
+          matchTime: new Date(timestamp).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true }),
+          timeOrTimer: status === "live" ? "LIVE" : (status === "finished" ? (t1Score && t2Score ? `${t1Score} - ${t2Score}` : "FT") : "Scheduled"),
+          team1: { id: home?.id || null, name: t1Name, logo: t1Logo, score: t1Score },
+          team2: { id: away?.id || null, name: t2Name, logo: t2Logo, score: t2Score },
+          homeTeam: { id: home?.id || null, name: t1Name, logo: t1Logo, score: t1Score },
+          awayTeam: { id: away?.id || null, name: t2Name, logo: t2Logo, score: t2Score },
+          score: t1Score && t2Score ? `${t1Score} - ${t2Score}` : "",
+          broadcaster,
+          broadcasters: broadcasts,
+          strTVStation: broadcaster,
+          source: "ESPN (Official API)",
+          streams: []
+        };
+      } catch {
+        return null;
+      }
+    };
+
+    // 1. Baseball (MLB)
+    try {
+      const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${todayStr}`);
+      if (res.ok) {
+        const json = await res.json();
+        for (const ev of (json.events || [])) {
+          const norm = normalizeEspnEvent(ev, "baseball", "Baseball", "fa-baseball", "MLB");
+          if (norm) events.push(norm);
+        }
+      }
+    } catch {}
+
+    // 2. Basketball (WNBA & NBA)
+    try {
+      const resW = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/scoreboard?dates=${todayStr}`);
+      if (resW.ok) {
+        const jsonW = await resW.json();
+        for (const ev of (jsonW.events || [])) {
+          const norm = normalizeEspnEvent(ev, "basketball", "Basketball", "fa-basketball", "WNBA");
+          if (norm) events.push(norm);
+        }
+      }
+      const resN = await fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard");
+      if (resN.ok) {
+        const jsonN = await resN.json();
+        for (const ev of (jsonN.events || [])) {
+          const norm = normalizeEspnEvent(ev, "basketball", "Basketball", "fa-basketball", "NBA");
+          if (norm) events.push(norm);
+        }
+      }
+    } catch {}
+
+    // 3. Rugby
+    try {
+      const rugbyEndpoints = [
+        { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/289234/scoreboard", league: "The Rugby Championship" },
+        { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/270559/scoreboard", league: "Top 14 Rugby" },
+        { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/269/scoreboard", league: "Premiership Rugby" }
+      ];
+      for (const rEp of rugbyEndpoints) {
+        const resR = await fetch(rEp.url).catch(() => null);
+        if (resR && resR.ok) {
+          const jsonR = await resR.json();
+          for (const ev of (jsonR.events || [])) {
+            const norm = normalizeEspnEvent(ev, "rugby", "Rugby", "fa-football", rEp.league);
+            if (norm) events.push(norm);
+          }
+        }
+      }
+    } catch {}
+
+    // 4. Tennis
+    try {
+      const tennisEndpoints = [
+        { url: "https://site.api.espn.com/apis/site/v2/sports/tennis/atp/scoreboard", defaultTourn: "ATP Tour" },
+        { url: "https://site.api.espn.com/apis/site/v2/sports/tennis/wta/scoreboard", defaultTourn: "WTA Tour" }
+      ];
+      for (const tEp of tennisEndpoints) {
+        const resT = await fetch(tEp.url).catch(() => null);
+        if (resT && resT.ok) {
+          const jsonT = await resT.json();
+          for (const ev of (jsonT.events || [])) {
+            const tournamentName = ev.name || tEp.defaultTourn;
+            for (const grp of (ev.groupings || [])) {
+              for (const comp of (grp.competitions || [])) {
+                const competitors = comp.competitors || [];
+                const p1 = competitors[0];
+                const p2 = competitors[1];
+                const p1Name = (p1?.athlete?.displayName || p1?.team?.displayName || "").trim();
+                const p2Name = (p2?.athlete?.displayName || p2?.team?.displayName || "").trim();
+                
+                const isTennisPlaceholder = (name: string) => {
+                  if (!name) return true;
+                  const lower = name.toLowerCase().trim();
+                  return lower === "player 1" || lower === "player 2" || lower === "tbd" || lower === "tba" || lower === "unknown";
+                };
+
+                if (isTennisPlaceholder(p1Name) || isTennisPlaceholder(p2Name)) {
+                  continue;
+                }
+                const p1Logo = p1?.athlete?.flag?.href || p1?.athlete?.headshot?.href || "./assets/team-placeholder.svg";
+                const p2Logo = p2?.athlete?.flag?.href || p2?.athlete?.headshot?.href || "./assets/team-placeholder.svg";
+                const statusObj = comp.status?.type || {};
+                let status = "upcoming";
+                let statusLabel = "Upcoming";
+                let statusText = "Scheduled";
+                if (statusObj.completed || statusObj.name === "STATUS_FINAL" || statusObj.state === "post") {
+                  status = "finished";
+                  statusLabel = "FT";
+                  statusText = statusObj.detail || "Final";
+                } else if (statusObj.state === "in") {
+                  status = "live";
+                  statusLabel = "LIVE";
+                  statusText = "LIVE";
+                }
+                const timestamp = Date.parse(comp.date || ev.date) || Date.now();
+                events.push({
+                  id: `espn-tennis-${comp.id}`,
+                  idEvent: comp.id,
+                  sport: "tennis",
+                  sportName: "Tennis",
+                  sportIcon: "fa-table-tennis-paddle-ball",
+                  title: `${p1Name} vs ${p2Name}`,
+                  name: `${p1Name} vs ${p2Name}`,
+                  league: tournamentName,
+                  tournament: tournamentName,
+                  status,
+                  statusText,
+                  statusLabel,
+                  timestamp,
+                  date: (comp.date || ev.date).split("T")[0],
+                  matchTime: new Date(timestamp).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true }),
+                  timeOrTimer: status === "live" ? "LIVE" : (status === "finished" ? "FT" : "Scheduled"),
+                  team1: { id: p1?.id || null, name: p1Name, logo: p1Logo, score: "" },
+                  team2: { id: p2?.id || null, name: p2Name, logo: p2Logo, score: "" },
+                  homeTeam: { id: p1?.id || null, name: p1Name, logo: p1Logo, score: "" },
+                  awayTeam: { id: p2?.id || null, name: p2Name, logo: p2Logo, score: "" },
+                  broadcaster: "",
+                  broadcasters: [],
+                  strTVStation: "",
+                  source: "ESPN (Official API)",
+                  streams: []
+                });
+              }
+            }
+          }
+        }
+      }
+    } catch {}
+
+    if (events.length > 0) {
+      espnCache = { timestamp: now, data: events };
+    }
+    return espnCache.data;
+  }
+
   // Helper: Fetch all curated events from TheSportsDB free API (Single-Flight Promise Coalescer)
   async function fetchTheSportsDBAllEvents(): Promise<any[]> {
     const now = Date.now();
@@ -2160,7 +2392,10 @@ async function startServer() {
         "4427", // UEFA Nations League
         "4906", // Saudi Pro League
         "4346", // MLS
+        "4424", // MLB Baseball
         "4387", // NBA
+        "4408", // EuroLeague Basketball
+        "4441", // Basketball
         "4370", // Formula 1
         "4380", // NHL Ice Hockey
         "4464", // ATP Tennis
@@ -2168,13 +2403,8 @@ async function startServer() {
         "4581", // Laver Cup Tennis
         "4466", // Grand Slam Tennis (US Open)
         "4467", // Wimbledon
-        "4885", // International Cricket Tours
-        "4886", // ICC T20 World Cup
-        "4443", // ICC Cricket World Cup / UFC
-        "4444", // ICC Champions Trophy
-        "4442", // Indian Premier League (IPL)
-        "4887", // Big Bash League (BBL)
-        "4888", // Pakistan Super League (PSL)
+        "4414", // Premiership Rugby
+        "4417", // NRL Rugby
       ];
 
       const todayStr = new Date().toISOString().split("T")[0];
@@ -2209,19 +2439,84 @@ async function startServer() {
       try {
         const results = await Promise.allSettled(promises);
         const seenEventIds = new Set<string>();
+        const seenFingerprints = new Map<string, any>();
         const normalizedEvents: any[] = [];
+
+        const getMatchFingerprint = (item: any) => {
+          if (!item) return null;
+          const sp = (item.sport || item.strSport || "").toLowerCase().trim();
+          const t1 = (item.team1?.name || item.strHomeTeam || item.homeTeam?.name || "")
+            .toLowerCase()
+            .replace(/\b(fc|cf|sc|ac|afc|club|the|women|w)\b/gi, "")
+            .replace(/[^a-z0-9]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+          const t2 = (item.team2?.name || item.strAwayTeam || item.awayTeam?.name || "")
+            .toLowerCase()
+            .replace(/\b(fc|cf|sc|ac|afc|club|the|women|w)\b/gi, "")
+            .replace(/[^a-z0-9]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+          const date = (item.date || item.dateEvent || "").split("T")[0];
+          if (t1 && t2) {
+            const sorted = [t1, t2].sort().join("__vs__");
+            return `${sp}::${sorted}::${date}`;
+          }
+          const title = (item.title || item.strEvent || item.name || "")
+            .toLowerCase()
+            .replace(/[^a-z0-9]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+          return `${sp}::${title}::${date}`;
+        };
+
+        const addDedupedEvent = (ev: any) => {
+          if (!ev || !ev.id) return;
+          if (seenEventIds.has(ev.id)) return;
+          const fp = getMatchFingerprint(ev);
+          if (fp && seenFingerprints.has(fp)) {
+            // Already have this match: enrich existing instead of duplicating
+            const existing = seenFingerprints.get(fp);
+            if (existing.status !== "live" && ev.status === "live") {
+              existing.status = "live";
+              existing.statusText = ev.statusText || "LIVE NOW";
+              existing.statusLabel = "LIVE";
+              existing.timeOrTimer = "LIVE";
+            }
+            if (!existing.score && ev.score) {
+              existing.score = ev.score;
+              if (existing.team1 && ev.team1?.score) existing.team1.score = ev.team1.score;
+              if (existing.team2 && ev.team2?.score) existing.team2.score = ev.team2.score;
+            }
+            if (!existing.broadcaster && ev.broadcaster) {
+              existing.broadcaster = ev.broadcaster;
+              existing.broadcasters = ev.broadcasters || [ev.broadcaster];
+            }
+            return;
+          }
+          seenEventIds.add(ev.id);
+          if (fp) seenFingerprints.set(fp, ev);
+          normalizedEvents.push(ev);
+        };
 
         for (const res of results) {
           if (res.status === "fulfilled" && res.value && Array.isArray(res.value.events)) {
             for (const rawEv of res.value.events) {
-              if (rawEv && rawEv.idEvent && !seenEventIds.has(rawEv.idEvent)) {
-                seenEventIds.add(rawEv.idEvent);
+              if (rawEv && rawEv.idEvent) {
                 const norm = normalizeSportsDbEvent(rawEv);
-                if (norm) normalizedEvents.push(norm);
+                if (norm) addDedupedEvent(norm);
               }
             }
           }
         }
+
+        // Also merge real-time official ESPN events for Baseball, Basketball, Tennis, and Rugby
+        try {
+          const espnEvents = await fetchEspnAllEvents();
+          for (const ee of espnEvents) {
+            addDedupedEvent(ee);
+          }
+        } catch {}
 
         if (normalizedEvents.length > 0) {
           sportsDbCache.events = { timestamp: Date.now(), data: normalizedEvents };
@@ -3991,6 +4286,22 @@ async function startServer() {
     } catch {
       res.json({ appName: "HIGHFY TV", version: "1.0.0", versionCode: 1, forceUpdate: false });
     }
+  });
+
+  // Disable stale browser caching for app scripts, styles, and html
+  app.use((req, res, next) => {
+    if (
+      req.path === "/" ||
+      req.path === "/index.html" ||
+      req.path.endsWith(".js") ||
+      req.path.endsWith(".css") ||
+      req.path.endsWith(".json")
+    ) {
+      res.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
+      res.setHeader("Pragma", "no-cache");
+      res.setHeader("Expires", "0");
+    }
+    next();
   });
 
   // Vite middleware for development vs Static files in production
