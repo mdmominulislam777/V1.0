@@ -2114,7 +2114,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
 
 /* PlayZ Card Layout - Slimmer Compact Mobile Profile */
 .playz-card {
-  padding: 6px 12px 7px 12px;
+  padding: 3px 12px 3px 12px;
 }
 
 .playz-card-header {
@@ -2123,7 +2123,8 @@ body .event-card-wrapper.is-currently-playing .event-card,
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 3px;
+  margin-top: 0px;
+  margin-bottom: 2px;
   padding: 0 4px;
 }
 
@@ -2133,6 +2134,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
   justify-content: center;
   gap: 5px;
   max-width: 100%;
+  line-height: 1.1;
 }
 
 .playz-header-icon {
@@ -2148,6 +2150,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.1;
 }
 
 .playz-card-body {
@@ -2213,9 +2216,10 @@ body .event-card-wrapper.is-currently-playing .event-card,
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
   min-width: 90px;
+  min-height: 52px;
   padding: 0 2px;
 }
 
@@ -2223,6 +2227,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  margin-top: 1px;
   margin-bottom: 2px;
 }
 
@@ -2249,6 +2254,9 @@ body .event-card-wrapper.is-currently-playing .event-card,
   color: #e2e8f0;
   letter-spacing: 0.4px;
   font-variant-numeric: tabular-nums;
+  margin-top: auto;
+  margin-bottom: 0px;
+  padding-bottom: 1px;
 }
 
 .playz-time-text {
@@ -2257,6 +2265,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
   color: #ffffff;
   letter-spacing: 0.2px;
   line-height: 1.15;
+  margin-top: 0px;
 }
 
 .playz-date-text {
@@ -2271,8 +2280,10 @@ body .event-card-wrapper.is-currently-playing .event-card,
   font-size: 10px;
   font-weight: 500;
   color: #94a3b8;
-  margin-top: 1px;
+  margin-top: auto;
+  margin-bottom: 0px;
   line-height: 1.15;
+  padding-bottom: 1px;
 }
 
 .playz-finished-tag {
@@ -2283,12 +2294,16 @@ body .event-card-wrapper.is-currently-playing .event-card,
   border: 1px solid rgba(148, 163, 184, 0.3);
   border-radius: 4px;
   padding: 1px 5px;
+  margin-top: 1px;
   margin-bottom: 1px;
 }
 
 .playz-finished-sub {
   font-size: 10px;
   color: #94a3b8;
+  margin-top: auto;
+  margin-bottom: 0px;
+  padding-bottom: 1px;
 }
 
 /* Strictly hide favorite star on match cards per user request */
@@ -2617,7 +2632,7 @@ body .card-fav-star-btn,
 }
 
 @media (max-width: 375px) {
-  .event-card {
+  .event-card:not(.playz-card) {
     height: 80px;
   }
   .card-left-ribbon {
