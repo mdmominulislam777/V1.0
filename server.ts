@@ -1443,25 +1443,8 @@ async function startServer() {
   // Proxy: Cricket Data API (Strictly Sportradar Official Cricket API only)
   app.get("/api/cricket/matches", async (req, res) => {
     try {
-      const srKey = (typeof req.query.sportradar_key === "string" && req.query.sportradar_key.trim())
-        ? req.query.sportradar_key.trim()
-        : (typeof req.headers["x-sportradar-api-key"] === "string" && req.headers["x-sportradar-api-key"].trim()
-          ? req.headers["x-sportradar-api-key"].trim()
-          : SPORTRADAR_CRICKET_API_KEY);
-
-      const srTier = sanitizeSportradarTier(req.query.sportradar_tier || req.headers["x-sportradar-tier"]);
-
-      if (!srKey) {
-        return res.json({
-          status: "success",
-          source: "Sportradar",
-          total: 0,
-          data: [],
-          message: "Sportradar API key required for cricket matches."
-        });
-      }
-
-      const srMatches = await getNormalizedSportradarCricketMatches(srKey, srTier);
+      // Use server-side configured key exclusively for security
+      const srMatches = await getNormalizedSportradarCricketMatches();
       return res.json({
         status: "success",
         source: "Sportradar",

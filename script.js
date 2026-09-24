@@ -3787,12 +3787,9 @@
     try {
       const res = await fetch('./categories.json');
       const loaded = await res.json();
-      const sportsKeywords = ['sports', 'sky sports', 'bein sports', 'tnt sports', 'icc', 'tapmad', 'myco', 'sony liv', 'star sports', 'fancode', 'dazn', 'fox sports', 'espn', 'tsn', 'canal', 'canal+ sport', 'cricket', 'football', 'wwe', 'tennis'];
-      state.categories = (loaded || []).filter(cat => {
-        const id = (cat.id || '').toLowerCase();
-        const n = (cat.name || '').toLowerCase();
-        return !sportsKeywords.includes(n) && !sportsKeywords.includes(id) && !id.includes('sports');
-      });
+      // Load all categories
+      state.categories = (loaded || []);
+
     } catch (e) {
       console.warn('[HighFy] Error loading categories.json:', e);
       state.categories = [];
@@ -4460,7 +4457,7 @@
     }
     const letter = ((name || 'TV').charAt(0) || 'T').toUpperCase();
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="dom" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#dom)"/><text x="50%" y="54%" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${letter}</text></svg>`;
-    return `data:image/png;charset=utf-8,${encodeURIComponent(svg)}`;
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
   }
 
   /**
@@ -4997,6 +4994,27 @@
       }
     }
 
+    function showPlayerWatermark() {
+      if (DOM.playerWatermark && DOM.videoElement && !DOM.videoElement.paused && DOM.videoElement.readyState >= 2) {
+        DOM.playerWatermark.classList.add('visible');
+      }
+    }
+
+    function hidePlayerWatermark() {
+      if (DOM.playerWatermark) {
+        DOM.playerWatermark.classList.remove('visible');
+      }
+    }
+
+    function hideSpinnerAndClearWatchdog() {
+      if (streamLoadWatchdog) {
+        clearTimeout(streamLoadWatchdog);
+        streamLoadWatchdog = null;
+      }
+      if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
+      showPlayerWatermark();
+    }
+
     if (DOM.playerError) DOM.playerError.style.display = 'none';
     if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'block';
     hidePlayerWatermark();
@@ -5018,7 +5036,7 @@
 
     let isFailoverTriggered = false;
 
-    const tryNextServerOrFallback = (immediate = false) => {
+    function tryNextServerOrFallback(immediate = false) {
       if (isFailoverTriggered) return;
       isFailoverTriggered = true;
 
@@ -5059,28 +5077,7 @@
       // If all options exhausted, display clean error
       const channelTitle = state.currentPlayingItem?.title || 'this channel';
       showPlayerError(`Live stream is temporarily unavailable for ${channelTitle}. Please select another server or tap Retry.`);
-    };
-
-    const showPlayerWatermark = () => {
-      if (DOM.playerWatermark && DOM.videoElement && !DOM.videoElement.paused && DOM.videoElement.readyState >= 2) {
-        DOM.playerWatermark.classList.add('visible');
-      }
-    };
-
-    const hidePlayerWatermark = () => {
-      if (DOM.playerWatermark) {
-        DOM.playerWatermark.classList.remove('visible');
-      }
-    };
-
-    const hideSpinnerAndClearWatchdog = () => {
-      if (streamLoadWatchdog) {
-        clearTimeout(streamLoadWatchdog);
-        streamLoadWatchdog = null;
-      }
-      if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
-      showPlayerWatermark();
-    };
+    }
 
     // Fast 1-Second Watchdog: If stream doesn't start or load within 1000ms, auto-failover to next server
     streamLoadWatchdog = setTimeout(() => {

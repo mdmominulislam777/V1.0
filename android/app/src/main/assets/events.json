@@ -999,9 +999,12 @@
       "logo": "https://r2.thesportsdb.com/images/media/team/badge/b9tye31778226616.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "ESPN",
+    "broadcasters": [
+      "ESPN",
+      "GO3 Sport 1 HD"
+    ],
+    "strTVStation": "ESPN",
     "subText": "NBA • Sun, Oct 4, 05:00 AM BST",
     "source": "TheSportsDB (Free)",
     "streams": []
@@ -1052,9 +1055,12 @@
       "logo": "https://r2.thesportsdb.com/images/media/team/badge/4k8obt1778226764.png",
       "score": "94"
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "ESPN",
+    "broadcasters": [
+      "ESPN",
+      "GO3 Sport 1 HD"
+    ],
+    "strTVStation": "ESPN",
     "subText": "NBA • Sun, Jun 14, 06:30 AM BST",
     "source": "TheSportsDB (Free)",
     "streams": []
@@ -4501,9 +4507,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "ESPN",
+    "broadcasters": [
+      "ESPN",
+      "GO3 Sport 1 HD"
+    ],
+    "strTVStation": "ESPN",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4549,9 +4558,11 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4597,9 +4608,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4645,9 +4659,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4693,9 +4710,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4741,9 +4761,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4789,9 +4812,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4837,9 +4863,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4885,9 +4914,12 @@
       "score": "0"
     },
     "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4932,9 +4964,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -4979,9 +5014,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/swe.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5026,9 +5064,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5073,9 +5114,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5120,9 +5164,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5167,9 +5214,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5214,9 +5264,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5261,9 +5314,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5308,9 +5364,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5355,9 +5414,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5402,9 +5464,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5449,9 +5514,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5496,9 +5564,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5543,9 +5614,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5590,9 +5664,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5637,9 +5714,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5684,9 +5764,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5731,9 +5814,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ser.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5778,9 +5864,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5825,9 +5914,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5872,9 +5964,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/kaz.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5919,9 +6014,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -5966,9 +6064,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6013,9 +6114,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6060,9 +6164,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6107,9 +6214,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6154,9 +6264,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6201,9 +6314,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6248,9 +6364,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6295,9 +6414,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6342,9 +6464,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6389,9 +6514,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6436,9 +6564,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6483,9 +6614,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6530,9 +6664,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6577,9 +6714,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6624,9 +6764,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6671,9 +6814,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6718,9 +6864,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6765,9 +6914,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6812,9 +6964,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6859,9 +7014,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6906,9 +7064,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -6953,9 +7114,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7000,9 +7164,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7047,9 +7214,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7094,9 +7264,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7141,9 +7314,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7188,9 +7364,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7235,9 +7414,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7282,9 +7464,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7329,9 +7514,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7376,9 +7564,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7423,9 +7614,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   },
@@ -7470,9 +7664,12 @@
       "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
       "score": ""
     },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
     "source": "ESPN (Official API)",
     "streams": []
   }

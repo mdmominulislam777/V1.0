@@ -179,19 +179,9 @@ class CricketEngine {
    * Core API Fetcher - Exclusively Sportradar Official Cricket API
    */
   async fetchFromApi(endpoint) {
-    const sportradarKey = this.getSportradarKey();
-
-    // 1. Primary: Query backend Sportradar proxy endpoint
+    // 1. Primary: Query backend Sportradar proxy endpoint (No key needed)
     try {
-      const queryParts = [];
-      if (sportradarKey) queryParts.push(`sportradar_key=${encodeURIComponent(sportradarKey)}`);
-      const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
-
-      const proxyUrl = `/api/cricket/matches${queryString}`;
-      const headers = {};
-      if (sportradarKey) headers['x-sportradar-api-key'] = sportradarKey;
-
-      const proxyRes = await fetch(proxyUrl, { headers });
+      const proxyRes = await fetch(`/api/cricket/matches`);
       if (proxyRes.ok) {
         const json = await proxyRes.json();
         if (json && Array.isArray(json.data) && json.data.length > 0) {
@@ -201,6 +191,9 @@ class CricketEngine {
     } catch (proxyErr) {
       console.warn('[CricketEngine] Backend Sportradar proxy note:', proxyErr.message);
     }
+    
+    // Key needed for fallback mechanisms
+    const sportradarKey = this.getSportradarKey();
 
     // 2. Secondary: /api/cricket/sportradar/matches direct proxy
     try {
@@ -217,7 +210,7 @@ class CricketEngine {
     } catch (srFallbackErr) {
       console.warn('[CricketEngine] Sportradar fallback error:', srFallbackErr.message);
     }
-
+    
     // 3. Client-Direct Sportradar API (for static/frontend-only environments)
     if (sportradarKey) {
       try {

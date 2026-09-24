@@ -23,7 +23,10 @@
     if (s.includes('soccer') || s.includes('football')) return 'football';
     if (s.includes('basket')) return 'basketball';
     if (s.includes('tennis')) return 'tennis';
-    if (s.includes('motor') || s.includes('formula')) return 'motorsport';
+    if (s.includes('rugby')) return 'rugby';
+    if (s.includes('baseball') || s.includes('mlb')) return 'baseball';
+    if (s.includes('hockey') || s.includes('ice hockey')) return 'hockey';
+    if (s.includes('motor') || s.includes('formula') || s.includes('racing')) return 'motorsport';
     if (s.includes('combat') || s.includes('fight') || s.includes('wwe') || s.includes('mma') || s.includes('boxing')) return 'combat';
     return s || 'sports';
   }

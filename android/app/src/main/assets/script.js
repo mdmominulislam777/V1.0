@@ -4997,6 +4997,27 @@
       }
     }
 
+    function showPlayerWatermark() {
+      if (DOM.playerWatermark && DOM.videoElement && !DOM.videoElement.paused && DOM.videoElement.readyState >= 2) {
+        DOM.playerWatermark.classList.add('visible');
+      }
+    }
+
+    function hidePlayerWatermark() {
+      if (DOM.playerWatermark) {
+        DOM.playerWatermark.classList.remove('visible');
+      }
+    }
+
+    function hideSpinnerAndClearWatchdog() {
+      if (streamLoadWatchdog) {
+        clearTimeout(streamLoadWatchdog);
+        streamLoadWatchdog = null;
+      }
+      if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
+      showPlayerWatermark();
+    }
+
     if (DOM.playerError) DOM.playerError.style.display = 'none';
     if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'block';
     hidePlayerWatermark();
@@ -5018,7 +5039,7 @@
 
     let isFailoverTriggered = false;
 
-    const tryNextServerOrFallback = (immediate = false) => {
+    function tryNextServerOrFallback(immediate = false) {
       if (isFailoverTriggered) return;
       isFailoverTriggered = true;
 
@@ -5059,28 +5080,7 @@
       // If all options exhausted, display clean error
       const channelTitle = state.currentPlayingItem?.title || 'this channel';
       showPlayerError(`Live stream is temporarily unavailable for ${channelTitle}. Please select another server or tap Retry.`);
-    };
-
-    const showPlayerWatermark = () => {
-      if (DOM.playerWatermark && DOM.videoElement && !DOM.videoElement.paused && DOM.videoElement.readyState >= 2) {
-        DOM.playerWatermark.classList.add('visible');
-      }
-    };
-
-    const hidePlayerWatermark = () => {
-      if (DOM.playerWatermark) {
-        DOM.playerWatermark.classList.remove('visible');
-      }
-    };
-
-    const hideSpinnerAndClearWatchdog = () => {
-      if (streamLoadWatchdog) {
-        clearTimeout(streamLoadWatchdog);
-        streamLoadWatchdog = null;
-      }
-      if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
-      showPlayerWatermark();
-    };
+    }
 
     // Fast 1-Second Watchdog: If stream doesn't start or load within 1000ms, auto-failover to next server
     streamLoadWatchdog = setTimeout(() => {

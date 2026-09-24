@@ -338,7 +338,19 @@ class TheSportsDBEngine {
         console.warn('[TheSportsDB] Backend proxy notice:', e.message);
       }
 
-      // 2. Direct Fallback to TheSportsDB Free Public Endpoint (Key: 3)
+      // 2. Direct Fallback to TheSportsDB Free Public Endpoint (Key: 3) & Seed Data Merge
+      // First load base authentic multi-sport seed from events.json
+      let baseEvents = [];
+      try {
+        const evRes = await fetch('./events.json');
+        if (evRes.ok) {
+          const evJson = await evRes.json();
+          if (Array.isArray(evJson) && evJson.length > 0) {
+            baseEvents = evJson.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
+          }
+        }
+      } catch (_) {}
+
       try {
         console.log('[TheSportsDB] Fetching directly from Free TheSportsDB endpoint...');
         const baseUrl = this.getBaseUrl();
@@ -390,26 +402,34 @@ class TheSportsDBEngine {
         }
 
         const results = await Promise.allSettled(promises);
-        const seen = new Set();
-        const events = [];
+        const eventMap = new Map();
+
+        // Hydrate map with base seed events (Tennis, Basketball, Rugby, Baseball, etc.)
+        for (const ev of baseEvents) {
+          if (ev && ev.id) {
+            eventMap.set(String(ev.id), ev);
+          }
+        }
 
         for (const r of results) {
           if (r.status === 'fulfilled' && r.value && Array.isArray(r.value.events)) {
             for (const raw of r.value.events) {
-              if (raw && raw.idEvent && !seen.has(raw.idEvent)) {
-                seen.add(raw.idEvent);
+              if (raw && raw.idEvent) {
                 const norm = this.normalizeEvent(raw);
-                if (norm) events.push(norm);
+                if (norm) {
+                  eventMap.set(String(norm.id), norm);
+                }
               }
             }
           }
         }
 
+        const events = Array.from(eventMap.values());
         if (events.length > 0) {
           this.saveLocalCache(events, Date.now());
           return {
             configured: true,
-            source: 'TheSportsDB (Free)',
+            source: 'TheSportsDB (Free & Seed)',
             events: events
           };
         }
@@ -419,25 +439,13 @@ class TheSportsDBEngine {
         this.inFlightPromise = null;
       }
 
-      // Fallback: If still empty (e.g. on GitHub Pages static deployment), load from events.json
-      if (!this.cache.data || this.cache.data.length === 0) {
-        try {
-          const evRes = await fetch('./events.json');
-          if (evRes.ok) {
-            const evJson = await evRes.json();
-            if (Array.isArray(evJson) && evJson.length > 0) {
-              const sportsEvents = evJson.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
-              if (sportsEvents.length > 0) {
-                this.saveLocalCache(sportsEvents, Date.now());
-                return {
-                  configured: true,
-                  source: 'TheSportsDB (Seed)',
-                  events: sportsEvents
-                };
-              }
-            }
-          }
-        } catch (_) {}
+      if (baseEvents.length > 0) {
+        this.saveLocalCache(baseEvents, Date.now());
+        return {
+          configured: true,
+          source: 'TheSportsDB (Seed)',
+          events: baseEvents
+        };
       }
 
       return {

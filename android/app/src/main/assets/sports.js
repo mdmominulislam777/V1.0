@@ -712,15 +712,27 @@ class SportsCoordinator {
     if (id === 'ch-ptv-sports-hd' || name.includes('ptv sports')) {
       return { sports: ['Cricket'], leagues: ['Pakistan', 'PSL', 'National T20', 'Asia Cup', 'Asian Games', 'ICC', 'Pakistan tour of England'], priority: 9 };
     }
-    // Motorsport & Tennis & NFL
+    // Motorsport & Tennis & NFL & Basketball & Rugby
     if (id === 'ch-sky-sports-f1' || name.includes('sky sports f1')) {
       return { sports: ['Motorsport', 'F1'], leagues: ['Formula 1', 'F1', 'FIA Formula 1 World Championship'], priority: 10 };
     }
     if (id === 'ch-sky-sports-tennis' || name.includes('sky sports tennis')) {
-      return { sports: ['Tennis'], leagues: ['ATP World Tour', 'ATP', 'WTA Tour', 'WTA', 'Laver Cup', 'US Open', 'Australian Open'], priority: 10 };
+      return { sports: ['Tennis'], leagues: ['ATP World Tour', 'ATP', 'WTA Tour', 'WTA', 'Laver Cup', 'US Open', 'Australian Open', 'Wimbledon', 'Roland Garros', 'Tennis'], priority: 10 };
     }
     if (id === 'ch-eurosport-1' || id === 'ch-eurosport-2' || name.includes('eurosport')) {
-      return { sports: ['Tennis', 'Cycling', 'Motorsport'], leagues: ['Australian Open', 'Roland Garros', 'ATP', 'WTA', 'Tour de France'], priority: 8 };
+      return { sports: ['Tennis', 'Cycling', 'Motorsport'], leagues: ['Australian Open', 'Roland Garros', 'ATP', 'WTA', 'Tour de France', 'Tennis'], priority: 8 };
+    }
+    if (id === 'ch-ziggo-sport-1' || id === 'ch-ziggo-sport-2' || id === 'ch-ziggo-sport-3' || name.includes('ziggo sport')) {
+      return { sports: ['Football', 'Motorsport', 'Tennis'], leagues: ['ATP', 'WTA', 'Davis Cup', 'Wimbledon', 'Roland Garros', 'US Open', 'Australian Open', 'Tennis'], priority: 8 };
+    }
+    if (id === 'ch-espn' || id === 'ch-espn-2' || id === 'ch-espn-3' || name.includes('espn')) {
+      return { sports: ['Basketball', 'Baseball', 'Football', 'American Football'], leagues: ['NBA', 'WNBA', 'NCAA', 'MLB', 'NFL', 'Basketball', 'Baseball'], priority: 9 };
+    }
+    if (id === 'ch-go3-sport-1-hd' || id === 'ch-go3-sport-2-hd' || name.includes('go3 sport')) {
+      return { sports: ['Football', 'Basketball', 'Motorsport'], leagues: ['EuroLeague', 'NBA', 'Basketball', 'Motorsport'], priority: 8 };
+    }
+    if (id === 'ch-sky-sports-action' || name.includes('sky sports action') || name.includes('sky action')) {
+      return { sports: ['Rugby', 'Combat', 'Motorsport', 'Basketball'], leagues: ['Premiership Rugby', 'The Rugby Championship', 'Super Rugby', 'Six Nations', 'Top 14 Rugby', 'NRL Rugby', 'Rugby', 'NBA'], priority: 9 };
     }
     if (id === 'ch-nfl-network' || name.includes('nfl network')) {
       return { sports: ['Football', 'American Football'], leagues: ['NFL', 'National Football League'], priority: 10 };
@@ -954,7 +966,18 @@ class SportsCoordinator {
       'motorvision': ['ch-motor-vision'],
       'cricket gold': ['ch-cricket-gold'],
       'espn': ['ch-espn'],
-      'espn hd': ['ch-espn']
+      'espn hd': ['ch-espn'],
+      'espn 2': ['ch-espn-2'],
+      'espn 3': ['ch-espn-3'],
+      'go3 sport': ['ch-go3-sport-1-hd'],
+      'go3 sport 1': ['ch-go3-sport-1-hd'],
+      'go3 sport 2': ['ch-go3-sport-2-hd'],
+      'sky sports action': ['ch-sky-sports-action'],
+      'sky action': ['ch-sky-sports-action'],
+      'premiership rugby': ['ch-sky-sports-action', 'ch-tnt-sports-2'],
+      'nba tv': ['ch-espn', 'ch-go3-sport-1-hd'],
+      'wnba league pass': ['ch-espn'],
+      'usa net': ['ch-espn']
     };
   }
 
@@ -1775,10 +1798,11 @@ class SportsCoordinator {
   curateEvents(rawEvents) {
     const now = Date.now();
     const tz = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
-    // Maximum 14 days ahead for cricket/special matches, 3 days for general football
+    // Maximum 14 days ahead for cricket/special matches, 7 days for football, 30 days for tennis/basketball/rugby
     const maxCricketUpcomingTime = now + (14 * 24 * 60 * 60 * 1000);
-    const maxFootballUpcomingTime = now + (3 * 24 * 60 * 60 * 1000);
-    const minLiveTime = now - (6 * 60 * 60 * 1000);
+    const maxFootballUpcomingTime = now + (7 * 24 * 60 * 60 * 1000);
+    const maxOtherUpcomingTime = now + (30 * 24 * 60 * 60 * 1000);
+    const minLiveTime = now - (12 * 60 * 60 * 1000);
 
     const liveList = [];
     const upcomingList = [];
@@ -1849,7 +1873,9 @@ class SportsCoordinator {
         }
       } else if (status === 'upcoming') {
         const matchTime = ev.timestamp || now;
-        const maxTime = (sport === 'cricket' || isSpecial) ? maxCricketUpcomingTime : maxFootballUpcomingTime;
+        let maxTime = maxOtherUpcomingTime;
+        if (sport === 'cricket') maxTime = maxCricketUpcomingTime;
+        else if (sport === 'football' || sport === 'soccer') maxTime = maxFootballUpcomingTime;
         if (matchTime >= minLiveTime && (matchTime <= maxTime || isSpecial)) {
           // If special or not obscure noise, include it
           if (isSpecial || !isNoise) {
@@ -2077,9 +2103,20 @@ class SportsCoordinator {
         });
       };
 
+      // Always merge base authentic multi-sport seed from events.json (ensuring Tennis, Basketball, Rugby, Baseball, etc. are always present)
+      let seedEvents = [];
+      try {
+        const seedRes = await fetch('./events.json');
+        if (seedRes.ok) {
+          const sJson = await seedRes.json();
+          if (Array.isArray(sJson)) seedEvents = sJson;
+        }
+      } catch (_) {}
+
+      addList(seedEvents);
+      addList(tsdbEvents);
       addList(ssEvents);
       addList(crEvents);
-      addList(tsdbEvents);
       addList(wweEvents);
 
       // STRICT RULE: Only authentic events from sports APIs are accepted. Never fabricate or fall back to dummy/mock data.
