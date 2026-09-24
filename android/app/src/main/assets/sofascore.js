@@ -105,7 +105,8 @@
       }
 
       try {
-        const url = `/api/sofascore/test?key=${encodeURIComponent(key)}&host=${encodeURIComponent(host)}`;
+        const apiBase = window.CONFIG?.API_BASE_URL || '';
+        const url = `${apiBase}/api/sofascore/test?key=${encodeURIComponent(key)}&host=${encodeURIComponent(host)}`;
         const res = await fetch(url);
         const data = await res.json();
 
@@ -148,8 +149,9 @@
 
       this.inFlightPromise = (async () => {
         try {
+          const apiBase = window.CONFIG?.API_BASE_URL || '';
           const host = this.getHost();
-          const url = `/api/sofascore/matches?key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
+          const url = `${apiBase}/api/sofascore/matches?key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
           const response = await fetch(url);
           if (!response.ok) {
             throw new Error(`SofaScore API returned status ${response.status}`);
@@ -181,9 +183,10 @@
     }
 
     async getH2HEvents(customId) {
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
       const apiKey = this.getApiKey();
       const host = this.getHost();
-      const url = `/api/sofascore/h2h?customId=${encodeURIComponent(customId || '')}&key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
+      const url = `${apiBase}/api/sofascore/h2h?customId=${encodeURIComponent(customId || '')}&key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
       try {
         const res = await fetch(url);
         if (!res.ok) return { events: [] };
@@ -195,6 +198,7 @@
     }
 
     async getSportsList(countryCode = 'GB', forceRefresh = false) {
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
       const apiKey = this.getApiKey();
       const host = this.getHost();
       const code = (countryCode || 'GB').trim().toUpperCase();
@@ -213,12 +217,12 @@
         } catch (e) {}
       }
 
-      const url = `/api/sofascore/sports/list?countryCode=${encodeURIComponent(code)}&key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
+      const url = `${apiBase}/api/sofascore/sports/list?countryCode=${encodeURIComponent(code)}&key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
       try {
         const res = await fetch(url);
         if (!res.ok) {
           // Fallback to proxy
-          const proxyUrl = `/api/sofascore/proxy?path=${encodeURIComponent(`/sports/list?countryCode=${code}`)}&key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
+          const proxyUrl = `${apiBase}/api/sofascore/proxy?path=${encodeURIComponent(`/sports/list?countryCode=${code}`)}&key=${encodeURIComponent(apiKey)}&host=${encodeURIComponent(host)}`;
           const pRes = await fetch(proxyUrl);
           if (!pRes.ok) return { status: 'error', sports: [], countrySportPriorities: [] };
           const pData = await pRes.json();

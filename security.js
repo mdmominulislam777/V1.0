@@ -112,7 +112,8 @@
     try {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 2000);
-      const res = await fetch('/api/security/check-threat', {
+      const apiBase = window.CONFIG?.API_BASE_URL || window.HIGHFY_CONFIG?.API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/security/check-threat`, {
         signal: controller.signal,
         cache: 'no-store'
       });
@@ -370,17 +371,24 @@
 
     protectStreamUrl: async (rawUrl) => {
       if (!rawUrl || typeof rawUrl !== 'string') return rawUrl;
+      const apiBase = window.CONFIG?.API_BASE_URL || window.HIGHFY_CONFIG?.API_BASE_URL || '';
       if (rawUrl.includes('/api/stream-proxy?token=')) return rawUrl;
 
       try {
-        const res = await fetch(`/api/security/protect-stream?url=${encodeURIComponent(rawUrl)}`);
+        const res = await fetch(`${apiBase}/api/security/protect-stream?url=${encodeURIComponent(rawUrl)}`);
         if (res.ok) {
           const data = await res.json();
-          if (data.proxyUrl) return data.proxyUrl;
+          if (data.proxyUrl) {
+            // Prepend apiBase if proxyUrl is relative
+            if (data.proxyUrl.startsWith('/')) {
+              return apiBase + data.proxyUrl;
+            }
+            return data.proxyUrl;
+          }
         }
       } catch (e) {}
 
-      return `/api/stream-proxy?url=${encodeURIComponent(rawUrl)}`;
+      return `${apiBase}/api/stream-proxy?url=${encodeURIComponent(rawUrl)}`;
     },
 
     unlockAdmin: () => {

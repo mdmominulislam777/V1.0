@@ -243,7 +243,8 @@ class SportsCoordinator {
     if (fixtureId) {
       try {
         const cleanId = String(fixtureId).replace(/^tsdb-/, '');
-        const res = await fetch(`/api/fixture/broadcaster?fixtureId=${encodeURIComponent(cleanId)}`);
+        const apiBase = window.CONFIG?.API_BASE_URL || '';
+        const res = await fetch(`${apiBase}/api/fixture/broadcaster?fixtureId=${encodeURIComponent(cleanId)}`);
         if (res.ok) {
           const data = await res.json();
           if (data && data.status === 'success' && data.broadcaster) {
@@ -1048,26 +1049,23 @@ class SportsCoordinator {
 
     if (event) {
       const evSport = (event.sport || event.sportName || '').toLowerCase().trim();
-      const chName = (channel.name || '').toLowerCase();
+      const channelCategories = (channel.categories || []).map(c => c.toLowerCase().trim());
       
-      // Strict Sport Separation (Never assign Cricket to Football, Football to Cricket, etc.)
-      const isCricketEvent = evSport.includes('cricket');
-      const isFootballEvent = evSport.includes('football') || evSport.includes('soccer');
-      const isTennisEvent = evSport.includes('tennis');
-      const isMotorsportEvent = evSport.includes('motor') || evSport.includes('f1') || evSport.includes('racing');
+      // Generalized blacklist-based Sport Separation
+      const isCricket = evSport.includes('cricket');
+      const isFootball = evSport.includes('football') || evSport.includes('soccer');
+      const isTennis = evSport.includes('tennis');
+      const isMotorsport = evSport.includes('motor') || evSport.includes('f1') || evSport.includes('racing');
+      
+      const isNonCricket = channelCategories.some(c => ['football', 'soccer', 'tennis', 'motorsport', 'f1', 'racing'].includes(c));
+      const isNonFootball = channelCategories.some(c => ['cricket', 'tennis', 'motorsport', 'f1', 'racing'].includes(c));
+      const isNonTennis = channelCategories.some(c => ['cricket', 'football', 'soccer', 'motorsport', 'f1', 'racing'].includes(c));
+      const isNonMotorsport = channelCategories.some(c => ['cricket', 'football', 'soccer', 'tennis'].includes(c));
 
-      if (isFootballEvent && (chName.includes('cricket') || chName.includes('willow'))) {
-        return { valid: false, reason: 'Sport mismatch: Cricket channel assigned to Football event' };
-      }
-      if (isCricketEvent && (chName.includes('premier league') || chName.includes('football') || chName.includes('f1') || chName.includes('racing') || chName.includes('tennis'))) {
-        return { valid: false, reason: 'Sport mismatch: Non-cricket channel assigned to Cricket event' };
-      }
-      if (isTennisEvent && (chName.includes('cricket') || chName.includes('willow') || chName.includes('premier league'))) {
-        return { valid: false, reason: 'Sport mismatch: Non-tennis channel assigned to Tennis event' };
-      }
-      if (isMotorsportEvent && (chName.includes('cricket') || chName.includes('willow') || chName.includes('football'))) {
-        return { valid: false, reason: 'Sport mismatch: Non-motorsport channel assigned to Motorsport event' };
-      }
+      if (isCricket && isNonCricket) return { valid: false, reason: 'Sport mismatch: Non-cricket channel assigned to Cricket event' };
+      if (isFootball && isNonFootball) return { valid: false, reason: 'Sport mismatch: Non-football channel assigned to Football event' };
+      if (isTennis && isNonTennis) return { valid: false, reason: 'Sport mismatch: Non-tennis channel assigned to Tennis event' };
+      if (isMotorsport && isNonMotorsport) return { valid: false, reason: 'Sport mismatch: Non-motorsport channel assigned to Motorsport event' };
     }
 
     // 4. Authorized Stream check

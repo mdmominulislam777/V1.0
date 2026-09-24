@@ -38,6 +38,7 @@ jsonFiles.forEach(file => {
 // 3. Essential runtime script and style files
 const coreFiles = [
   'index.html',
+  'bundled_data.js',
   'script.js',
   'style.css',
   'sports.js',

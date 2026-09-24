@@ -823,20 +823,28 @@
         state.events = [];
       }
 
-      // If state.events is empty (e.g. on GitHub Pages static deployment), fallback to ./events.json
+      // If state.events is empty (e.g. on GitHub Pages static deployment), fallback to window.EVENTS_DATA or ./events.json
       if (!state.events || state.events.length === 0) {
-        try {
-          const fallbackRes = await fetch('./events.json');
-          if (fallbackRes.ok) {
-            const list = await fallbackRes.json();
-            if (Array.isArray(list) && list.length > 0) {
-              state.events = list;
-              if (window.sportsCoordinator) {
-                window.sportsCoordinator.events = list;
+        if (window.EVENTS_DATA && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+          state.events = window.EVENTS_DATA;
+          if (window.sportsCoordinator) {
+            window.sportsCoordinator.events = window.EVENTS_DATA;
+          }
+          console.log(`[HighFy] Successfully loaded ${state.events.length} fallback events from bundled data`);
+        } else {
+          try {
+            const fallbackRes = await fetch('./events.json');
+            if (fallbackRes.ok) {
+              const list = await fallbackRes.json();
+              if (Array.isArray(list) && list.length > 0) {
+                state.events = list;
+                if (window.sportsCoordinator) {
+                  window.sportsCoordinator.events = list;
+                }
               }
             }
-          }
-        } catch (_) {}
+          } catch (_) {}
+        }
       }
 
       // Strictly purge any obsolete Cricbuzz items per user request
@@ -3087,8 +3095,15 @@
     let loaded = false;
     const remoteUrl = localStorage.getItem('highfy_channels_json_url') || window.CONFIG?.CHANNELS_JSON_URL || '';
 
-    // 1. Try remote dynamic JSON first if configured
-    if (remoteUrl && remoteUrl.trim().startsWith('http')) {
+    // 1. Try bundled local data (Primary in APK/PWA)
+    if (window.CHANNELS_DATA && Array.isArray(window.CHANNELS_DATA) && window.CHANNELS_DATA.length > 0) {
+      state.channels = window.CHANNELS_DATA;
+      loaded = true;
+      console.log(`[HighFy] Successfully loaded ${state.channels.length} channels from bundled data`);
+    }
+
+    // 2. Try remote dynamic JSON if configured and forced
+    if (remoteUrl && remoteUrl.trim().startsWith('http') && (!loaded || forceRemote)) {
       try {
         const cacheBuster = forceRemote ? `?_t=${Date.now()}` : '';
         const fetchUrl = remoteUrl.trim() + (remoteUrl.includes('?') ? (forceRemote ? `&_t=${Date.now()}` : '') : cacheBuster);
@@ -3106,7 +3121,7 @@
       }
     }
 
-    // 2. Fallback to local channels.json
+    // 3. Fallback to local channels.json fetch
     if (!loaded) {
       try {
         const res = await fetch('./channels.json?v=' + (Date.now()));
@@ -3616,7 +3631,7 @@
   function createSportsCategoryCardHtml(cat) {
     const channelCount = getSportsChannels(cat.filterKey).length;
     const fallbackLetter = ((cat.name || 'SP').charAt(0) || 'S').toUpperCase();
-    const fallbackSvg = `data:image/png;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="cg" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#cg)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
+    const fallbackSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="cg" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#cg)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
     const resolvedLogo = getSportsCategoryLogo(cat);
     const logoSrc = resolvedLogo || fallbackSvg;
 
@@ -3784,6 +3799,14 @@
    * Load Categories from categories.json
    */
   async function loadCategories() {
+    if (window.CATEGORIES_DATA && Array.isArray(window.CATEGORIES_DATA) && window.CATEGORIES_DATA.length > 0) {
+      state.categories = window.CATEGORIES_DATA;
+      console.log(`[HighFy] Successfully loaded ${state.categories.length} categories from bundled data`);
+      if (DOM.categoriesCount) DOM.categoriesCount.textContent = `${state.categories.length} Categories`;
+      renderCategories();
+      return;
+    }
+
     try {
       const res = await fetch('./categories.json');
       const loaded = await res.json();
@@ -4468,7 +4491,7 @@
     const cleanDisplayName = sanitizeChannelName(channel.name);
     const logoSrc = getSafeLogoUrl(channel.logo, cleanDisplayName, channel.id);
     const fallbackLetter = ((cleanDisplayName || 'TV').charAt(0) || 'T').toUpperCase();
-    const fallbackSvg = `data:image/png;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
+    const fallbackSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#94a3b8" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
 
     return `
       <div class="channel-card" data-channel-id="${escapeHtml(channel.id)}">
@@ -4783,7 +4806,7 @@
             const isFav = state.favorites.includes(ch.id);
             const logoSrc = getSafeLogoUrl(ch.logo, chNameClean, ch.id);
             const fallbackLetter = ((chNameClean || 'TV').charAt(0) || 'T').toUpperCase();
-            const fallbackSvg = `data:image/png;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#64748b" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
+            const fallbackSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="g" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#1e293b"/><stop offset="100%" stop-color="#0f172a"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#g)"/><text x="50%" y="54%" font-size="28" font-weight="bold" fill="#64748b" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${fallbackLetter}</text></svg>`)}`;
 
             return `
               <div class="channel-card ${isPlayingThis ? 'is-current-stream' : ''}" data-switch-channel-id="${escapeHtml(ch.id)}" title="Switch to ${escapeHtml(chNameClean)}">
@@ -5095,6 +5118,11 @@
     const isM3U8Stream = lowerUrl.includes('.m3u8') || lowerUrl.includes('/api/stream-proxy') || lowerUrl.includes('playlist') || lowerUrl.includes('manifest') || (!lowerUrl.endsWith('.ts') && !lowerUrl.endsWith('.mp4'));
     const isDirectTsStream = (lowerUrl.includes('.ts') && !lowerUrl.includes('.m3u8')) || (lowerUrl.includes('/live/') && lowerUrl.endsWith('.ts'));
 
+    const apiBase = window.CONFIG?.API_BASE_URL || '';
+    const finalStreamUrl = (typeof targetUrl === 'string' && targetUrl.startsWith('/api/'))
+      ? apiBase + targetUrl
+      : targetUrl;
+
     const triggerInstantPlay = () => {
       hideSpinnerAndClearWatchdog();
       if (state.isUserPaused) return;
@@ -5126,11 +5154,11 @@
     // 1. Direct MPEG-TS Stream Playback via mpegts.js (Ultra Fast Config)
     if (isDirectTsStream && isMpegtsSupported) {
       try {
-        console.log('[HighFy Player] Initializing mpegts.js for TS stream:', targetUrl);
+        console.log('[HighFy Player] Initializing mpegts.js for TS stream:', finalStreamUrl);
         const mpegtsPlayer = window.mpegts.createPlayer({
           type: 'mse',
           isLive: true,
-          url: targetUrl,
+          url: finalStreamUrl,
           cors: true
         }, {
           enableWorker: true,
@@ -5196,7 +5224,7 @@
       });
 
       hls.attachMedia(DOM.videoElement);
-      hls.loadSource(targetUrl);
+      hls.loadSource(finalStreamUrl);
 
       hls.on(window.Hls.Events.MANIFEST_PARSED, () => {
         if (!state.isUserPaused) {
@@ -5245,7 +5273,7 @@
       state.hlsInstance = hls;
     } else {
       // 3. Native HTML5 Video Fallback
-      DOM.videoElement.src = targetUrl;
+      DOM.videoElement.src = finalStreamUrl;
       DOM.videoElement.addEventListener('playing', hideSpinnerAndClearWatchdog, { once: true });
       DOM.videoElement.addEventListener('loadedmetadata', () => {
         hideSpinnerAndClearWatchdog();
@@ -6251,12 +6279,21 @@
 
     const drawerUpdate = document.getElementById('drawer-update');
     if (drawerUpdate) {
-      drawerUpdate.addEventListener('click', () => {
+      drawerUpdate.addEventListener('click', async () => {
         closeDrawer();
         showToast('Checking for updates...');
-        setTimeout(() => {
+        try {
+          const apiBase = window.CONFIG?.API_BASE_URL || '';
+          const res = await fetch(apiBase + '/api/version');
+          if (res.ok) {
+            const data = await res.json();
+            showToast(`You are running the latest version (${data.version || 'v1.0'})`);
+          } else {
+            showToast('You are running the latest version (v1.0)');
+          }
+        } catch (e) {
           showToast('You are running the latest version (v1.0)');
-        }, 800);
+        }
       });
     }
 
@@ -9626,6 +9663,12 @@
    * Load base notifications from notifications.json
    */
   async function loadBaseNotifications() {
+    if (window.NOTIFICATIONS_DATA && Array.isArray(window.NOTIFICATIONS_DATA) && window.NOTIFICATIONS_DATA.length > 0) {
+      state.notifications = window.NOTIFICATIONS_DATA;
+      console.log(`[HighFy] Successfully loaded ${state.notifications.length} notifications from bundled data`);
+      return;
+    }
+
     try {
       const response = await fetch('./notifications.json');
       if (!response.ok) throw new Error('Failed to load notifications.json');

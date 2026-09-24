@@ -243,7 +243,8 @@ class SportsCoordinator {
     if (fixtureId) {
       try {
         const cleanId = String(fixtureId).replace(/^tsdb-/, '');
-        const res = await fetch(`/api/fixture/broadcaster?fixtureId=${encodeURIComponent(cleanId)}`);
+        const apiBase = window.CONFIG?.API_BASE_URL || '';
+        const res = await fetch(`${apiBase}/api/fixture/broadcaster?fixtureId=${encodeURIComponent(cleanId)}`);
         if (res.ok) {
           const data = await res.json();
           if (data && data.status === 'success' && data.broadcaster) {

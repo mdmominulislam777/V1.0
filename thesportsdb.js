@@ -322,7 +322,8 @@ class TheSportsDBEngine {
     this.inFlightPromise = (async () => {
       try {
         // 1. Try Backend Proxy First
-        const res = await fetch('/api/thesportsdb/events');
+        const apiBase = window.CONFIG?.API_BASE_URL || '';
+        const res = await fetch(`${apiBase}/api/thesportsdb/events`);
         if (res.ok) {
           const json = await res.json();
           if (json && Array.isArray(json.data) && json.data.length > 0) {
@@ -471,7 +472,8 @@ class TheSportsDBEngine {
 
     // Try backend proxy
     try {
-      const res = await fetch(`/api/thesportsdb/event/${encodeURIComponent(cleanId)}`);
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/thesportsdb/event/${encodeURIComponent(cleanId)}`);
       if (res.ok) {
         const json = await res.json();
         if (json && json.data) {

@@ -179,9 +179,10 @@ class CricketEngine {
    * Core API Fetcher - Exclusively Sportradar Official Cricket API
    */
   async fetchFromApi(endpoint) {
+    const apiBase = window.CONFIG?.API_BASE_URL || '';
     // 1. Primary: Query backend Sportradar proxy endpoint (No key needed)
     try {
-      const proxyRes = await fetch(`/api/cricket/matches`);
+      const proxyRes = await fetch(`${apiBase}/api/cricket/matches`);
       if (proxyRes.ok) {
         const json = await proxyRes.json();
         if (json && Array.isArray(json.data) && json.data.length > 0) {
@@ -198,8 +199,8 @@ class CricketEngine {
     // 2. Secondary: /api/cricket/sportradar/matches direct proxy
     try {
       const srUrl = sportradarKey
-        ? `/api/cricket/sportradar/matches?api_key=${encodeURIComponent(sportradarKey)}`
-        : `/api/cricket/sportradar/matches`;
+        ? `${apiBase}/api/cricket/sportradar/matches?api_key=${encodeURIComponent(sportradarKey)}`
+        : `${apiBase}/api/cricket/sportradar/matches`;
       const srRes = await fetch(srUrl);
       if (srRes.ok) {
         const srJson = await srRes.json();
@@ -989,9 +990,10 @@ class CricketEngine {
   async getTeamPlayers(teamId) {
     if (!teamId) return [];
     try {
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
       const rapidKey = this.getRapidApiKey();
       const query = rapidKey ? `?teamid=${encodeURIComponent(teamId)}&rapidapikey=${encodeURIComponent(rapidKey)}` : `?teamid=${encodeURIComponent(teamId)}`;
-      const res = await fetch(`/api/cricket/players${query}`, {
+      const res = await fetch(`${apiBase}/api/cricket/players${query}`, {
         headers: rapidKey ? { 'x-rapidapi-key': rapidKey } : {}
       });
       if (res.ok) {
@@ -1009,9 +1011,10 @@ class CricketEngine {
    */
   async getTeams() {
     try {
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
       const rapidKey = this.getRapidApiKey();
       const query = rapidKey ? `?rapidapikey=${encodeURIComponent(rapidKey)}` : '';
-      const res = await fetch(`/api/cricket/teams${query}`, {
+      const res = await fetch(`${apiBase}/api/cricket/teams${query}`, {
         headers: rapidKey ? { 'x-rapidapi-key': rapidKey } : {}
       });
       if (res.ok) {
@@ -1102,7 +1105,8 @@ class CricketEngine {
   async testApiKey(key, host = 'cricbuzz-cricket2.p.rapidapi.com') {
     if (!key) return { valid: false, message: 'Please enter a RapidAPI key' };
     try {
-      const res = await fetch(`/api/cricket/test?key=${encodeURIComponent(key)}&host=${encodeURIComponent(host)}`);
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/cricket/test?key=${encodeURIComponent(key)}&host=${encodeURIComponent(host)}`);
       if (res.ok) {
         return await res.json();
       }

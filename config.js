@@ -29,6 +29,11 @@
   const env = (typeof window !== 'undefined' && window.__ENV_CONFIG__) || {};
 
   const CONFIG = {
+    // Centralized API Base URL for APK compatibility
+    API_BASE_URL: (typeof window !== 'undefined' && (window.location.protocol === 'http:' || window.location.protocol === 'https:'))
+      ? ''
+      : 'https://ais-pre-4n6xu2ltg6dzfgsxbb5usk-847516639097.asia-east1.run.app',
+
     // ⚡ RapidAPI Unified Key (Powers SofaScore & Cricbuzz)
     RAPIDAPI_KEY: env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81",
 
