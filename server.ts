@@ -65,8 +65,8 @@ function sanitizeSportradarTier(t?: any): string {
 const SPORTRADAR_CRICKET_API_KEY = envSrKey || (isLikelyApiKey(envSrTierRaw) ? envSrTierRaw : "");
 const SPORTRADAR_CRICKET_TIER = sanitizeSportradarTier(envSrTierRaw);
 
-// Cricbuzz API toggle: Active by default for real-time live scores, upcoming matches & scorecards
-const ENABLE_CRICBUZZ_API = process.env.ENABLE_CRICBUZZ_API !== "false"; // Default: true (active)
+// Cricbuzz API toggle: Permanently disabled per user request
+const ENABLE_CRICBUZZ_API = false;
 
 // In-memory cache & In-flight request coalescers to preserve API quota
 interface CacheEntry<T> {

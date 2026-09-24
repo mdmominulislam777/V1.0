@@ -527,8 +527,8 @@ class CricketEngine {
    * Direct fetch from Cricbuzz RapidAPI with multi-tier fallback (Direct -> CORS Proxies -> TheSportsDB)
    */
   async fetchDirectCricbuzzMatches(rapidKey) {
-    const key = rapidKey || this.getRapidApiKey() || window.CONFIG?.RAPIDAPI_KEY || '2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81';
-    const host = 'cricbuzz-cricket2.p.rapidapi.com';
+    // Cricbuzz API permanently disabled per user request
+    return { success: false, data: [], message: 'Cricbuzz API disabled per user request' };
     const endpoints = ['live', 'upcoming', 'recent'];
 
     const fetchEndpoint = async (ep) => {

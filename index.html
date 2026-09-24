@@ -41,8 +41,195 @@
   <script src="./security.js"></script>
 
   <!-- HIGHFY TV Custom Android TV Stylesheet -->
-  <link rel="stylesheet" href="./style.css?v=20260923_1050" />
+  <link rel="stylesheet" href="./style.css?v=20260924_0925" />
   <script src="./clear-cache.js"></script>
+
+  <!-- Critical Synchronous Splash Screen CSS (Immune to Browser Caching) -->
+  <style id="critical-splash-css">
+    #app-preloader {
+      position: fixed !important;
+      inset: 0 !important;
+      z-index: 999999 !important;
+      background: radial-gradient(circle at 50% 28%, #161e32 0%, #0d1322 55%, #080c16 100%) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 40px 20px 28px 20px !important;
+      box-sizing: border-box !important;
+      overflow: hidden !important;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+      user-select: none;
+    }
+    #app-preloader.fade-out {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
+    .cricfy-splash-container {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      max-width: 320px !important;
+      margin: auto !important;
+      box-sizing: border-box !important;
+    }
+    .sportzfy-splash-stage {
+      position: relative !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+    .sportzfy-app-card {
+      position: relative !important;
+      width: 128px !important;
+      height: 128px !important;
+      max-width: 128px !important;
+      max-height: 128px !important;
+      border-radius: 50% !important;
+      background: #141c2e !important;
+      border: 1px solid rgba(255, 255, 255, 0.08) !important;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      overflow: hidden !important;
+      box-sizing: border-box !important;
+      margin: 0 auto !important;
+    }
+    .sportzfy-app-card-inner {
+      position: relative !important;
+      z-index: 2 !important;
+      width: 100% !important;
+      height: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 16px !important;
+      box-sizing: border-box !important;
+    }
+    .sportzfy-logo-img {
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 96px !important;
+      max-height: 96px !important;
+      aspect-ratio: 1 / 1 !important;
+      object-fit: contain !important;
+      display: block !important;
+      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5)) !important;
+    }
+    .sportzfy-brand-text-wrap {
+      margin-top: 22px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      justify-content: center !important;
+      text-align: center !important;
+      gap: 6px !important;
+      width: 100% !important;
+    }
+    .sportzfy-splash-title {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      font-size: 22px !important;
+      font-weight: 700 !important;
+      letter-spacing: -0.01em !important;
+      color: #ffffff !important;
+      text-align: center !important;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
+    }
+    .sportzfy-splash-tagline {
+      margin: 0 !important;
+      padding: 0 !important;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      font-size: 13.5px !important;
+      font-weight: 400 !important;
+      letter-spacing: 0.01em !important;
+      color: #94a3b8 !important;
+      text-align: center !important;
+    }
+
+    /* 3. Sports Balls Stationary Rotating Loader */
+    .sports-balls-loader {
+      margin-top: 110px !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 6px !important;
+      width: 100% !important;
+      padding: 10px 0 !important;
+    }
+    .sports-ball-item {
+      position: relative !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      width: 15px !important;
+      height: 15px !important;
+    }
+    .ball-icon-wrap {
+      width: 15px !important;
+      height: 15px !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      font-size: 15px !important;
+      line-height: 1 !important;
+      box-shadow: none !important;
+      box-sizing: border-box !important;
+      animation: sportsBallSpin 0.9s linear infinite !important;
+      animation-delay: calc(var(--i) * 0.08s) !important;
+    }
+    .ball-cricket .ball-icon-wrap {
+      color: #dc2626 !important; /* Real Cricket Red */
+      filter: drop-shadow(0 1px 3px rgba(220, 38, 38, 0.5)) !important;
+    }
+    .ball-soccer .ball-icon-wrap {
+      color: #ffffff !important; /* Real Classic Soccer White */
+      filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.4)) !important;
+    }
+    .ball-rugby .ball-icon-wrap {
+      color: #9a3412 !important; /* Real Leather Rugby Brown */
+      filter: drop-shadow(0 1px 3px rgba(154, 52, 18, 0.5)) !important;
+    }
+    .ball-basketball .ball-icon-wrap {
+      color: #ea580c !important; /* Real Basketball Orange */
+      filter: drop-shadow(0 1px 3px rgba(234, 88, 12, 0.5)) !important;
+    }
+    .ball-tennis .ball-icon-wrap {
+      color: #ccff00 !important; /* Real Optic Tennis Neon Yellow */
+      filter: drop-shadow(0 1px 3px rgba(204, 255, 0, 0.5)) !important;
+    }
+
+    @keyframes sportsBallSpin {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .cricfy-version-bottom {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
+      font-size: 12px !important;
+      font-weight: 500 !important;
+      color: #64748b !important;
+      letter-spacing: 0.04em !important;
+      text-align: center !important;
+      margin-bottom: 8px !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -52,35 +239,49 @@
   <div id="app-preloader" class="app-preloader">
     <div class="cricfy-splash-container">
       
-      <!-- Central Branding -->
-      <div class="cricfy-splash-hero">
-        <div class="cricfy-emblem-wrap">
-          <img 
-            id="cricfy-splash-logo-img"
-            src="./highfy_logo1.png" 
-            alt="HighFy TV" 
-            class="cricfy-emblem-img"
-            referrerpolicy="no-referrer"
-            onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
-          />
+      <!-- Sportzfy-Inspired Clean & Modern Splash Stage -->
+      <div class="sportzfy-splash-stage">
+        
+        <!-- 1. Central Circular App Icon Container -->
+        <div class="sportzfy-app-card" style="width: 120px; height: 120px; border-radius: 50%; background: #141c2e; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 auto; box-shadow: 0 16px 36px rgba(0,0,0,0.6), 0 0 20px rgba(14, 165, 233, 0.25); border: 2px solid rgba(56, 189, 248, 0.3);">
+          <div class="sportzfy-app-card-inner" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0; box-sizing: border-box; overflow: hidden; border-radius: 50%;">
+            <img 
+              id="cricfy-splash-logo-img"
+              src="./highfy_logo1.png" 
+              alt="HighFy TV" 
+              class="sportzfy-logo-img"
+              style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: cover; display: block; border-radius: 50%;"
+              referrerpolicy="no-referrer"
+              onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
+            />
+          </div>
         </div>
-        <h1 class="cricfy-splash-title">HighFy <span class="splash-badge-blue">TV</span></h1>
-      </div>
 
-      <!-- Text-Only Animated Loading (Letter by Letter Animation, No Extra Models) -->
-      <div class="cricfy-splash-loader">
-        <div class="splash-loading-text" aria-label="Loading...">
-          <span class="loading-char" style="--i: 0;">L</span>
-          <span class="loading-char" style="--i: 1;">o</span>
-          <span class="loading-char" style="--i: 2;">a</span>
-          <span class="loading-char" style="--i: 3;">d</span>
-          <span class="loading-char" style="--i: 4;">i</span>
-          <span class="loading-char" style="--i: 5;">n</span>
-          <span class="loading-char" style="--i: 6;">g</span>
-          <span class="loading-char dot" style="--i: 7;">.</span>
-          <span class="loading-char dot" style="--i: 8;">.</span>
-          <span class="loading-char dot" style="--i: 9;">.</span>
+        <!-- 2. Brand Title & Tagline -->
+        <div class="sportzfy-brand-text-wrap" style="margin-top: 22px; text-align: center;">
+          <h1 class="sportzfy-splash-title" style="font-size: 22px; font-weight: 700; color: #ffffff; margin: 0; text-align: center;">HighFy TV</h1>
+          <p class="sportzfy-splash-tagline" style="font-size: 13.5px; color: #94a3b8; margin: 6px 0 0 0; text-align: center;">Live sports, instant access</p>
         </div>
+
+        <!-- 3. Sports Balls Stationary Rotating Loader -->
+        <div class="sports-balls-loader" aria-label="Loading HighFy TV...">
+          <div class="sports-ball-item ball-cricket" style="--i: 0;" title="Cricket">
+            <span class="ball-icon-wrap"><i class="fa-solid fa-baseball-bat-ball"></i></span>
+          </div>
+          <div class="sports-ball-item ball-soccer" style="--i: 1;" title="Soccer">
+            <span class="ball-icon-wrap"><i class="fa-solid fa-futbol"></i></span>
+          </div>
+          <div class="sports-ball-item ball-rugby" style="--i: 2;" title="Rugby">
+            <span class="ball-icon-wrap"><i class="fa-solid fa-football"></i></span>
+          </div>
+          <div class="sports-ball-item ball-basketball" style="--i: 3;" title="Basketball">
+            <span class="ball-icon-wrap"><i class="fa-solid fa-basketball"></i></span>
+          </div>
+          <div class="sports-ball-item ball-tennis" style="--i: 4;" title="Tennis">
+            <span class="ball-icon-wrap"><i class="fa-solid fa-table-tennis-paddle-ball"></i></span>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -211,13 +412,6 @@
               <span class="sport-count-badge" id="scBadgeHockey">0</span>
             </div>
             <span class="sport-shortcut-label">Hockey</span>
-          </div>
-          <div class="sport-shortcut-item" data-sport="Kabaddi">
-            <div class="sport-shortcut-circle">
-              <i class="fa-solid fa-people-robbery"></i>
-              <span class="sport-count-badge" id="scBadgeKabaddi">0</span>
-            </div>
-            <span class="sport-shortcut-label">Kabaddi</span>
           </div>
           <div class="sport-shortcut-item" data-sport="Rugby">
             <div class="sport-shortcut-circle">

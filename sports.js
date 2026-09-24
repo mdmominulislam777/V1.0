@@ -535,7 +535,7 @@ class SportsCoordinator {
         id: "sports-eurosport-hd",
         name: "Eurosport HD",
         category: "Sports",
-        categories: ["Sports", "Tennis", "Motorsport", "Hockey", "Kabaddi"],
+        categories: ["Sports", "Tennis", "Motorsport", "Hockey"],
         logo: "./assets/channel-logos/sports-sony-ten-1.png",
         stream_url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/euro_sports_hd/playlist.m3u8",
         url: "https://bldcmprod-cdn.toffeelive.com/cdn/live/euro_sports_hd/playlist.m3u8",
@@ -695,7 +695,7 @@ class SportsCoordinator {
       return { sports: ['Cricket'], leagues: ['County Championship', 'County Championship Division One', 'County Championship Division Two', 'England', 'T20 Blast', 'The Hundred', 'ICC', 'Test', 'ODI', 'T20', 'Sri Lanka tour of England', 'Pakistan tour of England'], priority: 10 };
     }
     if (id === 'ch-star-sports-1-hd' || name === 'star sports 1 hd' || name === 'star sports 1') {
-      return { sports: ['Cricket', 'Kabaddi'], leagues: ['Asian Games', 'T20 Asian Games', "Women's Asian Games", 'Asia Cup', "Women's Asia Cup", 'India', 'ICC', 'ODI', 'T20', 'Test', 'IPL', 'One-Day Cup', 'Afghanistan vs India in India', 'Australia U19 tour of India', 'Australia A Women tour of India'], priority: 10 };
+      return { sports: ['Cricket'], leagues: ['Asian Games', 'T20 Asian Games', "Women's Asian Games", 'Asia Cup', "Women's Asia Cup", 'India', 'ICC', 'ODI', 'T20', 'Test', 'IPL', 'One-Day Cup', 'Afghanistan vs India in India', 'Australia U19 tour of India', 'Australia A Women tour of India'], priority: 10 };
     }
     if (id === 'ch-star-sports-1-hindi' || name.includes('star sports 1 hindi')) {
       return { sports: ['Cricket'], leagues: ['Asian Games', 'T20 Asian Games', "Women's Asian Games", 'Asia Cup', 'India', 'ICC', 'IPL', 'Afghanistan vs India in India'], priority: 10 };

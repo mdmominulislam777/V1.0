@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" fill="currentColor">
+  <!-- Antenna Left -->
+  <line x1="175" y1="115" x2="70" y2="20" stroke="currentColor" stroke-width="26" stroke-linecap="round" />
+  <!-- Antenna Right -->
+  <line x1="205" y1="115" x2="295" y2="20" stroke="currentColor" stroke-width="26" stroke-linecap="round" />
+  
+  <!-- Outer TV Body with Screen & Right Knobs Cutout -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="
+    M 85, 112
+    C 25, 122 0, 165 0, 260
+    C 0, 370 20, 465 85, 485
+    C 160, 505 355, 505 430, 485
+    C 495, 465 512, 370 512, 260
+    C 512, 165 485, 122 425, 112
+    C 355, 100 155, 100 85, 112 Z
+
+    M 85, 165
+    C 55, 175 42, 205 42, 265
+    C 42, 345 52, 415 88, 432
+    C 130, 450 325, 450 368, 432
+    C 402, 415 412, 345 412, 265
+    C 412, 205 400, 175 368, 165
+    C 325, 150 130, 150 85, 165 Z
+
+    M 426, 238
+    A 8,8 0 0,1 434, 230
+    L 454, 230
+    A 8,8 0 0,1 462, 238
+    A 8,8 0 0,1 454, 246
+    L 434, 246
+    A 8,8 0 0,1 426, 238 Z
+
+    M 444, 270
+    A 16,16 0 1,1 444, 302
+    A 16,16 0 1,1 444, 270 Z
+
+    M 444, 335
+    A 16,16 0 1,1 444, 367
+    A 16,16 0 1,1 444, 335 Z
+  " />
+
+  <!-- Screen WiFi Waves -->
+  <!-- WiFi Center Dot -->
+  <circle cx="227" cy="365" r="22" fill="currentColor" class="wifi-dot" />
+
+  <!-- WiFi Arc 1 (Inner) -->
+  <path d="M 166, 312 A 80 80 0 0 1 288, 312" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" class="wifi-arc-1" />
+
+  <!-- WiFi Arc 2 (Middle) -->
+  <path d="M 132, 268 A 125 125 0 0 1 322, 268" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" class="wifi-arc-2" />
+
+  <!-- WiFi Arc 3 (Outer) -->
+  <path d="M 98, 224 A 170 170 0 0 1 356, 224" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" class="wifi-arc-3" />
+</svg>

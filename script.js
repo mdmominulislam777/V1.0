@@ -592,7 +592,7 @@
     if (preloader) {
       updatePreloader(100, 'Ready');
       const elapsed = Date.now() - preloaderStartTime;
-      const minDisplayTime = 3000; // 3 seconds loading duration as requested
+      const minDisplayTime = 2500; // 2.5 seconds loading duration
       const delay = Math.max(100, minDisplayTime - elapsed);
 
       setTimeout(() => {
@@ -991,7 +991,6 @@
     const totalMotorsport = list.filter(e => (e.sport || '').toLowerCase() === 'motorsport' || (e.sport || '').toLowerCase() === 'f1').length;
     const totalWWE = list.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling').length;
     const totalHockey = list.filter(e => (e.sport || '').toLowerCase() === 'hockey').length;
-    const totalKabaddi = list.filter(e => (e.sport || '').toLowerCase() === 'kabaddi').length;
     const totalRugby = list.filter(e => (e.sport || '').toLowerCase() === 'rugby').length;
 
     const bAll = document.getElementById('scBadgeAll');
@@ -1003,7 +1002,6 @@
     const bMotor = document.getElementById('scBadgeMotorsport');
     const bWwe = document.getElementById('scBadgeWWE');
     const bHock = document.getElementById('scBadgeHockey');
-    const bKaba = document.getElementById('scBadgeKabaddi');
     const bRugby = document.getElementById('scBadgeRugby');
 
     if (bAll) bAll.textContent = String(totalAllEvents);
@@ -1015,7 +1013,6 @@
     if (bMotor) bMotor.textContent = String(totalMotorsport);
     if (bWwe) bWwe.textContent = String(totalWWE);
     if (bHock) bHock.textContent = String(totalHockey);
-    if (bKaba) bKaba.textContent = String(totalKabaddi);
     if (bRugby) bRugby.textContent = String(totalRugby);
 
     // Filter by selectedSport for accurate header counters
@@ -1085,7 +1082,6 @@
       else if (state.selectedSport === 'Motorsport' || state.selectedSport === 'Motorsports') { icon = 'fa-car-side'; title = 'Motorsports'; }
       else if (state.selectedSport === 'WWE') { icon = 'fa-hand-fist'; title = 'WWE / Wrestling Events'; }
       else if (state.selectedSport === 'Hockey') { icon = 'fa-hockey-puck'; title = 'Hockey Games (NHL)'; }
-      else if (state.selectedSport === 'Kabaddi') { icon = 'fa-people-robbery'; title = 'Kabaddi Matches'; }
       else if (state.selectedSport === 'Rugby') { icon = 'fa-football'; title = 'Rugby Matches'; }
 
       DOM.activeSportTitle.innerHTML = `<i class="fa-solid ${icon}"></i> ${title}`;
@@ -1574,9 +1570,11 @@
         const diffSecs = Math.floor((diff / 1000) % 60);
 
         if (diffDays > 0) {
-          startsInStr = `Starts in ${diffDays}d ${pad(diffHours)}h`;
+          startsInStr = `Starts in ${diffDays}d ${diffHours}h`;
+        } else if (diffHours >= 1) {
+          startsInStr = `Starts in ${diffHours} ${diffHours === 1 ? 'hour' : 'hours'}`;
         } else {
-          startsInStr = `Starts in ${pad(diffHours)}:${pad(diffMins)}:${pad(diffSecs)}`;
+          startsInStr = `Starts in ${pad(diffMins)}:${pad(diffSecs)}`;
         }
       } else {
         startsInStr = 'Starts soon';
@@ -1596,38 +1594,64 @@
       }
     }
 
-    // Top Floating Tab (Game / Sport & League Name - উপরে খেলার নাম)
+    // Format Display Time and Date (e.g. 02:00 PM, 24/09/2026) matching user screenshot
+    let displayTime = '';
+    let displayDate = '';
+
+    if (evTs) {
+      const d = new Date(evTs);
+      let hrs = d.getHours();
+      const mins = String(d.getMinutes()).padStart(2, '0');
+      const ampm = hrs >= 12 ? 'PM' : 'AM';
+      hrs = hrs % 12 || 12;
+      displayTime = `${String(hrs).padStart(2, '0')}:${mins} ${ampm}`;
+
+      const dd = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const yyyy = d.getFullYear();
+      displayDate = `${dd}/${mm}/${yyyy}`;
+    } else {
+      displayTime = timeStr || event.time || 'TBD';
+      if (event.date) {
+        const parts = event.date.split('-');
+        if (parts.length === 3 && parts[0].length === 4) {
+          displayDate = `${parts[2]}/${parts[1]}/${parts[0]}`;
+        } else {
+          displayDate = event.date;
+        }
+      } else {
+        displayDate = dateStr || '';
+      }
+    }
+
+    // Header Sport & League Title (e.g. Cricket || Asian Games, Motorsport || Formula 1)
     const sportTitle = event.sportName || event.sport || 'Sports';
-    const leagueTitle = (event.tournament || event.league || event.seriesName || '').trim();
-    const showLeague = leagueTitle && leagueTitle.toLowerCase() !== sportTitle.toLowerCase();
+    let leagueTitle = (event.tournament || event.league || event.seriesName || '').trim();
+    if (/^f\s*1$/i.test(leagueTitle) || /^formula\s*1$/i.test(leagueTitle)) {
+      leagueTitle = 'Formula 1';
+    }
+    let headerTitle = sportTitle;
+    if (leagueTitle && leagueTitle.toLowerCase() !== sportTitle.toLowerCase()) {
+      headerTitle = `${sportTitle} || ${leagueTitle}`;
+    }
 
     let sportIcon = event.sportIcon || '';
     if (!sportIcon) {
       const sLower = (event.sport || event.sportName || '').toLowerCase();
-      if (sLower.includes('cricket')) sportIcon = 'fa-baseball-bat-ball';
-      else if (sLower.includes('foot') || sLower.includes('soccer')) sportIcon = 'fa-futbol';
-      else if (sLower.includes('basket')) sportIcon = 'fa-basketball';
-      else if (sLower.includes('base')) sportIcon = 'fa-baseball';
-      else if (sLower.includes('tennis')) sportIcon = 'fa-table-tennis-paddle-ball';
-      else if (sLower.includes('f1') || sLower.includes('motor') || sLower.includes('formula')) sportIcon = 'fa-car-side';
-      else if (sLower.includes('wwe') || sLower.includes('wrestling')) sportIcon = 'fa-hand-fist';
-      else sportIcon = 'fa-trophy';
+      if (sLower.includes('cricket')) sportIcon = 'fa-baseball-bat-ball text-sky-400';
+      else if (sLower.includes('foot') || sLower.includes('soccer')) sportIcon = 'fa-futbol text-emerald-400';
+      else if (sLower.includes('basket')) sportIcon = 'fa-basketball text-orange-400';
+      else if (sLower.includes('base')) sportIcon = 'fa-baseball text-amber-400';
+      else if (sLower.includes('tennis')) sportIcon = 'fa-table-tennis-paddle-ball text-yellow-400';
+      else if (sLower.includes('f1') || sLower.includes('motor') || sLower.includes('formula')) sportIcon = 'fa-car-side text-red-400';
+      else if (sLower.includes('wwe') || sLower.includes('wrestling')) sportIcon = 'fa-hand-fist text-red-500';
+      else sportIcon = 'fa-trophy text-amber-400';
     }
 
-    let topTabContent = leagueTitle || '';
-    if (/^f\s*1$/i.test(topTabContent.trim()) || /^formula\s*1$/i.test(topTabContent.trim())) {
-      topTabContent = 'Motorsports';
-    }
-    const topTabHtml = topTabContent ? `
-      <div class="match-tab-protruding match-tab-game" title="${escapeHtml(topTabContent)}">
-        <span class="tab-game-league">${escapeHtml(topTabContent)}</span>
-      </div>
-    ` : '';
-
-    // Bottom Floating Tab (Match Time & Live Running Timer - কত মিনিট বা ঘন্টা ধরে খেলা চলছে)
-    let bottomTabHtml = '';
+    // Live Running Elapsed Time
+    let initialElapsedStr = '';
+    const now = Date.now();
     if (isLive) {
-      const now = Date.now();
       let totalSecs = 0;
       if (evTs) {
         if (now >= evTs) {
@@ -1647,140 +1671,90 @@
       const elSecs = totalSecs % 60;
       const pad = n => String(n).padStart(2, '0');
 
-      let initialElapsedStr = '';
       if (elHours > 0) {
-        initialElapsedStr = `${elHours}h ${pad(elMins)}m ${pad(elSecs)}s`;
-      } else if (elMins > 0) {
-        initialElapsedStr = `${elMins}m ${pad(elSecs)}s`;
+        initialElapsedStr = `${pad(elHours)}:${pad(elMins)}:${pad(elSecs)}`;
       } else {
-        initialElapsedStr = `${elSecs}s`;
+        initialElapsedStr = `${pad(elMins)}:${pad(elSecs)}`;
       }
-
-      // Channel match connection logic remains intact on event
-      // Visible channel badge is hidden from card display per user preference
-      bottomTabHtml = `
-        <div class="match-tab-bottom live-tab" title="Match is Live Now">
-          <i class="fa-solid fa-stopwatch text-emerald-400 text-[10px]"></i>
-          <span class="tab-live-running-text match-live-running-text" data-timestamp="${evTs || ''}" data-elapsed="${event.elapsed || ''}" data-mount-time="${now}">${escapeHtml(initialElapsedStr)}</span>
-        </div>
-      `;
-    } else if (isFinished) {
-      bottomTabHtml = `
-        <div class="match-tab-bottom finished-tab" title="Full Time">
-          <span class="tab-clock-text">FT • Finished</span>
-        </div>
-      `;
-    } else {
-      bottomTabHtml = `
-        <div class="match-tab-bottom upcoming-tab" title="Starts in">
-          <i class="fa-regular fa-clock text-amber-400 text-[10px]"></i>
-          <span class="tab-upcoming-countdown match-upcoming-starts-text" data-timestamp="${evTs || ''}">${escapeHtml(startsInStr)}</span>
-        </div>
-      `;
     }
 
     return `
       <div class="event-card-wrapper ${isCurrentlyPlaying ? 'is-currently-playing' : ''}" data-event-id="${escapeHtml(event.id)}">
-        <!-- Protruding Top League Tab -->
-        ${topTabHtml}
-
-        <!-- Main Card Box -->
-        <div class="event-card ${isLive ? 'is-live-card' : ''}" data-event-id="${escapeHtml(event.id)}">
-          <!-- Left Blue Ribbon with Vertical Text (Sport Name) -->
-          <div class="card-left-ribbon">
-            <span class="card-ribbon-text" title="${escapeHtml(ribbonLabel)}">${escapeHtml(ribbonLabel)}</span>
-          </div>
-
-          <!-- Main Diagonal Split Content -->
-          <div class="card-split-canvas">
-            <!-- Diagonal Divider Line -->
-            <div class="card-diagonal-line"></div>
-
-            <!-- Center Sparkling Badge on Divider Line (LIVE badge if match is live, FT if finished, otherwise VS) -->
-            <div class="card-vs-center-wrap">
-              ${isLive ? `
-                <span class="card-vs-badge is-live-vs">
-                  <span class="vs-live-pulse-dot"></span>LIVE
-                </span>
-              ` : isFinished ? `
-                <span class="card-vs-badge is-finished-vs">FT</span>
-              ` : `
-                <span class="card-vs-badge">VS</span>
-              `}
+        <!-- PlayZ-Style Event Card (Matching User Reference) -->
+        <div class="event-card playz-card ${isLive ? 'is-live-card' : ''}" data-event-id="${escapeHtml(event.id)}">
+          
+          <!-- Top Row Header: Centered "Sport || League" & Favorite Star -->
+          <div class="playz-card-header">
+            <div class="playz-header-title">
+              <i class="fa-solid ${escapeHtml(sportIcon)} playz-header-icon"></i>
+              <span class="playz-header-text" title="${escapeHtml(headerTitle)}">${escapeHtml(headerTitle)}</span>
             </div>
-
-            <!-- Top Left: Team 1 Name -->
-            <div class="card-team-area top-left-area">
-              <span class="card-team-title" title="${escapeHtml(t1Name)}">${escapeHtml(t1Name)}</span>
-              <div class="card-team-logo-wrap">
-                <img 
-                  src="${escapeHtml(t1Logo)}" 
-                  alt="${escapeHtml(t1Name)}" 
-                  class="card-team-emblem-img" 
-                  loading="lazy" 
-                  referrerpolicy="no-referrer"
-                  onerror="window.handleTeamLogoError && window.handleTeamLogoError(this)"
-                />
-              </div>
-              ${t1Score ? `<span class="card-score-pill">${escapeHtml(t1Score)}${t1Overs ? ` <small>(${escapeHtml(t1Overs)})</small>` : ''}</span>` : ''}
-            </div>
-
-            <!-- Bottom Right: Team 2 Name & Logo -->
-            <div class="card-team-area bottom-right-area">
-              <div class="card-team-logo-wrap">
-                <img 
-                  src="${escapeHtml(t2Logo)}" 
-                  alt="${escapeHtml(t2Name)}" 
-                  class="card-team-emblem-img" 
-                  loading="lazy" 
-                  referrerpolicy="no-referrer"
-                  onerror="window.handleTeamLogoError && window.handleTeamLogoError(this)"
-                />
-              </div>
-              <span class="card-team-title" title="${escapeHtml(t2Name)}">${escapeHtml(t2Name)}</span>
-              ${t2Score ? `<span class="card-score-pill">${escapeHtml(t2Score)}${t2Overs ? ` <small>(${escapeHtml(t2Overs)})</small>` : ''}</span>` : ''}
-            </div>
-            
-            <!-- Bottom Left: TV Channels -->
-            ${(() => {
-              if (event.broadcastingChannelDetails && event.broadcastingChannelDetails.length > 0) {
-                // Deduplicate by name first just in case
-                const uniqueChs = [];
-                const seenChs = new Set();
-                for (const ch of event.broadcastingChannelDetails) {
-                  if (!seenChs.has(ch.name)) {
-                    seenChs.add(ch.name);
-                    uniqueChs.push(ch);
-                  }
-                }
-                const maxToShow = 3;
-                const toShow = uniqueChs.slice(0, maxToShow);
-                const extra = uniqueChs.length > maxToShow ? uniqueChs.length - maxToShow : 0;
-                
-                const logosHtml = toShow.map(ch => {
-                  return `<img src="${escapeHtml(ch.logo)}" alt="${escapeHtml(ch.name)}" title="Live on ${escapeHtml(ch.name)}" class="w-4 h-4 rounded-full border border-slate-700 bg-slate-800 object-cover flex-shrink-0" onerror="this.style.display='none'"/>`;
-                }).join('');
-                
-                return `
-                  <div class="absolute bottom-1.5 left-2 z-10 flex items-center gap-1 bg-slate-900/80 backdrop-blur-md px-1.5 py-0.5 rounded-lg border border-slate-700/60 shadow-sm" title="${escapeHtml(uniqueChs.map(c=>c.name).join(', '))} - Click to watch">
-                    <span class="text-[8px] font-bold text-sky-400 mr-0.5"><i class="fa-solid fa-tv mr-0.5"></i></span>
-                    ${logosHtml}
-                    ${extra > 0 ? `<span class="text-[8px] text-slate-300 font-bold ml-0.5">+${extra}</span>` : ''}
-                  </div>
-                `;
-              }
-              return '';
-            })()}
 
             <!-- Top Right Floating Star Favorite Button -->
             <button class="card-fav-star-btn ${isFav ? 'active' : ''}" data-fav-event-id="${escapeHtml(event.id)}" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">
               <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
             </button>
           </div>
-        </div>
 
-        <!-- Protruding Bottom Time Tab (টাইম একবারে নিচে) -->
-        ${bottomTabHtml}
+          <!-- Main 3-Column Match Row -->
+          <div class="playz-card-body">
+            
+            <!-- Left: Team 1 (Logo + Name) -->
+            <div class="playz-team-side playz-team-left">
+              <div class="playz-team-logo-wrap">
+                <img 
+                  src="${escapeHtml(t1Logo)}" 
+                  alt="${escapeHtml(t1Name)}" 
+                  class="playz-team-logo-img" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer"
+                  onerror="window.handleTeamLogoError && window.handleTeamLogoError(this)"
+                />
+              </div>
+              <span class="playz-team-name" title="${escapeHtml(t1Name)}">${escapeHtml(t1Name)}</span>
+              ${t1Score ? `<span class="playz-score-tag">${escapeHtml(t1Score)}${t1Overs ? ` <small>(${escapeHtml(t1Overs)})</small>` : ''}</span>` : ''}
+            </div>
+
+            <!-- Center: Status / Match Time & Date / Countdown -->
+            <div class="playz-center-info">
+              ${isLive ? `
+                <div class="playz-live-row">
+                  <span class="playz-live-pulse-dot"></span>
+                  <span class="playz-live-label">Live</span>
+                </div>
+                <span class="tab-live-running-text match-live-running-text playz-live-timer" data-timestamp="${evTs || ''}" data-elapsed="${event.elapsed || ''}" data-mount-time="${now}">
+                  ${escapeHtml(initialElapsedStr || '00:00')}
+                </span>
+                ${(t1Score || t2Score) ? `<div class="text-[11px] font-bold text-amber-400 mt-1">${escapeHtml(t1Score || '0')} - ${escapeHtml(t2Score || '0')}</div>` : ''}
+              ` : isFinished ? `
+                <span class="playz-finished-tag">FT</span>
+                <span class="playz-finished-sub">Finished</span>
+                ${(t1Score || t2Score) ? `<div class="text-[11.5px] font-bold text-slate-200 mt-0.5">${escapeHtml(t1Score || '0')} - ${escapeHtml(t2Score || '0')}</div>` : ''}
+              ` : `
+                <span class="playz-time-text">${escapeHtml(displayTime)}</span>
+                <span class="playz-date-text">${escapeHtml(displayDate)}</span>
+                <span class="tab-upcoming-countdown match-upcoming-starts-text playz-starts-text" data-timestamp="${evTs || ''}">${escapeHtml(startsInStr)}</span>
+              `}
+            </div>
+
+            <!-- Right: Team 2 (Logo + Name) -->
+            <div class="playz-team-side playz-team-right">
+              <div class="playz-team-logo-wrap">
+                <img 
+                  src="${escapeHtml(t2Logo)}" 
+                  alt="${escapeHtml(t2Name)}" 
+                  class="playz-team-logo-img" 
+                  loading="lazy" 
+                  referrerpolicy="no-referrer"
+                  onerror="window.handleTeamLogoError && window.handleTeamLogoError(this)"
+                />
+              </div>
+              <span class="playz-team-name" title="${escapeHtml(t2Name)}">${escapeHtml(t2Name)}</span>
+              ${t2Score ? `<span class="playz-score-tag">${escapeHtml(t2Score)}${t2Overs ? ` <small>(${escapeHtml(t2Overs)})</small>` : ''}</span>` : ''}
+            </div>
+
+          </div>
+        </div>
       </div>
     `;
   }
@@ -2345,9 +2319,11 @@
               }
             } else {
               if (diffDays > 0) {
-                el.textContent = `Starts in ${diffDays}d ${pad(diffHours)}h`;
+                el.textContent = `Starts in ${diffDays}d ${diffHours}h`;
+              } else if (diffHours >= 1) {
+                el.textContent = `Starts in ${diffHours} ${diffHours === 1 ? 'hour' : 'hours'}`;
               } else {
-                el.textContent = `Starts in ${pad(diffHours)}:${pad(diffMins)}:${pad(diffSecs)}`;
+                el.textContent = `Starts in ${pad(diffMins)}:${pad(diffSecs)}`;
               }
             }
           }
@@ -3332,7 +3308,6 @@
       motorsport: ['motorsport', 'formula 1', 'f1', 'f1 tv', 'canal+', 'viaplay', 'sky sports f1', 'racing'],
       wwe: ['wwe', 'wrestling', 'netflix', 'usa network', 'sony sports ten', 'sony ten 1', 'sony ten 2', 'sony ten 3'],
       hockey: ['hockey', 'nhl', 'cbc', 'tva sports', 'sportsnet one'],
-      kabaddi: ['kabaddi', 'pro kabaddi', 'pkl', 'star sports select', 'jiosports', 'dd sports'],
       rugby: ['rugby', 'six nations', 'florugby', 'stan sport', 'sky sports arena', 'supersport rugby']
     };
 
@@ -3345,7 +3320,6 @@
     else if (f.includes('motor') || f.includes('f1')) targetSportKey = 'motorsport';
     else if (f.includes('wwe') || f.includes('wrest')) targetSportKey = 'wwe';
     else if (f.includes('hockey')) targetSportKey = 'hockey';
-    else if (f.includes('kabaddi')) targetSportKey = 'kabaddi';
     else if (f.includes('rugby')) targetSportKey = 'rugby';
 
     if (targetSportKey) {
@@ -4925,6 +4899,7 @@
     }
 
     if (DOM.playerError) DOM.playerError.style.display = 'none';
+    hidePlayerWatermark();
 
     // Clean up any existing player instances
     if (state.hlsInstance) {
@@ -4973,12 +4948,25 @@
       showPlayerError(`Live stream is temporarily unavailable for ${channelTitle}. Please select another server or tap Retry.`);
     };
 
+    const showPlayerWatermark = () => {
+      if (DOM.playerWatermark && DOM.videoElement && !DOM.videoElement.paused && DOM.videoElement.readyState >= 2) {
+        DOM.playerWatermark.classList.add('visible');
+      }
+    };
+
+    const hidePlayerWatermark = () => {
+      if (DOM.playerWatermark) {
+        DOM.playerWatermark.classList.remove('visible');
+      }
+    };
+
     const hideSpinnerAndClearWatchdog = () => {
       if (streamLoadWatchdog) {
         clearTimeout(streamLoadWatchdog);
         streamLoadWatchdog = null;
       }
       if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
+      showPlayerWatermark();
     };
 
     // Resilient Watchdog: 12s startup timeout before failover to backup
@@ -5169,6 +5157,7 @@
   function showPlayerError(msg) {
     if (streamLoadWatchdog) clearTimeout(streamLoadWatchdog);
     if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
+    if (DOM.playerWatermark) DOM.playerWatermark.classList.remove('visible');
     if (DOM.playerError) {
       DOM.playerError.style.display = 'flex';
       if (DOM.playerErrorMsg) DOM.playerErrorMsg.textContent = msg;
@@ -5176,6 +5165,9 @@
   }
 
   function closePlayer() {
+    if (DOM.playerWatermark) {
+      DOM.playerWatermark.classList.remove('visible');
+    }
     if (streamLoadWatchdog) {
       clearTimeout(streamLoadWatchdog);
       streamLoadWatchdog = null;
@@ -5408,6 +5400,24 @@
           const bufferedEnd = b.end(b.length - 1);
           const bufPct = Math.min(100, (bufferedEnd / dur) * 100);
           DOM.playerBufferedBar.style.width = bufPct + '%';
+        }
+      });
+
+      DOM.videoElement.addEventListener('playing', () => {
+        if (DOM.playerWatermark && DOM.videoElement && DOM.videoElement.readyState >= 2) {
+          DOM.playerWatermark.classList.add('visible');
+        }
+      });
+
+      DOM.videoElement.addEventListener('ended', () => {
+        if (DOM.playerWatermark) {
+          DOM.playerWatermark.classList.remove('visible');
+        }
+      });
+
+      DOM.videoElement.addEventListener('emptied', () => {
+        if (DOM.playerWatermark) {
+          DOM.playerWatermark.classList.remove('visible');
         }
       });
 
