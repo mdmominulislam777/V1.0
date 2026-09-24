@@ -132,7 +132,7 @@ class WWEEngine {
         ribbon: 'WWE RAW',
         icon: 'fa-hand-fist',
         color: '#ef4444',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WWE_Raw_logo_2023.svg/512px-WWE_Raw_logo_2023.svg.png'
+        logo: './assets/wwe-logos/wwe_raw.png'
       };
     }
     
@@ -144,7 +144,7 @@ class WWEEngine {
         ribbon: 'SmackDown',
         icon: 'fa-hand-fist',
         color: '#0284c7',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/WWE_SmackDown_2024_logo.svg/512px-WWE_SmackDown_2024_logo.svg.png'
+        logo: './assets/wwe-logos/wwe_smackdown.png'
       };
     }
     
@@ -156,7 +156,7 @@ class WWEEngine {
         ribbon: 'WWE NXT',
         icon: 'fa-bolt',
         color: '#f59e0b',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/WWE_NXT_logo_2024.svg/512px-WWE_NXT_logo_2024.svg.png'
+        logo: './assets/wwe-logos/wwe_nxt.png'
       };
     }
 
@@ -168,7 +168,7 @@ class WWEEngine {
         ribbon: 'AEW',
         icon: 'fa-hand-back-fist',
         color: '#eab308',
-        logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png'
+        logo: './assets/wwe-logos/aew_official.svg'
       };
     }
     
@@ -179,7 +179,7 @@ class WWEEngine {
       ribbon: 'WWE Special',
       icon: 'fa-trophy',
       color: '#8b5cf6',
-      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png'
+      logo: './assets/wwe-logos/wwe_special.png'
     };
   }
 
@@ -211,7 +211,7 @@ class WWEEngine {
 
     // Strictly Brand / Show Names and Official Brand Logos (NO individual wrestler/player names)
     const homeName = brandInfo.brand === 'AEW' ? 'AEW' : 'WWE';
-    const homeLogo = brandInfo.brand === 'AEW' ? 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png' : 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png';
+    const homeLogo = brandInfo.brand === 'AEW' ? './assets/wwe-logos/aew_official.svg' : './assets/wwe-logos/wwe_official.png';
     const awayName = brandInfo.shortName;
     const awayLogo = brandInfo.logo;
 

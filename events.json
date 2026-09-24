@@ -974,7 +974,7 @@
     "timeOrTimer": "2 - 0",
     "venue": "Lumen Field, United States",
     "isHot": false,
-    "videoUrl": null,
+    "videoUrl": "https://www.youtube.com/watch?v=LN_CnuOFf1Q",
     "team1": {
       "id": "134149",
       "name": "Seattle Sounders",
@@ -1978,7 +1978,7 @@
     "timestamp": 1790189100000,
     "date": "2026-09-24",
     "matchTime": "Last Night, 12:45 AM BST",
-    "timeOrTimer": "FT",
+    "timeOrTimer": "4 - 0",
     "venue": "Broadfield Stadium, England",
     "isHot": false,
     "videoUrl": null,
@@ -1986,25 +1986,25 @@
       "id": "140222",
       "name": "Brighton WFC",
       "logo": "https://r2.thesportsdb.com/images/media/team/badge/zn0x7h1605371909.png",
-      "score": ""
+      "score": "4"
     },
     "team2": {
       "id": "140539",
       "name": "Charlton Athletic WFC",
       "logo": "https://r2.thesportsdb.com/images/media/team/badge/c5nazz1610532336.png",
-      "score": ""
+      "score": "0"
     },
     "homeTeam": {
       "id": "140222",
       "name": "Brighton WFC",
       "logo": "https://r2.thesportsdb.com/images/media/team/badge/zn0x7h1605371909.png",
-      "score": ""
+      "score": "4"
     },
     "awayTeam": {
       "id": "140539",
       "name": "Charlton Athletic WFC",
       "logo": "https://r2.thesportsdb.com/images/media/team/badge/c5nazz1610532336.png",
-      "score": ""
+      "score": "0"
     },
     "broadcaster": "",
     "broadcasters": [],
@@ -2610,7 +2610,7 @@
     "status": "upcoming",
     "statusText": "Scheduled",
     "statusLabel": "Upcoming",
-    "timestamp": 1790315189448,
+    "timestamp": 1790316614145,
     "date": "2026-09-25",
     "matchTime": "06:00 AM",
     "timeOrTimer": "06:00 AM",
@@ -2618,19 +2618,19 @@
     "isHot": true,
     "team1": {
       "name": "WWE",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_official.png"
     },
     "team2": {
       "name": "SmackDown",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/WWE_SmackDown_2024_logo.svg/512px-WWE_SmackDown_2024_logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_smackdown.png"
     },
     "homeTeam": {
       "name": "WWE",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_official.png"
     },
     "awayTeam": {
       "name": "SmackDown",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/WWE_SmackDown_2024_logo.svg/512px-WWE_SmackDown_2024_logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_smackdown.png"
     },
     "broadcaster": "Sony Sports Ten 1 HD",
     "broadcasters": [
@@ -2654,7 +2654,7 @@
     "status": "upcoming",
     "statusText": "Scheduled",
     "statusLabel": "Upcoming",
-    "timestamp": 1790487989448,
+    "timestamp": 1790489414145,
     "date": "2026-09-27",
     "matchTime": "06:00 AM",
     "timeOrTimer": "06:00 AM",
@@ -2662,19 +2662,19 @@
     "isHot": true,
     "team1": {
       "name": "WWE",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_official.png"
     },
     "team2": {
       "name": "RAW",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WWE_Raw_logo_2023.svg/512px-WWE_Raw_logo_2023.svg.png"
+      "logo": "./assets/wwe-logos/wwe_raw.png"
     },
     "homeTeam": {
       "name": "WWE",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_official.png"
     },
     "awayTeam": {
       "name": "RAW",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WWE_Raw_logo_2023.svg/512px-WWE_Raw_logo_2023.svg.png"
+      "logo": "./assets/wwe-logos/wwe_raw.png"
     },
     "broadcaster": "Sony Sports Ten 1 HD",
     "broadcasters": [
@@ -2698,7 +2698,7 @@
     "status": "upcoming",
     "statusText": "Scheduled",
     "statusLabel": "Upcoming",
-    "timestamp": 1790574389448,
+    "timestamp": 1790575814145,
     "date": "2026-09-28",
     "matchTime": "06:00 AM",
     "timeOrTimer": "06:00 AM",
@@ -2706,19 +2706,19 @@
     "isHot": false,
     "team1": {
       "name": "WWE",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_official.png"
     },
     "team2": {
       "name": "NXT",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/WWE_NXT_logo_2024.svg/512px-WWE_NXT_logo_2024.svg.png"
+      "logo": "./assets/wwe-logos/wwe_nxt.png"
     },
     "homeTeam": {
       "name": "WWE",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+      "logo": "./assets/wwe-logos/wwe_official.png"
     },
     "awayTeam": {
       "name": "NXT",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/WWE_NXT_logo_2024.svg/512px-WWE_NXT_logo_2024.svg.png"
+      "logo": "./assets/wwe-logos/wwe_nxt.png"
     },
     "broadcaster": "Sony Sports Ten 1 HD",
     "broadcasters": [
@@ -2742,7 +2742,7 @@
     "status": "upcoming",
     "statusText": "Scheduled",
     "statusLabel": "Upcoming",
-    "timestamp": 1790401589448,
+    "timestamp": 1790403014145,
     "date": "2026-09-26",
     "matchTime": "06:00 AM",
     "timeOrTimer": "06:00 AM",
@@ -2750,19 +2750,19 @@
     "isHot": false,
     "team1": {
       "name": "AEW",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png"
+      "logo": "./assets/wwe-logos/aew_official.svg"
     },
     "team2": {
       "name": "Dynamite",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png"
+      "logo": "./assets/wwe-logos/aew_official.svg"
     },
     "homeTeam": {
       "name": "AEW",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png"
+      "logo": "./assets/wwe-logos/aew_official.svg"
     },
     "awayTeam": {
       "name": "Dynamite",
-      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png"
+      "logo": "./assets/wwe-logos/aew_official.svg"
     },
     "broadcaster": "Sony Sports Ten 2 HD",
     "broadcasters": [

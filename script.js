@@ -1244,6 +1244,23 @@
   window.handleTeamLogoError = function(img) {
     if (img && !img.dataset.hasFallback) {
       img.dataset.hasFallback = 'true';
+      const alt = (img.alt || '').toLowerCase();
+      if (alt.includes('smackdown') || alt.includes('smack down')) {
+        img.src = './assets/wwe-logos/wwe_smackdown.png';
+        return;
+      }
+      if (alt.includes('wwe')) {
+        img.src = './assets/wwe-logos/wwe_official.png';
+        return;
+      }
+      if (alt.includes('raw')) {
+        img.src = './assets/wwe-logos/wwe_raw.png';
+        return;
+      }
+      if (alt.includes('nxt')) {
+        img.src = './assets/wwe-logos/wwe_nxt.png';
+        return;
+      }
       img.src = window.DEFAULT_SPORTS_FALLBACK_LOGO;
     }
   };
@@ -1276,11 +1293,20 @@
     if (nameClean === 'formula 1' || nameClean === 'f1' || nameClean.includes('formula 1')) {
       return 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/512px-F1.svg.png';
     }
+    if (nameClean.includes('smackdown') || nameClean.includes('smack down')) {
+      return './assets/wwe-logos/wwe_smackdown.png';
+    }
     if (nameClean === 'wwe' || nameClean.includes('wwe')) {
-      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png';
+      return './assets/wwe-logos/wwe_official.png';
+    }
+    if (nameClean.includes('raw')) {
+      return './assets/wwe-logos/wwe_raw.png';
+    }
+    if (nameClean.includes('nxt')) {
+      return './assets/wwe-logos/wwe_nxt.png';
     }
     if (nameClean === 'aew' || nameClean.includes('aew')) {
-      return 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png';
+      return './assets/wwe-logos/aew_official.svg';
     }
 
     // 2. Curated database check (only when rawLogo is missing or un.png):
@@ -1494,11 +1520,11 @@
 
     if (isWrestlingEvent) {
       const matchText = `${event.title || ''} ${event.tournament || ''} ${event.league || ''} ${event.subText || ''} ${t1Name} ${t2Name}`.toLowerCase();
-      const wweMainLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png';
-      const wweRawLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WWE_Raw_logo_2023.svg/512px-WWE_Raw_logo_2023.svg.png';
-      const wweSdLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/WWE_SmackDown_2024_logo.svg/512px-WWE_SmackDown_2024_logo.svg.png';
-      const wweNxtLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/WWE_NXT_logo_2024.svg/512px-WWE_NXT_logo_2024.svg.png';
-      const aewLogo = 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png';
+      const wweMainLogo = './assets/wwe-logos/wwe_official.png';
+      const wweRawLogo = './assets/wwe-logos/wwe_raw.png';
+      const wweSdLogo = './assets/wwe-logos/wwe_smackdown.png';
+      const wweNxtLogo = './assets/wwe-logos/wwe_nxt.png';
+      const aewLogo = './assets/wwe-logos/aew_official.svg';
 
       if (matchText.includes('raw')) {
         t1Name = 'WWE';
@@ -1524,7 +1550,7 @@
         t1Name = 'WWE';
         t1Logo = wweMainLogo;
         t2Name = 'Special PLE';
-        t2Logo = wweMainLogo;
+        t2Logo = './assets/wwe-logos/wwe_special.png';
       }
     }
 
@@ -1726,17 +1752,12 @@
         <!-- PlayZ-Style Event Card (Matching User Reference) -->
         <div class="event-card playz-card ${isLive ? 'is-live-card' : ''}" data-event-id="${escapeHtml(event.id)}">
           
-          <!-- Top Row Header: Centered "Sport || League" & Favorite Star -->
+          <!-- Top Row Header: Centered "Sport || League" -->
           <div class="playz-card-header">
             <div class="playz-header-title">
               <i class="fa-solid ${escapeHtml(sportIcon)} playz-header-icon"></i>
               <span class="playz-header-text" title="${escapeHtml(headerTitle)}">${escapeHtml(headerTitle)}</span>
             </div>
-
-            <!-- Top Right Floating Star Favorite Button -->
-            <button class="card-fav-star-btn ${isFav ? 'active' : ''}" data-fav-event-id="${escapeHtml(event.id)}" title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">
-              <i class="fa-${isFav ? 'solid' : 'regular'} fa-star"></i>
-            </button>
           </div>
 
           <!-- Main 3-Column Match Row -->

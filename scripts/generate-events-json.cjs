@@ -21,11 +21,11 @@ async function getTheSportsDbEvents() {
 
 function getWweEvents() {
   const wweLogos = {
-    wwe: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png',
-    raw: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WWE_Raw_logo_2023.svg/512px-WWE_Raw_logo_2023.svg.png',
-    smackdown: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/WWE_SmackDown_2024_logo.svg/512px-WWE_SmackDown_2024_logo.svg.png',
-    nxt: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/WWE_NXT_logo_2024.svg/512px-WWE_NXT_logo_2024.svg.png',
-    aew: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/All_Elite_Wrestling_logo.svg/512px-All_Elite_Wrestling_logo.svg.png'
+    wwe: './assets/wwe-logos/wwe_official.png',
+    raw: './assets/wwe-logos/wwe_raw.png',
+    smackdown: './assets/wwe-logos/wwe_smackdown.png',
+    nxt: './assets/wwe-logos/wwe_nxt.png',
+    aew: './assets/wwe-logos/aew_official.svg'
   };
 
   const now = Date.now();
