@@ -2114,7 +2114,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
 
 /* PlayZ Card Layout - Slimmer Compact Mobile Profile */
 .playz-card {
-  padding: 3px 12px 3px 12px;
+  padding: 3px 6px 3px 6px;
 }
 
 .playz-card-header {
@@ -2157,7 +2157,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   width: 100%;
 }
 
@@ -2168,6 +2168,19 @@ body .event-card-wrapper.is-currently-playing .event-card,
   justify-content: center;
   text-align: center;
   min-width: 0;
+  width: 100%;
+}
+
+.playz-team-left {
+  justify-self: start;
+  align-items: center;
+  padding-left: 2px;
+}
+
+.playz-team-right {
+  justify-self: end;
+  align-items: center;
+  padding-right: 2px;
 }
 
 .playz-team-logo-wrap {
@@ -2198,7 +2211,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
   font-weight: 500;
   color: #f1f5f9;
   text-align: center;
-  max-width: 110px;
+  max-width: 115px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;

@@ -1,15 +1,11 @@
 // HighFy TV Service Worker
-const CACHE_NAME = 'highfy-tv-v1';
+const CACHE_NAME = 'highfy-tv-v20260924_1600';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
-  '/style.css',
   '/manifest.json',
   '/highfy_logo1.png',
-  '/highfy_watermark1.png',
-  '/highfy_logo_official.png',
-  '/highfy_logo_transparent.png',
-  '/highfy_watermark.png'
+  '/highfy_watermark1.png'
 ];
 
 self.addEventListener('install', (event) => {

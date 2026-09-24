@@ -32,7 +32,10 @@ class CricketEngine {
             .filter(ev => {
               if (!ev || !ev.id) return false;
               const id = String(ev.id);
-              if (id.startsWith('cricket-upcoming-') || id.startsWith('cricket-live-') || id.startsWith('dummy-') || id.startsWith('mock-')) {
+              if (id.startsWith('cricket-upcoming-') || id.startsWith('cricket-live-') || id.startsWith('dummy-') || id.startsWith('mock-') || id.startsWith('cr-cricbuzz-')) {
+                return false;
+              }
+              if (ev.source && String(ev.source).toLowerCase().includes('cricbuzz')) {
                 return false;
               }
               return true;
@@ -99,7 +102,7 @@ class CricketEngine {
     if (localKey && localKey.trim()) return localKey.trim();
     const configKey = window.CONFIG?.SPORTRADAR_CRICKET_API_KEY;
     if (configKey && configKey.trim()) return configKey.trim();
-    return '';
+    return 'JMrqYPy7ajprQxflthCOqu9lQN6J2yWU5SOWRXv8';
   }
 
   /**
@@ -173,122 +176,94 @@ class CricketEngine {
   }
 
   /**
-   * Core API Fetcher
+   * Core API Fetcher - Exclusively Sportradar Official Cricket API
    */
   async fetchFromApi(endpoint) {
     const sportradarKey = this.getSportradarKey();
-    const rapidKey = this.getRapidApiKey();
 
-    // 1. Direct Sportradar matches fetch if explicitly requested
-    if (sportradarKey && endpoint.includes('provider=sportradar')) {
+    // 1. Primary: Query backend Sportradar proxy endpoint
+    try {
+      const queryParts = [];
+      if (sportradarKey) queryParts.push(`sportradar_key=${encodeURIComponent(sportradarKey)}`);
+      const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
+
+      const proxyUrl = `/api/cricket/matches${queryString}`;
+      const headers = {};
+      if (sportradarKey) headers['x-sportradar-api-key'] = sportradarKey;
+
+      const proxyRes = await fetch(proxyUrl, { headers });
+      if (proxyRes.ok) {
+        const json = await proxyRes.json();
+        if (json && Array.isArray(json.data) && json.data.length > 0) {
+          return { success: true, data: json.data, source: 'Sportradar' };
+        }
+      }
+    } catch (proxyErr) {
+      console.warn('[CricketEngine] Backend Sportradar proxy note:', proxyErr.message);
+    }
+
+    // 2. Secondary: /api/cricket/sportradar/matches direct proxy
+    try {
+      const srUrl = sportradarKey
+        ? `/api/cricket/sportradar/matches?api_key=${encodeURIComponent(sportradarKey)}`
+        : `/api/cricket/sportradar/matches`;
+      const srRes = await fetch(srUrl);
+      if (srRes.ok) {
+        const srJson = await srRes.json();
+        if (srJson && Array.isArray(srJson.data) && srJson.data.length > 0) {
+          return { success: true, data: srJson.data, source: 'Sportradar' };
+        }
+      }
+    } catch (srFallbackErr) {
+      console.warn('[CricketEngine] Sportradar fallback error:', srFallbackErr.message);
+    }
+
+    // 3. Client-Direct Sportradar API (for static/frontend-only environments)
+    if (sportradarKey) {
       try {
-        const srRes = await fetch(`/api/cricket/sportradar/matches?api_key=${encodeURIComponent(sportradarKey)}`);
-        if (srRes.ok) {
-          const srJson = await srRes.json();
-          if (srJson && Array.isArray(srJson.data) && srJson.data.length > 0) {
-            return { success: true, data: srJson.data, source: 'Sportradar' };
-          }
+        const today = new Intl.DateTimeFormat('en-CA', {
+          timeZone: 'Asia/Dhaka',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+        }).format(new Date());
+
+        const [liveRes, todayRes] = await Promise.allSettled([
+          fetch(`https://api.sportradar.com/cricket-t2/en/schedules/live/schedule.json?api_key=${encodeURIComponent(sportradarKey)}`).then(r => r.ok ? r.json() : null),
+          fetch(`https://api.sportradar.com/cricket-t2/en/schedules/${today}/schedule.json?api_key=${encodeURIComponent(sportradarKey)}`).then(r => r.ok ? r.json() : null),
+        ]);
+
+        const liveData = liveRes.status === 'fulfilled' ? liveRes.value : null;
+        const todayData = todayRes.status === 'fulfilled' ? todayRes.value : null;
+
+        const rawEvents = [
+          ...(Array.isArray(liveData?.sport_events) ? liveData.sport_events : (Array.isArray(liveData?.summaries) ? liveData.summaries : [])),
+          ...(Array.isArray(todayData?.sport_events) ? todayData.sport_events : (Array.isArray(todayData?.summaries) ? todayData.summaries : []))
+        ];
+
+        if (rawEvents.length > 0) {
+          return { success: true, data: rawEvents, source: 'Sportradar' };
         }
-      } catch (srErr) {
-        console.warn('[CricketEngine] Sportradar note:', srErr.message);
+      } catch (directSrErr) {
+        console.warn('[CricketEngine] Direct Sportradar fetch note:', directSrErr.message);
       }
     }
 
-    // 2. Query backend server proxy (Cricbuzz RapidAPI + Sportradar unified engine)
-    const isStaticHost = typeof window !== 'undefined' && (
-      (window.location.hostname && window.location.hostname.includes('github.io')) ||
-      window.location.protocol === 'file:' ||
-      (!window.location.port && window.location.hostname !== 'localhost') ||
-      (window.location.hostname === 'localhost' && window.location.port !== '3000')
-    );
-
-    // If on full-stack server (e.g. AI Studio / Node environment), try backend proxy first
-    if (!isStaticHost) {
-      try {
-        if (endpoint.includes('currentMatches') || endpoint.includes('matches')) {
-          const queryParts = [];
-          if (rapidKey) queryParts.push(`rapidapikey=${encodeURIComponent(rapidKey)}`);
-          if (sportradarKey) queryParts.push(`sportradar_key=${encodeURIComponent(sportradarKey)}`);
-          const queryString = queryParts.length > 0 ? `?${queryParts.join('&')}` : '';
-
-          const proxyUrl = `/api/cricket/matches${queryString}`;
-          const headers = {};
-          if (rapidKey) headers['x-rapidapi-key'] = rapidKey;
-          if (sportradarKey) headers['x-sportradar-api-key'] = sportradarKey;
-
-          const proxyRes = await fetch(proxyUrl, { headers });
-          if (proxyRes.ok) {
-            const json = await proxyRes.json();
-            if (json && Array.isArray(json.data) && json.data.length > 0) {
-              return { success: true, data: json.data, source: json.source || 'Cricbuzz RapidAPI' };
-            }
-          }
-        } else if (endpoint.includes('match_info') || endpoint.includes('scorecard') || endpoint.includes('details')) {
-          const cleanId = (endpoint.split('id=')[1] || '').split('&')[0];
-          if (cleanId) {
-            const queryParts = [`id=${encodeURIComponent(cleanId)}`];
-            if (rapidKey) queryParts.push(`rapidapikey=${encodeURIComponent(rapidKey)}`);
-            const queryString = `?${queryParts.join('&')}`;
-
-            const headers = {};
-            if (rapidKey) headers['x-rapidapi-key'] = rapidKey;
-
-            const scardRes = await fetch(`/api/cricket/scorecard${queryString}`, { headers });
-            if (scardRes.ok) {
-              const scardJson = await scardRes.json();
-              if (scardJson && scardJson.data) {
-                return { success: true, data: scardJson.data, source: 'Cricbuzz Scorecard' };
-              }
-            }
+    // 4. Offline / Static fallback: events.json (Strictly Sportradar only)
+    try {
+      const evRes = await fetch('./events.json');
+      if (evRes.ok) {
+        const evList = await evRes.json();
+        if (Array.isArray(evList)) {
+          const crOnly = evList.filter(e => (e.sport || '').toLowerCase() === 'cricket' && (e.source === 'Sportradar' || String(e.id).startsWith('cr-sportradar-')));
+          if (crOnly.length > 0) {
+            return { success: true, data: crOnly, source: 'Sportradar (Seed)' };
           }
         }
-      } catch (proxyErr) {
-        console.warn('[CricketEngine] Backend proxy unavailable, activating client direct mode:', proxyErr.message);
       }
-    }
+    } catch (seedErr) {}
 
-    // 3. Client-Direct Mode (Essential for GitHub Pages & Static Deployments)
-    if (endpoint.includes('currentMatches') || endpoint.includes('matches')) {
-      const directMatchesResult = await this.fetchDirectCricbuzzMatches(rapidKey);
-      if (directMatchesResult && directMatchesResult.success) {
-        return directMatchesResult;
-      }
-    } else if (endpoint.includes('match_info') || endpoint.includes('scorecard') || endpoint.includes('details')) {
-      const cleanId = (endpoint.split('id=')[1] || '').split('&')[0];
-      if (cleanId) {
-        const host = 'cricbuzz-cricket2.p.rapidapi.com';
-        const key = rapidKey || this.getRapidApiKey() || window.CONFIG?.RAPIDAPI_KEY || '2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81';
-        try {
-          const [mCenterRes, scardRes] = await Promise.allSettled([
-            fetch(`https://${host}/mcenter/v1/${encodeURIComponent(cleanId)}`, {
-              headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }
-            }).then(r => r.ok && r.status !== 204 ? r.json() : null),
-            fetch(`https://${host}/mcenter/v1/${encodeURIComponent(cleanId)}/scard`, {
-              headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }
-            }).then(r => r.ok && r.status !== 204 ? r.json() : null)
-          ]);
-
-          const mCenter = mCenterRes.status === 'fulfilled' ? mCenterRes.value : null;
-          const scard = scardRes.status === 'fulfilled' ? scardRes.value : null;
-
-          if (mCenter || scard) {
-            return {
-              success: true,
-              data: {
-                matchId: cleanId,
-                matchInfo: mCenter,
-                scorecard: scard?.scorecard || scard
-              },
-              source: 'Cricbuzz Direct Scorecard'
-            };
-          }
-        } catch (scardErr) {
-          console.warn('[CricketEngine] Direct scorecard note:', scardErr);
-        }
-      }
-    }
-
-    return { error: 'no_matches', message: 'No live cricket matches at this time.' };
+    return { error: 'no_matches', message: 'No live cricket matches available from Sportradar.' };
   }
 
   /**
@@ -647,7 +622,7 @@ class CricketEngine {
       }
     }
 
-    if (!teamName) return 'https://flagcdn.com/w320/un.png';
+    if (!teamName) return './assets/team-placeholder.svg';
     const tLower = teamName.toLowerCase().trim();
     const map = {
       'india': 'https://flagcdn.com/w320/in.png',
@@ -663,7 +638,9 @@ class CricketEngine {
       'ireland': 'https://flagcdn.com/w320/ie.png',
       'scotland': 'https://flagcdn.com/w320/gb-sct.png',
       'netherlands': 'https://flagcdn.com/w320/nl.png',
-      'zimbabwe': 'https://flagcdn.com/w320/zw.png'
+      'zimbabwe': 'https://flagcdn.com/w320/zw.png',
+      'hong kong': 'https://flagcdn.com/w320/hk.png',
+      'oman': 'https://flagcdn.com/w320/om.png'
     };
     if (map[tLower]) return map[tLower];
     for (const [k, v] of Object.entries(map)) {
@@ -674,7 +651,7 @@ class CricketEngine {
         if (tLower === k || tLower.includes(k) || k.includes(tLower)) return v;
       }
     }
-    return 'https://flagcdn.com/w320/un.png';
+    return './assets/team-placeholder.svg';
   }
 
   /**

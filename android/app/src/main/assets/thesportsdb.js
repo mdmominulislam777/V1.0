@@ -32,6 +32,24 @@ class TheSportsDBEngine {
         }
       }
     } catch (e) {}
+
+    // If cache is empty, hydrate from local events.json seed
+    if ((!this.cache.data || this.cache.data.length === 0) && typeof fetch !== 'undefined') {
+      try {
+        fetch('./events.json')
+          .then(r => r.ok ? r.json() : null)
+          .then(list => {
+            if (Array.isArray(list) && list.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
+              const sportsEvents = list.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
+              if (sportsEvents.length > 0) {
+                this.cache.data = sportsEvents;
+                this.cache.timestamp = Date.now();
+              }
+            }
+          })
+          .catch(() => {});
+      } catch (_) {}
+    }
   }
 
   /**
@@ -110,13 +128,19 @@ class TheSportsDBEngine {
    */
   normalizeSport(strSport = '') {
     const s = strSport.toLowerCase();
+    if (s.includes('rugby')) {
+      return { sport: 'rugby', sportName: 'Rugby', sportIcon: 'fa-football' };
+    }
+    if (s.includes('baseball') || s.includes('mlb')) {
+      return { sport: 'baseball', sportName: 'Baseball', sportIcon: 'fa-baseball' };
+    }
     if (s.includes('soccer') || (s.includes('football') && !s.includes('american'))) {
       return { sport: 'football', sportName: 'Football', sportIcon: 'fa-futbol' };
     }
     if (s.includes('cricket')) {
       return { sport: 'cricket', sportName: 'Cricket', sportIcon: 'fa-baseball-bat-ball' };
     }
-    if (s.includes('basketball') || s.includes('nba')) {
+    if (s.includes('basketball') || s.includes('nba') || s.includes('wnba') || s.includes('cba')) {
       return { sport: 'basketball', sportName: 'Basketball', sportIcon: 'fa-basketball' };
     }
     if (s.includes('motorsport') || s.includes('racing') || s.includes('formula')) {
@@ -329,7 +353,10 @@ class TheSportsDBEngine {
           '4427', // UEFA Nations League
           '4906', // Saudi Pro League
           '4346', // MLS
-          '4387', // NBA
+          '4424', // MLB Baseball
+          '4387', // NBA Basketball
+          '4408', // EuroLeague Basketball
+          '4441', // Basketball / BBL
           '4370', // Formula 1
           '4380', // NHL Ice Hockey
           '4464', // ATP Tennis
@@ -337,6 +364,8 @@ class TheSportsDBEngine {
           '4581', // Laver Cup Tennis
           '4466', // Grand Slam Tennis (US Open)
           '4467', // Wimbledon
+          '4414', // Rugby Premiership
+          '4417', // NRL Rugby
           '4885', // International Cricket Tours
           '4886', // ICC T20 World Cup
           '4443', // ICC Cricket World Cup / UFC
@@ -388,6 +417,27 @@ class TheSportsDBEngine {
         console.warn('[TheSportsDB] Direct fetch failed:', e.message);
       } finally {
         this.inFlightPromise = null;
+      }
+
+      // Fallback: If still empty (e.g. on GitHub Pages static deployment), load from events.json
+      if (!this.cache.data || this.cache.data.length === 0) {
+        try {
+          const evRes = await fetch('./events.json');
+          if (evRes.ok) {
+            const evJson = await evRes.json();
+            if (Array.isArray(evJson) && evJson.length > 0) {
+              const sportsEvents = evJson.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
+              if (sportsEvents.length > 0) {
+                this.saveLocalCache(sportsEvents, Date.now());
+                return {
+                  configured: true,
+                  source: 'TheSportsDB (Seed)',
+                  events: sportsEvents
+                };
+              }
+            }
+          }
+        } catch (_) {}
       }
 
       return {

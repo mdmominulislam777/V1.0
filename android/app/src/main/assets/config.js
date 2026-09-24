@@ -37,6 +37,10 @@
     SOFASCORE_RAPIDAPI_HOST: env.SOFASCORE_RAPIDAPI_HOST || "sofascore.p.rapidapi.com",
     SOFASCORE_SPORTS_LIST_URL: "https://sofascore.p.rapidapi.com/sports/list?countryCode=GB",
 
+    // 🏏 Sportradar Cricket Official API
+    SPORTRADAR_CRICKET_API_KEY: env.SPORTRADAR_CRICKET_API_KEY || "JMrqYPy7ajprQxflthCOqu9lQN6J2yWU5SOWRXv8",
+    SPORTRADAR_CRICKET_TIER: env.SPORTRADAR_CRICKET_TIER || "t2",
+
     // 🏟️ TheSportsDB Free API Tier (Public Key '3')
     THESPORTSDB_API_KEY: env.THESPORTSDB_API_KEY || "3",
     THESPORTSDB_BASE_URL: "https://www.thesportsdb.com/api/v1/json",

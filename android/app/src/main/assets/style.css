@@ -1487,23 +1487,28 @@ body .sports-view-sticky-header {
 }
 
 .sports-shortcuts-container {
-  padding: 8px 4px 4px 4px;
+  padding: 10px 14px 6px 14px;
   overflow-x: auto;
+  overflow-y: visible;
   display: flex;
-  align-items: center;
-  gap: 3px;
+  align-items: flex-start;
+  gap: 12px;
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .sport-shortcut-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   cursor: pointer;
   flex-shrink: 0;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  padding: 0 1px;
+  padding: 2px 2px 4px 2px;
+  min-width: 52px;
+  max-width: 64px;
+  text-align: center;
 }
 
 .sport-shortcut-item:hover {
@@ -1516,8 +1521,8 @@ body .sports-view-sticky-header {
 
 .sport-shortcut-circle {
   position: relative;
-  width: 46px;
-  height: 46px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: var(--bg-shortcut);
   border: 1.5px solid var(--border-subtle);
@@ -1525,14 +1530,14 @@ body .sports-view-sticky-header {
   align-items: center;
   justify-content: center;
   color: var(--text-secondary);
-  font-size: 23px;
+  font-size: 20px;
   transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   box-shadow: var(--shadow-card);
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sport-shortcut-circle i {
-  font-size: 23px;
+  font-size: 20px;
   line-height: 1;
   display: flex;
   align-items: center;
@@ -1549,30 +1554,38 @@ body .sports-view-sticky-header {
 
 .sport-count-badge {
   position: absolute;
-  top: -2px;
-  right: -2px;
+  top: -4px;
+  right: -4px;
   background: linear-gradient(135deg, #ef4444, #dc2626);
   color: #ffffff;
   font-size: 9.5px;
   font-weight: 800;
   padding: 1px 5px;
-  min-width: 17px;
-  height: 17px;
-  border-radius: 10px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 9999px;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--bg-app);
-  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.4);
-  z-index: 2;
+  border: 2px solid var(--bg-app);
+  box-shadow: 0 2px 6px rgba(220, 38, 38, 0.45);
+  z-index: 5;
+  line-height: 1;
 }
 
 .sport-shortcut-label {
-  font-size: 10.5px;
-  font-weight: 700;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--text-secondary);
   white-space: nowrap;
+  text-align: center;
+  line-height: 1.25;
+  display: block;
+  width: 100%;
+  overflow: visible;
   transition: color 0.2s ease;
+  margin-top: 1px;
+  padding-bottom: 2px;
 }
 
 /* Active Sport Shortcut Glow */
@@ -1722,10 +1735,10 @@ body .sports-view-sticky-header {
    8. Match / Event Cards (Single-Column Slim Broadcast Split Model with Light/Dark Themes)
    ========================================================================== */
 .events-section-container {
-  padding: 10px 10px 24px 10px;
+  padding: 8px 8px 24px 8px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 7px;
   max-width: 540px;
   margin: 0 auto;
   width: 100%;
@@ -1733,8 +1746,8 @@ body .sports-view-sticky-header {
 
 @media (max-width: 480px) {
   .events-section-container {
-    padding: 8px 8px 20px 8px;
-    gap: 10px;
+    padding: 6px 6px 18px 6px;
+    gap: 6px;
   }
 }
 
@@ -2099,9 +2112,9 @@ body .event-card-wrapper.is-currently-playing .event-card,
   box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.6), 0 0 16px rgba(56, 189, 248, 0.4) !important;
 }
 
-/* PlayZ Card Layout */
+/* PlayZ Card Layout - Slimmer Compact Mobile Profile */
 .playz-card {
-  padding: 10px 14px 12px 14px;
+  padding: 3px 6px 3px 6px;
 }
 
 .playz-card-header {
@@ -2110,38 +2123,41 @@ body .event-card-wrapper.is-currently-playing .event-card,
   align-items: center;
   justify-content: center;
   width: 100%;
-  margin-bottom: 8px;
-  padding: 0 26px;
+  margin-top: 0px;
+  margin-bottom: 2px;
+  padding: 0 4px;
 }
 
 .playz-header-title {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 5px;
   max-width: 100%;
+  line-height: 1.1;
 }
 
 .playz-header-icon {
-  font-size: 11px;
+  font-size: 10.5px;
   flex-shrink: 0;
 }
 
 .playz-header-text {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 600;
   color: #cbd5e1;
   letter-spacing: 0.2px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  line-height: 1.1;
 }
 
 .playz-card-body {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
   width: 100%;
 }
 
@@ -2152,69 +2168,85 @@ body .event-card-wrapper.is-currently-playing .event-card,
   justify-content: center;
   text-align: center;
   min-width: 0;
+  width: 100%;
+}
+
+.playz-team-left {
+  justify-self: start;
+  align-items: center;
+  padding-left: 2px;
+}
+
+.playz-team-right {
+  justify-self: end;
+  align-items: center;
+  padding-right: 2px;
 }
 
 .playz-team-logo-wrap {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #1e293b;
-  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  width: 38px;
+  height: 38px;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   flex-shrink: 0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  box-shadow: none;
 }
 
 .playz-team-logo-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
+  object-fit: contain;
+  border-radius: 0;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.45));
 }
 
 .playz-team-name {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 500;
   color: #f1f5f9;
   text-align: center;
-  max-width: 100px;
+  max-width: 115px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .playz-score-tag {
-  font-size: 10.5px;
+  font-size: 10px;
   font-weight: 700;
   color: #f59e0b;
-  margin-top: 2px;
+  margin-top: 1px;
 }
 
 .playz-center-info {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   text-align: center;
-  min-width: 96px;
-  padding: 0 4px;
+  min-width: 90px;
+  min-height: 52px;
+  padding: 0 2px;
 }
 
 .playz-live-row {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 3px;
+  gap: 4px;
+  margin-top: 1px;
+  margin-bottom: 2px;
 }
 
 .playz-live-pulse-dot {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #ef4444;
   box-shadow: 0 0 6px #ef4444;
@@ -2222,7 +2254,7 @@ body .event-card-wrapper.is-currently-playing .event-card,
 }
 
 .playz-live-label {
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   color: #ef4444;
   text-transform: uppercase;
@@ -2230,77 +2262,67 @@ body .event-card-wrapper.is-currently-playing .event-card,
 }
 
 .playz-live-timer {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 600;
   color: #e2e8f0;
   letter-spacing: 0.4px;
   font-variant-numeric: tabular-nums;
+  margin-top: auto;
+  margin-bottom: 0px;
+  padding-bottom: 1px;
 }
 
 .playz-time-text {
-  font-size: 13.5px;
+  font-size: 12.5px;
   font-weight: 700;
   color: #ffffff;
   letter-spacing: 0.2px;
-  line-height: 1.2;
+  line-height: 1.15;
+  margin-top: 0px;
 }
 
 .playz-date-text {
-  font-size: 11.5px;
+  font-size: 10.5px;
   font-weight: 600;
   color: #38bdf8;
-  margin-top: 2px;
-  line-height: 1.2;
+  margin-top: 1px;
+  line-height: 1.15;
 }
 
 .playz-starts-text {
-  font-size: 11px;
+  font-size: 10px;
   font-weight: 500;
   color: #94a3b8;
-  margin-top: 3px;
-  line-height: 1.2;
+  margin-top: auto;
+  margin-bottom: 0px;
+  line-height: 1.15;
+  padding-bottom: 1px;
 }
 
 .playz-finished-tag {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 800;
   color: #cbd5e1;
   background: rgba(51, 65, 85, 0.6);
   border: 1px solid rgba(148, 163, 184, 0.3);
   border-radius: 4px;
-  padding: 1px 6px;
-  margin-bottom: 2px;
+  padding: 1px 5px;
+  margin-top: 1px;
+  margin-bottom: 1px;
 }
 
 .playz-finished-sub {
-  font-size: 10.5px;
+  font-size: 10px;
   color: #94a3b8;
+  margin-top: auto;
+  margin-bottom: 0px;
+  padding-bottom: 1px;
 }
 
-.playz-card .card-fav-star-btn {
-  position: absolute;
-  top: 8px;
-  right: 10px;
-  background: transparent;
-  border: none;
-  color: #64748b;
-  font-size: 13px;
-  cursor: pointer;
-  padding: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: color 0.2s ease, transform 0.2s ease;
-  z-index: 5;
-}
-
-.playz-card .card-fav-star-btn:hover {
-  color: #facc15;
-  transform: scale(1.15);
-}
-
-.playz-card .card-fav-star-btn.active {
-  color: #facc15;
+/* Strictly hide favorite star on match cards per user request */
+.playz-card .card-fav-star-btn,
+.card-fav-star-btn {
+  display: none !important;
 }
 
 /* Left Navy-Blue Gradient Ribbon with Vertical Text */
@@ -2547,28 +2569,29 @@ body .card-team-title,
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border-radius: 50%;
-  overflow: hidden;
-  background: #ffffff;
-  padding: 1.5px;
-  border: 1.5px solid rgba(0, 0, 0, 0.12);
-  box-shadow: 0 1.5px 4px rgba(0, 0, 0, 0.12);
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  padding: 0;
+  border: none;
+  box-shadow: none;
 }
 
 body .card-team-logo-wrap,
 [data-theme="dark"] .card-team-logo-wrap {
-  background: #1e293b;
-  border-color: rgba(255, 255, 255, 0.22);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .card-team-emblem-img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
+  border-radius: 0;
+  object-fit: contain;
   display: block;
   image-rendering: -webkit-optimize-contrast;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 .card-score-pill {
@@ -2622,7 +2645,7 @@ body .card-fav-star-btn,
 }
 
 @media (max-width: 375px) {
-  .event-card {
+  .event-card:not(.playz-card) {
     height: 80px;
   }
   .card-left-ribbon {
@@ -4512,15 +4535,15 @@ body .category-name,
   min-height: 38px;
   max-width: 38px;
   max-height: 38px;
-  border-radius: 50%;
-  background: #ffffff;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 0;
+  background: transparent;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
-  padding: 2px;
+  overflow: visible;
+  box-shadow: none;
+  padding: 0;
   flex-shrink: 0;
 }
 

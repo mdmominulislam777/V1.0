@@ -132,7 +132,7 @@ class WWEEngine {
         ribbon: 'WWE RAW',
         icon: 'fa-hand-fist',
         color: '#ef4444',
-        logo: '/assets/wwe-logos/wwe_raw.png'
+        logo: './assets/wwe-logos/wwe_raw.png'
       };
     }
     
@@ -144,7 +144,7 @@ class WWEEngine {
         ribbon: 'SmackDown',
         icon: 'fa-hand-fist',
         color: '#0284c7',
-        logo: '/assets/wwe-logos/wwe_smackdown.png'
+        logo: './assets/wwe-logos/wwe_smackdown.png'
       };
     }
     
@@ -156,7 +156,7 @@ class WWEEngine {
         ribbon: 'WWE NXT',
         icon: 'fa-bolt',
         color: '#f59e0b',
-        logo: '/assets/wwe-logos/wwe_nxt.png'
+        logo: './assets/wwe-logos/wwe_nxt.png'
       };
     }
 
@@ -168,7 +168,7 @@ class WWEEngine {
         ribbon: 'AEW',
         icon: 'fa-hand-back-fist',
         color: '#eab308',
-        logo: '/assets/wwe-logos/aew_official.png'
+        logo: './assets/wwe-logos/aew_official.svg'
       };
     }
     
@@ -179,7 +179,7 @@ class WWEEngine {
       ribbon: 'WWE Special',
       icon: 'fa-trophy',
       color: '#8b5cf6',
-      logo: '/assets/wwe-logos/wwe_special.png'
+      logo: './assets/wwe-logos/wwe_special.png'
     };
   }
 
@@ -211,7 +211,7 @@ class WWEEngine {
 
     // Strictly Brand / Show Names and Official Brand Logos (NO individual wrestler/player names)
     const homeName = brandInfo.brand === 'AEW' ? 'AEW' : 'WWE';
-    const homeLogo = brandInfo.brand === 'AEW' ? '/assets/wwe-logos/aew_official.png' : '/assets/wwe-logos/wwe_official.png';
+    const homeLogo = brandInfo.brand === 'AEW' ? './assets/wwe-logos/aew_official.svg' : './assets/wwe-logos/wwe_official.png';
     const awayName = brandInfo.shortName;
     const awayLogo = brandInfo.logo;
 
