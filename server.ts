@@ -4257,6 +4257,46 @@ async function startServer() {
     });
   });
 
+  // Centralized production-safe channel/category logo proxy to bypass CORS/hotlinking restrictions in APK
+  app.get("/api/logo-proxy", async (req, res) => {
+    try {
+      const imageUrl = req.query.url;
+      if (typeof imageUrl !== "string" || !imageUrl.trim()) {
+        return res.status(400).send("Missing logo URL");
+      }
+      
+      const targetUrl = decodeURIComponent(imageUrl).trim();
+      if (!/^https?:\/\//i.test(targetUrl)) {
+        return res.status(400).send("Invalid logo URL protocol");
+      }
+
+      const response = await fetch(targetUrl, {
+        headers: {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "Referer": "https://www.google.com/"
+        }
+      });
+
+      if (!response.ok) {
+        return res.status(response.status).send(`Failed to fetch logo: ${response.statusText}`);
+      }
+
+      const contentType = response.headers.get("content-type") || "image/png";
+      res.setHeader("Content-Type", contentType);
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400"); // Cache for 24 hours
+      res.setHeader("Access-Control-Allow-Origin", "*");
+
+      if (response.body) {
+        const reader = Readable.from(response.body as any);
+        reader.pipe(res);
+      } else {
+        res.status(500).send("Empty response body from target server");
+      }
+    } catch (err: any) {
+      res.status(500).send(`Logo proxy error: ${err.message}`);
+    }
+  });
+
   // Version and APK update status endpoint
   app.get(["/api/version", "/version.json"], (_req, res) => {
     try {

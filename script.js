@@ -1097,11 +1097,56 @@
       return false;
     };
 
-    const allCount = list.filter(e => !isAppEventFinished(e)).length;
+    const isWithin7Days = (ev) => {
+      if (coordinator && typeof coordinator.isEventWithin7Days === 'function') {
+        return coordinator.isEventWithin7Days(ev);
+      }
+      const status = (ev.status || '').toLowerCase().trim();
+      if (status === 'live') return true;
+      if (isTodayEv(ev)) return true;
+
+      const tz = 'Asia/Dhaka';
+      const now = new Date();
+      let todayLocalStr = '';
+      try {
+        todayLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+      } catch (e) {
+        todayLocalStr = now.toISOString().split('T')[0];
+      }
+      const [nowY, nowM, nowD] = todayLocalStr.split(/[-/]/).map(Number);
+      const startOfToday = new Date(Date.UTC(nowY, nowM - 1, nowD));
+
+      let evDateObj = null;
+      if (ev.timestamp && !isNaN(ev.timestamp)) {
+        const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+        evDateObj = new Date(ts);
+      } else if (ev.date) {
+        const dStr = String(ev.date).trim();
+        if (dStr.toLowerCase() === 'today') return true;
+        const parts = dStr.split(/[-/]/).map(Number);
+        if (parts.length === 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+          evDateObj = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2], 12, 0, 0));
+        }
+      }
+      if (!evDateObj) return false;
+
+      let evLocalStr = '';
+      try {
+        evLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(evDateObj);
+      } catch (e) {
+        evLocalStr = evDateObj.toISOString().split('T')[0];
+      }
+      const [evY, evM, evD] = evLocalStr.split(/[-/]/).map(Number);
+      const evDateOnly = new Date(Date.UTC(evY, evM - 1, evD));
+      const dayDiff = Math.round((evDateOnly.getTime() - startOfToday.getTime()) / (24 * 3600 * 1000));
+      return (dayDiff >= 0 && dayDiff <= 6);
+    };
+
+    const allCount = list.filter(e => !isAppEventFinished(e) && isWithin7Days(e)).length;
     const todayCount = list.filter(e => !isAppEventFinished(e) && isTodayEv(e)).length;
     const finishedCount = list.filter(e => isAppEventFinished(e)).length;
     const liveCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'live').length;
-    const upcomingCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming').length;
+    const upcomingCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming' && isWithin7Days(e)).length;
     const favCount = list.filter(e => !isAppEventFinished(e) && state.eventFavorites.includes(e.id)).length;
 
     if (DOM.cntAll) DOM.cntAll.textContent = `(${allCount})`;
@@ -4475,8 +4520,101 @@
     if (channelId && state.customLogos && state.customLogos[channelId]) {
       return state.customLogos[channelId];
     }
-    if (url && typeof url === 'string' && url.trim() && !url.includes('undefined') && !url.includes('null')) {
-      return url.trim();
+
+    // Dynamic mapping of channels to official, verified logos if missing or relative
+    const officialLogos = {
+      // Sky Sports
+      "ch-sky-sports-racing": "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Sky_Sports_Racing_logo_2020.svg/320px-Sky_Sports_Racing_logo_2020.svg.png",
+      "ch-sky-sports-action": "https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Sky_Sports_Action_logo_2020.svg/320px-Sky_Sports_Action_logo_2020.svg.png",
+      "ch-sky-sports-cricket": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4c/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
+      "ch-sky-sports-football": "https://upload.wikimedia.org/wikipedia/en/thumb/0/0e/Sky_Sports_Football_logo_2020.svg/320px-Sky_Sports_Football_logo_2020.svg.png",
+      "ch-sky-sports-main-event": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Main_Event_logo_2020.svg/320px-Sky_Sports_Main_Event_logo_2020.svg.png",
+      "ch-sky-sports-premier-league": "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Sky_Sports_Premier_League_logo_2020.svg/320px-Sky_Sports_Premier_League_logo_2020.svg.png",
+      "ch-sky-sports-arena": "https://upload.wikimedia.org/wikipedia/en/thumb/5/52/Sky_Sports_Arena_logo_2020.svg/320px-Sky_Sports_Arena_logo_2020.svg.png",
+      "ch-sky-sports-f1": "https://upload.wikimedia.org/wikipedia/en/thumb/1/14/Sky_Sports_F1_logo_2020.svg/320px-Sky_Sports_F1_logo_2020.svg.png",
+      "ch-sky-sports-golf": "https://upload.wikimedia.org/wikipedia/en/thumb/6/60/Sky_Sports_Golf_logo_2020.svg/320px-Sky_Sports_Golf_logo_2020.svg.png",
+      "ch-sky-sports-mix": "https://upload.wikimedia.org/wikipedia/en/thumb/1/1a/Sky_Sports_Mix_logo_2020.svg/320px-Sky_Sports_Mix_logo_2020.svg.png",
+      "ch-sky-sports-news": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e0/Sky_Sports_News_logo_2020.svg/320px-Sky_Sports_News_logo_2020.svg.png",
+      "ch-sky-sports-tennis": "https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Sky_Sports_Tennis_logo_2024.svg/320px-Sky_Sports_Tennis_logo_2024.svg.png",
+
+      // Sony Sports Ten
+      "ch-sony-sports-ten-1-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sony_Sports_Ten_1_logo.svg/320px-Sony_Sports_Ten_1_logo.svg.png",
+      "ch-sony-sports-ten-2-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sony_Sports_Ten_2_logo.svg/320px-Sony_Sports_Ten_2_logo.svg.png",
+      "ch-sony-sports-ten-3-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Sony_Sports_Ten_3_logo.svg/320px-Sony_Sports_Ten_3_logo.svg.png",
+      "ch-sony-sports-ten-4-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sony_Sports_Ten_4_logo.svg/320px-Sony_Sports_Ten_4_logo.svg.png",
+      "ch-sony-sports-ten-5-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sony_Sports_Ten_5_logo.svg/320px-Sony_Sports_Ten_5_logo.svg.png",
+      "ch-sony-sports-1-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sony_Sports_Ten_1_logo.svg/320px-Sony_Sports_Ten_1_logo.svg.png",
+      "ch-sony-sports-2-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Sony_Sports_Ten_2_logo.svg/320px-Sony_Sports_Ten_2_logo.svg.png",
+      "ch-sony-sports-3-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Sony_Sports_Ten_3_logo.svg/320px-Sony_Sports_Ten_3_logo.svg.png",
+      "ch-sony-sports-4-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Sony_Sports_Ten_4_logo.svg/320px-Sony_Sports_Ten_4_logo.svg.png",
+      "ch-sony-sports-5-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Sony_Sports_Ten_5_logo.svg/320px-Sony_Sports_Ten_5_logo.svg.png",
+
+      // Star Sports
+      "ch-star-sports-1-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Star_Sports_1_logo.svg/320px-Star_Sports_1_logo.svg.png",
+      "ch-star-sports-1-hindi": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Star_Sports_1_Hindi_logo.svg/320px-Star_Sports_1_Hindi_logo.svg.png",
+      "ch-star-sports-2-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Star_Sports_2_logo.svg/320px-Star_Sports_2_logo.svg.png",
+      "ch-star-sports-select-1-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Star_Sports_Select_1_logo.svg/320px-Star_Sports_Select_1_logo.svg.png",
+      "ch-star-sports-select-2-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Star_Sports_Select_2_logo.svg/320px-Star_Sports_Select_2_logo.svg.png",
+      "ch-star-sports-select-1": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Star_Sports_Select_1_logo.svg/320px-Star_Sports_Select_1_logo.svg.png",
+      "ch-star-sports-select-2": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Star_Sports_Select_2_logo.svg/320px-Star_Sports_Select_2_logo.svg.png",
+      "ch-star-sports-sl-2": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Star_Sports_2_logo.svg/320px-Star_Sports_2_logo.svg.png",
+
+      // T Sports & Gazi TV
+      "ch-t-sports": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/T-Sports_Logo.svg/320px-T-Sports_Logo.svg.png",
+      "ch-t-sports-hd": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/T-Sports_Logo.svg/320px-T-Sports_Logo.svg.png",
+      "ch-gtv": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Gazi_TV_logo.svg/320px-Gazi_TV_logo.svg.png",
+      "ch-gazi-tv": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Gazi_TV_logo.svg/320px-Gazi_TV_logo.svg.png",
+
+      // Willow TV & TSN
+      "ch-willow-cricket": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Willow_TV_logo.svg/320px-Willow_TV_logo.svg.png",
+      "ch-willow-tv": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Willow_TV_logo.svg/320px-Willow_TV_logo.svg.png",
+      "ch-tsn-1": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/TSN_Logo.svg/320px-TSN_Logo.svg.png",
+      "ch-supersport-grandstand": "https://upload.wikimedia.org/wikipedia/en/thumb/0/06/SuperSport_logo.svg/320px-SuperSport_logo.svg.png"
+    };
+
+    let resolvedUrl = url;
+    const cid = String(channelId || '').toLowerCase().trim();
+    const cleanName = String(name || '').toLowerCase().trim();
+
+    if (cid && officialLogos[cid]) {
+      resolvedUrl = officialLogos[cid];
+    } else {
+      // Fuzzy name matches for extreme resilience
+      if (cleanName.includes("sky sports racing")) resolvedUrl = officialLogos["ch-sky-sports-racing"];
+      else if (cleanName.includes("sky sports action")) resolvedUrl = officialLogos["ch-sky-sports-action"];
+      else if (cleanName.includes("sky sports cricket")) resolvedUrl = officialLogos["ch-sky-sports-cricket"];
+      else if (cleanName.includes("sky sports football")) resolvedUrl = officialLogos["ch-sky-sports-football"];
+      else if (cleanName.includes("sky sports main event")) resolvedUrl = officialLogos["ch-sky-sports-main-event"];
+      else if (cleanName.includes("sky sports premier league") || cleanName.includes("sky sports pl")) resolvedUrl = officialLogos["ch-sky-sports-premier-league"];
+      else if (cleanName.includes("sky sports arena")) resolvedUrl = officialLogos["ch-sky-sports-arena"];
+      else if (cleanName.includes("sky sports f1")) resolvedUrl = officialLogos["ch-sky-sports-f1"];
+      else if (cleanName.includes("sky sports golf")) resolvedUrl = officialLogos["ch-sky-sports-golf"];
+      else if (cleanName.includes("sky sports mix")) resolvedUrl = officialLogos["ch-sky-sports-mix"];
+      else if (cleanName.includes("sky sports news")) resolvedUrl = officialLogos["ch-sky-sports-news"];
+      else if (cleanName.includes("sky sports tennis")) resolvedUrl = officialLogos["ch-sky-sports-tennis"];
+      else if (cleanName.includes("sony sports ten 1") || cleanName.includes("sony ten 1")) resolvedUrl = officialLogos["ch-sony-sports-ten-1-hd"];
+      else if (cleanName.includes("sony sports ten 2") || cleanName.includes("sony ten 2")) resolvedUrl = officialLogos["ch-sony-sports-ten-2-hd"];
+      else if (cleanName.includes("sony sports ten 3") || cleanName.includes("sony ten 3")) resolvedUrl = officialLogos["ch-sony-sports-ten-3-hd"];
+      else if (cleanName.includes("sony sports ten 4") || cleanName.includes("sony ten 4")) resolvedUrl = officialLogos["ch-sony-sports-ten-4-hd"];
+      else if (cleanName.includes("sony sports ten 5") || cleanName.includes("sony ten 5")) resolvedUrl = officialLogos["ch-sony-sports-ten-5-hd"];
+      else if (cleanName.includes("star sports 1 hd") || cleanName.includes("star sports 1")) resolvedUrl = officialLogos["ch-star-sports-1-hd"];
+      else if (cleanName.includes("star sports 1 hindi")) resolvedUrl = officialLogos["ch-star-sports-1-hindi"];
+      else if (cleanName.includes("star sports 2 hd") || cleanName.includes("star sports 2")) resolvedUrl = officialLogos["ch-star-sports-2-hd"];
+      else if (cleanName.includes("star sports select 1")) resolvedUrl = officialLogos["ch-star-sports-select-1-hd"];
+      else if (cleanName.includes("star sports select 2")) resolvedUrl = officialLogos["ch-star-sports-select-2-hd"];
+      else if (cleanName.includes("t sports") || cleanName.includes("tsports")) resolvedUrl = officialLogos["ch-t-sports"];
+      else if (cleanName.includes("gazi tv") || cleanName.includes("gtv")) resolvedUrl = officialLogos["ch-gtv"];
+      else if (cleanName.includes("willow")) resolvedUrl = officialLogos["ch-willow-cricket"];
+      else if (cleanName.includes("supersport grandstand")) resolvedUrl = officialLogos["ch-supersport-grandstand"];
+    }
+
+    if (resolvedUrl && typeof resolvedUrl === 'string' && resolvedUrl.trim() && !resolvedUrl.includes('undefined') && !resolvedUrl.includes('null')) {
+      const trimmed = resolvedUrl.trim();
+      if (/^https?:\/\//i.test(trimmed)) {
+        const apiBase = window.CONFIG?.API_BASE_URL || '';
+        return `${apiBase}/api/logo-proxy?url=${encodeURIComponent(trimmed)}`;
+      }
+      return trimmed;
     }
     const letter = ((name || 'TV').charAt(0) || 'T').toUpperCase();
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" viewBox="0 0 80 80"><defs><radialGradient id="dom" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="#0284c7"/><stop offset="100%" stop-color="#0369a1"/></radialGradient></defs><rect width="80" height="80" rx="40" fill="url(#dom)"/><text x="50%" y="54%" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="sans-serif">${letter}</text></svg>`;

@@ -2240,6 +2240,67 @@ class SportsCoordinator {
   }
 
   /**
+   * Check if an event is within the 7-day display horizon in Bangladesh timezone
+   */
+  isEventWithin7Days(ev) {
+    if (!ev) return false;
+
+    // 1. Live events are ALWAYS included
+    const status = (ev.status || '').toLowerCase().trim();
+    if (status === 'live') return true;
+
+    // 2. Today's events are ALWAYS included
+    if (this.isEventToday(ev)) return true;
+
+    // 3. Compare dates using Bangladesh timezone (Asia/Dhaka)
+    const tz = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
+    const now = new Date();
+
+    let todayLocalStr = '';
+    try {
+      todayLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+    } catch (e) {
+      todayLocalStr = now.toISOString().split('T')[0];
+    }
+
+    const [nowY, nowM, nowD] = todayLocalStr.split(/[-/]/).map(Number);
+    const startOfToday = new Date(Date.UTC(nowY, nowM - 1, nowD));
+
+    let evDateObj = null;
+    if (ev.timestamp && !isNaN(ev.timestamp)) {
+      const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+      evDateObj = new Date(ts);
+    } else if (ev.date) {
+      const dStr = String(ev.date).trim();
+      if (dStr.toLowerCase() === 'today') return true;
+      const parts = dStr.split(/[-/]/).map(Number);
+      if (parts.length === 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+        evDateObj = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2], 12, 0, 0));
+      }
+    }
+
+    if (!evDateObj) return false;
+
+    let evLocalStr = '';
+    try {
+      evLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(evDateObj);
+    } catch (e) {
+      evLocalStr = evDateObj.toISOString().split('T')[0];
+    }
+
+    const [evY, evM, evD] = evLocalStr.split(/[-/]/).map(Number);
+    const evDateOnly = new Date(Date.UTC(evY, evM - 1, evD));
+
+    const timeDiff = evDateOnly.getTime() - startOfToday.getTime();
+    const oneDayMs = 24 * 3600 * 1000;
+    const dayDiff = Math.round(timeDiff / oneDayMs);
+
+    // 7-day display horizon includes: Today (0) + Next 6 Days (1 to 6) = 7 days total.
+    // Events beyond 6 days are excluded from feeds/counters.
+    return (dayDiff >= 0 && dayDiff <= 6);
+  }
+
+  /**
    * Filter Events by Sport and Status
    */
   getFilteredEvents({ sport = 'all', status = 'all', searchQuery = '' } = {}) {
@@ -2261,15 +2322,15 @@ class SportsCoordinator {
     } else if (st === 'LIVE') {
       list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'live');
     } else if (st === 'UPCOMING') {
-      list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming');
+      list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming' && this.isEventWithin7Days(e));
     } else if (st === 'TODAY') {
       list = list.filter(e => !this.isEventFinished(e) && this.isEventToday(e));
     } else if (st === 'FAVORITES') {
       const favs = this.getFavorites();
       list = list.filter(e => !this.isEventFinished(e) && favs.includes(e.id));
     } else {
-      // Default / 'ALL' tab: only active (live + upcoming) matches
-      list = list.filter(e => !this.isEventFinished(e));
+      // Default / 'ALL' tab: only active (live + upcoming) matches occurring within the 7-day display horizon
+      list = list.filter(e => !this.isEventFinished(e) && this.isEventWithin7Days(e));
     }
 
     // 3. Search Query Filter (team, league, tournament, venue, title)
