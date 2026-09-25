@@ -1051,21 +1051,31 @@ class SportsCoordinator {
       const evSport = (event.sport || event.sportName || '').toLowerCase().trim();
       const channelCategories = (channel.categories || []).map(c => c.toLowerCase().trim());
       
-      // Generalized blacklist-based Sport Separation
       const isCricket = evSport.includes('cricket');
       const isFootball = evSport.includes('football') || evSport.includes('soccer');
       const isTennis = evSport.includes('tennis');
       const isMotorsport = evSport.includes('motor') || evSport.includes('f1') || evSport.includes('racing');
-      
-      const isNonCricket = channelCategories.some(c => ['football', 'soccer', 'tennis', 'motorsport', 'f1', 'racing'].includes(c));
-      const isNonFootball = channelCategories.some(c => ['cricket', 'tennis', 'motorsport', 'f1', 'racing'].includes(c));
-      const isNonTennis = channelCategories.some(c => ['cricket', 'football', 'soccer', 'motorsport', 'f1', 'racing'].includes(c));
-      const isNonMotorsport = channelCategories.some(c => ['cricket', 'football', 'soccer', 'tennis'].includes(c));
 
-      if (isCricket && isNonCricket) return { valid: false, reason: 'Sport mismatch: Non-cricket channel assigned to Cricket event' };
-      if (isFootball && isNonFootball) return { valid: false, reason: 'Sport mismatch: Non-football channel assigned to Football event' };
-      if (isTennis && isNonTennis) return { valid: false, reason: 'Sport mismatch: Non-tennis channel assigned to Tennis event' };
-      if (isMotorsport && isNonMotorsport) return { valid: false, reason: 'Sport mismatch: Non-motorsport channel assigned to Motorsport event' };
+      // Accurate Sport Separation:
+      // If a channel explicitly specifies sports/categories, it MUST include the target sport
+      // and channels dedicated strictly to other sports cannot cross over.
+      const hasCricketTag = channelCategories.includes('cricket') || (channel.sports && channel.sports.map(s => s.toLowerCase()).includes('cricket'));
+      const hasFootballTag = channelCategories.some(c => c === 'football' || c === 'soccer') || (channel.sports && channel.sports.map(s => s.toLowerCase()).some(s => s === 'football' || s === 'soccer'));
+      const hasTennisTag = channelCategories.includes('tennis') || (channel.sports && channel.sports.map(s => s.toLowerCase()).includes('tennis'));
+      const hasMotorsportTag = channelCategories.some(c => c === 'motorsport' || c === 'f1' || c === 'racing') || (channel.sports && channel.sports.map(s => s.toLowerCase()).some(s => s === 'motorsport' || s === 'f1'));
+
+      if (isCricket && !hasCricketTag && (hasFootballTag || hasTennisTag || hasMotorsportTag)) {
+        return { valid: false, reason: 'Sport mismatch: Dedicated non-cricket channel assigned to Cricket event' };
+      }
+      if (isFootball && !hasFootballTag && (hasCricketTag || hasTennisTag || hasMotorsportTag)) {
+        return { valid: false, reason: 'Sport mismatch: Dedicated non-football channel assigned to Football event' };
+      }
+      if (isTennis && !hasTennisTag && (hasCricketTag || hasFootballTag || hasMotorsportTag)) {
+        return { valid: false, reason: 'Sport mismatch: Dedicated non-tennis channel assigned to Tennis event' };
+      }
+      if (isMotorsport && !hasMotorsportTag && (hasCricketTag || hasFootballTag || hasTennisTag)) {
+        return { valid: false, reason: 'Sport mismatch: Dedicated non-motorsport channel assigned to Motorsport event' };
+      }
     }
 
     // 4. Authorized Stream check

@@ -154,15 +154,15 @@
      */
     getFocusableElements() {
       // Check if a modal is currently open
-      const openModal = document.querySelector('.modal:not(.hidden), .cricfy-modal:not(.hidden), #modal-channel-details:not(.hidden), #modal-settings:not(.hidden), #modal-search:not(.hidden)');
-      if (openModal) {
-        return Array.from(openModal.querySelectorAll('button:not([disabled]), input:not([disabled]), a, [tabindex="0"]'))
+      const openModal = document.querySelector('.modal:not(.hidden), .custom-modal-backdrop.active, #modal-select-server[style*="display: flex"], .cricfy-modal:not(.hidden), #modal-channel-details:not(.hidden), #modal-settings:not(.hidden), #modal-search:not(.hidden)');
+      if (openModal && openModal.style.display !== 'none' && openModal.style.visibility !== 'hidden') {
+        return Array.from(openModal.querySelectorAll('button:not([disabled]), input:not([disabled]), a, .multiple-link-server-btn, .modal-close-btn, .modal-unavailable-close-btn, [tabindex="0"]'))
           .filter(el => this.isElementVisible(el));
       }
 
       // Check if player is open
-      const playerBox = document.getElementById('player-container');
-      const isPlayerActive = playerBox && playerBox.classList.contains('active');
+      const playerBox = document.getElementById('player-container') || document.getElementById('player-modal');
+      const isPlayerActive = playerBox && (playerBox.classList.contains('active') || playerBox.style.display === 'flex' || playerBox.style.display === 'block');
       if (isPlayerActive) {
         return Array.from(playerBox.querySelectorAll('button:not([disabled]), .btn-player, .player-control-btn, .player-header-btn'))
           .filter(el => this.isElementVisible(el));
@@ -170,6 +170,10 @@
 
       // Main content: Category tabs, Live event cards, Channel cards, Bottom Nav
       const selectors = [
+        '.event-card-wrapper',
+        '.event-card',
+        '.playz-card',
+        '.multiple-link-server-btn',
         '.category-tab:not([disabled])',
         '.channel-card:not([disabled])',
         '.live-event-card',
@@ -178,7 +182,8 @@
         '.nav-item',
         '#input-search-channels',
         '#btn-player-close',
-        '.filter-pill'
+        '.filter-pill',
+        '.sport-shortcut-item'
       ];
 
       return Array.from(document.querySelectorAll(selectors.join(',')))

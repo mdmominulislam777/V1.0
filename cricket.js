@@ -54,21 +54,29 @@ class CricketEngine {
     } catch (e) {}
 
     // If cache is empty, hydrate from local events.json seed if available
-    if ((!this.cache.data || this.cache.data.length === 0) && typeof fetch !== 'undefined') {
-      try {
-        fetch('./events.json')
-          .then(r => r.ok ? r.json() : null)
-          .then(list => {
-            if (Array.isArray(list) && list.length > 0) {
-              const crSeed = list.filter(e => e && (e.sport || '').toLowerCase() === 'cricket');
-              if (crSeed.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
-                this.cache.data = crSeed;
-                this.cache.timestamp = Date.now() - 10000;
+    if ((!this.cache.data || this.cache.data.length === 0)) {
+      if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+        const crSeed = window.EVENTS_DATA.filter(e => e && (e.sport || '').toLowerCase() === 'cricket');
+        if (crSeed.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
+          this.cache.data = crSeed;
+          this.cache.timestamp = Date.now() - 10000;
+        }
+      } else if (typeof fetch !== 'undefined') {
+        try {
+          fetch('./events.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(list => {
+              if (Array.isArray(list) && list.length > 0) {
+                const crSeed = list.filter(e => e && (e.sport || '').toLowerCase() === 'cricket');
+                if (crSeed.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
+                  this.cache.data = crSeed;
+                  this.cache.timestamp = Date.now() - 10000;
+                }
               }
-            }
-          })
-          .catch(() => {});
-      } catch (_) {}
+            })
+            .catch(() => {});
+        } catch (_) {}
+      }
     }
   }
 
@@ -244,6 +252,12 @@ class CricketEngine {
     }
 
     // 4. Offline / Static fallback: events.json (Strictly Sportradar only)
+    if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+      const crOnly = window.EVENTS_DATA.filter(e => (e.sport || '').toLowerCase() === 'cricket' && (e.source === 'Sportradar' || String(e.id).startsWith('cr-sportradar-')));
+      if (crOnly.length > 0) {
+        return { success: true, data: crOnly, source: 'Sportradar (Seed)' };
+      }
+    }
     try {
       const evRes = await fetch('./events.json');
       if (evRes.ok) {

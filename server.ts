@@ -8,8 +8,19 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
+import { GoogleGenAI } from "@google/genai";
 
 dotenv.config();
+
+// Initialize GoogleGenAI with secure header mapping
+const aiClient = new GoogleGenAI({
+  apiKey: process.env.GEMINI_API_KEY || "AIzaSy" + "DummyPlaceholder_ReplaceWithRealSecret_IfRequired",
+  httpOptions: {
+    headers: {
+      "User-Agent": "aistudio-build"
+    }
+  }
+});
 
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || process.env.SOFASCORE_API_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81";
 const DEFAULT_CRICKET_HOST = "cricbuzz-cricket2.p.rapidapi.com";
@@ -4140,6 +4151,61 @@ async function startServer() {
       if (!res.headersSent) {
         res.status(500).json({ error: "Image proxy error", message: err.message });
       }
+    }
+  });
+
+  // AI Match Analyst Endpoint (Free-Tier powered by gemini-3.8-flash)
+  app.post("/api/ai/analyze-match", async (req, res) => {
+    try {
+      const { title, sport, tournament, status } = req.body;
+
+      if (!title) {
+        return res.status(400).json({ error: "No match title provided in request." });
+      }
+
+      const activeKey = process.env.GEMINI_API_KEY || "";
+      if (!activeKey) {
+        return res.status(403).json({ 
+          error: "Gemini API Key missing",
+          message: "GEMINI_API_KEY is not configured in your AI Studio secrets. Please check Settings > Secrets panel."
+        });
+      }
+
+      const prompt = `Match: "${title}"
+Sport Category: "${sport || 'Other'}"
+Tournament/League: "${tournament || 'Non-specified'}"
+Status: "${status || 'UPCOMING'}"
+
+Provide a detailed, engaging, and professional match preview and analysis for the match above as an expert sports pundit. Organize the analysis into the following points with rich icons, clean headings, and clear formatting in English:
+
+1. ⚽/🏏 Match Overview & Recent Team Form/Status.
+2. 🔑 Key Players & Star Performers to watch out for who could make a big difference in the match.
+3. 🧠 Tactical Analysis & the key strategies required for victory (Key to Victory).
+4. 🎯 Final Match Prediction & Win Probability percentage for each side.
+
+Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, engaging English suited for sports streaming app users.`;
+
+      const response = await aiClient.models.generateContent({
+        model: "gemini-3.8-flash",
+        contents: prompt,
+        config: {
+          systemInstruction: "You are HighFy AI Sports Analyst, a world-class professional sports pundit who writes exciting, engaging, and highly detailed match forecasts in English. Always use rich emojis, clean markdown, and highly engaging language appropriate for live sports streaming users.",
+          temperature: 0.8,
+        }
+      });
+
+      const replyText = response.text || "Analysis could not be generated. Please try again.";
+
+      res.json({
+        status: "success",
+        result: replyText
+      });
+    } catch (err: any) {
+      console.error("[AI Analyst Error]:", err.message);
+      res.status(500).json({
+        error: "AI analysis failed.",
+        details: err.message
+      });
     }
   });
 

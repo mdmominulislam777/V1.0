@@ -1976,7 +1976,7 @@
         const eventId = btn.getAttribute('data-event-id');
         const match = state.events.find(ev => ev.id === eventId);
         if (match) {
-          autoConnectAndPlayEvent(match);
+          autoConnectAndPlayEvent(match, btn.closest('.event-card-wrapper') || btn);
         }
       });
     });
@@ -2000,7 +2000,7 @@
         const eventId = card.getAttribute('data-event-id') || card.querySelector('.event-card')?.getAttribute('data-event-id');
         const match = (state.events || []).find(ev => ev.id === eventId) || (window.sportsCoordinator?.events || []).find(ev => ev.id === eventId);
         if (match) {
-          autoConnectAndPlayEvent(match);
+          autoConnectAndPlayEvent(match, card);
         } else if (eventId) {
           openMatchDetails(eventId);
         }
@@ -2013,13 +2013,15 @@
 
   /**
    * Auto-Connect and Play Event with authentic matched sports channel
+   * Strictly 2-Step Playback Flow:
+   * First Click on any Live/Upcoming match card -> Opens Channel Popup (NEVER plays directly).
+   * Second Click on the selected verified channel button inside Popup -> Starts Player.
    */
-  async function autoConnectAndPlayEvent(event) {
+  async function autoConnectAndPlayEvent(event, clickedElement) {
     if (!event) return;
 
-    const t1Name = event.team1?.name || event.homeTeam?.name || '';
-    const t2Name = event.team2?.name || event.awayTeam?.name || '';
-    const title = (t1Name && t2Name) ? `${t1Name} vs ${t2Name}` : (event.title || 'Live Match');
+    // Capture exact scroll position at the moment of click
+    const originalScrollY = window.scrollY || document.documentElement.scrollTop || 0;
 
     // 1. Resolve matching stream with sportsCoordinator
     let matchInfo = null;
@@ -2054,86 +2056,40 @@
       streams = event.streams;
     }
 
-    // 2. If no valid stream exists: Display "Live channel unavailable" modal (Strict Zero Guessing)
-    if (!streams || streams.length === 0 || !streams[0]?.url) {
-      showChannelUnavailableModal(event);
-      return;
-    }
-
-    // 3. 2-Step Playback Flow (First Click = Channel Popup, Second Click = Player Playback):
-    // First click on any Live/Upcoming match card NEVER starts the player directly.
-    // It opens the popup/modal displaying the API-verified broadcaster/channel name(s).
-    // The second click on the selected verified channel then starts playback.
-    openServerSelectionModal(event);
+    // 2. Open Channel Popup with verified channels or clean unavailable state
+    openServerSelectionModal(event, clickedElement, originalScrollY);
   }
 
   /**
-   * Display clean Channel Unavailable modal
+   * Clean fallback alias if called directly
    */
-  function showChannelUnavailableModal(event) {
-    const t1Name = event?.team1?.name || event?.homeTeam?.name || '';
-    const t2Name = event?.team2?.name || event?.awayTeam?.name || '';
-    const title = (t1Name && t2Name) ? `${t1Name} vs ${t2Name}` : (event?.title || 'Live Match');
-    const tourn = event?.tournament || event?.league || event?.sport || 'Sports Match';
-    const broadcaster = event?.broadcaster || event?.strTVStation || '';
-
-    showToast(`Live channel unavailable: ${title}`, 'warning');
-
-    const existing = document.getElementById('modal-channel-unavailable');
-    if (existing) existing.remove();
-
-    const modalHtml = `
-      <div id="modal-channel-unavailable" class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn" role="dialog" aria-modal="true">
-        <div class="relative w-full max-w-sm p-6 rounded-2xl bg-[#0f172a] border border-white/10 shadow-2xl text-center">
-          <div class="w-14 h-14 mx-auto mb-4 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
-            <i class="fa-solid fa-tv text-rose-400 text-2xl"></i>
-          </div>
-          <span class="inline-block px-2.5 py-1 mb-2 text-[10px] font-extrabold uppercase tracking-wider text-rose-400 bg-rose-500/10 rounded border border-rose-500/20">
-            Live channel unavailable
-          </span>
-          <h3 class="text-base font-bold text-white mb-1 leading-tight">${escapeHtml(title)}</h3>
-          <p class="text-xs text-slate-400 mb-3">${escapeHtml(tourn)}</p>
-          ${broadcaster ? `<p class="text-[11px] text-slate-300 mb-4 bg-white/5 py-1.5 px-3 rounded-lg border border-white/5">Broadcaster: <span class="text-sky-400 font-semibold">${escapeHtml(broadcaster)}</span></p>` : ''}
-          <p class="text-xs text-slate-400 mb-5 leading-relaxed">
-            এই ম্যাচের জন্য কোনো লাইভ ব্রডকাস্ট চ্যানেল বর্তমানে আমাদের সার্ভারে উপলব্ধ নেই। অনুগ্রহ করে অন্য ম্যাচ অথবা চ্যানেল দেখুন।
-          </p>
-          <button id="btn-close-channel-unavailable" class="w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-white/10" autofocus tabindex="0">
-            Close
-          </button>
-        </div>
-      </div>
-    `;
-
-    document.body.insertAdjacentHTML('beforeend', modalHtml);
-
-    const modalEl = document.getElementById('modal-channel-unavailable');
-    const closeBtn = document.getElementById('btn-close-channel-unavailable');
-    if (closeBtn && modalEl) {
-      closeBtn.focus();
-      closeBtn.addEventListener('click', () => modalEl.remove());
-      modalEl.addEventListener('click', (e) => {
-        if (e.target === modalEl) modalEl.remove();
-      });
-      modalEl.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'Enter') {
-          modalEl.remove();
-        }
-      });
-    }
+  function showChannelUnavailableModal(event, clickedElement, originalScrollY) {
+    openServerSelectionModal(event, clickedElement, originalScrollY);
   }
 
   /**
-   * Open "Multiple links available" Modal for any Match or Channel
-   * Strictly verifies authentic broadcast channels & servers
-   * Full Android Mobile touch & Android TV D-pad / Remote Control navigation
+   * HIGHFY TV — REAL BROADCASTER CHANNEL POPUP SYSTEM
+   * Strictly 2-Step Playback Flow:
+   * First Click: Opens popup displaying API-verified broadcaster/channel(s) with real logo and verified badge.
+   * If no verified channel exists: displays clean "Live channel unavailable" state inside popup (no guessing).
+   * Second Click: User taps the verified channel button -> shows connection status & launches player.
+   * Full Android Mobile touch (≥44px target) & Android TV D-pad / Remote navigation.
+   * Prevents scroll jump on open/close with instant position lock.
    */
-  function openServerSelectionModal(item) {
+  function openServerSelectionModal(item, clickedElement, originalScrollY) {
     if (!item) return;
+
+    // Use passed scroll position or capture current
+    if (typeof originalScrollY !== 'number') {
+      originalScrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    }
+
     const isEvent = !!(item.team1 || item.sport || item.isEvent || item.title);
     const t1Name = item.team1?.name || item.homeTeam?.name || '';
     const t2Name = item.team2?.name || item.awayTeam?.name || '';
     const title = (t1Name && t2Name) ? `${t1Name} vs ${t2Name}` : (item.name || item.title || 'Live Match');
     const tourn = item.tournament || item.league || item.sport || item.category || 'Sports Match';
+    const broadcaster = item.broadcaster || item.strTVStation || '';
 
     // 1. Resolve streams and verified channel details
     let streams = [];
@@ -2157,11 +2113,11 @@
       }
     }
 
-    // Fallback for TV Channel if not an event
+    // Fallback for TV Channel if selected directly from channel list (not an event)
     if ((!streams || streams.length === 0) && !isEvent && (item.url || item.stream_url || item.streamUrl)) {
       const pUrl = item.stream_url || item.url || item.streamUrl;
       const bUrls = item.backupUrls || (item.backup_stream_url ? [item.backup_stream_url] : []);
-      const chLogo = item.logo || './assets/category-logos/sports.png';
+      const chLogo = getSafeLogoUrl(item.logo, item.name, item.id);
       streams = [
         { name: `${item.name || 'Channel'} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: item.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
         ...bUrls.map((u, i) => ({ name: `${item.name || 'Server'} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: item.name, channelLogo: chLogo, quality: '720p HD', url: u }))
@@ -2176,22 +2132,17 @@
       }];
     }
 
-    // 2. If no valid stream exists: Display "Live channel unavailable" modal
-    if (!streams || streams.length === 0 || !streams[0]?.url) {
-      showChannelUnavailableModal(item);
-      return;
-    }
-
-    // 3. Ensure channelDetails is cleanly populated with verified channel data
+    // 2. Ensure channelDetails is cleanly structured if streams exist
     if ((!channelDetails || channelDetails.length === 0) && streams.length > 0) {
       const chMap = new Map();
       streams.forEach(st => {
         const cName = st.channelName || st.name || item.broadcaster || 'Verified Channel';
         if (!chMap.has(cName)) {
+          const rawLogo = st.channelLogo || item.channelLogo || '';
           chMap.set(cName, {
             id: st.channelId || 'ch-single',
             name: cName,
-            logo: st.channelLogo || item.channelLogo || './assets/category-logos/sports.png',
+            logo: getSafeLogoUrl(rawLogo, cName, st.channelId),
             source: st.source || (item.broadcaster ? 'Verified Broadcaster' : 'Direct API'),
             quality: st.quality || '1080p FHD',
             servers: []
@@ -2202,147 +2153,134 @@
       channelDetails = Array.from(chMap.values());
     }
 
-    // 4. Populate Modal UI (2-Step Flow: Click 1 = Show Channel Popup, Click 2 = Start Player)
+    // Filter out any invalid streams without active url
+    streams = streams.filter(s => s && typeof s.url === 'string' && s.url.trim().length > 0);
+    const hasValidStreams = streams.length > 0 && channelDetails.length > 0;
+
+    // 3. Modal Elements
     const modalEl = document.getElementById('modal-select-server');
     const listContainer = document.getElementById('server-selection-list');
     const modalTitle = document.getElementById('server-modal-title');
     const modalSubTitle = document.getElementById('server-modal-subtitle');
 
-    const totalChannels = channelDetails ? channelDetails.length : 1;
+    if (!modalEl || !listContainer) return;
 
-    if (modalTitle) {
-      if (totalChannels > 1) {
-        modalTitle.innerHTML = `<i class="fa-solid fa-satellite-dish text-sky-400 mr-1.5"></i> Select Broadcast Channel (${totalChannels} Channels)`;
-      } else {
-        modalTitle.innerHTML = `<i class="fa-solid fa-tv text-emerald-400 mr-1.5"></i> Verified Broadcast Channel`;
+    // Scroll & Focus restoration helper
+    const handleCloseModal = () => {
+      closeModal('modal-select-server');
+      if (typeof originalScrollY === 'number') {
+        try {
+          window.scrollTo({ top: originalScrollY, behavior: 'instant' });
+        } catch (_) {
+          window.scrollTo(0, originalScrollY);
+        }
       }
-    }
+      if (clickedElement && typeof clickedElement.focus === 'function') {
+        try {
+          clickedElement.focus({ preventScroll: true });
+        } catch (_) {}
+      }
+    };
 
-    if (modalSubTitle) {
-      const liveBadge = (item.status || '').toLowerCase() === 'live'
-        ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30 mr-1"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>LIVE</span>`
-        : '';
-      modalSubTitle.innerHTML = `${liveBadge}<strong class="text-white">${escapeHtml(title)}</strong> &bull; <span class="text-slate-400">${escapeHtml(tourn)}</span>`;
-      modalSubTitle.style.display = 'block';
-    }
+    // 4. Render State A: Has Valid Verified Streams
+    if (hasValidStreams) {
+      const totalChannels = channelDetails.length;
 
-    if (listContainer) {
-      // If we have structured channel details, render channel cards with their servers
-      if (channelDetails && channelDetails.length > 0) {
-        listContainer.innerHTML = channelDetails.map((ch, chIdx) => {
-          const chLogo = ch.logo || './assets/category-logos/sports.png';
-          const chName = ch.name || `Broadcaster ${chIdx + 1}`;
-          const sourceText = ch.source || (ch.sourceType === 'direct_api' ? 'Direct API' : 'Official Rights');
-          const chServers = Array.isArray(ch.servers) && ch.servers.length > 0 ? ch.servers : [
-            {
-              name: ch.name,
-              serverLabel: 'SERVER 1 (1080P HD)',
-              quality: ch.quality || '1080p FHD',
-              url: ch.streamUrl
-            }
-          ];
+      if (modalTitle) {
+        if (totalChannels > 1) {
+          modalTitle.innerHTML = `<i class="fa-solid fa-satellite-dish text-sky-400 mr-2"></i> Multiple Links / Available Channels (${totalChannels})`;
+        } else {
+          modalTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-2"></i> Verified Broadcast Channel`;
+        }
+      }
 
-          const serverButtonsHtml = chServers.map((srv, sIdx) => {
-            // Find global index in streams array for playMedia
-            let globalIdx = streams.findIndex(st => st.url === srv.url);
-            if (globalIdx === -1) {
-              globalIdx = streams.findIndex(st => st.name === srv.name);
-            }
-            if (globalIdx === -1) globalIdx = 0;
+      if (modalSubTitle) {
+        const liveBadge = (item.status || '').toLowerCase() === 'live'
+          ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30 mr-1.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>LIVE</span>`
+          : `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 mr-1.5"><i class="fa-regular fa-clock text-[9px]"></i>MATCH</span>`;
+        modalSubTitle.innerHTML = `${liveBadge}<strong class="text-white">${escapeHtml(title)}</strong> &bull; <span class="text-slate-400">${escapeHtml(tourn)}</span>`;
+        modalSubTitle.style.display = 'block';
+      }
 
-            const srvLabel = srv.serverLabel || (chServers.length > 1 ? `SERVER ${sIdx + 1}` : `Watch on ${chName}`);
-            const srvQuality = srv.quality || '1080p FHD';
-            const subLabel = chServers.length > 1 ? `${chName} • Server ${sIdx + 1}` : `${chName} • Tap to watch live`;
+      listContainer.innerHTML = channelDetails.map((ch, chIdx) => {
+        const cleanName = ch.name || `Broadcaster ${chIdx + 1}`;
+        const chLogo = getSafeLogoUrl(ch.logo, cleanName, ch.id);
+        const sourceText = ch.source || (ch.sourceType === 'direct_api' ? 'Direct API Stream' : 'Official Verified Broadcaster');
+        const chServers = Array.isArray(ch.servers) && ch.servers.length > 0 ? ch.servers : [
+          {
+            name: ch.name,
+            serverLabel: 'SERVER 1 (1080P HD)',
+            quality: ch.quality || '1080p FHD',
+            url: ch.streamUrl
+          }
+        ];
 
-            return `
-              <button class="multiple-link-server-btn"
-                      data-stream-idx="${globalIdx}"
-                      tabindex="0"
-                      role="button"
-                      aria-label="Play ${escapeHtml(chName)} on ${escapeHtml(srvLabel)}">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="server-badge-pill">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                  </span>
-                  <div class="min-w-0 text-left">
-                    <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
-                    <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
-                  </div>
-                </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
-                  <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
-                </div>
-              </button>
-            `;
-          }).join('');
+        const serverButtonsHtml = chServers.map((srv, sIdx) => {
+          let globalIdx = streams.findIndex(st => st.url === srv.url);
+          if (globalIdx === -1) {
+            globalIdx = streams.findIndex(st => st.name === srv.name);
+          }
+          if (globalIdx === -1) globalIdx = 0;
+
+          const srvLabel = srv.serverLabel || (chServers.length > 1 ? `SERVER ${sIdx + 1} (${srv.quality || 'HD'})` : `Watch Live on ${cleanName}`);
+          const srvQuality = srv.quality || '1080p FHD';
+          const subLabel = chServers.length > 1 ? `${cleanName} • Server ${sIdx + 1}` : `${cleanName} • Tap to watch live`;
 
           return `
-            <div class="multiple-links-channel-card">
-              <div class="channel-card-header">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <img src="${escapeHtml(chLogo)}" 
-                       alt="${escapeHtml(chName)}"
-                       onerror="this.src='./assets/category-logos/sports.png'"
-                       class="w-7 h-7 rounded-lg object-contain bg-black/40 p-1 border border-white/10 shrink-0" />
-                  <div class="min-w-0">
-                    <div class="font-extrabold text-xs text-white truncate">${escapeHtml(chName)}</div>
-                    <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-                      <i class="fa-solid fa-circle-check text-[8px]"></i>
-                      <span class="truncate">${escapeHtml(sourceText)}</span>
-                    </div>
-                  </div>
-                </div>
-                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
-                  ${escapeHtml(ch.quality || 'HD')}
+            <button class="multiple-link-server-btn"
+                    data-stream-idx="${globalIdx}"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Play ${escapeHtml(cleanName)} on ${escapeHtml(srvLabel)}">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="server-badge-pill">
+                  <i class="fa-solid fa-play text-[9px]"></i>
                 </span>
+                <div class="min-w-0 text-left">
+                  <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
+                  <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
+                </div>
               </div>
-              <div class="channel-servers-list space-y-1.5 mt-2">
-                ${serverButtonsHtml}
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
               </div>
-            </div>
+            </button>
           `;
         }).join('');
-      } else {
-        // Fallback: list all streams directly
-        listContainer.innerHTML = streams.map((st, idx) => {
-          const displayName = st.channelName || st.name || `Server ${idx + 1}`;
-          const sLabel = st.serverLabel || `SERVER ${idx + 1}`;
-          const qualityBadge = st.quality || (idx === 0 ? '1080p FHD' : '720p HD');
-          const sourceText = st.source || 'Direct API';
 
-          return `
-            <div class="multiple-links-channel-card">
-              <button class="multiple-link-server-btn"
-                      data-stream-idx="${idx}"
-                      tabindex="0"
-                      role="button"
-                      aria-label="Play ${escapeHtml(displayName)} on ${escapeHtml(sLabel)}">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="server-badge-pill">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                  </span>
-                  <div class="min-w-0 text-left">
-                    <div class="server-title truncate">${escapeHtml(displayName)}</div>
-                    <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
-                      <i class="fa-solid fa-circle-check text-[8px]"></i>
-                      <span class="truncate">${escapeHtml(sourceText)}</span> &bull; ${escapeHtml(sLabel)}
-                    </div>
+        return `
+          <div class="multiple-links-channel-card">
+            <div class="channel-card-header">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <img src="${escapeHtml(chLogo)}" 
+                     alt="${escapeHtml(cleanName)}"
+                     onerror="this.src='./assets/category-logos/sports.png'"
+                     class="w-8 h-8 rounded-lg object-contain bg-black/50 p-1 border border-white/10 shrink-0" />
+                <div class="min-w-0">
+                  <div class="font-extrabold text-xs text-white truncate">${escapeHtml(cleanName)}</div>
+                  <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1.5">
+                    <i class="fa-solid fa-circle-check text-[9px]"></i>
+                    <span class="truncate">${escapeHtml(sourceText)}</span>
                   </div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span class="server-quality-pill">${escapeHtml(qualityBadge)}</span>
-                  <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
-                </div>
-              </button>
+              </div>
+              <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
+                ${escapeHtml(ch.quality || '1080p FHD')}
+              </span>
             </div>
-          `;
-        }).join('');
-      }
+            <div class="channel-servers-list space-y-1.5 mt-2.5">
+              ${serverButtonsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
 
-      // Attach click listeners to each server button
+      // Attach click listeners to server buttons (THIS IS THE SECOND CLICK)
       listContainer.querySelectorAll('.multiple-link-server-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
           const idx = parseInt(btn.getAttribute('data-stream-idx'), 10) || 0;
           const chosenStream = streams[idx] || streams[0];
           const chName = chosenStream?.channelName || chosenStream?.name || item.broadcaster || 'Live Channel';
@@ -2366,60 +2304,104 @@
           });
         });
       });
-    }
 
-    // Android TV D-pad / Remote Control navigation & backdrop dismiss
-    if (modalEl) {
-      modalEl.style.zIndex = '99999';
-      modalEl.style.display = 'flex';
-      modalEl.style.visibility = 'visible';
-      modalEl.style.opacity = '1';
-      modalEl.style.pointerEvents = 'auto';
-
-      modalEl.onclick = (e) => {
-        if (e.target === modalEl) {
-          closeModal('modal-select-server');
-        }
-      };
-
-      const closeBtn = modalEl.querySelector('[data-close-modal="modal-select-server"]');
-      if (closeBtn) {
-        closeBtn.onclick = (e) => {
-          e.stopPropagation();
-          closeModal('modal-select-server');
-        };
+    } else {
+      // 5. Render State B: No Verified Channel Available (Zero Guessing)
+      if (modalTitle) {
+        modalTitle.innerHTML = `<i class="fa-solid fa-tv text-rose-400 mr-2"></i> Live Broadcast Channel`;
       }
 
-      setTimeout(() => {
-        const firstBtn = modalEl.querySelector('.multiple-link-server-btn');
-        if (firstBtn) firstBtn.focus();
-      }, 100);
+      if (modalSubTitle) {
+        modalSubTitle.innerHTML = `<strong class="text-white">${escapeHtml(title)}</strong> &bull; <span class="text-slate-400">${escapeHtml(tourn)}</span>`;
+        modalSubTitle.style.display = 'block';
+      }
 
-      modalEl.onkeydown = (e) => {
-        const btns = Array.from(modalEl.querySelectorAll('.multiple-link-server-btn'));
-        if (!btns.length) return;
-        const currentIndex = btns.indexOf(document.activeElement);
+      listContainer.innerHTML = `
+        <div class="channel-unavailable-card text-center p-5 rounded-2xl bg-rose-500/5 border border-rose-500/20">
+          <div class="w-14 h-14 mx-auto mb-3.5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+            <i class="fa-solid fa-tv text-rose-400 text-2xl"></i>
+          </div>
+          <span class="inline-block px-3 py-1 mb-2 text-[10px] font-extrabold uppercase tracking-wider text-rose-400 bg-rose-500/10 rounded-full border border-rose-500/20">
+            Live channel unavailable
+          </span>
+          <h3 class="text-sm font-bold text-white mb-1 leading-snug">${escapeHtml(title)}</h3>
+          <p class="text-[11px] text-slate-400 mb-3">${escapeHtml(tourn)}</p>
+          ${broadcaster ? `<div class="text-[11px] text-slate-300 mb-3 bg-white/5 py-1.5 px-3 rounded-lg border border-white/5">Official Broadcaster: <span class="text-sky-400 font-semibold">${escapeHtml(broadcaster)}</span></div>` : ''}
+          <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+            এই ম্যাচের জন্য কোনো ভেরিফাইড লাইভ ব্রডকাস্ট চ্যানেল বর্তমানে আমাদের সার্ভারে উপলব্ধ নেই। অনুগ্রহ করে অন্য ম্যাচ অথবা চ্যানেল দেখুন।
+          </p>
+          <button class="modal-unavailable-close-btn w-full py-3 px-4 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-white/10" role="button" tabindex="0">
+            Close
+          </button>
+        </div>
+      `;
 
-        if (e.key === 'ArrowDown') {
+      const unavailCloseBtn = listContainer.querySelector('.modal-unavailable-close-btn');
+      if (unavailCloseBtn) {
+        unavailCloseBtn.addEventListener('click', (e) => {
           e.preventDefault();
-          const nextIndex = currentIndex < btns.length - 1 ? currentIndex + 1 : 0;
-          btns[nextIndex].focus();
-        } else if (e.key === 'ArrowUp') {
-          e.preventDefault();
-          const prevIndex = currentIndex > 0 ? currentIndex - 1 : btns.length - 1;
-          btns[prevIndex].focus();
-        } else if (e.key === 'Enter' || e.key === ' ') {
-          if (document.activeElement && document.activeElement.classList.contains('multiple-link-server-btn')) {
-            e.preventDefault();
-            document.activeElement.click();
-          }
-        } else if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'GoBack') {
-          closeModal('modal-select-server');
-        }
+          e.stopPropagation();
+          handleCloseModal();
+        });
+      }
+    }
+
+    // 6. Modal Open, Backdrop & Dismiss Handlers
+    modalEl.style.zIndex = '99999';
+    modalEl.style.display = 'flex';
+    modalEl.style.visibility = 'visible';
+    modalEl.style.opacity = '1';
+    modalEl.style.pointerEvents = 'auto';
+
+    modalEl.onclick = (e) => {
+      if (e.target === modalEl) {
+        e.preventDefault();
+        e.stopPropagation();
+        handleCloseModal();
+      }
+    };
+
+    const closeBtn = modalEl.querySelector('[data-close-modal="modal-select-server"]');
+    if (closeBtn) {
+      closeBtn.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        handleCloseModal();
       };
     }
 
+    modalEl.onkeydown = (e) => {
+      const btns = Array.from(modalEl.querySelectorAll('.multiple-link-server-btn, .modal-unavailable-close-btn, .modal-close-btn'));
+      if (!btns.length) return;
+      const currentIndex = btns.indexOf(document.activeElement);
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const nextIndex = currentIndex < btns.length - 1 ? currentIndex + 1 : 0;
+        btns[nextIndex].focus({ preventScroll: true });
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : btns.length - 1;
+        btns[prevIndex].focus({ preventScroll: true });
+      } else if (e.key === 'Enter' || e.key === ' ') {
+        if (document.activeElement && (document.activeElement.classList.contains('multiple-link-server-btn') || document.activeElement.classList.contains('modal-unavailable-close-btn'))) {
+          e.preventDefault();
+          document.activeElement.click();
+        }
+      } else if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'GoBack') {
+        e.preventDefault();
+        e.stopPropagation();
+        handleCloseModal();
+      }
+    };
+
     openModal('modal-select-server');
+
+    // Automatically focus first item with preventScroll to ensure 100% stable viewport
+    setTimeout(() => {
+      const firstBtn = modalEl.querySelector('.multiple-link-server-btn, .modal-unavailable-close-btn');
+      if (firstBtn) firstBtn.focus({ preventScroll: true });
+    }, 50);
   }
 
   /**
@@ -3031,6 +3013,23 @@
       `;
     }
 
+    const aiAnalystSectionHtml = `
+      <div class="md-card overflow-hidden border border-emerald-500/20 bg-slate-900/50">
+        <div class="md-card-header flex items-center justify-between bg-gradient-to-r from-emerald-500/15 to-teal-500/5 py-2.5 px-3 border-b border-emerald-500/10">
+          <span class="flex items-center gap-1.5 font-bold text-xs text-emerald-400">
+            <i class="fa-solid fa-wand-magic-sparkles text-emerald-400"></i>
+            HighFy AI Match Analyst
+          </span>
+          <span class="text-[9px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-1.5 py-0.5 rounded font-black tracking-wide uppercase">Free AI</span>
+        </div>
+        <div class="p-3" id="ai-analyst-container">
+          <button id="btn-trigger-ai-analysis" class="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1.5 transition shadow-lg shadow-emerald-955/20">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Get AI Match Analysis & Insights (English)
+          </button>
+        </div>
+      </div>
+    `;
+
     DOM.matchDetailsContainer.innerHTML = `
       <div class="match-details-wrapper">
         <!-- Top Navigation -->
@@ -3084,6 +3083,7 @@
 
         <!-- Deep Content Sections -->
         ${broadcastingChannelsSectionHtml}
+        ${aiAnalystSectionHtml}
         ${eventsSectionHtml}
         ${statsSectionHtml}
         ${cricketInningsHtml}
@@ -3131,6 +3131,108 @@
         }
       });
     });
+
+    // AI Match Analyst Click Handler
+    const btnAiAnalyst = document.getElementById('btn-trigger-ai-analysis');
+    const aiContainer = document.getElementById('ai-analyst-container');
+    if (btnAiAnalyst && aiContainer) {
+      btnAiAnalyst.addEventListener('click', async () => {
+        aiContainer.innerHTML = `
+          <div class="flex flex-col items-center justify-center py-6 gap-3 text-center">
+            <div class="w-8 h-8 border-3 border-emerald-500 border-t-transparent rounded-full animate-spin"></div>
+            <div class="flex flex-col gap-1">
+              <span class="text-xs font-bold text-slate-200">Generating AI Match Insights...</span>
+              <span class="text-[10px] text-slate-400">Analyzing player form, historical matchups, and tactics</span>
+            </div>
+          </div>
+        `;
+
+        try {
+          const titleText = `${t1Name} vs ${t2Name}`;
+          const response = await fetch("/api/ai/analyze-match", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              title: titleText,
+              sport: match.sport || "Sports",
+              tournament: match.tournament || match.league || "Unknown Tournament",
+              status: match.status || "UPCOMING"
+            })
+          });
+
+          const data = await response.json();
+          if (response.ok && data.status === "success") {
+            const htmlFormatted = data.result
+              .replace(/\n/g, '<br>')
+              .replace(/(\#+)\s*(.*?)(<br>)/g, '<div class="text-xs font-black text-emerald-400 mt-2.5 mb-1.5 flex items-center gap-1">$2</div>')
+              .replace(/\*\*(.*?)\*\*/g, '<strong class="text-white font-bold">$1</strong>');
+
+            aiContainer.innerHTML = `
+              <div class="text-[11px] text-slate-300 leading-relaxed max-h-96 overflow-y-auto pr-1 select-text scrollbar-thin">
+                ${htmlFormatted}
+              </div>
+              <div class="mt-3 pt-2.5 border-t border-slate-850 flex items-center justify-between">
+                <span class="text-[10px] text-slate-500 flex items-center gap-1">
+                  <i class="fa-solid fa-circle-info text-slate-500"></i> Powered by Gemini 3.8 Flash
+                </span>
+                <button id="btn-refresh-ai-analysis" class="py-1 px-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-[10px] font-bold border border-slate-700 transition flex items-center gap-1">
+                  <i class="fa-solid fa-arrows-rotate"></i> Re-generate Insights
+                </button>
+              </div>
+            `;
+
+            const btnRefresh = document.getElementById('btn-refresh-ai-analysis');
+            if (btnRefresh) {
+              btnRefresh.addEventListener('click', () => {
+                btnAiAnalyst.click();
+              });
+            }
+          } else {
+            let errorMsg = data.error || "Failed to load AI Analysis.";
+            let descMsg = data.message || "Please check your network and try again soon.";
+            if (response.status === 403) {
+              errorMsg = "Gemini API Key missing";
+              descMsg = "Please make sure 'GEMINI_API_KEY' is configured under your AI Studio Secrets panel.";
+            }
+            aiContainer.innerHTML = `
+              <div class="p-3 text-center bg-rose-500/10 border border-rose-500/20 rounded-xl">
+                <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg mb-1.5 block"></i>
+                <div class="text-xs font-bold text-rose-400">${errorMsg}</div>
+                <div class="text-[10px] text-slate-400 mt-1">${descMsg}</div>
+                <button id="btn-retry-ai-analysis" class="mt-2.5 mx-auto py-1.5 px-3 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 text-[10px] font-bold border border-rose-500/30 transition flex items-center gap-1">
+                  <i class="fa-solid fa-rotate-left"></i> Retry Analysis
+                </button>
+              </div>
+            `;
+            const btnRetry = document.getElementById('btn-retry-ai-analysis');
+            if (btnRetry) {
+              btnRetry.addEventListener('click', () => {
+                btnAiAnalyst.click();
+              });
+            }
+          }
+        } catch (error) {
+          aiContainer.innerHTML = `
+            <div class="p-3 text-center bg-rose-500/10 border border-rose-500/20 rounded-xl">
+              <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg mb-1.5 block"></i>
+              <div class="text-xs font-bold text-rose-400">AI Connection Error</div>
+              <div class="text-[10px] text-slate-400 mt-1">Unable to connect to the analysis server. Please check your network.</div>
+              <button id="btn-retry-ai-analysis" class="mt-2.5 mx-auto py-1.5 px-3 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 text-[10px] font-bold border border-rose-500/30 transition flex items-center gap-1">
+                <i class="fa-solid fa-rotate-left"></i> Retry Analysis
+              </button>
+            </div>
+          `;
+          const btnRetry = document.getElementById('btn-retry-ai-analysis');
+          if (btnRetry) {
+            btnRetry.addEventListener('click', () => {
+              btnAiAnalyst.click();
+            });
+          }
+        }
+      });
+    }
   }
 
   /**
@@ -3666,8 +3768,33 @@
       if (name && state.customCategoryLogos[name]) return state.customCategoryLogos[name];
     }
 
-    // 3. Fallback to default
-    return cat.logo || DEFAULT_SPORTS_CATEGORY_LOGOS[id] || './assets/category-logos/sports-channels.png';
+    // Official high-resolution online logos for sports categories
+    const officialCatLogos = {
+      'sports': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Sony_Sports_Ten_1_logo.svg/320px-Sony_Sports_Ten_1_logo.svg.png',
+      'sky-sports': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/Sky_Sports_logo_2020.svg/320px-Sky_Sports_logo_2020.svg.png',
+      'bein-sports': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/BeIN_Sports_logo.svg/320px-BeIN_Sports_logo.svg.png',
+      'tnt-sports': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/TNT_Sports_logo.svg/320px-TNT_Sports_logo.svg.png',
+      'icc': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/International_Cricket_Council_logo.svg/320px-International_Cricket_Council_logo.svg.png',
+      'tapmad': 'https://www.tapmad.com/images/tapmad_logo.png',
+      'myco': 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Myco_Logo.png/320px-Myco_Logo.png',
+      'sony-liv': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Sony_LIV_logo.svg/320px-Sony_LIV_logo.svg.png',
+      'star-sports': 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Star_Sports_logo.svg/320px-Star_Sports_logo.svg.png',
+      'fancode': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/FanCode_logo.svg/320px-FanCode_logo.svg.png',
+      'dazn': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/DAZN_logo.svg/320px-DAZN_logo.svg.png',
+      'fox-sports': 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Fox_Sports_logo.svg/320px-Fox_Sports_logo.svg.png',
+      'espn': 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/ESPN_wordmark.svg/320px-ESPN_wordmark.svg.png',
+      'tsn': 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/TSN_Logo.svg/320px-TSN_Logo.svg.png',
+      'canal-plus-sport': 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Canal%2B_Sport_logo.svg/320px-Canal%2B_Sport_logo.svg.png',
+      'ziggo-sport': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/Ziggo_Sport_logo_2016.svg/320px-Ziggo_Sport_logo_2016.svg.png',
+      'eurosport': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Eurosport_logo_2015.svg/320px-Eurosport_logo_2015.svg.png'
+    };
+
+    const resolved = officialCatLogos[id] || cat.logo || DEFAULT_SPORTS_CATEGORY_LOGOS[id] || './assets/category-logos/sports-channels.png';
+    if (resolved && /^https?:\/\//i.test(resolved)) {
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
+      return `${apiBase}/api/logo-proxy?url=${encodeURIComponent(resolved)}`;
+    }
+    return resolved;
   }
 
   /**
