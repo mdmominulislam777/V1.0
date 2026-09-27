@@ -52,32 +52,6 @@ class CricketEngine {
         }
       }
     } catch (e) {}
-
-    // If cache is empty, hydrate from local events.json seed if available
-    if ((!this.cache.data || this.cache.data.length === 0)) {
-      if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
-        const crSeed = window.EVENTS_DATA.filter(e => e && (e.sport || '').toLowerCase() === 'cricket');
-        if (crSeed.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
-          this.cache.data = crSeed;
-          this.cache.timestamp = Date.now() - 10000;
-        }
-      } else if (typeof fetch !== 'undefined') {
-        try {
-          fetch('./events.json')
-            .then(r => r.ok ? r.json() : null)
-            .then(list => {
-              if (Array.isArray(list) && list.length > 0) {
-                const crSeed = list.filter(e => e && (e.sport || '').toLowerCase() === 'cricket');
-                if (crSeed.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
-                  this.cache.data = crSeed;
-                  this.cache.timestamp = Date.now() - 10000;
-                }
-              }
-            })
-            .catch(() => {});
-        } catch (_) {}
-      }
-    }
   }
 
   /**
@@ -103,14 +77,14 @@ class CricketEngine {
   }
 
   /**
-   * Get active Sportradar Cricket API Key
+   * Get active Sportradar Cricket API Key (Server-managed; never hardcode in frontend/APK)
    */
   getSportradarKey() {
     const localKey = localStorage.getItem('highfy_sportradar_key');
     if (localKey && localKey.trim()) return localKey.trim();
     const configKey = window.CONFIG?.SPORTRADAR_CRICKET_API_KEY;
     if (configKey && configKey.trim()) return configKey.trim();
-    return 'JMrqYPy7ajprQxflthCOqu9lQN6J2yWU5SOWRXv8';
+    return '';
   }
 
   /**
@@ -184,94 +158,57 @@ class CricketEngine {
   }
 
   /**
-   * Core API Fetcher - Exclusively Sportradar Official Cricket API
+   * Core API Fetcher - Exclusively via Backend Server Proxy (/api/cricket/matches)
    */
   async fetchFromApi(endpoint) {
     const apiBase = window.CONFIG?.API_BASE_URL || '';
-    // 1. Primary: Query backend Sportradar proxy endpoint (No key needed)
+    // 1. Primary: Query backend Sportradar proxy endpoint (Server-side key authentication)
     try {
       const proxyRes = await fetch(`${apiBase}/api/cricket/matches`);
       if (proxyRes.ok) {
         const json = await proxyRes.json();
+        if (json && json.status === 'rate_limited') {
+          return {
+            error: 'rate_limited',
+            status: 'rate_limited',
+            source: json.source || 'Sportradar',
+            total: 0,
+            data: [],
+            message: json.message || 'Live Cricket data blocked by Sportradar rate limit (HTTP 429).'
+          };
+        }
         if (json && Array.isArray(json.data) && json.data.length > 0) {
-          return { success: true, data: json.data, source: 'Sportradar' };
+          return { success: true, status: json.status || 'success', data: json.data, source: json.source || 'Sportradar' };
         }
       }
     } catch (proxyErr) {
       console.warn('[CricketEngine] Backend Sportradar proxy note:', proxyErr.message);
     }
-    
-    // Key needed for fallback mechanisms
-    const sportradarKey = this.getSportradarKey();
 
-    // 2. Secondary: /api/cricket/sportradar/matches direct proxy
+    // 2. Secondary: /api/cricket/sportradar/matches server-side proxy (No key exposed on client)
     try {
-      const srUrl = sportradarKey
-        ? `${apiBase}/api/cricket/sportradar/matches?api_key=${encodeURIComponent(sportradarKey)}`
-        : `${apiBase}/api/cricket/sportradar/matches`;
-      const srRes = await fetch(srUrl);
+      const srRes = await fetch(`${apiBase}/api/cricket/sportradar/matches`);
       if (srRes.ok) {
         const srJson = await srRes.json();
+        if (srJson && srJson.status === 'rate_limited') {
+          return {
+            error: 'rate_limited',
+            status: 'rate_limited',
+            source: srJson.source || 'Sportradar',
+            total: 0,
+            data: [],
+            message: srJson.message || 'Live Cricket data blocked by Sportradar rate limit (HTTP 429).'
+          };
+        }
         if (srJson && Array.isArray(srJson.data) && srJson.data.length > 0) {
-          return { success: true, data: srJson.data, source: 'Sportradar' };
+          return { success: true, status: srJson.status || 'success', data: srJson.data, source: srJson.source || 'Sportradar' };
         }
       }
     } catch (srFallbackErr) {
       console.warn('[CricketEngine] Sportradar fallback error:', srFallbackErr.message);
     }
-    
-    // 3. Client-Direct Sportradar API (for static/frontend-only environments)
-    if (sportradarKey) {
-      try {
-        const today = new Intl.DateTimeFormat('en-CA', {
-          timeZone: 'Asia/Dhaka',
-          year: 'numeric',
-          month: '2-digit',
-          day: '2-digit',
-        }).format(new Date());
 
-        const [liveRes, todayRes] = await Promise.allSettled([
-          fetch(`https://api.sportradar.com/cricket-t2/en/schedules/live/schedule.json?api_key=${encodeURIComponent(sportradarKey)}`).then(r => r.ok ? r.json() : null),
-          fetch(`https://api.sportradar.com/cricket-t2/en/schedules/${today}/schedule.json?api_key=${encodeURIComponent(sportradarKey)}`).then(r => r.ok ? r.json() : null),
-        ]);
-
-        const liveData = liveRes.status === 'fulfilled' ? liveRes.value : null;
-        const todayData = todayRes.status === 'fulfilled' ? todayRes.value : null;
-
-        const rawEvents = [
-          ...(Array.isArray(liveData?.sport_events) ? liveData.sport_events : (Array.isArray(liveData?.summaries) ? liveData.summaries : [])),
-          ...(Array.isArray(todayData?.sport_events) ? todayData.sport_events : (Array.isArray(todayData?.summaries) ? todayData.summaries : []))
-        ];
-
-        if (rawEvents.length > 0) {
-          return { success: true, data: rawEvents, source: 'Sportradar' };
-        }
-      } catch (directSrErr) {
-        console.warn('[CricketEngine] Direct Sportradar fetch note:', directSrErr.message);
-      }
-    }
-
-    // 4. Offline / Static fallback: events.json (Strictly Sportradar only)
-    if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
-      const crOnly = window.EVENTS_DATA.filter(e => (e.sport || '').toLowerCase() === 'cricket' && (e.source === 'Sportradar' || String(e.id).startsWith('cr-sportradar-')));
-      if (crOnly.length > 0) {
-        return { success: true, data: crOnly, source: 'Sportradar (Seed)' };
-      }
-    }
-    try {
-      const evRes = await fetch('./events.json');
-      if (evRes.ok) {
-        const evList = await evRes.json();
-        if (Array.isArray(evList)) {
-          const crOnly = evList.filter(e => (e.sport || '').toLowerCase() === 'cricket' && (e.source === 'Sportradar' || String(e.id).startsWith('cr-sportradar-')));
-          if (crOnly.length > 0) {
-            return { success: true, data: crOnly, source: 'Sportradar (Seed)' };
-          }
-        }
-      }
-    } catch (seedErr) {}
-
-    return { error: 'no_matches', message: 'No live cricket matches available from Sportradar.' };
+    return { error: 'no_matches', status: 'empty', source: 'Sportradar', total: 0, data: [], message: 'No live cricket matches available from Sportradar.' };
   }
 
   /**
@@ -671,45 +608,128 @@ class CricketEngine {
   }
 
   /**
-   * Normalize Cricket Match Data (handles both RapidAPI & CricAPI schemas)
+   * Normalize Cricket Match Data (handles Backend Normalized Sportradar & Raw Sportradar schemas)
    */
   normalizeMatch(item) {
     if (!item) return null;
 
-    // If item is already normalized from backend RapidAPI, Cricbuzz, or Sportradar proxy:
-    if (item.source === 'Sportradar' || item.source === 'Sportradar Live' || item.source === 'Cricbuzz RapidAPI' || item.source === 'RapidAPI Cricket' || item.source === 'RapidAPI' || item.source === 'Cricbuzz Live' || (item.sport === 'cricket' && item.team1 && item.team2)) {
+    const extractBroadcasterFields = (obj, sportEventObj) => {
+      const tokens = [];
+      const addVal = (v) => {
+        if (!v) return;
+        if (Array.isArray(v)) {
+          v.forEach(addVal);
+        } else if (typeof v === 'string') {
+          v.split(/[,/|;+]|\band\b/i)
+            .map(s => s.trim())
+            .filter(s => s && !s.toLowerCase().includes('unknown') && !s.toLowerCase().includes('tbd'))
+            .forEach(s => tokens.push(s));
+        } else if (typeof v === 'object') {
+          if (Array.isArray(v.names)) addVal(v.names);
+          const candidate = v.name || v.channel_name || v.broadcaster_name || v.station || v.tv_name || v.channel || v.title || v.value || v.media?.shortName || v.media?.name || '';
+          if (typeof candidate === 'string' && candidate.trim()) addVal(candidate);
+        }
+      };
+
+      addVal(obj?.broadcaster);
+      addVal(obj?.broadcasters);
+      addVal(obj?.tv);
+      addVal(obj?.broadcast);
+      addVal(obj?.broadcasts);
+      addVal(obj?.channel);
+      addVal(obj?.channels);
+      addVal(obj?.tv_channels);
+      addVal(obj?.strTVStation);
+      addVal(obj?.tvStation);
+      if (sportEventObj && sportEventObj !== obj) {
+        addVal(sportEventObj?.broadcaster);
+        addVal(sportEventObj?.broadcasters);
+        addVal(sportEventObj?.broadcast);
+        addVal(sportEventObj?.broadcasts);
+        addVal(sportEventObj?.channels);
+        addVal(sportEventObj?.tv_channels);
+      }
+
+      const unique = Array.from(new Set(tokens));
+      return {
+        broadcaster: unique.length > 0 ? unique.slice(0, 3).join(', ') : null,
+        broadcasters: unique
+      };
+    };
+
+    // 1. If item is already normalized from backend Sportradar proxy (/api/cricket/matches):
+    const srcLower = String(item.source || '').toLowerCase();
+    if (
+      srcLower.includes('sportradar') ||
+      item.source === 'Cricbuzz RapidAPI' ||
+      item.source === 'RapidAPI Cricket' ||
+      item.source === 'RapidAPI' ||
+      item.source === 'Cricbuzz Live' ||
+      (item.sport === 'cricket' && item.team1 && item.team2)
+    ) {
       const statusLower = (item.status || 'upcoming').toLowerCase();
       const isLive = statusLower === 'live';
       const isFinished = statusLower === 'finished';
       const timezone = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
-      const timestamp = item.timestamp || Date.now();
+
+      let timestamp = typeof item.timestamp === 'number' && !isNaN(item.timestamp) ? item.timestamp : null;
+      if (timestamp && timestamp < 10000000000) timestamp *= 1000;
+      if (!timestamp) {
+        const rawDate = item.startTime || item.scheduled || item.date;
+        const parsed = rawDate ? Date.parse(String(rawDate)) : NaN;
+        timestamp = !isNaN(parsed) && parsed > 0 ? parsed : Date.now();
+      }
+
       const matchTime = item.matchTime || this.formatMatchTime(new Date(timestamp).toISOString(), timezone);
+      const bInfo = extractBroadcasterFields(item, item.sport_event);
+      const rawIdStr = String(item.id || item.matchId || item.rawId || Date.now());
+      const normalizedId = rawIdStr.startsWith('cr-sportradar-') || rawIdStr.startsWith('sr:') || rawIdStr.startsWith('sr-')
+        ? rawIdStr
+        : `cr-sportradar-${rawIdStr.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
 
       return {
         ...item,
-        id: item.id || `cr-rapid-${item.matchId || Date.now()}`,
+        id: normalizedId,
         sport: 'cricket',
         sportName: 'Cricket',
         sportIcon: 'fa-baseball-bat-ball',
+        timestamp,
         matchTime: matchTime,
         timeOrTimer: isLive ? 'LIVE' : (isFinished ? 'FT' : matchTime),
         status: statusLower,
         statusLabel: isLive ? 'LIVE' : (isFinished ? 'FINISHED' : 'Upcoming'),
-        isHot: item.isHot || isLive,
-        streams: item.streams || []
+        isHot: Boolean(item.isHot || isLive),
+        broadcaster: item.broadcaster !== undefined ? item.broadcaster : bInfo.broadcaster,
+        broadcasters: Array.isArray(item.broadcasters) && item.broadcasters.length > 0 ? item.broadcasters : bInfo.broadcasters,
+        channelId: item.channelId || null,
+        channelIds: Array.isArray(item.channelIds) ? item.channelIds : (item.channelId ? [item.channelId] : []),
+        channelName: item.channelName || null,
+        channelLogo: item.channelLogo || null,
+        streamUrl: item.streamUrl || null,
+        streams: Array.isArray(item.streams) ? item.streams : [],
+        source: item.source && String(item.source).toLowerCase().includes('sportradar') ? item.source : 'Sportradar'
       };
     }
 
-    if (!item.id) return null;
+    // 2. Handle raw Sportradar sport_event / summary payload or raw Cricket feed item
+    const sportEvent = item.sport_event || item;
+    const statusObj = item.sport_event_status || {};
+    const rawEventId = sportEvent.id || item.id || item.matchId;
+    if (!rawEventId) return null;
+
+    const competitors = Array.isArray(sportEvent.competitors) ? sportEvent.competitors : [];
+    const homeComp = competitors.find(c => c.qualifier === 'home') || competitors[0] || null;
+    const awayComp = competitors.find(c => c.qualifier === 'away') || competitors[1] || null;
 
     const teams = item.teams || (item.teamInfo ? item.teamInfo.map(t => t.name) : []);
-    const team1Name = teams[0] || item.teamInfo?.[0]?.name || 'Team 1';
-    const team2Name = teams[1] || item.teamInfo?.[1]?.name || 'Team 2';
+    const team1Name = homeComp?.name || teams[0] || item.teamInfo?.[0]?.name || 'Team 1';
+    const team2Name = awayComp?.name || teams[1] || item.teamInfo?.[1]?.name || 'Team 2';
 
     const team1Info = item.teamInfo?.find(t => t.name === team1Name) || item.teamInfo?.[0] || {};
     const team2Info = item.teamInfo?.find(t => t.name === team2Name) || item.teamInfo?.[1] || {};
 
     const scores = Array.isArray(item.score) ? item.score : [];
+    const periodScores = Array.isArray(statusObj.period_scores) ? statusObj.period_scores : [];
 
     // Extract score info for team 1 and team 2
     let team1ScoreStr = '';
@@ -717,24 +737,50 @@ class CricketEngine {
     let team2ScoreStr = '';
     let team2OversStr = '';
 
-    const t1ScoreObj = scores.find(s => s.inning && s.inning.toLowerCase().includes(team1Name.toLowerCase())) || scores[0];
-    const t2ScoreObj = scores.find(s => s.inning && s.inning.toLowerCase().includes(team2Name.toLowerCase())) || scores[1];
+    if (periodScores.length > 0) {
+      const homePeriods = periodScores.filter(p => p.home_score !== undefined && p.home_score !== null);
+      if (homePeriods.length > 0) {
+        const lastP = homePeriods[homePeriods.length - 1];
+        team1ScoreStr = `${lastP.home_score}/${lastP.home_wickets !== undefined ? lastP.home_wickets : 0}`;
+        if (lastP.home_overs) team1OversStr = `(${lastP.home_overs} ov)`;
+      }
+      const awayPeriods = periodScores.filter(p => p.away_score !== undefined && p.away_score !== null);
+      if (awayPeriods.length > 0) {
+        const lastP = awayPeriods[awayPeriods.length - 1];
+        team2ScoreStr = `${lastP.away_score}/${lastP.away_wickets !== undefined ? lastP.away_wickets : 0}`;
+        if (lastP.away_overs) team2OversStr = `(${lastP.away_overs} ov)`;
+      }
+    } else {
+      const t1ScoreObj = scores.find(s => s.inning && s.inning.toLowerCase().includes(team1Name.toLowerCase())) || scores[0];
+      const t2ScoreObj = scores.find(s => s.inning && s.inning.toLowerCase().includes(team2Name.toLowerCase())) || scores[1];
 
-    if (t1ScoreObj) {
-      team1ScoreStr = `${t1ScoreObj.r || 0}/${t1ScoreObj.w !== undefined ? t1ScoreObj.w : 0}`;
-      team1OversStr = t1ScoreObj.o !== undefined ? `(${t1ScoreObj.o} ov)` : '';
+      if (t1ScoreObj) {
+        team1ScoreStr = `${t1ScoreObj.r || 0}/${t1ScoreObj.w !== undefined ? t1ScoreObj.w : 0}`;
+        team1OversStr = t1ScoreObj.o !== undefined ? `(${t1ScoreObj.o} ov)` : '';
+      }
+      if (t2ScoreObj) {
+        team2ScoreStr = `${t2ScoreObj.r || 0}/${t2ScoreObj.w !== undefined ? t2ScoreObj.w : 0}`;
+        team2OversStr = t2ScoreObj.o !== undefined ? `(${t2ScoreObj.o} ov)` : '';
+      }
     }
 
-    if (t2ScoreObj) {
-      team2ScoreStr = `${t2ScoreObj.r || 0}/${t2ScoreObj.w !== undefined ? t2ScoreObj.w : 0}`;
-      team2OversStr = t2ScoreObj.o !== undefined ? `(${t2ScoreObj.o} ov)` : '';
+    const srRawStatus = String(statusObj.status || sportEvent.status || item.status || '').toLowerCase().trim();
+    const srMatchStatus = String(statusObj.match_status || '').toLowerCase().trim();
+    let statusParsed;
+    if (srRawStatus === 'live' || srRawStatus === 'in_progress' || srRawStatus === 'started' || srMatchStatus === 'in_progress' || srMatchStatus === 'live') {
+      statusParsed = { status: 'live', label: statusObj.match_status || 'LIVE' };
+    } else if (srRawStatus === 'closed' || srRawStatus === 'ended' || srRawStatus === 'complete' || srRawStatus === 'completed' || srMatchStatus === 'ended' || srMatchStatus === 'completed') {
+      statusParsed = { status: 'finished', label: statusObj.match_status || 'Match Concluded' };
+    } else if (srRawStatus === 'not_started' || srRawStatus === 'scheduled' || srRawStatus === 'delayed' || srRawStatus === 'postponed') {
+      statusParsed = { status: 'upcoming', label: statusObj.match_status || 'Scheduled' };
+    } else {
+      statusParsed = this.parseStatus(item);
     }
 
-    const statusParsed = this.parseStatus(item);
     const timezone = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
-    const dateStr = item.dateTimeGMT || item.date;
+    const dateStr = sportEvent.scheduled || sportEvent.start_time || item.dateTimeGMT || item.date || item.startTime;
     const matchTime = this.formatMatchTime(dateStr, timezone);
-    const timestamp = dateStr ? new Date(dateStr.endsWith('Z') ? dateStr : dateStr + 'Z').getTime() : Date.now();
+    const timestamp = dateStr ? new Date(String(dateStr).endsWith('Z') || /[+-]\d{2}:?\d{2}$/.test(String(dateStr)) ? dateStr : dateStr + 'Z').getTime() : Date.now();
 
     const isLive = statusParsed.status === 'live';
     const isFinished = statusParsed.status === 'finished';
@@ -748,7 +794,11 @@ class CricketEngine {
 
     // Resolve clean human-readable series / tournament name (never display UUIDs)
     let tournamentName = '';
-    if (item.series_name && !this.isUuidString(item.series_name)) {
+    if (sportEvent.tournament?.name && !this.isUuidString(sportEvent.tournament.name)) {
+      tournamentName = sportEvent.tournament.name;
+    } else if (sportEvent.season?.name && !this.isUuidString(sportEvent.season.name)) {
+      tournamentName = sportEvent.season.name;
+    } else if (item.series_name && !this.isUuidString(item.series_name)) {
       tournamentName = item.series_name;
     } else if (item.seriesName && !this.isUuidString(item.seriesName)) {
       tournamentName = item.seriesName;
@@ -763,81 +813,97 @@ class CricketEngine {
     }
 
     const tNameLower = tournamentName.toLowerCase();
-    let computedFormat = item.matchType || 'Match';
-    if (tNameLower.includes('county') || tNameLower.includes('championship')) {
+    const rawFormatStr = String(sportEvent.type || sportEvent.tournament?.type || item.matchType || '').toLowerCase();
+    let computedFormat = item.matchType || 'Cricket';
+    if (tNameLower.includes('county') || tNameLower.includes('championship') || tNameLower.includes('first-class') || tNameLower.includes('first class')) {
       computedFormat = 'County';
-    } else if (tNameLower.includes('t20') || tNameLower.includes('blast') || tNameLower.includes('ipl') || tNameLower.includes('bpl') || tNameLower.includes('psl')) {
+    } else if (rawFormatStr.includes('t20') || tNameLower.includes('t20') || tNameLower.includes('blast') || tNameLower.includes('ipl') || tNameLower.includes('bpl') || tNameLower.includes('psl')) {
       computedFormat = 'T20';
-    } else if (tNameLower.includes('odi') || tNameLower.includes('champions trophy') || tNameLower.includes('one day')) {
+    } else if (rawFormatStr.includes('odi') || tNameLower.includes('odi') || tNameLower.includes('champions trophy') || tNameLower.includes('one day') || tNameLower.includes('one-day')) {
       computedFormat = 'ODI';
-    } else if (tNameLower.includes('test') || (item.matchType && item.matchType.toLowerCase() === 'test' && !tNameLower.includes('county'))) {
+    } else if (rawFormatStr.includes('test') || tNameLower.includes('test') || tNameLower.includes("president's trophy")) {
       computedFormat = 'Test';
     }
 
-    const cleanTitle = (item.name && !this.isUuidString(item.name)) ? item.name : `${team1Name} vs ${team2Name}`;
-    const cleanLeague = computedFormat ? computedFormat.toUpperCase() : tournamentName;
+    const cleanTitle = `${team1Name} vs ${team2Name}`;
+    const bInfo = extractBroadcasterFields(item, sportEvent);
+    const venueStr = sportEvent.venue
+      ? (typeof sportEvent.venue === 'string' ? sportEvent.venue : `${sportEvent.venue.name || ''}${sportEvent.venue.city_name ? `, ${sportEvent.venue.city_name}` : ''}`.trim())
+      : (item.venue || '');
 
     return {
-      id: `cr-${item.id}`,
-      rawId: item.id,
+      id: `cr-sportradar-${String(rawEventId).replace(/[^a-zA-Z0-9_-]/g, '_')}`,
+      rawId: rawEventId,
+      matchId: rawEventId,
       sport: 'cricket',
       sportName: 'Cricket',
       sportIcon: 'fa-baseball-bat-ball',
       title: cleanTitle,
       name: cleanTitle,
-      league: cleanLeague,
+      seriesName: tournamentName,
+      league: tournamentName,
       tournament: tournamentName,
+      matchFormat: computedFormat,
       matchType: computedFormat,
       status: statusParsed.status, // "live" | "upcoming" | "finished"
-      statusLabel: statusParsed.label,
-      statusText: item.status || statusParsed.label,
+      statusLabel: isLive ? 'LIVE' : (isFinished ? 'FT' : 'Upcoming'),
+      statusText: statusObj.match_status || item.status || statusParsed.label,
       startTime: dateStr,
       matchTime: matchTime,
       timestamp: isNaN(timestamp) ? Date.now() : timestamp,
       date: new Intl.DateTimeFormat('en-CA', { timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(isNaN(timestamp) ? Date.now() : timestamp)),
-      venue: item.venue || '',
+      venue: venueStr,
       isHot: isLive,
 
       // Common normalized standard format
       homeTeam: {
         name: team1Name,
-        logo: this.resolveHDLogo(team1Name, team1Info.img),
+        logo: this.resolveHDLogo(team1Name, homeComp?.logo || team1Info.img),
         score: team1ScoreStr,
         overs: team1OversStr
       },
       awayTeam: {
         name: team2Name,
-        logo: this.resolveHDLogo(team2Name, team2Info.img),
+        logo: this.resolveHDLogo(team2Name, awayComp?.logo || team2Info.img),
         score: team2ScoreStr,
         overs: team2OversStr
       },
 
       // UI View Adapters (team1 / team2)
       team1: {
+        teamId: homeComp?.id,
         name: team1Name,
-        logo: this.resolveHDLogo(team1Name, team1Info.img),
+        shortName: homeComp?.abbreviation || '',
+        logo: this.resolveHDLogo(team1Name, homeComp?.logo || team1Info.img),
         score: team1ScoreStr,
         overs: team1OversStr
       },
       team2: {
+        teamId: awayComp?.id,
         name: team2Name,
-        logo: this.resolveHDLogo(team2Name, team2Info.img),
+        shortName: awayComp?.abbreviation || '',
+        logo: this.resolveHDLogo(team2Name, awayComp?.logo || team2Info.img),
         score: team2ScoreStr,
         overs: team2OversStr
       },
 
-      runs: t1ScoreObj ? t1ScoreObj.r : '',
-      wickets: t1ScoreObj ? t1ScoreObj.w : '',
-      overs: t1ScoreObj ? t1ScoreObj.o : '',
+      runs: '',
+      wickets: '',
+      overs: '',
       innings: scores,
       requiredRunRate: '',
       timeOrTimer: timeOrTimer,
-      broadcaster: (item.broadcaster || item.broadcasters || item.tv || item.broadcast || item.channel || item.strTVStation || '').trim(),
-      broadcasters: (item.broadcaster || item.broadcasters || item.tv || item.broadcast || item.channel || item.strTVStation || '') ? [String(item.broadcaster || item.broadcasters || item.tv || item.broadcast || item.channel || item.strTVStation || '').trim()] : [],
-      subText: item.status || `${item.matchType || 'Cricket'} • ${item.venue || ''}`,
+      broadcaster: bInfo.broadcaster,
+      broadcasters: bInfo.broadcasters,
+      channelId: item.channelId || null,
+      channelIds: Array.isArray(item.channelIds) ? item.channelIds : (item.channelId ? [item.channelId] : []),
+      channelName: item.channelName || null,
+      channelLogo: item.channelLogo || null,
+      streamUrl: item.streamUrl || null,
+      subText: item.channelName ? `${tournamentName} • ${item.channelName}` : tournamentName,
       scoreDetails: scores,
-      streams: [],
-      source: 'CricketData'
+      streams: Array.isArray(item.streams) ? item.streams : [],
+      source: 'Sportradar'
     };
   }
 
@@ -892,10 +958,20 @@ class CricketEngine {
 
       if (res.error && (!res.data || res.data.length === 0)) {
         this.inFlightPromise = null;
+        if (res.error === 'rate_limited') {
+          return {
+            configured: false,
+            status: 'rate_limited',
+            source: res.source || 'Sportradar',
+            error: res.error,
+            message: res.message,
+            events: []
+          };
+        }
         if (this.cache.data && this.cache.data.length > 0) {
           return { configured: true, events: this.cache.data };
         }
-        return { configured: false, error: res.error, message: res.message, events: [] };
+        return { configured: false, status: res.status || 'empty', source: 'Sportradar', error: res.error, message: res.message, events: [] };
       }
 
       const rawList = Array.isArray(res.data) ? res.data : [];
@@ -920,11 +996,34 @@ class CricketEngine {
       const curNow = Date.now();
       const fourteenDaysAhead = curNow + (14 * 24 * 60 * 60 * 1000);
       const isCricketFinished = (e) => {
-        if (typeof window !== 'undefined' && typeof window.isEventFinished === 'function') {
-          return window.isEventFinished(e);
+        const coordFn =
+          (typeof window !== 'undefined' && window.SportsCoordinator && typeof window.SportsCoordinator.isEventFinished === 'function'
+            ? window.SportsCoordinator.isEventFinished.bind(window.SportsCoordinator)
+            : null) ||
+          (typeof window !== 'undefined' && window.sportsCoordinator && typeof window.sportsCoordinator.isEventFinished === 'function'
+            ? window.sportsCoordinator.isEventFinished.bind(window.sportsCoordinator)
+            : null) ||
+          (typeof window !== 'undefined' && typeof window.isEventFinished === 'function' ? window.isEventFinished : null);
+        if (coordFn) {
+          const fin = coordFn(e);
+          if (fin) {
+            e.status = 'finished';
+            e.statusLabel = 'FINISHED';
+            e.timeOrTimer = 'FT';
+          }
+          return fin;
         }
         const st = (e.status || '').toLowerCase();
         if (st === 'finished' || st === 'ft' || st === 'ended' || st === 'completed') return true;
+        if (e.authoritativeEndTime) {
+          const authEnd = Date.parse(String(e.authoritativeEndTime));
+          if (!isNaN(authEnd) && authEnd > 0 && curNow > authEnd) {
+            e.status = 'finished';
+            e.statusLabel = 'FINISHED';
+            e.timeOrTimer = 'FT';
+            return true;
+          }
+        }
         const txt = (String(e.statusText || '') + ' ' + String(e.matchDesc || '')).toLowerCase();
         if (/(^|\b)(won by|won the|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|winner)(\b|$)/i.test(txt)) {
           e.status = 'finished';
@@ -935,20 +1034,20 @@ class CricketEngine {
         if (e.timestamp) {
           const ts = e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp;
           const elapsed = curNow - ts;
-          const fmt = String(e.matchFormat || e.matchType || '').toUpperCase();
-          if (fmt.includes('T20') && elapsed > 4.5 * 3600 * 1000) {
-            e.status = 'finished';
-            e.statusLabel = 'FINISHED';
-            e.timeOrTimer = 'FT';
-            return true;
-          }
-          if (fmt.includes('ODI') && elapsed > 9 * 3600 * 1000) {
-            e.status = 'finished';
-            e.statusLabel = 'FINISHED';
-            e.timeOrTimer = 'FT';
-            return true;
-          }
-          if (elapsed > 6 * 3600 * 1000) {
+          const fmt = String(e.matchFormat || e.matchType || '').toLowerCase();
+          const tourn = String(e.tournament || e.league || e.seriesName || '').toLowerCase();
+          const isTestOrFc =
+            fmt.includes('test') || fmt.includes('county') || fmt.includes('first-class') || fmt.includes('first_class') ||
+            tourn.includes('test') || tourn.includes('county') || tourn.includes('first-class') || tourn.includes('first class') ||
+            tourn.includes("president's trophy") || tourn.includes('sheffield') || tourn.includes('ranji') || tourn.includes('ashes');
+          const maxElapsed = isTestOrFc
+            ? 5.5 * 24 * 3600 * 1000
+            : (fmt.includes('odi') || tourn.includes('odi') || tourn.includes('one-day') || tourn.includes('one day'))
+            ? 13 * 3600 * 1000
+            : (fmt.includes('t20') || tourn.includes('t20'))
+            ? 10 * 3600 * 1000
+            : 12 * 3600 * 1000;
+          if (elapsed > maxElapsed) {
             e.status = 'finished';
             e.statusLabel = 'FINISHED';
             e.timeOrTimer = 'FT';

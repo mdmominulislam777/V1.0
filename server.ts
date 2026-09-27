@@ -22,7 +22,7 @@ const aiClient = new GoogleGenAI({
   }
 });
 
-const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || process.env.SOFASCORE_API_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81";
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81";
 const DEFAULT_CRICKET_HOST = "cricbuzz-cricket2.p.rapidapi.com";
 
 function sanitizeCricbuzzHost(h?: any): string {
@@ -40,18 +40,6 @@ const THESPORTSDB_KEY = process.env.THESPORTSDB_API_KEY || "3";
 const THESPORTSDB_BASE = `https://www.thesportsdb.com/api/v1/json/${THESPORTSDB_KEY}`;
 const ALLSPORTSAPI_KEY = (process.env.ALLSPORTSAPI_KEY || "").trim();
 const ALLSPORTSAPI_BASE = "https://apiv2.allsportsapi.com";
-const SOFASCORE_RAPIDAPI_HOST = "sofascore.p.rapidapi.com";
-const SOFASCORE_API_KEY = RAPIDAPI_KEY;
-
-function sanitizeSofaScoreHost(h?: any): string {
-  const str = typeof h === "string" ? h : Array.isArray(h) ? String(h[0] || "") : "";
-  if (!str) return SOFASCORE_RAPIDAPI_HOST;
-  const trimmed = str.trim();
-  if (!trimmed.includes(".") || trimmed.length > 40 || trimmed.includes("msh95f4") || trimmed.length === 50) {
-    return SOFASCORE_RAPIDAPI_HOST;
-  }
-  return trimmed;
-}
 
 const envSrKey = (process.env.SPORTRADAR_CRICKET_API_KEY || "").trim();
 const envSrTierRaw = (process.env.SPORTRADAR_CRICKET_TIER || "").trim();
@@ -92,7 +80,6 @@ const inFlightPromises = {
   rapidCricketMatches: null as Promise<any[]> | null,
   sportradarCricketMatches: null as Promise<any[]> | null,
   sportsDbEvents: null as Promise<any[]> | null,
-  sofaScoreMatches: null as Promise<any> | null,
   sportsProxy: new Map<string, Promise<any>>(),
 };
 
@@ -104,13 +91,6 @@ const rapidCache = {
   TTL_SCHEDULE_NORMAL: 20 * 60 * 1000, // 20 minutes for general cricket schedule
   TTL_SCHEDULE_LIVE: 3 * 60 * 1000,    // 3 minutes when live matches are active
   TTL_STATIC: 12 * 60 * 60 * 1000,      // 12 hours for static teams and player squads
-};
-
-const sofaScoreCache = {
-  matches: null as CacheEntry<any[]> | null,
-  proxy: new Map<string, CacheEntry<any>>(),
-  TTL_MATCHES: 60 * 1000, // 1 minute for live matches/fixtures
-  TTL_PROXY: 45 * 1000,   // 45 seconds for proxy queries
 };
 
 const sportsDbCache = {
@@ -127,6 +107,9 @@ const sportradarCache = {
   tournaments: null as CacheEntry<any> | null,
   dailySummaries: new Map<string, CacheEntry<any>>(),
   proxy: new Map<string, CacheEntry<any>>(),
+  lastStatus: 200 as number,
+  lastError: "" as string,
+  rateLimited: false as boolean,
   TTL_LIVE: 45 * 1000,        // 45 seconds for live summaries
   TTL_SCHEDULE: 5 * 60 * 1000, // 5 minutes for daily schedule
   TTL_STATIC: 30 * 60 * 1000,  // 30 minutes for tournaments
@@ -258,7 +241,7 @@ function isReqableOrSnifferThreat(req: express.Request): { detected: boolean; re
 
 async function startServer() {
   const app = express();
-  const PORT = 3000;
+  const PORT = Number(process.env.DEFAULT_APP_PORT || process.env.PORT || 3000);
 
   // 1. Configure Trust Proxy for Reverse Proxies (Cloud Run / Nginx)
   app.set("trust proxy", 1);
@@ -1000,6 +983,14 @@ async function startServer() {
       sportEvent?.tv_channels,
       item?.broadcast,
       sportEvent?.broadcast,
+      item?.broadcasts,
+      sportEvent?.broadcasts,
+      item?.geoBroadcasts,
+      sportEvent?.geoBroadcasts,
+      item?.strTVStation,
+      sportEvent?.strTVStation,
+      item?.tvStation,
+      sportEvent?.tvStation,
       item?.media?.channels,
       sportEvent?.media?.channels,
       item?.media?.broadcasters,
@@ -1023,11 +1014,19 @@ async function startServer() {
           extractFromEntry(sub);
         }
       } else if (typeof entry === "string") {
-        const trimmed = entry.trim();
-        if (trimmed && !trimmed.toLowerCase().includes("unknown") && !trimmed.toLowerCase().includes("tbd")) {
-          extracted.push(trimmed);
+        const parts = entry
+          .split(/[,/|;+]|\band\b/i)
+          .map((p) => p.trim())
+          .filter(Boolean);
+        for (const trimmed of parts) {
+          if (trimmed && !trimmed.toLowerCase().includes("unknown") && !trimmed.toLowerCase().includes("tbd")) {
+            extracted.push(trimmed);
+          }
         }
       } else if (typeof entry === "object") {
+        if (Array.isArray(entry.names)) {
+          extractFromEntry(entry.names);
+        }
         const name =
           entry.name ||
           entry.channel_name ||
@@ -1036,12 +1035,12 @@ async function startServer() {
           entry.tv_name ||
           entry.channel ||
           entry.title ||
+          entry.value ||
+          entry.media?.shortName ||
+          entry.media?.name ||
           "";
         if (typeof name === "string" && name.trim()) {
-          const trimmed = name.trim();
-          if (trimmed && !trimmed.toLowerCase().includes("unknown") && !trimmed.toLowerCase().includes("tbd")) {
-            extracted.push(trimmed);
-          }
+          extractFromEntry(name);
         }
       }
     }
@@ -1472,6 +1471,8 @@ async function startServer() {
       tNameLower.includes("county") ||
       tNameLower.includes("first-class") ||
       tNameLower.includes("first class") ||
+      tNameLower.includes("president's trophy") ||
+      tNameLower.includes("quaid-e-azam") ||
       tNameLower.includes("sheffield shield") ||
       tNameLower.includes("sheffield") ||
       tNameLower.includes("ranji") ||
@@ -1689,18 +1690,36 @@ async function startServer() {
       const lastP = homePeriods[homePeriods.length - 1];
       homeScore = `${lastP.home_score}/${lastP.home_wickets !== undefined ? lastP.home_wickets : 0}`;
       if (lastP.home_overs) homeOvers = `(${lastP.home_overs} ov)`;
+    } else if (typeof home.score === "string" && home.score.trim()) {
+      const rawH = home.score.trim();
+      const ovMatch = rawH.match(/\(([\d.]+\s*ov[^)]*)\)/i);
+      if (ovMatch) {
+        homeOvers = `(${ovMatch[1].trim()})`;
+        homeScore = rawH.replace(ovMatch[0], "").replace(/\(f\/o\)/gi, "").trim();
+      } else {
+        homeScore = rawH;
+      }
     }
     const awayPeriods = periodScores.filter((p: any) => p.away_score !== undefined && p.away_score !== null);
     if (awayPeriods.length > 0) {
       const lastP = awayPeriods[awayPeriods.length - 1];
       awayScore = `${lastP.away_score}/${lastP.away_wickets !== undefined ? lastP.away_wickets : 0}`;
       if (lastP.away_overs) awayOvers = `(${lastP.away_overs} ov)`;
+    } else if (typeof away.score === "string" && away.score.trim()) {
+      const rawA = away.score.trim();
+      const ovMatch = rawA.match(/\(([\d.]+\s*ov[^)]*)\)/i);
+      if (ovMatch) {
+        awayOvers = `(${ovMatch[1].trim()})`;
+        awayScore = rawA.replace(ovMatch[0], "").replace(/\(f\/o\)/gi, "").trim();
+      } else {
+        awayScore = rawA;
+      }
     }
 
     const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
 
-    const t1Logo = resolveHDTeamLogo(homeName);
-    const t2Logo = resolveHDTeamLogo(awayName);
+    const t1Logo = resolveHDTeamLogo(homeName, home.logo);
+    const t2Logo = resolveHDTeamLogo(awayName, away.logo);
 
     return {
       id: `cr-sportradar-${String(sportEvent.id || "unknown").replace(/[^a-zA-Z0-9_-]/g, "_")}`,
@@ -1857,6 +1876,9 @@ async function startServer() {
 
         // 1. Fetch live schedule (Sportradar Cricket v2 route: schedules/live/schedule.json)
         const liveRes = await fetchSportradarApi("schedules/live/schedule.json", activeKey, cleanTier);
+        sportradarCache.lastStatus = liveRes.status;
+        sportradarCache.rateLimited = liveRes.status === 429;
+        sportradarCache.lastError = liveRes.ok ? "" : (liveRes.error || "");
         if (liveRes.ok && liveRes.data) {
           const list = Array.isArray(liveRes.data.sport_events)
             ? liveRes.data.sport_events
@@ -1872,47 +1894,75 @@ async function startServer() {
           }
         }
 
-        // 2. Fetch today's schedule (Sportradar Cricket v2 route: schedules/{date}/schedule.json)
-        const nowDhaka = new Date();
-        const today = new Intl.DateTimeFormat("en-CA", {
-          timeZone: "Asia/Dhaka",
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }).format(nowDhaka);
+        // Only query daily schedule routes if the Sportradar key did not return 429/403
+        if (liveRes.status !== 429 && liveRes.status !== 403) {
+          // 2. Fetch today's schedule (Sportradar Cricket v2 route: schedules/{date}/schedule.json)
+          const nowDhaka = new Date();
+          const today = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Dhaka",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }).format(nowDhaka);
 
-        const dailyRes = await fetchSportradarApi(`schedules/${today}/schedule.json`, activeKey, cleanTier);
-        if (dailyRes.ok && dailyRes.data) {
-          const list = Array.isArray(dailyRes.data.sport_events)
-            ? dailyRes.data.sport_events
-            : Array.isArray(dailyRes.data.summaries)
-            ? dailyRes.data.summaries
-            : [];
-          for (const item of list) {
-            const ev = normalizeSportradarEvent(item);
-            if (ev) addCricketEvent(ev);
+          const cachedToday = sportradarCache.dailySummaries.get(today);
+          let todayData: any = null;
+          if (cachedToday && Date.now() - cachedToday.timestamp < sportradarCache.TTL_SCHEDULE) {
+            todayData = cachedToday.data;
+          } else {
+            const dailyRes = await fetchSportradarApi(`schedules/${today}/schedule.json`, activeKey, cleanTier);
+            if (dailyRes.status === 429) {
+              sportradarCache.lastStatus = 429;
+              sportradarCache.rateLimited = true;
+              sportradarCache.lastError = dailyRes.error || "Sportradar rate limit reached (HTTP 429)";
+            }
+            if (dailyRes.ok && dailyRes.data) {
+              todayData = dailyRes.data;
+              sportradarCache.dailySummaries.set(today, { timestamp: Date.now(), data: todayData });
+            }
           }
-        }
+          if (todayData) {
+            const list = Array.isArray(todayData.sport_events)
+              ? todayData.sport_events
+              : Array.isArray(todayData.summaries)
+              ? todayData.summaries
+              : [];
+            for (const item of list) {
+              const ev = normalizeSportradarEvent(item);
+              if (ev) addCricketEvent(ev);
+            }
+          }
 
-        // 3. Fetch tomorrow's schedule for upcoming matches
-        const tomorrowDate = new Date(nowDhaka.getTime() + 24 * 60 * 60 * 1000);
-        const tomorrow = new Intl.DateTimeFormat("en-CA", {
-          timeZone: "Asia/Dhaka",
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }).format(tomorrowDate);
+          // 3. Fetch tomorrow's schedule for upcoming matches
+          const tomorrowDate = new Date(nowDhaka.getTime() + 24 * 60 * 60 * 1000);
+          const tomorrow = new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Dhaka",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }).format(tomorrowDate);
 
-        const tomorrowRes = await fetchSportradarApi(`schedules/${tomorrow}/schedule.json`, activeKey, cleanTier);
-        if (tomorrowRes.ok && tomorrowRes.data) {
-          const list = Array.isArray(tomorrowRes.data.sport_events)
-            ? tomorrowRes.data.sport_events
-            : Array.isArray(tomorrowRes.data.summaries)
-            ? tomorrowRes.data.summaries
-            : [];
-          for (const item of list) {
-            const ev = normalizeSportradarEvent(item);
-            if (ev) addCricketEvent(ev);
+          const cachedTomorrow = sportradarCache.dailySummaries.get(tomorrow);
+          let tomorrowData: any = null;
+          if (cachedTomorrow && Date.now() - cachedTomorrow.timestamp < sportradarCache.TTL_SCHEDULE) {
+            tomorrowData = cachedTomorrow.data;
+          } else {
+            const tomorrowRes = await fetchSportradarApi(`schedules/${tomorrow}/schedule.json`, activeKey, cleanTier);
+            if (tomorrowRes.ok && tomorrowRes.data) {
+              tomorrowData = tomorrowRes.data;
+              sportradarCache.dailySummaries.set(tomorrow, { timestamp: Date.now(), data: tomorrowData });
+            }
+          }
+          if (tomorrowData) {
+            const list = Array.isArray(tomorrowData.sport_events)
+              ? tomorrowData.sport_events
+              : Array.isArray(tomorrowData.summaries)
+              ? tomorrowData.summaries
+              : [];
+            for (const item of list) {
+              const ev = normalizeSportradarEvent(item);
+              if (ev) addCricketEvent(ev);
+            }
           }
         }
 
@@ -1941,19 +1991,38 @@ async function startServer() {
   }
 
   // Proxy: Cricket Data API (Strictly Sportradar Official Cricket API only)
-  app.get("/api/cricket/matches", async (req, res) => {
+  app.get("/api/cricket/matches", async (_req, res) => {
     try {
       // Use server-side configured key exclusively for security
       const srMatches = await getNormalizedSportradarCricketMatches();
+      if (srMatches.length === 0 && sportradarCache.rateLimited) {
+        return res.json({
+          status: "rate_limited",
+          source: "Sportradar",
+          rateLimited: true,
+          upstreamStatus: 429,
+          message: sportradarCache.lastError || "Sportradar rate limit reached (HTTP 429)",
+          total: 0,
+          data: [],
+        });
+      }
       return res.json({
         status: "success",
         source: "Sportradar",
+        rateLimited: false,
+        upstreamStatus: sportradarCache.lastStatus || 200,
         total: srMatches.length,
         data: srMatches,
       });
     } catch (err: any) {
       console.warn("[Backend Proxy] Sportradar cricket error:", err.message);
-      res.json({ status: "ok", data: [], error: "Failed to fetch cricket matches from Sportradar" });
+      res.json({
+        status: "error",
+        source: "Sportradar",
+        total: 0,
+        data: [],
+        error: "Failed to fetch cricket matches from Sportradar",
+      });
     }
   });
 
@@ -2154,7 +2223,11 @@ async function startServer() {
         return res.status(429).json({
           valid: false,
           status: "rate_limited",
+          source: "Sportradar",
           statusCode: 429,
+          rateLimited: true,
+          total: 0,
+          data: [],
           tier,
           message: "Sportradar rate limit reached (Trial keys allow 1 QPS). Please wait 2 seconds and try again.",
           error: testRes.error,
@@ -2198,10 +2271,24 @@ async function startServer() {
       }
 
       const matches = await getNormalizedSportradarCricketMatches(apiKey, tier);
+      if (matches.length === 0 && sportradarCache.rateLimited) {
+        return res.json({
+          status: "rate_limited",
+          source: "Sportradar",
+          tier,
+          rateLimited: true,
+          upstreamStatus: 429,
+          message: sportradarCache.lastError || "Sportradar rate limit reached (HTTP 429)",
+          total: 0,
+          data: [],
+        });
+      }
       res.json({
         status: "success",
         source: "Sportradar",
         tier,
+        rateLimited: false,
+        upstreamStatus: sportradarCache.lastStatus || 200,
         total: matches.length,
         data: matches,
       });
@@ -3603,363 +3690,6 @@ async function startServer() {
     }
   });
 
-  // =========================================================================
-  // SofaScore RapidAPI Integration Engine & Proxy
-  // =========================================================================
-  function normalizeSofaScoreEvent(item: any, customSport?: string): any {
-    if (!item) return null;
-
-    const eventId = String(item.id || item.event_key || item.customId || Math.random().toString(36).substring(7));
-    const homeTeam = item.homeTeam || item.home_team || item.team1 || {};
-    const awayTeam = item.awayTeam || item.away_team || item.team2 || {};
-
-    const homeName = (homeTeam.name || "Home Team").trim();
-    const awayName = (awayTeam.name || "Away Team").trim();
-
-    if (!homeName && !awayName) return null;
-
-    const homeLogo = homeTeam.id
-      ? `https://api.sofascore.app/api/v1/team/${homeTeam.id}/image`
-      : (homeTeam.logo || homeTeam.image_path || "");
-
-    const awayLogo = awayTeam.id
-      ? `https://api.sofascore.app/api/v1/team/${awayTeam.id}/image`
-      : (awayTeam.logo || awayTeam.image_path || "");
-
-    let sport = (
-      customSport ||
-      item.tournament?.category?.sport?.name ||
-      item.league?.sport?.name ||
-      item.sport?.name ||
-      item.sport ||
-      "Football"
-    ).trim();
-
-    // Capitalize sport name for consistency
-    sport = sport.charAt(0).toUpperCase() + sport.slice(1).toLowerCase();
-    if (sport.toLowerCase() === "soccer") sport = "Football";
-
-    const league = (
-      item.tournament?.name ||
-      item.league?.name ||
-      item.tournament?.uniqueTournament?.name ||
-      "SofaScore"
-    ).trim();
-
-    // Determine status: live, upcoming, or finished
-    const statusType = String(item.status?.type || item.status || "").toLowerCase();
-    const statusDesc = String(item.status?.description || item.status_more || "").toLowerCase();
-
-    let status = "upcoming";
-    if (
-      statusType === "inprogress" ||
-      statusType === "live" ||
-      statusDesc.includes("live") ||
-      statusDesc.includes("half") ||
-      statusDesc.includes("quarter") ||
-      statusDesc.includes("period") ||
-      statusDesc.includes("set") ||
-      statusDesc.includes("over")
-    ) {
-      status = "live";
-    } else if (
-      statusType === "finished" ||
-      statusType === "ended" ||
-      statusType === "postponed" ||
-      statusType === "canceled" ||
-      statusType === "abandoned" ||
-      statusType === "interrupted" ||
-      statusDesc.includes("ft") ||
-      statusDesc.includes("ended") ||
-      statusDesc.includes("finished") ||
-      statusDesc.includes("full time") ||
-      statusDesc.includes("aet") ||
-      statusDesc.includes("extra time") ||
-      statusDesc.includes("penalties") ||
-      statusDesc.includes("abandoned")
-    ) {
-      status = "finished";
-    }
-
-    const homeScoreVal = item.homeScore?.current ?? item.home_score?.current ?? null;
-    const awayScoreVal = item.awayScore?.current ?? item.away_score?.current ?? null;
-    const homeScore = (homeScoreVal !== null && homeScoreVal !== undefined) ? String(homeScoreVal) : "";
-    const awayScore = (awayScoreVal !== null && awayScoreVal !== undefined) ? String(awayScoreVal) : "";
-
-    let matchTimestamp = Date.now();
-    if (item.startTimestamp) {
-      matchTimestamp = Number(item.startTimestamp) * 1000;
-    } else if (item.start_at) {
-      matchTimestamp = new Date(item.start_at).getTime() || Date.now();
-    }
-
-    const title = `${homeName} vs ${awayName}`;
-    const dateStr = new Date(matchTimestamp).toISOString().split("T")[0];
-    const timeStr = new Date(matchTimestamp).toTimeString().substring(0, 5);
-
-    return {
-      id: `sofascore-${eventId}`,
-      sport: sport,
-      league: league,
-      title: title,
-      date: dateStr,
-      time: timeStr,
-      status: status,
-      channelId: null, // Matched dynamically in frontend via rules
-      timestamp: matchTimestamp,
-      teams: [homeName, awayName],
-      team1: {
-        name: homeName,
-        logo: homeLogo,
-        score: homeScore
-      },
-      team2: {
-        name: awayName,
-        logo: awayLogo,
-        score: awayScore
-      },
-      homeTeam: {
-        name: homeName,
-        logo: homeLogo,
-        score: homeScore
-      },
-      awayTeam: {
-        name: awayName,
-        logo: awayLogo,
-        score: awayScore
-      },
-      score: (homeScore && awayScore) ? `${homeScore} - ${awayScore}` : "",
-      broadcaster: String(item.broadcaster || item.tv || item.media?.broadcaster || item.channel || item.strTVStation || "").trim(),
-      broadcasters: String(item.broadcaster || item.tv || item.media?.broadcaster || item.channel || item.strTVStation || "").trim() ? [String(item.broadcaster || item.tv || item.media?.broadcaster || item.channel || item.strTVStation || "").trim()] : [],
-      customId: item.customId || null,
-      sofascoreId: eventId,
-      slug: item.slug || "",
-      source: "SofaScore RapidAPI",
-      streams: []
-    };
-  }
-
-  async function getNormalizedSofaScoreMatches(customKey?: string, customHost?: string): Promise<{ status: string; count: number; message?: string; data: any[] }> {
-    const activeKey = (customKey && customKey.trim()) ? customKey.trim() : (SOFASCORE_API_KEY || RAPIDAPI_KEY);
-    const activeHost = sanitizeSofaScoreHost(customHost);
-
-    if (!activeKey) {
-      return {
-        status: "unconfigured",
-        count: 0,
-        message: "RapidAPI SofaScore key is not configured. Please add your key in Settings or SOFASCORE_API_KEY in .env",
-        data: []
-      };
-    }
-
-    const now = Date.now();
-    if (sofaScoreCache.matches && (now - sofaScoreCache.matches.timestamp < sofaScoreCache.TTL_MATCHES)) {
-      return {
-        status: "success",
-        count: sofaScoreCache.matches.data.length,
-        data: sofaScoreCache.matches.data
-      };
-    }
-
-    if (inFlightPromises.sofaScoreMatches) {
-      const cached = await inFlightPromises.sofaScoreMatches;
-      return {
-        status: "success",
-        count: cached?.length || 0,
-        data: cached || []
-      };
-    }
-
-    inFlightPromises.sofaScoreMatches = (async () => {
-      try {
-        const headers = {
-          "Content-Type": "application/json",
-          "x-rapidapi-host": activeHost,
-          "x-rapidapi-key": activeKey,
-          "Accept": "application/json",
-          "User-Agent": "HighFy-TV-Sports/4.2"
-        };
-
-        const rawEvents: any[] = [];
-        
-        // Fetch matches from top teams on SofaScore
-        const topTeams = [42, 2829, 2817, 17, 35, 44, 38, 2672];
-        const fetchPromises = topTeams.map(async (tid) => {
-          try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 6000);
-            const resp = await fetch(`https://${activeHost}/teams/get-matches?teamId=${tid}`, {
-              headers,
-              signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            if (resp.ok) {
-              const json = await resp.json();
-              if (Array.isArray(json?.events)) {
-                return json.events;
-              }
-            }
-          } catch (e) {}
-          return [];
-        });
-
-        const results = await Promise.allSettled(fetchPromises);
-        for (const res of results) {
-          if (res.status === "fulfilled" && Array.isArray(res.value)) {
-            rawEvents.push(...res.value);
-          }
-        }
-
-        const normalizedEvents: any[] = [];
-        const seen = new Set<string>();
-
-        for (const item of rawEvents) {
-          const norm = normalizeSofaScoreEvent(item);
-          if (norm && !seen.has(norm.id)) {
-            seen.add(norm.id);
-            normalizedEvents.push(norm);
-          }
-        }
-
-        normalizedEvents.sort((a, b) => {
-          const rank = (s: string) => (s === "live" ? 0 : s === "upcoming" ? 1 : 2);
-          const rDiff = rank(a.status) - rank(b.status);
-          if (rDiff !== 0) return rDiff;
-          if (a.status === "upcoming") return a.timestamp - b.timestamp;
-          return b.timestamp - a.timestamp;
-        });
-
-        if (normalizedEvents.length > 0) {
-          sofaScoreCache.matches = { timestamp: now, data: normalizedEvents };
-        }
-
-        return normalizedEvents;
-      } catch (err: any) {
-        console.warn("[SofaScore] Error fetching matches:", err.message);
-        return sofaScoreCache.matches ? sofaScoreCache.matches.data : [];
-      } finally {
-        inFlightPromises.sofaScoreMatches = null;
-      }
-    })();
-
-    const result = await inFlightPromises.sofaScoreMatches;
-    return {
-      status: "success",
-      count: result ? result.length : 0,
-      data: result || []
-    };
-  }
-
-  // SofaScore Normalized Matches Endpoint
-  app.get("/api/sofascore/matches", async (req, res) => {
-    try {
-      const apiKey = String(
-        req.query.key ||
-        req.query.APIkey ||
-        req.query.apikey ||
-        req.headers["x-rapidapi-key"] ||
-        req.headers["x-sofascore-key"] ||
-        SOFASCORE_API_KEY ||
-        RAPIDAPI_KEY ||
-        ""
-      ).trim();
-
-      const host = sanitizeSofaScoreHost(
-        req.query.host ||
-        req.headers["x-rapidapi-host"]
-      );
-
-      const result = await getNormalizedSofaScoreMatches(apiKey, host);
-      return res.json({
-        ...result,
-        source: "SofaScore RapidAPI",
-        host: host
-      });
-    } catch (err: any) {
-      return res.status(500).json({
-        status: "error",
-        message: err.message,
-        data: []
-      });
-    }
-  });
-
-  // SofaScore Test Key Endpoint
-  app.get("/api/sofascore/test", async (req, res) => {
-    try {
-      const apiKey = String(
-        req.query.key ||
-        req.query.APIkey ||
-        req.headers["x-rapidapi-key"] ||
-        SOFASCORE_API_KEY ||
-        RAPIDAPI_KEY ||
-        ""
-      ).trim();
-
-      const host = sanitizeSofaScoreHost(
-        req.query.host ||
-        req.headers["x-rapidapi-host"]
-      );
-
-      if (!apiKey) {
-        return res.status(400).json({
-          valid: false,
-          message: "RapidAPI key is required for SofaScore test."
-        });
-      }
-
-      // Test with reliable endpoint sports/list?countryCode=GB
-      try {
-        const testResp = await fetch(`https://${host}/sports/list?countryCode=GB`, {
-          headers: {
-            "Content-Type": "application/json",
-            "x-rapidapi-host": host,
-            "x-rapidapi-key": apiKey,
-            "Accept": "application/json"
-          },
-          signal: AbortSignal.timeout(6000)
-        });
-
-        if (testResp.status < 400) {
-          let sportsCount = 0;
-          try {
-            const testData = await testResp.json();
-            sportsCount = Array.isArray(testData?.countrySportPriorities) ? testData.countrySportPriorities.length : 0;
-          } catch (e) {}
-          return res.json({
-            valid: true,
-            message: `RapidAPI SofaScore key is valid and working on ${host}! (${sportsCount} sports active)`,
-            host: host,
-            sportsCount
-          });
-        }
-
-        const respText = await testResp.text();
-        let parsed: any = null;
-        try {
-          parsed = JSON.parse(respText);
-        } catch (e) {}
-
-        return res.status(testResp.status).json({
-          valid: false,
-          message: parsed?.message || `Authentication failed: Status ${testResp.status} from ${host}`,
-          host: host
-        });
-      } catch (e: any) {
-        return res.status(500).json({
-          valid: false,
-          message: `Connection failed: ${e.message}`,
-          host: host
-        });
-      }
-    } catch (err: any) {
-      return res.status(500).json({
-        valid: false,
-        message: err.message
-      });
-    }
-  });
-
   // Cricbuzz Test Key Endpoint
   app.get("/api/cricbuzz/test", async (req, res) => {
     try {
@@ -4029,7 +3759,7 @@ async function startServer() {
     }
   });
 
-  // Combined RapidAPI Diagnostic Endpoint (SofaScore + Cricbuzz)
+  // RapidAPI Diagnostic Endpoint
   app.get("/api/rapidapi/test", async (req, res) => {
     try {
       const apiKey = String(
@@ -4049,41 +3779,10 @@ async function startServer() {
 
       const results: any = {
         keyPreview: apiKey.slice(0, 8) + "..." + apiKey.slice(-4),
-        sofascore: null,
         cricbuzz: null
       };
 
-      // 1. Check SofaScore
-      try {
-        const sResp = await fetch(`https://${SOFASCORE_RAPIDAPI_HOST}/sports/list?countryCode=GB`, {
-          headers: {
-            "x-rapidapi-host": SOFASCORE_RAPIDAPI_HOST,
-            "x-rapidapi-key": apiKey
-          },
-          signal: AbortSignal.timeout(6000)
-        });
-        const sText = await sResp.text();
-        let sJson: any = null;
-        try { sJson = JSON.parse(sText); } catch (e) {}
-
-        results.sofascore = {
-          host: SOFASCORE_RAPIDAPI_HOST,
-          status: sResp.status,
-          working: sResp.status === 200,
-          details: sResp.status === 200
-            ? `Active (${Array.isArray(sJson?.countrySportPriorities) ? sJson.countrySportPriorities.length : 0} sports supported)`
-            : (sJson?.message || `Status ${sResp.status}`)
-        };
-      } catch (err: any) {
-        results.sofascore = {
-          host: SOFASCORE_RAPIDAPI_HOST,
-          status: 500,
-          working: false,
-          details: err.message
-        };
-      }
-
-      // 2. Check Cricbuzz
+      // Check Cricbuzz
       try {
         const cResp = await fetch(`https://${RAPIDAPI_CRICKET_HOST}/matches/v1/live`, {
           headers: {
@@ -4116,221 +3815,6 @@ async function startServer() {
       return res.json(results);
     } catch (err: any) {
       return res.status(500).json({ error: err.message });
-    }
-  });
-
-  // SofaScore Sports List Endpoint (sports/list?countryCode=GB)
-  app.get(["/sports/list", "/api/sports/list", "/api/sofascore/sports/list", "/api/sofascore/sports"], async (req, res) => {
-    try {
-      const countryCode = String(req.query.countryCode || req.query.country || "GB").trim().toUpperCase();
-      const apiKey = String(
-        req.query.key ||
-        req.headers["x-rapidapi-key"] ||
-        SOFASCORE_API_KEY ||
-        RAPIDAPI_KEY ||
-        ""
-      ).trim();
-
-      const host = sanitizeSofaScoreHost(
-        req.query.host ||
-        req.headers["x-rapidapi-host"]
-      );
-
-      if (!apiKey) {
-        return res.status(400).json({ status: "error", error: "RapidAPI key is required" });
-      }
-
-      const cacheKey = `sports_list:${countryCode}`;
-      const now = Date.now();
-      const cached = sofaScoreCache.proxy.get(cacheKey);
-      if (cached && (now - cached.timestamp < 300000)) {
-        return res.json(cached.data);
-      }
-
-      const targetUrl = `https://${host}/sports/list?countryCode=${encodeURIComponent(countryCode)}`;
-      const upstream = await fetch(targetUrl, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-rapidapi-host": host,
-          "x-rapidapi-key": apiKey,
-          "Accept": "application/json",
-          "User-Agent": "HighFy-TV-Sports/4.2"
-        },
-        signal: AbortSignal.timeout(8000)
-      });
-
-      if (!upstream.ok) {
-        return res.status(upstream.status).json({
-          status: "error",
-          error: `RapidAPI error: ${upstream.statusText}`
-        });
-      }
-
-      const data = await upstream.json();
-      const countrySportPriorities = Array.isArray(data?.countrySportPriorities) ? data.countrySportPriorities : [];
-      const sports = countrySportPriorities.map((item: any) => ({
-        id: item.sport?.id,
-        name: item.sport?.name,
-        slug: item.sport?.slug,
-        position: item.position,
-        country: item.country
-      }));
-
-      const responsePayload = {
-        countrySportPriorities,
-        status: "success",
-        countryCode,
-        count: sports.length,
-        sports
-      };
-
-      sofaScoreCache.proxy.set(cacheKey, { timestamp: now, data: responsePayload });
-      return res.json(responsePayload);
-    } catch (err: any) {
-      return res.status(500).json({ status: "error", error: err.message });
-    }
-  });
-
-  // SofaScore Head-to-Head (H2H) Events Endpoint (matches/get-h2h-events)
-  app.get("/api/sofascore/h2h", async (req, res) => {
-    try {
-      const customId = String(req.query.customId || req.query.id || "").trim();
-      const apiKey = String(
-        req.query.key ||
-        req.headers["x-rapidapi-key"] ||
-        SOFASCORE_API_KEY ||
-        RAPIDAPI_KEY ||
-        ""
-      ).trim();
-
-      const host = sanitizeSofaScoreHost(
-        req.query.host ||
-        req.headers["x-rapidapi-host"]
-      );
-
-      if (!apiKey) {
-        return res.status(400).json({ error: "RapidAPI key is required" });
-      }
-
-      const cacheKey = `h2h:${customId || "all"}`;
-      const now = Date.now();
-      const cached = sofaScoreCache.proxy.get(cacheKey);
-      if (cached && (now - cached.timestamp < 120000)) {
-        return res.json(cached.data);
-      }
-
-      const targetUrl = `https://${host}/matches/get-h2h-events${customId ? `?customId=${encodeURIComponent(customId)}` : ""}`;
-      const upstream = await fetch(targetUrl, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-rapidapi-host": host,
-          "x-rapidapi-key": apiKey,
-          "Accept": "application/json",
-          "User-Agent": "HighFy-TV-Sports/4.2"
-        },
-        signal: AbortSignal.timeout(6000)
-      });
-
-      if (upstream.status === 204) {
-        return res.json({ events: [] });
-      }
-
-      if (!upstream.ok) {
-        return res.status(upstream.status).json({
-          error: `RapidAPI error: ${upstream.statusText}`
-        });
-      }
-
-      const data = await upstream.json();
-      sofaScoreCache.proxy.set(cacheKey, { timestamp: now, data });
-      return res.json(data);
-    } catch (err: any) {
-      return res.status(500).json({ error: err.message });
-    }
-  });
-
-  // SofaScore Generic RapidAPI Proxy Endpoint
-  app.get("/api/sofascore/proxy", async (req, res) => {
-    try {
-      let endpoint = String(req.query.path || req.query.url || "/sports/list?countryCode=GB").trim();
-      const apiKey = String(
-        req.query.key ||
-        req.headers["x-rapidapi-key"] ||
-        SOFASCORE_API_KEY ||
-        RAPIDAPI_KEY ||
-        ""
-      ).trim();
-
-      const host = sanitizeSofaScoreHost(
-        req.query.host ||
-        req.headers["x-rapidapi-host"]
-      );
-
-      if (!apiKey) {
-        return res.status(400).json({ error: "API key is required" });
-      }
-
-      // Handle absolute URL if passed in path or url
-      if (endpoint.startsWith("http://") || endpoint.startsWith("https://")) {
-        try {
-          const parsedUrl = new URL(endpoint);
-          endpoint = parsedUrl.pathname + parsedUrl.search;
-        } catch (e) {
-          endpoint = endpoint.replace(/^https?:\/\/[^\/]+/, "");
-        }
-      }
-
-      let cleanPath = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-
-      // Append any extra query parameters if not already in cleanPath
-      const extraParams = new URLSearchParams();
-      for (const [k, v] of Object.entries(req.query)) {
-        if (k !== "path" && k !== "url" && k !== "key" && k !== "host" && typeof v === "string") {
-          if (!cleanPath.includes(`${k}=`)) {
-            extraParams.append(k, v);
-          }
-        }
-      }
-      const extraQs = extraParams.toString();
-      if (extraQs) {
-        cleanPath += (cleanPath.includes("?") ? "&" : "?") + extraQs;
-      }
-
-      const cacheKey = `${host}:${cleanPath}`;
-      const now = Date.now();
-      const cached = sofaScoreCache.proxy.get(cacheKey);
-
-      if (cached && (now - cached.timestamp < sofaScoreCache.TTL_PROXY)) {
-        return res.json(cached.data);
-      }
-
-      const targetUrl = `https://${host}${cleanPath}`;
-      const upstream = await fetch(targetUrl, {
-        headers: {
-          "Content-Type": "application/json",
-          "x-rapidapi-key": apiKey,
-          "x-rapidapi-host": host,
-          "Accept": "application/json",
-          "User-Agent": "HighFy-TV-Sports/4.2"
-        },
-        signal: AbortSignal.timeout(8000)
-      });
-
-      if (upstream.status === 204) {
-        return res.json({ data: [] });
-      }
-
-      if (!upstream.ok) {
-        return res.status(upstream.status).json({
-          error: `RapidAPI error: ${upstream.statusText}`
-        });
-      }
-
-      const data = await upstream.json();
-      sofaScoreCache.proxy.set(cacheKey, { timestamp: now, data });
-      return res.json(data);
-    } catch (err: any) {
-      return res.status(500).json({ error: "SofaScore proxy error", message: err.message });
     }
   });
 
@@ -5064,7 +4548,6 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
       status: "ok",
       secure: true,
       rapidApiConfigured: !!RAPIDAPI_KEY,
-      sofascoreConfigured: !!RAPIDAPI_KEY,
       cricbuzzConfigured: ENABLE_CRICBUZZ_API && !!RAPIDAPI_KEY,
       cricbuzzPaused: !ENABLE_CRICBUZZ_API,
       sportradarConfigured: !!SPORTRADAR_CRICKET_API_KEY,
@@ -5078,7 +4561,6 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
     res.json({
       status: "ok",
       rapidApiConfigured: !!RAPIDAPI_KEY,
-      sofascoreConfigured: !!RAPIDAPI_KEY,
       cricbuzzConfigured: ENABLE_CRICBUZZ_API && !!RAPIDAPI_KEY,
       sportradarConfigured: !!SPORTRADAR_CRICKET_API_KEY,
       thesportsdbConfigured: true,
@@ -5167,6 +4649,7 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
   } else {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
+    app.use(express.static(process.cwd()));
     app.get("*all", (_req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
     });

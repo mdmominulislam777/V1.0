@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-09-25T17:07:30.022Z
+ * Generated at: 2026-09-27T08:33:25.010Z
  */
 
 (() => {
@@ -11056,3 +11056,7729 @@
     "isHD": true
   }
 ];
+
+  window.NOTIFICATIONS_DATA = [
+  {
+    "id": "notif-app-update-1",
+    "type": "update",
+    "title": "🎉 HighFy TV v4.2 অ্যাপ আপডেট!",
+    "body": "এইচডি লাইভ স্পোর্টস প্লেয়ার, মাল্টি-সার্ভার সুইচিং ও ইনস্ট্যান্ট সার্চ আপডেট চালু হয়েছে।",
+    "time": "Just Now",
+    "badge": "UPDATE",
+    "active": true,
+    "sport": "App",
+    "channelId": null
+  },
+  {
+    "id": "notif-match-1",
+    "type": "match",
+    "title": "⚽ Real Madrid vs Barcelona (El Clasico)",
+    "body": "আজ রাত ৮:০০ টায় লা লিগার মেগা এল ক্লাসিকো ম্যাচ লাইভ সম্প্রচার হবে। মিস করবেন না!",
+    "time": "20:00 LIVE",
+    "badge": "LIVE MATCH",
+    "active": true,
+    "sport": "Football",
+    "channelId": "ch-t-sports-hd"
+  },
+  {
+    "id": "notif-match-2",
+    "type": "match",
+    "title": "🏏 Bangladesh vs India (Asia Cup / T20)",
+    "body": "হাই-ভোল্টেজ ক্রিকেট ম্যাচ লাইভ দেখুন T Sports ও Sony Ten এ ফুল এইচডি কোয়ালিটিতে।",
+    "time": "15:30",
+    "badge": "UPCOMING",
+    "active": true,
+    "sport": "Cricket",
+    "channelId": "ch-sony-ten-cricket-hd"
+  },
+  {
+    "id": "notif-server-1",
+    "type": "system",
+    "title": "⚡ আল্ট্রা-ফাস্ট স্ট্রিমিং সার্ভার সক্রিয়",
+    "body": "সবগুলো ফুটবল ও ক্রিকেট চ্যানেলের জন্য বাফার-ফ্রি ব্যাকআপ সার্ভার প্রস্তুত রয়েছে।",
+    "time": "Active",
+    "badge": "SYSTEM",
+    "active": true,
+    "sport": "General",
+    "channelId": null
+  }
+];
+
+  window.EVENTS_DATA = [
+  {
+    "id": "tsdb-2494052",
+    "idEvent": "2494052",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Arsenal vs Leeds United",
+    "name": "Arsenal vs Leeds United",
+    "league": "English Premier League",
+    "tournament": "English Premier League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/gasy9d1737743125.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791631800000,
+    "date": "2026-10-10",
+    "matchTime": "Sat, Oct 10, 05:30 PM BST",
+    "timeOrTimer": "Sat, Oct 10, 05:30 PM BST",
+    "venue": "Emirates Stadium, England",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": "133604",
+      "name": "Arsenal",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/uyhbfe1612467038.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133635",
+      "name": "Leeds United",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/jcgrml1756649030.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133604",
+      "name": "Arsenal",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/uyhbfe1612467038.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133635",
+      "name": "Leeds United",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/jcgrml1756649030.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "English Premier League • Sat, Oct 10, 05:30 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2494042",
+    "idEvent": "2494042",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Fulham vs Manchester United",
+    "name": "Fulham vs Manchester United",
+    "league": "English Premier League",
+    "tournament": "English Premier League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/gasy9d1737743125.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789918200000,
+    "date": "2026-09-20",
+    "matchTime": "Sun, Sep 20, 09:30 PM BST",
+    "timeOrTimer": "1 - 1",
+    "venue": "Craven Cottage, England",
+    "isHot": true,
+    "videoUrl": "https://www.youtube.com/watch?v=Iw-n4AhB960",
+    "team1": {
+      "id": "133600",
+      "name": "Fulham",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xwwvyt1448811086.png",
+      "score": "1"
+    },
+    "team2": {
+      "id": "133612",
+      "name": "Manchester United",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xzqdr11517660252.png",
+      "score": "1"
+    },
+    "homeTeam": {
+      "id": "133600",
+      "name": "Fulham",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xwwvyt1448811086.png",
+      "score": "1"
+    },
+    "awayTeam": {
+      "id": "133612",
+      "name": "Manchester United",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xzqdr11517660252.png",
+      "score": "1"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "English Premier League • Sun, Sep 20, 09:30 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2506240",
+    "idEvent": "2506240",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Málaga vs Espanyol",
+    "name": "Málaga vs Espanyol",
+    "league": "Spanish La Liga",
+    "tournament": "Spanish La Liga",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791572400000,
+    "date": "2026-10-10",
+    "matchTime": "Sat, Oct 10, 01:00 AM BST",
+    "timeOrTimer": "Sat, Oct 10, 01:00 AM BST",
+    "venue": "Estadio La Rosaleda, Spain",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": "133736",
+      "name": "Málaga",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/upqyvr1473502952.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133734",
+      "name": "Espanyol",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/867nzz1681703222.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133736",
+      "name": "Málaga",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/upqyvr1473502952.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133734",
+      "name": "Espanyol",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/867nzz1681703222.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Spanish La Liga • Sat, Oct 10, 01:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2506231",
+    "idEvent": "2506231",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Valencia vs Real Sociedad",
+    "name": "Valencia vs Real Sociedad",
+    "league": "Spanish La Liga",
+    "tournament": "Spanish La Liga",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ja4it51687628717.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789930800000,
+    "date": "2026-09-21",
+    "matchTime": "Mon, Sep 21, 01:00 AM BST",
+    "timeOrTimer": "2 - 3",
+    "venue": "Estadio de Mestalla, Spain",
+    "isHot": true,
+    "videoUrl": "https://www.youtube.com/watch?v=PX_Z58lDe84",
+    "team1": {
+      "id": "133725",
+      "name": "Valencia",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/dm8l6o1655594864.png",
+      "score": "2"
+    },
+    "team2": {
+      "id": "133724",
+      "name": "Real Sociedad",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/vptvpr1473502986.png",
+      "score": "3"
+    },
+    "homeTeam": {
+      "id": "133725",
+      "name": "Valencia",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/dm8l6o1655594864.png",
+      "score": "2"
+    },
+    "awayTeam": {
+      "id": "133724",
+      "name": "Real Sociedad",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/vptvpr1473502986.png",
+      "score": "3"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Spanish La Liga • Mon, Sep 21, 01:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2482192",
+    "idEvent": "2482192",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Genoa vs Fiorentina",
+    "name": "Genoa vs Fiorentina",
+    "league": "Italian Serie A",
+    "tournament": "Italian Serie A",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791637200000,
+    "date": "2026-10-10",
+    "matchTime": "Sat, Oct 10, 07:00 PM BST",
+    "timeOrTimer": "Sat, Oct 10, 07:00 PM BST",
+    "venue": "Stadio Luigi Ferraris, Italy",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": "133675",
+      "name": "Genoa",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/52s8dn1655553600.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133674",
+      "name": "Fiorentina",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/hc8nhu1656098030.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133675",
+      "name": "Genoa",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/52s8dn1655553600.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133674",
+      "name": "Fiorentina",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/hc8nhu1656098030.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Italian Serie A • Sat, Oct 10, 07:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2482178",
+    "idEvent": "2482178",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "AC Milan vs Lecce",
+    "name": "AC Milan vs Lecce",
+    "league": "Italian Serie A",
+    "tournament": "Italian Serie A",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/67q3q21679951383.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789929900000,
+    "date": "2026-09-21",
+    "matchTime": "Mon, Sep 21, 12:45 AM BST",
+    "timeOrTimer": "3 - 0",
+    "venue": "Stadio Giuseppe Meazza, Italy",
+    "isHot": true,
+    "videoUrl": "https://www.youtube.com/watch?v=dVzz_vYqjPc",
+    "team1": {
+      "id": "133667",
+      "name": "AC Milan",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/wvspur1448806617.png",
+      "score": "3"
+    },
+    "team2": {
+      "id": "133678",
+      "name": "Lecce",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/j4vznr1567365249.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "133667",
+      "name": "AC Milan",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/wvspur1448806617.png",
+      "score": "3"
+    },
+    "awayTeam": {
+      "id": "133678",
+      "name": "Lecce",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/j4vznr1567365249.png",
+      "score": "0"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Italian Serie A • Mon, Sep 21, 12:45 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2508371",
+    "idEvent": "2508371",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Borussia Dortmund vs Werder Bremen",
+    "name": "Borussia Dortmund vs Werder Bremen",
+    "league": "German Bundesliga",
+    "tournament": "German Bundesliga",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/teqh1b1679952008.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791570600000,
+    "date": "2026-10-10",
+    "matchTime": "Sat, Oct 10, 12:30 AM BST",
+    "timeOrTimer": "Sat, Oct 10, 12:30 AM BST",
+    "venue": "Signal Iduna Park, Germany",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": "133650",
+      "name": "Borussia Dortmund",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/tqo8ge1716960353.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133662",
+      "name": "Werder Bremen",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133650",
+      "name": "Borussia Dortmund",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/tqo8ge1716960353.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133662",
+      "name": "Werder Bremen",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/tkvqan1716960454.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "German Bundesliga • Sat, Oct 10, 12:30 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2508368",
+    "idEvent": "2508368",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Paderborn vs Hoffenheim",
+    "name": "Paderborn vs Hoffenheim",
+    "league": "German Bundesliga",
+    "tournament": "German Bundesliga",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/teqh1b1679952008.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789925400000,
+    "date": "2026-09-20",
+    "matchTime": "Sun, Sep 20, 11:30 PM BST",
+    "timeOrTimer": "3 - 1",
+    "venue": "Home Deluxe Arena, Germany",
+    "isHot": true,
+    "videoUrl": "https://www.youtube.com/watch?v=geNPXDBioSI",
+    "team1": {
+      "id": "134551",
+      "name": "Paderborn",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/kddvva1566048058.png",
+      "score": "3"
+    },
+    "team2": {
+      "id": "133657",
+      "name": "Hoffenheim",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9hwvb21621593919.png",
+      "score": "1"
+    },
+    "homeTeam": {
+      "id": "134551",
+      "name": "Paderborn",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/kddvva1566048058.png",
+      "score": "3"
+    },
+    "awayTeam": {
+      "id": "133657",
+      "name": "Hoffenheim",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9hwvb21621593919.png",
+      "score": "1"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "German Bundesliga • Sun, Sep 20, 11:30 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2489515",
+    "idEvent": "2489515",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Lens vs Lyon",
+    "name": "Lens vs Lyon",
+    "league": "French Ligue 1",
+    "tournament": "French Ligue 1",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/9f7z9d1742983155.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791571500000,
+    "date": "2026-10-10",
+    "matchTime": "Sat, Oct 10, 12:45 AM BST",
+    "timeOrTimer": "Sat, Oct 10, 12:45 AM BST",
+    "venue": "Stade Bollaert-Delelis, France",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "133822",
+      "name": "Lens",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133713",
+      "name": "Lyon",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133822",
+      "name": "Lens",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133713",
+      "name": "Lyon",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "French Ligue 1 • Sat, Oct 10, 12:45 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2489506",
+    "idEvent": "2489506",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Marseille vs Paris Saint-Germain",
+    "name": "Marseille vs Paris Saint-Germain",
+    "league": "French Ligue 1",
+    "tournament": "French Ligue 1",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/9f7z9d1742983155.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789929900000,
+    "date": "2026-09-21",
+    "matchTime": "Mon, Sep 21, 12:45 AM BST",
+    "timeOrTimer": "1 - 2",
+    "venue": "Orange Vélodrome, France",
+    "isHot": false,
+    "videoUrl": "https://www.youtube.com/watch?v=G_cQy-bcaRg",
+    "team1": {
+      "id": "133707",
+      "name": "Marseille",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/c6bazh1779212287.png",
+      "score": "1"
+    },
+    "team2": {
+      "id": "133714",
+      "name": "Paris Saint-Germain",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/rwqrrq1473504808.png",
+      "score": "2"
+    },
+    "homeTeam": {
+      "id": "133707",
+      "name": "Marseille",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/c6bazh1779212287.png",
+      "score": "1"
+    },
+    "awayTeam": {
+      "id": "133714",
+      "name": "Paris Saint-Germain",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/rwqrrq1473504808.png",
+      "score": "2"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "French Ligue 1 • Mon, Sep 21, 12:45 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2594564",
+    "idEvent": "2594564",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Lens vs Sporting CP",
+    "name": "Lens vs Sporting CP",
+    "league": "UEFA Champions League",
+    "tournament": "UEFA Champions League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/facv1u1742998896.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791909900000,
+    "date": "2026-10-13",
+    "matchTime": "Tue, Oct 13, 10:45 PM BST",
+    "timeOrTimer": "Tue, Oct 13, 10:45 PM BST",
+    "venue": "Stade Bollaert-Delelis, France",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": "133822",
+      "name": "Lens",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "135708",
+      "name": "Sporting CP",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5hiuk71783137875.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133822",
+      "name": "Lens",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3pxoum1598797195.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "135708",
+      "name": "Sporting CP",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5hiuk71783137875.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "UEFA Champions League • Tue, Oct 13, 10:45 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2594669",
+    "idEvent": "2594669",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Como vs RB Leipzig",
+    "name": "Como vs RB Leipzig",
+    "league": "UEFA Champions League",
+    "tournament": "UEFA Champions League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/facv1u1742998896.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789066800000,
+    "date": "2026-09-11",
+    "matchTime": "Fri, Sep 11, 01:00 AM BST",
+    "timeOrTimer": "4 - 1",
+    "venue": "Stadio Giuseppe Sinigaglia, Italy",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": "134243",
+      "name": "Como",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/02x81t1627405841.png",
+      "score": "4"
+    },
+    "team2": {
+      "id": "134695",
+      "name": "RB Leipzig",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
+      "score": "1"
+    },
+    "homeTeam": {
+      "id": "134243",
+      "name": "Como",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/02x81t1627405841.png",
+      "score": "4"
+    },
+    "awayTeam": {
+      "id": "134695",
+      "name": "RB Leipzig",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/zjgapo1594244951.png",
+      "score": "1"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "UEFA Champions League • Fri, Sep 11, 01:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2594820",
+    "idEvent": "2594820",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Lyon vs Crystal Palace",
+    "name": "Lyon vs Crystal Palace",
+    "league": "UEFA Europa League",
+    "tournament": "UEFA Europa League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/mlsr7d1718774547.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1792082700000,
+    "date": "2026-10-15",
+    "matchTime": "Thu, Oct 15, 10:45 PM BST",
+    "timeOrTimer": "Thu, Oct 15, 10:45 PM BST",
+    "venue": "Groupama Stadium, France",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "133713",
+      "name": "Lyon",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133632",
+      "name": "Crystal Palace",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ia6i3m1656014992.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133713",
+      "name": "Lyon",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/blk9771656932845.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133632",
+      "name": "Crystal Palace",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ia6i3m1656014992.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "UEFA Europa League • Thu, Oct 15, 10:45 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2594903",
+    "idEvent": "2594903",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Viktoria Plzeň vs Union Saint-Gilloise",
+    "name": "Viktoria Plzeň vs Union Saint-Gilloise",
+    "league": "UEFA Europa League",
+    "tournament": "UEFA Europa League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/mlsr7d1718774547.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789671600000,
+    "date": "2026-09-18",
+    "matchTime": "Fri, Sep 18, 01:00 AM BST",
+    "timeOrTimer": "0 - 3",
+    "venue": "Doosan Aréna, Czechia",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "134015",
+      "name": "Viktoria Plzeň",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/at8i2h1679265942.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "138141",
+      "name": "Union Saint-Gilloise",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ljszp41654601742.png",
+      "score": "3"
+    },
+    "homeTeam": {
+      "id": "134015",
+      "name": "Viktoria Plzeň",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/at8i2h1679265942.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "138141",
+      "name": "Union Saint-Gilloise",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ljszp41654601742.png",
+      "score": "3"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "UEFA Europa League • Fri, Sep 18, 01:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2608068",
+    "idEvent": "2608068",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Joventut Badalona vs FC Barcelona Basquet",
+    "name": "Joventut Badalona vs FC Barcelona Basquet",
+    "league": "Spanish Supercopa de España de Baloncesto",
+    "tournament": "Spanish Supercopa de España de Baloncesto",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/uj25ue1664095737.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789923600000,
+    "date": "2026-09-20",
+    "matchTime": "Sun, Sep 20, 11:00 PM BST",
+    "timeOrTimer": "101 - 87",
+    "venue": "Palau Municipal d'Esports de Badalona, Spain",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "135083",
+      "name": "Joventut Badalona",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/vuqqry1425410580.png",
+      "score": "101"
+    },
+    "team2": {
+      "id": "135082",
+      "name": "FC Barcelona Basquet",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/0tz26j1729097443.png",
+      "score": "87"
+    },
+    "homeTeam": {
+      "id": "135083",
+      "name": "Joventut Badalona",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/vuqqry1425410580.png",
+      "score": "101"
+    },
+    "awayTeam": {
+      "id": "135082",
+      "name": "FC Barcelona Basquet",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/0tz26j1729097443.png",
+      "score": "87"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Spanish Supercopa de España de Baloncesto • Sun, Sep 20, 11:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2605413",
+    "idEvent": "2605413",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Þróttur Reykjavik vs Fylkir",
+    "name": "Þróttur Reykjavik vs Fylkir",
+    "league": "Icelandic 1 deild karla",
+    "tournament": "Icelandic 1 deild karla",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/tzjamk1614355569.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789834500000,
+    "date": "2026-09-19",
+    "matchTime": "Sat, Sep 19, 10:15 PM BST",
+    "timeOrTimer": "1 - 0",
+    "venue": "Eimskipsvöllurinn, Iceland",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "140787",
+      "name": "Þróttur Reykjavik",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/fbfc171614288098.png",
+      "score": "1"
+    },
+    "team2": {
+      "id": "137968",
+      "name": "Fylkir",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/59d3pj1579111376.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "140787",
+      "name": "Þróttur Reykjavik",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/fbfc171614288098.png",
+      "score": "1"
+    },
+    "awayTeam": {
+      "id": "137968",
+      "name": "Fylkir",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/59d3pj1579111376.png",
+      "score": "0"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Icelandic 1 deild karla • Sat, Sep 19, 10:15 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2407098",
+    "idEvent": "2407098",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Philadelphia Union vs Orlando City",
+    "name": "Philadelphia Union vs Orlando City",
+    "league": "American Major League Soccer",
+    "tournament": "American Major League Soccer",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/dqo6r91549878326.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790465400000,
+    "date": "2026-09-27",
+    "matchTime": "Sun, Sep 27, 05:30 AM BST",
+    "timeOrTimer": "Sun, Sep 27, 05:30 AM BST",
+    "venue": "Subaru Park, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "134142",
+      "name": "Philadelphia Union",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/gyznyo1602103682.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "135292",
+      "name": "Orlando City",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "134142",
+      "name": "Philadelphia Union",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/gyznyo1602103682.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "135292",
+      "name": "Orlando City",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qyppxw1423832326.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "American Major League Soccer • Sun, Sep 27, 05:30 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2406811",
+    "idEvent": "2406811",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Seattle Sounders vs Real Salt Lake",
+    "name": "Seattle Sounders vs Real Salt Lake",
+    "league": "American Major League Soccer",
+    "tournament": "American Major League Soccer",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/dqo6r91549878326.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790213400000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 07:30 AM BST",
+    "timeOrTimer": "2 - 0",
+    "venue": "Lumen Field, United States",
+    "isHot": false,
+    "videoUrl": "https://www.youtube.com/watch?v=LN_CnuOFf1Q",
+    "team1": {
+      "id": "134149",
+      "name": "Seattle Sounders",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2dy5cx1706711036.png",
+      "score": "2"
+    },
+    "team2": {
+      "id": "134158",
+      "name": "Real Salt Lake",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "134149",
+      "name": "Seattle Sounders",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2dy5cx1706711036.png",
+      "score": "2"
+    },
+    "awayTeam": {
+      "id": "134158",
+      "name": "Real Salt Lake",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/kkjlfa1556488022.png",
+      "score": "0"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "American Major League Soccer • Today, 07:30 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2601616",
+    "idEvent": "2601616",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Toronto Raptors vs Miami Heat",
+    "name": "Toronto Raptors vs Miami Heat",
+    "league": "NBA",
+    "tournament": "NBA",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/frdjqy1536585083.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791068400000,
+    "date": "2026-10-04",
+    "matchTime": "Sun, Oct 4, 05:00 AM BST",
+    "timeOrTimer": "Sun, Oct 4, 05:00 AM BST",
+    "venue": "Scotiabank Arena, Canada",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "134864",
+      "name": "Toronto Raptors",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/lct96a1778227205.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "134882",
+      "name": "Miami Heat",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/b9tye31778226616.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "134864",
+      "name": "Toronto Raptors",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/lct96a1778227205.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "134882",
+      "name": "Miami Heat",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/b9tye31778226616.png",
+      "score": ""
+    },
+    "broadcaster": "ESPN",
+    "broadcasters": [
+      "ESPN",
+      "GO3 Sport 1 HD"
+    ],
+    "strTVStation": "ESPN",
+    "subText": "NBA • Sun, Oct 4, 05:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2483461",
+    "idEvent": "2483461",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "San Antonio Spurs vs New York Knicks",
+    "name": "San Antonio Spurs vs New York Knicks",
+    "league": "NBA",
+    "tournament": "NBA",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/frdjqy1536585083.png",
+    "matchDesc": "The ultimate prize in professional basketball hangs in the balance as the action returns to the Frost Bank Center for a high-stakes Game 5 of the 2026 NBA Finals. Holding a commanding 3-1 series lead, the New York Knicks stand just 48 minutes away from capturing their first championship banner in over half a century. The primary hurdle for the Eastern Conference champions is suppressing the early emotional surge of a desperate home team while maintaining flawless execution on the road. The objective for New York's leadership core is to dictate a methodical, half-court tempo from the opening tip, utilizing precise ball movement to neutralize San Antonio's imposing frontline length.\r\n\r\nStrategically, the goal of this legacy-defining matchup is closing out the series immediately to avoid a dangerous return trip to Madison Square Garden. The tactical focus centers on limiting the interior devastation of Victor Wembanyama, requiring Karl-Anthony Towns and Mitchell Robinson to maintain verticality without committing early foul trouble. Concurrently, the mission for a highly resilient San Antonio Spurs squad is to exploit their home court advantage, leaning on the backcourt pacing of De'Aaron Fox and Devin Vassell to push a relentless transition game. Facing a historic elimination scenario, the young Spurs must protect the basketball and execute an error-free blueprint to extend their season.",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1781397000000,
+    "date": "2026-06-14",
+    "matchTime": "Sun, Jun 14, 06:30 AM BST",
+    "timeOrTimer": "90 - 94",
+    "venue": "Frost Bank Center, United States",
+    "isHot": false,
+    "videoUrl": "https://www.youtube.com/watch?v=UgA0-33tPr0",
+    "team1": {
+      "id": "134879",
+      "name": "San Antonio Spurs",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/yc5qfx1781459158.png",
+      "score": "90"
+    },
+    "team2": {
+      "id": "134862",
+      "name": "New York Knicks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/4k8obt1778226764.png",
+      "score": "94"
+    },
+    "homeTeam": {
+      "id": "134879",
+      "name": "San Antonio Spurs",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/yc5qfx1781459158.png",
+      "score": "90"
+    },
+    "awayTeam": {
+      "id": "134862",
+      "name": "New York Knicks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/4k8obt1778226764.png",
+      "score": "94"
+    },
+    "broadcaster": "ESPN",
+    "broadcasters": [
+      "ESPN",
+      "GO3 Sport 1 HD"
+    ],
+    "strTVStation": "ESPN",
+    "subText": "NBA • Sun, Jun 14, 06:30 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2408188",
+    "idEvent": "2408188",
+    "sport": "motorsport",
+    "sportName": "Motorsport",
+    "sportIcon": "fa-car-side",
+    "title": "Azerbaijan Grand Prix Practice 2",
+    "name": "Azerbaijan Grand Prix Practice 2",
+    "league": "Formula 1",
+    "tournament": "Formula 1",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g8cofl1513623681.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790251200000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 06:00 PM BST",
+    "timeOrTimer": "Today, 06:00 PM BST",
+    "venue": "Baku City Circuit, Azerbaijan",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "Azerbaijan Grand Prix Practice 2",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/riuc0c1774920565.jpg",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "Formula 1",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "Azerbaijan Grand Prix Practice 2",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/riuc0c1774920565.jpg",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "Formula 1",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Formula 1 • Today, 06:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2408187",
+    "idEvent": "2408187",
+    "sport": "motorsport",
+    "sportName": "Motorsport",
+    "sportIcon": "fa-car-side",
+    "title": "Azerbaijan Grand Prix Practice 1",
+    "name": "Azerbaijan Grand Prix Practice 1",
+    "league": "Formula 1",
+    "tournament": "Formula 1",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g8cofl1513623681.png",
+    "matchDesc": "",
+    "status": "live",
+    "statusText": "LIVE NOW",
+    "statusLabel": "LIVE",
+    "timestamp": 1790238600000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 02:30 PM BST",
+    "timeOrTimer": "LIVE",
+    "venue": "Baku City Circuit, Azerbaijan",
+    "isHot": true,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "Azerbaijan Grand Prix Practice 1",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/tmiipv1774920555.jpg",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "Formula 1",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "Azerbaijan Grand Prix Practice 1",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/tmiipv1774920555.jpg",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "Formula 1",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Formula 1 • Today, 02:30 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2498532",
+    "idEvent": "2498532",
+    "sport": "hockey",
+    "sportName": "Ice Hockey",
+    "sportIcon": "fa-hockey-puck",
+    "title": "Philadelphia Flyers vs Boston Bruins",
+    "name": "Philadelphia Flyers vs Boston Bruins",
+    "league": "NHL",
+    "tournament": "NHL",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/4cem2k1619616539.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790290800000,
+    "date": "2026-09-25",
+    "matchTime": "Tonight, 05:00 AM BST",
+    "timeOrTimer": "Tonight, 05:00 AM BST",
+    "venue": "Xfinity Mobile Arena, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "134843",
+      "name": "Philadelphia Flyers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qxxppp1421794965.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "134830",
+      "name": "Boston Bruins",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/b1r86e1720023232.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "134843",
+      "name": "Philadelphia Flyers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qxxppp1421794965.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "134830",
+      "name": "Boston Bruins",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/b1r86e1720023232.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "NHL • Tonight, 05:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2498530",
+    "idEvent": "2498530",
+    "sport": "hockey",
+    "sportName": "Ice Hockey",
+    "sportIcon": "fa-hockey-puck",
+    "title": "Anaheim Ducks vs Los Angeles Kings",
+    "name": "Anaheim Ducks vs Los Angeles Kings",
+    "league": "NHL",
+    "tournament": "NHL",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/4cem2k1619616539.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790215200000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 08:00 AM BST",
+    "timeOrTimer": "1 - 2",
+    "venue": "Honda Center, United States",
+    "isHot": false,
+    "videoUrl": "https://www.youtube.com/watch?v=N4bCemkfIEA",
+    "team1": {
+      "id": "134846",
+      "name": "Anaheim Ducks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/1d465t1719573796.png",
+      "score": "1"
+    },
+    "team2": {
+      "id": "134852",
+      "name": "Los Angeles Kings",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/w408rg1719220748.png",
+      "score": "2"
+    },
+    "homeTeam": {
+      "id": "134846",
+      "name": "Anaheim Ducks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/1d465t1719573796.png",
+      "score": "1"
+    },
+    "awayTeam": {
+      "id": "134852",
+      "name": "Los Angeles Kings",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/w408rg1719220748.png",
+      "score": "2"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "NHL • Today, 08:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2164411",
+    "idEvent": "2164411",
+    "sport": "combat",
+    "sportName": "Combat Sports",
+    "sportIcon": "fa-hand-back-fist",
+    "title": "Road to Dubai Champions Series: Nurmagomedov vs Hughes",
+    "name": "Road to Dubai Champions Series: Nurmagomedov vs Hughes",
+    "league": "Bellator",
+    "tournament": "Bellator",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/jky7bu1534579838.png",
+    "matchDesc": "Dubai is set to host the Champions Series World Title event, following the signing of a groundbreaking multi-year partnership between the Dubai Department of Economy and Tourism (DET), Dubai Sports Council (DSC), and the Professional Fighters League (PFL).\r\n\r\nThe event will take place on Saturday, January 25, 2025, at Coca-Cola Arena, located in Dubai’s City Walk, and is headlined by the returning “Pride of Dagestan,” undefeated Bellator Lightweight World Champion, Usman Nurmagomedov (18-0). He will look to defend his title against Ireland’s Paul “Big News” Hughes (13-1) who is coming off the biggest victory of his MMA career at PFL “Battle of the Giants” after defeating AJ McKee.\r\n\r\nThe first-of-its-kind partnership will see MMA world champions and the sport’s biggest stars from the PFL compete in title fights as Dubai becomes a marquee destination for the best of MMA. All other Champions Series events will now be co-branded as “Road to Dubai”, as each show culminates to the finale set in the new fight capital. As part of the PFL’s commitment to developing the sport of MMA in Dubai, rising Emirati star fighters will now have a pathway to become future PFL Champions.",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1737820800000,
+    "date": "2025-01-25",
+    "matchTime": "Sat, Jan 25, 10:00 PM BST",
+    "timeOrTimer": "FT",
+    "venue": "Coca-Cola Arena, United Arab Emirates",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "Road to Dubai Champions Series: Nurmagomedov",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/5y1ox81734174674.jpg",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "Hughes",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "Road to Dubai Champions Series: Nurmagomedov",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/5y1ox81734174674.jpg",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "Hughes",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Bellator • Sat, Jan 25, 10:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-1103580",
+    "idEvent": "1103580",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Las Rozas CF vs Melilla",
+    "name": "Las Rozas CF vs Melilla",
+    "league": "Spanish Segunda División B Group 5",
+    "tournament": "Spanish Segunda División B Group 5",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/mt34x01578830881.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1621767600000,
+    "date": "2021-05-23",
+    "matchTime": "Sun, May 23, 05:00 PM BST",
+    "timeOrTimer": "2 - 2",
+    "venue": "Estadio Navalcarbón, Spain",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "137846",
+      "name": "Las Rozas CF",
+      "logo": "",
+      "score": "2"
+    },
+    "team2": {
+      "id": "137847",
+      "name": "Melilla",
+      "logo": "",
+      "score": "2"
+    },
+    "homeTeam": {
+      "id": "137846",
+      "name": "Las Rozas CF",
+      "logo": "",
+      "score": "2"
+    },
+    "awayTeam": {
+      "id": "137847",
+      "name": "Melilla",
+      "logo": "",
+      "score": "2"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Spanish Segunda División B Group 5 • Sun, May 23, 05:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2541771",
+    "idEvent": "2541771",
+    "sport": "combat",
+    "sportName": "Combat Sports",
+    "sportIcon": "fa-hand-back-fist",
+    "title": "UFC Fight Night 289 Rosas Jr. vs Barcelos",
+    "name": "UFC Fight Night 289 Rosas Jr. vs Barcelos",
+    "league": "UFC",
+    "tournament": "UFC",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/bewnz31717531281.png",
+    "matchDesc": "Raul Rosas Jr. and Raoni Barcelos meet in a ranked bantamweight main event at the Meta APEX in Las Vegas, with both fighters looking to strengthen their position in one of the UFC’s most competitive divisions. Rosas Jr., ranked No. 12, enters with a 13-1 record and continues his rapid rise after rebounding strongly from his only professional defeat, while Barcelos, ranked No. 13, brings vastly greater experience and a five-fight winning streak built on victories over established opposition. The matchup pits Rosas Jr.’s aggressive grappling and submission threat against Barcelos’ well-rounded skill set, takedown defense and veteran composure, giving the young contender one of the most demanding tests of his career. With both men already inside the rankings, the winner could move significantly closer to the bantamweight top ten.",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790452800000,
+    "date": "2026-09-27",
+    "matchTime": "Sun, Sep 27, 02:00 AM BST",
+    "timeOrTimer": "Sun, Sep 27, 02:00 AM BST",
+    "venue": "Meta Apex, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "UFC Fight Night 289 Rosas Jr.",
+      "logo": "https://www.thesportsdb.com/images/media/event/thumb/zhsk7c1789892784.jpg",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "Barcelos",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "UFC Fight Night 289 Rosas Jr.",
+      "logo": "https://www.thesportsdb.com/images/media/event/thumb/zhsk7c1789892784.jpg",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "Barcelos",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "UFC • Sun, Sep 27, 02:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2558804",
+    "idEvent": "2558804",
+    "sport": "combat",
+    "sportName": "Combat Sports",
+    "sportIcon": "fa-hand-back-fist",
+    "title": "Dana Whites Contender Series season 10 Week 7",
+    "name": "Dana Whites Contender Series season 10 Week 7",
+    "league": "UFC",
+    "tournament": "UFC",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/bewnz31717531281.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790121600000,
+    "date": "2026-09-23",
+    "matchTime": "Yesterday, 06:00 AM BST",
+    "timeOrTimer": "FT",
+    "venue": "Meta Apex, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "Dana Whites Contender Series season 10 Week 7",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/nr4vit1725782943.jpg",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "UFC",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "Dana Whites Contender Series season 10 Week 7",
+      "logo": "https://r2.thesportsdb.com/images/media/event/thumb/nr4vit1725782943.jpg",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "UFC",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "UFC • Yesterday, 06:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2599780",
+    "idEvent": "2599780",
+    "sport": "combat",
+    "sportName": "Combat Sports",
+    "sportIcon": "fa-hand-back-fist",
+    "title": "SmackDown #1414",
+    "name": "SmackDown #1414",
+    "league": "WWE",
+    "tournament": "WWE",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ywtxyv1453504109.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790294400000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 06:00 AM BST",
+    "timeOrTimer": "Tomorrow, 06:00 AM BST",
+    "venue": "Gainbridge Fieldhouse, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "SmackDown #1414",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "WWE",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "SmackDown #1414",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "WWE",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "WWE • Tomorrow, 06:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2607549",
+    "idEvent": "2607549",
+    "sport": "combat",
+    "sportName": "Combat Sports",
+    "sportIcon": "fa-hand-back-fist",
+    "title": "NXT #856",
+    "name": "NXT #856",
+    "league": "WWE",
+    "tournament": "WWE",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ywtxyv1453504109.png",
+    "matchDesc": "Dusty Rhodes Tag Team Classic 2026 First Round Match\r\nNoam Dar & Romeo Moreno vs. Los Americanos (Bravo Americano & Rayo Americano)\r\n\r\nSingles Match\r\nKali Armstrong vs. Skylar Raye\r\n\r\nTag Team Match\r\nLa Catalina & Thea Hail vs. Kelani Jordan & Zaria\r\n\r\nDusty Rhodes Tag Team Classic 2026 First Round Match\r\nHarley Riggins & Jax Presley vs. The Creed Brothers (Brutus Creed & Julius Creed)\r\n\r\nSix  Man Tag Team Match\r\nEK Prosper, Sean Legacy & Zilla Fatu vs. BirthRight (Channing Lorenzo, Lexis King & Uriah Connors) (w/Arianna Grace)",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790121600000,
+    "date": "2026-09-23",
+    "matchTime": "Yesterday, 06:00 AM BST",
+    "timeOrTimer": "FT",
+    "venue": "WWE Performance Center, United States",
+    "isHot": false,
+    "videoUrl": "https://www.youtube.com/watch?v=jh8GHTPNcFE",
+    "team1": {
+      "id": null,
+      "name": "NXT #856",
+      "logo": "https://www.thesportsdb.com/images/media/event/thumb/fd5vn91790142898.jpg",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "WWE",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "NXT #856",
+      "logo": "https://www.thesportsdb.com/images/media/event/thumb/fd5vn91790142898.jpg",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "WWE",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "WWE • Yesterday, 06:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2606688",
+    "idEvent": "2606688",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Shanghai Sharks vs Shenzhen Leopards",
+    "name": "Shanghai Sharks vs Shenzhen Leopards",
+    "league": "Chinese CBA",
+    "tournament": "Chinese CBA",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/peygv31522257103.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1792150500000,
+    "date": "2026-10-16",
+    "matchTime": "Fri, Oct 16, 05:35 PM BST",
+    "timeOrTimer": "Fri, Oct 16, 05:35 PM BST",
+    "venue": "Shanghai Indoor Stadium, China",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "135447",
+      "name": "Shanghai Sharks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/urfigb1700048926.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "135437",
+      "name": "Shenzhen Leopards",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2l9qqi1700049148.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "135447",
+      "name": "Shanghai Sharks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/urfigb1700048926.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "135437",
+      "name": "Shenzhen Leopards",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2l9qqi1700049148.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Chinese CBA • Fri, Oct 16, 05:35 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2479274",
+    "idEvent": "2479274",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Shanghai Sharks vs Zhejiang Lions",
+    "name": "Shanghai Sharks vs Zhejiang Lions",
+    "league": "Chinese CBA",
+    "tournament": "Chinese CBA",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/peygv31522257103.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1780659300000,
+    "date": "2026-06-05",
+    "matchTime": "Fri, Jun 5, 05:35 PM BST",
+    "timeOrTimer": "103 - 82",
+    "venue": "Shanghai Indoor Stadium, China",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "135447",
+      "name": "Shanghai Sharks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/urfigb1700048926.png",
+      "score": "103"
+    },
+    "team2": {
+      "id": "135453",
+      "name": "Zhejiang Lions",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2kzvbg1700049627.png",
+      "score": "82"
+    },
+    "homeTeam": {
+      "id": "135447",
+      "name": "Shanghai Sharks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/urfigb1700048926.png",
+      "score": "103"
+    },
+    "awayTeam": {
+      "id": "135453",
+      "name": "Zhejiang Lions",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2kzvbg1700049627.png",
+      "score": "82"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Chinese CBA • Fri, Jun 5, 05:35 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2568223",
+    "idEvent": "2568223",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Birmingham City WFC vs Liverpool FC Women",
+    "name": "Birmingham City WFC vs Liverpool FC Women",
+    "league": "FA Womens League Cup",
+    "tournament": "FA Womens League Cup",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/p58fif1738310101.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790791200000,
+    "date": "2026-10-01",
+    "matchTime": "Thu, Oct 1, 12:00 AM BST",
+    "timeOrTimer": "Thu, Oct 1, 12:00 AM BST",
+    "venue": "St Andrew's @ Knighthead Park, England",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "140221",
+      "name": "Birmingham City WFC",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5hjfxd1750414024.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "140532",
+      "name": "Liverpool FC Women",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/sva2pw1737969735.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "140221",
+      "name": "Birmingham City WFC",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5hjfxd1750414024.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "140532",
+      "name": "Liverpool FC Women",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/sva2pw1737969735.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "FA Womens League Cup • Thu, Oct 1, 12:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2568222",
+    "idEvent": "2568222",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Brighton WFC vs Charlton Athletic WFC",
+    "name": "Brighton WFC vs Charlton Athletic WFC",
+    "league": "FA Womens League Cup",
+    "tournament": "FA Womens League Cup",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/p58fif1738310101.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790189100000,
+    "date": "2026-09-24",
+    "matchTime": "Last Night, 12:45 AM BST",
+    "timeOrTimer": "4 - 0",
+    "venue": "Broadfield Stadium, England",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "140222",
+      "name": "Brighton WFC",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/zn0x7h1605371909.png",
+      "score": "4"
+    },
+    "team2": {
+      "id": "140539",
+      "name": "Charlton Athletic WFC",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/c5nazz1610532336.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "140222",
+      "name": "Brighton WFC",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/zn0x7h1605371909.png",
+      "score": "4"
+    },
+    "awayTeam": {
+      "id": "140539",
+      "name": "Charlton Athletic WFC",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/c5nazz1610532336.png",
+      "score": "0"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "FA Womens League Cup • Last Night, 12:45 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2605417",
+    "idEvent": "2605417",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Heart of Midlothian vs Hibernian",
+    "name": "Heart of Midlothian vs Hibernian",
+    "league": "Scottish League Cup",
+    "tournament": "Scottish League Cup",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/u3h74h1626185819.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1793458800000,
+    "date": "2026-10-31",
+    "matchTime": "Sat, Oct 31, 09:00 PM BST",
+    "timeOrTimer": "Sat, Oct 31, 09:00 PM BST",
+    "venue": "Tynecastle Park, Scotland",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "133643",
+      "name": "Heart of Midlothian",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/twqvyt1447597939.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "133646",
+      "name": "Hibernian",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qjys3z1684928969.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "133643",
+      "name": "Heart of Midlothian",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/twqvyt1447597939.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "133646",
+      "name": "Hibernian",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qjys3z1684928969.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Scottish League Cup • Sat, Oct 31, 09:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2578586",
+    "idEvent": "2578586",
+    "sport": "football",
+    "sportName": "Football",
+    "sportIcon": "fa-futbol",
+    "title": "Rangers vs Celtic",
+    "name": "Rangers vs Celtic",
+    "league": "Scottish League Cup",
+    "tournament": "Scottish League Cup",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/u3h74h1626185819.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1789297200000,
+    "date": "2026-09-13",
+    "matchTime": "Sun, Sep 13, 05:00 PM BST",
+    "timeOrTimer": "3 - 0",
+    "venue": "Ibrox Stadium, Scotland",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "133642",
+      "name": "Rangers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/zgrbl21788969413.png",
+      "score": "3"
+    },
+    "team2": {
+      "id": "133647",
+      "name": "Celtic",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3uv1641758780002.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "133642",
+      "name": "Rangers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/zgrbl21788969413.png",
+      "score": "3"
+    },
+    "awayTeam": {
+      "id": "133647",
+      "name": "Celtic",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3uv1641758780002.png",
+      "score": "0"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Scottish League Cup • Sun, Sep 13, 05:00 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2498821",
+    "idEvent": "2498821",
+    "sport": "football",
+    "sportName": "American Football",
+    "sportIcon": "fa-trophy",
+    "title": "Coastal Carolina vs Liberty",
+    "name": "Coastal Carolina vs Liberty",
+    "league": "NCAA Division 1 Football",
+    "tournament": "NCAA Division 1 Football",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790292600000,
+    "date": "2026-09-25",
+    "matchTime": "Tonight, 05:30 AM BST",
+    "timeOrTimer": "Tonight, 05:30 AM BST",
+    "venue": ", United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "136879",
+      "name": "Coastal Carolina",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/p3jizw1564335745.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "136904",
+      "name": "Liberty",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/z26guc1564336125.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "136879",
+      "name": "Coastal Carolina",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/p3jizw1564335745.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "136904",
+      "name": "Liberty",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/z26guc1564336125.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "NCAA Division 1 Football • Tonight, 05:30 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2604335",
+    "idEvent": "2604335",
+    "sport": "football",
+    "sportName": "Athletics",
+    "sportIcon": "fa-trophy",
+    "title": "Womens Heptathlon 100 metres Hurdles Heat 1",
+    "name": "Womens Heptathlon 100 metres Hurdles Heat 1",
+    "league": "Asian Games Athletics",
+    "tournament": "Asian Games Athletics",
+    "leagueBadge": "",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790211600000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 07:00 AM BST",
+    "timeOrTimer": "FT",
+    "venue": "New Paloma Mizuho Stadium, Japan",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "Womens Heptathlon 100 metres Hurdles Heat 1",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "Asian Games Athletics",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "Womens Heptathlon 100 metres Hurdles Heat 1",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "Asian Games Athletics",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Asian Games Athletics • Today, 07:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2604336",
+    "idEvent": "2604336",
+    "sport": "football",
+    "sportName": "Athletics",
+    "sportIcon": "fa-trophy",
+    "title": "Womens Heptathlon 100 metres Hurdles Heat 2",
+    "name": "Womens Heptathlon 100 metres Hurdles Heat 2",
+    "league": "Asian Games Athletics",
+    "tournament": "Asian Games Athletics",
+    "leagueBadge": "",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790211600000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 07:00 AM BST",
+    "timeOrTimer": "FT",
+    "venue": "New Paloma Mizuho Stadium, Japan",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": null,
+      "name": "Womens Heptathlon 100 metres Hurdles Heat 2",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "id": null,
+      "name": "Asian Games Athletics",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": null,
+      "name": "Womens Heptathlon 100 metres Hurdles Heat 2",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": null,
+      "name": "Asian Games Athletics",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Asian Games Athletics • Today, 07:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2475406",
+    "idEvent": "2475406",
+    "sport": "football",
+    "sportName": "American Football",
+    "sportIcon": "fa-trophy",
+    "title": "Green Bay Packers vs Atlanta Falcons",
+    "name": "Green Bay Packers vs Atlanta Falcons",
+    "league": "NFL",
+    "tournament": "NFL",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790295300000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 06:15 AM BST",
+    "timeOrTimer": "Tomorrow, 06:15 AM BST",
+    "venue": "Lambeau Field, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "134940",
+      "name": "Green Bay Packers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/uwbfw01784719173.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "134942",
+      "name": "Atlanta Falcons",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9ucfd41784714178.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "134940",
+      "name": "Green Bay Packers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/uwbfw01784719173.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "134942",
+      "name": "Atlanta Falcons",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9ucfd41784714178.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "NFL • Tomorrow, 06:15 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2498822",
+    "idEvent": "2498822",
+    "sport": "football",
+    "sportName": "American Football",
+    "sportIcon": "fa-trophy",
+    "title": "Temple vs Army",
+    "name": "Temple vs Army",
+    "league": "NCAA Division 1 Football",
+    "tournament": "NCAA Division 1 Football",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790366400000,
+    "date": "2026-09-26",
+    "matchTime": "Sat, Sep 26, 02:00 AM BST",
+    "timeOrTimer": "Sat, Sep 26, 02:00 AM BST",
+    "venue": "Lincoln Financial Field, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "136956",
+      "name": "Temple",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/7ykypw1643210047.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "136175",
+      "name": "Army",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3lz50f1780824514.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "136956",
+      "name": "Temple",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/7ykypw1643210047.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "136175",
+      "name": "Army",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3lz50f1780824514.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "NCAA Division 1 Football • Sat, Sep 26, 02:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2498823",
+    "idEvent": "2498823",
+    "sport": "football",
+    "sportName": "American Football",
+    "sportIcon": "fa-trophy",
+    "title": "Rutgers vs Howard",
+    "name": "Rutgers vs Howard",
+    "league": "NCAA Division 1 Football",
+    "tournament": "NCAA Division 1 Football",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
+    "matchDesc": "",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790377200000,
+    "date": "2026-09-26",
+    "matchTime": "Sat, Sep 26, 05:00 AM BST",
+    "timeOrTimer": "Sat, Sep 26, 05:00 AM BST",
+    "venue": "SHI Stadium, United States",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "136944",
+      "name": "Rutgers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5vmsmr1564336642.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "137025",
+      "name": "Howard",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/oohvcl1564356852.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "136944",
+      "name": "Rutgers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5vmsmr1564336642.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "137025",
+      "name": "Howard",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/oohvcl1564356852.png",
+      "score": ""
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "NCAA Division 1 Football • Sat, Sep 26, 05:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2400226",
+    "idEvent": "2400226",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "KT Wiz vs NC Dinos",
+    "name": "KT Wiz vs NC Dinos",
+    "league": "Korean KBO League",
+    "tournament": "Korean KBO League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/qfr1hx1589707979.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790155800000,
+    "date": "2026-09-23",
+    "matchTime": "Yesterday, 03:30 PM BST",
+    "timeOrTimer": "3 - 10",
+    "venue": "Suwon Baseball Stadium, South Korea",
+    "isHot": false,
+    "videoUrl": "https://www.youtube.com/watch?v=2kMp-ctQN7c",
+    "team1": {
+      "id": "139827",
+      "name": "KT Wiz",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qk8erg1589709962.png",
+      "score": "3"
+    },
+    "team2": {
+      "id": "139819",
+      "name": "NC Dinos",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/6gwcg81589708218.png",
+      "score": "10"
+    },
+    "homeTeam": {
+      "id": "139827",
+      "name": "KT Wiz",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qk8erg1589709962.png",
+      "score": "3"
+    },
+    "awayTeam": {
+      "id": "139819",
+      "name": "NC Dinos",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/6gwcg81589708218.png",
+      "score": "10"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Korean KBO League • Yesterday, 03:30 PM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2452882",
+    "idEvent": "2452882",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Fukuoka SoftBank Hawks vs Saitama Seibu Lions",
+    "name": "Fukuoka SoftBank Hawks vs Saitama Seibu Lions",
+    "league": "Nippon Baseball League",
+    "tournament": "Nippon Baseball League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/lk85rg1575038781.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790139600000,
+    "date": "2026-09-23",
+    "matchTime": "Yesterday, 11:00 AM BST",
+    "timeOrTimer": "10 - 3",
+    "venue": "Mizuho PayPay Dome Fukuoka, Japan",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "137512",
+      "name": "Fukuoka SoftBank Hawks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ampozy1576009547.png",
+      "score": "10"
+    },
+    "team2": {
+      "id": "137515",
+      "name": "Saitama Seibu Lions",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/onmvow1576012163.png",
+      "score": "3"
+    },
+    "homeTeam": {
+      "id": "137512",
+      "name": "Fukuoka SoftBank Hawks",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ampozy1576009547.png",
+      "score": "10"
+    },
+    "awayTeam": {
+      "id": "137515",
+      "name": "Saitama Seibu Lions",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/onmvow1576012163.png",
+      "score": "3"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Nippon Baseball League • Yesterday, 11:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "tsdb-2452883",
+    "idEvent": "2452883",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Tokyo Yakult Swallows vs Hanshin Tigers",
+    "name": "Tokyo Yakult Swallows vs Hanshin Tigers",
+    "league": "Nippon Baseball League",
+    "tournament": "Nippon Baseball League",
+    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/lk85rg1575038781.png",
+    "matchDesc": "",
+    "status": "finished",
+    "statusText": "Full Time",
+    "statusLabel": "FT",
+    "timestamp": 1790139600000,
+    "date": "2026-09-23",
+    "matchTime": "Yesterday, 11:00 AM BST",
+    "timeOrTimer": "4 - 8",
+    "venue": "Meiji Jingu Stadium, Japan",
+    "isHot": false,
+    "videoUrl": null,
+    "team1": {
+      "id": "137508",
+      "name": "Tokyo Yakult Swallows",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ryyku01576013231.png",
+      "score": "4"
+    },
+    "team2": {
+      "id": "137506",
+      "name": "Hanshin Tigers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/h2jhos1576009994.png",
+      "score": "8"
+    },
+    "homeTeam": {
+      "id": "137508",
+      "name": "Tokyo Yakult Swallows",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ryyku01576013231.png",
+      "score": "4"
+    },
+    "awayTeam": {
+      "id": "137506",
+      "name": "Hanshin Tigers",
+      "logo": "https://r2.thesportsdb.com/images/media/team/badge/h2jhos1576009994.png",
+      "score": "8"
+    },
+    "broadcaster": "",
+    "broadcasters": [],
+    "strTVStation": "",
+    "subText": "Nippon Baseball League • Yesterday, 11:00 AM BST",
+    "source": "TheSportsDB (Free)",
+    "streams": []
+  },
+  {
+    "id": "cr-sportradar-sr_match_74932582",
+    "rawId": "sr:match:74932582",
+    "matchId": "sr:match:74932582",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Zimbabwe vs West Indies",
+    "name": "Zimbabwe vs West Indies",
+    "seriesName": "ODI Series Zimbabwe vs West Indies, Women",
+    "tournament": "ODI Series Zimbabwe vs West Indies, Women",
+    "league": "ODI Series Zimbabwe vs West Indies, Women",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "live",
+    "statusText": "LIVE NOW",
+    "statusLabel": "LIVE",
+    "timestamp": 1790235000000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 01:30 PM BST",
+    "timeOrTimer": "LIVE",
+    "venue": "",
+    "isHot": true,
+    "isSpecial": true,
+    "team1": {
+      "teamId": "sr:competitor:247885",
+      "name": "Zimbabwe",
+      "shortName": "ZIM",
+      "logo": "https://flagcdn.com/w320/zw.png",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:183549",
+      "name": "West Indies",
+      "shortName": "WIN",
+      "logo": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Zimbabwe",
+      "logo": "https://flagcdn.com/w320/zw.png",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "West Indies",
+      "logo": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "ODI Series Zimbabwe vs West Indies, Women",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_69238554",
+    "rawId": "sr:match:69238554",
+    "matchId": "sr:match:69238554",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "South Africa vs Australia",
+    "name": "South Africa vs Australia",
+    "seriesName": "ODI Series South Africa vs Australia",
+    "tournament": "ODI Series South Africa vs Australia",
+    "league": "ODI Series South Africa vs Australia",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "live",
+    "statusText": "LIVE NOW",
+    "statusLabel": "LIVE",
+    "timestamp": 1790236800000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 02:00 PM BST",
+    "timeOrTimer": "LIVE",
+    "venue": "Kingsmead Cricket Ground, Durban",
+    "isHot": true,
+    "isSpecial": true,
+    "team1": {
+      "teamId": "sr:competitor:142708",
+      "name": "South Africa",
+      "shortName": "SA",
+      "logo": "https://flagcdn.com/w320/za.png",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:142690",
+      "name": "Australia",
+      "shortName": "AUS",
+      "logo": "https://flagcdn.com/w320/au.png",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "South Africa",
+      "logo": "https://flagcdn.com/w320/za.png",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Australia",
+      "logo": "https://flagcdn.com/w320/au.png",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "ODI Series South Africa vs Australia",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74825714",
+    "rawId": "sr:match:74825714",
+    "matchId": "sr:match:74825714",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Nainital Tigers vs Tehri Titans",
+    "name": "Nainital Tigers vs Tehri Titans",
+    "seriesName": "T20 Uttarakhand Premier League",
+    "tournament": "T20 Uttarakhand Premier League",
+    "league": "T20 Uttarakhand Premier League",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790227800000,
+    "date": "2026-09-24",
+    "matchTime": "Today, 11:30 AM BST",
+    "timeOrTimer": "Today, 11:30 AM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:1290103",
+      "name": "Nainital Tigers",
+      "shortName": "NAI",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:1290091",
+      "name": "Tehri Titans",
+      "shortName": "TEH",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Nainital Tigers",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Tehri Titans",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 Uttarakhand Premier League",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74525416",
+    "rawId": "sr:match:74525416",
+    "matchId": "sr:match:74525416",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Hong Kong, China vs Oman",
+    "name": "Hong Kong, China vs Oman",
+    "seriesName": "T20 Asian Games",
+    "tournament": "T20 Asian Games",
+    "league": "T20 Asian Games",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790294400000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 06:00 AM BST",
+    "timeOrTimer": "Tomorrow, 06:00 AM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:210364",
+      "name": "Hong Kong, China",
+      "shortName": "HKG",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:245147",
+      "name": "Oman",
+      "shortName": "OMA",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Hong Kong, China",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Oman",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 Asian Games",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_73456002",
+    "rawId": "sr:match:73456002",
+    "matchId": "sr:match:73456002",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Victoria vs New South Wales Blues",
+    "name": "Victoria vs New South Wales Blues",
+    "seriesName": "One-Day Cup",
+    "tournament": "One-Day Cup",
+    "league": "One-Day Cup",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790308800000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 10:00 AM BST",
+    "timeOrTimer": "Tomorrow, 10:00 AM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:142684",
+      "name": "Victoria",
+      "shortName": "VIC",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:142676",
+      "name": "New South Wales Blues",
+      "shortName": "BLU",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Victoria",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "New South Wales Blues",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "One-Day Cup",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74525390",
+    "rawId": "sr:match:74525390",
+    "matchId": "sr:match:74525390",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Afghanistan vs Nepal",
+    "name": "Afghanistan vs Nepal",
+    "seriesName": "T20 Asian Games",
+    "tournament": "T20 Asian Games",
+    "league": "T20 Asian Games",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790312400000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 11:00 AM BST",
+    "timeOrTimer": "Tomorrow, 11:00 AM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:142688",
+      "name": "Afghanistan",
+      "shortName": "AFG",
+      "logo": "https://flagcdn.com/w320/af.png",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:210366",
+      "name": "Nepal",
+      "shortName": "NEP",
+      "logo": "https://flagcdn.com/w320/np.png",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Afghanistan",
+      "logo": "https://flagcdn.com/w320/af.png",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Nepal",
+      "logo": "https://flagcdn.com/w320/np.png",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 Asian Games",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74825718",
+    "rawId": "sr:match:74825718",
+    "matchId": "sr:match:74825718",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Haridwar Elmas vs Tehri Titans",
+    "name": "Haridwar Elmas vs Tehri Titans",
+    "seriesName": "T20 Uttarakhand Premier League",
+    "tournament": "T20 Uttarakhand Premier League",
+    "league": "T20 Uttarakhand Premier League",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790314200000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 11:30 AM BST",
+    "timeOrTimer": "Tomorrow, 11:30 AM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:1185397",
+      "name": "Haridwar Elmas",
+      "shortName": "HAR",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:1290091",
+      "name": "Tehri Titans",
+      "shortName": "TEH",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Haridwar Elmas",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Tehri Titans",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 Uttarakhand Premier League",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74559890",
+    "rawId": "sr:match:74559890",
+    "matchId": "sr:match:74559890",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Rourkela Steelers vs Kataka Panthers",
+    "name": "Rourkela Steelers vs Kataka Panthers",
+    "seriesName": "Odisha Pro T20 League",
+    "tournament": "Odisha Pro T20 League",
+    "league": "Odisha Pro T20 League",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790326800000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 03:00 PM BST",
+    "timeOrTimer": "Tomorrow, 03:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:1289733",
+      "name": "Rourkela Steelers",
+      "shortName": "ROU",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:1289731",
+      "name": "Kataka Panthers",
+      "shortName": "CUT",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Rourkela Steelers",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Kataka Panthers",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "Odisha Pro T20 League",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74825720",
+    "rawId": "sr:match:74825720",
+    "matchId": "sr:match:74825720",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pithoragarh Hurricanes vs Usn Indians",
+    "name": "Pithoragarh Hurricanes vs Usn Indians",
+    "seriesName": "T20 Uttarakhand Premier League",
+    "tournament": "T20 Uttarakhand Premier League",
+    "league": "T20 Uttarakhand Premier League",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790328600000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 03:30 PM BST",
+    "timeOrTimer": "Tomorrow, 03:30 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:1185399",
+      "name": "Pithoragarh Hurricanes",
+      "shortName": "PIT",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:1185403",
+      "name": "Usn Indians",
+      "shortName": "USN",
+      "logo": "https://flagcdn.com/w320/in.png",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Pithoragarh Hurricanes",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Usn Indians",
+      "logo": "https://flagcdn.com/w320/in.png",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 Uttarakhand Premier League",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74991948",
+    "rawId": "sr:match:74991948",
+    "matchId": "sr:match:74991948",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Northern Cape vs Limpopo",
+    "name": "Northern Cape vs Limpopo",
+    "seriesName": "T20 South Africa Cup",
+    "tournament": "T20 South Africa Cup",
+    "league": "T20 South Africa Cup",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790334000000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 05:00 PM BST",
+    "timeOrTimer": "Tomorrow, 05:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:283167",
+      "name": "Northern Cape",
+      "shortName": "NOC",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:638496",
+      "name": "Limpopo",
+      "shortName": "LIM",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Northern Cape",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Limpopo",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 South Africa Cup",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74293196",
+    "rawId": "sr:match:74293196",
+    "matchId": "sr:match:74293196",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Warriors vs North West Dragons",
+    "name": "Warriors vs North West Dragons",
+    "seriesName": "T20 South Africa Cup",
+    "tournament": "T20 South Africa Cup",
+    "league": "T20 South Africa Cup",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790337600000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 06:00 PM BST",
+    "timeOrTimer": "Tomorrow, 06:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:180010",
+      "name": "Warriors",
+      "shortName": "WAR",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:283165",
+      "name": "North West Dragons",
+      "shortName": "NOW",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Warriors",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "North West Dragons",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 South Africa Cup",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74559892",
+    "rawId": "sr:match:74559892",
+    "matchId": "sr:match:74559892",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Puri Titans vs Keonjhar Miners",
+    "name": "Puri Titans vs Keonjhar Miners",
+    "seriesName": "Odisha Pro T20 League",
+    "tournament": "Odisha Pro T20 League",
+    "league": "Odisha Pro T20 League",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790344800000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 08:00 PM BST",
+    "timeOrTimer": "Tomorrow, 08:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:1289727",
+      "name": "Puri Titans",
+      "shortName": "PUR",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:1289729",
+      "name": "Keonjhar Miners",
+      "shortName": "KEO",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Puri Titans",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Keonjhar Miners",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "Odisha Pro T20 League",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74825722",
+    "rawId": "sr:match:74825722",
+    "matchId": "sr:match:74825722",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Rishikesh River Kings vs Dehradun Warriors",
+    "name": "Rishikesh River Kings vs Dehradun Warriors",
+    "seriesName": "T20 Uttarakhand Premier League",
+    "tournament": "T20 Uttarakhand Premier League",
+    "league": "T20 Uttarakhand Premier League",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790344800000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 08:00 PM BST",
+    "timeOrTimer": "Tomorrow, 08:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:1392374",
+      "name": "Rishikesh River Kings",
+      "shortName": "RIS",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:1185395",
+      "name": "Dehradun Warriors",
+      "shortName": "DEH",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Rishikesh River Kings",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Dehradun Warriors",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 Uttarakhand Premier League",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74980046",
+    "rawId": "sr:match:74980046",
+    "matchId": "sr:match:74980046",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Bahamas vs Bermuda",
+    "name": "Bahamas vs Bermuda",
+    "seriesName": "T20 North American Cup",
+    "tournament": "T20 North American Cup",
+    "league": "T20 North American Cup",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790348400000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 09:00 PM BST",
+    "timeOrTimer": "Tomorrow, 09:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:969863",
+      "name": "Bahamas",
+      "shortName": "BAH",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:397494",
+      "name": "Bermuda",
+      "shortName": "BMU",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Bahamas",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Bermuda",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 North American Cup",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74293250",
+    "rawId": "sr:match:74293250",
+    "matchId": "sr:match:74293250",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Titans vs Western Province",
+    "name": "Titans vs Western Province",
+    "seriesName": "T20 South Africa Cup",
+    "tournament": "T20 South Africa Cup",
+    "league": "T20 South Africa Cup",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790352000000,
+    "date": "2026-09-25",
+    "matchTime": "Tomorrow, 10:00 PM BST",
+    "timeOrTimer": "Tomorrow, 10:00 PM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:180012",
+      "name": "Titans",
+      "shortName": "TIT",
+      "logo": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c225642/gujarat-titans.jpg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:283173",
+      "name": "Western Province",
+      "shortName": "WEP",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Titans",
+      "logo": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c225642/gujarat-titans.jpg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Western Province",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 South Africa Cup",
+    "source": "Sportradar"
+  },
+  {
+    "id": "cr-sportradar-sr_match_74771234",
+    "rawId": "sr:match:74771234",
+    "matchId": "sr:match:74771234",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Bahamas vs Bermuda",
+    "name": "Bahamas vs Bermuda",
+    "seriesName": "T20 North American Cup",
+    "tournament": "T20 North American Cup",
+    "league": "T20 North American Cup",
+    "matchDesc": "Match",
+    "matchFormat": "Cricket",
+    "status": "upcoming",
+    "statusText": "Upcoming",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790361000000,
+    "date": "2026-09-26",
+    "matchTime": "Sat, Sep 26, 12:30 AM BST",
+    "timeOrTimer": "Sat, Sep 26, 12:30 AM BST",
+    "venue": "",
+    "isHot": false,
+    "isSpecial": false,
+    "team1": {
+      "teamId": "sr:competitor:969863",
+      "name": "Bahamas",
+      "shortName": "BAH",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "team2": {
+      "teamId": "sr:competitor:397494",
+      "name": "Bermuda",
+      "shortName": "BMU",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "homeTeam": {
+      "name": "Bahamas",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "awayTeam": {
+      "name": "Bermuda",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "",
+      "overs": ""
+    },
+    "broadcaster": null,
+    "broadcasters": [],
+    "channelId": null,
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
+    "subText": "T20 North American Cup",
+    "source": "Sportradar"
+  },
+  {
+    "id": "wwe-smackdown-live",
+    "matchId": "wwe-smackdown",
+    "sport": "wwe",
+    "sportName": "WWE",
+    "sportIcon": "fa-hand-fist",
+    "title": "WWE Friday Night SmackDown",
+    "name": "WWE Friday Night SmackDown",
+    "seriesName": "WWE Friday Night SmackDown",
+    "tournament": "WWE Friday Night SmackDown",
+    "league": "WWE Friday Night SmackDown",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790325563577,
+    "date": "2026-09-25",
+    "matchTime": "06:00 AM",
+    "timeOrTimer": "06:00 AM",
+    "venue": "Allstate Arena, Rosemont, IL",
+    "isHot": true,
+    "team1": {
+      "name": "WWE",
+      "logo": "./assets/wwe-logos/wwe_official.png"
+    },
+    "team2": {
+      "name": "SmackDown",
+      "logo": "./assets/wwe-logos/wwe_smackdown.png"
+    },
+    "homeTeam": {
+      "name": "WWE",
+      "logo": "./assets/wwe-logos/wwe_official.png"
+    },
+    "awayTeam": {
+      "name": "SmackDown",
+      "logo": "./assets/wwe-logos/wwe_smackdown.png"
+    },
+    "broadcaster": "Sony Sports Ten 1 HD",
+    "broadcasters": [
+      "Sony Sports Ten 1 HD"
+    ],
+    "subText": "WWE Friday Night SmackDown • 06:00 AM (BST)",
+    "source": "WWE Official",
+    "streams": []
+  },
+  {
+    "id": "wwe-monday-night-raw",
+    "matchId": "wwe-raw",
+    "sport": "wwe",
+    "sportName": "WWE",
+    "sportIcon": "fa-hand-fist",
+    "title": "WWE Monday Night RAW",
+    "name": "WWE Monday Night RAW",
+    "seriesName": "WWE Monday Night RAW",
+    "tournament": "WWE Monday Night RAW",
+    "league": "WWE Monday Night RAW",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790498363577,
+    "date": "2026-09-27",
+    "matchTime": "06:00 AM",
+    "timeOrTimer": "06:00 AM",
+    "venue": "TD Garden, Boston, MA",
+    "isHot": true,
+    "team1": {
+      "name": "WWE",
+      "logo": "./assets/wwe-logos/wwe_official.png"
+    },
+    "team2": {
+      "name": "RAW",
+      "logo": "./assets/wwe-logos/wwe_raw.png"
+    },
+    "homeTeam": {
+      "name": "WWE",
+      "logo": "./assets/wwe-logos/wwe_official.png"
+    },
+    "awayTeam": {
+      "name": "RAW",
+      "logo": "./assets/wwe-logos/wwe_raw.png"
+    },
+    "broadcaster": "Sony Sports Ten 1 HD",
+    "broadcasters": [
+      "Sony Sports Ten 1 HD"
+    ],
+    "subText": "WWE Monday Night RAW • 06:00 AM (BST)",
+    "source": "WWE Official",
+    "streams": []
+  },
+  {
+    "id": "wwe-nxt-super-tuesday",
+    "matchId": "wwe-nxt",
+    "sport": "wwe",
+    "sportName": "WWE",
+    "sportIcon": "fa-bolt",
+    "title": "WWE NXT Live",
+    "name": "WWE NXT Live",
+    "seriesName": "WWE NXT Live",
+    "tournament": "WWE NXT Live",
+    "league": "WWE NXT Live",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790584763577,
+    "date": "2026-09-28",
+    "matchTime": "06:00 AM",
+    "timeOrTimer": "06:00 AM",
+    "venue": "WWE Performance Center, Orlando, FL",
+    "isHot": false,
+    "team1": {
+      "name": "WWE",
+      "logo": "./assets/wwe-logos/wwe_official.png"
+    },
+    "team2": {
+      "name": "NXT",
+      "logo": "./assets/wwe-logos/wwe_nxt.png"
+    },
+    "homeTeam": {
+      "name": "WWE",
+      "logo": "./assets/wwe-logos/wwe_official.png"
+    },
+    "awayTeam": {
+      "name": "NXT",
+      "logo": "./assets/wwe-logos/wwe_nxt.png"
+    },
+    "broadcaster": "Sony Sports Ten 1 HD",
+    "broadcasters": [
+      "Sony Sports Ten 1 HD"
+    ],
+    "subText": "WWE NXT Live • 06:00 AM (BST)",
+    "source": "WWE Official",
+    "streams": []
+  },
+  {
+    "id": "aew-dynamite-live",
+    "matchId": "aew-dynamite",
+    "sport": "wwe",
+    "sportName": "AEW",
+    "sportIcon": "fa-hand-back-fist",
+    "title": "AEW Dynamite",
+    "name": "AEW Dynamite",
+    "seriesName": "AEW Dynamite",
+    "tournament": "AEW Dynamite",
+    "league": "AEW Dynamite",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790411963577,
+    "date": "2026-09-26",
+    "matchTime": "06:00 AM",
+    "timeOrTimer": "06:00 AM",
+    "venue": "NOW Arena, Chicago, IL",
+    "isHot": false,
+    "team1": {
+      "name": "AEW",
+      "logo": "./assets/wwe-logos/aew_official.svg"
+    },
+    "team2": {
+      "name": "Dynamite",
+      "logo": "./assets/wwe-logos/aew_official.svg"
+    },
+    "homeTeam": {
+      "name": "AEW",
+      "logo": "./assets/wwe-logos/aew_official.svg"
+    },
+    "awayTeam": {
+      "name": "Dynamite",
+      "logo": "./assets/wwe-logos/aew_official.svg"
+    },
+    "broadcaster": "Sony Sports Ten 2 HD",
+    "broadcasters": [
+      "Sony Sports Ten 2 HD"
+    ],
+    "subText": "AEW Dynamite • 06:00 AM (BST)",
+    "source": "AEW Official",
+    "streams": []
+  },
+  {
+    "id": "espn-401817063",
+    "idEvent": "401817063",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Pittsburgh Pirates vs St. Louis Cardinals",
+    "name": "St. Louis Cardinals at Pittsburgh Pirates",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790267700000,
+    "date": "2026-09-24",
+    "matchTime": "10:35 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "23",
+      "name": "Pittsburgh Pirates",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/pit.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "24",
+      "name": "St. Louis Cardinals",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/stl.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "23",
+      "name": "Pittsburgh Pirates",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/pit.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "24",
+      "name": "St. Louis Cardinals",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/stl.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "Cardinals.TV"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817065",
+    "idEvent": "401817065",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Kansas City Royals vs Chicago White Sox",
+    "name": "Chicago White Sox at Kansas City Royals",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790273400000,
+    "date": "2026-09-24",
+    "matchTime": "12:10 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "7",
+      "name": "Kansas City Royals",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/kc.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "4",
+      "name": "Chicago White Sox",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chw.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "7",
+      "name": "Kansas City Royals",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/kc.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "4",
+      "name": "Chicago White Sox",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chw.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "Royals.TV",
+      "CHSN"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817066",
+    "idEvent": "401817066",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Chicago Cubs vs Miami Marlins",
+    "name": "Miami Marlins at Chicago Cubs",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790274000000,
+    "date": "2026-09-24",
+    "matchTime": "12:20 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "16",
+      "name": "Chicago Cubs",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "28",
+      "name": "Miami Marlins",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mia.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "16",
+      "name": "Chicago Cubs",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/chc.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "28",
+      "name": "Miami Marlins",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mia.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "ESPN Unlmtd",
+    "broadcasters": [
+      "ESPN Unlmtd",
+      "MLB.TV",
+      "ESPN Unlmtd",
+      "MLB.TV",
+      "Marquee Sports Net",
+      "Marlins.TV"
+    ],
+    "strTVStation": "ESPN Unlmtd",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817067",
+    "idEvent": "401817067",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Texas Rangers vs New York Mets",
+    "name": "New York Mets at Texas Rangers",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790274900000,
+    "date": "2026-09-24",
+    "matchTime": "12:35 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "13",
+      "name": "Texas Rangers",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tex.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "21",
+      "name": "New York Mets",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/nym.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "13",
+      "name": "Texas Rangers",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tex.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "21",
+      "name": "New York Mets",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/nym.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "Rangers Sports Network",
+      "SNY"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817068",
+    "idEvent": "401817068",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Colorado Rockies vs Arizona Diamondbacks",
+    "name": "Arizona Diamondbacks at Colorado Rockies",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790277000000,
+    "date": "2026-09-24",
+    "matchTime": "01:10 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "27",
+      "name": "Colorado Rockies",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/col.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "29",
+      "name": "Arizona Diamondbacks",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/ari.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "27",
+      "name": "Colorado Rockies",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/col.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "29",
+      "name": "Arizona Diamondbacks",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/ari.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "DBACKS.TV",
+      "Rockies.TV"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817062",
+    "idEvent": "401817062",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Philadelphia Phillies vs Milwaukee Brewers",
+    "name": "Milwaukee Brewers at Philadelphia Phillies",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790287500000,
+    "date": "2026-09-24",
+    "matchTime": "04:05 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "22",
+      "name": "Philadelphia Phillies",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "8",
+      "name": "Milwaukee Brewers",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "22",
+      "name": "Philadelphia Phillies",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/phi.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "8",
+      "name": "Milwaukee Brewers",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/mil.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "Brewers.TV",
+      "NBC Sports Phil"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817061",
+    "idEvent": "401817061",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Boston Red Sox vs Cleveland Guardians",
+    "name": "Cleveland Guardians at Boston Red Sox",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790289900000,
+    "date": "2026-09-24",
+    "matchTime": "04:45 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "2",
+      "name": "Boston Red Sox",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/bos.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "5",
+      "name": "Cleveland Guardians",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cle.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "2",
+      "name": "Boston Red Sox",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/bos.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "5",
+      "name": "Cleveland Guardians",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cle.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "CLEGuardians.TV",
+      "NESN"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817064",
+    "idEvent": "401817064",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "New York Yankees vs Tampa Bay Rays",
+    "name": "Tampa Bay Rays at New York Yankees",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790291100000,
+    "date": "2026-09-24",
+    "matchTime": "05:05 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "10",
+      "name": "New York Yankees",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/nyy.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "30",
+      "name": "Tampa Bay Rays",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tb.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "10",
+      "name": "New York Yankees",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/nyy.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "30",
+      "name": "Tampa Bay Rays",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/tb.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "Rays.TV",
+      "YES"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817060",
+    "idEvent": "401817060",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Atlanta Braves vs Cincinnati Reds",
+    "name": "Cincinnati Reds at Atlanta Braves",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790291700000,
+    "date": "2026-09-24",
+    "matchTime": "05:15 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "15",
+      "name": "Atlanta Braves",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/atl.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "17",
+      "name": "Cincinnati Reds",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cin.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "15",
+      "name": "Atlanta Braves",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/atl.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "17",
+      "name": "Cincinnati Reds",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/cin.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "FS1",
+      "MLB.TV",
+      "FS1",
+      "BravesVision",
+      "Reds.TV"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817069",
+    "idEvent": "401817069",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Seattle Mariners vs Los Angeles Angels",
+    "name": "Los Angeles Angels at Seattle Mariners",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790300400000,
+    "date": "2026-09-25",
+    "matchTime": "07:40 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "12",
+      "name": "Seattle Mariners",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sea.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "3",
+      "name": "Los Angeles Angels",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/laa.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "12",
+      "name": "Seattle Mariners",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sea.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "3",
+      "name": "Los Angeles Angels",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/laa.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "Mariners.TV",
+      "Angels.TV"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817070",
+    "idEvent": "401817070",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Athletics vs Houston Astros",
+    "name": "Houston Astros at Athletics Athletics",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790300400000,
+    "date": "2026-09-25",
+    "matchTime": "07:40 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "11",
+      "name": "Athletics",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/ath.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "18",
+      "name": "Houston Astros",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/hou.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "11",
+      "name": "Athletics",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/ath.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "18",
+      "name": "Houston Astros",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/hou.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB.TV",
+      "NBC Sports CA",
+      "Space City Home Network"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401817071",
+    "idEvent": "401817071",
+    "sport": "baseball",
+    "sportName": "Baseball",
+    "sportIcon": "fa-baseball",
+    "title": "Los Angeles Dodgers vs San Diego Padres",
+    "name": "San Diego Padres at Los Angeles Dodgers",
+    "league": "MLB",
+    "tournament": "MLB",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790302200000,
+    "date": "2026-09-25",
+    "matchTime": "08:10 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "19",
+      "name": "Los Angeles Dodgers",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/lad.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "25",
+      "name": "San Diego Padres",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sd.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "19",
+      "name": "Los Angeles Dodgers",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/lad.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "25",
+      "name": "San Diego Padres",
+      "logo": "https://a.espncdn.com/i/teamlogos/mlb/500/scoreboard/sd.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "MLB.TV",
+    "broadcasters": [
+      "MLB.TV",
+      "MLB Net",
+      "MLB.TV",
+      "SportsNet LA",
+      "Padres.TV",
+      "MLB Net"
+    ],
+    "strTVStation": "MLB.TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401857215",
+    "idEvent": "401857215",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Connecticut Sun vs Toronto Tempo",
+    "name": "Toronto Tempo at Connecticut Sun",
+    "league": "WNBA",
+    "tournament": "WNBA",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790290800000,
+    "date": "2026-09-24",
+    "matchTime": "05:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "18",
+      "name": "Connecticut Sun",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/con.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "131935",
+      "name": "Toronto Tempo",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/tor.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "18",
+      "name": "Connecticut Sun",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/con.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "131935",
+      "name": "Toronto Tempo",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/tor.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "NBA TV",
+    "broadcasters": [
+      "NBA TV",
+      "NBA TV",
+      "NBC Sports BO",
+      "TSN"
+    ],
+    "strTVStation": "NBA TV",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401857216",
+    "idEvent": "401857216",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Washington Mystics vs Chicago Sky",
+    "name": "Chicago Sky at Washington Mystics",
+    "league": "WNBA",
+    "tournament": "WNBA",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790292600000,
+    "date": "2026-09-24",
+    "matchTime": "05:30 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "16",
+      "name": "Washington Mystics",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/wsh.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "19",
+      "name": "Chicago Sky",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/chi.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "16",
+      "name": "Washington Mystics",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/wsh.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "19",
+      "name": "Chicago Sky",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/chi.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "WNBA League Pass",
+    "broadcasters": [
+      "WNBA League Pass",
+      "CW26",
+      "CW26",
+      "MNMT"
+    ],
+    "strTVStation": "WNBA League Pass",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401857217",
+    "idEvent": "401857217",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Minnesota Lynx vs Indiana Fever",
+    "name": "Indiana Fever at Minnesota Lynx",
+    "league": "WNBA",
+    "tournament": "WNBA",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790294400000,
+    "date": "2026-09-25",
+    "matchTime": "06:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "8",
+      "name": "Minnesota Lynx",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/min.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "5",
+      "name": "Indiana Fever",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/ind.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "8",
+      "name": "Minnesota Lynx",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/min.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "5",
+      "name": "Indiana Fever",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/ind.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "USA Net",
+    "broadcasters": [
+      "USA Net",
+      "USA Net"
+    ],
+    "strTVStation": "USA Net",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401857218",
+    "idEvent": "401857218",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Los Angeles Sparks vs Golden State Valkyries",
+    "name": "Golden State Valkyries at Los Angeles Sparks",
+    "league": "WNBA",
+    "tournament": "WNBA",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790301600000,
+    "date": "2026-09-25",
+    "matchTime": "08:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "6",
+      "name": "Los Angeles Sparks",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/la.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "129689",
+      "name": "Golden State Valkyries",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/gs.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "6",
+      "name": "Los Angeles Sparks",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/la.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "129689",
+      "name": "Golden State Valkyries",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/gs.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "WNBA League Pass",
+    "broadcasters": [
+      "WNBA League Pass",
+      "KPIX+",
+      "KPIX+",
+      "Spectrum Sports Net"
+    ],
+    "strTVStation": "WNBA League Pass",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401857219",
+    "idEvent": "401857219",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Phoenix Mercury vs Las Vegas Aces",
+    "name": "Las Vegas Aces at Phoenix Mercury",
+    "league": "WNBA",
+    "tournament": "WNBA",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790301600000,
+    "date": "2026-09-25",
+    "matchTime": "08:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "11",
+      "name": "Phoenix Mercury",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/phx.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "17",
+      "name": "Las Vegas Aces",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/lv.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "11",
+      "name": "Phoenix Mercury",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/scoreboard/phx.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "17",
+      "name": "Las Vegas Aces",
+      "logo": "https://a.espncdn.com/i/teamlogos/wnba/500/lv.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "USA Net",
+    "broadcasters": [
+      "USA Net",
+      "CNBC",
+      "USA Net",
+      "CNBC",
+      "AZ Family Sports Net",
+      "Vegas 34",
+      "Merc+"
+    ],
+    "strTVStation": "USA Net",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-401902644",
+    "idEvent": "401902644",
+    "sport": "basketball",
+    "sportName": "Basketball",
+    "sportIcon": "fa-basketball",
+    "title": "Toronto Raptors vs Miami Heat",
+    "name": "Miami Heat at Toronto Raptors",
+    "league": "NBA",
+    "tournament": "NBA",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1791068400000,
+    "date": "2026-10-03",
+    "matchTime": "05:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "28",
+      "name": "Toronto Raptors",
+      "logo": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "14",
+      "name": "Miami Heat",
+      "logo": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "28",
+      "name": "Toronto Raptors",
+      "logo": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/tor.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "14",
+      "name": "Miami Heat",
+      "logo": "https://a.espncdn.com/i/teamlogos/nba/500/scoreboard/mia.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "ESPN",
+    "broadcasters": [
+      "ESPN",
+      "GO3 Sport 1 HD"
+    ],
+    "strTVStation": "ESPN",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-603462",
+    "idEvent": "603462",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Australia vs South Africa",
+    "name": "Australia vs South Africa",
+    "league": "The Rugby Championship",
+    "tournament": "The Rugby Championship",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790502300000,
+    "date": "2026-09-27",
+    "matchTime": "03:45 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "6",
+      "name": "Australia",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/6.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "5",
+      "name": "South Africa",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/5.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "6",
+      "name": "Australia",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/6.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "5",
+      "name": "South Africa",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/5.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604853",
+    "idEvent": "604853",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Bordeaux vs Perpignan",
+    "name": "Bordeaux vs Perpignan",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790425200000,
+    "date": "2026-09-26",
+    "matchTime": "06:20 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "126831",
+      "name": "Bordeaux",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "0"
+    },
+    "team2": {
+      "id": "289360",
+      "name": "Perpignan",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "126831",
+      "name": "Bordeaux",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "289360",
+      "name": "Perpignan",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604381",
+    "idEvent": "604381",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Perpignan vs Bordeaux Begles",
+    "name": "Perpignan vs Bordeaux Begles",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790425800000,
+    "date": "2026-09-26",
+    "matchTime": "06:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "25920",
+      "name": "Perpignan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "143737",
+      "name": "Bordeaux Begles",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/143737.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "25920",
+      "name": "Perpignan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "143737",
+      "name": "Bordeaux Begles",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/143737.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604382",
+    "idEvent": "604382",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Clermont Auvergne vs Castres Olympique",
+    "name": "Clermont Auvergne vs Castres Olympique",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790433300000,
+    "date": "2026-09-26",
+    "matchTime": "08:35 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "25917",
+      "name": "Clermont Auvergne",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25917.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "25916",
+      "name": "Castres Olympique",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25916.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "25917",
+      "name": "Clermont Auvergne",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25917.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "25916",
+      "name": "Castres Olympique",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25916.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604383",
+    "idEvent": "604383",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Stade Francais Paris vs Lyon",
+    "name": "Stade Francais Paris vs Lyon",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790433300000,
+    "date": "2026-09-26",
+    "matchTime": "08:35 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "25921",
+      "name": "Stade Francais Paris",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25921.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "143736",
+      "name": "Lyon",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/143736.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "25921",
+      "name": "Stade Francais Paris",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25921.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "143736",
+      "name": "Lyon",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/143736.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604384",
+    "idEvent": "604384",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Racing 92 vs Bayonne",
+    "name": "Racing 92 vs Bayonne",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790433300000,
+    "date": "2026-09-26",
+    "matchTime": "08:35 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "99855",
+      "name": "Racing 92",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/99855.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "25912",
+      "name": "Bayonne",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "99855",
+      "name": "Racing 92",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/99855.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "25912",
+      "name": "Bayonne",
+      "logo": "./assets/team-placeholder.svg",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604385",
+    "idEvent": "604385",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Toulon vs Vannes",
+    "name": "Toulon vs Vannes",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790433300000,
+    "date": "2026-09-26",
+    "matchTime": "08:35 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "25986",
+      "name": "Toulon",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25986.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "289337",
+      "name": "Vannes",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/van.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "25986",
+      "name": "Toulon",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/25986.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "289337",
+      "name": "Vannes",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/van.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-604386",
+    "idEvent": "604386",
+    "sport": "rugby",
+    "sportName": "Rugby",
+    "sportIcon": "fa-football",
+    "title": "Pau vs La Rochelle",
+    "name": "Pau vs La Rochelle",
+    "league": "Top 14 Rugby",
+    "tournament": "Top 14 Rugby",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790449200000,
+    "date": "2026-09-26",
+    "matchTime": "01:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "270567",
+      "name": "Pau",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/270567.png",
+      "score": "0"
+    },
+    "team2": {
+      "id": "119318",
+      "name": "La Rochelle",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/119318.png",
+      "score": "0"
+    },
+    "homeTeam": {
+      "id": "270567",
+      "name": "Pau",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/270567.png",
+      "score": "0"
+    },
+    "awayTeam": {
+      "id": "119318",
+      "name": "La Rochelle",
+      "logo": "https://a.espncdn.com/i/teamlogos/rugby/teams/500/119318.png",
+      "score": "0"
+    },
+    "score": "0 - 0",
+    "broadcaster": "Sky Sports Action",
+    "broadcasters": [
+      "Sky Sports Action",
+      "TNT Sports 2"
+    ],
+    "strTVStation": "Sky Sports Action",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186127",
+    "idEvent": "186127",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Luka Pavlovic vs Alexandre Muller",
+    "name": "Luka Pavlovic vs Alexandre Muller",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790053200000,
+    "date": "2026-09-22",
+    "matchTime": "11:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "14707",
+      "name": "Luka Pavlovic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3308",
+      "name": "Alexandre Muller",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "14707",
+      "name": "Luka Pavlovic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3308",
+      "name": "Alexandre Muller",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186131",
+    "idEvent": "186131",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Alexis Galarneau vs Elias Ymer",
+    "name": "Alexis Galarneau vs Elias Ymer",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790053200000,
+    "date": "2026-09-22",
+    "matchTime": "11:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3562",
+      "name": "Alexis Galarneau",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2229",
+      "name": "Elias Ymer",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/swe.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3562",
+      "name": "Alexis Galarneau",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2229",
+      "name": "Elias Ymer",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/swe.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186134",
+    "idEvent": "186134",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Andre Ilagan vs Petr Bar Biryukov",
+    "name": "Andre Ilagan vs Petr Bar Biryukov",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790053200000,
+    "date": "2026-09-22",
+    "matchTime": "11:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "13358",
+      "name": "Andre Ilagan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "14190",
+      "name": "Petr Bar Biryukov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "13358",
+      "name": "Andre Ilagan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "14190",
+      "name": "Petr Bar Biryukov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186128",
+    "idEvent": "186128",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Pavel Kotov vs Luca Castelnuovo",
+    "name": "Pavel Kotov vs Luca Castelnuovo",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790058600000,
+    "date": "2026-09-22",
+    "matchTime": "12:30 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3572",
+      "name": "Pavel Kotov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3955",
+      "name": "Luca Castelnuovo",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3572",
+      "name": "Pavel Kotov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3955",
+      "name": "Luca Castelnuovo",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186129",
+    "idEvent": "186129",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Xiao Linang vs Shintaro Mochizuki",
+    "name": "Xiao Linang vs Shintaro Mochizuki",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790058600000,
+    "date": "2026-09-22",
+    "matchTime": "12:30 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "13482",
+      "name": "Xiao Linang",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "7608",
+      "name": "Shintaro Mochizuki",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "13482",
+      "name": "Xiao Linang",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "7608",
+      "name": "Shintaro Mochizuki",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186133",
+    "idEvent": "186133",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Kenta Miyoshi vs Lloyd Harris",
+    "name": "Kenta Miyoshi vs Lloyd Harris",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790058600000,
+    "date": "2026-09-22",
+    "matchTime": "12:30 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "11990",
+      "name": "Kenta Miyoshi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2863",
+      "name": "Lloyd Harris",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "11990",
+      "name": "Kenta Miyoshi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2863",
+      "name": "Lloyd Harris",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186130",
+    "idEvent": "186130",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hanlei Lu vs Nikoloz Basilashvili",
+    "name": "Hanlei Lu vs Nikoloz Basilashvili",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790064000000,
+    "date": "2026-09-22",
+    "matchTime": "02:00 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "18915",
+      "name": "Hanlei Lu",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2498",
+      "name": "Nikoloz Basilashvili",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "18915",
+      "name": "Hanlei Lu",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2498",
+      "name": "Nikoloz Basilashvili",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186132",
+    "idEvent": "186132",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Federico Cina vs Kaichi Uchida",
+    "name": "Federico Cina vs Kaichi Uchida",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790064000000,
+    "date": "2026-09-22",
+    "matchTime": "02:00 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "14601",
+      "name": "Federico Cina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2011",
+      "name": "Kaichi Uchida",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "14601",
+      "name": "Federico Cina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2011",
+      "name": "Kaichi Uchida",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186150",
+    "idEvent": "186150",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Alexis Galarneau vs Lloyd Harris",
+    "name": "Alexis Galarneau vs Lloyd Harris",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790139600000,
+    "date": "2026-09-23",
+    "matchTime": "11:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3562",
+      "name": "Alexis Galarneau",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2863",
+      "name": "Lloyd Harris",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3562",
+      "name": "Alexis Galarneau",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2863",
+      "name": "Lloyd Harris",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186148",
+    "idEvent": "186148",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Petr Bar Biryukov vs Alexandre Muller",
+    "name": "Petr Bar Biryukov vs Alexandre Muller",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790139600000,
+    "date": "2026-09-23",
+    "matchTime": "11:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "14190",
+      "name": "Petr Bar Biryukov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3308",
+      "name": "Alexandre Muller",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "14190",
+      "name": "Petr Bar Biryukov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3308",
+      "name": "Alexandre Muller",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183406",
+    "idEvent": "183406",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Jenson Brooksby vs Sebastian Baez",
+    "name": "Jenson Brooksby vs Sebastian Baez",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790139900000,
+    "date": "2026-09-23",
+    "matchTime": "11:05 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3621",
+      "name": "Jenson Brooksby",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3340",
+      "name": "Sebastian Baez",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3621",
+      "name": "Jenson Brooksby",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3340",
+      "name": "Sebastian Baez",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186149",
+    "idEvent": "186149",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Federico Cina vs Nikoloz Basilashvili",
+    "name": "Federico Cina vs Nikoloz Basilashvili",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790145000000,
+    "date": "2026-09-23",
+    "matchTime": "12:30 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "14601",
+      "name": "Federico Cina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2498",
+      "name": "Nikoloz Basilashvili",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "14601",
+      "name": "Federico Cina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2498",
+      "name": "Nikoloz Basilashvili",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186147",
+    "idEvent": "186147",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Pavel Kotov vs Shintaro Mochizuki",
+    "name": "Pavel Kotov vs Shintaro Mochizuki",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790145000000,
+    "date": "2026-09-23",
+    "matchTime": "12:30 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3572",
+      "name": "Pavel Kotov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "7608",
+      "name": "Shintaro Mochizuki",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3572",
+      "name": "Pavel Kotov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "7608",
+      "name": "Shintaro Mochizuki",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183400",
+    "idEvent": "183400",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hu Jia vs Vit Kopriva",
+    "name": "Hu Jia vs Vit Kopriva",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790147400000,
+    "date": "2026-09-23",
+    "matchTime": "01:10 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "15260",
+      "name": "Hu Jia",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3809",
+      "name": "Vit Kopriva",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "15260",
+      "name": "Hu Jia",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3809",
+      "name": "Vit Kopriva",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183407",
+    "idEvent": "183407",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Denis Shapovalov vs Tallon Griekspoor",
+    "name": "Denis Shapovalov vs Tallon Griekspoor",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790233800000,
+    "date": "2026-09-24",
+    "matchTime": "01:10 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2860",
+      "name": "Denis Shapovalov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3319",
+      "name": "Tallon Griekspoor",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2860",
+      "name": "Denis Shapovalov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3319",
+      "name": "Tallon Griekspoor",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ned.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183405",
+    "idEvent": "183405",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Lorenzo Sonego vs James Duckworth",
+    "name": "Lorenzo Sonego vs James Duckworth",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790235300000,
+    "date": "2026-09-24",
+    "matchTime": "01:35 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3052",
+      "name": "Lorenzo Sonego",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "1857",
+      "name": "James Duckworth",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3052",
+      "name": "Lorenzo Sonego",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "1857",
+      "name": "James Duckworth",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183397",
+    "idEvent": "183397",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Camilo Ugo Carabelli vs Federico Cina",
+    "name": "Camilo Ugo Carabelli vs Federico Cina",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790235300000,
+    "date": "2026-09-24",
+    "matchTime": "01:35 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3666",
+      "name": "Camilo Ugo Carabelli",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "14601",
+      "name": "Federico Cina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3666",
+      "name": "Camilo Ugo Carabelli",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "14601",
+      "name": "Federico Cina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183404",
+    "idEvent": "183404",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Nikoloz Basilashvili vs Miomir Kecmanovic",
+    "name": "Nikoloz Basilashvili vs Miomir Kecmanovic",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "timestamp": 1790239800000,
+    "date": "2026-09-24",
+    "matchTime": "02:50 PM",
+    "timeOrTimer": "LIVE",
+    "team1": {
+      "id": "2498",
+      "name": "Nikoloz Basilashvili",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2874",
+      "name": "Miomir Kecmanovic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ser.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2498",
+      "name": "Nikoloz Basilashvili",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2874",
+      "name": "Miomir Kecmanovic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ser.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183401",
+    "idEvent": "183401",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Adrian Mannarino vs Shang Juncheng",
+    "name": "Adrian Mannarino vs Shang Juncheng",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "timestamp": 1790240100000,
+    "date": "2026-09-24",
+    "matchTime": "02:55 PM",
+    "timeOrTimer": "LIVE",
+    "team1": {
+      "id": "1266",
+      "name": "Adrian Mannarino",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "10073",
+      "name": "Shang Juncheng",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "1266",
+      "name": "Adrian Mannarino",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "10073",
+      "name": "Shang Juncheng",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183395",
+    "idEvent": "183395",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Alexandre Muller vs Moise Kouame",
+    "name": "Alexandre Muller vs Moise Kouame",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "timestamp": 1790241300000,
+    "date": "2026-09-24",
+    "matchTime": "03:15 PM",
+    "timeOrTimer": "LIVE",
+    "team1": {
+      "id": "3308",
+      "name": "Alexandre Muller",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "15473",
+      "name": "Moise Kouame",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3308",
+      "name": "Alexandre Muller",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "15473",
+      "name": "Moise Kouame",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183392",
+    "idEvent": "183392",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hubert Hurkacz vs Aleksandr Shevchenko",
+    "name": "Hubert Hurkacz vs Aleksandr Shevchenko",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790244000000,
+    "date": "2026-09-24",
+    "matchTime": "04:00 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "2726",
+      "name": "Hubert Hurkacz",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pol.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "8710",
+      "name": "Aleksandr Shevchenko",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/kaz.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2726",
+      "name": "Hubert Hurkacz",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pol.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "8710",
+      "name": "Aleksandr Shevchenko",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/kaz.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183396",
+    "idEvent": "183396",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Aleksandar Kovacevic vs Lloyd Harris",
+    "name": "Aleksandar Kovacevic vs Lloyd Harris",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790245800000,
+    "date": "2026-09-24",
+    "matchTime": "04:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "3849",
+      "name": "Aleksandar Kovacevic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2863",
+      "name": "Lloyd Harris",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3849",
+      "name": "Aleksandar Kovacevic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2863",
+      "name": "Lloyd Harris",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183394",
+    "idEvent": "183394",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Shintaro Mochizuki vs Martin Damm",
+    "name": "Shintaro Mochizuki vs Martin Damm",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790245800000,
+    "date": "2026-09-24",
+    "matchTime": "04:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "7608",
+      "name": "Shintaro Mochizuki",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "10130",
+      "name": "Martin Damm",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "7608",
+      "name": "Shintaro Mochizuki",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "10130",
+      "name": "Martin Damm",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183393",
+    "idEvent": "183393",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Zhou Yi vs Juan Manuel Cerundolo",
+    "name": "Zhou Yi vs Juan Manuel Cerundolo",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790249400000,
+    "date": "2026-09-24",
+    "matchTime": "05:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "13444",
+      "name": "Zhou Yi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "4008",
+      "name": "Juan Manuel Cerundolo",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "13444",
+      "name": "Zhou Yi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "4008",
+      "name": "Juan Manuel Cerundolo",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183412",
+    "idEvent": "183412",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Denis Shapovalov vs Vit Kopriva",
+    "name": "Denis Shapovalov vs Vit Kopriva",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790308800000,
+    "date": "2026-09-25",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "2860",
+      "name": "Denis Shapovalov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3809",
+      "name": "Vit Kopriva",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2860",
+      "name": "Denis Shapovalov",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3809",
+      "name": "Vit Kopriva",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183411",
+    "idEvent": "183411",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Lorenzo Sonego vs Jenson Brooksby",
+    "name": "Lorenzo Sonego vs Jenson Brooksby",
+    "league": "Chengdu Open",
+    "tournament": "Chengdu Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790308800000,
+    "date": "2026-09-25",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "3052",
+      "name": "Lorenzo Sonego",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3621",
+      "name": "Jenson Brooksby",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3052",
+      "name": "Lorenzo Sonego",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3621",
+      "name": "Jenson Brooksby",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186141",
+    "idEvent": "186141",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Jake Delaney vs Taro Daniel",
+    "name": "Jake Delaney vs Taro Daniel",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790049600000,
+    "date": "2026-09-22",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2641",
+      "name": "Jake Delaney",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2641",
+      "name": "Jake Delaney",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186135",
+    "idEvent": "186135",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Omar Jasika vs Alex Bolt",
+    "name": "Omar Jasika vs Alex Bolt",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790049600000,
+    "date": "2026-09-22",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2632",
+      "name": "Omar Jasika",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2318",
+      "name": "Alex Bolt",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2632",
+      "name": "Omar Jasika",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2318",
+      "name": "Alex Bolt",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186138",
+    "idEvent": "186138",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Akira Santillan vs Kaigaoge Kang",
+    "name": "Akira Santillan vs Kaigaoge Kang",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790049600000,
+    "date": "2026-09-22",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2566",
+      "name": "Akira Santillan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "19092",
+      "name": "Kaigaoge Kang",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2566",
+      "name": "Akira Santillan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "19092",
+      "name": "Kaigaoge Kang",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186137",
+    "idEvent": "186137",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Te Rigele vs Bernard Tomic",
+    "name": "Te Rigele vs Bernard Tomic",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790055000000,
+    "date": "2026-09-22",
+    "matchTime": "11:30 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2856",
+      "name": "Te Rigele",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "1317",
+      "name": "Bernard Tomic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2856",
+      "name": "Te Rigele",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "1317",
+      "name": "Bernard Tomic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186142",
+    "idEvent": "186142",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Philip Sekulic vs Dalibor Svrcina",
+    "name": "Philip Sekulic vs Dalibor Svrcina",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790055000000,
+    "date": "2026-09-22",
+    "matchTime": "11:30 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "10162",
+      "name": "Philip Sekulic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3812",
+      "name": "Dalibor Svrcina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "10162",
+      "name": "Philip Sekulic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3812",
+      "name": "Dalibor Svrcina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186140",
+    "idEvent": "186140",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hayato Matsuoka vs Arthur Weber",
+    "name": "Hayato Matsuoka vs Arthur Weber",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790055000000,
+    "date": "2026-09-22",
+    "matchTime": "11:30 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "15543",
+      "name": "Hayato Matsuoka",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "12420",
+      "name": "Arthur Weber",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "15543",
+      "name": "Hayato Matsuoka",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "12420",
+      "name": "Arthur Weber",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186136",
+    "idEvent": "186136",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Rio Noguchi vs Masamichi Imamura",
+    "name": "Rio Noguchi vs Masamichi Imamura",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790060400000,
+    "date": "2026-09-22",
+    "matchTime": "01:00 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3798",
+      "name": "Rio Noguchi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3767",
+      "name": "Masamichi Imamura",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3798",
+      "name": "Rio Noguchi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3767",
+      "name": "Masamichi Imamura",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186139",
+    "idEvent": "186139",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Matthew Dellavedova vs Sun Fajing",
+    "name": "Matthew Dellavedova vs Sun Fajing",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790060400000,
+    "date": "2026-09-22",
+    "matchTime": "01:00 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "4044",
+      "name": "Matthew Dellavedova",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2567",
+      "name": "Sun Fajing",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "4044",
+      "name": "Matthew Dellavedova",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2567",
+      "name": "Sun Fajing",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186145",
+    "idEvent": "186145",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hayato Matsuoka vs Taro Daniel",
+    "name": "Hayato Matsuoka vs Taro Daniel",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790136000000,
+    "date": "2026-09-23",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "15543",
+      "name": "Hayato Matsuoka",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "15543",
+      "name": "Hayato Matsuoka",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186143",
+    "idEvent": "186143",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Akira Santillan vs Alex Bolt",
+    "name": "Akira Santillan vs Alex Bolt",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790136000000,
+    "date": "2026-09-23",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2566",
+      "name": "Akira Santillan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2318",
+      "name": "Alex Bolt",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2566",
+      "name": "Akira Santillan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2318",
+      "name": "Alex Bolt",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186146",
+    "idEvent": "186146",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Sun Fajing vs Bernard Tomic",
+    "name": "Sun Fajing vs Bernard Tomic",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790141400000,
+    "date": "2026-09-23",
+    "matchTime": "11:30 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2567",
+      "name": "Sun Fajing",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "1317",
+      "name": "Bernard Tomic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2567",
+      "name": "Sun Fajing",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "1317",
+      "name": "Bernard Tomic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-186144",
+    "idEvent": "186144",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Rio Noguchi vs Dalibor Svrcina",
+    "name": "Rio Noguchi vs Dalibor Svrcina",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790141400000,
+    "date": "2026-09-23",
+    "matchTime": "11:30 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3798",
+      "name": "Rio Noguchi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3812",
+      "name": "Dalibor Svrcina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3798",
+      "name": "Rio Noguchi",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3812",
+      "name": "Dalibor Svrcina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183365",
+    "idEvent": "183365",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Kyrian Jacquet vs Aleksandar Vukic",
+    "name": "Kyrian Jacquet vs Aleksandar Vukic",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790151600000,
+    "date": "2026-09-23",
+    "matchTime": "02:20 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "7509",
+      "name": "Kyrian Jacquet",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3471",
+      "name": "Aleksandar Vukic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "7509",
+      "name": "Kyrian Jacquet",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3471",
+      "name": "Aleksandar Vukic",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183367",
+    "idEvent": "183367",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Adam Walton vs Valentin Royer",
+    "name": "Adam Walton vs Valentin Royer",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790163300000,
+    "date": "2026-09-23",
+    "matchTime": "05:35 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3093",
+      "name": "Adam Walton",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "4022",
+      "name": "Valentin Royer",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3093",
+      "name": "Adam Walton",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "4022",
+      "name": "Valentin Royer",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183354",
+    "idEvent": "183354",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Taro Daniel vs Dane Sweeny",
+    "name": "Taro Daniel vs Dane Sweeny",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790226300000,
+    "date": "2026-09-24",
+    "matchTime": "11:05 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "4030",
+      "name": "Dane Sweeny",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "4030",
+      "name": "Dane Sweeny",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183353",
+    "idEvent": "183353",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hugo Gaston vs Sho Shimabukuro",
+    "name": "Hugo Gaston vs Sho Shimabukuro",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790226300000,
+    "date": "2026-09-24",
+    "matchTime": "11:05 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3375",
+      "name": "Hugo Gaston",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3935",
+      "name": "Sho Shimabukuro",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3375",
+      "name": "Hugo Gaston",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3935",
+      "name": "Sho Shimabukuro",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183362",
+    "idEvent": "183362",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Terence Atmane vs Jaime Faria",
+    "name": "Terence Atmane vs Jaime Faria",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790228100000,
+    "date": "2026-09-24",
+    "matchTime": "11:35 AM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "10638",
+      "name": "Terence Atmane",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "10219",
+      "name": "Jaime Faria",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "10638",
+      "name": "Terence Atmane",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "10219",
+      "name": "Jaime Faria",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183356",
+    "idEvent": "183356",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Alex Bolt vs Fabian Marozsan",
+    "name": "Alex Bolt vs Fabian Marozsan",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790232900000,
+    "date": "2026-09-24",
+    "matchTime": "12:55 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "2318",
+      "name": "Alex Bolt",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "9213",
+      "name": "Fabian Marozsan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2318",
+      "name": "Alex Bolt",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "9213",
+      "name": "Fabian Marozsan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183351",
+    "idEvent": "183351",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Dalibor Svrcina vs Rinky Hijikata",
+    "name": "Dalibor Svrcina vs Rinky Hijikata",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "finished",
+    "statusText": "Final",
+    "statusLabel": "FT",
+    "timestamp": 1790233800000,
+    "date": "2026-09-24",
+    "matchTime": "01:10 PM",
+    "timeOrTimer": "FT",
+    "team1": {
+      "id": "3812",
+      "name": "Dalibor Svrcina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3716",
+      "name": "Rinky Hijikata",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3812",
+      "name": "Dalibor Svrcina",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/cze.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3716",
+      "name": "Rinky Hijikata",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183360",
+    "idEvent": "183360",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Michael Zheng vs Bu Yunchaokete",
+    "name": "Michael Zheng vs Bu Yunchaokete",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "timestamp": 1790238300000,
+    "date": "2026-09-24",
+    "matchTime": "02:25 PM",
+    "timeOrTimer": "LIVE",
+    "team1": {
+      "id": "12932",
+      "name": "Michael Zheng",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "11382",
+      "name": "Bu Yunchaokete",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "12932",
+      "name": "Michael Zheng",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "11382",
+      "name": "Bu Yunchaokete",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183358",
+    "idEvent": "183358",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Kamil Majchrzak vs Mattia Bellucci",
+    "name": "Kamil Majchrzak vs Mattia Bellucci",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "timestamp": 1790238900000,
+    "date": "2026-09-24",
+    "matchTime": "02:35 PM",
+    "timeOrTimer": "LIVE",
+    "team1": {
+      "id": "2416",
+      "name": "Kamil Majchrzak",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pol.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "10153",
+      "name": "Mattia Bellucci",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2416",
+      "name": "Kamil Majchrzak",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pol.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "10153",
+      "name": "Mattia Bellucci",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ita.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183346",
+    "idEvent": "183346",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Roman Safiullin vs Sun Fajing",
+    "name": "Roman Safiullin vs Sun Fajing",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790243400000,
+    "date": "2026-09-24",
+    "matchTime": "03:50 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "2636",
+      "name": "Roman Safiullin",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2567",
+      "name": "Sun Fajing",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2636",
+      "name": "Roman Safiullin",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2567",
+      "name": "Sun Fajing",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183350",
+    "idEvent": "183350",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Adolfo Daniel Vallejo vs Cui Jie",
+    "name": "Adolfo Daniel Vallejo vs Cui Jie",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790244000000,
+    "date": "2026-09-24",
+    "matchTime": "04:00 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "11396",
+      "name": "Adolfo Daniel Vallejo",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3797",
+      "name": "Cui Jie",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "11396",
+      "name": "Adolfo Daniel Vallejo",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3797",
+      "name": "Cui Jie",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183352",
+    "idEvent": "183352",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Chak Lam Coleman Wong vs Zhang Zhizhen",
+    "name": "Chak Lam Coleman Wong vs Zhang Zhizhen",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790249400000,
+    "date": "2026-09-24",
+    "matchTime": "05:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "11398",
+      "name": "Chak Lam Coleman Wong",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hkg.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3024",
+      "name": "Zhang Zhizhen",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "11398",
+      "name": "Chak Lam Coleman Wong",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hkg.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3024",
+      "name": "Zhang Zhizhen",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/chn.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183366",
+    "idEvent": "183366",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Tomas Martin Etcheverry vs Kyrian Jacquet",
+    "name": "Tomas Martin Etcheverry vs Kyrian Jacquet",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790314200000,
+    "date": "2026-09-25",
+    "matchTime": "11:30 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "3739",
+      "name": "Tomas Martin Etcheverry",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "7509",
+      "name": "Kyrian Jacquet",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3739",
+      "name": "Tomas Martin Etcheverry",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "7509",
+      "name": "Kyrian Jacquet",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183355",
+    "idEvent": "183355",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Taro Daniel vs Fabian Marozsan",
+    "name": "Taro Daniel vs Fabian Marozsan",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790319600000,
+    "date": "2026-09-25",
+    "matchTime": "01:00 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "9213",
+      "name": "Fabian Marozsan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "1837",
+      "name": "Taro Daniel",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "9213",
+      "name": "Fabian Marozsan",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hun.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183368",
+    "idEvent": "183368",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Andrey Rublev vs Rinky Hijikata",
+    "name": "Andrey Rublev vs Rinky Hijikata",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790325000000,
+    "date": "2026-09-25",
+    "matchTime": "02:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "2642",
+      "name": "Andrey Rublev",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "3716",
+      "name": "Rinky Hijikata",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "2642",
+      "name": "Andrey Rublev",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "3716",
+      "name": "Rinky Hijikata",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183364",
+    "idEvent": "183364",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Hugo Gaston vs Jaime Faria",
+    "name": "Hugo Gaston vs Jaime Faria",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790335800000,
+    "date": "2026-09-25",
+    "matchTime": "05:30 PM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "3375",
+      "name": "Hugo Gaston",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "10219",
+      "name": "Jaime Faria",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "3375",
+      "name": "Hugo Gaston",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "10219",
+      "name": "Jaime Faria",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/por.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  },
+  {
+    "id": "espn-tennis-183347",
+    "idEvent": "183347",
+    "sport": "tennis",
+    "sportName": "Tennis",
+    "sportIcon": "fa-table-tennis-paddle-ball",
+    "title": "Valentin Royer vs Daniil Medvedev",
+    "name": "Valentin Royer vs Daniil Medvedev",
+    "league": "AITO Hangzhou Open",
+    "tournament": "AITO Hangzhou Open",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "timestamp": 1790395200000,
+    "date": "2026-09-26",
+    "matchTime": "10:00 AM",
+    "timeOrTimer": "Scheduled",
+    "team1": {
+      "id": "4022",
+      "name": "Valentin Royer",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "team2": {
+      "id": "2383",
+      "name": "Daniil Medvedev",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "homeTeam": {
+      "id": "4022",
+      "name": "Valentin Royer",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
+      "score": ""
+    },
+    "awayTeam": {
+      "id": "2383",
+      "name": "Daniil Medvedev",
+      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
+      "score": ""
+    },
+    "broadcaster": "Sky Sports Tennis",
+    "broadcasters": [
+      "Sky Sports Tennis",
+      "Eurosport 1"
+    ],
+    "strTVStation": "Sky Sports Tennis",
+    "source": "ESPN (Official API)",
+    "streams": []
+  }
+];
+
+})();

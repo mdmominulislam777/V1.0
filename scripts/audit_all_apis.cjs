@@ -67,14 +67,9 @@ async function runAudit() {
     { name: 'Categories Database (/categories.json)', url: 'http://localhost:3000/categories.json' },
     { name: 'M3U8 Playlist Synchronization', url: 'http://localhost:3000/playlist.m3u8' },
 
-    // 2. RapidAPI SofaScore
-    { name: 'RapidAPI SofaScore Diagnostic (/api/sofascore/test)', url: 'http://localhost:3000/api/sofascore/test' },
-    { name: 'SofaScore Sports List (countryCode=GB)', url: 'http://localhost:3000/api/sofascore/sports/list?countryCode=GB' },
-    { name: 'SofaScore Live Matches (/api/sofascore/matches)', url: 'http://localhost:3000/api/sofascore/matches' },
-
-    // 3. RapidAPI Cricbuzz 2
+    // 2. RapidAPI Cricbuzz 2
     { name: 'RapidAPI Cricbuzz Diagnostic (/api/cricbuzz/test)', url: 'http://localhost:3000/api/cricbuzz/test' },
-    { name: 'Cricbuzz 2 Live Cricket Matches (/api/cricket/matches)', url: 'http://localhost:3000/api/cricket/matches' },
+    { name: 'Sportradar Live Cricket Matches (/api/cricket/matches)', url: 'http://localhost:3000/api/cricket/matches' },
 
     // 4. Combined Diagnostic Endpoint
     { name: 'Combined RapidAPI Diagnostic (/api/rapidapi/test)', url: 'http://localhost:3000/api/rapidapi/test' },

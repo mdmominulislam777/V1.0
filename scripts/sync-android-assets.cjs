@@ -44,7 +44,6 @@ const coreFiles = [
   'sports.js',
   'cricket.js',
   'thesportsdb.js',
-  'sofascore.js',
   'wwe.js',
   'tv-remote.js',
   'clear-cache.js',

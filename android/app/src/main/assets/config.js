@@ -28,22 +28,24 @@
   // Check runtime environment or GitHub Actions build injection
   const env = (typeof window !== 'undefined' && window.__ENV_CONFIG__) || {};
 
-  const CONFIG = {
-    // Centralized API Base URL for APK compatibility
-    API_BASE_URL: (typeof window !== 'undefined' && (window.location.protocol === 'http:' || window.location.protocol === 'https:'))
-      ? ''
-      : 'https://ais-pre-4n6xu2ltg6dzfgsxbb5usk-847516639097.asia-east1.run.app',
+  const isNativeOrFileOrigin =
+    typeof window === 'undefined' ||
+    (window.location.protocol !== 'http:' && window.location.protocol !== 'https:') ||
+    Boolean(window.AndroidBridge) ||
+    Boolean(window.Capacitor) ||
+    (window.location.hostname === 'localhost' && !window.location.port);
 
-    // ⚡ RapidAPI Unified Key (Powers SofaScore & Cricbuzz)
+  const CONFIG = {
+    // Centralized API Base URL for Web & APK compatibility
+    API_BASE_URL: env.API_BASE_URL || (isNativeOrFileOrigin
+      ? 'https://ais-pre-4n6xu2ltg6dzfgsxbb5usk-847516639097.asia-east1.run.app'
+      : ''),
+
+    // ⚡ RapidAPI Key
     RAPIDAPI_KEY: env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81",
 
-    // ⚡ RapidAPI SofaScore Configuration
-    SOFASCORE_API_KEY: env.SOFASCORE_API_KEY || env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81",
-    SOFASCORE_RAPIDAPI_HOST: env.SOFASCORE_RAPIDAPI_HOST || "sofascore.p.rapidapi.com",
-    SOFASCORE_SPORTS_LIST_URL: "https://sofascore.p.rapidapi.com/sports/list?countryCode=GB",
-
-    // 🏏 Sportradar Cricket Official API
-    SPORTRADAR_CRICKET_API_KEY: env.SPORTRADAR_CRICKET_API_KEY || "JMrqYPy7ajprQxflthCOqu9lQN6J2yWU5SOWRXv8",
+    // 🏏 Sportradar Cricket Official API (Managed strictly server-side via /api/cricket/matches; never exposed in frontend/APK)
+    SPORTRADAR_CRICKET_API_KEY: "",
     SPORTRADAR_CRICKET_TIER: env.SPORTRADAR_CRICKET_TIER || "t2",
 
     // 🏟️ TheSportsDB Free API Tier (Public Key '3')
@@ -54,7 +56,6 @@
     WWE_API_URL: env.WWE_API_URL || "",
 
     // Auto-refresh intervals in milliseconds (rate-limit conscious)
-    SOFASCORE_REFRESH: 60000, // 60 seconds
     CRICKET_REFRESH: 60000,   // 60 seconds
     WWE_REFRESH: 300000,      // 5 minutes
 

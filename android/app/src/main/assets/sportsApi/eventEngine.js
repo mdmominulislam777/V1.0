@@ -16,7 +16,6 @@
     const channelResolver = require('./channelResolver.js');
     const theSportsDbAdapter = require('./adapters/theSportsDbAdapter.js');
     const cricketAdapter = require('./adapters/cricketAdapter.js');
-    const sofaScoreAdapter = require('./adapters/sofaScoreAdapter.js');
     const wweAdapter = require('./adapters/wweAdapter.js');
     const footballAdapter = require('./adapters/footballAdapter.js');
     module.exports = factory(
@@ -25,7 +24,6 @@
       channelResolver,
       theSportsDbAdapter,
       cricketAdapter,
-      sofaScoreAdapter,
       wweAdapter,
       footballAdapter
     );
@@ -36,7 +34,6 @@
       root.HighFyChannelResolver,
       root.HighFyTheSportsDbAdapter,
       root.HighFyCricketAdapter,
-      root.HighFySofaScoreAdapter,
       root.HighFyWweAdapter,
       root.HighFyFootballAdapter
     );
@@ -47,7 +44,6 @@
   ChannelResolver,
   TheSportsDbAdapter,
   CricketAdapter,
-  SofaScoreAdapter,
   WweAdapter,
   FootballAdapter
 ) {
@@ -193,10 +189,8 @@
           // Detect source and adapt
           if (raw.idEvent || raw.strEvent) {
             unified = TheSportsDbAdapter.normalizeTheSportsDbEvent(raw);
-          } else if (raw.matchId || raw.seriesName || raw.matchInfo) {
+          } else if (raw.matchId || raw.seriesName || raw.matchInfo || raw.sport_event) {
             unified = CricketAdapter.normalizeCricketEvent(raw);
-          } else if (raw.startTimestamp || raw.tournament) {
-            unified = SofaScoreAdapter.normalizeSofaScoreEvent(raw);
           } else if (raw.event_key || raw.match_id) {
             unified = FootballAdapter.normalizeFootballEvent(raw);
           } else if (raw.show || (raw.title && raw.title.toLowerCase().includes('wwe'))) {
@@ -352,7 +346,6 @@
     ChannelResolver,
     TheSportsDbAdapter,
     CricketAdapter,
-    SofaScoreAdapter,
     WweAdapter,
     FootballAdapter
   };

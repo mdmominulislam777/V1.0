@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-09-25T17:07:30.022Z
+ * Generated at: 2026-09-27T08:33:10.111Z
  */
 
 (() => {
@@ -245,8 +245,8 @@
     "stream_url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8",
     "streams": [
       {
-        "name": "Saudia Arabia (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Saudia Arabia (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Saudia Arabia",
         "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8",
         "quality": "1080p FHD"
@@ -263,7 +263,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment"
     ],
     "sports": [],
@@ -277,16 +276,17 @@
     "stream_url": "http://tvsen5.aynascope.net/RtvHD/index.m3u8",
     "streams": [
       {
-        "name": "RTV (720p) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "RTV (720p) (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "RTV (720p)",
         "url": "http://tvsen5.aynascope.net/RtvHD/index.m3u8",
-        "quality": "1080p FHD"
+        "quality": "720p HD"
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": true,
+    "quality": "720p HD"
   },
   {
     "id": "ch-gazi-tv",
@@ -307,8 +307,8 @@
     "stream_url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "Gazi TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Gazi TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Gazi TV",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -338,8 +338,8 @@
     "stream_url": "https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8",
     "streams": [
       {
-        "name": "PBS Kids (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "PBS Kids (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "PBS Kids",
         "url": "https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8",
         "quality": "1080p FHD"
@@ -368,8 +368,8 @@
     "stream_url": "https://dev-live.livetvstream.co.uk/LS-63503-4/chunklist_b1196000.m3u8",
     "streams": [
       {
-        "name": "Iran News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Iran News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Iran News",
         "url": "https://dev-live.livetvstream.co.uk/LS-63503-4/chunklist_b1196000.m3u8",
         "quality": "1080p FHD"
@@ -386,7 +386,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment"
     ],
     "sports": [],
@@ -400,16 +399,17 @@
     "stream_url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
     "streams": [
       {
-        "name": "NTV (720p) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NTV (720p) (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "NTV (720p)",
         "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
-        "quality": "1080p FHD"
+        "quality": "720p HD"
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": true,
+    "quality": "720p HD"
   },
   {
     "id": "ch-fm-radio",
@@ -430,8 +430,8 @@
     "stream_url": "https://stream.spicefmbd.com/stream.m3u8",
     "streams": [
       {
-        "name": "FM Radio (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "FM Radio (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "FM Radio",
         "url": "https://stream.spicefmbd.com/stream.m3u8",
         "quality": "1080p FHD"
@@ -448,7 +448,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment",
       "News"
     ],
@@ -463,8 +462,8 @@
     "stream_url": "https://stream.shariarsuvo.com/hls5/rajdhanicable.m3u8",
     "streams": [
       {
-        "name": "Rajdhani TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Rajdhani TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Rajdhani TV",
         "url": "https://stream.shariarsuvo.com/hls5/rajdhanicable.m3u8",
         "quality": "1080p FHD"
@@ -493,8 +492,8 @@
     "stream_url": "https://cdn-globecast.akamaized.net/live/eds/saudi_sunnah/hls_roku/index.m3u8",
     "streams": [
       {
-        "name": "Saudi Sunnah (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Saudi Sunnah (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Saudi Sunnah",
         "url": "https://cdn-globecast.akamaized.net/live/eds/saudi_sunnah/hls_roku/index.m3u8",
         "quality": "1080p FHD"
@@ -511,7 +510,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment"
     ],
     "sports": [],
@@ -525,16 +523,17 @@
     "stream_url": "https://deshitv.deshitv24.net/live/myStream/playlist.m3u8",
     "streams": [
       {
-        "name": "Deshi TV (720p) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Deshi TV (720p) (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Deshi TV (720p)",
         "url": "https://deshitv.deshitv24.net/live/myStream/playlist.m3u8",
-        "quality": "1080p FHD"
+        "quality": "720p HD"
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": true,
+    "quality": "720p HD"
   },
   {
     "id": "ch-channel-s",
@@ -542,7 +541,6 @@
     "category": "Bangla",
     "categories": [
       "LiveTV",
-      "Bangla",
       "Bangla",
       "Entertainment"
     ],
@@ -557,8 +555,8 @@
     "stream_url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/channels.stream/live-orgin/channels.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "Channel S (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Channel S (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel S",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/channels.stream/live-orgin/channels.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -587,8 +585,8 @@
     "stream_url": "https://cdn-globecast.akamaized.net/live/eds/al_ekhbariya/hls_roku/index.m3u8",
     "streams": [
       {
-        "name": "AL EKHBARIA (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "AL EKHBARIA (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "AL EKHBARIA",
         "url": "https://cdn-globecast.akamaized.net/live/eds/al_ekhbariya/hls_roku/index.m3u8",
         "quality": "1080p FHD"
@@ -606,7 +604,6 @@
       "LiveTV",
       "Entertainment",
       "Bangla",
-      "Bangla",
       "News"
     ],
     "sports": [],
@@ -620,15 +617,15 @@
     "stream_url": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
     "streams": [
       {
-        "name": "Boishakhi TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Boishakhi TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Boishakhi TV",
         "url": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Boishakhi TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Boishakhi TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Boishakhi TV",
         "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
         "quality": "720p HD"
@@ -662,8 +659,8 @@
     "stream_url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
     "streams": [
       {
-        "name": "Pk Sports HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Pk Sports HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Pk Sports HD",
         "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
         "quality": "1080p FHD"
@@ -695,8 +692,8 @@
     "stream_url": "https://mvg-mv-xumo.otteravision.com/mvg/mv/mv.m3u8",
     "streams": [
       {
-        "name": "Motor Vision (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Motor Vision (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Motor Vision",
         "url": "https://mvg-mv-xumo.otteravision.com/mvg/mv/mv.m3u8",
         "quality": "1080p FHD"
@@ -726,8 +723,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8",
     "streams": [
       {
-        "name": "BBC Cbeebies (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "BBC Cbeebies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "BBC Cbeebies",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8",
         "quality": "1080p FHD"
@@ -744,7 +741,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment"
     ],
     "sports": [],
@@ -758,8 +754,8 @@
     "stream_url": "http://istream.binarywaves.com:8081/hls/arabica/playlist.m3u8",
     "streams": [
       {
-        "name": "Arabica TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Arabica TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Arabica TV",
         "url": "http://istream.binarywaves.com:8081/hls/arabica/playlist.m3u8",
         "quality": "1080p FHD"
@@ -776,7 +772,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment",
       "Akash Go",
       "News"
@@ -792,15 +787,15 @@
     "stream_url": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
     "streams": [
       {
-        "name": "My TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "My TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "My TV",
         "url": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "My TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "My TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "My TV",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/mytv-up-off.stream/live-orgin/mytv-up-off.stream/playlist.m3u8",
         "quality": "720p HD"
@@ -831,8 +826,8 @@
     "stream_url": "https://live.kwikmotion.com/smcquranlive/quranradiolive/playlist.m3u8",
     "streams": [
       {
-        "name": "QURAN RADIOTV SMC (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "QURAN RADIOTV SMC (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "QURAN RADIOTV SMC",
         "url": "https://live.kwikmotion.com/smcquranlive/quranradiolive/playlist.m3u8",
         "quality": "1080p FHD"
@@ -849,7 +844,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment",
       "News"
     ],
@@ -864,15 +858,15 @@
     "stream_url": "http://tvsen5.aynascope.net/maasrangatv/index.m3u8",
     "streams": [
       {
-        "name": "Maasranga TV HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Maasranga TV HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Maasranga TV HD",
         "url": "http://tvsen5.aynascope.net/maasrangatv/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Maasranga TV HD (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Maasranga TV HD (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Maasranga TV HD",
         "url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8",
         "quality": "720p HD"
@@ -903,8 +897,8 @@
     "stream_url": "https://live2.cdnbridge.tv/AlmasirahMubasher/Mubasher_All/playlist.m3u8",
     "streams": [
       {
-        "name": "ALMASIRA MUBASHER (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ALMASIRA MUBASHER (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ALMASIRA MUBASHER",
         "url": "https://live2.cdnbridge.tv/AlmasirahMubasher/Mubasher_All/playlist.m3u8",
         "quality": "1080p FHD"
@@ -933,8 +927,8 @@
     "stream_url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-realwild-tcl/playlist.m3u8",
     "streams": [
       {
-        "name": "REAL WILD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "REAL WILD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "REAL WILD",
         "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-realwild-tcl/playlist.m3u8",
         "quality": "1080p FHD"
@@ -963,8 +957,8 @@
     "stream_url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
     "streams": [
       {
-        "name": "Travel XP English (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Travel XP English (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Travel XP English",
         "url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
         "quality": "1080p FHD"
@@ -981,7 +975,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment"
     ],
     "sports": [],
@@ -995,8 +988,8 @@
     "stream_url": "https://dbcanada.sonarbanglatv.com/deshebideshe/dbtv/index.m3u8",
     "streams": [
       {
-        "name": "Deshe Bideshe (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Deshe Bideshe (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Deshe Bideshe",
         "url": "https://dbcanada.sonarbanglatv.com/deshebideshe/dbtv/index.m3u8",
         "quality": "1080p FHD"
@@ -1013,7 +1006,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment",
       "News"
     ],
@@ -1028,15 +1020,15 @@
     "stream_url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
     "streams": [
       {
-        "name": "Deepto TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Deepto TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Deepto TV",
         "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Deepto TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Deepto TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Deepto TV",
         "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
         "quality": "720p HD"
@@ -1067,8 +1059,8 @@
     "stream_url": "https://live.france24.com/hls/live/2037179/F24_FR_HI_HLS/master_5000.m3u8",
     "streams": [
       {
-        "name": "France News 24 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "France News 24 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "France News 24",
         "url": "https://live.france24.com/hls/live/2037179/F24_FR_HI_HLS/master_5000.m3u8",
         "quality": "1080p FHD"
@@ -1097,8 +1089,8 @@
     "stream_url": "https://live.corusdigitaldev.com/groupb/live/3062d0e3-ed4c-4f47-8482-95648250f4b8/live.isml/.m3u8",
     "streams": [
       {
-        "name": "Global News (US) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Global News (US) (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Global News (US)",
         "url": "https://live.corusdigitaldev.com/groupb/live/3062d0e3-ed4c-4f47-8482-95648250f4b8/live.isml/.m3u8",
         "quality": "1080p FHD"
@@ -1127,8 +1119,8 @@
     "stream_url": "https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8",
     "streams": [
       {
-        "name": "T Global News (Canada) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "T Global News (Canada) (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "T Global News (Canada)",
         "url": "https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8",
         "quality": "1080p FHD"
@@ -1157,8 +1149,8 @@
     "stream_url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8",
     "streams": [
       {
-        "name": "NDTV English (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NDTV English (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "NDTV English",
         "url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8",
         "quality": "1080p FHD"
@@ -1189,8 +1181,8 @@
     "stream_url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Mundial Sports HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Mundial Sports HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Mundial Sports HD",
         "url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -1220,8 +1212,8 @@
     "stream_url": "https://streaming.madanichannel.tv/static/streaming-playlists/hls/d3e49b76-ac06-4689-a641-9200445b647f/master.m3u8",
     "streams": [
       {
-        "name": "Madani Tv (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Madani Tv (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Madani Tv",
         "url": "https://streaming.madanichannel.tv/static/streaming-playlists/hls/d3e49b76-ac06-4689-a641-9200445b647f/master.m3u8",
         "quality": "1080p FHD"
@@ -1253,8 +1245,8 @@
     "stream_url": "http://stream.mcquack.net/72/index.m3u8",
     "streams": [
       {
-        "name": "QAZ Sports HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "QAZ Sports HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "QAZ Sports HD",
         "url": "http://stream.mcquack.net/72/index.m3u8",
         "quality": "1080p FHD"
@@ -1283,8 +1275,8 @@
     "stream_url": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8",
     "streams": [
       {
-        "name": "News Max 2 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "News Max 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "News Max 2",
         "url": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8",
         "quality": "1080p FHD"
@@ -1313,8 +1305,8 @@
     "stream_url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678-b/ndtv24x7/master.m3u8",
     "streams": [
       {
-        "name": "NDTV NEWS (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NDTV NEWS (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "NDTV NEWS",
         "url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678-b/ndtv24x7/master.m3u8",
         "quality": "1080p FHD"
@@ -1343,8 +1335,8 @@
     "stream_url": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
     "streams": [
       {
-        "name": "CNN (US) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "CNN (US) (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "CNN (US)",
         "url": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
         "quality": "1080p FHD"
@@ -1373,16 +1365,17 @@
     "stream_url": "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_2300.m3u8",
     "streams": [
       {
-        "name": "France 24 English (720p) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "France 24 English (720p) (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "France 24 English (720p)",
         "url": "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_2300.m3u8",
-        "quality": "1080p FHD"
+        "quality": "720p HD"
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": true,
+    "quality": "720p HD"
   },
   {
     "id": "ch-star-sports-1-hd",
@@ -1406,8 +1399,8 @@
     "stream_url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
     "streams": [
       {
-        "name": "Star Sports 1 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Sports 1 HD",
         "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
         "quality": "1080p FHD"
@@ -1439,17 +1432,17 @@
     "stream_url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
     "streams": [
       {
-        "name": "Willow HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Willow HD (Server 1 — 540p SD)",
+        "serverLabel": "Server 1 — 540p SD",
         "channelName": "Willow HD",
         "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
+        "quality": "540p SD",
+        "isHD": false
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": false
   },
   {
     "id": "ch-live-quran-tv",
@@ -1471,15 +1464,15 @@
     "stream_url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/playlist.m3u8",
     "streams": [
       {
-        "name": "Live Quran TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Live Quran TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Live Quran TV",
         "url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/playlist.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Live Quran TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Live Quran TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Live Quran TV",
         "url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/sharjahtvquranpublish/shqurantv_source/chunks.m3u8",
         "quality": "720p HD"
@@ -1512,15 +1505,15 @@
     "stream_url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
     "streams": [
       {
-        "name": "NDTV Hindi (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NDTV Hindi (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "NDTV Hindi",
         "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "NDTV Hindi (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "NDTV Hindi (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "NDTV Hindi",
         "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679-b/ndtvindia/master.m3u8",
         "quality": "720p HD"
@@ -1539,7 +1532,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment"
     ],
     "sports": [],
@@ -1553,8 +1545,8 @@
     "stream_url": "https://padmaonline.duckdns.org:8088/pcv/index.m3u8",
     "streams": [
       {
-        "name": "pcv (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "pcv (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "pcv",
         "url": "https://padmaonline.duckdns.org:8088/pcv/index.m3u8",
         "quality": "1080p FHD"
@@ -1583,8 +1575,8 @@
     "stream_url": "https://rt-rtd.rttv.com/dvr/rtdoc/playlist.m3u8?v=1",
     "streams": [
       {
-        "name": "RTNEWS GLOBAL (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "RTNEWS GLOBAL (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "RTNEWS GLOBAL",
         "url": "https://rt-rtd.rttv.com/dvr/rtdoc/playlist.m3u8?v=1",
         "quality": "1080p FHD"
@@ -1614,16 +1606,17 @@
     "stream_url": "https://livecdn.live247stream.com/joomusic/tv/playlist.m3u8",
     "streams": [
       {
-        "name": "Colors Infinity SD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Colors Infinity SD (Server 1 — 480p SD)",
+        "serverLabel": "Server 1 — 480p SD",
         "channelName": "Colors Infinity SD",
         "url": "https://livecdn.live247stream.com/joomusic/tv/playlist.m3u8",
-        "quality": "1080p FHD"
+        "quality": "480p SD",
+        "isHD": false
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": false
   },
   {
     "id": "ch-t-sports-hd",
@@ -1649,24 +1642,24 @@
     "stream_url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "T Sports HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "T Sports HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "T Sports HD",
         "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "T Sports HD (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "T Sports HD (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "T Sports HD",
         "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
         "quality": "720p HD",
         "isHD": true
       },
       {
-        "name": "T Sports HD (Server 3 (1080p HD))",
-        "serverLabel": "Server 3 (1080p HD)",
+        "name": "T Sports HD (Server 3 — 1080p FHD)",
+        "serverLabel": "Server 3 — 1080p FHD",
         "channelName": "T Sports HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
         "quality": "1080p FHD"
@@ -1702,8 +1695,8 @@
     "stream_url": "https://amg01218-republictvfast-amg01218c1-samsung-in-1918.playouts.now.amagi.tv/playlist/amg01218-republictvfast-rbangla-samsungin/playlist.m3u8",
     "streams": [
       {
-        "name": "NK (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NK (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "NK",
         "url": "https://amg01218-republictvfast-amg01218c1-samsung-in-1918.playouts.now.amagi.tv/playlist/amg01218-republictvfast-rbangla-samsungin/playlist.m3u8",
         "quality": "1080p FHD"
@@ -1733,8 +1726,8 @@
     "stream_url": "https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8",
     "streams": [
       {
-        "name": "Action Hollywood Movies (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Action Hollywood Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Action Hollywood Movies",
         "url": "https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8",
         "quality": "1080p FHD"
@@ -1763,8 +1756,8 @@
     "stream_url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
     "streams": [
       {
-        "name": "DW NEWS (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DW NEWS (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DW NEWS",
         "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
         "quality": "1080p FHD"
@@ -1797,24 +1790,24 @@
     "stream_url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
     "streams": [
       {
-        "name": "Star Sports 1 Hindi (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Star Sports 1 Hindi (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Sports 1 Hindi",
         "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "Star Sports 1 Hindi (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Star Sports 1 Hindi (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Star Sports 1 Hindi",
         "url": "https://starsportshindiii.pages.dev/index.m3u8",
         "quality": "720p HD",
         "isHD": true
       },
       {
-        "name": "Star Sports 1 Hindi (Server 3 (1080p HD))",
-        "serverLabel": "Server 3 (1080p HD)",
+        "name": "Star Sports 1 Hindi (Server 3 — 1080p FHD)",
+        "serverLabel": "Server 3 — 1080p FHD",
         "channelName": "Star Sports 1 Hindi",
         "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1404528.ts",
         "quality": "1080p FHD"
@@ -1847,8 +1840,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Gopal Bhar TV (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Gopal Bhar TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Gopal Bhar TV",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -1877,8 +1870,8 @@
     "stream_url": "https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8",
     "streams": [
       {
-        "name": "Travel XP English NZ (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Travel XP English NZ (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Travel XP English NZ",
         "url": "https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8",
         "quality": "1080p FHD"
@@ -1909,8 +1902,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Motu Patlu (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Motu Patlu (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Motu Patlu",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -1927,7 +1920,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment",
       "Akash Go",
       "News"
@@ -1943,15 +1935,15 @@
     "stream_url": "https://tvsen5.aynaott.com/ba47dHpDk3Se/index.m3u8",
     "streams": [
       {
-        "name": "RTV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "RTV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "RTV",
         "url": "https://tvsen5.aynaott.com/ba47dHpDk3Se/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "RTV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "RTV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "RTV",
         "url": "http://tvsen5.aynascope.net/RtvHD/index.m3u8",
         "quality": "720p HD"
@@ -1982,8 +1974,8 @@
     "stream_url": "https://live.sli.ke/live/npnhm84gz9/master.m3u8",
     "streams": [
       {
-        "name": "Times Of India (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Times Of India (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Times Of India",
         "url": "https://live.sli.ke/live/npnhm84gz9/master.m3u8",
         "quality": "1080p FHD"
@@ -2000,7 +1992,6 @@
     "categories": [
       "LiveTV",
       "Bangla",
-      "Bangla",
       "Entertainment",
       "News"
     ],
@@ -2015,22 +2006,22 @@
     "stream_url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/anandatv.stream/live-orgin/anandatv.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "Ananda TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ananda TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ananda TV",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/anandatv.stream/live-orgin/anandatv.stream/playlist.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Ananda TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Ananda TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Ananda TV",
         "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8",
         "quality": "720p HD"
       },
       {
-        "name": "Ananda TV (Server 3 (720p HD))",
-        "serverLabel": "Server 3 (720p HD)",
+        "name": "Ananda TV (Server 3 — 720p HD)",
+        "serverLabel": "Server 3 — 720p HD",
         "channelName": "Ananda TV",
         "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/anandatv.stream/tracks-v1a1/mono.m3u8",
         "quality": "720p HD"
@@ -2062,8 +2053,8 @@
     "stream_url": "https://aasthaott.akamaized.net/110923/smil:arihant.smil/chunklist_b1928000.m3u8",
     "streams": [
       {
-        "name": "Arihant TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Arihant TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Arihant TV",
         "url": "https://aasthaott.akamaized.net/110923/smil:arihant.smil/chunklist_b1928000.m3u8",
         "quality": "1080p FHD"
@@ -2092,8 +2083,8 @@
     "stream_url": "https://amazonsat.brasilstream.com.br/hls/amazonsat/index.m3u8",
     "streams": [
       {
-        "name": "Amazon SAT (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Amazon SAT (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Amazon SAT",
         "url": "https://amazonsat.brasilstream.com.br/hls/amazonsat/index.m3u8",
         "quality": "1080p FHD"
@@ -2123,8 +2114,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8",
     "streams": [
       {
-        "name": "Tom & Jarry (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Tom & Jarry (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Tom & Jarry",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2154,8 +2145,8 @@
     "stream_url": "http://146.59.253.52:8080/hindihitshd/index.m3u8",
     "streams": [
       {
-        "name": "Hindi Hits HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Hindi Hits HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Hindi Hits HD",
         "url": "http://146.59.253.52:8080/hindihitshd/index.m3u8",
         "quality": "1080p FHD"
@@ -2184,8 +2175,8 @@
     "stream_url": "https://streamer3.premio.link/alqamar/playlist.m3u8",
     "streams": [
       {
-        "name": "AL QAMAR (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "AL QAMAR (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "AL QAMAR",
         "url": "https://streamer3.premio.link/alqamar/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2217,8 +2208,8 @@
     "stream_url": "https://amg17292-amg17292c1-distrotv-us-4170.playouts.now.amagi.tv/playlist/amg17292-tetonridgellc-tetonridgefast-distrotvus/playlist.m3u8",
     "streams": [
       {
-        "name": "Cowboy tv (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Cowboy tv (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Cowboy tv",
         "url": "https://amg17292-amg17292c1-distrotv-us-4170.playouts.now.amagi.tv/playlist/amg17292-tetonridgellc-tetonridgefast-distrotvus/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2247,8 +2238,8 @@
     "stream_url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/qrpsvkxl/720/chunklist.m3u8",
     "streams": [
       {
-        "name": "EWTN TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "EWTN TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "EWTN TV",
         "url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/qrpsvkxl/720/chunklist.m3u8",
         "quality": "1080p FHD"
@@ -2278,8 +2269,8 @@
     "stream_url": "https://mcncdndigital.com/balleballetv/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Baallee (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Baallee (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Baallee",
         "url": "https://mcncdndigital.com/balleballetv/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -2308,8 +2299,8 @@
     "stream_url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8?v=1",
     "streams": [
       {
-        "name": "RT NEWS USA (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "RT NEWS USA (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "RT NEWS USA",
         "url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8?v=1",
         "quality": "1080p FHD"
@@ -2339,8 +2330,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Music Mastii (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Music Mastii (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Music Mastii",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -2370,8 +2361,8 @@
     "stream_url": "https://amg00627-amg00627c29-rakuten-it-3989.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanitcc-rakutenit/playlist.m3u8",
     "streams": [
       {
-        "name": "Mr Bean Animated (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Mr Bean Animated (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Mr Bean Animated",
         "url": "https://amg00627-amg00627c29-rakuten-it-3989.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanitcc-rakutenit/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2400,8 +2391,8 @@
     "stream_url": "https://jmc-live.ercdn.net/alistiqama/alistiqama.m3u8",
     "streams": [
       {
-        "name": "AL ISTIQAMA (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "AL ISTIQAMA (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "AL ISTIQAMA",
         "url": "https://jmc-live.ercdn.net/alistiqama/alistiqama.m3u8",
         "quality": "1080p FHD"
@@ -2432,15 +2423,15 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209902/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Doraemon TV (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Doraemon TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Doraemon TV",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209902/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Doraemon TV (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Doraemon TV (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Doraemon TV",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/147746.ts",
         "quality": "1080p FHD"
@@ -2471,8 +2462,8 @@
     "stream_url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8",
     "streams": [
       {
-        "name": "RT News (EN) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "RT News (EN) (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "RT News (EN)",
         "url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2501,8 +2492,8 @@
     "stream_url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
     "streams": [
       {
-        "name": "DW English _ (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DW English _ (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DW English _",
         "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
         "quality": "1080p FHD"
@@ -2534,8 +2525,8 @@
     "stream_url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
     "streams": [
       {
-        "name": "Live Sports-3 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Live Sports-3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Live Sports-3",
         "url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
         "quality": "1080p FHD"
@@ -2569,8 +2560,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Ananda TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ananda TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ananda TV",
         "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8",
         "quality": "1080p FHD"
@@ -2598,8 +2589,8 @@
     "stream_url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8",
     "streams": [
       {
-        "name": "YRF Music HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "YRF Music HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "YRF Music HD",
         "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2630,15 +2621,15 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Tom & Jerry TV (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Tom & Jerry TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Tom & Jerry TV",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Tom & Jerry TV (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Tom & Jerry TV (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Tom & Jerry TV",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/661308.ts",
         "quality": "1080p FHD"
@@ -2675,8 +2666,8 @@
     "stream_url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
     "streams": [
       {
-        "name": "DD Sports (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DD Sports (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DD Sports",
         "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
         "quality": "1080p FHD",
@@ -2711,8 +2702,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Boishakhi TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Boishakhi TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Boishakhi TV",
         "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
         "quality": "1080p FHD"
@@ -2739,8 +2730,8 @@
     "stream_url": "http://93.184.10.248/MBCBollywood/index.m3u8",
     "streams": [
       {
-        "name": "MBC tv (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "MBC tv (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "MBC tv",
         "url": "http://93.184.10.248/MBCBollywood/index.m3u8",
         "quality": "1080p FHD"
@@ -2769,8 +2760,8 @@
     "stream_url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainquran_all/playlist.m3u8",
     "streams": [
       {
-        "name": "BAHRAIN QURAN (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "BAHRAIN QURAN (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "BAHRAIN QURAN",
         "url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainquran_all/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2800,8 +2791,8 @@
     "stream_url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8",
     "streams": [
       {
-        "name": "Sheemaroo Bollywood (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sheemaroo Bollywood (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sheemaroo Bollywood",
         "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8",
         "quality": "1080p FHD"
@@ -2831,8 +2822,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209593/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "South Movies (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "South Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "South Movies",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209593/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -2862,8 +2853,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209612/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Hindi Movies (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Hindi Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Hindi Movies",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209612/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -2897,8 +2888,8 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7341/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Racing (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Racing (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Racing",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7341/index.m3u8",
         "quality": "1080p FHD",
@@ -2936,8 +2927,8 @@
     "stream_url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
     "streams": [
       {
-        "name": "Eurosport 1 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Eurosport 1 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Eurosport 1",
         "url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
         "quality": "1080p FHD",
@@ -2967,8 +2958,8 @@
     "stream_url": "https://dzkyvlfyge.erbvr.com/PeaceTvEnglish/index.m3u8",
     "streams": [
       {
-        "name": "Peace Tv English (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Peace Tv English (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Peace Tv English",
         "url": "https://dzkyvlfyge.erbvr.com/PeaceTvEnglish/index.m3u8",
         "quality": "1080p FHD"
@@ -3005,8 +2996,8 @@
     "stream_url": "http://151.80.18.177:86/Eurosport_2_HD/index.m3u8",
     "streams": [
       {
-        "name": "Eurosport 2 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Eurosport 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Eurosport 2",
         "url": "http://151.80.18.177:86/Eurosport_2_HD/index.m3u8",
         "quality": "1080p FHD",
@@ -3041,8 +3032,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Bloomberg TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Bloomberg TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bloomberg TV",
         "url": "https://tvsen6.aynaott.com/bloombergtv/index.m3u8",
         "quality": "1080p FHD"
@@ -3074,8 +3065,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "CNBC TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "CNBC TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "CNBC TV",
         "url": "https://tvsen6.aynaott.com/cnbc/index.m3u8",
         "quality": "1080p FHD"
@@ -3109,8 +3100,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "ATN Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ATN Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ATN Bangla",
         "url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
         "quality": "1080p FHD"
@@ -3138,15 +3129,15 @@
     "stream_url": "https://amg00877-b4unew-amg00877c2-xiaomi-in-5489.playouts.now.amagi.tv/playlist.m3u8",
     "streams": [
       {
-        "name": "B4U Movies (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "B4U Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "B4U Movies",
         "url": "https://amg00877-b4unew-amg00877c2-xiaomi-in-5489.playouts.now.amagi.tv/playlist.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "B4U Movies (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "B4U Movies (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "B4U Movies",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72155.ts",
         "quality": "1080p FHD"
@@ -3178,8 +3169,8 @@
     "originalGroup": "English",
     "streams": [
       {
-        "name": "Adventure Earth (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Adventure Earth (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Adventure Earth",
         "url": "https://autentic-adventure-earth-1-eu.rakuten.wurl.tv/playlist.m3u8",
         "quality": "1080p FHD"
@@ -3213,8 +3204,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Channel I (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Channel I (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel I",
         "url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
         "quality": "1080p FHD"
@@ -3246,8 +3237,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Deepto tv (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Deepto tv (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Deepto tv",
         "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
         "quality": "1080p FHD"
@@ -3278,15 +3269,15 @@
     "originalGroup": "Music, Hindi",
     "streams": [
       {
-        "name": "9X Tashan (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "9X Tashan (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "9X Tashan",
         "url": "https://tvsen6.aynaott.com/sMqhLN6n/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "9X Tashan (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "9X Tashan (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "9X Tashan",
         "url": "https://wiselp.wiseplayout.com/9X_Tashan/master.m3u8",
         "quality": "720p HD"
@@ -3316,8 +3307,8 @@
     "originalGroup": "Bangla",
     "streams": [
       {
-        "name": "Channel 52 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Channel 52 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel 52",
         "url": "https://tvsen6.aynaott.com/channel52/index.m3u8",
         "quality": "1080p FHD"
@@ -3351,8 +3342,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Bangla TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Bangla TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bangla TV",
         "url": "https://tvsen6.aynaott.com/39ee93nUbCCmm5LsyD4t/index.m3u8",
         "quality": "1080p FHD"
@@ -3384,8 +3375,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "BTV CTG (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "BTV CTG (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "BTV CTG",
         "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
         "quality": "1080p FHD"
@@ -3413,8 +3404,8 @@
     "originalGroup": "English, News",
     "streams": [
       {
-        "name": "Aljazeera News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Aljazeera News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Aljazeera News",
         "url": "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8",
         "quality": "1080p FHD"
@@ -3446,8 +3437,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "CNN (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "CNN (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "CNN",
         "url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
         "quality": "1080p FHD"
@@ -3481,16 +3472,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2560/index.m3u8",
     "streams": [
       {
-        "name": "Ziggo Sport 1 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ziggo Sport 1 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ziggo Sport 1",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2560/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "Ziggo Sport 1 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "Ziggo Sport 1 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Ziggo Sport 1",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2560/index.m3u8",
         "quality": "1080p FHD",
@@ -3527,15 +3518,15 @@
     "originalGroup": "News, Bangla",
     "streams": [
       {
-        "name": "ATN News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ATN News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ATN News",
         "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "ATN News (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "ATN News (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "ATN News",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/427.ts",
         "quality": "1080p FHD"
@@ -3565,8 +3556,8 @@
     "originalGroup": "English",
     "streams": [
       {
-        "name": "CMAC TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "CMAC TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "CMAC TV",
         "url": "https://reflect-vod-cmac.cablecast.tv/live-11/live/stream-2/live.m3u8",
         "quality": "1080p FHD"
@@ -3598,8 +3589,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Accu Weather (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Accu Weather (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Accu Weather",
         "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00684-accuweather-accuweather-plex/playlist.m3u8",
         "quality": "1080p FHD"
@@ -3633,16 +3624,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
     "streams": [
       {
-        "name": "Ziggo Sport 2 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ziggo Sport 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ziggo Sport 2",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "Ziggo Sport 2 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "Ziggo Sport 2 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Ziggo Sport 2",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2561/index.m3u8",
         "quality": "1080p FHD",
@@ -3681,16 +3672,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
     "streams": [
       {
-        "name": "Ziggo Sport 3 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ziggo Sport 3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ziggo Sport 3",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "Ziggo Sport 3 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "Ziggo Sport 3 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Ziggo Sport 3",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXSYCA/2559/index.m3u8",
         "quality": "1080p FHD",
@@ -3729,16 +3720,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2532/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 2 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DAZN 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DAZN 2",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2532/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "DAZN 2 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "DAZN 2 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "DAZN 2",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2532/index.m3u8",
         "quality": "1080p FHD",
@@ -3771,8 +3762,8 @@
     "originalGroup": "Hindi",
     "streams": [
       {
-        "name": "Dhinchaak (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Dhinchaak (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Dhinchaak",
         "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
         "quality": "1080p FHD"
@@ -3806,16 +3797,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2534/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 4 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DAZN 4 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DAZN 4",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2534/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "DAZN 4 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "DAZN 4 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "DAZN 4",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2534/index.m3u8",
         "quality": "1080p FHD",
@@ -3854,16 +3845,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2531/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 1 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DAZN 1 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DAZN 1",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2531/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "DAZN 1 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "DAZN 1 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "DAZN 1",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2531/index.m3u8",
         "quality": "1080p FHD",
@@ -3902,16 +3893,16 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 5 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DAZN 5 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DAZN 5",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "DAZN 5 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
+        "name": "DAZN 5 (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "DAZN 5",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2535/index.m3u8",
         "quality": "1080p FHD",
@@ -3943,8 +3934,8 @@
     "stream_url": "https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/broadcast_5c9e2ee690051.smil/playlist.m3u8",
     "streams": [
       {
-        "name": "FASHION ONE (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "FASHION ONE (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "FASHION ONE",
         "url": "https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/broadcast_5c9e2ee690051.smil/playlist.m3u8",
         "quality": "1080p FHD"
@@ -3978,8 +3969,8 @@
     "originalGroup": "Cricket, Sports",
     "streams": [
       {
-        "name": "Cricket Gold (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Cricket Gold (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Cricket Gold",
         "url": "https://tvsen6.aynaott.com/M2W2UR49dmeKbZnmdRzN/index.m3u8",
         "quality": "720p HD",
@@ -4012,8 +4003,8 @@
     "originalGroup": "News, Bangla",
     "streams": [
       {
-        "name": "DBC News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DBC News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DBC News",
         "url": "https://tvsen6.aynaott.com/pF66Tkz0qFwP2aMMqHyt/index.m3u8",
         "quality": "1080p FHD"
@@ -4046,8 +4037,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "DD Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DD Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DD Bangla",
         "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index_3.m3u8",
         "quality": "1080p FHD"
@@ -4081,8 +4072,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Bangla Vision (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Bangla Vision (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bangla Vision",
         "url": "https://tvsen5.aynaott.com/tgUzpPc9r6xw/index.m3u8",
         "quality": "1080p FHD"
@@ -4114,8 +4105,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Drama 24 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Drama 24 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Drama 24",
         "url": "https://vods2.aynaott.com/gseriesDrama/index.m3u8",
         "quality": "1080p FHD"
@@ -4147,8 +4138,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "ABN (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ABN (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ABN",
         "url": "https://mediaserver.abnvideos.com/streams/abnurdu.m3u8",
         "quality": "1080p FHD"
@@ -4177,8 +4168,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "NTV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NTV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "NTV",
         "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
         "quality": "1080p FHD"
@@ -4207,16 +4198,17 @@
     "stream_url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_480p.m3u8",
     "streams": [
       {
-        "name": "A SPOR (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "A SPOR (Server 1 — 480p SD)",
+        "serverLabel": "Server 1 — 480p SD",
         "channelName": "A SPOR",
         "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_480p.m3u8",
-        "quality": "1080p FHD"
+        "quality": "480p SD",
+        "isHD": false
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": false
   },
   {
     "id": "ch-peace-tv-urdu",
@@ -4237,8 +4229,8 @@
     "stream_url": "https://dzkyvlfyge.erbvr.com/PeaceTvUrdu/index.m3u8",
     "streams": [
       {
-        "name": "Peace TV Urdu (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Peace TV Urdu (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Peace TV Urdu",
         "url": "https://dzkyvlfyge.erbvr.com/PeaceTvUrdu/index.m3u8",
         "quality": "1080p FHD"
@@ -4272,15 +4264,15 @@
     "originalGroup": "Bangla",
     "streams": [
       {
-        "name": "Asian TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Asian TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Asian TV",
         "url": "https://tvsen6.aynaott.com/pKb5k6NnzxsKpWUs6E8M/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Asian TV (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Asian TV (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Asian TV",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1126364.ts",
         "quality": "1080p FHD"
@@ -4314,8 +4306,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "India Today (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "India Today (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "India Today",
         "url": "https://feeds.intoday.in/hltapps/api/master.m3u8",
         "quality": "1080p FHD"
@@ -4343,8 +4335,8 @@
     "originalGroup": "Live TV",
     "streams": [
       {
-        "name": "G series (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "G series (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "G series",
         "url": "https://vods2.aynaott.com/gseriesDrama/index.m3u8",
         "quality": "1080p FHD"
@@ -4376,8 +4368,8 @@
     "originalGroup": "News, Bangla",
     "streams": [
       {
-        "name": "Jamuna TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Jamuna TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Jamuna TV",
         "url": "https://tvsen6.aynaott.com/KGdZEdA7qQ43dmPkgk1j/index.m3u8",
         "quality": "1080p FHD"
@@ -4409,8 +4401,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "ETV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ETV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ETV",
         "url": "https://tvsen5.aynaott.com/SyQuXz8sC3TB/index.m3u8",
         "quality": "1080p FHD"
@@ -4438,8 +4430,8 @@
     "originalGroup": "Kids",
     "streams": [
       {
-        "name": "3ABN Kids (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "3ABN Kids (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "3ABN Kids",
         "url": "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8",
         "quality": "1080p FHD"
@@ -4473,15 +4465,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Desh TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Desh TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Desh TV",
         "url": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Desh TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Desh TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Desh TV",
         "url": "https://stream.ottplus.live/live/desh_tv_abr/index.m3u8",
         "quality": "720p HD"
@@ -4517,15 +4509,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Bijoy TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Bijoy TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bijoy TV",
         "url": "https://tvsen6.aynaott.com/N8Xbo5vdwVU6sF43RsW0/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Bijoy TV (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Bijoy TV (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Bijoy TV",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/408.ts",
         "quality": "1080p FHD"
@@ -4555,8 +4547,8 @@
     "originalGroup": "Kids",
     "streams": [
       {
-        "name": "Dios Te Ve Kids (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Dios Te Ve Kids (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Dios Te Ve Kids",
         "url": "https://s.emisoras.tv:8081/diostevekids/index.m3u8",
         "quality": "1080p FHD"
@@ -4588,8 +4580,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Hindi Movie Classic 24 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Hindi Movie Classic 24 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Hindi Movie Classic 24",
         "url": "https://vods2.aynaott.com/hindimovies/index.m3u8",
         "quality": "1080p FHD"
@@ -4618,8 +4610,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Wion (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Wion (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Wion",
         "url": "https://d7x8z4yuq42qn.cloudfront.net/index_7.m3u8",
         "quality": "1080p FHD"
@@ -4649,8 +4641,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "SA TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "SA TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "SA TV",
         "url": "https://tvsen6.aynaott.com/rELXiuUXqbgzPb06Npom/index.m3u8",
         "quality": "1080p FHD"
@@ -4684,15 +4676,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Global TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Global TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Global TV",
         "url": "https://tvsen6.aynaott.com/y0q9eFAuquAtvTxRzUHq/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Global TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Global TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Global TV",
         "url": "https://stream.ottplus.live/live/global_tv_abr/index.m3u8",
         "quality": "720p HD"
@@ -4722,8 +4714,8 @@
     "originalGroup": "English, Türkiye",
     "streams": [
       {
-        "name": "Afroturk TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Afroturk TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Afroturk TV",
         "url": "https://edge.socialsmart.tv/naturaltv/bant1/playlist.m3u8",
         "quality": "1080p FHD"
@@ -4751,8 +4743,8 @@
     "originalGroup": "News, English",
     "streams": [
       {
-        "name": "BBC News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "BBC News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "BBC News",
         "url": "https://tvsen1.aynaott.com/shn6jGTk/index.m3u8",
         "quality": "1080p FHD"
@@ -4782,8 +4774,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Somoy TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Somoy TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Somoy TV",
         "url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
         "quality": "1080p FHD"
@@ -4810,8 +4802,8 @@
     "stream_url": "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
     "streams": [
       {
-        "name": "TRT WORLD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TRT WORLD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TRT WORLD",
         "url": "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
         "quality": "1080p FHD"
@@ -4841,8 +4833,8 @@
     "originalGroup": "Weather, Documentary",
     "streams": [
       {
-        "name": "Discover Pikstan (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Discover Pikstan (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Discover Pikstan",
         "url": "https://livecdn.live247stream.com/discoverpakistan/web/playlist.m3u8",
         "quality": "1080p FHD"
@@ -4875,8 +4867,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "FIFA+ (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "FIFA+ (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "FIFA+",
         "url": "https://4397879b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWRlX0ZJRkFQbHVzR2VybWFuX0hMUw/playlist.m3u8",
         "quality": "1080p FHD"
@@ -4904,8 +4896,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Republic TV Bharat (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Republic TV Bharat (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Republic TV Bharat",
         "url": "https://tvsen6.aynaott.com/faGd3tuq/index.m3u8",
         "quality": "1080p FHD"
@@ -4933,8 +4925,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "News 1 India (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "News 1 India (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "News 1 India",
         "url": "https://tvsen6.aynaott.com/TaVfw58T/index.m3u8",
         "quality": "1080p FHD"
@@ -4965,8 +4957,8 @@
     "stream_url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
     "streams": [
       {
-        "name": "T Sports HD (Server 2) (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "T Sports HD (Server 2) (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "T Sports HD (Server 2)",
         "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
         "quality": "720p HD",
@@ -5004,15 +4996,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Enter 10 Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Enter 10 Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Enter 10 Bangla",
         "url": "https://live-bangla.akamaized.net/liveabr/playlist.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Enter 10 Bangla (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Enter 10 Bangla (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Enter 10 Bangla",
         "url": "https://amg01448-samsungin-enterr10bangla-samsungin-ad-gg.amagi.tv/playlist/amg01448-samsungin-enterr10bangla-samsungin/playlist.m3u8",
         "quality": "720p HD"
@@ -5045,8 +5037,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Goal TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Goal TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Goal TV",
         "url": "https://streams2.sofast.tv/sofastplayout/WiseM3U8_1/master.m3u8",
         "quality": "1080p FHD"
@@ -5074,8 +5066,8 @@
     "originalGroup": "Sports",
     "streams": [
       {
-        "name": "KTV Sport Plus (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "KTV Sport Plus (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "KTV Sport Plus",
         "url": "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8",
         "quality": "1080p FHD"
@@ -5109,15 +5101,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Ekhon TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ekhon TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ekhon TV",
         "url": "https://tvsen6.aynaott.com/fbgZV3X17hwWcyfZ4pdb/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Ekhon TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Ekhon TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Ekhon TV",
         "url": "https://stream.ottplus.live/live/ekhon_tv_abr/live/ekhon_tv_hd_720/chunks.m3u8",
         "quality": "720p HD"
@@ -5151,8 +5143,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Fox Weather (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Fox Weather (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Fox Weather",
         "url": "https://247wlive.foxweather.com/stream/index.m3u8",
         "quality": "1080p FHD"
@@ -5183,8 +5175,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "TV9 Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TV9 Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TV9 Bangla",
         "url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9banaen8yq/liveabr/playlist.m3u8",
         "quality": "1080p FHD"
@@ -5212,8 +5204,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Sky News Weather (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky News Weather (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky News Weather",
         "url": "https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8",
         "quality": "1080p FHD"
@@ -5241,8 +5233,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Sadhna Prime News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sadhna Prime News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sadhna Prime News",
         "url": "https://tvsen3.aynaott.com/P2hjvFHV/index.m3u8",
         "quality": "1080p FHD"
@@ -5274,15 +5266,15 @@
     "originalGroup": "News, Bangla",
     "streams": [
       {
-        "name": "Ekattor TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ekattor TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ekattor TV",
         "url": "https://tvsen6.aynaott.com/EWDrV5QskgarZEUBb3pU/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Ekattor TV (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Ekattor TV (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Ekattor TV",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/428.ts",
         "quality": "1080p FHD"
@@ -5312,8 +5304,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Weather SPY (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Weather SPY (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Weather SPY",
         "url": "https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8",
         "quality": "1080p FHD"
@@ -5343,8 +5335,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Talk Sport (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Talk Sport (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Talk Sport",
         "url": "https://tvsen6.aynaott.com/talkSPORT/index.m3u8",
         "quality": "1080p FHD"
@@ -5374,15 +5366,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "NEXUS TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "NEXUS TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "NEXUS TV",
         "url": "https://tvsen6.aynaott.com/Epm7WrFa/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "NEXUS TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "NEXUS TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "NEXUS TV",
         "url": "https://stream.ottplus.live/live/nexus_tv_abr/index.m3u8",
         "quality": "720p HD"
@@ -5414,15 +5406,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Mohona TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Mohona TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Mohona TV",
         "url": "https://tvsen6.aynaott.com/AkyX5dunzju4cpo26dr7/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Mohona TV (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Mohona TV (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Mohona TV",
         "url": "https://stream.ottplus.live/live/mohona_tv_abr/index.m3u8",
         "quality": "720p HD"
@@ -5453,8 +5445,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Kolkata TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Kolkata TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Kolkata TV",
         "url": "https://tvsen6.aynaott.com/kolkatatv/index.m3u8",
         "quality": "1080p FHD"
@@ -5483,22 +5475,22 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209624/index.m3u8",
     "streams": [
       {
-        "name": "Cartoon Network (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Cartoon Network (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Cartoon Network",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209624/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Cartoon Network (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Cartoon Network (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Cartoon Network",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/117177.ts",
         "quality": "1080p FHD"
       },
       {
-        "name": "Cartoon Network (Server 3 (720p HD))",
-        "serverLabel": "Server 3 (720p HD)",
+        "name": "Cartoon Network (Server 3 — 720p HD)",
+        "serverLabel": "Server 3 — 720p HD",
         "channelName": "Cartoon Network",
         "url": "https://stream.ottplus.bd/live/cn_hd_abr/live/cn_hd/chunks.m3u8",
         "quality": "720p HD"
@@ -5531,8 +5523,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Thikana (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Thikana (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Thikana",
         "url": "https://5dd3981940faa.streamlock.net:443/thikanatv/thikanatv/playlist.m3u8",
         "quality": "1080p FHD"
@@ -5563,8 +5555,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Sangeet Bangla (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sangeet Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sangeet Bangla",
         "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/34727.ts",
         "quality": "1080p FHD"
@@ -5592,8 +5584,8 @@
     "originalGroup": "Sports",
     "streams": [
       {
-        "name": "Bahrain Sports 1 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Bahrain Sports 1 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bahrain Sports 1",
         "url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8",
         "quality": "1080p FHD"
@@ -5621,15 +5613,15 @@
     "stream_url": "https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8?sid=s7AaNdTzDE2912wNcPLejQ",
     "streams": [
       {
-        "name": "Peace Tv Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Peace Tv Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Peace Tv Bangla",
         "url": "https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8?sid=s7AaNdTzDE2912wNcPLejQ",
         "quality": "1080p FHD"
       },
       {
-        "name": "Peace Tv Bangla (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Peace Tv Bangla (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Peace Tv Bangla",
         "url": "https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8",
         "quality": "720p HD"
@@ -5667,8 +5659,8 @@
     "stream_url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
     "streams": [
       {
-        "name": "Sony Sports 2 HD (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Sony Sports 2 HD (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Sony Sports 2 HD",
         "url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
         "quality": "720p HD",
@@ -5701,8 +5693,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Sports Fishing TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sports Fishing TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sports Fishing TV",
         "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8",
         "quality": "1080p FHD"
@@ -5731,8 +5723,8 @@
     "stream_url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "ZV68 Sports Stream (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ZV68 Sports Stream (Server 1 — 1080p HD)",
+        "serverLabel": "Server 1 — 1080p HD",
         "channelName": "ZV68 Sports Stream",
         "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
         "quality": "720p HD",
@@ -5766,15 +5758,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Duronto TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Duronto TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Duronto TV",
         "url": "https://tvsen6.aynaott.com/6xyZ3N4oHv2KBJdB6W4p/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Duronto TV (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Duronto TV (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Duronto TV",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/433.ts",
         "quality": "1080p FHD"
@@ -5806,8 +5798,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Goldmines Movies (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Goldmines Movies (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Goldmines Movies",
         "url": "http://mxonlive.xyz/live/xap/112973.m3u8?e=1788562844&token=e1f541bfa14115895c0bf6ded47837db4f513667ae98bb9678e4a67223a7e4de",
         "quality": "720p HD"
@@ -5838,8 +5830,8 @@
     "originalGroup": "Religious",
     "streams": [
       {
-        "name": "Islam TV (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Islam TV (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Islam TV",
         "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/islamchbangla.stream/tracks-v1a1/mono.m3u8",
         "quality": "720p HD"
@@ -5870,15 +5862,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Zee 24 Ghanta (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Zee 24 Ghanta (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Zee 24 Ghanta",
         "url": "https://tvsen6.aynaott.com/DpPnXP9r/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Zee 24 Ghanta (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Zee 24 Ghanta (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Zee 24 Ghanta",
         "url": "https://d2dsoyvkr33m05.cloudfront.net/index_5.m3u8",
         "quality": "720p HD"
@@ -5910,8 +5902,8 @@
     "stream_url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
     "streams": [
       {
-        "name": "beIN XTRA (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "beIN XTRA (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "beIN XTRA",
         "url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
         "quality": "1080p FHD",
@@ -5943,16 +5935,16 @@
     "stream_url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
     "streams": [
       {
-        "name": "PTV Sports (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "PTV Sports (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "PTV Sports",
         "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
         "quality": "720p HD",
         "isHD": true
       },
       {
-        "name": "PTV Sports (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "PTV Sports (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "PTV Sports",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1404537.ts",
         "quality": "1080p FHD"
@@ -5985,8 +5977,8 @@
     "stream_url": "https://ua101.online24.pm:8443/9999/tracks-v1/mono.m3u8",
     "streams": [
       {
-        "name": "Online24 Stream (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Online24 Stream (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Online24 Stream",
         "url": "https://ua101.online24.pm:8443/9999/tracks-v1/mono.m3u8",
         "quality": "720p HD",
@@ -6020,15 +6012,15 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Sony AATH (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sony AATH (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony AATH",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Sony AATH (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Sony AATH (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Sony AATH",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/4083.ts",
         "quality": "1080p FHD"
@@ -6059,8 +6051,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Animal Planet HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Animal Planet HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Animal Planet HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/5249.ts",
         "quality": "1080p FHD"
@@ -6089,8 +6081,8 @@
     "isAkashGo": true,
     "streams": [
       {
-        "name": "Discovery HD (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Discovery HD (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Discovery HD",
         "url": "http://202.70.146.135:8000/play/a05z/index.m3u8",
         "quality": "720p HD"
@@ -6107,7 +6099,6 @@
       "Jio TV",
       "Bengali",
       "Bangla",
-      "Bengali",
       "Entertainment",
       "News"
     ],
@@ -6123,15 +6114,15 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23305.ts",
     "streams": [
       {
-        "name": "Zee Bangla (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Zee Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Zee Bangla",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23305.ts",
         "quality": "1080p FHD"
       },
       {
-        "name": "Zee Bangla (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Zee Bangla (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Zee Bangla",
         "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72135.ts",
         "quality": "1080p FHD"
@@ -6152,7 +6143,6 @@
       "Jio TV",
       "Bengali",
       "Bangla",
-      "Bengali",
       "Entertainment",
       "News"
     ],
@@ -6168,15 +6158,15 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
     "streams": [
       {
-        "name": "Colors Bangla HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Colors Bangla HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Colors Bangla HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
         "quality": "1080p FHD"
       },
       {
-        "name": "Colors Bangla HD (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "Colors Bangla HD (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "Colors Bangla HD",
         "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72156.ts",
         "quality": "1080p FHD"
@@ -6213,8 +6203,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/271038.ts",
     "streams": [
       {
-        "name": "Colors Bangla Cinema (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Colors Bangla Cinema (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Colors Bangla Cinema",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/271038.ts",
         "quality": "1080p FHD"
@@ -6247,8 +6237,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/145.ts",
     "streams": [
       {
-        "name": "Sony SAB (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sony SAB (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony SAB",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/145.ts",
         "quality": "1080p FHD"
@@ -6280,8 +6270,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72151.ts",
     "streams": [
       {
-        "name": "Sony Pal (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sony Pal (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony Pal",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72151.ts",
         "quality": "1080p FHD"
@@ -6314,8 +6304,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1019856.ts",
     "streams": [
       {
-        "name": "Star Plus HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Plus HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Plus HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1019856.ts",
         "quality": "1080p FHD"
@@ -6347,8 +6337,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72152.ts",
     "streams": [
       {
-        "name": "Sony Wah (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sony Wah (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony Wah",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72152.ts",
         "quality": "1080p FHD"
@@ -6381,8 +6371,8 @@
     "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020175.ts",
     "streams": [
       {
-        "name": "Star Gold HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Gold HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Gold HD",
         "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020175.ts",
         "quality": "1080p FHD"
@@ -6415,16 +6405,17 @@
     "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020169.ts",
     "streams": [
       {
-        "name": "Sony Max SD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sony Max SD (Server 1 — 480p SD)",
+        "serverLabel": "Server 1 — 480p SD",
         "channelName": "Sony Max SD",
         "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020169.ts",
-        "quality": "1080p FHD"
+        "quality": "480p SD",
+        "isHD": false
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": false
   },
   {
     "id": "jio-1110",
@@ -6449,8 +6440,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23270.ts",
     "streams": [
       {
-        "name": "Star Movies Select HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Movies Select HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Movies Select HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23270.ts",
         "quality": "1080p FHD"
@@ -6483,8 +6474,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/210.ts",
     "streams": [
       {
-        "name": "Star Gold Select HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Gold Select HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Gold Select HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/210.ts",
         "quality": "1080p FHD"
@@ -6517,8 +6508,8 @@
     "stream_url": "http://202.70.146.135:8000/play/a058/index.m3u8",
     "streams": [
       {
-        "name": "Colors Cineplex Bollywood (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Colors Cineplex Bollywood (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Colors Cineplex Bollywood",
         "url": "http://202.70.146.135:8000/play/a058/index.m3u8",
         "quality": "720p HD"
@@ -6551,8 +6542,8 @@
     "stream_url": "http://41smartpro.xyz:80/live/bmg12mk788/UPBTUU4/1020166.ts",
     "streams": [
       {
-        "name": "Colors Cineplex (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Colors Cineplex (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Colors Cineplex",
         "url": "http://41smartpro.xyz:80/live/bmg12mk788/UPBTUU4/1020166.ts",
         "quality": "1080p FHD"
@@ -6585,8 +6576,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1020177.ts",
     "streams": [
       {
-        "name": "Star Gold 2 HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Gold 2 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Gold 2 HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1020177.ts",
         "quality": "1080p FHD"
@@ -6619,8 +6610,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/773735.ts",
     "streams": [
       {
-        "name": "Star Gold Thrills (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Gold Thrills (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Gold Thrills",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/773735.ts",
         "quality": "1080p FHD"
@@ -6653,8 +6644,8 @@
     "stream_url": "https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_720p/chunks.m3u8",
     "streams": [
       {
-        "name": "Aaj Tak (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Aaj Tak (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Aaj Tak",
         "url": "https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_720p/chunks.m3u8",
         "quality": "720p HD"
@@ -6686,8 +6677,8 @@
     "stream_url": "https://stream.ottplus.live/live/pogo_sd_abr/index.m3u8",
     "streams": [
       {
-        "name": "Pogo Hindi (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Pogo Hindi (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Pogo Hindi",
         "url": "https://stream.ottplus.live/live/pogo_sd_abr/index.m3u8",
         "quality": "720p HD"
@@ -6719,8 +6710,8 @@
     "stream_url": "https://stream.ottplus.live/live/sony_yay_abr/live/sony_yay_720/chunks.m3u8",
     "streams": [
       {
-        "name": "Sony Yay Hindi (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Sony Yay Hindi (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Sony Yay Hindi",
         "url": "https://stream.ottplus.live/live/sony_yay_abr/live/sony_yay_720/chunks.m3u8",
         "quality": "720p HD"
@@ -6755,8 +6746,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2533/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 3 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DAZN 3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DAZN 3",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2533/index.m3u8",
         "quality": "1080p FHD",
@@ -6794,8 +6785,8 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/19056/index.m3u8",
     "streams": [
       {
-        "name": "ESPN (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ESPN (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ESPN",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/19056/index.m3u8",
         "quality": "1080p FHD",
@@ -6828,8 +6819,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/19741.ts",
     "streams": [
       {
-        "name": "Disney Channel (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Disney Channel (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Disney Channel",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/19741.ts",
         "quality": "1080p FHD"
@@ -6866,8 +6857,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9155/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Action (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Action (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Action",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9155/index.m3u8",
         "quality": "1080p FHD",
@@ -6900,8 +6891,8 @@
     "stream_url": "https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8",
     "streams": [
       {
-        "name": "Trace Sport (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Trace Sport (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Trace Sport",
         "url": "https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8",
         "quality": "1080p FHD",
@@ -6933,8 +6924,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Cricket (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Cricket",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
         "quality": "1080p FHD",
@@ -6966,8 +6957,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Football (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Football (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Football",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
         "quality": "1080p FHD",
@@ -6999,8 +6990,8 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/19132/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Golf (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Golf (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Golf",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/19132/index.m3u8",
         "quality": "1080p FHD",
@@ -7036,8 +7027,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9310/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Mix (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Mix (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Mix",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9310/index.m3u8",
         "quality": "1080p FHD",
@@ -7070,8 +7061,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Premier League (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Premier League (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Premier League",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
         "quality": "1080p FHD",
@@ -7104,8 +7095,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/175130.ts",
     "streams": [
       {
-        "name": "Disney Junior (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Disney Junior (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Disney Junior",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/175130.ts",
         "quality": "1080p FHD"
@@ -7136,8 +7127,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6546/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Tennis (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports Tennis (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports Tennis",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6546/index.m3u8",
         "quality": "1080p FHD",
@@ -7171,8 +7162,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports F1 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sky Sports F1 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sky Sports F1",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
         "quality": "1080p FHD",
@@ -7206,8 +7197,8 @@
     "stream_url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
     "streams": [
       {
-        "name": "Sport 1 (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Sport 1 (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Sport 1",
         "url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
         "quality": "720p HD",
@@ -7241,8 +7232,8 @@
     "stream_url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
     "streams": [
       {
-        "name": "Sport 2 (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "Sport 2 (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Sport 2",
         "url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
         "quality": "720p HD",
@@ -7276,8 +7267,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18000/index.m3u8",
     "streams": [
       {
-        "name": "GO3 Sport 1 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "GO3 Sport 1 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "GO3 Sport 1 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18000/index.m3u8",
         "quality": "1080p FHD",
@@ -7311,8 +7302,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18012/index.m3u8",
     "streams": [
       {
-        "name": "GO3 Sport 2 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "GO3 Sport 2 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "GO3 Sport 2 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18012/index.m3u8",
         "quality": "1080p FHD",
@@ -7348,8 +7339,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 1 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TNT Sports 1 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TNT Sports 1",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
         "quality": "1080p FHD",
@@ -7385,8 +7376,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 2 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TNT Sports 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TNT Sports 2",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
         "quality": "1080p FHD",
@@ -7418,8 +7409,8 @@
     "stream_url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
     "streams": [
       {
-        "name": "BTV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "BTV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "BTV",
         "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
         "quality": "1080p FHD"
@@ -7454,8 +7445,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 3 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TNT Sports 3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TNT Sports 3",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
         "quality": "1080p FHD",
@@ -7491,8 +7482,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 4 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TNT Sports 4 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TNT Sports 4",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
         "quality": "1080p FHD",
@@ -7524,8 +7515,8 @@
     "stream_url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
     "streams": [
       {
-        "name": "N TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "N TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "N TV",
         "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
         "quality": "1080p FHD"
@@ -7557,8 +7548,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/638050.ts",
     "streams": [
       {
-        "name": "Hungama (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Hungama (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Hungama",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/638050.ts",
         "quality": "1080p FHD"
@@ -7589,8 +7580,8 @@
     "stream_url": "https://stream.ottplus.live/live/channel_24_abr/index.m3u8",
     "streams": [
       {
-        "name": "Channel 24 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Channel 24 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel 24",
         "url": "https://stream.ottplus.live/live/channel_24_abr/index.m3u8",
         "quality": "1080p FHD"
@@ -7620,8 +7611,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/25079.ts",
     "streams": [
       {
-        "name": "Makkah Live (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Makkah Live (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Makkah Live",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/25079.ts",
         "quality": "1080p FHD"
@@ -7655,8 +7646,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6124/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 3 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "beIN Sports 3 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "beIN Sports 3 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6124/index.m3u8",
         "quality": "1080p FHD",
@@ -7691,8 +7682,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6125/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 4 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "beIN Sports 4 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "beIN Sports 4 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6125/index.m3u8",
         "quality": "1080p FHD",
@@ -7724,8 +7715,8 @@
     "stream_url": "https://srknowapp.ncare.live/srktvhlswodrm/srktv.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "SRK (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "SRK (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "SRK",
         "url": "https://srknowapp.ncare.live/srktvhlswodrm/srktv.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -7760,8 +7751,8 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6126/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 5 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "beIN Sports 5 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "beIN Sports 5 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6126/index.m3u8",
         "quality": "1080p FHD",
@@ -7793,8 +7784,8 @@
     "stream_url": "https://vods2.aynaott.com/gseriesDrama/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "G-Serise (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "G-Serise (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "G-Serise",
         "url": "https://vods2.aynaott.com/gseriesDrama/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -7825,8 +7816,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/198.ts",
     "streams": [
       {
-        "name": "Star Jalsha HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Jalsha HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Jalsha HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/198.ts",
         "quality": "1080p FHD"
@@ -7857,8 +7848,8 @@
     "stream_url": "http://103.190.133.68:1935/news21live/live/playlist.m3u8",
     "streams": [
       {
-        "name": "News 21 Bangla TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "News 21 Bangla TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "News 21 Bangla TV",
         "url": "http://103.190.133.68:1935/news21live/live/playlist.m3u8",
         "quality": "1080p FHD"
@@ -7889,8 +7880,8 @@
     "stream_url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8",
     "streams": [
       {
-        "name": "Ekushe TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ekushe TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ekushe TV",
         "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8",
         "quality": "1080p FHD"
@@ -7921,8 +7912,8 @@
     "stream_url": "https://ireentv.pages.dev/Sun_Bangla_Server_1.m3u8",
     "streams": [
       {
-        "name": "Sun Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sun Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sun Bangla",
         "url": "https://ireentv.pages.dev/Sun_Bangla_Server_1.m3u8",
         "quality": "1080p FHD"
@@ -7952,8 +7943,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/410.ts",
     "streams": [
       {
-        "name": "Zee Bangla Cinema (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Zee Bangla Cinema (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Zee Bangla Cinema",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/410.ts",
         "quality": "1080p FHD"
@@ -7986,16 +7977,16 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 1 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "beIN Sports 1 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "beIN Sports 1 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
         "quality": "1080p FHD",
         "isHD": true
       },
       {
-        "name": "beIN Sports 1 HD (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "beIN Sports 1 HD (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "beIN Sports 1 HD",
         "url": "http://host.phorious.art/validation/377?deviceMac=10:27:BE:25:67:80&split=33da9c80155413830543e27c8520ba99&smart=1",
         "quality": "720p HD"
@@ -8028,8 +8019,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72180.ts",
     "streams": [
       {
-        "name": "DD NATIONAL (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "DD NATIONAL (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DD NATIONAL",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72180.ts",
         "quality": "1080p FHD"
@@ -8060,8 +8051,8 @@
     "stream_url": "http://premiumtvs.space/live/YqXTywueEV/damp2purchase/434.ts",
     "streams": [
       {
-        "name": "Channel 9 HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Channel 9 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel 9 HD",
         "url": "http://premiumtvs.space/live/YqXTywueEV/damp2purchase/434.ts",
         "quality": "1080p FHD"
@@ -8091,8 +8082,8 @@
     "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/72148.ts",
     "streams": [
       {
-        "name": "Sony PIX HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Sony PIX HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony PIX HD",
         "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/72148.ts",
         "quality": "1080p FHD"
@@ -8123,8 +8114,8 @@
     "stream_url": "http://158.69.24.53:8080/probashi_tv/tracks-v1a1/mono.m3u8",
     "streams": [
       {
-        "name": "Probashi TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Probashi TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Probashi TV",
         "url": "http://158.69.24.53:8080/probashi_tv/tracks-v1a1/mono.m3u8",
         "quality": "1080p FHD"
@@ -8154,8 +8145,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1020230.ts",
     "streams": [
       {
-        "name": "MNX HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "MNX HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "MNX HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1020230.ts",
         "quality": "1080p FHD"
@@ -8186,8 +8177,8 @@
     "stream_url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "G TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "G TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "G TV",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -8218,8 +8209,8 @@
     "stream_url": "https://live1.entertv.com.bd/entertv/index.fmp4.m3u8",
     "streams": [
       {
-        "name": "Enter TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Enter TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Enter TV",
         "url": "https://live1.entertv.com.bd/entertv/index.fmp4.m3u8",
         "quality": "1080p FHD"
@@ -8250,8 +8241,8 @@
     "stream_url": "https://mumt05.tangotv.in/87NeALx2RUPASIBANGLA/index.m3u8",
     "streams": [
       {
-        "name": "Ruposhi Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Ruposhi Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ruposhi Bangla",
         "url": "https://mumt05.tangotv.in/87NeALx2RUPASIBANGLA/index.m3u8",
         "quality": "1080p FHD"
@@ -8282,8 +8273,8 @@
     "stream_url": "https://thelegitpro.in/pntv/rplusnews24x7/index.m3u8",
     "streams": [
       {
-        "name": "R Plus News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "R Plus News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "R Plus News",
         "url": "https://thelegitpro.in/pntv/rplusnews24x7/index.m3u8",
         "quality": "1080p FHD"
@@ -8313,8 +8304,8 @@
     "stream_url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/islamictvbd.stream/index.m3u8",
     "streams": [
       {
-        "name": "Islamic TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Islamic TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Islamic TV",
         "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/islamictvbd.stream/index.m3u8",
         "quality": "1080p FHD"
@@ -8344,15 +8335,15 @@
     "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/76205.ts",
     "streams": [
       {
-        "name": "Jalsha Movies HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Jalsha Movies HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Jalsha Movies HD",
         "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/76205.ts",
         "quality": "1080p FHD"
       },
       {
-        "name": "Jalsha Movies HD (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Jalsha Movies HD (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Jalsha Movies HD",
         "url": "https://box.bbaria.net:8083/Jalsha_Movie/tracks-v1a1/mono.m3u8",
         "quality": "720p HD"
@@ -8385,8 +8376,8 @@
     "stream_url": "https://stream.ottplus.live/live/and_tv_hd_abr/index.m3u8",
     "streams": [
       {
-        "name": "& Tv (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "& Tv (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "& Tv",
         "url": "https://stream.ottplus.live/live/and_tv_hd_abr/index.m3u8",
         "quality": "1080p FHD"
@@ -8416,8 +8407,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/152387.ts",
     "streams": [
       {
-        "name": "Movies Now (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Movies Now (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Movies Now",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/152387.ts",
         "quality": "1080p FHD"
@@ -8447,8 +8438,8 @@
     "stream_url": "https://shd-amg-fast.edgenextcdn.net/tx012/playlist.m3u8",
     "streams": [
       {
-        "name": "Movies Thriller (1080p) (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Movies Thriller (1080p) (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Movies Thriller (1080p)",
         "url": "https://shd-amg-fast.edgenextcdn.net/tx012/playlist.m3u8",
         "quality": "1080p FHD"
@@ -8479,8 +8470,8 @@
     "stream_url": "https://amg01448-samsungin-news18bangla-samsungin-ad-qy.amagi.tv/ts-eu-w1-n2/playlist/amg01448-samsungin-news18bangla-samsungin/playlist.m3u8",
     "streams": [
       {
-        "name": "News18 Bangla 33 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "News18 Bangla 33 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "News18 Bangla 33",
         "url": "https://amg01448-samsungin-news18bangla-samsungin-ad-qy.amagi.tv/ts-eu-w1-n2/playlist/amg01448-samsungin-news18bangla-samsungin/playlist.m3u8",
         "quality": "1080p FHD"
@@ -8511,8 +8502,8 @@
     "stream_url": "http://alvetv.com/moviebanglatv/8080/index.m3u8",
     "streams": [
       {
-        "name": "Movie Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Movie Bangla (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Movie Bangla",
         "url": "http://alvetv.com/moviebanglatv/8080/index.m3u8",
         "quality": "1080p FHD"
@@ -8544,8 +8535,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
     "streams": [
       {
-        "name": "Discovery Turbo (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Discovery Turbo (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Discovery Turbo",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
         "quality": "1080p FHD"
@@ -8575,8 +8566,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/68811.ts",
     "streams": [
       {
-        "name": "HBO 3 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "HBO 3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "HBO 3",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/68811.ts",
         "quality": "1080p FHD"
@@ -8607,8 +8598,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/3802.ts",
     "streams": [
       {
-        "name": "Nagorik TV (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Nagorik TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Nagorik TV",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/3802.ts",
         "quality": "1080p FHD"
@@ -8640,8 +8631,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72219.ts",
     "streams": [
       {
-        "name": "Nat Geo Wild HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Nat Geo Wild HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Nat Geo Wild HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72219.ts",
         "quality": "1080p FHD"
@@ -8672,15 +8663,15 @@
     "stream_url": "http://38.96.178.205/SONYHD/index.m3u8",
     "streams": [
       {
-        "name": "Sony Television HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sony Television HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony Television HD",
         "url": "http://38.96.178.205/SONYHD/index.m3u8",
         "quality": "1080p FHD"
       },
       {
-        "name": "Sony Television HD (Server 2 (720p HD))",
-        "serverLabel": "Server 2 (720p HD)",
+        "name": "Sony Television HD (Server 2 — 720p HD)",
+        "serverLabel": "Server 2 — 720p HD",
         "channelName": "Sony Television HD",
         "url": "https://stream.ottplus.live/live/sony_ent_sd_abr/index.m3u8",
         "quality": "720p HD"
@@ -8712,8 +8703,8 @@
     "stream_url": "https://server.thelegitpro.in/rongeentv/rongeentv/tracks-v1a1/mono.m3u8",
     "streams": [
       {
-        "name": "Rongeen (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Rongeen (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Rongeen",
         "url": "https://server.thelegitpro.in/rongeentv/rongeentv/tracks-v1a1/mono.m3u8",
         "quality": "1080p FHD"
@@ -8743,8 +8734,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
     "streams": [
       {
-        "name": "National Geographic বাংলা/HINDI All languages (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "National Geographic বাংলা/HINDI All languages (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "National Geographic বাংলা/HINDI All languages",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
         "quality": "1080p FHD"
@@ -8775,8 +8766,8 @@
     "stream_url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/starnewsbd.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "Star News (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Star News (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star News",
         "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/starnewsbd.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -8806,8 +8797,8 @@
     "stream_url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/discoverpakistan.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "DISCOVERY PAKISTAN Hindi (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "DISCOVERY PAKISTAN Hindi (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DISCOVERY PAKISTAN Hindi",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/discoverpakistan.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -8836,8 +8827,8 @@
     "stream_url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "A Sports (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "A Sports (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "A Sports",
         "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -8869,16 +8860,17 @@
     "stream_url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
     "streams": [
       {
-        "name": "Willow Sports (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Willow Sports (Server 1 — 540p SD)",
+        "serverLabel": "Server 1 — 540p SD",
         "channelName": "Willow Sports",
         "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "1080p FHD"
+        "quality": "540p SD",
+        "isHD": false
       }
     ],
     "backupUrls": [],
     "isLive": true,
-    "isHD": true
+    "isHD": false
   },
   {
     "id": "ch-sony-kal-hindi",
@@ -8900,8 +8892,8 @@
     "stream_url": "https://wurlsonypicturestv.global.transmit.live/hls/68deeb1c0238cda82df543dd/v1/spt_sonykal_1/lg_us/latest/main/hls/playlist.m3u8",
     "streams": [
       {
-        "name": "Sony KAL Hindi (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sony KAL Hindi (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony KAL Hindi",
         "url": "https://wurlsonypicturestv.global.transmit.live/hls/68deeb1c0238cda82df543dd/v1/spt_sonykal_1/lg_us/latest/main/hls/playlist.m3u8",
         "quality": "1080p FHD"
@@ -8931,8 +8923,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/98880.ts",
     "streams": [
       {
-        "name": "Nick Bangla/Hindi/All Languages 4K (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Nick Bangla/Hindi/All Languages 4K (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Nick Bangla/Hindi/All Languages 4K",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/98880.ts",
         "quality": "1080p FHD"
@@ -8962,8 +8954,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209869/tracks-v1a1/mono.ts.m3u8?nocache=1785119026625",
     "streams": [
       {
-        "name": "Carton Vantu Bangla 4k (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Carton Vantu Bangla 4k (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Carton Vantu Bangla 4k",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209869/tracks-v1a1/mono.ts.m3u8?nocache=1785119026625",
         "quality": "1080p FHD"
@@ -8993,8 +8985,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98872.ts",
     "streams": [
       {
-        "name": "Discovery বাংলা/Hindi All Languages (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Discovery বাংলা/Hindi All Languages (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Discovery বাংলা/Hindi All Languages",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98872.ts",
         "quality": "1080p FHD"
@@ -9028,8 +9020,8 @@
     "stream_url": "https://linear-893.frequency.stream/mt/plex/893/hls/master/playlist_640x360.m3u8",
     "streams": [
       {
-        "name": "UFC TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "UFC TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "UFC TV",
         "url": "https://linear-893.frequency.stream/mt/plex/893/hls/master/playlist_640x360.m3u8",
         "quality": "1080p FHD"
@@ -9059,8 +9051,8 @@
     "stream_url": "https://cc-qgrxgp51645lw.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-qgrxgp51645lw/IQJW/WBD/WildFlix_IN/WildFlix_IN.m3u8",
     "streams": [
       {
-        "name": "Wild Flix Hindi (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Wild Flix Hindi (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Wild Flix Hindi",
         "url": "https://cc-qgrxgp51645lw.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-qgrxgp51645lw/IQJW/WBD/WildFlix_IN/WildFlix_IN.m3u8",
         "quality": "1080p FHD"
@@ -9090,8 +9082,8 @@
     "stream_url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
     "streams": [
       {
-        "name": "Discovery Kids (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Discovery Kids (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Discovery Kids",
         "url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
         "quality": "1080p FHD"
@@ -9123,8 +9115,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
     "streams": [
       {
-        "name": "National Geographic HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "National Geographic HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "National Geographic HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
         "quality": "1080p FHD"
@@ -9154,8 +9146,8 @@
     "stream_url": "http://202.70.146.135:8000/play/a067/index.m3u8",
     "streams": [
       {
-        "name": "Sony BBC Earth HINDI/All languages (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sony BBC Earth HINDI/All languages (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sony BBC Earth HINDI/All languages",
         "url": "http://202.70.146.135:8000/play/a067/index.m3u8",
         "quality": "1080p FHD"
@@ -9187,8 +9179,8 @@
     "stream_url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72218.ts",
     "streams": [
       {
-        "name": "Music India (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Music India (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Music India",
         "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72218.ts",
         "quality": "1080p FHD"
@@ -9220,8 +9212,8 @@
     "stream_url": "https://wiselp.wiseplayout.com/9XM/HD1080/HD1080.m3u8",
     "streams": [
       {
-        "name": "9XM (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "9XM (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "9XM",
         "url": "https://wiselp.wiseplayout.com/9XM/HD1080/HD1080.m3u8",
         "quality": "720p HD"
@@ -9251,8 +9243,8 @@
     "stream_url": "https://cc-4bhi5osabejc9.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-4bhi5osabejc9/junglebook.m3u8",
     "streams": [
       {
-        "name": "Jungle Book (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Jungle Book (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Jungle Book",
         "url": "https://cc-4bhi5osabejc9.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-4bhi5osabejc9/junglebook.m3u8",
         "quality": "1080p FHD"
@@ -9282,8 +9274,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23790.ts",
     "streams": [
       {
-        "name": "Investigation Discovery HINDI (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Investigation Discovery HINDI (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Investigation Discovery HINDI",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23790.ts",
         "quality": "1080p FHD"
@@ -9317,8 +9309,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1426214.ts",
     "streams": [
       {
-        "name": "UFC FIGHT PASS (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "UFC FIGHT PASS (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "UFC FIGHT PASS",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1426214.ts",
         "quality": "1080p FHD"
@@ -9352,8 +9344,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510200.ts",
     "streams": [
       {
-        "name": "MTV HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "MTV HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "MTV HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510200.ts",
         "quality": "1080p FHD"
@@ -9385,8 +9377,8 @@
     "stream_url": "https://n18syndication.akamaized.net/bpk-tv/History_TV18_Hindi_NW18_MOB/output01/master.m3u8",
     "streams": [
       {
-        "name": "History TV18 HD (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "History TV18 HD (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "History TV18 HD",
         "url": "https://n18syndication.akamaized.net/bpk-tv/History_TV18_Hindi_NW18_MOB/output01/master.m3u8",
         "quality": "720p HD"
@@ -9416,8 +9408,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/98873.ts",
     "streams": [
       {
-        "name": "Animal Planet HD Hindi/All Languages (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Animal Planet HD Hindi/All Languages (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Animal Planet HD Hindi/All Languages",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/98873.ts",
         "quality": "1080p FHD"
@@ -9447,8 +9439,8 @@
     "stream_url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
     "streams": [
       {
-        "name": "9X Jalwa (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "9X Jalwa (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "9X Jalwa",
         "url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
         "quality": "1080p FHD"
@@ -9479,8 +9471,8 @@
     "stream_url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI/amarbanglatv.stream/playlist.m3u8",
     "streams": [
       {
-        "name": "Amar Digital TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Amar Digital TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Amar Digital TV",
         "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI/amarbanglatv.stream/playlist.m3u8",
         "quality": "1080p FHD"
@@ -9512,8 +9504,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/514856.ts",
     "streams": [
       {
-        "name": "Ten Cricket (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Ten Cricket (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ten Cricket",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/514856.ts",
         "quality": "1080p FHD"
@@ -9542,8 +9534,8 @@
     "stream_url": "http://opplex.ch:8080/live/abdulrehn/12345678/347278.ts",
     "streams": [
       {
-        "name": "ESPN 2 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ESPN 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ESPN 2",
         "url": "http://opplex.ch:8080/live/abdulrehn/12345678/347278.ts",
         "quality": "1080p FHD"
@@ -9573,8 +9565,8 @@
     "stream_url": "https://d2l4tng0wskzvn.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-i4w0aagbo260c/Trace_GB.m3u8",
     "streams": [
       {
-        "name": "TRACE UK (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "TRACE UK (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "TRACE UK",
         "url": "https://d2l4tng0wskzvn.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-i4w0aagbo260c/Trace_GB.m3u8",
         "quality": "1080p FHD"
@@ -9604,8 +9596,8 @@
     "stream_url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8",
     "streams": [
       {
-        "name": "Sport Fishing TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sport Fishing TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sport Fishing TV",
         "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8",
         "quality": "1080p FHD"
@@ -9634,8 +9626,8 @@
     "stream_url": "http://opplex.ch:8080/live/abdulrehman/12345678/347278.ts",
     "streams": [
       {
-        "name": "ESPN 3 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ESPN 3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ESPN 3",
         "url": "http://opplex.ch:8080/live/abdulrehman/12345678/347278.ts",
         "quality": "1080p FHD"
@@ -9664,8 +9656,8 @@
     "stream_url": "http://livetv.akr4m.com:8080/bdtv/restrem/40.m3u8",
     "streams": [
       {
-        "name": "STAR SPORTS S1 HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "STAR SPORTS S1 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "STAR SPORTS S1 HD",
         "url": "http://livetv.akr4m.com:8080/bdtv/restrem/40.m3u8",
         "quality": "1080p FHD"
@@ -9695,8 +9687,8 @@
     "stream_url": "https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8",
     "streams": [
       {
-        "name": "Rakuten TV Action Movies (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Rakuten TV Action Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Rakuten TV Action Movies",
         "url": "https://54045f0c40fd442c8b06df076aaf1e85.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6065/master.m3u8",
         "quality": "1080p FHD"
@@ -9728,8 +9720,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
     "streams": [
       {
-        "name": "FOX CRICKET 501 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "FOX CRICKET 501 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "FOX CRICKET 501",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
         "quality": "1080p FHD"
@@ -9760,8 +9752,8 @@
     "stream_url": "https://stream.ottplus.live/live/channel_1_hd_abr/index.m3u8",
     "streams": [
       {
-        "name": "Channel 1 TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Channel 1 TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel 1 TV",
         "url": "https://stream.ottplus.live/live/channel_1_hd_abr/index.m3u8",
         "quality": "1080p FHD"
@@ -9791,8 +9783,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209587/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Bengali Beats (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Bengali Beats (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bengali Beats",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209587/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -9823,8 +9815,8 @@
     "stream_url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel16bd.stream/tracks-v1a1/mono.m3u8",
     "streams": [
       {
-        "name": "Channel 16 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Channel 16 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Channel 16",
         "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/channel16bd.stream/tracks-v1a1/mono.m3u8",
         "quality": "1080p FHD"
@@ -9856,8 +9848,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/2494.ts",
     "streams": [
       {
-        "name": "ASTRO CRICBUZ (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ASTRO CRICBUZ (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ASTRO CRICBUZ",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/2494.ts",
         "quality": "1080p FHD"
@@ -9888,8 +9880,8 @@
     "stream_url": "http://live-stream.amarbanglatv.in:8080/hls/sanandatv/index.m3u8",
     "streams": [
       {
-        "name": "Sananda TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sananda TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Sananda TV",
         "url": "http://live-stream.amarbanglatv.in:8080/hls/sanandatv/index.m3u8",
         "quality": "1080p FHD"
@@ -9918,8 +9910,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
     "streams": [
       {
-        "name": "Ten Sports HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Ten Sports HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Ten Sports HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
         "quality": "1080p FHD"
@@ -9951,15 +9943,15 @@
     "stream_url": "https://d2esfk1pb9cdob.cloudfront.net/master.m3u8",
     "streams": [
       {
-        "name": "ZOOM (Server 1 (720p HD))",
-        "serverLabel": "Server 1 (720p HD)",
+        "name": "ZOOM (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "ZOOM",
         "url": "https://d2esfk1pb9cdob.cloudfront.net/master.m3u8",
         "quality": "720p HD"
       },
       {
-        "name": "ZOOM (Server 2 (1080p HD))",
-        "serverLabel": "Server 2 (1080p HD)",
+        "name": "ZOOM (Server 2 — 1080p FHD)",
+        "serverLabel": "Server 2 — 1080p FHD",
         "channelName": "ZOOM",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72160.ts",
         "quality": "1080p FHD"
@@ -9991,8 +9983,8 @@
     "stream_url": "https://9be783d652cd4b099cf63e1dc134c4a3.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6181/master.m3u8",
     "streams": [
       {
-        "name": "Rakuten TV Comedy Movies (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Rakuten TV Comedy Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Rakuten TV Comedy Movies",
         "url": "https://9be783d652cd4b099cf63e1dc134c4a3.mediatailor.eu-west-1.amazonaws.com/v1/master/0547f18649bd788bec7b67b746e47670f558b6b2/production-LiveChannel-6181/master.m3u8",
         "quality": "1080p FHD"
@@ -10024,8 +10016,8 @@
     "stream_url": "https://spoo.me/footballM3U",
     "streams": [
       {
-        "name": "ASTRO Football (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "ASTRO Football (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ASTRO Football",
         "url": "https://spoo.me/footballM3U",
         "quality": "1080p FHD"
@@ -10054,8 +10046,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/4044.ts",
     "streams": [
       {
-        "name": "DSPORTS (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "DSPORTS (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DSPORTS",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/4044.ts",
         "quality": "1080p FHD"
@@ -10085,11 +10077,11 @@
     "stream_url": "https://a-cdn.klowdtv.com/live1/smc_720p/chunks.m3u8",
     "streams": [
       {
-        "name": "Sony Movies (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Sony Movies (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "Sony Movies",
         "url": "https://a-cdn.klowdtv.com/live1/smc_720p/chunks.m3u8",
-        "quality": "1080p FHD"
+        "quality": "720p HD"
       }
     ],
     "backupUrls": [],
@@ -10116,8 +10108,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/71417.ts",
     "streams": [
       {
-        "name": "Nat Geo Wild HD ENG (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Nat Geo Wild HD ENG (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Nat Geo Wild HD ENG",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/71417.ts",
         "quality": "1080p FHD"
@@ -10147,8 +10139,8 @@
     "stream_url": "https://autentic-adventure-earth-1-gb.lg.wurl.tv/playlist.m3u8",
     "streams": [
       {
-        "name": "Adventure Earth ENG (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Adventure Earth ENG (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Adventure Earth ENG",
         "url": "https://autentic-adventure-earth-1-gb.lg.wurl.tv/playlist.m3u8",
         "quality": "1080p FHD"
@@ -10180,8 +10172,8 @@
     "stream_url": "http://opplex.ch:8080/live/abdulrehman/12345678/346240.ts",
     "streams": [
       {
-        "name": "Willow Cricket Extra (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Willow Cricket Extra (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Willow Cricket Extra",
         "url": "http://opplex.ch:8080/live/abdulrehman/12345678/346240.ts",
         "quality": "1080p FHD"
@@ -10211,8 +10203,8 @@
     "stream_url": "http://iptv.prosto.tv:7000/ch72/video.m3u8",
     "streams": [
       {
-        "name": "Nikki HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Nikki HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Nikki HD",
         "url": "http://iptv.prosto.tv:7000/ch72/video.m3u8",
         "quality": "1080p FHD"
@@ -10242,8 +10234,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209617/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Bangla Waz (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Bangla Waz (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bangla Waz",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209617/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -10272,8 +10264,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98863.ts",
     "streams": [
       {
-        "name": "SONY SPORTS TEN 3 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "SONY SPORTS TEN 3 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "SONY SPORTS TEN 3",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98863.ts",
         "quality": "1080p FHD"
@@ -10303,8 +10295,8 @@
     "stream_url": "https://d2n3779oy6efpi.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-5rxuagztow0k3/playlist.m3u8",
     "streams": [
       {
-        "name": "Vevo Pop (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Vevo Pop (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Vevo Pop",
         "url": "https://d2n3779oy6efpi.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-5rxuagztow0k3/playlist.m3u8",
         "quality": "1080p FHD"
@@ -10334,8 +10326,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/621134.ts",
     "streams": [
       {
-        "name": "GOLD TV Sci-Fi Movies HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "GOLD TV Sci-Fi Movies HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "GOLD TV Sci-Fi Movies HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/621134.ts",
         "quality": "1080p FHD"
@@ -10365,8 +10357,8 @@
     "stream_url": "https://playlist.fasttvcdn.com/pl/dlkqw1ftuvuuzkcb4pxdcg/Iqraafasttv1/playlist.m3u8",
     "streams": [
       {
-        "name": "Iqraa TV (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Iqraa TV (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Iqraa TV",
         "url": "https://playlist.fasttvcdn.com/pl/dlkqw1ftuvuuzkcb4pxdcg/Iqraafasttv1/playlist.m3u8",
         "quality": "1080p FHD"
@@ -10398,8 +10390,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/348267.ts",
     "streams": [
       {
-        "name": "Super Sport LaLiga (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Super Sport LaLiga (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Super Sport LaLiga",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/348267.ts",
         "quality": "1080p FHD"
@@ -10428,8 +10420,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
     "streams": [
       {
-        "name": "SONY SPORTS TEN 2 HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "SONY SPORTS TEN 2 HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "SONY SPORTS TEN 2 HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
         "quality": "1080p FHD"
@@ -10461,8 +10453,8 @@
     "stream_url": "http://31.43.191.125:8080/live/20102023/123456789/243.ts",
     "streams": [
       {
-        "name": "DAZN LALIGA (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "DAZN LALIGA (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DAZN LALIGA",
         "url": "http://31.43.191.125:8080/live/20102023/123456789/243.ts",
         "quality": "1080p FHD"
@@ -10491,8 +10483,8 @@
     "stream_url": "http://opplex.ch:8080/live/abdulrehman/12345678/347264.ts",
     "streams": [
       {
-        "name": "Bein Sports 2 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Bein Sports 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Bein Sports 2",
         "url": "http://opplex.ch:8080/live/abdulrehman/12345678/347264.ts",
         "quality": "1080p FHD"
@@ -10523,8 +10515,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510261.ts",
     "streams": [
       {
-        "name": "MTV India HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "MTV India HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "MTV India HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510261.ts",
         "quality": "1080p FHD"
@@ -10554,8 +10546,8 @@
     "stream_url": "http://mxonlive.xyz/live/xap/112972.m3u8?e=1788562844&token=8b0078215eca2a688bca1e9ab693db1d8414aa296d03a719653f036d5acc8188",
     "streams": [
       {
-        "name": "Goldmines (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Goldmines (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Goldmines",
         "url": "http://mxonlive.xyz/live/xap/112972.m3u8?e=1788562844&token=8b0078215eca2a688bca1e9ab693db1d8414aa296d03a719653f036d5acc8188",
         "quality": "1080p FHD"
@@ -10584,8 +10576,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/9401.ts",
     "streams": [
       {
-        "name": "Star Sports SL 2 (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Star Sports SL 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Star Sports SL 2",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/9401.ts",
         "quality": "1080p FHD"
@@ -10615,8 +10607,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72165.ts",
     "streams": [
       {
-        "name": "&pictures HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "&pictures HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "&pictures HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72165.ts",
         "quality": "1080p FHD"
@@ -10646,8 +10638,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72195.ts",
     "streams": [
       {
-        "name": "Enter 10 Movies (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Enter 10 Movies (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Enter 10 Movies",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72195.ts",
         "quality": "1080p FHD"
@@ -10677,8 +10669,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72177.ts",
     "streams": [
       {
-        "name": "Comedy Active (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Comedy Active (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Comedy Active",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72177.ts",
         "quality": "1080p FHD"
@@ -10708,8 +10700,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
     "streams": [
       {
-        "name": "ANIMAL PLANET ENG (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ANIMAL PLANET ENG (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ANIMAL PLANET ENG",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
         "quality": "1080p FHD"
@@ -10739,8 +10731,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72173.ts",
     "streams": [
       {
-        "name": "Big Magic HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Big Magic HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Big Magic HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72173.ts",
         "quality": "1080p FHD"
@@ -10770,8 +10762,8 @@
     "stream_url": "https://d36nnn435goed2.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skhf82opa3tf4/WipeoutXtraPoweredbyBanijay_GB.m3u8",
     "streams": [
       {
-        "name": "Wipeout Xtra Powered by Banijay (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Wipeout Xtra Powered by Banijay (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Wipeout Xtra Powered by Banijay",
         "url": "https://d36nnn435goed2.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skhf82opa3tf4/WipeoutXtraPoweredbyBanijay_GB.m3u8",
         "quality": "1080p FHD"
@@ -10801,8 +10793,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510293.ts",
     "streams": [
       {
-        "name": "&explorer HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "&explorer HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "&explorer HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510293.ts",
         "quality": "1080p FHD"
@@ -10832,8 +10824,8 @@
     "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/18309.ts",
     "streams": [
       {
-        "name": "ARY MUSIC HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ARY MUSIC HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ARY MUSIC HD",
         "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/18309.ts",
         "quality": "1080p FHD"
@@ -10863,8 +10855,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72212.ts",
     "streams": [
       {
-        "name": "Miniplex HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Miniplex HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Miniplex HD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72212.ts",
         "quality": "1080p FHD"
@@ -10894,8 +10886,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
     "streams": [
       {
-        "name": "DISCOVERY SCIENCE Hindi (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "DISCOVERY SCIENCE Hindi (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "DISCOVERY SCIENCE Hindi",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
         "quality": "1080p FHD"
@@ -10925,8 +10917,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/809016.ts",
     "streams": [
       {
-        "name": "&xplor FHD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "&xplor FHD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "&xplor FHD",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/809016.ts",
         "quality": "1080p FHD"
@@ -10955,11 +10947,11 @@
     "stream_url": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
     "streams": [
       {
-        "name": "beIN Sports Xtra (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "beIN Sports Xtra (Server 1 — 720p HD)",
+        "serverLabel": "Server 1 — 720p HD",
         "channelName": "beIN Sports Xtra",
         "url": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
-        "quality": "1080p FHD"
+        "quality": "720p HD"
       }
     ],
     "backupUrls": [],
@@ -10986,8 +10978,8 @@
     "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510230.ts",
     "streams": [
       {
-        "name": "ShowBox Music (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "ShowBox Music (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "ShowBox Music",
         "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/510230.ts",
         "quality": "1080p FHD"
@@ -11019,8 +11011,8 @@
     "stream_url": "https://streamhub.dhruvpatil681.workers.dev/2026.m3u8",
     "streams": [
       {
-        "name": "Willow Sports 2 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
+        "name": "Willow Sports 2 (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Willow Sports 2",
         "url": "https://streamhub.dhruvpatil681.workers.dev/2026.m3u8",
         "quality": "1080p FHD"
@@ -11052,8 +11044,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/181.ts",
     "streams": [
       {
-        "name": "Travelxp HD (Server 1 (1080p HD))",
-        "serverLabel": "Server 1 (1080p HD)",
+        "name": "Travelxp HD (Server 1 — 1080p FHD)",
+        "serverLabel": "Server 1 — 1080p FHD",
         "channelName": "Travelxp HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/181.ts",
         "quality": "1080p FHD"

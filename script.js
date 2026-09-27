@@ -6784,7 +6784,7 @@
       const matchesUrlInput = document.getElementById('setting-matches-json-url');
 
       if (rapidapiInput) {
-        rapidapiInput.value = localStorage.getItem('highfy_rapidapi_key') || localStorage.getItem('highfy_sofascore_key') || window.CONFIG?.RAPIDAPI_KEY || window.CONFIG?.SOFASCORE_API_KEY || '';
+        rapidapiInput.value = localStorage.getItem('highfy_rapidapi_key') || window.CONFIG?.RAPIDAPI_KEY || '';
       }
       if (wweInput) {
         wweInput.value = localStorage.getItem('highfy_wwe_url') || window.CONFIG?.WWE_API_URL || '';
@@ -6829,7 +6829,7 @@
         });
       });
 
-      // Unified RapidAPI Key Test button handler (Tests SofaScore & Cricbuzz)
+      // RapidAPI Key Test button handler
       const btnTestRapidApi = document.getElementById('btn-test-rapidapi');
       const rapidApiTestResultEl = document.getElementById('rapidapi-test-result');
       if (btnTestRapidApi && rapidapiInput) {
@@ -6849,38 +6849,29 @@
           btnTestRapidApi.textContent = 'Testing...';
           if (rapidApiTestResultEl) {
             rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-sky-500/10 border-sky-500/30 text-sky-300 block';
-            rapidApiTestResultEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>Validating key on RapidAPI (SofaScore)...';
+            rapidApiTestResultEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>Validating RapidAPI key...';
           }
 
           try {
             let res = { valid: false, message: 'Could not connect' };
-            const [sofaRes, cricRes] = await Promise.allSettled([
-              fetch(`/api/sofascore/test?key=${encodeURIComponent(keyVal)}&host=sofascore.p.rapidapi.com`).then(r => r.json()),
-              fetch(`/api/cricket/test?key=${encodeURIComponent(keyVal)}&host=cricbuzz-cricket2.p.rapidapi.com`).then(r => r.json())
-            ]);
-            const sofaData = sofaRes.status === 'fulfilled' ? sofaRes.value : null;
-            const cricData = cricRes.status === 'fulfilled' ? cricRes.value : null;
+            const cricData = await fetch(`/api/cricket/test?key=${encodeURIComponent(keyVal)}&host=cricbuzz-cricket2.p.rapidapi.com`).then(r => r.json()).catch(() => null);
 
-            if ((sofaData && sofaData.valid) || (cricData && cricData.valid)) {
+            if (cricData && cricData.valid) {
               res = {
                 valid: true,
-                message: (sofaData?.valid && cricData?.valid)
-                  ? 'RapidAPI key is verified & active for SofaScore and Cricbuzz Cricket!'
-                  : (cricData?.valid
-                    ? 'RapidAPI key is verified & active for Cricbuzz Cricket!'
-                    : 'RapidAPI key is verified & active for SofaScore!')
+                message: 'RapidAPI key is verified & active!'
               };
             } else {
               res = {
                 valid: false,
-                message: cricData?.message || sofaData?.message || 'Invalid or inactive RapidAPI key'
+                message: cricData?.message || 'Invalid or inactive RapidAPI key'
               };
             }
 
             if (rapidApiTestResultEl) {
               if (res.valid) {
                 rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-emerald-500/10 border-emerald-500/30 text-emerald-300 block';
-                rapidApiTestResultEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1.5"></i>${res.message || 'RapidAPI key is valid & active for SofaScore and Cricbuzz!'}`;
+                rapidApiTestResultEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1.5"></i>${res.message || 'RapidAPI key is valid & active!'}`;
               } else {
                 rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-rose-500/10 border-rose-500/30 text-rose-300 block';
                 rapidApiTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>${res.message || 'Invalid or inactive RapidAPI key'}`;
@@ -6906,16 +6897,10 @@
           rapidapiInput.value = '';
           try {
             localStorage.removeItem('highfy_rapidapi_key');
-            localStorage.removeItem('highfy_sofascore_key');
-            localStorage.removeItem('highfy_cache_sofascore');
           } catch (err) {}
           if (window.CONFIG) {
             window.CONFIG.RAPIDAPI_KEY = '';
-            window.CONFIG.SOFASCORE_API_KEY = '';
             window.CONFIG.CRICKET_API_KEY = '';
-          }
-          if (window.sofascoreEngine && typeof window.sofascoreEngine.clearKey === 'function') {
-            window.sofascoreEngine.clearKey();
           }
           if (window.cricketEngine && typeof window.cricketEngine.clearKey === 'function') {
             window.cricketEngine.clearKey();
@@ -6933,13 +6918,10 @@
         if (rapidapiInput) {
           const rapVal = rapidapiInput.value.trim();
           localStorage.setItem('highfy_rapidapi_key', rapVal);
-          localStorage.setItem('highfy_sofascore_key', rapVal);
           if (window.CONFIG) {
             window.CONFIG.RAPIDAPI_KEY = rapVal;
-            window.CONFIG.SOFASCORE_API_KEY = rapVal;
             window.CONFIG.CRICKET_API_KEY = rapVal;
           }
-          if (window.sofascoreEngine) window.sofascoreEngine.saveKey(rapVal, 'sofascore.p.rapidapi.com');
           if (window.cricketEngine) window.cricketEngine.saveKey(rapVal);
         }
         if (wweInput) {

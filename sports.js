@@ -17,8 +17,7 @@ class SportsCoordinator {
       football: { configured: false, live: 0, upcoming: 0, finished: 0 },
       cricket: { configured: false, live: 0, upcoming: 0, finished: 0 },
       wwe: { configured: false, live: 0, upcoming: 0, finished: 0 },
-      allsportsapi: { configured: false, live: 0, upcoming: 0, finished: 0 },
-      sofascore: { configured: false, live: 0, upcoming: 0, finished: 0 }
+      allsportsapi: { configured: false, live: 0, upcoming: 0, finished: 0 }
     };
     this.lastUpdated = null;
     this.lastFetchTime = 0;
@@ -185,8 +184,7 @@ class SportsCoordinator {
       event.id,
       event.rawId,
       event.idEvent,
-      event.matchId,
-      event.sofascoreId
+      event.matchId
     ].filter(Boolean).map(String);
 
     let foundEntry = null;
@@ -1962,13 +1960,11 @@ class SportsCoordinator {
 
     this.inFlightFetch = (async () => {
       console.log('[SportsCoordinator] Fetching real sports events...');
-      const sofascoreEngine = window.sofascoreEngine;
       const cricketEngine = window.cricketEngine;
       const thesportsdbEngine = window.thesportsdbEngine;
       const wweEngine = window.wweEngine;
 
       const fetches = [
-        sofascoreEngine ? sofascoreEngine.getAllMatches(forceRefresh) : Promise.resolve({ configured: false, events: [] }),
         cricketEngine ? cricketEngine.getAllMatches(forceRefresh) : Promise.resolve({ configured: false, events: [] }),
         thesportsdbEngine ? thesportsdbEngine.getAllMatches(forceRefresh) : Promise.resolve({ configured: false, events: [] }),
         wweEngine ? wweEngine.getAllEvents(forceRefresh) : Promise.resolve({ configured: false, events: [] })
@@ -1976,32 +1972,19 @@ class SportsCoordinator {
 
       const results = await Promise.allSettled(fetches);
 
-      const ssRes = results[0].status === 'fulfilled' ? results[0].value : { configured: false, error: 'network_error', message: 'SofaScore load failed', events: [] };
-      const crRes = results[1].status === 'fulfilled' ? results[1].value : { configured: false, error: 'network_error', message: 'Cricket load failed', events: [] };
-      const tsdbRes = (results[2] && results[2].status === 'fulfilled') ? results[2].value : { configured: false, events: [] };
-      const wweRes = (results[3] && results[3].status === 'fulfilled') ? results[3].value : { configured: false, error: 'not_configured', message: 'WWE not configured', events: [] };
+      const crRes = results[0].status === 'fulfilled' ? results[0].value : { configured: false, error: 'network_error', message: 'Cricket load failed', events: [] };
+      const tsdbRes = (results[1] && results[1].status === 'fulfilled') ? results[1].value : { configured: false, events: [] };
+      const wweRes = (results[2] && results[2].status === 'fulfilled') ? results[2].value : { configured: false, error: 'not_configured', message: 'WWE not configured', events: [] };
 
       // Record error states
-      this.errors.sofascore = ssRes.error ? { error: ssRes.error, message: ssRes.message } : null;
       this.errors.cricket = crRes.error ? { error: crRes.error, message: crRes.message } : null;
       this.errors.wwe = (wweRes.error && wweRes.error !== 'not_configured') ? { error: wweRes.error, message: wweRes.message } : null;
 
-      const ssEvents = Array.isArray(ssRes.events) ? ssRes.events : [];
       const crEvents = Array.isArray(crRes.events) ? crRes.events : [];
       const tsdbEvents = Array.isArray(tsdbRes.events) ? tsdbRes.events : [];
       const wweEvents = Array.isArray(wweRes.events) ? wweRes.events : [];
 
       // Update status reports
-      this.statusReports.sofascore = {
-        configured: ssRes.configured !== false,
-        error: ssRes.error || null,
-        message: ssRes.message || '',
-        live: ssEvents.filter(e => e.status === 'live').length,
-        upcoming: ssEvents.filter(e => e.status === 'upcoming').length,
-        finished: ssEvents.filter(e => e.status === 'finished').length,
-        total: ssEvents.length
-      };
-
       this.statusReports.cricket = {
         configured: crRes.configured !== false,
         error: crRes.error || null,
@@ -2130,7 +2113,6 @@ class SportsCoordinator {
 
       addList(seedEvents);
       addList(tsdbEvents);
-      addList(ssEvents);
       addList(crEvents);
       addList(wweEvents);
 
@@ -2465,16 +2447,6 @@ class SportsCoordinator {
     const event = this.events.find(e => e.id === eventId);
     if (!event) return null;
 
-    // If football/sofascore event, fetch head-to-head / details if available
-    if (window.sofascoreEngine && (event.rawId || event.id)) {
-      try {
-        const h2h = await window.sofascoreEngine.getH2HEvents(event.rawId || event.id);
-        if (h2h && Array.isArray(h2h) && h2h.length > 0) {
-          event.h2h = h2h;
-        }
-      } catch (e) {}
-    }
-
     // If cricket, fetch deep scorecard
     if (event.sport === 'cricket' && window.cricketEngine) {
       const detailed = await window.cricketEngine.getMatchDetails(event.rawId || event.id);
@@ -2497,16 +2469,6 @@ class SportsCoordinator {
       second: '2-digit',
       hour12: true
     });
-  }
-
-  /**
-   * Fetch SofaScore Official Sports List and Priorities
-   */
-  async getSofaScoreSportsList(countryCode = 'GB') {
-    if (window.sofascoreEngine && typeof window.sofascoreEngine.getSportsList === 'function') {
-      return await window.sofascoreEngine.getSportsList(countryCode);
-    }
-    return { status: 'error', sports: [], countrySportPriorities: [] };
   }
 }
 
