@@ -1074,82 +1074,349 @@ async function startServer() {
     let matchedChannel: any = null;
 
     const bannedNetworks = [
-      'fancode', 'cricbuzz', 'hotstar', 'disney+ hotstar', 'peacock', 'paramount', 'prime video', 
-      'canal+', 'viaplay', 'stan sport', 'jiocinema', 'sports18', 'supersport', 'star sports network', 
-      'sony sports network', 'sony network', 'sonyliv', 'sony liv', 'sky sports', 'tnt sports', 'dazn', 'tsn', 'bein sports', 'bein'
+      'fancode', 'cricbuzz', 'hotstar', 'disney+ hotstar', 'disney hotstar', 'jiohotstar',
+      'peacock', 'paramount', 'paramount+', 'optus sport', 'optus', 'prime video',
+      'amazon prime video', 'amazon prime', 'canal+', 'viaplay', 'stan sport',
+      'jiocinema', 'jio cinema', 'sports18', 'sports 18', 'sports18 1',
+      'supersport', 'supersport action', 'supersport cricket', 'supersport premier league', 'supersport football',
+      'supersport premier', 'supersport epl', 'supersport grandstand', 'supersport variety', 'supersport rugby',
+      'star sports network', 'star sports select',
+      'sony sports network', 'sony network', 'sonyliv', 'sony liv',
+      'sky sports network', 'tnt sports', 'dazn', 'tsn', 'bein sports', 'bein', 'eurosport',
+      'mlb.tv', 'mlb tv', 'wnba league pass', 'nba league pass', 'nba tv', 'espn+', 'espn plus',
+      'apple tv', 'apple tv+', 'fubo', 'fubotv', 'kayosports', 'kayo sports', 'spark sport'
     ];
 
-    const explicitServerAliases: Record<string, string> = {
-      't sports': 'ch-t-sports-hd',
-      't sports hd': 'ch-t-sports-hd',
-      'tsports': 'ch-t-sports-hd',
-      'gazi tv': 'ch-gazi-tv',
-      'gtv': 'ch-gazi-tv',
-      'maasranga': 'ch-maasranga-tv-hd',
-      'maasranga tv': 'ch-maasranga-tv-hd',
-      'nagorik': 'ch-nagorik-tv',
-      'star sports 1 hindi': 'ch-star-sports-1-hindi',
-      'star sports hindi': 'ch-star-sports-1-hindi',
-      'star sports 1': 'ch-star-sports-1-hd',
-      'star sports 1 hd': 'ch-star-sports-1-hd',
-      'star sports 2': 'jio-1984',
-      'star sports select 1': 'ch-star-sports-select-1',
-      'willow': 'ch-willow-hd',
-      'willow cricket': 'ch-willow-hd',
-      'willow tv': 'ch-willow-hd',
-      'willow hd': 'ch-willow-hd',
-      'ptv sports': 'ch-ptv-sports-hd',
-      'a sports': 'ch-a-sports-hd',
-      'ten sports': 'ch-ten-sports-pk',
-      'sony ten 1': 'jio-162',
-      'sony ten 1 hd': 'jio-162',
-      'sony ten 2': 'jio-891',
-      'sony sports 2': 'ch-sony-sports-2-hd',
-      'sony ten 3': 'jio-892',
-      'sony ten 4': 'jio-1774',
-      'sony ten 5': 'jio-155',
-      'sky sports premier league': 'ch-sky-sports-epl',
-      'sky sports cricket': 'ch-sky-sports-cricket',
-      'tnt sports 1': 'ch-tnt-sports-1',
-      'dazn 1': 'ch-dazn-1',
-      'eurosport 1': 'ch-eurosport-1',
-      'ziggo sport 1': 'ch-ziggo-sport-1',
-      'tsn 1': 'ch-tsn-1',
-      'bein sports 1 hd': 'ch-bein-sports-1-hd',
-      'dd sports': 'ch-dd-sports'
+    const genericUmbrellaNetworks = [
+      'star sports', 'sony sports', 'sky sports', 'fox sports'
+    ];
+
+    const explicitServerAliases: Record<string, string[]> = {
+      't sports': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
+      't sports hd': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
+      'tsports': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
+      'gazi tv': ['ch-gazi-tv'],
+      'gtv': ['ch-gazi-tv'],
+      'gazi tv hd': ['ch-gazi-tv'],
+      'gazi television': ['ch-gazi-tv'],
+      'gazi': ['ch-gazi-tv'],
+      'maasranga': ['ch-maasranga-tv-hd'],
+      'maasranga tv': ['ch-maasranga-tv-hd'],
+      'maasranga tv hd': ['ch-maasranga-tv-hd'],
+      'nagorik': ['ch-nagorik-tv'],
+      'nagorik tv': ['ch-nagorik-tv'],
+      'star sports 1 hindi': ['ch-star-sports-1-hindi'],
+      'star sports hindi': ['ch-star-sports-1-hindi'],
+      'star sports 1 hd hindi': ['ch-star-sports-1-hindi'],
+      'ss1 hindi': ['ch-star-sports-1-hindi'],
+      'star sports 1': ['ch-star-sports-1-hd'],
+      'star sports 1 hd': ['ch-star-sports-1-hd'],
+      'star sports one': ['ch-star-sports-1-hd'],
+      'star sport 1': ['ch-star-sports-1-hd'],
+      'ss1': ['ch-star-sports-1-hd'],
+      'willow': ['ch-willow-hd', 'ch-willow-sports'],
+      'willow cricket': ['ch-willow-hd', 'ch-willow-sports'],
+      'willow tv': ['ch-willow-hd', 'ch-willow-sports'],
+      'willow hd': ['ch-willow-hd', 'ch-willow-sports'],
+      'willow usa': ['ch-willow-hd', 'ch-willow-sports'],
+      'willow sports': ['ch-willow-sports', 'ch-willow-hd'],
+      'willow sports 2': ['ch-willow-sports-2'],
+      'willow 2': ['ch-willow-sports-2'],
+      'willow extra': ['ch-willow-cricket-extra'],
+      'willow xtra': ['ch-willow-cricket-extra'],
+      'willow cricket extra': ['ch-willow-cricket-extra'],
+      'ptv sports': ['ch-ptv-sports-hd'],
+      'ptv sports hd': ['ch-ptv-sports-hd'],
+      'ptv sport': ['ch-ptv-sports-hd'],
+      'ptv': ['ch-ptv-sports-hd'],
+      'a sports': ['ch-a-sports'],
+      'a sports hd': ['ch-a-sports'],
+      'asports': ['ch-a-sports'],
+      'a sport': ['ch-a-sports'],
+      'ten sports': ['ch-ten-sports-hd'],
+      'ten sports hd': ['ch-ten-sports-hd'],
+      'ten sports pakistan': ['ch-ten-sports-hd'],
+      'ten sports pk': ['ch-ten-sports-hd'],
+      'ten cricket': ['ch-ten-cricket'],
+      'sony sports ten 2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+      'sony sports ten 2 hd': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+      'sony ten 2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+      'sony ten 2 hd': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+      'ten 2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+      'ten sports 2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+      'sony sports 2': ['ch-sony-sports-2-hd', 'ch-sony-sports-ten-2-hd'],
+      'sony sports 2 hd': ['ch-sony-sports-2-hd', 'ch-sony-sports-ten-2-hd'],
+      'sony sports ten 3': ['ch-sony-sports-ten-3'],
+      'sony sports ten 3 hd': ['ch-sony-sports-ten-3'],
+      'sony ten 3': ['ch-sony-sports-ten-3'],
+      'sony ten 3 hd': ['ch-sony-sports-ten-3'],
+      'ten 3': ['ch-sony-sports-ten-3'],
+      'ten sports 3': ['ch-sony-sports-ten-3'],
+      'sony ten 3 hindi': ['ch-sony-sports-ten-3'],
+      'sky sports cricket': ['ch-sky-sports-cricket'],
+      'sky cricket': ['ch-sky-sports-cricket'],
+      'sky sports mix': ['ch-sky-sports-mix'],
+      'fox cricket': ['ch-fox-cricket-501'],
+      'fox cricket 501': ['ch-fox-cricket-501'],
+      'fox sports 501': ['ch-fox-cricket-501'],
+      'astro cricket': ['ch-astro-cricbuz'],
+      'astro cricbuz': ['ch-astro-cricbuz'],
+      'cricket gold': ['ch-cricket-gold'],
+      'dd sports': ['ch-dd-sports']
     };
+
+    const nonCricketDedicatedIds = new Set<string>([
+      'ch-tnt-sports-1',
+      'ch-tnt-sports-2',
+      'ch-tnt-sports-3',
+      'ch-tnt-sports-4',
+      'ch-sky-sports-action',
+      'ch-star-sports-s1-hd',
+      'ch-star-sports-sl-2',
+      'ch-star-sports-select-1',
+      'ch-star-sports-select-2',
+      'ch-sky-sports-epl',
+      'ch-sky-sports-football',
+      'ch-sky-sports-f1',
+      'ch-sky-sports-tennis',
+      'ch-sky-sports-golf',
+      'ch-sky-sports-racing'
+    ]);
+
+    const verifiedCricketAliasTargetIds = new Set<string>(Object.values(explicitServerAliases).flat());
+
+    // Only strip technical resolution suffixes at word boundaries (NEVER strip "TV" globally)
+    const stripHdSuffix = (s: string) =>
+      s
+        .toLowerCase()
+        .replace(/\b(hd|sd|fhd|uhd|4k)\b/gi, '')
+        .replace(/[^a-z0-9]+/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    const isValidHttpUrl = (u: any): boolean =>
+      typeof u === 'string' && /^https?:\/\//i.test(u.trim());
+
+    const hasValidChannelStream = (c: any): boolean => {
+      if (!c || c.active !== true) return false;
+      if (isValidHttpUrl(c.streamUrl) || isValidHttpUrl(c.url) || isValidHttpUrl(c.stream_url)) return true;
+      if (Array.isArray(c.streams) && c.streams.some((s: any) => s && isValidHttpUrl(s.url))) return true;
+      return false;
+    };
+
+    const isCricketCompatibleChannel = (c: any, isFromExplicitAlias: boolean = false): boolean => {
+      if (!c || c.active !== true) return false;
+      const cid = String(c.id || '').toLowerCase().trim();
+      const sportsArr = Array.isArray(c.sports) ? c.sports.map((s: any) => String(s).toLowerCase().trim()) : [];
+      const catsArr = Array.isArray(c.categories) ? c.categories.map((cat: any) => String(cat).toLowerCase().trim()) : [];
+      const primaryCat = String(c.category || '').toLowerCase().trim();
+
+      const hasExplicitCricketTag = sportsArr.includes('cricket') || catsArr.includes('cricket');
+      if (nonCricketDedicatedIds.has(cid) && !hasExplicitCricketTag) {
+        return false;
+      }
+
+      const hasDedicatedOtherSportTag =
+        sportsArr.some((s: string) =>
+          ['football', 'soccer', 'tennis', 'motorsport', 'f1', 'rugby', 'combat', 'combat sports', 'boxing', 'ufc', 'wwe', 'basketball', 'baseball'].includes(s)
+        ) ||
+        catsArr.some((cat: string) =>
+          ['football', 'soccer', 'tennis', 'motorsport', 'f1', 'rugby', 'combat', 'combat sports', 'boxing', 'ufc', 'wwe', 'basketball', 'baseball'].includes(cat)
+        );
+
+      if (!hasExplicitCricketTag && hasDedicatedOtherSportTag) {
+        return false;
+      }
+
+      if (hasExplicitCricketTag) {
+        return primaryCat === 'sports' || catsArr.includes('sports') || catsArr.includes('cricket');
+      }
+
+      if (isFromExplicitAlias && verifiedCricketAliasTargetIds.has(cid)) {
+        return (
+          primaryCat === 'sports' ||
+          catsArr.includes('sports') ||
+          cid === 'ch-gazi-tv' ||
+          cid === 'ch-maasranga-tv-hd' ||
+          cid === 'ch-nagorik-tv'
+        );
+      }
+
+      return false;
+    };
+
+    const matchedChannels: any[] = [];
+    const seenChannelIds = new Set<string>();
+    const fallbackCricketPool = allChannels.filter(
+      (c: any) => isCricketCompatibleChannel(c, false) && hasValidChannelStream(c)
+    );
 
     for (const bName of uniqueBroadcasters) {
       const bLower = bName.toLowerCase().trim();
-      if (bannedNetworks.includes(bLower)) continue;
-
-      // 1. Explicit verified mapping
-      const mappedId = explicitServerAliases[bLower];
-      if (mappedId) {
-        matchedChannel = allChannels.find((c: any) => (c.id === mappedId || c.id === `ch-${mappedId}`) && c.active !== false);
-        if (matchedChannel) break;
+      const bStripped = stripHdSuffix(bLower);
+      if (
+        !bLower ||
+        bannedNetworks.some(banned => bLower.includes(banned)) ||
+        (bStripped && bannedNetworks.some(banned => bStripped.includes(banned))) ||
+        genericUmbrellaNetworks.includes(bLower) ||
+        (bStripped && genericUmbrellaNetworks.includes(bStripped))
+      ) {
+        continue;
       }
 
-      // 2. Exact match on channel name or ID
-      matchedChannel = allChannels.find((c: any) => {
-        if (!c || c.active === false) return false;
-        const cName = (c.name || "").toLowerCase().trim();
-        const cId = (c.id || "").toLowerCase().trim();
-        return cName === bLower || cId === bLower;
-      });
-      if (matchedChannel) break;
+      const tokenCandidates: any[] = [];
+
+      // 1. Explicit verified mapping (supports multiple valid channels per alias)
+      const mappedIds = explicitServerAliases[bLower] || (bStripped ? explicitServerAliases[bStripped] : undefined);
+      if (mappedIds && mappedIds.length > 0) {
+        for (const mappedId of mappedIds) {
+          const found = allChannels.find(
+            (c: any) =>
+              c &&
+              (c.id === mappedId || c.id === `ch-${mappedId}`) &&
+              isCricketCompatibleChannel(c, true) &&
+              hasValidChannelStream(c)
+          );
+          if (found) {
+            tokenCandidates.push(found);
+          }
+        }
+      }
+
+      // 2. Exact match restricted strictly to active Cricket-compatible channels (rejecting ambiguous collisions)
+      if (
+        tokenCandidates.length === 0 &&
+        !mappedIds &&
+        bStripped &&
+        !bannedNetworks.some(banned => bStripped.includes(banned)) &&
+        !genericUmbrellaNetworks.includes(bStripped)
+      ) {
+        const exactMatches = fallbackCricketPool.filter((c: any) => {
+          const cName = String(c.name || '').toLowerCase().trim();
+          const cId = String(c.id || '').toLowerCase().trim();
+          if (cName === bLower || cId === bLower) return true;
+          const cStripped = stripHdSuffix(cName);
+          return Boolean(cStripped && cStripped === bStripped);
+        });
+        if (exactMatches.length === 1) {
+          tokenCandidates.push(exactMatches[0]);
+        }
+      }
+
+      for (const candidateChannel of tokenCandidates) {
+        if (!candidateChannel || !hasValidChannelStream(candidateChannel)) {
+          continue;
+        }
+        if (!seenChannelIds.has(candidateChannel.id)) {
+          seenChannelIds.add(candidateChannel.id);
+          matchedChannels.push(candidateChannel);
+        }
+      }
     }
 
-    const hasStream = matchedChannel && (matchedChannel.streamUrl || matchedChannel.url || matchedChannel.stream_url || (Array.isArray(matchedChannel.streams) && matchedChannel.streams.length > 0));
+    const primaryChannel = matchedChannels.length > 0 ? matchedChannels[0] : null;
+    const verifiedStreams: any[] = [];
+    const seenStreamUrls = new Set<string>();
+
+    for (const ch of matchedChannels) {
+      const chSports = Array.isArray(ch.sports) && ch.sports.length > 0 ? ch.sports : ['Cricket'];
+      const pUrl = ch.streamUrl || ch.url || ch.stream_url;
+      const bUrls = Array.isArray(ch.backupUrls) ? ch.backupUrls : [];
+      const chStreams = Array.isArray(ch.streams) && ch.streams.length > 0
+        ? ch.streams
+        : (isValidHttpUrl(pUrl)
+          ? [
+              {
+                name: `${ch.name} (Server 1 — ${ch.isHD === false ? '720p HD' : '1080p FHD'})`,
+                serverLabel: `Server 1 — ${ch.isHD === false ? '720p HD' : '1080p FHD'}`,
+                channelName: ch.name,
+                url: pUrl,
+                quality: ch.isHD === false ? '720p HD' : '1080p FHD'
+              }
+            ]
+          : []);
+
+      let chServerIdx = 0;
+      for (const s of chStreams) {
+        if (s && isValidHttpUrl(s.url)) {
+          const normUrl = s.url.trim().toLowerCase();
+          if (!seenStreamUrls.has(`${ch.id}::${normUrl}`)) {
+            seenStreamUrls.add(`${ch.id}::${normUrl}`);
+            chServerIdx++;
+            const qLabel = s.quality || (ch.isHD === false ? '720p HD' : '1080p FHD');
+            const rawName = s.name || `${ch.name} (Server ${chServerIdx} — ${qLabel})`;
+            const cleanName = String(rawName).replace(/\(Server\s+(\d+)\s*\(([^()]+)\)\)/gi, '(Server $1 — $2)');
+            const rawLabel = s.serverLabel || `Server ${chServerIdx} — ${qLabel}`;
+            const cleanLabel = String(rawLabel).replace(/\(([^()]+)\)/g, '— $1').replace(/\s+/g, ' ').trim();
+            verifiedStreams.push({
+              name: cleanName,
+              serverLabel: cleanLabel,
+              channelId: ch.id,
+              channelName: ch.name,
+              channelLogo: ch.logo || null,
+              category: ch.category || 'Sports',
+              sports: chSports,
+              url: s.url.trim(),
+              quality: qLabel,
+              isHD: s.isHD !== undefined ? s.isHD !== false : ch.isHD !== false
+            });
+          }
+        }
+      }
+
+      if (isValidHttpUrl(pUrl)) {
+        const normPurl = pUrl.trim().toLowerCase();
+        if (!seenStreamUrls.has(`${ch.id}::${normPurl}`)) {
+          seenStreamUrls.add(`${ch.id}::${normPurl}`);
+          chServerIdx++;
+          const qLabel = ch.isHD === false ? '720p HD' : '1080p FHD';
+          verifiedStreams.push({
+            name: `${ch.name} (Server ${chServerIdx} — ${qLabel})`,
+            serverLabel: `Server ${chServerIdx} — ${qLabel}`,
+            channelId: ch.id,
+            channelName: ch.name,
+            channelLogo: ch.logo || null,
+            category: ch.category || 'Sports',
+            sports: chSports,
+            url: pUrl.trim(),
+            quality: qLabel,
+            isHD: ch.isHD !== false
+          });
+        }
+      }
+
+      for (const bUrl of bUrls) {
+        if (isValidHttpUrl(bUrl)) {
+          const normBurl = bUrl.trim().toLowerCase();
+          if (!seenStreamUrls.has(`${ch.id}::${normBurl}`)) {
+            seenStreamUrls.add(`${ch.id}::${normBurl}`);
+            chServerIdx++;
+            verifiedStreams.push({
+              name: `${ch.name} (Server ${chServerIdx} Backup)`,
+              serverLabel: `Server ${chServerIdx} (Backup)`,
+              channelId: ch.id,
+              channelName: ch.name,
+              channelLogo: ch.logo || null,
+              category: ch.category || 'Sports',
+              sports: chSports,
+              url: bUrl.trim(),
+              quality: '720p HD',
+              isHD: ch.isHD !== false
+            });
+          }
+        }
+      }
+    }
 
     return {
       broadcaster: primaryBroadcaster,
       broadcasters: uniqueBroadcasters,
-      channelId: hasStream ? matchedChannel.id : null,
-      channelName: hasStream ? matchedChannel.name : null,
-      channelLogo: hasStream ? (matchedChannel.logo || null) : null,
-      streamUrl: hasStream ? (matchedChannel.streamUrl || matchedChannel.url || matchedChannel.stream_url || null) : null,
-      streams: hasStream ? (matchedChannel.streams || []) : [],
+      channelId: primaryChannel ? primaryChannel.id : null,
+      channelIds: matchedChannels.map((c: any) => c.id),
+      channelName: primaryChannel ? primaryChannel.name : null,
+      channelLogo: primaryChannel ? (primaryChannel.logo || null) : null,
+      streamUrl: primaryChannel ? (primaryChannel.streamUrl || primaryChannel.url || primaryChannel.stream_url || null) : null,
+      streams: verifiedStreams,
     };
   }
 
@@ -1163,38 +1430,252 @@ async function startServer() {
     const homeName = home.name || "Home Team";
     const awayName = away.name || "Away Team";
     const tournamentName = sportEvent.tournament?.name || sportEvent.season?.name || "Cricket Tournament";
+    const tNameLower = tournamentName.toLowerCase();
+    const rawType = String(
+      sportEvent.type ||
+      sportEvent.format ||
+      sportEvent.tournament?.type ||
+      item.type ||
+      item.match_type ||
+      ""
+    ).toLowerCase().trim();
 
-    const rawStatus = String(statusObj.status || sportEvent.status || item.status || "").toLowerCase();
-    const matchStatus = String(statusObj.match_status || "").toLowerCase();
-    let status = "upcoming";
-    let statusText = "Scheduled";
+    let matchFormat = "Cricket";
+    let formatDurationMs = 6 * 3600 * 1000;
+    let maxLiveSafeguardMs = 12 * 3600 * 1000; // Limited overs unknown safety ceiling = 12 hours
 
-    if (
-      rawStatus === "live" ||
-      rawStatus === "in_progress" ||
-      rawStatus === "started" ||
-      matchStatus === "in_progress" ||
-      matchStatus.includes("progress") ||
-      rawStatus.includes("progress")
-    ) {
-      status = "live";
-      statusText = statusObj.match_status || "LIVE NOW";
+    const isAuthoritativeTestType =
+      rawType === "test" ||
+      rawType === "first_class" ||
+      rawType === "first-class" ||
+      rawType === "fc" ||
+      rawType === "multi_day" ||
+      rawType.includes("test") ||
+      rawType.includes("first_class") ||
+      rawType.includes("first-class");
+    const isAuthoritativeT20Type =
+      rawType === "t20" ||
+      rawType === "t20i" ||
+      rawType === "twenty20" ||
+      rawType === "t10" ||
+      rawType === "100_ball" ||
+      rawType.includes("t20");
+    const isAuthoritativeOdiType =
+      rawType === "odi" ||
+      rawType === "one_day" ||
+      rawType === "one-day" ||
+      rawType === "list_a" ||
+      rawType.includes("odi");
+
+    const isTournamentTestOrFc =
+      tNameLower.includes("test") ||
+      tNameLower.includes("county") ||
+      tNameLower.includes("first-class") ||
+      tNameLower.includes("first class") ||
+      tNameLower.includes("sheffield shield") ||
+      tNameLower.includes("sheffield") ||
+      tNameLower.includes("ranji") ||
+      tNameLower.includes("ashes") ||
+      tNameLower.includes("border-gavaskar") ||
+      tNameLower.includes("border gavaskar") ||
+      tNameLower.includes("duleep") ||
+      tNameLower.includes("irani") ||
+      tNameLower.includes("plunket");
+
+    if (isAuthoritativeTestType || (!isAuthoritativeT20Type && !isAuthoritativeOdiType && isTournamentTestOrFc)) {
+      matchFormat = tNameLower.includes("county") ? "County" : "Test";
+      formatDurationMs = 5 * 24 * 3600 * 1000;
+      maxLiveSafeguardMs = 5.5 * 24 * 3600 * 1000; // Test/County/First-Class safety ceiling = 5.5 days
     } else if (
+      isAuthoritativeT20Type ||
+      (!isAuthoritativeOdiType &&
+        (tNameLower.includes("t20") ||
+          tNameLower.includes("super smash") ||
+          tNameLower.includes("blast") ||
+          tNameLower.includes("ipl") ||
+          tNameLower.includes("bpl") ||
+          tNameLower.includes("psl") ||
+          tNameLower.includes("cpl") ||
+          tNameLower.includes("big bash") ||
+          tNameLower.includes("the hundred")))
+    ) {
+      matchFormat = "T20";
+      formatDurationMs = 4.25 * 3600 * 1000;
+      maxLiveSafeguardMs = 10 * 3600 * 1000; // T20 safety ceiling = 10 hours
+    } else if (
+      isAuthoritativeOdiType ||
+      tNameLower.includes("odi") ||
+      tNameLower.includes("one-day") ||
+      tNameLower.includes("one day") ||
+      tNameLower.includes("world cup") ||
+      tNameLower.includes("champions trophy")
+    ) {
+      matchFormat = "ODI";
+      formatDurationMs = 8.5 * 3600 * 1000;
+      maxLiveSafeguardMs = 13 * 3600 * 1000; // ODI safety ceiling = 13 hours
+    }
+
+    const rawStartStr =
+      sportEvent.scheduled ||
+      sportEvent.start_time ||
+      sportEvent.scheduled_start ||
+      item.scheduled ||
+      item.start_time ||
+      item.startTime ||
+      null;
+    const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+    const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+    const timestamp: number | null = hasValidStart ? parsedStartMs : null;
+    const startTimeIso: string | null = hasValidStart ? new Date(parsedStartMs).toISOString() : null;
+
+    const rawEndStr =
+      sportEvent.end_time ||
+      sportEvent.scheduled_end ||
+      item.end_time ||
+      item.endTime ||
+      item.scheduled_end ||
+      null;
+    const parsedEndMs = rawEndStr ? Date.parse(String(rawEndStr)) : NaN;
+    const hasAuthoritativeEnd = !isNaN(parsedEndMs) && parsedEndMs > 0 && (!hasValidStart || parsedEndMs > parsedStartMs);
+    const authoritativeEndTimeMs: number | null = hasAuthoritativeEnd ? parsedEndMs : null;
+
+    const safeLiveWindowEndMs: number | null =
+      authoritativeEndTimeMs !== null
+        ? authoritativeEndTimeMs
+        : hasValidStart
+        ? parsedStartMs + formatDurationMs
+        : null;
+    const staleSafeguardEndMs: number | null =
+      authoritativeEndTimeMs !== null
+        ? authoritativeEndTimeMs
+        : hasValidStart
+        ? parsedStartMs + maxLiveSafeguardMs
+        : null;
+    const endTimeIso: string | null =
+      authoritativeEndTimeMs !== null
+        ? new Date(authoritativeEndTimeMs).toISOString()
+        : safeLiveWindowEndMs !== null
+        ? new Date(safeLiveWindowEndMs).toISOString()
+        : null;
+
+    const nowMs = Date.now();
+    const rawStatus = String(statusObj.status || sportEvent.status || item.status || "").toLowerCase().trim();
+    const matchStatus = String(statusObj.match_status || "").toLowerCase().trim();
+    const isFromLiveFeed = Boolean(item._fromLiveSchedule);
+
+    const isExplicitFinished =
       rawStatus === "closed" ||
       rawStatus === "ended" ||
       rawStatus === "finished" ||
       rawStatus === "complete" ||
       rawStatus === "completed" ||
+      rawStatus === "abandoned" ||
       matchStatus === "ended" ||
       matchStatus === "completed" ||
+      matchStatus === "abandoned" ||
+      matchStatus === "closed" ||
+      matchStatus === "finished" ||
       rawStatus.includes("ended") ||
-      rawStatus.includes("concluded")
+      rawStatus.includes("concluded") ||
+      matchStatus.includes("ended") ||
+      matchStatus.includes("concluded");
+
+    const isExplicitNonLive =
+      rawStatus === "not_started" ||
+      rawStatus === "delayed" ||
+      rawStatus === "postponed" ||
+      rawStatus === "cancelled" ||
+      rawStatus === "canceled" ||
+      rawStatus === "scheduled" ||
+      matchStatus === "not_started" ||
+      matchStatus === "delayed" ||
+      matchStatus === "postponed" ||
+      matchStatus === "cancelled" ||
+      matchStatus === "canceled" ||
+      matchStatus === "scheduled";
+
+    const isExplicitLive =
+      !isExplicitFinished &&
+      !isExplicitNonLive &&
+      (rawStatus === "live" ||
+        rawStatus === "in_progress" ||
+        rawStatus === "started" ||
+        matchStatus === "in_progress" ||
+        matchStatus === "live" ||
+        matchStatus.includes("progress") ||
+        matchStatus.includes("innings") ||
+        matchStatus.includes("stumps") ||
+        matchStatus.includes("lunch") ||
+        matchStatus.includes("tea") ||
+        rawStatus.includes("progress"));
+
+    let status = "upcoming";
+    let statusText = "Scheduled";
+
+    // Authoritative Status Priority (Requirement 3B):
+    // 1. Explicit finished
+    if (isExplicitFinished) {
+      status = "finished";
+      statusText = statusObj.match_status || "Match Concluded";
+    }
+    // 2. Valid authoritative API end_time / scheduled_end has passed
+    else if (authoritativeEndTimeMs !== null && nowMs > authoritativeEndTimeMs) {
+      status = "finished";
+      statusText = statusObj.match_status || "Match Concluded";
+    }
+    // 6 (Stale ceiling check before live): Reliable timestamp/safeguard proves event is stale
+    else if (staleSafeguardEndMs !== null && nowMs > staleSafeguardEndMs) {
+      status = "finished";
+      statusText = statusObj.match_status || "Match Concluded";
+    }
+    // 3. Explicit LIVE + valid/non-stale event (never synthetic LIVE from Date.now() when timestamp is missing)
+    else if (
+      (isExplicitLive || (isFromLiveFeed && !isExplicitNonLive)) &&
+      (!hasValidStart ||
+        (nowMs >= parsedStartMs - 15 * 60 * 1000 &&
+          (staleSafeguardEndMs === null || nowMs <= staleSafeguardEndMs)))
+    ) {
+      status = "live";
+      statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "LIVE NOW";
+    }
+    // 4. Valid timestamp + safe live window (only when NOT explicitly not_started/delayed/postponed/cancelled/scheduled)
+    else if (
+      hasValidStart &&
+      !isExplicitNonLive &&
+      safeLiveWindowEndMs !== null &&
+      nowMs >= parsedStartMs &&
+      nowMs <= safeLiveWindowEndMs
+    ) {
+      if (matchFormat === "County" || matchFormat === "Test") {
+        const elapsedHours = (nowMs - parsedStartMs) / (3600 * 1000);
+        const hourOfDayMod = elapsedHours % 24;
+        if (hourOfDayMod <= 9.5) {
+          status = "live";
+          statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "LIVE NOW";
+        } else {
+          status = "upcoming";
+          statusText = "Stumps / Next Day";
+        }
+      } else {
+        status = "live";
+        statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "LIVE NOW";
+      }
+    }
+    // 6. Finished when past normal window and not explicitly live or delayed/not_started
+    else if (
+      hasValidStart &&
+      !isExplicitLive &&
+      !isExplicitNonLive &&
+      safeLiveWindowEndMs !== null &&
+      nowMs > safeLiveWindowEndMs
     ) {
       status = "finished";
       statusText = statusObj.match_status || "Match Concluded";
-    } else {
+    }
+    // 5. Upcoming (including future startTime, missing timestamp, or not_started/delayed/postponed/scheduled)
+    else {
       status = "upcoming";
-      statusText = statusObj.match_status || "Upcoming";
+      statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "Upcoming";
     }
 
     const periodScores = Array.isArray(statusObj.period_scores) ? statusObj.period_scores : [];
@@ -1216,15 +1697,13 @@ async function startServer() {
       if (lastP.away_overs) awayOvers = `(${lastP.away_overs} ov)`;
     }
 
-    const scheduledDate = sportEvent.scheduled ? new Date(sportEvent.scheduled) : new Date();
-    const timestamp = !isNaN(scheduledDate.getTime()) ? scheduledDate.getTime() : Date.now();
-    const matchTimeStr = formatDhakaEventTime(timestamp);
+    const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
 
     const t1Logo = resolveHDTeamLogo(homeName);
     const t2Logo = resolveHDTeamLogo(awayName);
 
     return {
-      id: `cr-sportradar-${String(sportEvent.id || Date.now()).replace(/[^a-zA-Z0-9_-]/g, "_")}`,
+      id: `cr-sportradar-${String(sportEvent.id || "unknown").replace(/[^a-zA-Z0-9_-]/g, "_")}`,
       rawId: sportEvent.id,
       matchId: sportEvent.id,
       sport: "cricket",
@@ -1236,17 +1715,23 @@ async function startServer() {
       tournament: tournamentName,
       league: tournamentName,
       matchDesc: sportEvent.type || "Match",
-      matchFormat: "Cricket",
+      matchFormat,
+      matchType: matchFormat,
+      startTime: startTimeIso,
+      endTime: endTimeIso,
+      authoritativeEndTime: authoritativeEndTimeMs ? new Date(authoritativeEndTimeMs).toISOString() : null,
       status,
       statusText,
       statusLabel: status === "live" ? "LIVE" : (status === "finished" ? "FT" : "Upcoming"),
       timestamp,
-      date: new Intl.DateTimeFormat("en-CA", {
-        timeZone: "Asia/Dhaka",
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }).format(new Date(timestamp)),
+      date: hasValidStart
+        ? new Intl.DateTimeFormat("en-CA", {
+            timeZone: "Asia/Dhaka",
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit",
+          }).format(new Date(parsedStartMs))
+        : "",
       matchTime: matchTimeStr,
       timeOrTimer: status === "live" ? "LIVE" : (status === "finished" ? "FT" : matchTimeStr),
       venue: sportEvent.venue ? `${sportEvent.venue.name || ""}${sportEvent.venue.city_name ? `, ${sportEvent.venue.city_name}` : ""}`.trim() : "",
@@ -1286,6 +1771,7 @@ async function startServer() {
           broadcaster: bData.broadcaster,
           broadcasters: bData.broadcasters,
           channelId: bData.channelId,
+          channelIds: bData.channelIds,
           channelName: bData.channelName,
           channelLogo: bData.channelLogo,
           streamUrl: bData.streamUrl,
@@ -1378,6 +1864,9 @@ async function startServer() {
             ? liveRes.data.summaries
             : [];
           for (const item of list) {
+            if (item && typeof item === "object") {
+              item._fromLiveSchedule = true;
+            }
             const ev = normalizeSportradarEvent(item);
             if (ev) addCricketEvent(ev);
           }
@@ -2004,23 +2493,63 @@ async function startServer() {
       return null;
     }
 
-    let timestamp = Date.now();
+    const rawTimeClean = String(raw.strTime || "").split("+")[0].split("Z")[0].trim();
+    const hasUnknownZeroTime = !rawTimeClean || rawTimeClean === "00:00:00" || rawTimeClean === "00:00";
+
+    let parsedStartMs = NaN;
     if (raw.strTimestamp) {
       let tsStr = String(raw.strTimestamp).trim();
-      if (!tsStr.endsWith("Z") && !/[+-]\d{2}:?\d{2}$/.test(tsStr)) {
-        tsStr = tsStr.replace(" ", "T") + "Z";
+      const tsHasZeroTime = /T00:00(:00)?(\.0+)?(Z|[+-]\d{2}:?\d{2})?$/i.test(tsStr.replace(" ", "T"));
+      if (!(tsHasZeroTime && hasUnknownZeroTime)) {
+        if (!tsStr.endsWith("Z") && !/[+-]\d{2}:?\d{2}$/.test(tsStr)) {
+          tsStr = tsStr.replace(" ", "T") + "Z";
+        }
+        const parsed = Date.parse(tsStr);
+        if (!isNaN(parsed) && parsed > 0) parsedStartMs = parsed;
       }
-      const parsed = Date.parse(tsStr);
-      if (!isNaN(parsed)) timestamp = parsed;
-    } else if (raw.dateEvent) {
-      const timePart = raw.strTime ? raw.strTime.split("+")[0].split("Z")[0].trim() : "12:00:00";
-      const parsed = Date.parse(`${raw.dateEvent}T${timePart}Z`);
-      if (!isNaN(parsed)) timestamp = parsed;
+    }
+    if (isNaN(parsedStartMs) && raw.dateEvent && !hasUnknownZeroTime) {
+      const parsed = Date.parse(`${String(raw.dateEvent).trim()}T${rawTimeClean}Z`);
+      if (!isNaN(parsed) && parsed > 0) parsedStartMs = parsed;
     }
 
+    const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+    const timestamp: number | null = hasValidStart ? parsedStartMs : null;
+
+    const rawEndStr = raw.strEndTimestamp || raw.end_time || raw.endTime || raw.scheduled_end || null;
+    const parsedEndMs = rawEndStr ? Date.parse(String(rawEndStr)) : NaN;
+    const authoritativeEndTimeMs: number | null =
+      !isNaN(parsedEndMs) && parsedEndMs > 0 && (!hasValidStart || parsedEndMs > parsedStartMs)
+        ? parsedEndMs
+        : null;
+
     const now = Date.now();
-    const isLiveTime = now >= timestamp && now <= (timestamp + (2 * 3600 * 1000));
-    const isPastTime = now > (timestamp + (2 * 3600 * 1000));
+    const sportLower = (sport || "").toLowerCase();
+    // Normal match window (Football 3h covers Extra Time + Penalties; Tennis/Motorsport 5h; other sports 4.5h)
+    const formatDurationMs = sportLower.includes("motor") || sportLower.includes("tennis")
+      ? 5 * 3600 * 1000
+      : sportLower.includes("basket") || sportLower.includes("base") || sportLower.includes("rugby") || sportLower.includes("hockey") || sportLower.includes("combat") || sportLower.includes("wwe")
+      ? 4.5 * 3600 * 1000
+      : 3 * 3600 * 1000;
+    // Stale-LIVE safety ceiling (Football 6h, Tennis/Motorsport 10h, Basketball/Baseball/Rugby/Hockey 8h)
+    const maxLiveSafeguardMs = sportLower.includes("motor") || sportLower.includes("tennis")
+      ? 10 * 3600 * 1000
+      : sportLower.includes("basket") || sportLower.includes("base") || sportLower.includes("rugby") || sportLower.includes("hockey") || sportLower.includes("combat") || sportLower.includes("wwe")
+      ? 8 * 3600 * 1000
+      : 6 * 3600 * 1000;
+
+    const safeLiveWindowEndMs: number | null =
+      authoritativeEndTimeMs !== null
+        ? authoritativeEndTimeMs
+        : hasValidStart
+        ? parsedStartMs + formatDurationMs
+        : null;
+    const staleSafeguardEndMs: number | null =
+      authoritativeEndTimeMs !== null
+        ? authoritativeEndTimeMs
+        : hasValidStart
+        ? parsedStartMs + maxLiveSafeguardMs
+        : null;
 
     let status = "upcoming";
     let statusText = "Scheduled";
@@ -2028,21 +2557,112 @@ async function startServer() {
 
     const hasScores = (raw.intHomeScore !== null && raw.intHomeScore !== undefined && raw.intHomeScore !== "") ||
                       (raw.intAwayScore !== null && raw.intAwayScore !== undefined && raw.intAwayScore !== "");
+    const rawStLower = String(raw.strStatus || "").toLowerCase().trim();
 
-    if (raw.strStatus === "Match Finished" || raw.strPostponed === "yes" || isPastTime || (hasScores && !isLiveTime)) {
+    const isExplicitNonLive =
+      rawStLower === "ns" ||
+      rawStLower === "not started" ||
+      rawStLower === "not_started" ||
+      rawStLower === "postponed" ||
+      rawStLower === "pst" ||
+      rawStLower === "delayed" ||
+      rawStLower === "cancelled" ||
+      rawStLower === "canceled" ||
+      rawStLower === "canc" ||
+      rawStLower === "tbd" ||
+      rawStLower === "scheduled" ||
+      rawStLower === "time to be defined" ||
+      String(raw.strPostponed || "").toLowerCase().trim() === "yes";
+
+    const isExplicitFinished =
+      !isExplicitNonLive &&
+      (rawStLower === "match finished" ||
+        rawStLower === "ft" ||
+        rawStLower === "aet" ||
+        rawStLower === "pen" ||
+        rawStLower === "ended" ||
+        rawStLower === "finished" ||
+        rawStLower === "final" ||
+        rawStLower === "abandoned" ||
+        rawStLower.includes("finished") ||
+        rawStLower.includes("ended"));
+
+    const isExplicitLive =
+      !isExplicitFinished &&
+      !isExplicitNonLive &&
+      (rawStLower === "live" ||
+        rawStLower === "in play" ||
+        rawStLower === "in progress" ||
+        rawStLower === "in_progress" ||
+        rawStLower === "1h" ||
+        rawStLower === "2h" ||
+        rawStLower === "ht" ||
+        rawStLower === "et" ||
+        rawStLower === "bt" ||
+        rawStLower === "pt" ||
+        rawStLower === "int" ||
+        rawStLower === "q1" ||
+        rawStLower === "q2" ||
+        rawStLower === "q3" ||
+        rawStLower === "q4" ||
+        rawStLower === "ot" ||
+        rawStLower.includes("in progress") ||
+        rawStLower.includes("half") ||
+        rawStLower.includes("quarter") ||
+        rawStLower.includes("inning") ||
+        rawStLower.includes("set ") ||
+        /^\d+\s*'$/.test(rawStLower));
+
+    if (isExplicitFinished) {
       status = "finished";
       statusText = "Full Time";
       statusLabel = "FT";
-    } else if (isLiveTime || raw.strStatus === "Live") {
+    } else if (authoritativeEndTimeMs !== null && now > authoritativeEndTimeMs) {
+      status = "finished";
+      statusText = "Full Time";
+      statusLabel = "FT";
+    } else if (staleSafeguardEndMs !== null && now > staleSafeguardEndMs && !isExplicitNonLive) {
+      status = "finished";
+      statusText = "Full Time";
+      statusLabel = "FT";
+    } else if (isExplicitNonLive) {
+      status = "upcoming";
+      statusText = raw.strStatus && rawStLower !== "ns" ? String(raw.strStatus).trim() : "Scheduled";
+      statusLabel = "Upcoming";
+    } else if (
+      isExplicitLive &&
+      (!hasValidStart ||
+        (now >= parsedStartMs - 15 * 60 * 1000 &&
+          (staleSafeguardEndMs === null || now <= staleSafeguardEndMs)))
+    ) {
       status = "live";
       statusText = "LIVE NOW";
       statusLabel = "LIVE";
+    } else if (
+      hasValidStart &&
+      safeLiveWindowEndMs !== null &&
+      now >= parsedStartMs &&
+      now <= safeLiveWindowEndMs
+    ) {
+      status = "live";
+      statusText = "LIVE NOW";
+      statusLabel = "LIVE";
+    } else if (
+      (hasValidStart && safeLiveWindowEndMs !== null && now > safeLiveWindowEndMs) ||
+      (hasScores && (!hasValidStart || now > parsedStartMs))
+    ) {
+      status = "finished";
+      statusText = "Full Time";
+      statusLabel = "FT";
     }
 
     const homeScore = raw.intHomeScore !== null && raw.intHomeScore !== undefined ? String(raw.intHomeScore) : "";
     const awayScore = raw.intAwayScore !== null && raw.intAwayScore !== undefined ? String(raw.intAwayScore) : "";
 
-    const matchTimeStr = formatDhakaEventTime(timestamp);
+    const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
+    const resolvedDateStr = hasValidStart
+      ? new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(parsedStartMs))
+      : (raw.dateEvent ? String(raw.dateEvent).trim() : "");
 
     let homeName = (raw.strHomeTeam || "").trim();
     let awayName = (raw.strAwayTeam || "").trim();
@@ -2093,8 +2713,11 @@ async function startServer() {
       status: status,
       statusText: statusText,
       statusLabel: statusLabel,
+      startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+      endTime: safeLiveWindowEndMs !== null ? new Date(safeLiveWindowEndMs).toISOString() : null,
+      authoritativeEndTime: authoritativeEndTimeMs !== null ? new Date(authoritativeEndTimeMs).toISOString() : null,
       timestamp: timestamp,
-      date: new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(timestamp)),
+      date: resolvedDateStr,
       matchTime: matchTimeStr,
       timeOrTimer: status === "live" ? "LIVE" : (status === "finished" ? (homeScore && awayScore ? `${homeScore} - ${awayScore}` : "FT") : matchTimeStr),
       venue: `${raw.strVenue || ""}${raw.strCountry ? `, ${raw.strCountry}` : ""}`,
@@ -2146,6 +2769,87 @@ async function startServer() {
     const events: any[] = [];
     const todayStr = new Date().toISOString().split("T")[0].replace(/-/g, "");
 
+    const resolveEspnStatus = (
+      statusObj: any,
+      hasValidStart: boolean,
+      parsedStartMs: number,
+      authoritativeEndTimeMs: number | null,
+      fallbackDurationMs: number,
+      maxLiveSafeguardMs: number,
+      nowMs: number
+    ): { status: string; statusLabel: string; statusText: string } => {
+      const rawState = String(statusObj?.state || "").toLowerCase().trim();
+      const rawName = String(statusObj?.name || "").toUpperCase().trim();
+      const rawDetail = String(statusObj?.detail || statusObj?.shortDetail || "").trim();
+
+      const isExplicitNonLive =
+        rawState === "pre" ||
+        rawName.includes("POSTPONED") ||
+        rawName.includes("CANCELED") ||
+        rawName.includes("CANCELLED") ||
+        rawName.includes("DELAYED") ||
+        rawName.includes("SCHEDULED") ||
+        rawName.includes("SUSPENDED") ||
+        rawName.includes("TBD");
+
+      const isExplicitFinished =
+        !rawName.includes("POSTPONED") &&
+        !rawName.includes("CANCELED") &&
+        !rawName.includes("CANCELLED") &&
+        !rawName.includes("DELAYED") &&
+        (statusObj?.completed === true ||
+          rawState === "post" ||
+          rawName === "STATUS_FINAL" ||
+          rawName.includes("FINAL") ||
+          rawName.includes("FULL_TIME") ||
+          rawName.includes("ENDED"));
+
+      const isExplicitLive =
+        !isExplicitFinished &&
+        !isExplicitNonLive &&
+        (rawState === "in" ||
+          rawName.includes("IN_PROGRESS") ||
+          rawName.includes("LIVE") ||
+          rawName.includes("HALFTIME") ||
+          rawName.includes("OVERTIME"));
+
+      const staleSafeguardEndMs =
+        authoritativeEndTimeMs !== null
+          ? authoritativeEndTimeMs
+          : hasValidStart
+          ? parsedStartMs + maxLiveSafeguardMs
+          : null;
+      const safeLiveWindowEndMs =
+        authoritativeEndTimeMs !== null
+          ? authoritativeEndTimeMs
+          : hasValidStart
+          ? parsedStartMs + fallbackDurationMs
+          : null;
+
+      if (isExplicitFinished) {
+        return { status: "finished", statusLabel: "FT", statusText: rawDetail || "Final" };
+      }
+      if (authoritativeEndTimeMs !== null && nowMs > authoritativeEndTimeMs) {
+        return { status: "finished", statusLabel: "FT", statusText: rawDetail || "Final" };
+      }
+      if (isExplicitNonLive) {
+        return { status: "upcoming", statusLabel: "Upcoming", statusText: rawDetail || "Scheduled" };
+      }
+      if (isExplicitLive) {
+        if (staleSafeguardEndMs !== null && nowMs > staleSafeguardEndMs) {
+          return { status: "finished", statusLabel: "FT", statusText: rawDetail || "Final" };
+        }
+        return { status: "live", statusLabel: "LIVE", statusText: rawDetail || "LIVE" };
+      }
+      if (hasValidStart && safeLiveWindowEndMs !== null && nowMs >= parsedStartMs && nowMs <= safeLiveWindowEndMs) {
+        return { status: "live", statusLabel: "LIVE", statusText: rawDetail || "LIVE" };
+      }
+      if (hasValidStart && safeLiveWindowEndMs !== null && nowMs > safeLiveWindowEndMs) {
+        return { status: "finished", statusLabel: "FT", statusText: rawDetail || "Final" };
+      }
+      return { status: "upcoming", statusLabel: "Upcoming", statusText: rawDetail || "Scheduled" };
+    };
+
     const normalizeEspnEvent = (ev: any, sport: string, sportName: string, sportIcon: string, defaultLeague: string) => {
       try {
         const comp = ev.competitions?.[0];
@@ -2172,27 +2876,54 @@ async function startServer() {
         const t1Score = home?.score !== undefined ? String(home.score) : "";
         const t2Score = away?.score !== undefined ? String(away.score) : "";
 
-        const statusObj = ev.status?.type || {};
-        let status = "upcoming";
-        let statusLabel = "Upcoming";
-        let statusText = "Scheduled";
+        const rawStartStr = comp?.date || comp?.startDate || ev.date || null;
+        const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+        const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+        const timestamp: number | null = hasValidStart ? parsedStartMs : null;
 
-        if (statusObj.completed || statusObj.name === "STATUS_FINAL" || statusObj.state === "post") {
-          status = "finished";
-          statusLabel = "FT";
-          statusText = statusObj.detail || "Final";
-        } else if (statusObj.state === "in" || statusObj.name?.includes("LIVE") || statusObj.name?.includes("IN_PROGRESS")) {
-          status = "live";
-          statusLabel = "LIVE";
-          statusText = statusObj.detail || "LIVE";
-        }
+        const rawEndStr = comp?.endDate || comp?.end_time || ev.endDate || ev.end_time || null;
+        const parsedEndMs = rawEndStr ? Date.parse(String(rawEndStr)) : NaN;
+        const authoritativeEndTimeMs: number | null =
+          !isNaN(parsedEndMs) && parsedEndMs > 0 && (!hasValidStart || parsedEndMs > parsedStartMs)
+            ? parsedEndMs
+            : null;
 
-        const timestamp = Date.parse(ev.date) || Date.now();
-        const dateStr = ev.date ? ev.date.split("T")[0] : new Date(timestamp).toISOString().split("T")[0];
+        const fallbackDurationMs =
+          sport === "tennis"
+            ? 5 * 3600 * 1000
+            : sport === "baseball"
+            ? 4.5 * 3600 * 1000
+            : 4 * 3600 * 1000;
+        const maxLiveSafeguardMs =
+          sport === "tennis"
+            ? 10 * 3600 * 1000
+            : sport === "baseball"
+            ? 8 * 3600 * 1000
+            : 7 * 3600 * 1000;
+
+        const statusObj = comp?.status?.type || ev.status?.type || {};
+        const { status, statusLabel, statusText } = resolveEspnStatus(
+          statusObj,
+          hasValidStart,
+          parsedStartMs,
+          authoritativeEndTimeMs,
+          fallbackDurationMs,
+          maxLiveSafeguardMs,
+          now
+        );
+
+        const dateStr = rawStartStr && String(rawStartStr).includes("T")
+          ? String(rawStartStr).split("T")[0]
+          : hasValidStart
+          ? new Date(parsedStartMs).toISOString().split("T")[0]
+          : "";
 
         const broadcasts = (comp?.broadcasts?.[0]?.names || []).concat(comp?.geoBroadcasts?.map((b: any) => b.media?.shortName).filter(Boolean) || []);
         const broadcaster = broadcasts.length > 0 ? broadcasts[0] : "";
         const league = defaultLeague || comp?.league?.name || sportName;
+        const matchTimeStr = hasValidStart
+          ? new Date(parsedStartMs).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true })
+          : "Scheduled";
 
         return {
           id: `espn-${ev.id}`,
@@ -2208,8 +2939,15 @@ async function startServer() {
           statusText,
           statusLabel,
           timestamp,
+          startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+          endTime: authoritativeEndTimeMs !== null
+            ? new Date(authoritativeEndTimeMs).toISOString()
+            : hasValidStart
+            ? new Date(parsedStartMs + fallbackDurationMs).toISOString()
+            : null,
+          authoritativeEndTime: authoritativeEndTimeMs !== null ? new Date(authoritativeEndTimeMs).toISOString() : null,
           date: dateStr,
-          matchTime: new Date(timestamp).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true }),
+          matchTime: matchTimeStr,
           timeOrTimer: status === "live" ? "LIVE" : (status === "finished" ? (t1Score && t2Score ? `${t1Score} - ${t2Score}` : "FT") : "Scheduled"),
           team1: { id: home?.id || null, name: t1Name, logo: t1Logo, score: t1Score },
           team2: { id: away?.id || null, name: t2Name, logo: t2Logo, score: t2Score },
@@ -2309,20 +3047,39 @@ async function startServer() {
                 }
                 const p1Logo = p1?.athlete?.flag?.href || p1?.athlete?.headshot?.href || "./assets/team-placeholder.svg";
                 const p2Logo = p2?.athlete?.flag?.href || p2?.athlete?.headshot?.href || "./assets/team-placeholder.svg";
+
+                const rawStartStr = comp.date || comp.startDate || ev.date || null;
+                const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+                const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+                const timestamp: number | null = hasValidStart ? parsedStartMs : null;
+
+                const rawEndStr = comp.endDate || comp.end_time || ev.endDate || ev.end_time || null;
+                const parsedEndMs = rawEndStr ? Date.parse(String(rawEndStr)) : NaN;
+                const authoritativeEndTimeMs: number | null =
+                  !isNaN(parsedEndMs) && parsedEndMs > 0 && (!hasValidStart || parsedEndMs > parsedStartMs)
+                    ? parsedEndMs
+                    : null;
+
                 const statusObj = comp.status?.type || {};
-                let status = "upcoming";
-                let statusLabel = "Upcoming";
-                let statusText = "Scheduled";
-                if (statusObj.completed || statusObj.name === "STATUS_FINAL" || statusObj.state === "post") {
-                  status = "finished";
-                  statusLabel = "FT";
-                  statusText = statusObj.detail || "Final";
-                } else if (statusObj.state === "in") {
-                  status = "live";
-                  statusLabel = "LIVE";
-                  statusText = "LIVE";
-                }
-                const timestamp = Date.parse(comp.date || ev.date) || Date.now();
+                const { status, statusLabel, statusText } = resolveEspnStatus(
+                  statusObj,
+                  hasValidStart,
+                  parsedStartMs,
+                  authoritativeEndTimeMs,
+                  5 * 3600 * 1000,
+                  10 * 3600 * 1000,
+                  now
+                );
+
+                const dateStr = rawStartStr && String(rawStartStr).includes("T")
+                  ? String(rawStartStr).split("T")[0]
+                  : hasValidStart
+                  ? new Date(parsedStartMs).toISOString().split("T")[0]
+                  : "";
+                const matchTimeStr = hasValidStart
+                  ? new Date(parsedStartMs).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true })
+                  : "Scheduled";
+
                 events.push({
                   id: `espn-tennis-${comp.id}`,
                   idEvent: comp.id,
@@ -2337,8 +3094,15 @@ async function startServer() {
                   statusText,
                   statusLabel,
                   timestamp,
-                  date: (comp.date || ev.date).split("T")[0],
-                  matchTime: new Date(timestamp).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true }),
+                  startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+                  endTime: authoritativeEndTimeMs !== null
+                    ? new Date(authoritativeEndTimeMs).toISOString()
+                    : hasValidStart
+                    ? new Date(parsedStartMs + 5 * 3600 * 1000).toISOString()
+                    : null,
+                  authoritativeEndTime: authoritativeEndTimeMs !== null ? new Date(authoritativeEndTimeMs).toISOString() : null,
+                  date: dateStr,
+                  matchTime: matchTimeStr,
                   timeOrTimer: status === "live" ? "LIVE" : (status === "finished" ? "FT" : "Scheduled"),
                   team1: { id: p1?.id || null, name: p1Name, logo: p1Logo, score: "" },
                   team2: { id: p2?.id || null, name: p2Name, logo: p2Logo, score: "" },

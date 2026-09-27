@@ -215,27 +215,6 @@ class WWEEngine {
     const awayName = brandInfo.shortName;
     const awayLogo = brandInfo.logo;
 
-    const defaultStreams = [
-      {
-        name: "Server 1: Sony Sports Ten 1 HD",
-        channelName: "Sony Ten Sports 1 HD",
-        quality: "1080p FHD",
-        url: "https://s3.itcnbd.live/channel/2929059f34d114ca.m3u8"
-      },
-      {
-        name: "Server 2: Sony Sports Ten 5 HD",
-        channelName: "Sony Ten Sports 5 HD",
-        quality: "1080p FHD",
-        url: "https://s3.itcnbd.live/channel/ea25a516d781cb1c.m3u8"
-      },
-      {
-        name: "Server 3: WWE Network Live",
-        channelName: "WWE Network",
-        quality: "1080p 60fps",
-        url: "http://tv.nkservicebd.com:8080/live/wwe/mono.m3u8"
-      }
-    ];
-
     return {
       id: id.startsWith('wwe-') || id.startsWith('aew-') ? id : `wwe-${id}`,
       rawId: id,
@@ -285,7 +264,7 @@ class WWEEngine {
       subText: `${brandInfo.brand} • ${venue}`,
       matches: item.matches || item.matchCard || [],
       details: item.details || item.description || '',
-      streams: (item.streams && item.streams.length > 0) ? item.streams : defaultStreams,
+      streams: Array.isArray(item.streams) ? item.streams : [],
       source: 'Official Schedule'
     };
   }
