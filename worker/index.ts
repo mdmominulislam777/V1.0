@@ -341,18 +341,20 @@ function resolveCricketBroadcastData(sportEvent: any, item: any) {
 function normalizeCricketDataEvent(item: any): any {
   if (!item) return null;
   const rawId = item.id || item.unique_id || item.match_id || "unknown";
-  const name = item.name || item.title || "Cricket Match";
+  const name = item.name || item.title || (item.t1 && item.t2 ? `${item.t1} vs ${item.t2}` : "Cricket Match");
   const matchType = String(item.matchType || item.type || "Cricket").toUpperCase();
   const venue = item.venue || "";
   const statusText = item.status || "Scheduled";
   const statusLower = statusText.toLowerCase();
+  const msLower = String(item.ms || "").toLowerCase();
 
-  const matchStarted = item.matchStarted === true || item.matchStarted === "true";
-  const matchEnded = item.matchEnded === true || item.matchEnded === "true";
+  const matchStarted = item.matchStarted === true || item.matchStarted === "true" || msLower === "live" || msLower === "result";
+  const matchEnded = item.matchEnded === true || item.matchEnded === "true" || msLower === "result";
 
   let status = "upcoming";
   if (
     matchEnded ||
+    msLower === "result" ||
     statusLower.includes("won by") ||
     statusLower.includes("match drawn") ||
     statusLower.includes("match tied") ||
@@ -362,30 +364,38 @@ function normalizeCricketDataEvent(item: any): any {
     statusLower.includes("concluded")
   ) {
     status = "finished";
-  } else if (matchStarted && !matchEnded) {
+  } else if ((matchStarted && !matchEnded) || msLower === "live") {
     status = "live";
   } else {
     status = "upcoming";
   }
 
+  const cleanCricScoreTeam = (raw: string) => String(raw || "").replace(/\s*\[[^\]]+\]\s*$/, "").trim();
+  const extractShortFromBracket = (raw: string) => {
+    const m = String(raw || "").match(/\[([^\]]+)\]/);
+    return m ? m[1].trim() : "";
+  };
+
   const teams = Array.isArray(item.teams) ? item.teams : [];
   const teamInfo = Array.isArray(item.teamInfo) ? item.teamInfo : [];
-  let homeName = teams[0] || (name.includes(" vs ") ? name.split(" vs ")[0].split(",")[0].trim() : "Team 1");
-  let awayName = teams[1] || (name.includes(" vs ") ? name.split(" vs ")[1].split(",")[0].trim() : "Team 2");
+  let homeName = teams[0] || (item.t1 ? cleanCricScoreTeam(item.t1) : (name.includes(" vs ") ? name.split(" vs ")[0].split(",")[0].trim() : "Team 1"));
+  let awayName = teams[1] || (item.t2 ? cleanCricScoreTeam(item.t2) : (name.includes(" vs ") ? name.split(" vs ")[1].split(",")[0].trim() : "Team 2"));
 
   const homeInfo = teamInfo.find((t: any) => t.name === homeName) || teamInfo[0] || {};
   const awayInfo = teamInfo.find((t: any) => t.name === awayName) || teamInfo[1] || {};
 
-  const homeLogo = resolveHDTeamLogo(homeName, homeInfo.img);
-  const awayLogo = resolveHDTeamLogo(awayName, awayInfo.img);
+  const homeLogo = resolveHDTeamLogo(homeName, homeInfo.img || item.t1img);
+  const awayLogo = resolveHDTeamLogo(awayName, awayInfo.img || item.t2img);
 
   const scoreList = Array.isArray(item.score) ? item.score : [];
-  let homeScore = "";
+  let homeScore = item.t1s ? String(item.t1s).trim() : "";
   let homeOvers = "";
-  let awayScore = "";
+  let awayScore = item.t2s ? String(item.t2s).trim() : "";
   let awayOvers = "";
 
   if (scoreList.length > 0) {
+    homeScore = "";
+    awayScore = "";
     for (const sc of scoreList) {
       const inng = String(sc.inning || "").toLowerCase();
       const runs = sc.r !== undefined ? sc.r : 0;
@@ -418,15 +428,17 @@ function normalizeCricketDataEvent(item: any): any {
   const timestamp = hasValidStart ? parsedStartMs : null;
 
   const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
-  const tournamentName = item.series_id || item.seriesName || (name.includes(",") ? name.split(",").slice(1).join(",").trim() : "Cricket Series");
+  const tournamentName = item.series || item.seriesName || (!/^[0-9a-f-]{20,}$/i.test(String(item.series_id || "")) ? item.series_id : "") || (name.includes(",") ? name.split(",").slice(1).join(",").trim() : "Cricket Series");
+  const homeShort = homeInfo.shortname || extractShortFromBracket(item.t1) || "";
+  const awayShort = awayInfo.shortname || extractShortFromBracket(item.t2) || "";
 
   const broadcastMockEvent = {
     tournament: { name: tournamentName },
     season: { name: tournamentName },
     type: matchType,
     competitors: [
-      { qualifier: "home", name: homeName, id: homeInfo.shortname || homeName },
-      { qualifier: "away", name: awayName, id: awayInfo.shortname || awayName }
+      { qualifier: "home", name: homeName, id: homeShort || homeName },
+      { qualifier: "away", name: awayName, id: awayShort || awayName }
     ]
   };
   const bData = resolveCricketBroadcastData(broadcastMockEvent, item);
