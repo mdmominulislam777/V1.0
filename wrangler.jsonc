@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "highfy-tv-backend",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-09-29",
+  "compatibility_flags": [
+    "nodejs_compat"
+  ],
+  "vars": {
+    "SPORTRADAR_CRICKET_TIER": "t2"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

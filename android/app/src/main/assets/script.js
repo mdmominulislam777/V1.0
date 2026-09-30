@@ -5193,30 +5193,7 @@
 
         const selectedEvent = eventsToDisplay.find(item => String(item.id) === String(id));
         if (selectedEvent) {
-          let matchStreams = selectedEvent.streams;
-          if ((!matchStreams || matchStreams.length === 0) && window.sportsCoordinator) {
-            const streamInfo = window.sportsCoordinator.matchLiveStream(selectedEvent);
-            if (streamInfo.hasStream) {
-              matchStreams = streamInfo.streams;
-            }
-          }
-          if (matchStreams && matchStreams.length > 0) {
-            const t1 = selectedEvent.team1?.name || selectedEvent.homeTeam?.name || 'Team 1';
-            const t2 = selectedEvent.team2?.name || selectedEvent.awayTeam?.name || 'Team 2';
-            playMedia({
-              title: `${t1} vs ${t2}`,
-              streams: matchStreams,
-              id: selectedEvent.id,
-              team1: selectedEvent.team1 || { name: t1 },
-              team2: selectedEvent.team2 || { name: t2 },
-              isEvent: true,
-              sport: selectedEvent.sport || selectedEvent.category,
-              category: selectedEvent.category || 'Sports',
-              activeStreamIndex: 0
-            });
-          } else {
-            openMatchDetails(selectedEvent.id);
-          }
+          autoConnectAndPlayEvent(selectedEvent, card);
         }
       });
     });
@@ -5235,7 +5212,12 @@
   }
 
   function loadStreamUrl(url, hasTriedProxy = false) {
-    if (!DOM.videoElement || !url) return;
+    if (!DOM.videoElement) return;
+
+    if (!url || typeof url !== 'string' || !url.trim()) {
+      showPlayerError('Invalid or unsupported stream URL. Please select another server or tap Retry.');
+      return;
+    }
 
     // Security Gate: Block playback if Reqable or sniffer is detected
     if (window.HighFySecurity && window.HighFySecurity.isLockedDown()) {
@@ -5410,6 +5392,11 @@
     DOM.videoElement.onplaying = onVideoReadyOrPlaying;
     DOM.videoElement.oncanplay = onVideoReadyOrPlaying;
     DOM.videoElement.onloadeddata = onVideoReadyOrPlaying;
+    DOM.videoElement.onwaiting = () => {
+      if (DOM.playerSpinner && (!DOM.playerError || DOM.playerError.style.display !== 'flex')) {
+        DOM.playerSpinner.style.display = 'block';
+      }
+    };
     DOM.videoElement.ontimeupdate = () => {
       if (DOM.videoElement.currentTime > 0.05) {
         hideSpinnerAndClearWatchdog();
@@ -5559,7 +5546,10 @@
   }
 
   function showPlayerError(msg) {
-    if (streamLoadWatchdog) clearTimeout(streamLoadWatchdog);
+    if (streamLoadWatchdog) {
+      clearTimeout(streamLoadWatchdog);
+      streamLoadWatchdog = null;
+    }
     if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
     if (DOM.playerWatermark) DOM.playerWatermark.classList.remove('visible');
     if (DOM.playerError) {
@@ -5576,8 +5566,22 @@
       clearTimeout(streamLoadWatchdog);
       streamLoadWatchdog = null;
     }
+    if (overlayHideTimeout) {
+      clearTimeout(overlayHideTimeout);
+      overlayHideTimeout = null;
+    }
+    if (DOM.playerSpinner) {
+      DOM.playerSpinner.style.display = 'none';
+    }
+    if (DOM.playerError) {
+      DOM.playerError.style.display = 'none';
+    }
     if (state.hlsInstance) {
-      try { state.hlsInstance.destroy(); } catch (e) {}
+      try { 
+        state.hlsInstance.stopLoad();
+        state.hlsInstance.detachMedia();
+        state.hlsInstance.destroy(); 
+      } catch (e) {}
       state.hlsInstance = null;
     }
     if (state.mpegtsInstance) {
@@ -5591,6 +5595,11 @@
     }
     if (DOM.videoElement) {
       DOM.videoElement.pause();
+      DOM.videoElement.onplaying = null;
+      DOM.videoElement.oncanplay = null;
+      DOM.videoElement.onloadeddata = null;
+      DOM.videoElement.ontimeupdate = null;
+      DOM.videoElement.onwaiting = null;
       DOM.videoElement.removeAttribute('src');
       DOM.videoElement.load();
     }
@@ -6235,6 +6244,10 @@
   }
 
   function switchView(viewId, pushHistory = true) {
+    if (DOM.playerModal && DOM.playerModal.classList.contains('active')) {
+      closePlayer();
+    }
+
     if (pushHistory && viewId !== state.currentView) {
       try {
         window.history.pushState({ view: viewId }, '', '#' + viewId.replace('view-', ''));
@@ -10231,16 +10244,7 @@
    */
   function playEvent(ev) {
     if (!ev) return;
-    if (Array.isArray(ev.streams) && ev.streams.length > 0) {
-      playMedia({
-        title: ev.title || `${ev.team1 || ''} vs ${ev.team2 || ''}`,
-        streams: ev.streams,
-        id: ev.id,
-        category: ev.sport || 'Sports'
-      });
-    } else {
-      openMatchDetails(ev.id);
-    }
+    autoConnectAndPlayEvent(ev);
   }
 
   function renderNotificationList(allNotifs) {
@@ -10652,6 +10656,12 @@
       }
     });
   }
+
+  // Expose necessary APIs to window for TV Remote and external controllers
+  window.closePlayer = closePlayer;
+  window.playMedia = playMedia;
+  window.switchView = switchView;
+  window.loadStreamUrl = loadStreamUrl;
 
   // Initialize on DOM Ready
   if (document.readyState === 'loading') {

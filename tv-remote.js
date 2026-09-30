@@ -161,10 +161,10 @@
       }
 
       // Check if player is open
-      const playerBox = document.getElementById('player-container') || document.getElementById('player-modal');
+      const playerBox = document.getElementById('player-modal') || document.getElementById('player-container');
       const isPlayerActive = playerBox && (playerBox.classList.contains('active') || playerBox.style.display === 'flex' || playerBox.style.display === 'block');
       if (isPlayerActive) {
-        return Array.from(playerBox.querySelectorAll('button:not([disabled]), .btn-player, .player-control-btn, .player-header-btn'))
+        return Array.from(playerBox.querySelectorAll('button:not([disabled]), .btn-player, .player-control-btn, .player-header-btn, .player-overlay-btn, .player-circle-btn-main, .player-circle-btn-sub, .player-server-pill, .btn-primary, .btn-error-exit'))
           .filter(el => this.isElementVisible(el));
       }
 
@@ -302,6 +302,21 @@
      */
     handleBackKey() {
       // 1. If modal is open, close it
+      const selectServerModal = document.getElementById('modal-select-server');
+      if (selectServerModal && (selectServerModal.classList.contains('active') || selectServerModal.style.display === 'flex')) {
+        const closeBtn = selectServerModal.querySelector('.modal-close-btn, .modal-unavailable-close-btn, [data-close-modal="modal-select-server"]');
+        if (closeBtn) {
+          closeBtn.click();
+          return true;
+        }
+        if (typeof window.closeModal === 'function') {
+          window.closeModal('modal-select-server');
+        }
+        selectServerModal.style.display = 'none';
+        selectServerModal.classList.remove('active');
+        return true;
+      }
+
       const openModal = document.querySelector('.modal:not(.hidden), .cricfy-modal:not(.hidden), #modal-channel-details:not(.hidden), #modal-settings:not(.hidden)');
       if (openModal) {
         const closeBtn = openModal.querySelector('.btn-modal-close, .modal-close-btn, #btn-close-channel-details');
@@ -324,11 +339,15 @@
       }
 
       // 3. If video player is open, close it
-      const playerBox = document.getElementById('player-container');
-      if (playerBox && playerBox.classList.contains('active')) {
-        const closeBtn = document.getElementById('btn-player-close') || document.getElementById('btn-close-player');
+      const playerBox = document.getElementById('player-modal') || document.getElementById('player-container');
+      if (playerBox && (playerBox.classList.contains('active') || playerBox.style.display === 'flex' || playerBox.style.display === 'block')) {
+        const closeBtn = document.getElementById('btn-player-back') || document.getElementById('btn-player-close') || document.getElementById('btn-close-player') || document.getElementById('btn-player-error-close') || document.getElementById('btn-player-error-exit');
         if (closeBtn) {
           closeBtn.click();
+          return true;
+        }
+        if (typeof window.closePlayer === 'function') {
+          window.closePlayer();
           return true;
         }
       }
