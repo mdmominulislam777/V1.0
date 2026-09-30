@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-09-30T08:02:26.273Z
+ * Generated at: 2026-09-30T11:43:19.792Z
  */
 
 (() => {
@@ -13497,7 +13497,7 @@
     "streams": []
   },
   {
-    "id": "cr-sportradar-sr_match_74932582",
+    "id": "cr-cricapi-sr_match_74932582",
     "rawId": "sr:match:74932582",
     "matchId": "sr:match:74932582",
     "sport": "cricket",
@@ -13556,10 +13556,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "ODI Series Zimbabwe vs West Indies, Women",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_69238554",
+    "id": "cr-cricapi-sr_match_69238554",
     "rawId": "sr:match:69238554",
     "matchId": "sr:match:69238554",
     "sport": "cricket",
@@ -13618,10 +13618,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "ODI Series South Africa vs Australia",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74825714",
+    "id": "cr-cricapi-sr_match_74825714",
     "rawId": "sr:match:74825714",
     "matchId": "sr:match:74825714",
     "sport": "cricket",
@@ -13680,10 +13680,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 Uttarakhand Premier League",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74525416",
+    "id": "cr-cricapi-sr_match_74525416",
     "rawId": "sr:match:74525416",
     "matchId": "sr:match:74525416",
     "sport": "cricket",
@@ -13742,10 +13742,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 Asian Games",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_73456002",
+    "id": "cr-cricapi-sr_match_73456002",
     "rawId": "sr:match:73456002",
     "matchId": "sr:match:73456002",
     "sport": "cricket",
@@ -13804,10 +13804,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "One-Day Cup",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74525390",
+    "id": "cr-cricapi-sr_match_74525390",
     "rawId": "sr:match:74525390",
     "matchId": "sr:match:74525390",
     "sport": "cricket",
@@ -13866,10 +13866,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 Asian Games",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74825718",
+    "id": "cr-cricapi-sr_match_74825718",
     "rawId": "sr:match:74825718",
     "matchId": "sr:match:74825718",
     "sport": "cricket",
@@ -13928,10 +13928,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 Uttarakhand Premier League",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74559890",
+    "id": "cr-cricapi-sr_match_74559890",
     "rawId": "sr:match:74559890",
     "matchId": "sr:match:74559890",
     "sport": "cricket",
@@ -13990,10 +13990,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "Odisha Pro T20 League",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74825720",
+    "id": "cr-cricapi-sr_match_74825720",
     "rawId": "sr:match:74825720",
     "matchId": "sr:match:74825720",
     "sport": "cricket",
@@ -14052,10 +14052,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 Uttarakhand Premier League",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74991948",
+    "id": "cr-cricapi-sr_match_74991948",
     "rawId": "sr:match:74991948",
     "matchId": "sr:match:74991948",
     "sport": "cricket",
@@ -14114,10 +14114,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 South Africa Cup",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74293196",
+    "id": "cr-cricapi-sr_match_74293196",
     "rawId": "sr:match:74293196",
     "matchId": "sr:match:74293196",
     "sport": "cricket",
@@ -14176,10 +14176,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 South Africa Cup",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74559892",
+    "id": "cr-cricapi-sr_match_74559892",
     "rawId": "sr:match:74559892",
     "matchId": "sr:match:74559892",
     "sport": "cricket",
@@ -14238,10 +14238,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "Odisha Pro T20 League",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74825722",
+    "id": "cr-cricapi-sr_match_74825722",
     "rawId": "sr:match:74825722",
     "matchId": "sr:match:74825722",
     "sport": "cricket",
@@ -14300,10 +14300,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 Uttarakhand Premier League",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74980046",
+    "id": "cr-cricapi-sr_match_74980046",
     "rawId": "sr:match:74980046",
     "matchId": "sr:match:74980046",
     "sport": "cricket",
@@ -14362,10 +14362,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 North American Cup",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74293250",
+    "id": "cr-cricapi-sr_match_74293250",
     "rawId": "sr:match:74293250",
     "matchId": "sr:match:74293250",
     "sport": "cricket",
@@ -14424,10 +14424,10 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 South Africa Cup",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
-    "id": "cr-sportradar-sr_match_74771234",
+    "id": "cr-cricapi-sr_match_74771234",
     "rawId": "sr:match:74771234",
     "matchId": "sr:match:74771234",
     "sport": "cricket",
@@ -14486,7 +14486,7 @@
     "streamUrl": null,
     "streams": [],
     "subText": "T20 North American Cup",
-    "source": "Sportradar"
+    "source": "CricketData.org"
   },
   {
     "id": "wwe-smackdown-live",

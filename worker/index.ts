@@ -7,8 +7,9 @@
 import channelsData from "../channels.json";
 
 export interface Env {
-  SPORTRADAR_CRICKET_API_KEY?: string;
-  SPORTRADAR_CRICKET_TIER?: string;
+  CRICKETDATA_API_KEY?: string;
+  CRICAPI_KEY?: string;
+  CRICKET_API_KEY?: string;
   RAPIDAPI_KEY?: string;
   THESPORTSDB_API_KEY?: string;
   ALLSPORTSAPI_KEY?: string;
@@ -17,7 +18,7 @@ export interface Env {
 const CORS_HEADERS: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, HEAD, POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-rapidapi-key, x-sportradar-api-key, x-sportradar-tier",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, x-rapidapi-key, x-cricapi-key, x-cricketdata-key",
   "Access-Control-Max-Age": "86400",
 };
 
@@ -30,18 +31,6 @@ function jsonResponse(data: unknown, status = 200, extraHeaders: Record<string, 
       ...extraHeaders,
     },
   });
-}
-
-function sanitizeSportradarTier(t?: string | null, envTier?: string | null): string {
-  let str = typeof t === "string" ? t.trim().toLowerCase() : "";
-  if (!str && typeof envTier === "string" && envTier.trim() && envTier.length < 16) {
-    str = envTier.trim().toLowerCase();
-  }
-  str = str.replace(/^cricket-/, "");
-  if (!str || str.length > 8 || str.length >= 16) {
-    return "t2";
-  }
-  return str;
 }
 
 const HD_CRICKET_LOGOS_MAP: Record<string, string> = {
@@ -349,228 +338,103 @@ function resolveCricketBroadcastData(sportEvent: any, item: any) {
   };
 }
 
-function normalizeSportradarEvent(item: any): any {
+function normalizeCricketDataEvent(item: any): any {
   if (!item) return null;
-  const sportEvent = item.sport_event || item;
-  const statusObj = item.sport_event_status || {};
-  const competitors = Array.isArray(sportEvent.competitors) ? sportEvent.competitors : [];
-  const home = competitors.find((c: any) => c.qualifier === "home") || competitors[0] || {};
-  const away = competitors.find((c: any) => c.qualifier === "away") || competitors[1] || {};
-  const homeName = home.name || "Home Team";
-  const awayName = away.name || "Away Team";
-  const tournamentName = sportEvent.tournament?.name || sportEvent.season?.name || "Cricket Tournament";
-  const tNameLower = tournamentName.toLowerCase();
-  const rawType = String(
-    sportEvent.type || sportEvent.format || sportEvent.tournament?.type || item.type || item.match_type || ""
-  ).toLowerCase().trim();
+  const rawId = item.id || item.unique_id || item.match_id || "unknown";
+  const name = item.name || item.title || "Cricket Match";
+  const matchType = String(item.matchType || item.type || "Cricket").toUpperCase();
+  const venue = item.venue || "";
+  const statusText = item.status || "Scheduled";
+  const statusLower = statusText.toLowerCase();
 
-  let matchFormat = "Cricket";
-  let formatDurationMs = 6 * 3600 * 1000;
-  let maxLiveSafeguardMs = 12 * 3600 * 1000;
-
-  const isAuthoritativeTestType =
-    rawType === "test" ||
-    rawType === "first_class" ||
-    rawType === "first-class" ||
-    rawType === "fc" ||
-    rawType === "multi_day" ||
-    rawType.includes("test");
-  const isAuthoritativeT20Type =
-    rawType === "t20" ||
-    rawType === "t20i" ||
-    rawType === "twenty20" ||
-    rawType === "t10" ||
-    rawType === "100_ball" ||
-    rawType.includes("t20");
-  const isAuthoritativeOdiType =
-    rawType === "odi" || rawType === "one_day" || rawType === "one-day" || rawType.includes("odi");
-
-  const isTournamentTestOrFc =
-    tNameLower.includes("test") ||
-    tNameLower.includes("county") ||
-    tNameLower.includes("first-class") ||
-    tNameLower.includes("first class") ||
-    tNameLower.includes("ranji") ||
-    tNameLower.includes("ashes");
-
-  if (isAuthoritativeTestType || (!isAuthoritativeT20Type && !isAuthoritativeOdiType && isTournamentTestOrFc)) {
-    matchFormat = tNameLower.includes("county") ? "County" : "Test";
-    formatDurationMs = 5 * 24 * 3600 * 1000;
-    maxLiveSafeguardMs = 5.5 * 24 * 3600 * 1000;
-  } else if (isAuthoritativeT20Type || tNameLower.includes("t20") || tNameLower.includes("ipl") || tNameLower.includes("bpl") || tNameLower.includes("psl")) {
-    matchFormat = "T20";
-    formatDurationMs = 4.25 * 3600 * 1000;
-    maxLiveSafeguardMs = 10 * 3600 * 1000;
-  } else if (isAuthoritativeOdiType || tNameLower.includes("odi") || tNameLower.includes("world cup")) {
-    matchFormat = "ODI";
-    formatDurationMs = 8.5 * 3600 * 1000;
-    maxLiveSafeguardMs = 13 * 3600 * 1000;
-  }
-
-  const rawStartStr =
-    sportEvent.scheduled ||
-    sportEvent.start_time ||
-    sportEvent.scheduled_start ||
-    item.scheduled ||
-    item.start_time ||
-    item.startTime ||
-    null;
-  const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
-  const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
-  const timestamp: number | null = hasValidStart ? parsedStartMs : null;
-  const startTimeIso: string | null = hasValidStart ? new Date(parsedStartMs).toISOString() : null;
-
-  const rawEndStr =
-    sportEvent.end_time ||
-    sportEvent.scheduled_end ||
-    item.end_time ||
-    item.endTime ||
-    item.scheduled_end ||
-    null;
-  const parsedEndMs = rawEndStr ? Date.parse(String(rawEndStr)) : NaN;
-  const hasAuthoritativeEnd = !isNaN(parsedEndMs) && parsedEndMs > 0 && (!hasValidStart || parsedEndMs > parsedStartMs);
-  const authoritativeEndTimeMs: number | null = hasAuthoritativeEnd ? parsedEndMs : null;
-
-  const safeLiveWindowEndMs: number | null =
-    authoritativeEndTimeMs !== null
-      ? authoritativeEndTimeMs
-      : hasValidStart
-      ? parsedStartMs + formatDurationMs
-      : null;
-  const staleSafeguardEndMs: number | null =
-    authoritativeEndTimeMs !== null
-      ? authoritativeEndTimeMs
-      : hasValidStart
-      ? parsedStartMs + maxLiveSafeguardMs
-      : null;
-  const endTimeIso: string | null =
-    authoritativeEndTimeMs !== null
-      ? new Date(authoritativeEndTimeMs).toISOString()
-      : safeLiveWindowEndMs !== null
-      ? new Date(safeLiveWindowEndMs).toISOString()
-      : null;
-
-  const nowMs = Date.now();
-  const rawStatus = String(statusObj.status || sportEvent.status || item.status || "").toLowerCase().trim();
-  const matchStatus = String(statusObj.match_status || "").toLowerCase().trim();
-  const isFromLiveFeed = Boolean(item._fromLiveSchedule);
-
-  const isExplicitFinished =
-    rawStatus === "closed" ||
-    rawStatus === "ended" ||
-    rawStatus === "finished" ||
-    rawStatus === "complete" ||
-    rawStatus === "completed" ||
-    rawStatus === "abandoned" ||
-    matchStatus === "ended" ||
-    matchStatus === "completed" ||
-    matchStatus === "abandoned" ||
-    matchStatus === "closed" ||
-    matchStatus === "finished";
-
-  const isExplicitNonLive =
-    rawStatus === "not_started" ||
-    rawStatus === "delayed" ||
-    rawStatus === "postponed" ||
-    rawStatus === "cancelled" ||
-    rawStatus === "canceled" ||
-    rawStatus === "scheduled" ||
-    matchStatus === "not_started" ||
-    matchStatus === "delayed" ||
-    matchStatus === "postponed" ||
-    matchStatus === "cancelled" ||
-    matchStatus === "canceled" ||
-    matchStatus === "scheduled";
-
-  const isExplicitLive =
-    !isExplicitFinished &&
-    !isExplicitNonLive &&
-    (rawStatus === "live" ||
-      rawStatus === "in_progress" ||
-      rawStatus === "started" ||
-      matchStatus === "in_progress" ||
-      matchStatus === "live" ||
-      matchStatus.includes("progress") ||
-      matchStatus.includes("innings") ||
-      rawStatus.includes("progress"));
+  const matchStarted = item.matchStarted === true || item.matchStarted === "true";
+  const matchEnded = item.matchEnded === true || item.matchEnded === "true";
 
   let status = "upcoming";
-  let statusText = "Scheduled";
-
-  if (isExplicitFinished) {
-    status = "finished";
-    statusText = statusObj.match_status || "Match Concluded";
-  } else if (authoritativeEndTimeMs !== null && nowMs > authoritativeEndTimeMs) {
-    status = "finished";
-    statusText = statusObj.match_status || "Match Concluded";
-  } else if (staleSafeguardEndMs !== null && nowMs > staleSafeguardEndMs) {
-    status = "finished";
-    statusText = statusObj.match_status || "Match Concluded";
-  } else if (
-    (isExplicitLive || (isFromLiveFeed && !isExplicitNonLive)) &&
-    (!hasValidStart ||
-      (nowMs >= parsedStartMs - 15 * 60 * 1000 &&
-        (staleSafeguardEndMs === null || nowMs <= staleSafeguardEndMs)))
+  if (
+    matchEnded ||
+    statusLower.includes("won by") ||
+    statusLower.includes("match drawn") ||
+    statusLower.includes("match tied") ||
+    statusLower.includes("no result") ||
+    statusLower.includes("abandoned") ||
+    statusLower.includes("completed") ||
+    statusLower.includes("concluded")
   ) {
+    status = "finished";
+  } else if (matchStarted && !matchEnded) {
     status = "live";
-    statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "LIVE NOW";
-  } else if (
-    hasValidStart &&
-    !isExplicitNonLive &&
-    safeLiveWindowEndMs !== null &&
-    nowMs >= parsedStartMs &&
-    nowMs <= safeLiveWindowEndMs
-  ) {
-    status = "live";
-    statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "LIVE NOW";
-  } else if (
-    hasValidStart &&
-    !isExplicitLive &&
-    !isExplicitNonLive &&
-    safeLiveWindowEndMs !== null &&
-    nowMs > safeLiveWindowEndMs
-  ) {
-    status = "finished";
-    statusText = statusObj.match_status || "Match Concluded";
   } else {
     status = "upcoming";
-    statusText = statusObj.match_status && statusObj.match_status !== "not_started" ? statusObj.match_status : "Upcoming";
   }
 
-  const periodScores = Array.isArray(statusObj.period_scores) ? statusObj.period_scores : [];
+  const teams = Array.isArray(item.teams) ? item.teams : [];
+  const teamInfo = Array.isArray(item.teamInfo) ? item.teamInfo : [];
+  let homeName = teams[0] || (name.includes(" vs ") ? name.split(" vs ")[0].split(",")[0].trim() : "Team 1");
+  let awayName = teams[1] || (name.includes(" vs ") ? name.split(" vs ")[1].split(",")[0].trim() : "Team 2");
+
+  const homeInfo = teamInfo.find((t: any) => t.name === homeName) || teamInfo[0] || {};
+  const awayInfo = teamInfo.find((t: any) => t.name === awayName) || teamInfo[1] || {};
+
+  const homeLogo = resolveHDTeamLogo(homeName, homeInfo.img);
+  const awayLogo = resolveHDTeamLogo(awayName, awayInfo.img);
+
+  const scoreList = Array.isArray(item.score) ? item.score : [];
   let homeScore = "";
   let homeOvers = "";
   let awayScore = "";
   let awayOvers = "";
 
-  const homePeriods = periodScores.filter((p: any) => p.home_score !== undefined && p.home_score !== null);
-  if (homePeriods.length > 0) {
-    const lastP = homePeriods[homePeriods.length - 1];
-    homeScore = `${lastP.home_score}/${lastP.home_wickets !== undefined ? lastP.home_wickets : 0}`;
-    if (lastP.home_overs) homeOvers = `(${lastP.home_overs} ov)`;
-  } else if (typeof home.score === "string" && home.score.trim()) {
-    homeScore = home.score.trim();
+  if (scoreList.length > 0) {
+    for (const sc of scoreList) {
+      const inng = String(sc.inning || "").toLowerCase();
+      const runs = sc.r !== undefined ? sc.r : 0;
+      const wkts = sc.w !== undefined ? sc.w : 0;
+      const overs = sc.o !== undefined ? sc.o : 0;
+      const formatted = `${runs}/${wkts}`;
+      const formattedOvers = `(${overs} ov)`;
+
+      if (inng.includes(homeName.toLowerCase()) || inng.includes("inning 1") || (!homeScore && scoreList.indexOf(sc) === 0)) {
+        if (!homeScore) {
+          homeScore = formatted;
+          homeOvers = formattedOvers;
+        } else {
+          homeScore += ` & ${formatted}`;
+        }
+      } else {
+        if (!awayScore) {
+          awayScore = formatted;
+          awayOvers = formattedOvers;
+        } else {
+          awayScore += ` & ${formatted}`;
+        }
+      }
+    }
   }
 
-  const awayPeriods = periodScores.filter((p: any) => p.away_score !== undefined && p.away_score !== null);
-  if (awayPeriods.length > 0) {
-    const lastP = awayPeriods[awayPeriods.length - 1];
-    awayScore = `${lastP.away_score}/${lastP.away_wickets !== undefined ? lastP.away_wickets : 0}`;
-    if (lastP.away_overs) awayOvers = `(${lastP.away_overs} ov)`;
-  } else if (typeof away.score === "string" && away.score.trim()) {
-    awayScore = away.score.trim();
-  }
+  const rawStartStr = item.dateTimeGMT || item.date || item.startTime || null;
+  const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr.endsWith("Z") ? rawStartStr : rawStartStr + "Z")) : NaN;
+  const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+  const timestamp = hasValidStart ? parsedStartMs : null;
 
   const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
-  const t1Logo = resolveHDTeamLogo(homeName, home.logo);
-  const t2Logo = resolveHDTeamLogo(awayName, away.logo);
+  const tournamentName = item.series_id || item.seriesName || (name.includes(",") ? name.split(",").slice(1).join(",").trim() : "Cricket Series");
 
-  const bData = resolveCricketBroadcastData(sportEvent, item);
+  const broadcastMockEvent = {
+    tournament: { name: tournamentName },
+    season: { name: tournamentName },
+    type: matchType,
+    competitors: [
+      { qualifier: "home", name: homeName, id: homeInfo.shortname || homeName },
+      { qualifier: "away", name: awayName, id: awayInfo.shortname || awayName }
+    ]
+  };
+  const bData = resolveCricketBroadcastData(broadcastMockEvent, item);
 
   return {
-    id: `cr-sportradar-${String(sportEvent.id || "unknown").replace(/[^a-zA-Z0-9_-]/g, "_")}`,
-    rawId: sportEvent.id,
-    matchId: sportEvent.id,
+    id: `cr-cricapi-${String(rawId).replace(/[^a-zA-Z0-9_-]/g, "_")}`,
+    rawId: rawId,
+    matchId: rawId,
     sport: "cricket",
     sportName: "Cricket",
     sportIcon: "fa-baseball-bat-ball",
@@ -579,12 +443,11 @@ function normalizeSportradarEvent(item: any): any {
     seriesName: tournamentName,
     tournament: tournamentName,
     league: tournamentName,
-    matchDesc: sportEvent.type || "Match",
-    matchFormat,
-    matchType: matchFormat,
-    startTime: startTimeIso,
-    endTime: endTimeIso,
-    authoritativeEndTime: authoritativeEndTimeMs ? new Date(authoritativeEndTimeMs).toISOString() : null,
+    matchDesc: matchType,
+    matchFormat: matchType,
+    matchType: matchType,
+    startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+    endTime: null,
     status,
     statusText,
     statusLabel: status === "live" ? "LIVE" : status === "finished" ? "FT" : "Upcoming",
@@ -599,34 +462,34 @@ function normalizeSportradarEvent(item: any): any {
       : "",
     matchTime: matchTimeStr,
     timeOrTimer: status === "live" ? "LIVE" : status === "finished" ? "FT" : matchTimeStr,
-    venue: sportEvent.venue ? `${sportEvent.venue.name || ""}${sportEvent.venue.city_name ? `, ${sportEvent.venue.city_name}` : ""}`.trim() : "",
+    venue,
     isHot: status === "live",
     isSpecial: status === "live",
     team1: {
-      teamId: home.id,
+      teamId: homeInfo.shortname || homeName,
       name: homeName,
-      shortName: home.abbreviation || "",
-      logo: t1Logo,
+      shortName: homeInfo.shortname || "",
+      logo: homeLogo,
       score: homeScore,
       overs: homeOvers,
     },
     team2: {
-      teamId: away.id,
+      teamId: awayInfo.shortname || awayName,
       name: awayName,
-      shortName: away.abbreviation || "",
-      logo: t2Logo,
+      shortName: awayInfo.shortname || "",
+      logo: awayLogo,
       score: awayScore,
       overs: awayOvers,
     },
     homeTeam: {
       name: homeName,
-      logo: t1Logo,
+      logo: homeLogo,
       score: homeScore,
       overs: homeOvers,
     },
     awayTeam: {
       name: awayName,
-      logo: t2Logo,
+      logo: awayLogo,
       score: awayScore,
       overs: awayOvers,
     },
@@ -639,28 +502,28 @@ function normalizeSportradarEvent(item: any): any {
     streamUrl: bData.streamUrl,
     streams: bData.streams,
     subText: bData.channelName ? `${tournamentName} • ${bData.channelName}` : tournamentName,
-    source: "Sportradar",
+    source: "CricketData.org",
   };
 }
 
-async function fetchSportradarApi(
+async function fetchCricketDataApi(
   endpoint: string,
   apiKey: string,
-  tier = "t2"
+  offset = 0
 ): Promise<{ ok: boolean; status: number; data?: any; error?: string }> {
   if (!apiKey || !apiKey.trim()) {
-    return { ok: false, status: 400, error: "Sportradar API key is missing." };
+    return { ok: false, status: 400, error: "CricketData API key is missing." };
   }
 
-  const cleanTier = sanitizeSportradarTier(tier);
   const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
   const sep = cleanEndpoint.includes("?") ? "&" : "?";
-  const url = `https://api.sportradar.com/cricket-${cleanTier}/en/${cleanEndpoint}${sep}api_key=${encodeURIComponent(apiKey.trim())}`;
+  const url = `https://api.cricapi.com/v1/${cleanEndpoint}${sep}apikey=${encodeURIComponent(apiKey.trim())}&offset=${offset}`;
 
   try {
     const res = await fetch(url, {
       headers: {
         Accept: "application/json",
+        "User-Agent": "HighFy-TV/4.2",
       },
       signal: AbortSignal.timeout(8000),
     });
@@ -677,18 +540,30 @@ async function fetchSportradarApi(
       return {
         ok: false,
         status: res.status,
-        error: data?.message || data?.error || (text ? text.slice(0, 250) : res.statusText),
+        error: data?.reason || data?.message || (text ? text.slice(0, 250) : res.statusText),
+      };
+    }
+
+    if (data && data.status === "failure") {
+      return {
+        ok: false,
+        status: 400,
+        error: data.reason || "CricketData API returned failure status",
+        data,
       };
     }
 
     return { ok: true, status: res.status, data };
   } catch (err: any) {
-    return { ok: false, status: 500, error: err.message || "Network error reaching Sportradar API" };
+    return { ok: false, status: 500, error: err.message || "Network error reaching CricketData.org API" };
   }
 }
 
-async function getNormalizedSportradarCricketMatches(env: Env, customKey?: string, customTier?: string) {
-  const activeKey = (customKey && customKey.trim()) || (env.SPORTRADAR_CRICKET_API_KEY || "").trim();
+async function getNormalizedCricketDataMatches(env: Env, customKey?: string) {
+  const activeKey =
+    (customKey && customKey.trim()) ||
+    (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
+
   if (!activeKey) {
     return {
       status: "missing_key",
@@ -699,33 +574,24 @@ async function getNormalizedSportradarCricketMatches(env: Env, customKey?: strin
     };
   }
 
-  const tier = sanitizeSportradarTier(customTier, env.SPORTRADAR_CRICKET_TIER);
   const events: any[] = [];
   const seenIds = new Set<string>();
 
-  const liveRes = await fetchSportradarApi("schedules/live/schedule.json", activeKey, tier);
-  if (liveRes.status === 429) {
+  const currentRes = await fetchCricketDataApi("currentMatches", activeKey, 0);
+  if (currentRes.status === 429) {
     return {
       status: "rate_limited",
       rateLimited: true,
       upstreamStatus: 429,
-      message: liveRes.error || "Sportradar rate limit reached (HTTP 429)",
+      message: currentRes.error || "CricketData.org rate limit reached (HTTP 429)",
       total: 0,
       data: [],
     };
   }
 
-  if (liveRes.ok && liveRes.data) {
-    const list = Array.isArray(liveRes.data.sport_events)
-      ? liveRes.data.sport_events
-      : Array.isArray(liveRes.data.summaries)
-      ? liveRes.data.summaries
-      : [];
-    for (const item of list) {
-      if (item && typeof item === "object") {
-        item._fromLiveSchedule = true;
-      }
-      const ev = normalizeSportradarEvent(item);
+  if (currentRes.ok && currentRes.data && Array.isArray(currentRes.data.data)) {
+    for (const item of currentRes.data.data) {
+      const ev = normalizeCricketDataEvent(item);
       if (ev && !seenIds.has(ev.id)) {
         seenIds.add(ev.id);
         events.push(ev);
@@ -736,7 +602,7 @@ async function getNormalizedSportradarCricketMatches(env: Env, customKey?: strin
   return {
     status: "success",
     rateLimited: false,
-    upstreamStatus: liveRes.status || 200,
+    upstreamStatus: currentRes.status || 200,
     total: events.length,
     data: events,
   };
@@ -761,22 +627,29 @@ export default {
         status: "ok",
         secure: true,
         worker: true,
-        sportradarConfigured: Boolean(env.SPORTRADAR_CRICKET_API_KEY && env.SPORTRADAR_CRICKET_API_KEY.trim()),
+        cricketDataConfigured: Boolean((env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY) && (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY)!.trim()),
         rapidApiConfigured: Boolean(env.RAPIDAPI_KEY && env.RAPIDAPI_KEY.trim()),
         thesportsdbConfigured: true,
       });
     }
 
-    // 3. Cricket Matches route (/api/cricket/matches)
-    if (path === "/api/cricket/matches") {
-      const result = await getNormalizedSportradarCricketMatches(env);
+    // 3. Cricket Matches route (/api/cricket/matches or /api/cricket/cricapi/matches)
+    if (path === "/api/cricket/matches" || path === "/api/cricket/cricapi/matches") {
+      const customKey =
+        url.searchParams.get("api_key") ||
+        url.searchParams.get("apikey") ||
+        url.searchParams.get("key") ||
+        request.headers.get("x-cricapi-key") ||
+        request.headers.get("x-cricketdata-key") ||
+        undefined;
+      const result = await getNormalizedCricketDataMatches(env, customKey);
       if (result.status === "rate_limited" || result.rateLimited) {
         return jsonResponse({
           status: "rate_limited",
-          source: "Sportradar",
+          source: "CricketData.org",
           rateLimited: true,
           upstreamStatus: 429,
-          message: result.message || "Sportradar rate limit reached (HTTP 429)",
+          message: result.message || "CricketData rate limit reached (HTTP 429)",
           total: 0,
           data: [],
         });
@@ -786,10 +659,10 @@ export default {
         return jsonResponse(
           {
             status: "missing_key",
-            source: "Sportradar",
+            source: "CricketData.org",
             total: 0,
             data: [],
-            message: "SPORTRADAR_CRICKET_API_KEY is not configured in Worker secrets.",
+            message: "CRICKETDATA_API_KEY is not configured in Worker secrets.",
           },
           400
         );
@@ -797,7 +670,7 @@ export default {
 
       return jsonResponse({
         status: "success",
-        source: "Sportradar",
+        source: "CricketData.org",
         rateLimited: false,
         upstreamStatus: result.upstreamStatus,
         total: result.total,
@@ -805,115 +678,61 @@ export default {
       });
     }
 
-    // 4. Sportradar Cricket Matches route (/api/cricket/sportradar/matches)
-    if (path === "/api/cricket/sportradar/matches") {
-      const customKey = url.searchParams.get("api_key") || url.searchParams.get("key") || request.headers.get("x-sportradar-api-key") || undefined;
-      const customTier = url.searchParams.get("tier") || request.headers.get("x-sportradar-tier") || undefined;
-      const result = await getNormalizedSportradarCricketMatches(env, customKey, customTier);
-
-      if (result.status === "rate_limited" || result.rateLimited) {
-        return jsonResponse({
-          status: "rate_limited",
-          source: "Sportradar",
-          tier: sanitizeSportradarTier(customTier, env.SPORTRADAR_CRICKET_TIER),
-          rateLimited: true,
-          upstreamStatus: 429,
-          message: result.message || "Sportradar rate limit reached (HTTP 429)",
-          total: 0,
-          data: [],
-        });
-      }
-
-      return jsonResponse({
-        status: "success",
-        source: "Sportradar",
-        tier: sanitizeSportradarTier(customTier, env.SPORTRADAR_CRICKET_TIER),
-        rateLimited: false,
-        upstreamStatus: result.upstreamStatus,
-        total: result.total,
-        data: result.data,
-      });
-    }
-
-    // 5. Sportradar Test route (/api/sportradar/test or /api/cricket/sportradar/test)
-    if (path === "/api/sportradar/test" || path === "/api/cricket/sportradar/test") {
+    // 4. CricketData Test route (/api/cricapi/test or /api/cricket/cricapi/test)
+    if (path === "/api/cricapi/test" || path === "/api/cricket/cricapi/test") {
       const apiKey = (
         url.searchParams.get("key") ||
         url.searchParams.get("api_key") ||
-        request.headers.get("x-sportradar-api-key") ||
-        env.SPORTRADAR_CRICKET_API_KEY ||
+        url.searchParams.get("apikey") ||
+        request.headers.get("x-cricapi-key") ||
+        request.headers.get("x-cricketdata-key") ||
+        env.CRICKETDATA_API_KEY ||
+        env.CRICAPI_KEY ||
+        env.CRICKET_API_KEY ||
         ""
       ).trim();
-
-      const tier = sanitizeSportradarTier(
-        url.searchParams.get("tier") || request.headers.get("x-sportradar-tier"),
-        env.SPORTRADAR_CRICKET_TIER
-      );
 
       if (!apiKey) {
         return jsonResponse(
           {
             valid: false,
             status: "missing_key",
-            message: "Sportradar API key is required in Worker environment or request header.",
-            tier,
+            message: "CricketData.org API key is required in Worker environment or request header.",
           },
           400
         );
       }
 
       const start = Date.now();
-      const testRes = await fetchSportradarApi("tournaments.json", apiKey, tier);
+      const testRes = await fetchCricketDataApi("currentMatches", apiKey, 0);
       const elapsed = Date.now() - start;
 
       if (testRes.ok && testRes.data) {
-        const tournaments = Array.isArray(testRes.data.tournaments) ? testRes.data.tournaments : [];
+        const matches = Array.isArray(testRes.data.data) ? testRes.data.data : [];
         return jsonResponse({
           valid: true,
           status: "success",
-          message: `Sportradar Cricket API key is VALID and working! (${tournaments.length} tournaments indexed)`,
-          tier,
+          source: "CricketData.org",
+          message: `CricketData.org (CricAPI) key is VALID! (${matches.length} current matches found)`,
           latencyMs: elapsed,
-          tournamentsCount: tournaments.length,
-          sampleTournaments: tournaments.slice(0, 5).map((t: any) => ({
-            id: t.id,
-            name: t.name,
-            category: t.category?.name || "Cricket",
-          })),
+          matchesCount: matches.length,
+          info: testRes.data.info || {},
         });
-      }
-
-      if (testRes.status === 429) {
-        return jsonResponse(
-          {
-            valid: false,
-            status: "rate_limited",
-            source: "Sportradar",
-            statusCode: 429,
-            rateLimited: true,
-            total: 0,
-            data: [],
-            tier,
-            message: "Sportradar rate limit reached (HTTP 429).",
-            error: testRes.error || "Limit Exceeded",
-          },
-          429
-        );
       }
 
       return jsonResponse(
         {
           valid: false,
           status: "error",
+          source: "CricketData.org",
           statusCode: testRes.status,
-          tier,
-          message: testRes.error || `Sportradar API error with HTTP status ${testRes.status}`,
+          message: testRes.error || `CricketData.org error with status ${testRes.status}`,
         },
         testRes.status || 500
       );
     }
 
-    // 6. Unknown API route
+    // 5. Unknown API route
     return jsonResponse(
       {
         status: "not_found",

@@ -77,12 +77,12 @@ class CricketEngine {
   }
 
   /**
-   * Get active Sportradar Cricket API Key (Server-managed; never hardcode in frontend/APK)
+   * Get active CricketData.org / CricAPI Key (Server-managed; never hardcode in frontend/APK)
    */
-  getSportradarKey() {
-    const localKey = localStorage.getItem('highfy_sportradar_key');
+  getCricketDataKey() {
+    const localKey = localStorage.getItem('highfy_cricketdata_key') || localStorage.getItem('highfy_cricapi_key');
     if (localKey && localKey.trim()) return localKey.trim();
-    const configKey = window.CONFIG?.SPORTRADAR_CRICKET_API_KEY;
+    const configKey = window.CONFIG?.CRICKETDATA_API_KEY || window.CONFIG?.CRICAPI_KEY;
     if (configKey && configKey.trim()) return configKey.trim();
     return '';
   }
@@ -162,7 +162,7 @@ class CricketEngine {
    */
   async fetchFromApi(endpoint) {
     const apiBase = window.CONFIG?.API_BASE_URL || '';
-    // 1. Primary: Query backend Sportradar proxy endpoint (Server-side key authentication)
+    // 1. Primary: Query backend CricketData.org proxy endpoint (Server-side key authentication)
     try {
       const proxyRes = await fetch(`${apiBase}/api/cricket/matches`);
       if (proxyRes.ok) {
@@ -171,44 +171,44 @@ class CricketEngine {
           return {
             error: 'rate_limited',
             status: 'rate_limited',
-            source: json.source || 'Sportradar',
+            source: json.source || 'CricketData.org',
             total: 0,
             data: [],
-            message: json.message || 'Live Cricket data blocked by Sportradar rate limit (HTTP 429).'
+            message: json.message || 'Live Cricket data blocked by CricketData rate limit (HTTP 429).'
           };
         }
         if (json && Array.isArray(json.data) && json.data.length > 0) {
-          return { success: true, status: json.status || 'success', data: json.data, source: json.source || 'Sportradar' };
+          return { success: true, status: json.status || 'success', data: json.data, source: json.source || 'CricketData.org' };
         }
       }
     } catch (proxyErr) {
-      console.warn('[CricketEngine] Backend Sportradar proxy note:', proxyErr.message);
+      console.warn('[CricketEngine] Backend CricketData proxy note:', proxyErr.message);
     }
 
-    // 2. Secondary: /api/cricket/sportradar/matches server-side proxy (No key exposed on client)
+    // 2. Secondary: /api/cricket/cricapi/matches server-side proxy (No key exposed on client)
     try {
-      const srRes = await fetch(`${apiBase}/api/cricket/sportradar/matches`);
-      if (srRes.ok) {
-        const srJson = await srRes.json();
-        if (srJson && srJson.status === 'rate_limited') {
+      const cricRes = await fetch(`${apiBase}/api/cricket/cricapi/matches`);
+      if (cricRes.ok) {
+        const cricJson = await cricRes.json();
+        if (cricJson && cricJson.status === 'rate_limited') {
           return {
             error: 'rate_limited',
             status: 'rate_limited',
-            source: srJson.source || 'Sportradar',
+            source: cricJson.source || 'CricketData.org',
             total: 0,
             data: [],
-            message: srJson.message || 'Live Cricket data blocked by Sportradar rate limit (HTTP 429).'
+            message: cricJson.message || 'Live Cricket data blocked by CricketData rate limit (HTTP 429).'
           };
         }
-        if (srJson && Array.isArray(srJson.data) && srJson.data.length > 0) {
-          return { success: true, status: srJson.status || 'success', data: srJson.data, source: srJson.source || 'Sportradar' };
+        if (cricJson && Array.isArray(cricJson.data) && cricJson.data.length > 0) {
+          return { success: true, status: cricJson.status || 'success', data: cricJson.data, source: cricJson.source || 'CricketData.org' };
         }
       }
-    } catch (srFallbackErr) {
-      console.warn('[CricketEngine] Sportradar fallback error:', srFallbackErr.message);
+    } catch (cricFallbackErr) {
+      console.warn('[CricketEngine] CricketData fallback error:', cricFallbackErr.message);
     }
 
-    return { error: 'no_matches', status: 'empty', source: 'Sportradar', total: 0, data: [], message: 'No live cricket matches available from Sportradar.' };
+    return { error: 'no_matches', status: 'empty', source: 'CricketData.org', total: 0, data: [], message: 'No live cricket matches available from CricketData.org.' };
   }
 
   /**
@@ -657,14 +657,14 @@ class CricketEngine {
       };
     };
 
-    // 1. If item is already normalized from backend Sportradar proxy (/api/cricket/matches):
+    // 1. If item is already normalized from backend CricketData proxy (/api/cricket/matches):
     const srcLower = String(item.source || '').toLowerCase();
     if (
-      srcLower.includes('sportradar') ||
+      srcLower.includes('cricketdata') ||
+      srcLower.includes('cricapi') ||
       item.source === 'Cricbuzz RapidAPI' ||
       item.source === 'RapidAPI Cricket' ||
       item.source === 'RapidAPI' ||
-      item.source === 'Cricbuzz Live' ||
       (item.sport === 'cricket' && item.team1 && item.team2)
     ) {
       const statusLower = (item.status || 'upcoming').toLowerCase();
@@ -683,9 +683,9 @@ class CricketEngine {
       const matchTime = item.matchTime || this.formatMatchTime(new Date(timestamp).toISOString(), timezone);
       const bInfo = extractBroadcasterFields(item, item.sport_event);
       const rawIdStr = String(item.id || item.matchId || item.rawId || Date.now());
-      const normalizedId = rawIdStr.startsWith('cr-sportradar-') || rawIdStr.startsWith('sr:') || rawIdStr.startsWith('sr-')
+      const normalizedId = rawIdStr.startsWith('cr-cricapi-') || rawIdStr.startsWith('cr-cricketdata-')
         ? rawIdStr
-        : `cr-sportradar-${rawIdStr.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
+        : `cr-cricapi-${rawIdStr.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
 
       return {
         ...item,
@@ -707,7 +707,7 @@ class CricketEngine {
         channelLogo: item.channelLogo || null,
         streamUrl: item.streamUrl || null,
         streams: Array.isArray(item.streams) ? item.streams : [],
-        source: item.source && String(item.source).toLowerCase().includes('sportradar') ? item.source : 'Sportradar'
+        source: item.source && String(item.source).toLowerCase().includes('cricapi') ? item.source : 'CricketData.org'
       };
     }
 
@@ -832,7 +832,7 @@ class CricketEngine {
       : (item.venue || '');
 
     return {
-      id: `cr-sportradar-${String(rawEventId).replace(/[^a-zA-Z0-9_-]/g, '_')}`,
+      id: `cr-cricapi-${String(rawEventId).replace(/[^a-zA-Z0-9_-]/g, '_')}`,
       rawId: rawEventId,
       matchId: rawEventId,
       sport: 'cricket',
@@ -903,7 +903,7 @@ class CricketEngine {
       subText: item.channelName ? `${tournamentName} • ${item.channelName}` : tournamentName,
       scoreDetails: scores,
       streams: Array.isArray(item.streams) ? item.streams : [],
-      source: 'Sportradar'
+      source: 'CricketData.org'
     };
   }
 
@@ -962,7 +962,7 @@ class CricketEngine {
           return {
             configured: false,
             status: 'rate_limited',
-            source: res.source || 'Sportradar',
+            source: res.source || 'CricketData.org',
             error: res.error,
             message: res.message,
             events: []
@@ -971,7 +971,7 @@ class CricketEngine {
         if (this.cache.data && this.cache.data.length > 0) {
           return { configured: true, events: this.cache.data };
         }
-        return { configured: false, status: res.status || 'empty', source: 'Sportradar', error: res.error, message: res.message, events: [] };
+        return { configured: false, status: res.status || 'empty', source: 'CricketData.org', error: res.error, message: res.message, events: [] };
       }
 
       const rawList = Array.isArray(res.data) ? res.data : [];

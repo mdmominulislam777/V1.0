@@ -235,7 +235,7 @@ class SportsCoordinator {
    * Resolve authentic Fixture Broadcaster directly from API if missing
    */
   async resolveFixtureBroadcaster(event) {
-    if (!event || event.source === 'Sportradar') return null;
+    if (!event || (event.source && (String(event.source).toLowerCase().includes('cricketdata') || String(event.source).toLowerCase().includes('cricapi')))) return null;
 
     const fixtureId = event.rawId || event.idEvent || event.matchId || event.id;
     if (fixtureId) {
@@ -2040,14 +2040,13 @@ class SportsCoordinator {
 
           const sp = (ev.sport || '').toLowerCase();
 
-          // Cricket data MUST strictly come ONLY from Sportradar API
+          // Cricket data MUST strictly come ONLY from CricketData.org / CricAPI
           if (sp === 'cricket') {
-            const isSportradar = (ev.source && String(ev.source).toLowerCase().includes('sportradar')) ||
-                                 String(ev.id).startsWith('cr-sportradar-') ||
-                                 String(ev.id).startsWith('sr:sport_event:') ||
-                                 String(ev.id).startsWith('sr-');
-            if (!isSportradar) {
-              return; // Block all other cricket sources
+            const isCricketData = (ev.source && (String(ev.source).toLowerCase().includes('cricketdata') || String(ev.source).toLowerCase().includes('cricapi'))) ||
+                                 String(ev.id).startsWith('cr-cricapi-') ||
+                                 String(ev.id).startsWith('cr-cricketdata-');
+            if (!isCricketData) {
+              return; // Block other cricket sources
             }
           }
 
@@ -2069,7 +2068,7 @@ class SportsCoordinator {
             ev.broadcastingChannelDetails = streamInfo.broadcastingChannelDetails;
             ev.hasStream = true;
             ev.channelId = streamInfo.streams[0]?.channelId || ev.channelId;
-            if (!ev.broadcaster && streamInfo.streams[0]?.channelName && ev.source !== 'Sportradar' && ev.source !== 'Sportradar Live') {
+            if (!ev.broadcaster && streamInfo.streams[0]?.channelName && !String(ev.source || '').toLowerCase().includes('cricketdata') && !String(ev.source || '').toLowerCase().includes('cricapi')) {
               ev.broadcaster = streamInfo.streams[0].channelName;
             }
           } else {

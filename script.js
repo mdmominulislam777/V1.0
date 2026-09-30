@@ -1434,7 +1434,7 @@
           event.broadcastingChannelDetails = matchInfo.broadcastingChannelDetails;
           event.hasStream = true;
           event.channelId = matchInfo.streams[0]?.channelId || event.channelId;
-          if (!event.broadcaster && matchInfo.streams[0]?.channelName && event.source !== 'Sportradar' && event.source !== 'Sportradar Live') {
+          if (!event.broadcaster && matchInfo.streams[0]?.channelName && !String(event.source || '').toLowerCase().includes('cricketdata') && !String(event.source || '').toLowerCase().includes('cricapi')) {
             event.broadcaster = matchInfo.streams[0].channelName;
           }
         } else {
@@ -2045,7 +2045,7 @@
         event.broadcastingChannelDetails = matchInfo.broadcastingChannelDetails;
         event.hasStream = true;
         event.channelId = matchInfo.streams[0]?.channelId || event.channelId;
-        if (!event.broadcaster && matchInfo.streams[0]?.channelName && event.source !== 'Sportradar' && event.source !== 'Sportradar Live') {
+        if (!event.broadcaster && matchInfo.streams[0]?.channelName && !String(event.source || '').toLowerCase().includes('cricketdata') && !String(event.source || '').toLowerCase().includes('cricapi')) {
           event.broadcaster = matchInfo.streams[0].channelName;
         }
         streams = matchInfo.streams;

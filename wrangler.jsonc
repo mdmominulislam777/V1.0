@@ -6,9 +6,7 @@
   "compatibility_flags": [
     "nodejs_compat"
   ],
-  "vars": {
-    "SPORTRADAR_CRICKET_TIER": "t2"
-  },
+  "vars": {},
   "observability": {
     "enabled": true
   }

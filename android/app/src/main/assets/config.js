@@ -44,9 +44,9 @@
     // ⚡ RapidAPI Key
     RAPIDAPI_KEY: env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81",
 
-    // 🏏 Sportradar Cricket Official API (Managed strictly server-side via /api/cricket/matches; never exposed in frontend/APK)
-    SPORTRADAR_CRICKET_API_KEY: "",
-    SPORTRADAR_CRICKET_TIER: env.SPORTRADAR_CRICKET_TIER || "t2",
+    // 🏏 CricketData.org / CricAPI (Managed strictly server-side via /api/cricket/matches; never exposed in frontend/APK)
+    CRICKETDATA_API_KEY: "",
+    CRICAPI_KEY: "",
 
     // 🏟️ TheSportsDB Free API Tier (Public Key '3')
     THESPORTSDB_API_KEY: env.THESPORTSDB_API_KEY || "3",
