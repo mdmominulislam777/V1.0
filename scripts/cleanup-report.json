@@ -1,7 +1,239 @@
 {
-  "initialChannels": 495,
-  "workingChannels": 323,
-  "deadChannelsRemoved": 172,
-  "deadStreamsPruned": 373,
-  "timestamp": "2026-09-24T13:03:47.993Z"
+  "totalBefore": 323,
+  "workingRetained": 300,
+  "deadRemoved": 23,
+  "byCatBefore": {
+    "Entertainment": 5,
+    "Bangla": 58,
+    "Kids": 15,
+    "News": 29,
+    "Radio": 1,
+    "Islamic": 18,
+    "Sports": 78,
+    "Infotainment": 10,
+    "India": 1,
+    "Kolkata": 5,
+    "Movie": 28,
+    "Music": 11,
+    "Ayana": 20,
+    "Pakistan": 1,
+    "Jio TV": 30,
+    "Discovery": 13
+  },
+  "byCatAfter": {
+    "Entertainment": 5,
+    "News": 26,
+    "Bangla": 55,
+    "Radio": 1,
+    "Islamic": 18,
+    "Sports": 70,
+    "Kids": 14,
+    "Infotainment": 10,
+    "India": 1,
+    "Kolkata": 5,
+    "Movie": 26,
+    "Music": 10,
+    "Ayana": 18,
+    "Pakistan": 1,
+    "Jio TV": 29,
+    "Discovery": 11
+  },
+  "byCatRemoved": {
+    "Kids": 1,
+    "Bangla": 3,
+    "Music": 1,
+    "Ayana": 2,
+    "Sports": 8,
+    "News": 3,
+    "Movie": 2,
+    "Discovery": 2,
+    "Jio TV": 1
+  },
+  "removedChannels": [
+    {
+      "id": "ch-pbs-kids",
+      "name": "PBS Kids",
+      "category": "Kids",
+      "reasons": [
+        "Empty M3U8 (no segments/variants)"
+      ]
+    },
+    {
+      "id": "ch-rajdhani-tv",
+      "name": "Rajdhani TV",
+      "category": "Bangla",
+      "reasons": [
+        "HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-rtv-720p",
+      "name": "RTV (720p)",
+      "category": "Bangla",
+      "reasons": [
+        "Segment HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-music-mastii",
+      "name": "Music Mastii",
+      "category": "Music",
+      "reasons": [
+        "Unsupported MPD/Placeholder"
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c21-7676-9739-791cdaf8bcfc",
+      "name": "CMAC TV",
+      "category": "Ayana",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "ch-t-sports-server-2",
+      "name": "T Sports HD (Server 2)",
+      "category": "Sports",
+      "reasons": [
+        "HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-republic-tv-bharat",
+      "name": "Republic TV Bharat",
+      "category": "News",
+      "reasons": [
+        "HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-news-1-india",
+      "name": "News 1 India",
+      "category": "News",
+      "reasons": [
+        "HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-sadhna-prime-news",
+      "name": "Sadhna Prime News",
+      "category": "News",
+      "reasons": [
+        "HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-goldmines-movies",
+      "name": "Goldmines Movies",
+      "category": "Movie",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c04-7852-b09a-dbcacbe4740e",
+      "name": "Islam TV",
+      "category": "Ayana",
+      "reasons": [
+        "Child HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-online24-stream",
+      "name": "Online24 Stream",
+      "category": "Sports",
+      "reasons": [
+        "Child HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-sony-bbc-earth-hindi-all-languages",
+      "name": "Sony BBC Earth HINDI/All languages",
+      "category": "Discovery",
+      "reasons": [
+        "fetch failed"
+      ]
+    },
+    {
+      "id": "ch-espn-2",
+      "name": "ESPN 2",
+      "category": "Sports",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "ch-espn-3",
+      "name": "ESPN 3",
+      "category": "Sports",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "ch-discovery-pakistan-hindi",
+      "name": "DISCOVERY PAKISTAN Hindi",
+      "category": "Discovery",
+      "reasons": [
+        "Segment HTTP 500"
+      ]
+    },
+    {
+      "id": "ch-ten-cricket",
+      "name": "Ten Cricket",
+      "category": "Sports",
+      "reasons": [
+        "Empty TS stream"
+      ]
+    },
+    {
+      "id": "ch-star-sports-s1-hd",
+      "name": "STAR SPORTS S1 HD",
+      "category": "Sports",
+      "reasons": [
+        "HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-willow-cricket-extra",
+      "name": "Willow Cricket Extra",
+      "category": "Sports",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "ch-bein-sports-2",
+      "name": "Bein Sports 2",
+      "category": "Sports",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "ch-channel-16",
+      "name": "Channel 16",
+      "category": "Bangla",
+      "reasons": [
+        "Child HTTP 404"
+      ]
+    },
+    {
+      "id": "ch-goldmines",
+      "name": "Goldmines",
+      "category": "Movie",
+      "reasons": [
+        "HTTP 403"
+      ]
+    },
+    {
+      "id": "jio-1391",
+      "name": "Hungama",
+      "category": "Jio TV",
+      "reasons": [
+        "Timeout"
+      ]
+    }
+  ],
+  "timestamp": "2026-10-01T05:49:28.876Z"
 }

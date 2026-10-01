@@ -21,11 +21,11 @@ class SportsCoordinator {
     };
     this.lastUpdated = null;
     this.lastFetchTime = 0;
-    this.fetchTtl = 5 * 60 * 1000; // 5 minutes coordinator cache
+    this.fetchTtl = 60 * 1000; // 60 seconds coordinator cache for live accuracy
     this.channels = [];
     this.favKey = 'highfy_sports_favs';
-    this.cacheKey = 'highfy_coordinator_events';
-    this.mappingStorageKey = 'highfy_event_channel_map_v3';
+    this.cacheKey = 'highfy_coordinator_events_v27';
+    this.mappingStorageKey = 'highfy_event_channel_map_v4';
     this.eventChannelMap = new Map();
     this.inFlightFetch = null;
     this.loadLocalCache();
@@ -56,21 +56,48 @@ class SportsCoordinator {
               if (ev.source && String(ev.source).toLowerCase().includes('cricbuzz')) {
                 return false;
               }
+              const evTs = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+              if (evTs && (now - evTs > 24 * 60 * 60 * 1000)) {
+                return false;
+              }
               return true;
             })
             .map(ev => {
-              const evTime = ev.timestamp || 0;
-              if (ev.status === 'live' && (now - evTime > 12 * 60 * 60 * 1000)) {
+              const evTime = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+              if (ev && typeof window !== 'undefined' && typeof window.getHighResTeamLogo === 'function') {
+                const t1Name = ev.team1?.name || ev.homeTeam?.name || '';
+                const t2Name = ev.team2?.name || ev.awayTeam?.name || '';
+                if (t1Name) {
+                  const l1 = window.getHighResTeamLogo(t1Name, ev.team1?.logo || ev.homeTeam?.logo);
+                  if (ev.team1) ev.team1.logo = l1;
+                  if (ev.homeTeam) ev.homeTeam.logo = l1;
+                }
+                if (t2Name) {
+                  const l2 = window.getHighResTeamLogo(t2Name, ev.team2?.logo || ev.awayTeam?.logo);
+                  if (ev.team2) ev.team2.logo = l2;
+                  if (ev.awayTeam) ev.awayTeam.logo = l2;
+                }
+              }
+              if (ev.status === 'live' && evTime && (now - evTime > 8.5 * 60 * 60 * 1000)) {
                 return { ...ev, status: 'finished', timeOrTimer: 'FT', statusLabel: 'Finished' };
               }
               return ev;
             });
-          this.events = cleanedEvents;
-          this.lastFetchTime = parsed.timestamp || 0;
-          this.lastUpdated = new Date(this.lastFetchTime);
+          this.events = this.curateEvents(cleanedEvents);
+          this.lastFetchTime = Date.now() - 10000;
+          this.lastUpdated = new Date(parsed.timestamp || Date.now());
         }
       }
     } catch (e) {}
+
+    // If events are still empty on cold boot, hydrate synchronously from bundled window.EVENTS_DATA if available
+    if ((!this.events || this.events.length === 0) && typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+      try {
+        this.events = this.curateEvents(window.EVENTS_DATA);
+        this.lastFetchTime = Date.now() - 10000;
+        this.lastUpdated = new Date(this.lastFetchTime);
+      } catch (_) {}
+    }
 
     // If events are still empty on cold boot, hydrate from local events.json seed
     if ((!this.events || this.events.length === 0) && typeof fetch !== 'undefined') {
@@ -79,7 +106,7 @@ class SportsCoordinator {
           .then(r => r.ok ? r.json() : null)
           .then(list => {
             if (Array.isArray(list) && list.length > 0 && (!this.events || this.events.length === 0)) {
-              this.events = list;
+              this.events = this.curateEvents(list);
               this.lastFetchTime = Date.now() - 10000;
               this.lastUpdated = new Date(this.lastFetchTime);
             }
@@ -509,19 +536,19 @@ class SportsCoordinator {
       return { sports: ['Motorsport'], leagues: ['Horse Racing', 'Motorsport'], priority: 7 };
     }
     if (id === 'ch-eurosport-1' || id === 'ch-eurosport-2' || name.includes('eurosport')) {
-      return { sports: ['Tennis', 'Cycling', 'Motorsport'], leagues: ['Australian Open', 'Roland Garros', 'ATP', 'WTA', 'Tour de France', 'Tennis'], priority: 8 };
+      return { sports: ['Tennis', 'Volleyball', 'Cycling', 'Motorsport'], leagues: ['Australian Open', 'Roland Garros', 'ATP', 'WTA', 'Tour de France', 'Tennis', 'Volleyball'], priority: 8 };
     }
     if (id === 'ch-ziggo-sport-1' || id === 'ch-ziggo-sport-2' || id === 'ch-ziggo-sport-3' || name.includes('ziggo sport')) {
-      return { sports: ['Football', 'Motorsport', 'Tennis'], leagues: ['ATP', 'WTA', 'Davis Cup', 'Wimbledon', 'Roland Garros', 'US Open', 'Australian Open', 'Tennis'], priority: 8 };
+      return { sports: ['Football', 'Motorsport', 'Tennis', 'Volleyball'], leagues: ['ATP', 'WTA', 'Davis Cup', 'Wimbledon', 'Roland Garros', 'US Open', 'Australian Open', 'Tennis', 'Volleyball'], priority: 8 };
     }
     if (id === 'ch-espn' || id === 'ch-espn-2' || id === 'ch-espn-3' || name.includes('espn')) {
-      return { sports: ['Basketball', 'Baseball', 'Football', 'American Football', 'Tennis'], leagues: ['NBA', 'WNBA', 'NCAA', 'MLB', 'NFL', 'Basketball', 'Baseball'], priority: 9 };
+      return { sports: ['Basketball', 'Baseball', 'Football', 'American Football', 'Tennis', 'Volleyball'], leagues: ['NBA', 'WNBA', 'NCAA', 'MLB', 'NFL', 'Basketball', 'Baseball', 'Volleyball'], priority: 9 };
     }
     if (id === 'ch-go3-sport-1-hd' || name.includes('go3 sport 1')) {
-      return { sports: ['Football', 'Basketball'], leagues: ['EuroLeague', 'NBA', 'Basketball'], priority: 8 };
+      return { sports: ['Football', 'Basketball', 'Volleyball'], leagues: ['EuroLeague', 'NBA', 'Basketball', 'Volleyball'], priority: 8 };
     }
     if (id === 'ch-go3-sport-2-hd' || name.includes('go3 sport 2')) {
-      return { sports: ['Football', 'Motorsport'], leagues: ['Football', 'Motorsport'], priority: 8 };
+      return { sports: ['Football', 'Motorsport', 'Volleyball'], leagues: ['Football', 'Motorsport', 'Volleyball'], priority: 8 };
     }
     if (id === 'ch-sky-sports-action' || name.includes('sky sports action') || name.includes('sky action')) {
       return { sports: ['Rugby', 'Combat', 'Boxing', 'Motorsport'], leagues: ['Premiership Rugby', 'The Rugby Championship', 'Super Rugby', 'Six Nations', 'Top 14 Rugby', 'NRL Rugby', 'Rugby'], priority: 9 };
@@ -919,6 +946,9 @@ class SportsCoordinator {
     }
     if (s.includes('combat') || s.includes('boxing') || s === 'ufc' || s === 'mma' || s === 'bellator' || s.includes('martial')) {
       return 'combat';
+    }
+    if (s.includes('volleyball') || s.includes('volley')) {
+      return 'volleyball';
     }
     if (s.includes('hockey') || s === 'nhl') {
       return 'hockey';
@@ -1369,6 +1399,50 @@ class SportsCoordinator {
         }
       }
 
+      // 4b-cricket. Official Cricket Broadcast Rights Contract (Verified Logic-Based)
+      if (sport === 'cricket') {
+        const t1Name = event.team1?.name || event.homeTeam?.name || '';
+        const t2Name = event.team2?.name || event.awayTeam?.name || '';
+        const crContext = `${tourn} ${title} ${t1Name} ${t2Name}`.toLowerCase();
+        let crCandidateIds = ['ch-willow-hd', 'ch-t-sports-hd', 'ch-cricket-gold'];
+
+        if (/\b(bangladesh|ban|bpl|bangladesh premier league|dhaka|chattogram|chittagong|rangpur|sylhet|barishal|khulna|rajshahi)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-t-sports-hd', 'ch-t-sports-server-2', 'ch-gazi-tv'];
+        } else if (/\b(india|ind|ipl|indian premier league|wpl|ranji|duleep|irani|syed mushtaq|delhi|mumbai|chennai|kolkata|bengaluru|bangalore|hyderabad|rajasthan|punjab|gujarat|lucknow)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-dd-sports', 'ch-willow-hd'];
+        } else if (/\b(pakistan|pak|psl|pakistan super league|lahore|karachi|multan|peshawar|quetta|islamabad)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-ptv-sports-hd', 'ch-a-sports', 'ch-ten-sports-hd', 'ch-willow-hd'];
+        } else if (/\b(england|eng|county|vitality blast|the hundred|one-day cup|surrey|yorkshire|somerset|lancashire|middlesex|hampshire|sussex|durham|essex|glamorgan|warwickshire|nottinghamshire|kent|gloucestershire|derbyshire|worcestershire|leicestershire|northamptonshire)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-sky-sports-cricket', 'ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd', 'ch-willow-hd'];
+        } else if (/\b(australia|aus|big bash|bbl|wbbl|sheffield shield|marsh cup|victoria|new south wales|tasmania|queensland|scorchers|sixers|thunder|renegades|strikers|hurricanes|brisbane heat|melbourne stars)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-fox-cricket-501', 'ch-star-sports-1-hd', 'ch-willow-hd'];
+        } else if (/\b(south africa|rsa|sa20|titans|warriors|dolphins|lions|western province|north west|northern cape|limpopo|boland|knights|paarl|joburg|pretoria|durban)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-sky-sports-cricket', 'ch-star-sports-1-hd', 'ch-willow-sports'];
+        } else if (/\b(sri lanka|lpl|new zealand|super smash|zimbabwe|afghanistan|asia cup|nepal|oman|uae|united arab emirates|hong kong)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd', 'ch-ten-cricket', 'ch-t-sports-hd', 'ch-willow-hd'];
+        } else if (/\b(west indies|windies|cpl|caribbean premier league|mlc|major league cricket|usa|united states|canada|bermuda|bahamas|cayman)\b/i.test(crContext)) {
+          crCandidateIds = ['ch-willow-hd', 'ch-willow-sports', 'ch-star-sports-1-hd', 'ch-ten-cricket'];
+        }
+
+        for (const crCid of crCandidateIds) {
+          const crChannel = sportsChannels.find(c => c && c.id === crCid && c.active === true);
+          if (crChannel && !seenChannelIds.has(crChannel.id)) {
+            const chainCheck = this.validateAuthorizationChain('Cricket Broadcast Contract', crChannel, event);
+            if (chainCheck.valid) {
+              seenChannelIds.add(crChannel.id);
+              verifiedChannelEntries.push({
+                channel: crChannel,
+                source: 'Official Cricket Broadcast Contract',
+                sourceType: 'verified_logic',
+                sourceField: 'official_franchise_contract',
+                token: 'Cricket Broadcast Contract',
+                verificationDetail: `Official Cricket broadcast rights contract -> ${crChannel.name} (${crChannel.id})`
+              });
+            }
+          }
+        }
+      }
+
       // 4c. Explicit Event ID match (Verified Logic-Based)
       if (eventId && sportsChannels.length > 0) {
         const explicitIdCh = sportsChannels.find(ch => 
@@ -1604,39 +1678,54 @@ class SportsCoordinator {
     ];
     if (finishedStatuses.includes(status)) return true;
 
-    // 3. Status text keywords
+    // 3. Status text keywords (exclude 'won the toss' which indicates an active match)
     const statusTxt = (String(event.statusText || '') + ' ' + String(event.matchDesc || '')).toLowerCase();
-    if (/(^|\b)(won by|won the|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|winner)(\b|$)/i.test(statusTxt)) {
+    if (/(^|\b)(won by|won the match|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|winner|stumps)(\b|$)/i.test(statusTxt)) {
       return true;
     }
 
-    // 4. Format-aware stale-LIVE safety ceiling
-    if (event.timestamp) {
-      const evTs = event.timestamp < 10000000000 ? event.timestamp * 1000 : event.timestamp;
+    // 4. Format-aware stale-LIVE / past-event safety ceiling
+    let rawTs = event.timestamp || 0;
+    if (!rawTs && (event.startTime || event.date)) {
+      let s = String(event.startTime || event.date).trim();
+      if (!s.includes('T') && /^\d{4}-\d{2}-\d{2}$/.test(s)) {
+        s = `${s}T12:00:00Z`;
+      } else if (!s.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(s)) {
+        s = s.replace(' ', 'T') + 'Z';
+      }
+      const parsed = Date.parse(s);
+      if (!isNaN(parsed)) rawTs = parsed;
+    }
+
+    if (rawTs) {
+      const evTs = rawTs < 10000000000 ? rawTs * 1000 : rawTs;
       const sport = String(event.sport || event.sportName || '').toLowerCase();
       const fmt = String(event.matchFormat || event.matchType || event.matchDesc || '').toLowerCase();
       const tourn = String(event.tournament || event.league || event.seriesName || '').toLowerCase();
 
-      let safeguardMs = 12 * 3600 * 1000;
+      let safeguardMs = 4 * 3600 * 1000;
       if (sport.includes('cricket')) {
-        const isTestOrFc =
-          fmt.includes('test') || fmt.includes('county') || fmt.includes('first-class') || fmt.includes('first_class') ||
-          tourn.includes('test') || tourn.includes('county') || tourn.includes('first-class') || tourn.includes('first class') ||
-          tourn.includes('sheffield') || tourn.includes('ranji') || tourn.includes('ashes') || tourn.includes('border-gavaskar') || tourn.includes('border gavaskar');
-        if (isTestOrFc) {
-          safeguardMs = 5.5 * 24 * 3600 * 1000;
-        } else if (fmt.includes('odi') || tourn.includes('odi') || tourn.includes('one-day') || tourn.includes('one day')) {
-          safeguardMs = 13 * 3600 * 1000;
-        } else if (fmt.includes('t20') || tourn.includes('t20')) {
-          safeguardMs = 10 * 3600 * 1000;
+        if (fmt.includes('t20') || tourn.includes('t20') || fmt.includes('t10')) {
+          safeguardMs = 4.5 * 3600 * 1000;
         } else {
-          safeguardMs = 12 * 3600 * 1000;
+          // Strict 8.5-hour ceiling for any single-day cricket play (ODI / Test session / First-Class)
+          // Prevents 20h or 45h multi-day stale timers from sticking in LIVE
+          safeguardMs = 8.5 * 3600 * 1000;
         }
+      } else if (sport === 'football' || sport === 'soccer') {
+        safeguardMs = 2.5 * 3600 * 1000;
+      } else if (sport === 'basketball' || sport === 'volleyball' || sport === 'rugby' || sport === 'wwe' || sport === 'combat' || sport === 'hockey') {
+        safeguardMs = 3 * 3600 * 1000;
+      } else if (sport === 'baseball' || sport === 'tennis') {
+        safeguardMs = 4 * 3600 * 1000;
       }
 
       if (nowMs - evTs > safeguardMs) {
         return true;
       }
+    } else if (status === 'live') {
+      // A live match without any valid timestamp cannot verify active elapsed time
+      return true;
     }
 
     if (status === 'live') return false;
@@ -1704,12 +1793,23 @@ class SportsCoordinator {
     const t1 = cleanTeam(t1Raw);
     const t2 = cleanTeam(t2Raw);
 
-    let dateStr = (ev.date || '').split('T')[0];
-    if (!dateStr && ev.timestamp) {
+    let dateStr = '';
+    if (ev.timestamp && !isNaN(ev.timestamp)) {
       try {
         const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+        dateStr = new Intl.DateTimeFormat('en-CA', {
+          timeZone: 'Asia/Dhaka',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }).format(new Date(ts));
+      } catch (e) {
+        const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
         dateStr = new Date(ts).toISOString().split('T')[0];
-      } catch (e) {}
+      }
+    }
+    if (!dateStr && ev.date) {
+      dateStr = String(ev.date).split('T')[0];
     }
 
     if (t1 && t2) {
@@ -1725,7 +1825,7 @@ class SportsCoordinator {
   }
 
   /**
-   * Merge two instances of the same logical match from different sources
+   * Merge two instances of the same logical match or active series from different sources
    */
   static mergeMatchEvents(existing, incoming) {
     if (!existing || !incoming) return existing || incoming;
@@ -1734,11 +1834,60 @@ class SportsCoordinator {
     const exP = statusPriority[(existing.status || '').toLowerCase()] || 0;
     const inP = statusPriority[(incoming.status || '').toLowerCase()] || 0;
 
-    if (inP > exP) {
+    const getTs = (e) => {
+      if (e.timestamp) return e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp;
+      if (e.startTime || e.date) {
+        const parsed = Date.parse(String(e.startTime || e.date));
+        if (!isNaN(parsed)) return parsed;
+      }
+      return Number.MAX_SAFE_INTEGER;
+    };
+
+    const sameMatchDateOrId =
+      (existing.id && incoming.id && existing.id === incoming.id) ||
+      (existing.rawId && incoming.rawId && existing.rawId === incoming.rawId) ||
+      (existing.date && incoming.date && existing.date === incoming.date);
+
+    const incomingFinishedSameMatch =
+      sameMatchDateOrId &&
+      ((incoming.status || '').toLowerCase() === 'finished' || SportsCoordinator.isEventFinished(incoming));
+
+    const incomingIsPrimary =
+      incomingFinishedSameMatch ||
+      (inP > exP) ||
+      (inP === exP && inP === 2 && getTs(incoming) < getTs(existing));
+
+    if (incomingIsPrimary) {
+      existing.id = incoming.id || existing.id;
+      existing.title = incoming.title || existing.title;
+      existing.name = incoming.name || existing.name;
+      existing.matchDesc = incoming.matchDesc || existing.matchDesc;
       existing.status = incoming.status;
       existing.statusText = incoming.statusText || existing.statusText;
       existing.statusLabel = incoming.statusLabel || existing.statusLabel;
       existing.timeOrTimer = incoming.timeOrTimer || existing.timeOrTimer;
+      existing.timestamp = incoming.timestamp || existing.timestamp;
+      existing.startTime = incoming.startTime || existing.startTime;
+      existing.date = incoming.date || existing.date;
+      existing.time = incoming.time || existing.time;
+      existing.matchTime = incoming.matchTime || existing.matchTime;
+      if (incoming.score) existing.score = incoming.score;
+      if (incoming.team1 && existing.team1) {
+        existing.team1.score = incoming.team1.score || '';
+        existing.team1.overs = incoming.team1.overs || '';
+      }
+      if (incoming.team2 && existing.team2) {
+        existing.team2.score = incoming.team2.score || '';
+        existing.team2.overs = incoming.team2.overs || '';
+      }
+      if (incoming.homeTeam && existing.homeTeam) {
+        existing.homeTeam.score = incoming.homeTeam.score || incoming.team1?.score || '';
+        existing.homeTeam.overs = incoming.homeTeam.overs || incoming.team1?.overs || '';
+      }
+      if (incoming.awayTeam && existing.awayTeam) {
+        existing.awayTeam.score = incoming.awayTeam.score || incoming.team2?.score || '';
+        existing.awayTeam.overs = incoming.awayTeam.overs || incoming.team2?.overs || '';
+      }
     }
 
     // Stream & broadcaster priority: if incoming has authentic stream, merge it
@@ -1760,20 +1909,27 @@ class SportsCoordinator {
       existing.broadcasters = incoming.broadcasters || [incoming.broadcaster];
     }
 
-    // Scores & logos enrichment
-    if (!existing.score && incoming.score) {
-      existing.score = incoming.score;
+    // Always merge scores/overs if incoming is primary, finished for the same match, or has >= status priority
+    if (incomingIsPrimary || inP >= exP) {
+      if (incoming.score) {
+        existing.score = incoming.score;
+      }
+      if (existing.team1 && incoming.team1) {
+        if (incoming.team1.score) existing.team1.score = incoming.team1.score;
+        if (incoming.team1.overs) existing.team1.overs = incoming.team1.overs;
+      }
+      if (existing.team2 && incoming.team2) {
+        if (incoming.team2.score) existing.team2.score = incoming.team2.score;
+        if (incoming.team2.overs) existing.team2.overs = incoming.team2.overs;
+      }
     }
+
     if (existing.team1 && incoming.team1) {
-      if (!existing.team1.score && incoming.team1.score) existing.team1.score = incoming.team1.score;
-      if (!existing.team1.overs && incoming.team1.overs) existing.team1.overs = incoming.team1.overs;
       if ((!existing.team1.logo || existing.team1.logo.includes('placeholder')) && incoming.team1.logo && !incoming.team1.logo.includes('placeholder')) {
         existing.team1.logo = incoming.team1.logo;
       }
     }
     if (existing.team2 && incoming.team2) {
-      if (!existing.team2.score && incoming.team2.score) existing.team2.score = incoming.team2.score;
-      if (!existing.team2.overs && incoming.team2.overs) existing.team2.overs = incoming.team2.overs;
       if ((!existing.team2.logo || existing.team2.logo.includes('placeholder')) && incoming.team2.logo && !incoming.team2.logo.includes('placeholder')) {
         existing.team2.logo = incoming.team2.logo;
       }
@@ -1820,24 +1976,19 @@ class SportsCoordinator {
 
     rawEvents.forEach(ev => {
       if (!ev || !ev.id) return;
-      
-      const fp = SportsCoordinator.getMatchFingerprint(ev);
-      if (!fp) return; // Discard invalid or placeholder events
 
-      if (seenCurationFingerprints.has(fp)) {
-        const existing = seenCurationFingerprints.get(fp);
-        SportsCoordinator.mergeMatchEvents(existing, ev);
-        return;
-      }
-      seenCurationFingerprints.set(fp, ev);
-      
-      // Ensure proper timestamp parsing and format matchTime in Asia/Dhaka BST
+      // 1. Ensure proper timestamp parsing first so finished check and series deduplication are accurate
       if (ev.timestamp && ev.timestamp < 10000000000) {
         ev.timestamp *= 1000;
-      } else if (!ev.timestamp && ev.startTime) {
-        let s = String(ev.startTime).trim();
-        if (!s.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(s)) s = s.replace(' ', 'T') + 'Z';
-        ev.timestamp = new Date(s).getTime();
+      } else if (!ev.timestamp && (ev.startTime || ev.date)) {
+        let s = String(ev.startTime || ev.date).trim();
+        if (!s.includes('T') && /^\d{4}-\d{2}-\d{2}$/.test(s)) {
+          s = `${s}T12:00:00Z`;
+        } else if (!s.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(s)) {
+          s = s.replace(' ', 'T') + 'Z';
+        }
+        const parsed = new Date(s).getTime();
+        if (!isNaN(parsed)) ev.timestamp = parsed;
       }
 
       if (ev.timestamp && !isNaN(ev.timestamp)) {
@@ -1852,7 +2003,18 @@ class SportsCoordinator {
         } catch (e) {}
       }
 
-      // Check if finished via helper
+      // Sanitize overs and limited-overs score strings
+      const cleanOvers = (val) => {
+        if (!val) return '';
+        const cleaned = String(val).replace(/[()]/g, '').replace(/\s*ov\s*/gi, '').trim();
+        return cleaned ? `${cleaned} ov` : '';
+      };
+      if (ev.team1) ev.team1.overs = cleanOvers(ev.team1.overs);
+      if (ev.team2) ev.team2.overs = cleanOvers(ev.team2.overs);
+      if (ev.homeTeam) ev.homeTeam.overs = cleanOvers(ev.homeTeam.overs);
+      if (ev.awayTeam) ev.awayTeam.overs = cleanOvers(ev.awayTeam.overs);
+
+      // 2. Check if finished via helper BEFORE fingerprint calculation
       const isFin = this.isEventFinished(ev);
       if (isFin) {
         ev.status = 'finished';
@@ -1861,6 +2023,17 @@ class SportsCoordinator {
           ev.timeOrTimer = 'FT';
         }
       }
+
+      // 3. Deduplicate via canonical fingerprint
+      const fp = SportsCoordinator.getMatchFingerprint(ev);
+      if (!fp) return; // Discard invalid or placeholder events
+
+      if (seenCurationFingerprints.has(fp)) {
+        const existing = seenCurationFingerprints.get(fp);
+        SportsCoordinator.mergeMatchEvents(existing, ev);
+        return;
+      }
+      seenCurationFingerprints.set(fp, ev);
 
       const status = (ev.status || 'upcoming').toLowerCase();
       const sport = (ev.sport || '').toLowerCase();
@@ -1873,8 +2046,10 @@ class SportsCoordinator {
       const isNoise = this.isObscureNoiseMatch(ev);
 
       if (isFin || status === 'finished') {
-        // Collect finished candidates
-        finishedList.push(ev);
+        // Only retain finished matches from the last 24 hours (never keep 45-hour-old or multi-day-old cards)
+        if (!ev.timestamp || (now - ev.timestamp <= 24 * 60 * 60 * 1000)) {
+          finishedList.push(ev);
+        }
       } else if (status === 'live') {
         // Keep special live matches and top quality live matches, skip low-tier noise
         if (!isNoise || isSpecial) {
@@ -1885,10 +2060,7 @@ class SportsCoordinator {
         let maxTime = maxOtherUpcomingTime;
         if (sport === 'cricket') maxTime = maxCricketUpcomingTime;
         else if (sport === 'football' || sport === 'soccer') maxTime = maxFootballUpcomingTime;
-        const fmtLower = String(ev.matchFormat || ev.matchType || '').toLowerCase();
-        const evMinTime = (sport === 'cricket' && (fmtLower === 'test' || fmtLower === 'county'))
-          ? now - (5.5 * 24 * 60 * 60 * 1000)
-          : minLiveTime;
+        const evMinTime = now - (30 * 60 * 1000);
         if (matchTime >= evMinTime && (matchTime <= maxTime || isSpecial)) {
           // If special or not obscure noise, include it
           if (isSpecial || !isNoise) {
@@ -1959,6 +2131,7 @@ class SportsCoordinator {
     }
 
     this.inFlightFetch = (async () => {
+      try {
       console.log('[SportsCoordinator] Fetching real sports events...');
       const cricketEngine = window.cricketEngine;
       const thesportsdbEngine = window.thesportsdbEngine;
@@ -2048,6 +2221,20 @@ class SportsCoordinator {
             if (!isCricketData) {
               return; // Block other cricket sources
             }
+            if (typeof window !== 'undefined' && typeof window.getHighResTeamLogo === 'function') {
+              const t1Name = ev.team1?.name || ev.homeTeam?.name || '';
+              const t2Name = ev.team2?.name || ev.awayTeam?.name || '';
+              if (t1Name) {
+                const l1 = window.getHighResTeamLogo(t1Name, ev.team1?.logo || ev.homeTeam?.logo);
+                if (ev.team1) ev.team1.logo = l1;
+                if (ev.homeTeam) ev.homeTeam.logo = l1;
+              }
+              if (t2Name) {
+                const l2 = window.getHighResTeamLogo(t2Name, ev.team2?.logo || ev.awayTeam?.logo);
+                if (ev.team2) ev.team2.logo = l2;
+                if (ev.awayTeam) ev.awayTeam.logo = l2;
+              }
+            }
           }
 
           // WWE Tab strictly accepts authentic WWE and AEW fixtures
@@ -2100,20 +2287,30 @@ class SportsCoordinator {
         });
       };
 
-      // Always merge base authentic multi-sport seed from events.json (ensuring Tennis, Basketball, Rugby, Baseball, etc. are always present)
+      // Add live API sources FIRST so real-time status & scores take precedence over static seed
+      addList(crEvents);
+      addList(tsdbEvents);
+      addList(wweEvents);
+
+      // Merge base authentic multi-sport seed from events.json only for non-stale events not already covered by live APIs
       let seedEvents = [];
       try {
         const seedRes = await fetch('./events.json');
         if (seedRes.ok) {
           const sJson = await seedRes.json();
-          if (Array.isArray(sJson)) seedEvents = sJson;
+          if (Array.isArray(sJson)) {
+            seedEvents = sJson.filter(e => {
+              if (!e) return false;
+              const sp = String(e.sport || '').toLowerCase();
+              // If live Cricket API returned events, never mix stale seed cricket events
+              if (sp === 'cricket' && crEvents.length > 0) return false;
+              return true;
+            });
+          }
         }
       } catch (_) {}
 
       addList(seedEvents);
-      addList(tsdbEvents);
-      addList(crEvents);
-      addList(wweEvents);
 
       // STRICT RULE: Only authentic events from sports APIs are accepted. Never fabricate or fall back to dummy/mock data.
 
@@ -2167,9 +2364,11 @@ class SportsCoordinator {
         ...wweStats
       };
 
-      this.inFlightFetch = null;
       console.log(`[SportsCoordinator] Curated ${curated.length} high-quality events (Live: ${curated.filter(e => e.status === 'live').length}, Upcoming: ${curated.filter(e => e.status === 'upcoming').length}, Finished: ${curated.filter(e => e.status === 'finished').length})`);
       return this.events;
+      } finally {
+        this.inFlightFetch = null;
+      }
     })();
 
     return this.inFlightFetch;
@@ -2238,9 +2437,9 @@ class SportsCoordinator {
   }
 
   /**
-   * Check if an event is within the 7-day display horizon in Bangladesh timezone
+   * Check if an event is within the 3-day upcoming display horizon in Bangladesh timezone (Today + Next 2 Days)
    */
-  isEventWithin7Days(ev) {
+  isEventWithin3Days(ev) {
     if (!ev) return false;
 
     // 1. Live events are ALWAYS included
@@ -2280,8 +2479,10 @@ class SportsCoordinator {
     if (!evDateObj) return false;
 
     let evLocalStr = '';
+    let evHour = 12;
     try {
       evLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(evDateObj);
+      evHour = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', hour12: false }).format(evDateObj), 10);
     } catch (e) {
       evLocalStr = evDateObj.toISOString().split('T')[0];
     }
@@ -2293,9 +2494,18 @@ class SportsCoordinator {
     const oneDayMs = 24 * 3600 * 1000;
     const dayDiff = Math.round(timeDiff / oneDayMs);
 
-    // 7-day display horizon includes: Today (0) + Next 6 Days (1 to 6) = 7 days total.
-    // Events beyond 6 days are excluded from feeds/counters.
-    return (dayDiff >= 0 && dayDiff <= 6);
+    // 3-day display horizon includes: Day 1 = Today (0), Day 2 = Tomorrow (1), Day 3 = Day after Tomorrow (2),
+    // plus early-morning matches (< 06:00 AM BST) of Day 3 night.
+    if (dayDiff >= 0 && dayDiff <= 2) return true;
+    if (dayDiff === 3 && evHour < 6) return true;
+    return false;
+  }
+
+  /**
+   * Backwards-compatible alias for active upcoming horizon (3-day upcoming schedule)
+   */
+  isEventWithin7Days(ev) {
+    return this.isEventWithin3Days(ev);
   }
 
   /**
@@ -2316,7 +2526,12 @@ class SportsCoordinator {
     // Finished matches must only be shown under the dedicated 'FINISHED' tab.
     const st = (status || 'ALL').toUpperCase();
     if (st === 'FINISHED') {
-      list = list.filter(e => this.isEventFinished(e));
+      const nowMs = Date.now();
+      list = list.filter(e => {
+        if (!this.isEventFinished(e)) return false;
+        const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+        return !ts || (nowMs - ts <= 24 * 3600 * 1000);
+      });
     } else if (st === 'LIVE') {
       list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'live');
     } else if (st === 'UPCOMING') {
@@ -2375,6 +2590,9 @@ class SportsCoordinator {
           return (b.timestamp || 0) - (a.timestamp || 0);
         }
       });
+    } else if (status.toUpperCase() === 'UPCOMING') {
+      // Upcoming tab: Sort chronologically across the 3-day schedule (soonest first)
+      list.sort((a, b) => (a.timestamp || Number.MAX_SAFE_INTEGER) - (b.timestamp || Number.MAX_SAFE_INTEGER));
     } else if (status.toUpperCase() === 'FINISHED') {
       // Finished tab: Sort by most recently concluded first
       list.sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
@@ -2469,9 +2687,46 @@ class SportsCoordinator {
       hour12: true
     });
   }
+
+  /**
+   * Server-side Gemini AI Broadcast Channel Mapper client helper
+   */
+  async getMappedChannelFromGemini(apiMatchData, localChannels) {
+    try {
+      const response = await fetch('/api/gemini/map-channel', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          apiMatchData: apiMatchData || {},
+          localChannels: Array.isArray(localChannels) ? localChannels : undefined
+        })
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+      const result = await response.json();
+      if (result && (result.mapped_channel_id || result.primary_channel_id) && apiMatchData) {
+        this.saveEventChannelMap(
+          apiMatchData,
+          result.mapped_channel_id || result.primary_channel_id,
+          {
+            verificationSource: 'verified_logic',
+            sourceField: 'gemini_ai_broadcast_mapper',
+            verificationDetail: `Gemini AI verified broadcast mapping (${result.match_confidence || '95%'})`
+          }
+        );
+      }
+      return result;
+    } catch (err) {
+      console.warn('[SportsCoordinator] Gemini channel mapping fallback:', err.message);
+      return null;
+    }
+  }
 }
 
 window.SportsCoordinator = SportsCoordinator;
 window.sportsCoordinator = new SportsCoordinator();
+window.getMappedChannelFromGemini = (apiMatchData, localChannels) =>
+  window.sportsCoordinator.getMappedChannelFromGemini(apiMatchData, localChannels);
 window.formatEventTime = SportsCoordinator.formatEventTime;
 window.isEventFinished = SportsCoordinator.isEventFinished;

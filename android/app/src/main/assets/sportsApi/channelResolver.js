@@ -245,8 +245,9 @@
 
     if (!event || !Array.isArray(channelRegistry) || channelRegistry.length === 0) {
       const matchReason = 'EMPTY_EVENT_OR_REGISTRY';
-      console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
-      console.log(`EVENT_ID=${eventId} SPORT=${sportUpper} LEAGUE="${league}" HOME_TEAM="${homeTeam}" AWAY_TEAM="${awayTeam}" BROADCASTER_FROM_API="${broadcasterFromApi}" CHANNEL_ID_FROM_API="${channelIdFromApi}" CHANNEL_MATCH_RESULT="NONE" MATCH_REASON="${matchReason}" AUTHORIZED_STREAM_COUNT=0`);
+      if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
+        console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
+      }
       return {
         status: 'UNAVAILABLE',
         channelId: null,
@@ -362,8 +363,9 @@
       } else {
         matchReason = 'NO_BROADCASTER_FROM_API';
       }
-      console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
-      console.log(`EVENT_ID=${eventId} SPORT=${sportUpper} LEAGUE="${league}" HOME_TEAM="${homeTeam}" AWAY_TEAM="${awayTeam}" BROADCASTER_FROM_API="${broadcasterFromApi}" CHANNEL_ID_FROM_API="${channelIdFromApi}" CHANNEL_MATCH_RESULT="NONE" MATCH_REASON="${matchReason}" AUTHORIZED_STREAM_COUNT=0`);
+      if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
+        console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
+      }
       return {
         status: 'UNAVAILABLE',
         channelId: null,
@@ -380,8 +382,9 @@
 
     if (servers.length === 0 || !servers.some(s => s.active)) {
       matchReason = 'MATCHED_CHANNEL_HAS_NO_ACTIVE_STREAMS';
-      console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
-      console.log(`EVENT_ID=${eventId} SPORT=${sportUpper} LEAGUE="${league}" HOME_TEAM="${homeTeam}" AWAY_TEAM="${awayTeam}" BROADCASTER_FROM_API="${broadcasterFromApi}" CHANNEL_ID_FROM_API="${channelIdFromApi}" CHANNEL_MATCH_RESULT="NONE" MATCH_REASON="${matchReason}" AUTHORIZED_STREAM_COUNT=0`);
+      if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
+        console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
+      }
       return {
         status: 'UNAVAILABLE',
         channelId: matchedChannel.id,
@@ -396,8 +399,9 @@
     const channelMatchResult = matchedChannel.name || matchedChannel.id;
     const authorizedStreamCount = servers.length;
 
-    console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" "${channelMatchResult}" ${matchReason} ${authorizedStreamCount}`);
-    console.log(`EVENT_ID=${eventId} SPORT=${sportUpper} LEAGUE="${league}" HOME_TEAM="${homeTeam}" AWAY_TEAM="${awayTeam}" BROADCASTER_FROM_API="${broadcasterFromApi}" CHANNEL_ID_FROM_API="${channelIdFromApi}" CHANNEL_MATCH_RESULT="${channelMatchResult}" MATCH_REASON="${matchReason}" AUTHORIZED_STREAM_COUNT=${authorizedStreamCount}`);
+    if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
+      console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" "${channelMatchResult}" ${matchReason} ${authorizedStreamCount}`);
+    }
 
     return {
       status: 'MATCHED',

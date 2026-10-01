@@ -6,15 +6,102 @@
 
 class CricketEngine {
   constructor() {
-    this.cacheKey = 'highfy_cricket_events_cache';
+    this.cacheKey = 'highfy_cricket_events_cache_v26';
     this.cache = {
       timestamp: 0,
-      ttl: 5 * 60 * 1000, // 5 minutes cache to strictly preserve quota
+      ttl: 60 * 1000, // 60 seconds cache for live score accuracy
       data: []
     };
     this.detailsCache = new Map();
     this.inFlightPromise = null;
     this.loadLocalCache();
+  }
+
+  /**
+   * Deduplicate active (live/upcoming) cricket matches by team pair so bilateral series don't show 3 duplicate cards
+   */
+  deduplicateCricketSeries(list) {
+    if (!Array.isArray(list)) return [];
+    const seenActivePairs = new Map();
+    const seenFinishedKeys = new Set();
+    const activeResult = [];
+    const finishedResult = [];
+
+    const cleanTeamKey = (name) =>
+      String(name || '')
+        .toLowerCase()
+        .replace(/[^a-z0-9]/g, '')
+        .trim();
+
+    const sanitizeEvent = (ev) => {
+      if (!ev) return ev;
+      const cleanOv = (ov) => String(ov || '').replace(/^\(+|\)+$/g, '').trim();
+      if (ev.team1) ev.team1.overs = cleanOv(ev.team1.overs);
+      if (ev.team2) ev.team2.overs = cleanOv(ev.team2.overs);
+      if (ev.homeTeam) ev.homeTeam.overs = cleanOv(ev.homeTeam.overs);
+      if (ev.awayTeam) ev.awayTeam.overs = cleanOv(ev.awayTeam.overs);
+
+      // Self-heal any legacy cached limited-overs match where both innings were concatenated into team1.score
+      const fmt = String(ev.matchFormat || ev.matchType || ev.tournament || '').toLowerCase();
+      const isLimitedOvers = fmt.includes('odi') || fmt.includes('t20') || fmt.includes('t10') || fmt.includes('one day') || fmt.includes('hundred');
+      const s1 = String(ev.team1?.score || '').trim();
+      const s2 = String(ev.team2?.score || '').trim();
+      if (isLimitedOvers && s1.includes(' & ') && !s2) {
+        const parts = s1.split(' & ').map(p => p.trim()).filter(Boolean);
+        if (parts.length === 2) {
+          ev.team2.score = parts[0];
+          ev.team1.score = parts[1];
+          if (ev.awayTeam) ev.awayTeam.score = parts[0];
+          if (ev.homeTeam) ev.homeTeam.score = parts[1];
+          if (ev.team1.overs === '50 ov' || ev.team1.overs === '20 ov') {
+            ev.team2.overs = ev.team1.overs;
+            if (ev.awayTeam) ev.awayTeam.overs = ev.team1.overs;
+            ev.team1.overs = '';
+            if (ev.homeTeam) ev.homeTeam.overs = '';
+          }
+        }
+      }
+      return ev;
+    };
+
+    for (const rawEv of list) {
+      if (!rawEv || !rawEv.id) continue;
+      const ev = sanitizeEvent(rawEv);
+      const t1 = cleanTeamKey(ev.team1?.name || ev.homeTeam?.name || '');
+      const t2 = cleanTeamKey(ev.team2?.name || ev.awayTeam?.name || '');
+      if (!t1 || !t2) continue;
+      const pairKey = [t1, t2].sort().join('__vs__');
+      const st = String(ev.status || '').toLowerCase();
+      const datePart = ev.date || (ev.timestamp ? new Date(ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp).toISOString().split('T')[0] : 'nodate');
+
+      if (st === 'finished') {
+        const fKey = `${pairKey}::${datePart || ev.id}`;
+        if (!seenFinishedKeys.has(fKey)) {
+          seenFinishedKeys.add(fKey);
+          finishedResult.push(ev);
+        }
+        continue;
+      }
+
+      const activeKey = `${pairKey}::${datePart}`;
+      if (!seenActivePairs.has(activeKey)) {
+        seenActivePairs.set(activeKey, ev);
+        activeResult.push(ev);
+      } else {
+        const existing = seenActivePairs.get(activeKey);
+        const exSt = String(existing.status || '').toLowerCase();
+        const shouldReplace =
+          (exSt !== 'live' && st === 'live') ||
+          (exSt === 'upcoming' && st === 'upcoming' && ev.timestamp && (!existing.timestamp || ev.timestamp < existing.timestamp));
+        if (shouldReplace) {
+          const idx = activeResult.indexOf(existing);
+          if (idx !== -1) activeResult[idx] = ev;
+          seenActivePairs.set(activeKey, ev);
+        }
+      }
+    }
+
+    return [...activeResult, ...finishedResult];
   }
 
   /**
@@ -38,17 +125,21 @@ class CricketEngine {
               if (ev.source && String(ev.source).toLowerCase().includes('cricbuzz')) {
                 return false;
               }
+              const evTs = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+              if (evTs && (now - evTs > 24 * 60 * 60 * 1000)) {
+                return false;
+              }
               return true;
             })
             .map(ev => {
-              const evTime = ev.timestamp || 0;
-              if (ev.status === 'live' && (now - evTime > 12 * 60 * 60 * 1000)) {
+              const evTime = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+              if (ev.status === 'live' && evTime && (now - evTime > 8.5 * 60 * 60 * 1000)) {
                 return { ...ev, status: 'finished', timeOrTimer: 'FT', statusLabel: 'Finished' };
               }
               return ev;
             });
           this.cache.timestamp = parsed.timestamp || 0;
-          this.cache.data = cleanData;
+          this.cache.data = this.deduplicateCricketSeries(cleanData);
         }
       }
     } catch (e) {}
@@ -77,13 +168,10 @@ class CricketEngine {
   }
 
   /**
-   * Get active CricketData.org / CricAPI Key (Server-managed; never hardcode in frontend/APK)
+   * CricketData.org / CricAPI Key is strictly managed server-side via Cloudflare Worker secret CRICKETDATA_API_KEY
+   * and proxied through /api/cricket/matches. Never stored or exposed in frontend/APK.
    */
   getCricketDataKey() {
-    const localKey = localStorage.getItem('highfy_cricketdata_key') || localStorage.getItem('highfy_cricapi_key');
-    if (localKey && localKey.trim()) return localKey.trim();
-    const configKey = window.CONFIG?.CRICKETDATA_API_KEY || window.CONFIG?.CRICAPI_KEY;
-    if (configKey && configKey.trim()) return configKey.trim();
     return '';
   }
 
@@ -112,15 +200,16 @@ class CricketEngine {
         statusText.includes('winner') ||
         statusText.includes('lost by') ||
         statusText.includes('target reached') ||
+        statusText.includes('stumps') ||
         statusText.includes('cancelled')) {
       return { status: 'finished', label: item.status || 'Match Concluded' };
     }
 
-    // Time-based guard: if a match was scheduled > 14 hours ago and has no live overs update, it cannot be live
+    // Time-based guard: if a match was scheduled > 8.5 hours ago, it cannot remain live
     const dateStr = item.dateTimeGMT || item.date || item.startTime;
     if (dateStr) {
       const ts = new Date(dateStr.endsWith('Z') ? dateStr : dateStr + 'Z').getTime();
-      if (!isNaN(ts) && (Date.now() - ts > 14 * 60 * 60 * 1000)) {
+      if (!isNaN(ts) && (Date.now() - ts > 8.5 * 60 * 60 * 1000)) {
         return { status: 'finished', label: item.status || 'Match Concluded' };
       }
     }
@@ -556,46 +645,95 @@ class CricketEngine {
     if (typeof window !== 'undefined' && typeof window.getHighResTeamLogo === 'function') {
       return window.getHighResTeamLogo(teamName, rawLogo);
     }
-    // 1. HIGHEST PRIORITY: If authentic original team logo is provided by feed/API, preserve and upgrade it!
+    let cleanRaw = '';
     if (rawLogo && typeof rawLogo === 'string') {
-      let clean = rawLogo.trim();
-      if (clean && !clean.includes('un.png') && !clean.includes('placeholder') && !clean.includes('default-team')) {
-        if (clean.includes('/72x54/')) clean = clean.replace('/72x54/', '/300x300/');
-        if (clean.includes('/w160/')) clean = clean.replace('/w160/', '/w320/');
-        if (clean.startsWith('http://static.cricbuzz.com')) clean = clean.replace('http://', 'https://');
-        return clean;
+      cleanRaw = rawLogo.trim();
+      if (
+        cleanRaw.includes('un.png') ||
+        cleanRaw.includes('placeholder') ||
+        cleanRaw.includes('default-team') ||
+        cleanRaw.includes('ui-avatars.com')
+      ) {
+        cleanRaw = '';
       }
     }
 
-    if (!teamName) return './assets/team-placeholder.svg';
-    const tLower = teamName.toLowerCase().trim();
-    const map = {
-      'india': 'https://flagcdn.com/w320/in.png',
-      'bangladesh': 'https://flagcdn.com/w320/bd.png',
-      'pakistan': 'https://flagcdn.com/w320/pk.png',
-      'england': 'https://flagcdn.com/w320/gb-eng.png',
-      'australia': 'https://flagcdn.com/w320/au.png',
-      'sri lanka': 'https://flagcdn.com/w320/lk.png',
-      'south africa': 'https://flagcdn.com/w320/za.png',
-      'new zealand': 'https://flagcdn.com/w320/nz.png',
-      'west indies': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg',
-      'afghanistan': 'https://flagcdn.com/w320/af.png',
-      'ireland': 'https://flagcdn.com/w320/ie.png',
-      'scotland': 'https://flagcdn.com/w320/gb-sct.png',
-      'netherlands': 'https://flagcdn.com/w320/nl.png',
-      'zimbabwe': 'https://flagcdn.com/w320/zw.png',
-      'hong kong': 'https://flagcdn.com/w320/hk.png',
-      'oman': 'https://flagcdn.com/w320/om.png'
-    };
-    if (map[tLower]) return map[tLower];
-    for (const [k, v] of Object.entries(map)) {
-      if (k.length <= 3) {
-        const regex = new RegExp(`(^|\\b|\\s)${k}(\\b|\\s|$)`, 'i');
-        if (regex.test(tLower)) return v;
-      } else {
-        if (tLower === k || tLower.includes(k) || k.includes(tLower)) return v;
+    if (
+      cleanRaw &&
+      (cleanRaw.includes('thesportsdb.com') ||
+        cleanRaw.includes('flagcdn.com') ||
+        cleanRaw.includes('wikimedia.org') ||
+        cleanRaw.includes('cricbuzz.com'))
+    ) {
+      if (cleanRaw.includes('/72x54/')) cleanRaw = cleanRaw.replace('/72x54/', '/300x300/');
+      if (cleanRaw.includes('/w160/')) cleanRaw = cleanRaw.replace('/w160/', '/w320/');
+      if (cleanRaw.startsWith('http://static.cricbuzz.com')) cleanRaw = cleanRaw.replace('http://', 'https://');
+      return cleanRaw;
+    }
+
+    if (teamName) {
+      const tLower = String(teamName)
+        .toLowerCase()
+        .replace(/\b(women|emerging|under-19|u19|a team|xi)\b/g, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+      const map = {
+        'india': 'https://r2.thesportsdb.com/images/media/team/badge/donl7g1646775159.png',
+        'bangladesh': 'https://r2.thesportsdb.com/images/media/team/badge/j74o4t1646775146.png',
+        'pakistan': 'https://r2.thesportsdb.com/images/media/team/badge/03o8241646775177.png',
+        'england': 'https://r2.thesportsdb.com/images/media/team/badge/y5wcl81646775152.png',
+        'australia': 'https://r2.thesportsdb.com/images/media/team/badge/zvm8581646775132.png',
+        'sri lanka': 'https://r2.thesportsdb.com/images/media/team/badge/i5fqg01646775193.png',
+        'south africa': 'https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png',
+        'new zealand': 'https://r2.thesportsdb.com/images/media/team/badge/1yyh9s1646775166.png',
+        'west indies': 'https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png',
+        'afghanistan': 'https://r2.thesportsdb.com/images/media/team/badge/bzu3v71646775261.png',
+        'ireland': 'https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png',
+        'scotland': 'https://r2.thesportsdb.com/images/media/team/badge/78woeh1646775360.png',
+        'netherlands': 'https://r2.thesportsdb.com/images/media/team/badge/um67l21779090256.png',
+        'zimbabwe': 'https://r2.thesportsdb.com/images/media/team/badge/7ah0831646775278.png',
+        'hong kong': 'https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png',
+        'oman': 'https://r2.thesportsdb.com/images/media/team/badge/5ybzn71625862595.png',
+        'namibia': 'https://r2.thesportsdb.com/images/media/team/badge/myxq3q1583580470.png',
+        'nepal': 'https://r2.thesportsdb.com/images/media/team/badge/bn5wrv1646775335.png',
+        'uae': 'https://r2.thesportsdb.com/images/media/team/badge/6poybf1583580847.png',
+        'united arab emirates': 'https://r2.thesportsdb.com/images/media/team/badge/6poybf1583580847.png',
+        'usa': 'https://r2.thesportsdb.com/images/media/team/badge/abmnzg1583580897.png',
+        'united states': 'https://r2.thesportsdb.com/images/media/team/badge/abmnzg1583580897.png',
+        'canada': 'https://r2.thesportsdb.com/images/media/team/badge/o49xhy1645907007.png',
+        'papua new guinea': 'https://r2.thesportsdb.com/images/media/team/badge/swdkjm1646775345.png',
+        'uganda': 'https://r2.thesportsdb.com/images/media/team/badge/155jix1625862051.png',
+        'kenya': 'https://r2.thesportsdb.com/images/media/team/badge/oym2v91646775312.png',
+        'kuwait': 'https://flagcdn.com/w320/kw.png',
+        'bahamas': 'https://flagcdn.com/w320/bs.png',
+        'cayman islands': 'https://flagcdn.com/w320/ky.png',
+        'argentina': 'https://flagcdn.com/w320/ar.png',
+        'mexico': 'https://flagcdn.com/w320/mx.png',
+        'japan': 'https://flagcdn.com/w320/jp.png',
+        'switzerland': 'https://flagcdn.com/w320/ch.png',
+        'belgium': 'https://flagcdn.com/w320/be.png',
+        'luxembourg': 'https://flagcdn.com/w320/lu.png',
+        'china': 'https://flagcdn.com/w320/cn.png'
+      };
+      if (map[tLower]) return map[tLower];
+      const sortedEntries = Object.entries(map).sort((a, b) => b[0].length - a[0].length);
+      for (const [k, v] of sortedEntries) {
+        if (k.length <= 4) {
+          const regex = new RegExp(`(^|\\b|\\s)${k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\b|\\s|$)`, 'i');
+          if (regex.test(tLower)) return v;
+        } else if (tLower === k || tLower.includes(k)) {
+          return v;
+        }
       }
     }
+
+    if (cleanRaw) {
+      if (cleanRaw.includes('cricapi.com') || cleanRaw.includes('cdorgapi.b-cdn.net')) {
+        cleanRaw = cleanRaw.replace(/([?&])w=\d+/i, '$1w=250');
+      }
+      return cleanRaw;
+    }
+
     return './assets/team-placeholder.svg';
   }
 
@@ -608,7 +746,7 @@ class CricketEngine {
   }
 
   /**
-   * Normalize Cricket Match Data (handles Backend Normalized Sportradar & Raw Sportradar schemas)
+   * Normalize Cricket Match Data (handles Backend Normalized CricketData & CricAPI schemas)
    */
   normalizeMatch(item) {
     if (!item) return null;
@@ -687,6 +825,14 @@ class CricketEngine {
         ? rawIdStr
         : `cr-cricapi-${rawIdStr.replace(/[^a-zA-Z0-9_-]/g, '_')}`;
 
+      const t1Name = item.team1?.name || item.homeTeam?.name || 'Team 1';
+      const t2Name = item.team2?.name || item.awayTeam?.name || 'Team 2';
+      const t1ResolvedLogo = this.resolveHDLogo(t1Name, item.team1?.logo || item.homeTeam?.logo || item.t1img);
+      const t2ResolvedLogo = this.resolveHDLogo(t2Name, item.team2?.logo || item.awayTeam?.logo || item.t2img);
+      const cleanOvers = (ov) => String(ov || '').replace(/^\(+|\)+$/g, '').trim();
+      const t1Ov = cleanOvers(item.team1?.overs || item.homeTeam?.overs || '');
+      const t2Ov = cleanOvers(item.team2?.overs || item.awayTeam?.overs || '');
+
       return {
         ...item,
         id: normalizedId,
@@ -699,6 +845,10 @@ class CricketEngine {
         status: statusLower,
         statusLabel: isLive ? 'LIVE' : (isFinished ? 'FINISHED' : 'Upcoming'),
         isHot: Boolean(item.isHot || isLive),
+        team1: item.team1 ? { ...item.team1, logo: t1ResolvedLogo, overs: t1Ov } : { name: t1Name, logo: t1ResolvedLogo, score: '', overs: t1Ov },
+        team2: item.team2 ? { ...item.team2, logo: t2ResolvedLogo, overs: t2Ov } : { name: t2Name, logo: t2ResolvedLogo, score: '', overs: t2Ov },
+        homeTeam: item.homeTeam ? { ...item.homeTeam, logo: t1ResolvedLogo, overs: t1Ov } : { name: t1Name, logo: t1ResolvedLogo, score: item.team1?.score || '', overs: t1Ov },
+        awayTeam: item.awayTeam ? { ...item.awayTeam, logo: t2ResolvedLogo, overs: t2Ov } : { name: t2Name, logo: t2ResolvedLogo, score: item.team2?.score || '', overs: t2Ov },
         broadcaster: item.broadcaster !== undefined ? item.broadcaster : bInfo.broadcaster,
         broadcasters: Array.isArray(item.broadcasters) && item.broadcasters.length > 0 ? item.broadcasters : bInfo.broadcasters,
         channelId: item.channelId || null,
@@ -711,7 +861,7 @@ class CricketEngine {
       };
     }
 
-    // 2. Handle raw Sportradar sport_event / summary payload or raw Cricket feed item
+    // 2. Handle raw Cricket feed / CricAPI / CricketData payload item
     const sportEvent = item.sport_event || item;
     const statusObj = item.sport_event_status || {};
     const rawEventId = sportEvent.id || item.id || item.matchId;
@@ -725,8 +875,23 @@ class CricketEngine {
     const team1Name = homeComp?.name || teams[0] || item.teamInfo?.[0]?.name || 'Team 1';
     const team2Name = awayComp?.name || teams[1] || item.teamInfo?.[1]?.name || 'Team 2';
 
-    const team1Info = item.teamInfo?.find(t => t.name === team1Name) || item.teamInfo?.[0] || {};
-    const team2Info = item.teamInfo?.find(t => t.name === team2Name) || item.teamInfo?.[1] || {};
+    const teamInfoArr = Array.isArray(item.teamInfo) ? item.teamInfo : [];
+    const findTeamInfo = (targetName, fallbackIdx) => {
+      const targetLower = String(targetName || '').toLowerCase().trim();
+      const exact = teamInfoArr.find(
+        t => (t.name && String(t.name).toLowerCase().trim() === targetLower) ||
+             (t.shortname && String(t.shortname).toLowerCase().trim() === targetLower)
+      );
+      if (exact) return exact;
+      const partial = teamInfoArr.find(
+        t => t.name && (String(t.name).toLowerCase().includes(targetLower) || targetLower.includes(String(t.name).toLowerCase()))
+      );
+      if (partial) return partial;
+      if (teamInfoArr.length === 2 && teamInfoArr[fallbackIdx]) return teamInfoArr[fallbackIdx];
+      return {};
+    };
+    const team1Info = findTeamInfo(team1Name, 0);
+    const team2Info = findTeamInfo(team2Name, 1);
 
     const scores = Array.isArray(item.score) ? item.score : [];
     const periodScores = Array.isArray(statusObj.period_scores) ? statusObj.period_scores : [];
@@ -742,25 +907,37 @@ class CricketEngine {
       if (homePeriods.length > 0) {
         const lastP = homePeriods[homePeriods.length - 1];
         team1ScoreStr = `${lastP.home_score}/${lastP.home_wickets !== undefined ? lastP.home_wickets : 0}`;
-        if (lastP.home_overs) team1OversStr = `(${lastP.home_overs} ov)`;
+        if (lastP.home_overs) team1OversStr = `${lastP.home_overs} ov`;
       }
       const awayPeriods = periodScores.filter(p => p.away_score !== undefined && p.away_score !== null);
       if (awayPeriods.length > 0) {
         const lastP = awayPeriods[awayPeriods.length - 1];
         team2ScoreStr = `${lastP.away_score}/${lastP.away_wickets !== undefined ? lastP.away_wickets : 0}`;
-        if (lastP.away_overs) team2OversStr = `(${lastP.away_overs} ov)`;
+        if (lastP.away_overs) team2OversStr = `${lastP.away_overs} ov`;
       }
-    } else {
-      const t1ScoreObj = scores.find(s => s.inning && s.inning.toLowerCase().includes(team1Name.toLowerCase())) || scores[0];
-      const t2ScoreObj = scores.find(s => s.inning && s.inning.toLowerCase().includes(team2Name.toLowerCase())) || scores[1];
-
-      if (t1ScoreObj) {
-        team1ScoreStr = `${t1ScoreObj.r || 0}/${t1ScoreObj.w !== undefined ? t1ScoreObj.w : 0}`;
-        team1OversStr = t1ScoreObj.o !== undefined ? `(${t1ScoreObj.o} ov)` : '';
-      }
-      if (t2ScoreObj) {
-        team2ScoreStr = `${t2ScoreObj.r || 0}/${t2ScoreObj.w !== undefined ? t2ScoreObj.w : 0}`;
-        team2OversStr = t2ScoreObj.o !== undefined ? `(${t2ScoreObj.o} ov)` : '';
+    } else if (scores.length > 0) {
+      const t1Norm = team1Name.toLowerCase().trim();
+      const t2Norm = team2Name.toLowerCase().trim();
+      for (let idx = 0; idx < scores.length; idx++) {
+        const sc = scores[idx];
+        const inngTeam = String(sc.inning || '')
+          .toLowerCase()
+          .replace(/\b(inning|innings|1st|2nd|3rd|4th|\d+)\b/g, ' ')
+          .replace(/[^a-z0-9\s]/g, ' ')
+          .replace(/\s+/g, ' ')
+          .trim();
+        const formatted = `${sc.r !== undefined ? sc.r : 0}/${sc.w !== undefined ? sc.w : 0}`;
+        const formattedOvers = sc.o !== undefined && sc.o !== null && sc.o !== '' ? `${sc.o} ov` : '';
+        const matchesT1 = Boolean(inngTeam) && (inngTeam === t1Norm || (inngTeam.includes(t1Norm) && !inngTeam.includes(t2Norm)) || (t1Norm.includes(inngTeam) && !t2Norm.includes(inngTeam)));
+        const matchesT2 = Boolean(inngTeam) && (inngTeam === t2Norm || (inngTeam.includes(t2Norm) && !inngTeam.includes(t1Norm)) || (t2Norm.includes(inngTeam) && !t1Norm.includes(inngTeam)));
+        const isT1 = matchesT1 ? true : matchesT2 ? false : idx % 2 === 0;
+        if (isT1) {
+          team1ScoreStr = team1ScoreStr ? `${team1ScoreStr} & ${formatted}` : formatted;
+          if (formattedOvers) team1OversStr = formattedOvers;
+        } else {
+          team2ScoreStr = team2ScoreStr ? `${team2ScoreStr} & ${formatted}` : formatted;
+          if (formattedOvers) team2OversStr = formattedOvers;
+        }
       }
     }
 
@@ -858,13 +1035,13 @@ class CricketEngine {
       // Common normalized standard format
       homeTeam: {
         name: team1Name,
-        logo: this.resolveHDLogo(team1Name, homeComp?.logo || team1Info.img),
+        logo: this.resolveHDLogo(team1Name, homeComp?.logo || team1Info.img || item.t1img),
         score: team1ScoreStr,
         overs: team1OversStr
       },
       awayTeam: {
         name: team2Name,
-        logo: this.resolveHDLogo(team2Name, awayComp?.logo || team2Info.img),
+        logo: this.resolveHDLogo(team2Name, awayComp?.logo || team2Info.img || item.t2img),
         score: team2ScoreStr,
         overs: team2OversStr
       },
@@ -873,16 +1050,16 @@ class CricketEngine {
       team1: {
         teamId: homeComp?.id,
         name: team1Name,
-        shortName: homeComp?.abbreviation || '',
-        logo: this.resolveHDLogo(team1Name, homeComp?.logo || team1Info.img),
+        shortName: homeComp?.abbreviation || team1Info.shortname || '',
+        logo: this.resolveHDLogo(team1Name, homeComp?.logo || team1Info.img || item.t1img),
         score: team1ScoreStr,
         overs: team1OversStr
       },
       team2: {
         teamId: awayComp?.id,
         name: team2Name,
-        shortName: awayComp?.abbreviation || '',
-        logo: this.resolveHDLogo(team2Name, awayComp?.logo || team2Info.img),
+        shortName: awayComp?.abbreviation || team2Info.shortname || '',
+        logo: this.resolveHDLogo(team2Name, awayComp?.logo || team2Info.img || item.t2img),
         score: team2ScoreStr,
         overs: team2OversStr
       },
@@ -953,145 +1130,145 @@ class CricketEngine {
     }
 
     this.inFlightPromise = (async () => {
-      console.log('[CricketEngine] Querying Cricket Live Feed...');
-      const res = await this.fetchFromApi(`/currentMatches?offset=0`);
+      try {
+        console.log('[CricketEngine] Querying Cricket Live Feed...');
+        const res = await this.fetchFromApi(`/currentMatches?offset=0`);
 
-      if (res.error && (!res.data || res.data.length === 0)) {
-        this.inFlightPromise = null;
-        if (res.error === 'rate_limited') {
-          return {
-            configured: false,
-            status: 'rate_limited',
-            source: res.source || 'CricketData.org',
-            error: res.error,
-            message: res.message,
-            events: []
-          };
+        if (res.error && (!res.data || res.data.length === 0)) {
+          if (res.error === 'rate_limited') {
+            return {
+              configured: false,
+              status: 'rate_limited',
+              source: res.source || 'CricketData.org',
+              error: res.error,
+              message: res.message,
+              events: []
+            };
+          }
+          if (this.cache.data && this.cache.data.length > 0) {
+            return { configured: true, events: this.cache.data };
+          }
+          return { configured: false, status: res.status || 'empty', source: 'CricketData.org', error: res.error, message: res.message, events: [] };
         }
-        if (this.cache.data && this.cache.data.length > 0) {
-          return { configured: true, events: this.cache.data };
-        }
-        return { configured: false, status: res.status || 'empty', source: 'CricketData.org', error: res.error, message: res.message, events: [] };
-      }
 
-      const rawList = Array.isArray(res.data) ? res.data : [];
-      const normalized = rawList
-        .map(item => this.normalizeMatch(item))
-        .filter(ev => ev !== null);
+        const rawList = Array.isArray(res.data) ? res.data : [];
+        const normalized = rawList
+          .map(item => this.normalizeMatch(item))
+          .filter(ev => ev !== null);
 
-      // Tag special matches
-      normalized.forEach(ev => {
-        ev.isSpecial = this.isSpecialMatch({
-          name: ev.title || ev.name,
-          series_name: ev.tournament || ev.seriesName,
-          matchType: ev.matchType || ev.matchFormat,
-          teams: [ev.team1?.name, ev.team2?.name]
+        // Tag special matches
+        normalized.forEach(ev => {
+          ev.isSpecial = this.isSpecialMatch({
+            name: ev.title || ev.name,
+            series_name: ev.tournament || ev.seriesName,
+            matchType: ev.matchType || ev.matchFormat,
+            teams: [ev.team1?.name, ev.team2?.name]
+          });
+          if (ev.isSpecial) {
+            ev.isHot = true;
+          }
         });
-        if (ev.isSpecial) {
-          ev.isHot = true;
-        }
-      });
 
-      // 14-Day Upcoming Window Bound: Keep full international tours, leagues and upcoming matches
-      const curNow = Date.now();
-      const fourteenDaysAhead = curNow + (14 * 24 * 60 * 60 * 1000);
-      const isCricketFinished = (e) => {
-        const coordFn =
-          (typeof window !== 'undefined' && window.SportsCoordinator && typeof window.SportsCoordinator.isEventFinished === 'function'
-            ? window.SportsCoordinator.isEventFinished.bind(window.SportsCoordinator)
-            : null) ||
-          (typeof window !== 'undefined' && window.sportsCoordinator && typeof window.sportsCoordinator.isEventFinished === 'function'
-            ? window.sportsCoordinator.isEventFinished.bind(window.sportsCoordinator)
-            : null) ||
-          (typeof window !== 'undefined' && typeof window.isEventFinished === 'function' ? window.isEventFinished : null);
-        if (coordFn) {
-          const fin = coordFn(e);
-          if (fin) {
-            e.status = 'finished';
-            e.statusLabel = 'FINISHED';
-            e.timeOrTimer = 'FT';
+        // 14-Day Upcoming Window Bound: Keep full international tours, leagues and upcoming matches
+        const curNow = Date.now();
+        const fourteenDaysAhead = curNow + (14 * 24 * 60 * 60 * 1000);
+        const isCricketFinished = (e) => {
+          const coordFn =
+            (typeof window !== 'undefined' && window.SportsCoordinator && typeof window.SportsCoordinator.isEventFinished === 'function'
+              ? window.SportsCoordinator.isEventFinished.bind(window.SportsCoordinator)
+              : null) ||
+            (typeof window !== 'undefined' && window.sportsCoordinator && typeof window.sportsCoordinator.isEventFinished === 'function'
+              ? window.sportsCoordinator.isEventFinished.bind(window.sportsCoordinator)
+              : null) ||
+            (typeof window !== 'undefined' && typeof window.isEventFinished === 'function' ? window.isEventFinished : null);
+          if (coordFn) {
+            const fin = coordFn(e);
+            if (fin) {
+              e.status = 'finished';
+              e.statusLabel = 'FINISHED';
+              e.timeOrTimer = 'FT';
+            }
+            return fin;
           }
-          return fin;
-        }
-        const st = (e.status || '').toLowerCase();
-        if (st === 'finished' || st === 'ft' || st === 'ended' || st === 'completed') return true;
-        if (e.authoritativeEndTime) {
-          const authEnd = Date.parse(String(e.authoritativeEndTime));
-          if (!isNaN(authEnd) && authEnd > 0 && curNow > authEnd) {
+          const st = (e.status || '').toLowerCase();
+          if (st === 'finished' || st === 'ft' || st === 'ended' || st === 'completed') return true;
+          if (e.authoritativeEndTime) {
+            const authEnd = Date.parse(String(e.authoritativeEndTime));
+            if (!isNaN(authEnd) && authEnd > 0 && curNow > authEnd) {
+              e.status = 'finished';
+              e.statusLabel = 'FINISHED';
+              e.timeOrTimer = 'FT';
+              return true;
+            }
+          }
+          const txt = (String(e.statusText || '') + ' ' + String(e.matchDesc || '')).toLowerCase();
+          if (/(^|\b)(won by|won the|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|winner|stumps)(\b|$)/i.test(txt)) {
             e.status = 'finished';
             e.statusLabel = 'FINISHED';
             e.timeOrTimer = 'FT';
             return true;
           }
-        }
-        const txt = (String(e.statusText || '') + ' ' + String(e.matchDesc || '')).toLowerCase();
-        if (/(^|\b)(won by|won the|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|winner)(\b|$)/i.test(txt)) {
-          e.status = 'finished';
-          e.statusLabel = 'FINISHED';
-          e.timeOrTimer = 'FT';
-          return true;
-        }
-        if (e.timestamp) {
+          if (e.timestamp) {
+            const ts = e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp;
+            const elapsed = curNow - ts;
+            const fmt = String(e.matchFormat || e.matchType || '').toLowerCase();
+            const tourn = String(e.tournament || e.league || e.seriesName || '').toLowerCase();
+            const maxElapsed = (fmt.includes('t20') || tourn.includes('t20') || fmt.includes('t10'))
+              ? 4.5 * 3600 * 1000
+              : 8.5 * 3600 * 1000;
+            if (elapsed > maxElapsed) {
+              e.status = 'finished';
+              e.statusLabel = 'FINISHED';
+              e.timeOrTimer = 'FT';
+              return true;
+            }
+          }
+          return false;
+        };
+
+        const isRecent24h = (e) => {
+          if (!e.timestamp) return true;
           const ts = e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp;
-          const elapsed = curNow - ts;
-          const fmt = String(e.matchFormat || e.matchType || '').toLowerCase();
-          const tourn = String(e.tournament || e.league || e.seriesName || '').toLowerCase();
-          const isTestOrFc =
-            fmt.includes('test') || fmt.includes('county') || fmt.includes('first-class') || fmt.includes('first_class') ||
-            tourn.includes('test') || tourn.includes('county') || tourn.includes('first-class') || tourn.includes('first class') ||
-            tourn.includes("president's trophy") || tourn.includes('sheffield') || tourn.includes('ranji') || tourn.includes('ashes');
-          const maxElapsed = isTestOrFc
-            ? 5.5 * 24 * 3600 * 1000
-            : (fmt.includes('odi') || tourn.includes('odi') || tourn.includes('one-day') || tourn.includes('one day'))
-            ? 13 * 3600 * 1000
-            : (fmt.includes('t20') || tourn.includes('t20'))
-            ? 10 * 3600 * 1000
-            : 12 * 3600 * 1000;
-          if (elapsed > maxElapsed) {
-            e.status = 'finished';
-            e.statusLabel = 'FINISHED';
-            e.timeOrTimer = 'FT';
-            return true;
-          }
+          return (curNow - ts) <= 24 * 3600 * 1000;
+        };
+
+        const finishedMatches = normalized.filter(e => isCricketFinished(e) && isRecent24h(e));
+        const liveMatches = normalized.filter(e => !isCricketFinished(e) && e.status === 'live');
+        const upcomingMatches = normalized.filter(e => !isCricketFinished(e) && e.status === 'upcoming' && ((e.timestamp || curNow) >= curNow - 30 * 60 * 1000) && ((e.timestamp || curNow) <= fourteenDaysAhead || e.isSpecial));
+
+        // Sort finished matches
+        finishedMatches.sort((a, b) => {
+          const spA = a.isSpecial ? 1 : 0;
+          const spB = b.isSpecial ? 1 : 0;
+          if (spB !== spA) return spB - spA;
+          return (b.timestamp || 0) - (a.timestamp || 0);
+        });
+        const topFinished = finishedMatches.slice(0, 50);
+
+        // Sort upcoming: Special first, then chronological
+        upcomingMatches.sort((a, b) => {
+          const spA = a.isSpecial ? 1 : 0;
+          const spB = b.isSpecial ? 1 : 0;
+          if (spB !== spA) return spB - spA;
+          return (a.timestamp || 0) - (b.timestamp || 0);
+        });
+
+        let finalEvents = this.deduplicateCricketSeries([...liveMatches, ...upcomingMatches, ...topFinished]);
+
+        if (finalEvents.length > 0) {
+          this.saveLocalCache(finalEvents, Date.now());
+        } else if (Array.isArray(this.cache.data) && this.cache.data.length > 0) {
+          console.log(`[CricketEngine] Network returned 0 matches, serving ${this.cache.data.length} cached matches.`);
+          finalEvents = this.deduplicateCricketSeries(this.cache.data);
         }
-        return false;
-      };
 
-      const finishedMatches = normalized.filter(e => isCricketFinished(e));
-      const liveMatches = normalized.filter(e => !isCricketFinished(e) && e.status === 'live');
-      const upcomingMatches = normalized.filter(e => !isCricketFinished(e) && e.status === 'upcoming' && ((e.timestamp || curNow) <= fourteenDaysAhead || e.isSpecial));
-
-      // Sort finished matches
-      finishedMatches.sort((a, b) => {
-        const spA = a.isSpecial ? 1 : 0;
-        const spB = b.isSpecial ? 1 : 0;
-        if (spB !== spA) return spB - spA;
-        return (b.timestamp || 0) - (a.timestamp || 0);
-      });
-      const topFinished = finishedMatches.slice(0, 50);
-
-      // Sort upcoming: Special first, then chronological
-      upcomingMatches.sort((a, b) => {
-        const spA = a.isSpecial ? 1 : 0;
-        const spB = b.isSpecial ? 1 : 0;
-        if (spB !== spA) return spB - spA;
-        return (a.timestamp || 0) - (b.timestamp || 0);
-      });
-
-      let finalEvents = [...liveMatches, ...upcomingMatches, ...topFinished];
-
-      if (finalEvents.length > 0) {
-        this.saveLocalCache(finalEvents, Date.now());
-      } else if (Array.isArray(this.cache.data) && this.cache.data.length > 0) {
-        console.log(`[CricketEngine] Network returned 0 matches, serving ${this.cache.data.length} cached matches.`);
-        finalEvents = this.cache.data;
+        return {
+          configured: true,
+          events: finalEvents
+        };
+      } finally {
+        this.inFlightPromise = null;
       }
-
-      this.inFlightPromise = null;
-      return {
-        configured: true,
-        events: finalEvents
-      };
     })();
 
     return this.inFlightPromise;

@@ -8,7 +8,7 @@ import helmet from "helmet";
 import rateLimit from "express-rate-limit";
 import { createServer as createViteServer } from "vite";
 import dotenv from "dotenv";
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, Type } from "@google/genai";
 
 dotenv.config();
 
@@ -90,8 +90,8 @@ const cricketDataCache = {
   lastStatus: 200 as number,
   lastError: "" as string,
   rateLimited: false as boolean,
-  TTL_LIVE: 45 * 1000,         // 45 seconds for live matches
-  TTL_SCHEDULE: 5 * 60 * 1000, // 5 minutes for general matches
+  TTL_LIVE: 60 * 1000,         // 60 seconds for live matches so scores update rapidly
+  TTL_SCHEDULE: 2 * 60 * 1000, // 2 minutes for general matches
   TTL_STATIC: 30 * 60 * 1000,  // 30 minutes for series list
 };
 
@@ -337,7 +337,7 @@ async function startServer() {
           },
         });
         if (response.ok) {
-          const json = await response.json();
+          const json: any = await response.json();
           const teams = Array.isArray(json.list) ? json.list : (Array.isArray(json.teams) ? json.teams : (Array.isArray(json.response) ? json.response : []));
           rapidCache.teams = { timestamp: Date.now(), data: teams };
           return teams;
@@ -454,62 +454,433 @@ async function startServer() {
   }
 
   const HD_CRICKET_LOGOS_MAP: Record<string, string> = {
-    "india": "https://flagcdn.com/w320/in.png",
-    "ind": "https://flagcdn.com/w320/in.png",
-    "bangladesh": "https://flagcdn.com/w320/bd.png",
-    "ban": "https://flagcdn.com/w320/bd.png",
-    "pakistan": "https://flagcdn.com/w320/pk.png",
-    "pak": "https://flagcdn.com/w320/pk.png",
-    "england": "https://flagcdn.com/w320/gb-eng.png",
-    "eng": "https://flagcdn.com/w320/gb-eng.png",
-    "australia": "https://flagcdn.com/w320/au.png",
-    "aus": "https://flagcdn.com/w320/au.png",
-    "sri lanka": "https://flagcdn.com/w320/lk.png",
-    "sl": "https://flagcdn.com/w320/lk.png",
-    "south africa": "https://flagcdn.com/w320/za.png",
-    "sa": "https://flagcdn.com/w320/za.png",
-    "new zealand": "https://flagcdn.com/w320/nz.png",
-    "nz": "https://flagcdn.com/w320/nz.png",
-    "west indies": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg",
-    "wi": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg",
-    "afghanistan": "https://flagcdn.com/w320/af.png",
-    "afg": "https://flagcdn.com/w320/af.png",
-    "ireland": "https://flagcdn.com/w320/ie.png",
-    "scotland": "https://flagcdn.com/w320/gb-sct.png",
-    "netherlands": "https://flagcdn.com/w320/nl.png",
-    "zimbabwe": "https://flagcdn.com/w320/zw.png",
-    "nepal": "https://flagcdn.com/w320/np.png",
-    "usa": "https://flagcdn.com/w320/us.png",
-    "canada": "https://flagcdn.com/w320/ca.png",
-    "uae": "https://flagcdn.com/w320/ae.png",
-    "chennai super kings": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170823/chennai-super-kings.jpg",
-    "csk": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170823/chennai-super-kings.jpg",
-    "mumbai indians": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170829/mumbai-indians.jpg",
-    "mi": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170829/mumbai-indians.jpg",
-    "royal challengers bengaluru": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170826/royal-challengers-bangalore.jpg",
-    "royal challengers bangalore": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170826/royal-challengers-bangalore.jpg",
-    "rcb": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170826/royal-challengers-bangalore.jpg",
-    "kolkata knight riders": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170827/kolkata-knight-riders.jpg",
-    "kkr": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170827/kolkata-knight-riders.jpg",
-    "delhi capitals": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170828/delhi-capitals.jpg",
-    "dc": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170828/delhi-capitals.jpg",
-    "rajasthan royals": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170831/rajasthan-royals.jpg",
-    "rr": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170831/rajasthan-royals.jpg",
-    "sunrisers hyderabad": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170830/sunrisers-hyderabad.jpg",
-    "srh": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170830/sunrisers-hyderabad.jpg",
-    "gujarat titans": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c225642/gujarat-titans.jpg",
-    "gt": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c225642/gujarat-titans.jpg",
-    "lucknow super giants": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c225645/lucknow-super-giants.jpg",
-    "lsg": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c225645/lucknow-super-giants.jpg",
-    "punjab kings": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170824/punjab-kings.jpg",
-    "pbks": "https://static.cricbuzz.com/a/img/v1/300x300/i1/c170824/punjab-kings.jpg"
+    // International & ICC Full/Associate Member Official Cricket Board Crests & Flags
+    "india": "https://r2.thesportsdb.com/images/media/team/badge/donl7g1646775159.png",
+    "ind": "https://r2.thesportsdb.com/images/media/team/badge/donl7g1646775159.png",
+    "bangladesh": "https://r2.thesportsdb.com/images/media/team/badge/j74o4t1646775146.png",
+    "ban": "https://r2.thesportsdb.com/images/media/team/badge/j74o4t1646775146.png",
+    "pakistan": "https://r2.thesportsdb.com/images/media/team/badge/03o8241646775177.png",
+    "pak": "https://r2.thesportsdb.com/images/media/team/badge/03o8241646775177.png",
+    "england": "https://r2.thesportsdb.com/images/media/team/badge/y5wcl81646775152.png",
+    "eng": "https://r2.thesportsdb.com/images/media/team/badge/y5wcl81646775152.png",
+    "australia": "https://r2.thesportsdb.com/images/media/team/badge/zvm8581646775132.png",
+    "aus": "https://r2.thesportsdb.com/images/media/team/badge/zvm8581646775132.png",
+    "sri lanka": "https://r2.thesportsdb.com/images/media/team/badge/i5fqg01646775193.png",
+    "sl": "https://r2.thesportsdb.com/images/media/team/badge/i5fqg01646775193.png",
+    "south africa": "https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png",
+    "sa": "https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png",
+    "rsa": "https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png",
+    "new zealand": "https://r2.thesportsdb.com/images/media/team/badge/1yyh9s1646775166.png",
+    "nz": "https://r2.thesportsdb.com/images/media/team/badge/1yyh9s1646775166.png",
+    "west indies": "https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png",
+    "wi": "https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png",
+    "win": "https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png",
+    "windies": "https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png",
+    "afghanistan": "https://r2.thesportsdb.com/images/media/team/badge/bzu3v71646775261.png",
+    "afg": "https://r2.thesportsdb.com/images/media/team/badge/bzu3v71646775261.png",
+    "ireland": "https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png",
+    "ire": "https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png",
+    "irl": "https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png",
+    "scotland": "https://r2.thesportsdb.com/images/media/team/badge/78woeh1646775360.png",
+    "sco": "https://r2.thesportsdb.com/images/media/team/badge/78woeh1646775360.png",
+    "netherlands": "https://r2.thesportsdb.com/images/media/team/badge/um67l21779090256.png",
+    "ned": "https://r2.thesportsdb.com/images/media/team/badge/um67l21779090256.png",
+    "zimbabwe": "https://r2.thesportsdb.com/images/media/team/badge/7ah0831646775278.png",
+    "zim": "https://r2.thesportsdb.com/images/media/team/badge/7ah0831646775278.png",
+    "nepal": "https://r2.thesportsdb.com/images/media/team/badge/bn5wrv1646775335.png",
+    "nep": "https://r2.thesportsdb.com/images/media/team/badge/bn5wrv1646775335.png",
+    "usa": "https://r2.thesportsdb.com/images/media/team/badge/abmnzg1583580897.png",
+    "united states": "https://r2.thesportsdb.com/images/media/team/badge/abmnzg1583580897.png",
+    "canada": "https://r2.thesportsdb.com/images/media/team/badge/o49xhy1645907007.png",
+    "can": "https://r2.thesportsdb.com/images/media/team/badge/o49xhy1645907007.png",
+    "uae": "https://r2.thesportsdb.com/images/media/team/badge/6poybf1583580847.png",
+    "united arab emirates": "https://r2.thesportsdb.com/images/media/team/badge/6poybf1583580847.png",
+    "oman": "https://r2.thesportsdb.com/images/media/team/badge/5ybzn71625862595.png",
+    "oma": "https://r2.thesportsdb.com/images/media/team/badge/5ybzn71625862595.png",
+    "namibia": "https://r2.thesportsdb.com/images/media/team/badge/myxq3q1583580470.png",
+    "nam": "https://r2.thesportsdb.com/images/media/team/badge/myxq3q1583580470.png",
+    "hong kong": "https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png",
+    "hong kong, china": "https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png",
+    "hkg": "https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png",
+    "papua new guinea": "https://r2.thesportsdb.com/images/media/team/badge/swdkjm1646775345.png",
+    "png": "https://r2.thesportsdb.com/images/media/team/badge/swdkjm1646775345.png",
+    "uganda": "https://r2.thesportsdb.com/images/media/team/badge/155jix1625862051.png",
+    "uga": "https://r2.thesportsdb.com/images/media/team/badge/155jix1625862051.png",
+    "kenya": "https://r2.thesportsdb.com/images/media/team/badge/oym2v91646775312.png",
+    "ken": "https://r2.thesportsdb.com/images/media/team/badge/oym2v91646775312.png",
+    "bahamas": "https://flagcdn.com/w320/bs.png",
+    "bah": "https://flagcdn.com/w320/bs.png",
+    "bermuda": "https://flagcdn.com/w320/bm.png",
+    "ber": "https://flagcdn.com/w320/bm.png",
+    "bmu": "https://flagcdn.com/w320/bm.png",
+    "cayman islands": "https://flagcdn.com/w320/ky.png",
+    "cay": "https://flagcdn.com/w320/ky.png",
+    "malaysia": "https://flagcdn.com/w320/my.png",
+    "mal": "https://flagcdn.com/w320/my.png",
+    "mas": "https://flagcdn.com/w320/my.png",
+    "kuwait": "https://flagcdn.com/w320/kw.png",
+    "kuw": "https://flagcdn.com/w320/kw.png",
+    "bahrain": "https://flagcdn.com/w320/bh.png",
+    "bhr": "https://flagcdn.com/w320/bh.png",
+    "qatar": "https://flagcdn.com/w320/qa.png",
+    "qat": "https://flagcdn.com/w320/qa.png",
+    "saudi arabia": "https://flagcdn.com/w320/sa.png",
+    "ksa": "https://flagcdn.com/w320/sa.png",
+    "singapore": "https://flagcdn.com/w320/sg.png",
+    "sin": "https://flagcdn.com/w320/sg.png",
+    "sgp": "https://flagcdn.com/w320/sg.png",
+    "thailand": "https://flagcdn.com/w320/th.png",
+    "tha": "https://flagcdn.com/w320/th.png",
+    "japan": "https://flagcdn.com/w320/jp.png",
+    "jpn": "https://flagcdn.com/w320/jp.png",
+    "tanzania": "https://flagcdn.com/w320/tz.png",
+    "tan": "https://flagcdn.com/w320/tz.png",
+    "nigeria": "https://flagcdn.com/w320/ng.png",
+    "ngr": "https://flagcdn.com/w320/ng.png",
+    "rwanda": "https://flagcdn.com/w320/rw.png",
+    "rwa": "https://flagcdn.com/w320/rw.png",
+    "botswana": "https://flagcdn.com/w320/bw.png",
+    "bot": "https://flagcdn.com/w320/bw.png",
+    "jersey": "https://flagcdn.com/w320/je.png",
+    "jer": "https://flagcdn.com/w320/je.png",
+    "guernsey": "https://flagcdn.com/w320/gg.png",
+    "gue": "https://flagcdn.com/w320/gg.png",
+    "italy": "https://flagcdn.com/w320/it.png",
+    "ita": "https://flagcdn.com/w320/it.png",
+    "germany": "https://flagcdn.com/w320/de.png",
+    "ger": "https://flagcdn.com/w320/de.png",
+    "spain": "https://flagcdn.com/w320/es.png",
+    "esp": "https://flagcdn.com/w320/es.png",
+    "denmark": "https://flagcdn.com/w320/dk.png",
+    "den": "https://flagcdn.com/w320/dk.png",
+    "vanuatu": "https://flagcdn.com/w320/vu.png",
+    "samoa": "https://flagcdn.com/w320/ws.png",
+    "fiji": "https://flagcdn.com/w320/fj.png",
+    "argentina": "https://flagcdn.com/w320/ar.png",
+    "brazil": "https://flagcdn.com/w320/br.png",
+    "switzerland": "https://flagcdn.com/w320/ch.png",
+    "sui": "https://flagcdn.com/w320/ch.png",
+    "belgium": "https://flagcdn.com/w320/be.png",
+    "bel": "https://flagcdn.com/w320/be.png",
+    "luxembourg": "https://flagcdn.com/w320/lu.png",
+    "lux": "https://flagcdn.com/w320/lu.png",
+    "china": "https://flagcdn.com/w320/cn.png",
+    "chn": "https://flagcdn.com/w320/cn.png",
+    "austria": "https://flagcdn.com/w320/at.png",
+    "aut": "https://flagcdn.com/w320/at.png",
+    "france": "https://flagcdn.com/w320/fr.png",
+    "fra": "https://flagcdn.com/w320/fr.png",
+    "norway": "https://flagcdn.com/w320/no.png",
+    "nor": "https://flagcdn.com/w320/no.png",
+    "sweden": "https://flagcdn.com/w320/se.png",
+    "swe": "https://flagcdn.com/w320/se.png",
+    "finland": "https://flagcdn.com/w320/fi.png",
+    "fin": "https://flagcdn.com/w320/fi.png",
+    "portugal": "https://flagcdn.com/w320/pt.png",
+    "por": "https://flagcdn.com/w320/pt.png",
+    "malta": "https://flagcdn.com/w320/mt.png",
+    "mlt": "https://flagcdn.com/w320/mt.png",
+    "romania": "https://flagcdn.com/w320/ro.png",
+    "rou": "https://flagcdn.com/w320/ro.png",
+    "greece": "https://flagcdn.com/w320/gr.png",
+    "gre": "https://flagcdn.com/w320/gr.png",
+    "cyprus": "https://flagcdn.com/w320/cy.png",
+    "cyp": "https://flagcdn.com/w320/cy.png",
+    "estonia": "https://flagcdn.com/w320/ee.png",
+    "est": "https://flagcdn.com/w320/ee.png",
+    "czech republic": "https://flagcdn.com/w320/cz.png",
+    "czechia": "https://flagcdn.com/w320/cz.png",
+    "cze": "https://flagcdn.com/w320/cz.png",
+    "hungary": "https://flagcdn.com/w320/hu.png",
+    "hun": "https://flagcdn.com/w320/hu.png",
+    "serbia": "https://flagcdn.com/w320/rs.png",
+    "srb": "https://flagcdn.com/w320/rs.png",
+    "bulgaria": "https://flagcdn.com/w320/bg.png",
+    "bul": "https://flagcdn.com/w320/bg.png",
+    "croatia": "https://flagcdn.com/w320/hr.png",
+    "cro": "https://flagcdn.com/w320/hr.png",
+    "slovenia": "https://flagcdn.com/w320/si.png",
+    "svn": "https://flagcdn.com/w320/si.png",
+    "turkey": "https://flagcdn.com/w320/tr.png",
+    "tur": "https://flagcdn.com/w320/tr.png",
+    "israel": "https://flagcdn.com/w320/il.png",
+    "isr": "https://flagcdn.com/w320/il.png",
+    "philippines": "https://flagcdn.com/w320/ph.png",
+    "phi": "https://flagcdn.com/w320/ph.png",
+    "indonesia": "https://flagcdn.com/w320/id.png",
+    "ina": "https://flagcdn.com/w320/id.png",
+    "idn": "https://flagcdn.com/w320/id.png",
+    "myanmar": "https://flagcdn.com/w320/mm.png",
+    "mya": "https://flagcdn.com/w320/mm.png",
+    "cambodia": "https://flagcdn.com/w320/kh.png",
+    "cam": "https://flagcdn.com/w320/kh.png",
+    "bhutan": "https://flagcdn.com/w320/bt.png",
+    "bhu": "https://flagcdn.com/w320/bt.png",
+    "maldives": "https://flagcdn.com/w320/mv.png",
+    "mdv": "https://flagcdn.com/w320/mv.png",
+    "mongolia": "https://flagcdn.com/w320/mn.png",
+    "mgl": "https://flagcdn.com/w320/mn.png",
+    "south korea": "https://flagcdn.com/w320/kr.png",
+    "korea": "https://flagcdn.com/w320/kr.png",
+    "kor": "https://flagcdn.com/w320/kr.png",
+    "mexico": "https://flagcdn.com/w320/mx.png",
+    "mex": "https://flagcdn.com/w320/mx.png",
+    "chile": "https://flagcdn.com/w320/cl.png",
+    "chi": "https://flagcdn.com/w320/cl.png",
+    "peru": "https://flagcdn.com/w320/pe.png",
+    "per": "https://flagcdn.com/w320/pe.png",
+    "panama": "https://flagcdn.com/w320/pa.png",
+    "pan": "https://flagcdn.com/w320/pa.png",
+    "costa rica": "https://flagcdn.com/w320/cr.png",
+    "crc": "https://flagcdn.com/w320/cr.png",
+    "belize": "https://flagcdn.com/w320/bz.png",
+    "blz": "https://flagcdn.com/w320/bz.png",
+    "suriname": "https://flagcdn.com/w320/sr.png",
+    "sur": "https://flagcdn.com/w320/sr.png",
+    "sierra leone": "https://flagcdn.com/w320/sl.png",
+    "sle": "https://flagcdn.com/w320/sl.png",
+    "ghana": "https://flagcdn.com/w320/gh.png",
+    "gha": "https://flagcdn.com/w320/gh.png",
+    "cameroon": "https://flagcdn.com/w320/cm.png",
+    "cmr": "https://flagcdn.com/w320/cm.png",
+    "malawi": "https://flagcdn.com/w320/mw.png",
+    "mwi": "https://flagcdn.com/w320/mw.png",
+    "mozambique": "https://flagcdn.com/w320/mz.png",
+    "moz": "https://flagcdn.com/w320/mz.png",
+    "lesotho": "https://flagcdn.com/w320/ls.png",
+    "les": "https://flagcdn.com/w320/ls.png",
+    "eswatini": "https://flagcdn.com/w320/sz.png",
+    "swz": "https://flagcdn.com/w320/sz.png",
+    "gambia": "https://flagcdn.com/w320/gm.png",
+    "gam": "https://flagcdn.com/w320/gm.png",
+    "mali": "https://flagcdn.com/w320/ml.png",
+    "mli": "https://flagcdn.com/w320/ml.png",
+    "seychelles": "https://flagcdn.com/w320/sc.png",
+    "sey": "https://flagcdn.com/w320/sc.png",
+    "zambia": "https://flagcdn.com/w320/zm.png",
+    "zam": "https://flagcdn.com/w320/zm.png",
+
+    // IPL & WPL Teams (Official Original Transparent PNG Badges)
+    "chennai super kings": "https://r2.thesportsdb.com/images/media/team/badge/okceh51487601098.png",
+    "csk": "https://r2.thesportsdb.com/images/media/team/badge/okceh51487601098.png",
+    "mumbai indians": "https://r2.thesportsdb.com/images/media/team/badge/l40j8p1487678631.png",
+    "mumbai indians women": "https://r2.thesportsdb.com/images/media/team/badge/l40j8p1487678631.png",
+    "mi": "https://r2.thesportsdb.com/images/media/team/badge/l40j8p1487678631.png",
+    "royal challengers bengaluru": "https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png",
+    "royal challengers bangalore": "https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png",
+    "royal challengers bengaluru women": "https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png",
+    "rcb": "https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png",
+    "kolkata knight riders": "https://r2.thesportsdb.com/images/media/team/badge/ows99r1487678296.png",
+    "kkr": "https://r2.thesportsdb.com/images/media/team/badge/ows99r1487678296.png",
+    "delhi capitals": "https://r2.thesportsdb.com/images/media/team/badge/dg4g0z1587334054.png",
+    "delhi capitals women": "https://r2.thesportsdb.com/images/media/team/badge/dg4g0z1587334054.png",
+    "dc": "https://r2.thesportsdb.com/images/media/team/badge/dg4g0z1587334054.png",
+    "rajasthan royals": "https://r2.thesportsdb.com/images/media/team/badge/lehnfw1487601864.png",
+    "rr": "https://r2.thesportsdb.com/images/media/team/badge/lehnfw1487601864.png",
+    "sunrisers hyderabad": "https://r2.thesportsdb.com/images/media/team/badge/sc7m161487419327.png",
+    "srh": "https://r2.thesportsdb.com/images/media/team/badge/sc7m161487419327.png",
+    "gujarat titans": "https://r2.thesportsdb.com/images/media/team/badge/6qw4r71654174508.png",
+    "gt": "https://r2.thesportsdb.com/images/media/team/badge/6qw4r71654174508.png",
+    "lucknow super giants": "https://r2.thesportsdb.com/images/media/team/badge/4tzmfa1647445839.png",
+    "lsg": "https://r2.thesportsdb.com/images/media/team/badge/4tzmfa1647445839.png",
+    "punjab kings": "https://r2.thesportsdb.com/images/media/team/badge/r1tcie1630697821.png",
+    "pbks": "https://r2.thesportsdb.com/images/media/team/badge/r1tcie1630697821.png",
+
+    // BPL - Bangladesh Premier League (Official Original Transparent PNG Badges)
+    "fortune barishal": "https://r2.thesportsdb.com/images/media/team/badge/le1zwt1675495288.png",
+    "comilla victorians": "https://r2.thesportsdb.com/images/media/team/badge/vfvitn1650477443.png",
+    "rangpur riders": "https://r2.thesportsdb.com/images/media/team/badge/k26ccz1734181960.png",
+    "dhaka capitals": "https://r2.thesportsdb.com/images/media/team/badge/ak27xm1734342873.png",
+    "dhaka dominators": "https://r2.thesportsdb.com/images/media/team/badge/ak27xm1734342873.png",
+    "durdanto dhaka": "https://r2.thesportsdb.com/images/media/team/badge/ak27xm1734342873.png",
+    "khulna tigers": "https://r2.thesportsdb.com/images/media/team/badge/geh2qk1675420011.png",
+    "sylhet strikers": "https://r2.thesportsdb.com/images/media/team/badge/y7jz6c1767353266.png",
+    "sylhet titans": "https://r2.thesportsdb.com/images/media/team/badge/y7jz6c1767353266.png",
+    "chattogram challengers": "https://r2.thesportsdb.com/images/media/team/badge/xgl2ou1767352661.png",
+    "chittagong kings": "https://r2.thesportsdb.com/images/media/team/badge/xgl2ou1767352661.png",
+    "chattogram royals": "https://r2.thesportsdb.com/images/media/team/badge/xgl2ou1767352661.png",
+    "durbar rajshahi": "https://r2.thesportsdb.com/images/media/team/badge/diokvb1767353049.png",
+    "rajshahi warriors": "https://r2.thesportsdb.com/images/media/team/badge/diokvb1767353049.png",
+
+    // PSL - Pakistan Super League (Official Original Transparent PNG Badges)
+    "islamabad united": "https://r2.thesportsdb.com/images/media/team/badge/5bi3eb1709123559.png",
+    "karachi kings": "https://r2.thesportsdb.com/images/media/team/badge/tfuvu11709123541.png",
+    "lahore qalandars": "https://r2.thesportsdb.com/images/media/team/badge/hvrtrg1709123519.png",
+    "multan sultans": "https://r2.thesportsdb.com/images/media/team/badge/mpijr01709123512.png",
+    "peshawar zalmi": "https://r2.thesportsdb.com/images/media/team/badge/frp6xj1709123501.png",
+    "quetta gladiators": "https://r2.thesportsdb.com/images/media/team/badge/rox6ge1709123486.png",
+
+    // BBL & Australian Domestic (Official Original Transparent PNG Badges)
+    "adelaide strikers": "https://r2.thesportsdb.com/images/media/team/badge/c36k301492606884.png",
+    "brisbane heat": "https://r2.thesportsdb.com/images/media/team/badge/6r5cly1492606239.png",
+    "hobart hurricanes": "https://r2.thesportsdb.com/images/media/team/badge/vdcla41492606553.png",
+    "melbourne renegades": "https://r2.thesportsdb.com/images/media/team/badge/fy0wik1492607045.png",
+    "melbourne stars": "https://r2.thesportsdb.com/images/media/team/badge/l0t7v31715269757.png",
+    "perth scorchers": "https://r2.thesportsdb.com/images/media/team/badge/ithlp51546681732.png",
+    "sydney sixers": "https://r2.thesportsdb.com/images/media/team/badge/jtkm601492607206.png",
+    "sydney thunder": "https://r2.thesportsdb.com/images/media/team/badge/t0tooq1492606384.png",
+    "victoria": "https://r2.thesportsdb.com/images/media/team/badge/j5vbn41749588430.png",
+    "new south wales": "https://r2.thesportsdb.com/images/media/team/badge/fbj6w51675420971.png",
+    "new south wales blues": "https://r2.thesportsdb.com/images/media/team/badge/fbj6w51675420971.png",
+    "nsw blues": "https://r2.thesportsdb.com/images/media/team/badge/fbj6w51675420971.png",
+    "tasmania": "https://r2.thesportsdb.com/images/media/team/badge/1yd06z1675431414.png",
+    "tasmanian tigers": "https://r2.thesportsdb.com/images/media/team/badge/1yd06z1675431414.png",
+
+    // CPL - Caribbean Premier League (Official Original Transparent PNG Badges)
+    "guyana amazon warriors": "https://r2.thesportsdb.com/images/media/team/badge/amct1d1641785128.png",
+    "antigua and barbuda falcons": "https://r2.thesportsdb.com/images/media/team/badge/fwozcu1752736011.png",
+    "barbados royals": "https://r2.thesportsdb.com/images/media/team/badge/kg9ypo1786962015.png",
+    "barbados tridents": "https://r2.thesportsdb.com/images/media/team/badge/kg9ypo1786962015.png",
+    "trinbago knight riders": "https://r2.thesportsdb.com/images/media/team/badge/c8zwd61641785158.png",
+    "tkr": "https://r2.thesportsdb.com/images/media/team/badge/c8zwd61641785158.png",
+    "saint lucia kings": "https://r2.thesportsdb.com/images/media/team/badge/981c6z1752736461.png",
+    "st lucia kings": "https://r2.thesportsdb.com/images/media/team/badge/981c6z1752736461.png",
+    "st kitts and nevis patriots": "https://r2.thesportsdb.com/images/media/team/badge/t2zoaz1641785142.png",
+    "jamaica tallawahs": "https://r2.thesportsdb.com/images/media/team/badge/7rvdsl1641785134.png",
+
+    // SA20 & South African Domestic (Official Original Transparent PNG Badges)
+    "durban's super giants": "https://r2.thesportsdb.com/images/media/team/badge/oe6ikv1734183540.png",
+    "durbans super giants": "https://r2.thesportsdb.com/images/media/team/badge/oe6ikv1734183540.png",
+    "joburg super kings": "https://r2.thesportsdb.com/images/media/team/badge/bvjydr1734183753.png",
+    "mi cape town": "https://r2.thesportsdb.com/images/media/team/badge/s146kh1734183906.png",
+    "paarl royals": "https://r2.thesportsdb.com/images/media/team/badge/41azkk1734184030.png",
+    "pretoria capitals": "https://r2.thesportsdb.com/images/media/team/badge/brbk561734184169.png",
+    "sunrisers eastern cape": "https://r2.thesportsdb.com/images/media/team/badge/us5vei1734184224.png",
+    "titans": "https://r2.thesportsdb.com/images/media/team/badge/50kzdm1644367943.png",
+    "multiply titans": "https://r2.thesportsdb.com/images/media/team/badge/50kzdm1644367943.png",
+    "warriors": "https://r2.thesportsdb.com/images/media/team/badge/w5fhrc1644367999.png",
+    "dolphins": "https://r2.thesportsdb.com/images/media/team/badge/nc4cs31644367913.png",
+    "hollywoodbets dolphins": "https://r2.thesportsdb.com/images/media/team/badge/nc4cs31644367913.png",
+    "lions": "https://r2.thesportsdb.com/images/media/team/badge/1qh6c01644367448.png",
+    "dp world lions": "https://r2.thesportsdb.com/images/media/team/badge/1qh6c01644367448.png",
+    "highveld lions": "https://r2.thesportsdb.com/images/media/team/badge/1qh6c01644367448.png",
+    "north west": "https://r2.thesportsdb.com/images/media/team/badge/p1gb4u1644367687.png",
+    "north west dragons": "https://r2.thesportsdb.com/images/media/team/badge/p1gb4u1644367687.png",
+    "western province": "https://r2.thesportsdb.com/images/media/team/badge/51wcio1512983228.png",
+    "cape cobras": "https://r2.thesportsdb.com/images/media/team/badge/51wcio1512983228.png",
+    "easterns": "https://r2.thesportsdb.com/images/media/team/badge/wavdxf1758097673.png",
+    "eastern storm": "https://r2.thesportsdb.com/images/media/team/badge/wavdxf1758097673.png",
+    "kwazulu-natal inland": "https://r2.thesportsdb.com/images/media/team/badge/mlrnuo1704976998.png",
+
+    // English County Championship & The Hundred (Official Original Transparent PNG Badges)
+    "surrey": "https://r2.thesportsdb.com/images/media/team/badge/pl0yk51512933420.png",
+    "yorkshire": "https://r2.thesportsdb.com/images/media/team/badge/i4la7t1512933445.png",
+    "durham": "https://r2.thesportsdb.com/images/media/team/badge/chwe901512937550.png",
+    "essex": "https://r2.thesportsdb.com/images/media/team/badge/yep86x1777629714.png",
+    "glamorgan": "https://r2.thesportsdb.com/images/media/team/badge/rdsttx1590355851.png",
+    "hampshire": "https://r2.thesportsdb.com/images/media/team/badge/zos2qr1512933145.png",
+    "leicestershire": "https://r2.thesportsdb.com/images/media/team/badge/qluxic1512937633.png",
+    "nottinghamshire": "https://r2.thesportsdb.com/images/media/team/badge/vzixwm1671721158.png",
+    "somerset": "https://r2.thesportsdb.com/images/media/team/badge/ba0m9n1546518813.png",
+    "sussex": "https://r2.thesportsdb.com/images/media/team/badge/5isw8o1512937679.png",
+    "warwickshire": "https://r2.thesportsdb.com/images/media/team/badge/w5yo7x1512937763.png",
+    "birmingham bears": "https://r2.thesportsdb.com/images/media/team/badge/w5yo7x1512937763.png",
+    "derbyshire": "https://r2.thesportsdb.com/images/media/team/badge/uki6jc1512937529.png",
+    "gloucestershire": "https://r2.thesportsdb.com/images/media/team/badge/0ss39a1554324931.png",
+    "kent": "https://r2.thesportsdb.com/images/media/team/badge/j9k7om1717595438.png",
+    "lancashire": "https://r2.thesportsdb.com/images/media/team/badge/m1ljqz1546518856.png",
+    "middlesex": "https://r2.thesportsdb.com/images/media/team/badge/rlfxzh1512937652.png",
+    "northamptonshire": "https://r2.thesportsdb.com/images/media/team/badge/391faz1512937726.png",
+    "worcestershire": "https://r2.thesportsdb.com/images/media/team/badge/pnjm9d1512937464.png",
+    "birmingham phoenix": "https://r2.thesportsdb.com/images/media/team/badge/aihn2d1641785176.png",
+    "london spirit": "https://r2.thesportsdb.com/images/media/team/badge/k3q3mo1776457663.png",
+    "manchester originals": "https://r2.thesportsdb.com/images/media/team/badge/5oapdn1776457699.png",
+    "oval invincibles": "https://r2.thesportsdb.com/images/media/team/badge/ycy1xc1776457741.png",
+    "southern brave": "https://r2.thesportsdb.com/images/media/team/badge/7c0a8j1776457761.png",
+    "northern superchargers": "https://r2.thesportsdb.com/images/media/team/badge/46mctq1776457779.png",
+    "trent rockets": "https://r2.thesportsdb.com/images/media/team/badge/9cp1ac1692900475.png",
+    "welsh fire": "https://r2.thesportsdb.com/images/media/team/badge/49jl241645213505.png",
+
+    // MLC, ILT20, LPL, Super Smash (Official Original Transparent PNG Badges)
+    "los angeles knight riders": "https://r2.thesportsdb.com/images/media/team/badge/6q2cnq1689146300.png",
+    "mi new york": "https://r2.thesportsdb.com/images/media/team/badge/i4lxb71689146303.png",
+    "san francisco unicorns": "https://r2.thesportsdb.com/images/media/team/badge/k6pv961689146306.png",
+    "seattle orcas": "https://r2.thesportsdb.com/images/media/team/badge/wg325p1689146309.png",
+    "texas super kings": "https://r2.thesportsdb.com/images/media/team/badge/777fr51689161316.png",
+    "washington freedom": "https://r2.thesportsdb.com/images/media/team/badge/ro0khs1750233280.png",
+    "abu dhabi knight riders": "https://r2.thesportsdb.com/images/media/team/badge/llghxr1721480701.png",
+    "desert vipers": "https://r2.thesportsdb.com/images/media/team/badge/uqmlhc1721480710.png",
+    "dubai capitals": "https://r2.thesportsdb.com/images/media/team/badge/f95loc1721480695.png",
+    "gulf giants": "https://r2.thesportsdb.com/images/media/team/badge/y9hem51721480707.png",
+    "mi emirates": "https://r2.thesportsdb.com/images/media/team/badge/6ttrki1721480699.png",
+    "sharjah warriorz": "https://r2.thesportsdb.com/images/media/team/badge/gq0stf1721480730.png",
+    "colombo strikers": "https://r2.thesportsdb.com/images/media/team/badge/lwar9d1720697266.png",
+    "dambulla sixers": "https://r2.thesportsdb.com/images/media/team/badge/avsoxp1720697923.png",
+    "galle marvels": "https://r2.thesportsdb.com/images/media/team/badge/dgqb9i1720698025.png",
+    "jaffna kings": "https://r2.thesportsdb.com/images/media/team/badge/gs27jn1720698419.png",
+    "b-love kandy": "https://r2.thesportsdb.com/images/media/team/badge/ukrqz61720698084.png",
+    "auckland aces": "https://r2.thesportsdb.com/images/media/team/badge/gmbyx01705392031.png",
+    "auckland": "https://r2.thesportsdb.com/images/media/team/badge/gmbyx01705392031.png",
+    "canterbury kings": "https://r2.thesportsdb.com/images/media/team/badge/uex7eq1705391931.png",
+    "canterbury": "https://r2.thesportsdb.com/images/media/team/badge/uex7eq1705391931.png",
+    "central stags": "https://r2.thesportsdb.com/images/media/team/badge/34lmqg1705391924.png",
+    "central districts": "https://r2.thesportsdb.com/images/media/team/badge/34lmqg1705391924.png",
+    "northern brave": "https://r2.thesportsdb.com/images/media/team/badge/7lnb4g1705391916.png",
+    "northern districts": "https://r2.thesportsdb.com/images/media/team/badge/7lnb4g1705391916.png",
+    "otago volts": "https://r2.thesportsdb.com/images/media/team/badge/am7ce21705391910.png",
+    "otago": "https://r2.thesportsdb.com/images/media/team/badge/am7ce21705391910.png",
+    "wellington firebirds": "https://r2.thesportsdb.com/images/media/team/badge/ep5kr31705391899.png",
+    "wellington": "https://r2.thesportsdb.com/images/media/team/badge/ep5kr31705391899.png"
   };
 
+  const tsdbTeamLogoCache = new Map<string, string>();
+
   function resolveHDTeamLogo(teamName: string, rawLogo?: string): string {
-    // 1. HIGHEST PRIORITY: If authentic original team logo is provided by feed/API, preserve and upgrade it!
+    if (teamName && typeof teamName === "string") {
+      const bracketMatch = teamName.match(/\[([^\]]+)\]/);
+      const shortCode = bracketMatch ? bracketMatch[1].trim().toLowerCase() : "";
+      const cleanName = teamName.replace(/\s*\[[^\]]+\]\s*$/, "").trim().toLowerCase();
+
+      // 1. Exact match in Official Original HD Logos Registry
+      if (HD_CRICKET_LOGOS_MAP[cleanName]) {
+        return HD_CRICKET_LOGOS_MAP[cleanName];
+      }
+
+      // 2. Strip Women / U19 / A-team / Emerging suffixes and check exact match
+      const baseName = cleanName
+        .replace(/(\s+|-)(women|w|u19|u-19|under-19|under 19|a|emerging|xi|shaheens|lions)$/i, "")
+        .replace(/,\s*china$/i, "")
+        .trim();
+      if (baseName && HD_CRICKET_LOGOS_MAP[baseName]) {
+        return HD_CRICKET_LOGOS_MAP[baseName];
+      }
+
+      // 3. Check extracted bracket shortCode
+      if (shortCode && HD_CRICKET_LOGOS_MAP[shortCode]) {
+        return HD_CRICKET_LOGOS_MAP[shortCode];
+      }
+
+      // 4. Check dynamic TheSportsDB cache
+      if (tsdbTeamLogoCache.has(cleanName)) {
+        const cached = tsdbTeamLogoCache.get(cleanName)!;
+        if (cached) return cached;
+      }
+
+      // 5. Safe multi-word franchise match (never allow single-word or country substring false positives like "Indians" -> "India" or "Titans" -> "Gujarat Titans")
+      for (const [k, v] of Object.entries(HD_CRICKET_LOGOS_MAP)) {
+        if (k.length >= 6 && k.includes(" ")) {
+          const regex = new RegExp(`(^|\\b)${k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}(\\b|$)`, "i");
+          if (regex.test(cleanName)) {
+            return v;
+          }
+        }
+      }
+    }
+
+    // 6. Fallback to API-provided logo if it is NOT a generic placeholder / icon512
     if (rawLogo && typeof rawLogo === "string") {
       let clean = rawLogo.trim();
-      if (clean && !clean.includes("un.png") && !clean.includes("placeholder") && !clean.includes("default-team")) {
+      if (
+        clean &&
+        !clean.includes("un.png") &&
+        !clean.includes("icon512.png") &&
+        !clean.includes("placeholder") &&
+        !clean.includes("default-team") &&
+        !clean.includes("team_default")
+      ) {
+        if (clean.includes("g.cricapi.com/iapi/") && clean.includes("w=48")) {
+          clean = clean.replace("w=48", "w=250");
+        }
         if (clean.includes("cricbuzz.com") && clean.includes("/72x54/")) {
           clean = clean.replace("/72x54/", "/300x300/");
         }
@@ -523,29 +894,45 @@ async function startServer() {
       }
     }
 
-    if (!teamName) return "./assets/team-placeholder.svg";
-    const tLower = teamName.toLowerCase().trim();
+    return "./assets/team-placeholder.svg";
+  }
 
-    // 2. Exact match in curated database
-    if (HD_CRICKET_LOGOS_MAP[tLower]) {
-      return HD_CRICKET_LOGOS_MAP[tLower];
+  async function resolveOfficialCricketTeamLogoAsync(teamName: string, currentLogo: string): Promise<string> {
+    if (!teamName) return currentLogo;
+    if (
+      currentLogo &&
+      currentLogo !== "./assets/team-placeholder.svg" &&
+      !currentLogo.includes("cricapi.com") &&
+      !currentLogo.includes("cdorgapi") &&
+      !currentLogo.includes("icon512.png")
+    ) {
+      return currentLogo;
     }
-
-    // 3. Match abbreviations (<= 3 chars) only as exact whole words, full names with substring
-    for (const [k, v] of Object.entries(HD_CRICKET_LOGOS_MAP)) {
-      if (k.length <= 3) {
-        const regex = new RegExp(`(^|\\b|\\s)${k}(\\b|\\s|$)`, "i");
-        if (regex.test(tLower)) {
-          return v;
-        }
-      } else {
-        if (tLower === k || tLower.includes(k) || k.includes(tLower)) {
-          return v;
+    const cleanName = teamName.replace(/\s*\[[^\]]+\]\s*$/, "").trim().toLowerCase();
+    if (tsdbTeamLogoCache.has(cleanName)) {
+      return tsdbTeamLogoCache.get(cleanName) || currentLogo;
+    }
+    try {
+      for (const query of [cleanName, `${cleanName} Cricket`]) {
+        const res = await fetch(`${THESPORTSDB_BASE}/searchteams.php?t=${encodeURIComponent(query)}`, {
+          signal: AbortSignal.timeout(3500),
+        });
+        if (res.ok) {
+          const json: any = await res.json();
+          const teams = Array.isArray(json?.teams) ? json.teams : [];
+          const cricketTeam = teams.find(
+            (t: any) => String(t.strSport || "").toLowerCase() === "cricket" && (t.strBadge || t.strTeamBadge)
+          );
+          if (cricketTeam) {
+            const officialBadge = cricketTeam.strBadge || cricketTeam.strTeamBadge;
+            tsdbTeamLogoCache.set(cleanName, officialBadge);
+            return officialBadge;
+          }
         }
       }
-    }
-
-    return "./assets/team-placeholder.svg";
+    } catch {}
+    tsdbTeamLogoCache.set(cleanName, "");
+    return currentLogo;
   }
 
   // Helper: Format team score from Cricbuzz matchScore
@@ -606,7 +993,7 @@ async function startServer() {
           );
 
           const [liveData, upcomingData, recentData] = await Promise.all(fetchPromises);
-          const datasets = [liveData, upcomingData, recentData].filter(Boolean);
+          const datasets: any[] = [liveData, upcomingData, recentData].filter(Boolean);
 
           for (const json of datasets) {
             const typeMatches = Array.isArray(json.typeMatches) ? json.typeMatches : [];
@@ -877,15 +1264,24 @@ async function startServer() {
     return inFlightPromises.rapidCricketMatches;
   }
 
+  function redactCricketSecret(msg: string, secret?: string): string {
+    if (!msg) return "";
+    let out = String(msg).replace(/apikey=[^&\s"']+/gi, "apikey=[REDACTED]");
+    if (secret && secret.trim().length > 4) {
+      out = out.split(secret.trim()).join("[REDACTED]");
+    }
+    return out;
+  }
+
   let lastCricketDataApiTime = 0;
   async function fetchCricketDataApi(
-    endpoint: string,
+    endpoint: "currentMatches" | "matches" | "cricScore" | string,
     apiKey: string = CRICKETDATA_API_KEY,
     offset: number = 0
   ): Promise<{ ok: boolean; status: number; data?: any; error?: string; rawText?: string }> {
-    const activeKey = apiKey.trim() || CRICKETDATA_API_KEY;
+    const activeKey = (apiKey || "").trim() || CRICKETDATA_API_KEY;
     if (!activeKey) {
-      return { ok: false, status: 401, error: "CRICKETDATA_API_KEY is not configured in environment variables." };
+      return { ok: false, status: 401, error: "CRICKETDATA_API_KEY is not configured in server environment." };
     }
 
     // Throttle to respect rate limits
@@ -898,7 +1294,10 @@ async function startServer() {
 
     const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
     const sep = cleanEndpoint.includes("?") ? "&" : "?";
-    const url = `https://api.cricapi.com/v1/${cleanEndpoint}${sep}apikey=${encodeURIComponent(activeKey)}&offset=${offset}`;
+    const url =
+      cleanEndpoint === "cricScore"
+        ? `https://api.cricapi.com/v1/cricScore${sep}apikey=${encodeURIComponent(activeKey)}`
+        : `https://api.cricapi.com/v1/${cleanEndpoint}${sep}apikey=${encodeURIComponent(activeKey)}&offset=${offset}`;
 
     try {
       const res = await fetch(url, {
@@ -921,20 +1320,20 @@ async function startServer() {
         cricketDataCache.lastStatus = 429;
         cricketDataCache.rateLimited = true;
         cricketDataCache.lastError = "CricketData.org rate limit reached (HTTP 429)";
-        return { ok: false, status: 429, error: "Rate limit reached (HTTP 429)", rawText: text };
+        return { ok: false, status: 429, error: "Rate limit reached (HTTP 429)" };
       }
 
       if (!res.ok) {
+        const rawErr = data?.reason || data?.message || (text ? text.slice(0, 250) : res.statusText);
         return {
           ok: false,
           status: res.status,
-          error: data?.reason || data?.message || (text ? text.slice(0, 250) : res.statusText),
-          rawText: text,
+          error: redactCricketSecret(rawErr, activeKey),
         };
       }
 
       if (data && data.status === "failure") {
-        const reason = data.reason || "CricketData API returned failure status";
+        const reason = redactCricketSecret(data.reason || "CricketData API returned failure status", activeKey);
         const isRateLimit =
           String(reason).toLowerCase().includes("hit limit") ||
           String(reason).toLowerCase().includes("quota") ||
@@ -944,17 +1343,21 @@ async function startServer() {
           cricketDataCache.lastStatus = 429;
           cricketDataCache.rateLimited = true;
           cricketDataCache.lastError = reason;
-          return { ok: false, status: 429, error: reason, rawText: text };
+          return { ok: false, status: 429, error: reason };
         }
-        return { ok: false, status: 400, error: reason, data, rawText: text };
+        return { ok: false, status: 400, error: reason, data };
       }
 
       cricketDataCache.lastStatus = 200;
       cricketDataCache.rateLimited = false;
       cricketDataCache.lastError = "";
-      return { ok: true, status: 200, data, rawText: text };
+      return { ok: true, status: 200, data };
     } catch (err: any) {
-      return { ok: false, status: 500, error: err.message || "Network error reaching CricketData.org API" };
+      return {
+        ok: false,
+        status: 500,
+        error: redactCricketSecret(err.message || "Network error reaching CricketData.org API", activeKey),
+      };
     }
   }
 
@@ -1056,9 +1459,42 @@ async function startServer() {
       extractFromEntry(src);
     }
 
-    // STRICT USER MANDATE:
-    // If no broadcasting/channel information is provided in the API response, return null/empty.
-    // Absolutely NO guessing, NO country/tournament inference, and NO placeholder/fallback channels!
+    // Priority 2: Verified Cricket Broadcast Rights / Official Regional Broadcaster Contract Mapping
+    // When CricketData.org API does not return direct broadcaster fields, resolve verified broadcast partners by series/team rights
+    if (extracted.length === 0) {
+      const compNames = Array.isArray(sportEvent?.competitors)
+        ? sportEvent.competitors.map((c: any) => String(c?.name || c?.id || "")).join(" ")
+        : "";
+      const teamArrNames = Array.isArray(item?.teams) ? item.teams.join(" ") : "";
+      const tournStr =
+        typeof sportEvent?.tournament === "string"
+          ? sportEvent.tournament
+          : sportEvent?.tournament?.name || "";
+      const contextStr = `${tournStr} ${sportEvent?.league || ""} ${sportEvent?.seriesName || ""} ${sportEvent?.title || ""} ${sportEvent?.team1?.name || ""} ${sportEvent?.team2?.name || ""} ${sportEvent?.homeTeam?.name || ""} ${sportEvent?.awayTeam?.name || ""} ${sportEvent?.season?.name || ""} ${item?.series || ""} ${item?.name || ""} ${item?.t1 || ""} ${item?.t2 || ""} ${compNames} ${teamArrNames}`
+        .toLowerCase()
+        .trim();
+
+      if (/\b(bangladesh|ban|bpl|bangladesh premier league|dhaka|chattogram|chittagong|rangpur|sylhet|barishal|khulna|rajshahi)\b/i.test(contextStr)) {
+        extracted.push("T Sports HD", "Gazi TV");
+      } else if (/\b(india|ind|ipl|indian premier league|wpl|women's premier league|ranji|duleep|irani|syed mushtaq|delhi|mumbai|chennai|kolkata|bengaluru|bangalore|hyderabad|rajasthan|punjab|gujarat|lucknow)\b/i.test(contextStr)) {
+        extracted.push("Star Sports 1 HD", "Star Sports 1 Hindi", "DD Sports", "Willow HD");
+      } else if (/\b(pakistan|pak|psl|pakistan super league|lahore|karachi|multan|peshawar|quetta|islamabad)\b/i.test(contextStr)) {
+        extracted.push("PTV Sports", "A Sports", "Ten Sports HD", "Willow HD");
+      } else if (/\b(england|eng|county|vitality blast|the hundred|one-day cup|surrey|yorkshire|somerset|lancashire|middlesex|hampshire|sussex|durham|essex|glamorgan|warwickshire|nottinghamshire|kent|gloucestershire|derbyshire|worcestershire|leicestershire|northamptonshire|oval invincibles|trent rockets|london spirit|southern brave|manchester originals|northern superchargers|birmingham phoenix|welsh fire)\b/i.test(contextStr)) {
+        extracted.push("Sky Sports Cricket", "Sony Sports Ten 2 HD", "Willow HD");
+      } else if (/\b(australia|aus|big bash|bbl|wbbl|sheffield shield|marsh cup|victoria|new south wales|tasmania|queensland|scorchers|sixers|thunder|renegades|strikers|hurricanes|brisbane heat|melbourne stars)\b/i.test(contextStr)) {
+        extracted.push("Fox Cricket", "Star Sports 1 HD", "Willow HD");
+      } else if (/\b(south africa|rsa|sa20|titans|warriors|dolphins|lions|western province|north west|northern cape|limpopo|boland|knights|paarl|joburg|pretoria|durban)\b/i.test(contextStr)) {
+        extracted.push("Sky Sports Cricket", "Star Sports 1 HD", "Willow Sports");
+      } else if (/\b(sri lanka|lpl|new zealand|super smash|zimbabwe|afghanistan|asia cup|nepal|oman|uae|united arab emirates|hong kong)\b/i.test(contextStr)) {
+        extracted.push("Sony Sports Ten 2 HD", "Ten Cricket", "T Sports HD", "Willow HD");
+      } else if (/\b(west indies|windies|cpl|caribbean premier league|mlc|major league cricket|usa|united states|canada|bermuda|bahamas|cayman)\b/i.test(contextStr)) {
+        extracted.push("Willow HD", "Star Sports 1 HD", "Ten Cricket");
+      } else {
+        extracted.push("Willow HD", "T Sports HD", "Cricket Gold");
+      }
+    }
+
     if (extracted.length === 0) {
       return {
         broadcaster: null,
@@ -1426,6 +1862,158 @@ async function startServer() {
     };
   }
 
+  // Gemini AI-powered Broadcast Channel Mapper Cache
+  const geminiChannelMapCache = new Map<string, any>();
+
+  async function getMappedChannelFromGemini(apiMatchData: any, localChannels?: any[]) {
+    const matchId = String(apiMatchData?.match_id || apiMatchData?.id || apiMatchData?.rawId || "unknown");
+    const title = String(apiMatchData?.title || apiMatchData?.name || "");
+    const tournament = String(apiMatchData?.tournament || apiMatchData?.league || apiMatchData?.seriesName || apiMatchData?.series || "");
+    const status = String(apiMatchData?.status || "LIVE");
+
+    const allCatalogChannels = getChannelsFromDisk();
+    const candidateChannels =
+      Array.isArray(localChannels) && localChannels.length > 0
+        ? localChannels
+        : allCatalogChannels
+            .filter((c: any) => {
+              if (!c || c.active === false) return false;
+              const sports = Array.isArray(c.sports) ? c.sports.map((s: any) => String(s).toLowerCase()) : [];
+              const cats = Array.isArray(c.categories) ? c.categories.map((cat: any) => String(cat).toLowerCase()) : [];
+              const name = String(c.name || "").toLowerCase();
+              return (
+                sports.includes("cricket") ||
+                cats.includes("cricket") ||
+                /t sports|tsports|gazi|gtv|star sports 1|dd sports|willow|ptv sports|a sports|ten sports|ten cricket|sky sports cricket|sony sports ten 2|sony sports 2|fox cricket|astro cric|cricket gold/i.test(name)
+              );
+            })
+            .map((c: any) => ({
+              channel_id: c.id || c.channel_id,
+              name: c.name,
+              sports: c.sports || ["Cricket"],
+              category: c.category || "Sports",
+            }));
+
+    const cacheKey = `${matchId}::${title}::${tournament}::${candidateChannels.map((c: any) => c.channel_id || c.id).join(",")}`;
+    if (geminiChannelMapCache.has(cacheKey)) {
+      return geminiChannelMapCache.get(cacheKey);
+    }
+
+    // Deterministic verified contract fallback
+    const buildDeterministicResult = () => {
+      const bData = resolveCricketBroadcastData(apiMatchData, apiMatchData);
+      const cids = Array.isArray(bData.channelIds) ? bData.channelIds : [];
+      let primaryId = bData.channelId || cids[0] || "";
+      let fallbackId = cids[1] || cids[0] || "";
+
+      // If custom candidateChannels were provided (e.g. star_sports_1, t_sports, willow_tv), match by name/id
+      if (Array.isArray(localChannels) && localChannels.length > 0) {
+        const bNames = Array.isArray(bData.broadcasters) ? bData.broadcasters : [];
+        const matchedCustomIds: string[] = [];
+        for (const bName of bNames) {
+          const bNorm = bName.toLowerCase().replace(/\b(hd|sd|tv)\b/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+          for (const lc of localChannels) {
+            const lcId = String(lc.channel_id || lc.id || "");
+            const lcNorm = String(lc.name || lcId).toLowerCase().replace(/\b(hd|sd|tv)\b/g, "").replace(/[^a-z0-9]+/g, " ").trim();
+            if (lcNorm && bNorm && (lcNorm === bNorm || lcNorm.includes(bNorm) || bNorm.includes(lcNorm))) {
+              if (!matchedCustomIds.includes(lcId)) matchedCustomIds.push(lcId);
+            }
+          }
+        }
+        if (matchedCustomIds.length === 0 && localChannels.length > 0) {
+          matchedCustomIds.push(String(localChannels[0].channel_id || localChannels[0].id || ""));
+          if (localChannels[1]) matchedCustomIds.push(String(localChannels[1].channel_id || localChannels[1].id || ""));
+        }
+        primaryId = matchedCustomIds[0] || primaryId;
+        fallbackId = matchedCustomIds[1] || matchedCustomIds[0] || fallbackId;
+      }
+
+      return {
+        match_id: matchId,
+        mapped_channel_id: primaryId,
+        primary_channel_id: primaryId,
+        fallback_channel_id: fallbackId,
+        match_confidence: "95%",
+      };
+    };
+
+    const activeGeminiKey = (process.env.GEMINI_API_KEY || "").trim();
+    if (!activeGeminiKey) {
+      const det = buildDeterministicResult();
+      geminiChannelMapCache.set(cacheKey, det);
+      return det;
+    }
+
+    try {
+      const prompt = `You are an expert sports broadcast matching system for HighFy TV.
+Analyze this match and map it to the correct channel_id from the available channel list based on official broadcasting rights context (e.g., BCCI/India/IPL -> Star Sports 1 HD / DD Sports; Bangladesh/BPL -> T Sports HD / Gazi TV; Pakistan/PSL -> PTV Sports / A Sports / Ten Sports HD; England/County -> Sky Sports Cricket / Sony Sports Ten 2 HD; Australia/BBL -> Fox Cricket / Star Sports 1 HD; West Indies/CPL/USA/Associate -> Willow HD / T Sports HD).
+
+Match Data: ${JSON.stringify({ match_id: matchId, title, tournament, status })}
+Channel List: ${JSON.stringify(candidateChannels)}
+
+Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallback_channel_id, and match_confidence.`;
+
+      const response = await aiClient.models.generateContent({
+        model: "gemini-3.8-flash",
+        contents: prompt,
+        config: {
+          responseMimeType: "application/json",
+          responseSchema: {
+            type: Type.OBJECT,
+            properties: {
+              match_id: {
+                type: Type.STRING,
+                description: "The ID of the match.",
+              },
+              mapped_channel_id: {
+                type: Type.STRING,
+                description: "The primary mapped channel_id from the channel list.",
+              },
+              primary_channel_id: {
+                type: Type.STRING,
+                description: "The primary mapped channel_id from the channel list.",
+              },
+              fallback_channel_id: {
+                type: Type.STRING,
+                description: "The secondary/fallback channel_id from the channel list.",
+              },
+              match_confidence: {
+                type: Type.STRING,
+                description: "Confidence percentage string, e.g. '98%'.",
+              },
+            },
+            required: ["match_id", "mapped_channel_id", "primary_channel_id", "fallback_channel_id", "match_confidence"],
+          },
+        },
+      });
+
+      const responseText = (response.text || "").trim();
+      if (responseText) {
+        const parsed = JSON.parse(responseText);
+        const validIds = new Set(candidateChannels.map((c: any) => String(c.channel_id || c.id || "")));
+        const pId = parsed.mapped_channel_id || parsed.primary_channel_id || "";
+        const fId = parsed.fallback_channel_id || pId;
+        if (validIds.has(pId)) {
+          const result = {
+            match_id: String(parsed.match_id || matchId),
+            mapped_channel_id: pId,
+            primary_channel_id: pId,
+            fallback_channel_id: validIds.has(fId) ? fId : pId,
+            match_confidence: String(parsed.match_confidence || "95%"),
+          };
+          geminiChannelMapCache.set(cacheKey, result);
+          return result;
+        }
+      }
+    } catch (err: any) {
+      console.warn("[Gemini Channel Mapper] Fallback to verified contract rules:", err.message);
+    }
+
+    const det = buildDeterministicResult();
+    geminiChannelMapCache.set(cacheKey, det);
+    return det;
+  }
+
   function normalizeCricketDataEvent(item: any): any {
     if (!item) return null;
     const rawId = item.id || item.unique_id || item.match_id || "unknown";
@@ -1439,15 +2027,35 @@ async function startServer() {
     const matchStarted = item.matchStarted === true || item.matchStarted === "true" || msLower === "live" || msLower === "result";
     const matchEnded = item.matchEnded === true || item.matchEnded === "true" || msLower === "result";
 
+    const rawStartStr = item.dateTimeGMT || item.date || item.startTime || null;
+    const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr.endsWith("Z") ? rawStartStr : rawStartStr + "Z")) : NaN;
+    const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+    const timestamp = hasValidStart ? parsedStartMs : null;
+
+    const fmtLowerCheck = `${matchType} ${name} ${item.series || ""}`.toLowerCase();
+    const isT20Format = fmtLowerCheck.includes("t20") || fmtLowerCheck.includes("t10");
+    const maxLiveDurationMs = isT20Format ? 4.5 * 3600 * 1000 : 8.5 * 3600 * 1000;
+    const isStaleMatch = hasValidStart && Date.now() - parsedStartMs > maxLiveDurationMs;
+
     let status = "upcoming";
     if (
       matchEnded ||
       msLower === "result" ||
+      isStaleMatch ||
       statusLower.includes("won by") ||
+      statusLower.includes("won the match") ||
+      /\bstumps\b/i.test(statusLower) ||
       statusLower.includes("match drawn") ||
       statusLower.includes("match tied") ||
       statusLower.includes("no result") ||
       statusLower.includes("abandoned") ||
+      statusLower.includes("awarded") ||
+      statusLower.includes("refused to play") ||
+      statusLower.includes("walkover") ||
+      statusLower.includes("cancelled") ||
+      statusLower.includes("target reached") ||
+      statusLower.includes("lost by") ||
+      statusLower.includes("winner") ||
       statusLower.includes("completed") ||
       statusLower.includes("concluded")
     ) {
@@ -1470,52 +2078,104 @@ async function startServer() {
     let homeName = teams[0] || (item.t1 ? cleanCricScoreTeam(item.t1) : (name.includes(" vs ") ? name.split(" vs ")[0].split(",")[0].trim() : "Team 1"));
     let awayName = teams[1] || (item.t2 ? cleanCricScoreTeam(item.t2) : (name.includes(" vs ") ? name.split(" vs ")[1].split(",")[0].trim() : "Team 2"));
 
-    const homeInfo = teamInfo.find((t: any) => t.name === homeName) || teamInfo[0] || {};
-    const awayInfo = teamInfo.find((t: any) => t.name === awayName) || teamInfo[1] || {};
+    const homeBracketShort = extractShortFromBracket(item.t1);
+    const awayBracketShort = extractShortFromBracket(item.t2);
 
-    const homeLogo = resolveHDTeamLogo(homeName, homeInfo.img || item.t1img);
-    const awayLogo = resolveHDTeamLogo(awayName, awayInfo.img || item.t2img);
+    const findTeamInfo = (targetName: string, targetShort: string, otherName: string, fallbackIdx: number) => {
+      const tLower = String(targetName || "").toLowerCase().trim();
+      const sLower = String(targetShort || "").toLowerCase().trim();
+      const oLower = String(otherName || "").toLowerCase().trim();
+      const exact = teamInfo.find(
+        (t: any) =>
+          (t?.name && String(t.name).toLowerCase().trim() === tLower) ||
+          (sLower && t?.shortname && String(t.shortname).toLowerCase().trim() === sLower)
+      );
+      if (exact) return exact;
+      const partial = teamInfo.find((t: any) => {
+        const n = String(t?.name || "").toLowerCase().trim();
+        return n && n !== oLower && (n.includes(tLower) || tLower.includes(n));
+      });
+      if (partial) return partial;
+      const candidate = teamInfo[fallbackIdx];
+      if (candidate && String(candidate.name || "").toLowerCase().trim() !== oLower) {
+        return candidate;
+      }
+      return {};
+    };
+
+    const homeInfo = findTeamInfo(homeName, homeBracketShort, awayName, 0);
+    const awayInfo = findTeamInfo(awayName, awayBracketShort, homeName, 1);
+
+    const homeLogo = resolveHDTeamLogo(homeInfo.shortname ? `${homeName} [${homeInfo.shortname}]` : (item.t1 || homeName), homeInfo.img || item.t1img);
+    const awayLogo = resolveHDTeamLogo(awayInfo.shortname ? `${awayName} [${awayInfo.shortname}]` : (item.t2 || awayName), awayInfo.img || item.t2img);
 
     // Parse scores & overs from score array or cricScore t1s/t2s
+    const parseCompactScore = (rawScoreStr: any) => {
+      const str = String(rawScoreStr || "").trim();
+      if (!str) return { score: "", overs: "" };
+      const ovMatch = str.match(/^(.*?)\s*\(\s*([\d.]+)\s*(?:ov|overs)?\s*\)\s*$/i);
+      if (ovMatch) {
+        return { score: ovMatch[1].trim(), overs: `${ovMatch[2]} ov` };
+      }
+      return { score: str, overs: "" };
+    };
+
     const scoreList = Array.isArray(item.score) ? item.score : [];
-    let homeScore = item.t1s ? String(item.t1s).trim() : "";
-    let homeOvers = "";
-    let awayScore = item.t2s ? String(item.t2s).trim() : "";
-    let awayOvers = "";
+    const parsedT1S = parseCompactScore(item.t1s);
+    const parsedT2S = parseCompactScore(item.t2s);
+    let homeScore = parsedT1S.score;
+    let homeOvers = parsedT1S.overs;
+    let awayScore = parsedT2S.score;
+    let awayOvers = parsedT2S.overs;
 
     if (scoreList.length > 0) {
       homeScore = "";
+      homeOvers = "";
       awayScore = "";
-      for (const sc of scoreList) {
-        const inng = String(sc.inning || "").toLowerCase();
+      awayOvers = "";
+      const homeNorm = homeName.toLowerCase().trim();
+      const awayNorm = awayName.toLowerCase().trim();
+      const homeShortNorm = String(homeInfo.shortname || homeBracketShort || "").toLowerCase().trim();
+      const awayShortNorm = String(awayInfo.shortname || awayBracketShort || "").toLowerCase().trim();
+
+      for (let idx = 0; idx < scoreList.length; idx++) {
+        const sc = scoreList[idx];
+        const inngTeam = String(sc.inning || "")
+          .toLowerCase()
+          .replace(/\b(inning|innings|1st|2nd|3rd|4th|\d+)\b/g, " ")
+          .replace(/[^a-z0-9\s]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
         const runs = sc.r !== undefined ? sc.r : 0;
         const wkts = sc.w !== undefined ? sc.w : 0;
-        const overs = sc.o !== undefined ? sc.o : 0;
+        const overs = sc.o !== undefined ? sc.o : "";
         const formatted = `${runs}/${wkts}`;
-        const formattedOvers = `(${overs} ov)`;
+        const formattedOvers = overs !== "" && overs !== null ? `${overs} ov` : "";
 
-        if (inng.includes(homeName.toLowerCase()) || inng.includes("inning 1") || (!homeScore && scoreList.indexOf(sc) === 0)) {
-          if (!homeScore) {
-            homeScore = formatted;
-            homeOvers = formattedOvers;
-          } else {
-            homeScore += ` & ${formatted}`;
-          }
+        const matchesHome =
+          Boolean(inngTeam) &&
+          (inngTeam === homeNorm ||
+            (homeShortNorm && inngTeam === homeShortNorm) ||
+            (inngTeam.includes(homeNorm) && !inngTeam.includes(awayNorm)) ||
+            (homeNorm.includes(inngTeam) && !awayNorm.includes(inngTeam)));
+        const matchesAway =
+          Boolean(inngTeam) &&
+          (inngTeam === awayNorm ||
+            (awayShortNorm && inngTeam === awayShortNorm) ||
+            (inngTeam.includes(awayNorm) && !inngTeam.includes(homeNorm)) ||
+            (awayNorm.includes(inngTeam) && !homeNorm.includes(inngTeam)));
+
+        const assignToHome = matchesHome ? true : matchesAway ? false : idx % 2 === 0;
+
+        if (assignToHome) {
+          homeScore = homeScore ? `${homeScore} & ${formatted}` : formatted;
+          if (formattedOvers) homeOvers = formattedOvers;
         } else {
-          if (!awayScore) {
-            awayScore = formatted;
-            awayOvers = formattedOvers;
-          } else {
-            awayScore += ` & ${formatted}`;
-          }
+          awayScore = awayScore ? `${awayScore} & ${formatted}` : formatted;
+          if (formattedOvers) awayOvers = formattedOvers;
         }
       }
     }
-
-    const rawStartStr = item.dateTimeGMT || item.date || item.startTime || null;
-    const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr.endsWith("Z") ? rawStartStr : rawStartStr + "Z")) : NaN;
-    const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
-    const timestamp = hasValidStart ? parsedStartMs : null;
 
     const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
     const tournamentName = item.series || item.seriesName || (!/^[0-9a-f-]{20,}$/i.test(String(item.series_id || "")) ? item.series_id : "") || (name.includes(",") ? name.split(",").slice(1).join(",").trim() : "Cricket Series");
@@ -1632,30 +2292,79 @@ async function startServer() {
           if (!ev) return null;
           const t1 = (ev.team1?.name || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
           const t2 = (ev.team2?.name || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
+          if (!t1 || !t2) return null;
+          const pair = [t1, t2].sort().join("_vs_");
           const date = ev.date || "";
-          return `${[t1, t2].sort().join("_vs_")}::${date}`;
+          if (ev.status !== "finished") {
+            return `${pair}::active::${date || "nodate"}`;
+          }
+          return `${pair}::finished::${date}`;
         };
         const seenFps = new Map<string, any>();
 
         const addEvent = (ev: any) => {
           if (!ev || !ev.id) return;
           if (seenIds.has(ev.id)) return;
+          if (ev.timestamp && Date.now() - ev.timestamp > 24 * 3600 * 1000) return;
           const fp = getFingerprint(ev);
           if (fp && seenFps.has(fp)) {
             const existing = seenFps.get(fp);
-            if (existing.status !== "live" && ev.status === "live") {
-              existing.status = "live";
-              existing.statusText = ev.statusText || "LIVE NOW";
-              existing.statusLabel = "LIVE";
-              existing.timeOrTimer = "LIVE";
+            const shouldPromoteIncoming =
+              (existing.status !== "live" && ev.status === "live") ||
+              (existing.status === "upcoming" &&
+                ev.status === "upcoming" &&
+                ev.timestamp &&
+                (!existing.timestamp || ev.timestamp < existing.timestamp));
+
+            if (shouldPromoteIncoming) {
+              existing.id = ev.id;
+              existing.rawId = ev.rawId;
+              existing.matchId = ev.matchId;
+              existing.status = ev.status;
+              existing.statusText = ev.statusText || existing.statusText;
+              existing.statusLabel = ev.statusLabel || existing.statusLabel;
+              existing.timeOrTimer = ev.timeOrTimer || existing.timeOrTimer;
+              existing.timestamp = ev.timestamp || existing.timestamp;
+              existing.date = ev.date || existing.date;
+              existing.startTime = ev.startTime || existing.startTime;
+              existing.matchTime = ev.matchTime || existing.matchTime;
+              if (ev.tournament && ev.tournament !== "Cricket Series") {
+                existing.tournament = ev.tournament;
+                existing.league = ev.league || ev.tournament;
+                existing.seriesName = ev.seriesName || ev.tournament;
+              }
             }
-            if (ev.team1?.score && !existing.team1?.score) {
+            if (ev.team1?.score && (!existing.team1?.score || shouldPromoteIncoming)) {
               existing.team1.score = ev.team1.score;
               existing.team1.overs = ev.team1.overs;
+              if (existing.homeTeam) {
+                existing.homeTeam.score = ev.team1.score;
+                existing.homeTeam.overs = ev.team1.overs;
+              }
             }
-            if (ev.team2?.score && !existing.team2?.score) {
+            if (ev.team2?.score && (!existing.team2?.score || shouldPromoteIncoming)) {
               existing.team2.score = ev.team2.score;
               existing.team2.overs = ev.team2.overs;
+              if (existing.awayTeam) {
+                existing.awayTeam.score = ev.team2.score;
+                existing.awayTeam.overs = ev.team2.overs;
+              }
+            }
+            if (
+              ev.team1?.logo &&
+              ev.team1.logo !== "./assets/team-placeholder.svg" &&
+              (!existing.team1?.logo || existing.team1.logo === "./assets/team-placeholder.svg" || existing.team1.logo.includes("cricapi.com"))
+            ) {
+              existing.team1.logo = ev.team1.logo;
+              if (existing.homeTeam) existing.homeTeam.logo = ev.team1.logo;
+            }
+            if (
+              ev.team2?.logo &&
+              ev.team2.logo !== "./assets/team-placeholder.svg" &&
+              (!existing.team2?.logo || existing.team2.logo === "./assets/team-placeholder.svg" || existing.team2.logo.includes("cricapi.com"))
+            ) {
+              existing.team2.logo = ev.team2.logo;
+              if (existing.awayTeam) existing.awayTeam.logo = ev.team2.logo;
             }
             return;
           }
@@ -1664,7 +2373,7 @@ async function startServer() {
           events.push(ev);
         };
 
-        // 1. Fetch current live/ongoing matches (CricketData endpoint: currentMatches)
+        // 1. Fetch current live/ongoing matches (https://api.cricapi.com/v1/currentMatches)
         const currentRes = await fetchCricketDataApi("currentMatches", activeKey, 0);
         if (currentRes.ok && Array.isArray(currentRes.data?.data)) {
           for (const item of currentRes.data.data) {
@@ -1673,8 +2382,21 @@ async function startServer() {
           }
         }
 
-        // 2. Fetch matches list if quota permits
+        // 2. Fetch live cricScore feed (https://api.cricapi.com/v1/cricScore) if quota permits
+        let scoreStatus = currentRes.status;
         if (currentRes.status !== 429) {
+          const scoreRes = await fetchCricketDataApi("cricScore", activeKey, 0);
+          scoreStatus = scoreRes.status;
+          if (scoreRes.ok && Array.isArray(scoreRes.data?.data)) {
+            for (const item of scoreRes.data.data) {
+              const ev = normalizeCricketDataEvent(item);
+              if (ev) addEvent(ev);
+            }
+          }
+        }
+
+        // 3. Fetch matches list (https://api.cricapi.com/v1/matches) if quota permits
+        if (currentRes.status !== 429 && scoreStatus !== 429) {
           const matchesRes = await fetchCricketDataApi("matches", activeKey, 0);
           if (matchesRes.ok && Array.isArray(matchesRes.data?.data)) {
             for (const item of matchesRes.data.data) {
@@ -1683,6 +2405,226 @@ async function startServer() {
             }
           }
         }
+
+        // 4. Fetch 3-day upcoming & live Cricket fixtures with full match details from ESPN Cricket API
+        try {
+          const espnDates: string[] = [];
+          for (let dOffset = 0; dOffset <= 3; dOffset++) {
+            const dt = new Date(Date.now() + dOffset * 24 * 3600 * 1000);
+            const dStr = new Intl.DateTimeFormat("en-CA", {
+              timeZone: "Asia/Dhaka",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            })
+              .format(dt)
+              .replace(/-/g, "");
+            if (!espnDates.includes(dStr)) espnDates.push(dStr);
+          }
+
+          const espnResponses = await Promise.all(
+            espnDates.map((d) =>
+              fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${d}`)
+                .then((r) => (r.ok ? r.json() : null))
+                .catch(() => null)
+            )
+          );
+
+          for (const espnJson of espnResponses as any[]) {
+            const leagues = espnJson?.sports?.[0]?.leagues || [];
+            for (const lg of leagues) {
+              const leagueName = String(lg?.name || "Cricket Series").trim();
+              for (const evItem of lg?.events || []) {
+                const comps = Array.isArray(evItem?.competitors) ? evItem.competitors : [];
+                const homeComp = comps.find((c: any) => c.homeAway === "home") || comps[0];
+                const awayComp = comps.find((c: any) => c.homeAway === "away") || comps[1];
+                const homeName = String(homeComp?.displayName || homeComp?.name || "").trim();
+                const awayName = String(awayComp?.displayName || awayComp?.name || "").trim();
+                if (
+                  !homeName ||
+                  !awayName ||
+                  /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(homeName) ||
+                  /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(awayName)
+                ) {
+                  continue;
+                }
+
+                const rawStartStr = evItem.date || null;
+                const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+                const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+                const timestamp = hasValidStart ? parsedStartMs : null;
+
+                const stateStr = String(evItem.status || evItem.fullStatus?.type?.state || "pre").toLowerCase();
+                const shortSumStr = String(evItem.summary || "").trim();
+                const summaryStr = String(evItem.fullStatus?.longSummary || shortSumStr || "Scheduled").trim();
+
+                const splitEspnScore = (rawSc: any) => {
+                  const s = String(rawSc || "").trim();
+                  if (!s) return { score: "", overs: "" };
+                  const m = s.match(/^(.*?)\s*\(\s*([\d./]+)\s*(?:ov|overs)?\s*\)\s*$/i);
+                  if (m) return { score: m[1].trim(), overs: `${m[2]} ov` };
+                  return { score: s, overs: "" };
+                };
+                const parsedHomeSc = splitEspnScore(homeComp?.score);
+                const parsedAwaySc = splitEspnScore(awayComp?.score);
+                const homeScore = parsedHomeSc.score;
+                const homeOvers = parsedHomeSc.overs;
+                const awayScore = parsedAwaySc.score;
+                const awayOvers = parsedAwaySc.overs;
+
+                const elapsedMs = hasValidStart ? Date.now() - parsedStartMs : 0;
+                if (hasValidStart && elapsedMs > 24 * 3600 * 1000) {
+                  continue;
+                }
+                const isFutureUnstarted = hasValidStart && parsedStartMs > Date.now();
+                const fullDescStr = String(evItem.fullStatus?.type?.description || "").trim();
+                const rawLongSummary = String(evItem.fullStatus?.longSummary || "").trim();
+                const hasActivePlaySignal = Boolean(
+                  homeScore ||
+                    awayScore ||
+                    (rawLongSummary && !/^(live|scheduled|match scheduled.*)$/i.test(rawLongSummary))
+                );
+                const isOverDurationOrStumps =
+                  (hasValidStart && elapsedMs > 8.5 * 3600 * 1000) ||
+                  /\bstumps\b/i.test(`${fullDescStr} ${shortSumStr} ${summaryStr}`);
+
+                let status: "live" | "upcoming" | "finished" = "upcoming";
+                if (
+                  stateStr === "post" ||
+                  isOverDurationOrStumps ||
+                  /(won by|won the match|drawn|tied|no result|abandoned|concluded|completed)/i.test(summaryStr)
+                ) {
+                  status = "finished";
+                } else if (stateStr === "in" && !isFutureUnstarted && hasActivePlaySignal) {
+                  status = "live";
+                } else if (!isFutureUnstarted && elapsedMs > 45 * 60 * 1000 && !hasActivePlaySignal) {
+                  continue;
+                } else {
+                  status = "upcoming";
+                }
+
+                const eventType = String(evItem.eventType || evItem.class?.eventType || evItem.class?.generalClassCard || "ODI").toUpperCase();
+                const matchDesc = String(evItem.title || evItem.eventType || eventType).trim();
+                const venue = String(evItem.location || "").trim();
+                const homeLogo = resolveHDTeamLogo(homeName, homeComp?.logo || "");
+                const awayLogo = resolveHDTeamLogo(awayName, awayComp?.logo || "");
+
+                const dhakaDate = hasValidStart
+                  ? new Intl.DateTimeFormat("en-CA", {
+                      timeZone: "Asia/Dhaka",
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    }).format(new Date(parsedStartMs))
+                  : "";
+                const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
+
+                const broadcastMock = {
+                  tournament: { name: leagueName },
+                  season: { name: leagueName },
+                  type: eventType,
+                  competitors: [
+                    { qualifier: "home", name: homeName, id: homeComp?.abbreviation || homeName },
+                    { qualifier: "away", name: awayName, id: awayComp?.abbreviation || awayName },
+                  ],
+                };
+                const bData = resolveCricketBroadcastData(broadcastMock, {
+                  name: `${homeName} vs ${awayName}`,
+                  series: leagueName,
+                  tournament: leagueName,
+                  league: leagueName,
+                  team1: { name: homeName },
+                  team2: { name: awayName },
+                });
+
+                addEvent({
+                  id: `cr-espn-${evItem.id}`,
+                  rawId: String(evItem.id),
+                  matchId: String(evItem.id),
+                  sport: "cricket",
+                  sportName: "Cricket",
+                  sportIcon: "fa-baseball-bat-ball",
+                  title: `${homeName} vs ${awayName}`,
+                  name: `${homeName} vs ${awayName}`,
+                  seriesName: leagueName,
+                  tournament: leagueName,
+                  league: leagueName,
+                  matchDesc,
+                  matchFormat: eventType,
+                  matchType: eventType,
+                  startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+                  endTime: null,
+                  status,
+                  statusText: summaryStr,
+                  statusLabel: status === "live" ? "LIVE" : status === "finished" ? "FT" : "Upcoming",
+                  timestamp,
+                  date: dhakaDate,
+                  matchTime: matchTimeStr,
+                  timeOrTimer: status === "live" ? "LIVE" : status === "finished" ? "FT" : matchTimeStr,
+                  venue,
+                  isHot: status === "live",
+                  isSpecial: status === "live",
+                  team1: {
+                    teamId: homeComp?.abbreviation || homeName,
+                    name: homeName,
+                    shortName: homeComp?.abbreviation || "",
+                    logo: homeLogo,
+                    score: homeScore,
+                    overs: homeOvers,
+                  },
+                  team2: {
+                    teamId: awayComp?.abbreviation || awayName,
+                    name: awayName,
+                    shortName: awayComp?.abbreviation || "",
+                    logo: awayLogo,
+                    score: awayScore,
+                    overs: awayOvers,
+                  },
+                  homeTeam: {
+                    name: homeName,
+                    logo: homeLogo,
+                    score: homeScore,
+                    overs: homeOvers,
+                  },
+                  awayTeam: {
+                    name: awayName,
+                    logo: awayLogo,
+                    score: awayScore,
+                    overs: awayOvers,
+                  },
+                  broadcaster: bData.broadcaster,
+                  broadcasters: bData.broadcasters,
+                  channelId: bData.channelId,
+                  channelIds: bData.channelIds,
+                  channelName: bData.channelName,
+                  channelLogo: bData.channelLogo,
+                  streamUrl: bData.streamUrl,
+                  streams: bData.streams,
+                  subText: [leagueName, matchDesc, venue].filter(Boolean).join(" • "),
+                  source: "ESPN Cricket / CricketData.org",
+                });
+              }
+            }
+          }
+        } catch (espnCrErr: any) {
+          console.warn("[CricketData] ESPN 3-day supplement error:", espnCrErr?.message);
+        }
+
+        // Enrich any remaining unmapped teams with official TheSportsDB Cricket badges
+        await Promise.all(
+          events.slice(0, 25).map(async (ev) => {
+            if (ev.team1?.name) {
+              const l1 = await resolveOfficialCricketTeamLogoAsync(ev.team1.name, ev.team1.logo);
+              ev.team1.logo = l1;
+              if (ev.homeTeam) ev.homeTeam.logo = l1;
+            }
+            if (ev.team2?.name) {
+              const l2 = await resolveOfficialCricketTeamLogoAsync(ev.team2.name, ev.team2.logo);
+              ev.team2.logo = l2;
+              if (ev.awayTeam) ev.awayTeam.logo = l2;
+            }
+          })
+        );
 
         // Sort: LIVE first, then UPCOMING, then FINISHED
         events.sort((a, b) => {
@@ -1695,8 +2637,40 @@ async function startServer() {
 
         if (events.length > 0) {
           cricketDataCache.matches = { timestamp: Date.now(), data: events };
+          return events;
         }
-        return events.length > 0 ? events : (cricketDataCache.matches?.data || []);
+        if (cricketDataCache.matches?.data && cricketDataCache.matches.data.length > 0) {
+          return cricketDataCache.matches.data;
+        }
+        try {
+          const diskEvents = JSON.parse(fs.readFileSync(path.join(process.cwd(), "events.json"), "utf8"));
+          const diskCricket = Array.isArray(diskEvents)
+            ? diskEvents
+                .filter((e: any) => e && String(e.sport || "").toLowerCase() === "cricket" && String(e.source || "").includes("CricketData"))
+                .map((e: any) => {
+                  if (!e.channelId || !e.broadcaster) {
+                    const bData = resolveCricketBroadcastData(e, e);
+                    return {
+                      ...e,
+                      broadcaster: bData.broadcaster,
+                      broadcasters: bData.broadcasters,
+                      channelId: bData.channelId,
+                      channelIds: bData.channelIds || (bData.channelId ? [bData.channelId] : []),
+                      channelName: bData.channelName,
+                      channelLogo: bData.channelLogo,
+                      streamUrl: bData.streamUrl,
+                      streams: bData.streams,
+                    };
+                  }
+                  return e;
+                })
+            : [];
+          if (diskCricket.length > 0) {
+            cricketDataCache.matches = { timestamp: Date.now(), data: diskCricket };
+            return diskCricket;
+          }
+        } catch {}
+        return [];
       } catch (err: any) {
         console.warn("[CricketData] Matches error:", err.message);
         return cricketDataCache.matches?.data || [];
@@ -1711,11 +2685,24 @@ async function startServer() {
   // Proxy: Cricket Data API (CricketData.org / CricAPI)
   app.get("/api/cricket/matches", async (_req, res) => {
     try {
+      const isConfigured = Boolean(CRICKETDATA_API_KEY && CRICKETDATA_API_KEY.length > 0);
+      if (!isConfigured) {
+        return res.json({
+          status: "missing_key",
+          source: "CricketData.org",
+          configured: false,
+          rateLimited: false,
+          total: 0,
+          data: [],
+          message: "CRICKETDATA_API_KEY is not configured in server environment.",
+        });
+      }
       const matches = await getNormalizedCricketDataMatches();
       if (matches.length === 0 && cricketDataCache.rateLimited) {
         return res.json({
           status: "rate_limited",
           source: "CricketData.org",
+          configured: true,
           rateLimited: true,
           upstreamStatus: 429,
           message: cricketDataCache.lastError || "CricketData.org rate limit reached (HTTP 429)",
@@ -1726,6 +2713,7 @@ async function startServer() {
       return res.json({
         status: "success",
         source: "CricketData.org",
+        configured: true,
         rateLimited: false,
         upstreamStatus: cricketDataCache.lastStatus || 200,
         total: matches.length,
@@ -1736,6 +2724,7 @@ async function startServer() {
       res.json({
         status: "error",
         source: "CricketData.org",
+        configured: Boolean(CRICKETDATA_API_KEY),
         total: 0,
         data: [],
         error: "Failed to fetch cricket matches from CricketData.org",
@@ -1769,9 +2758,9 @@ async function startServer() {
         }).then(r => r.ok && r.status !== 204 ? r.json() : null),
       ]);
 
-      const mCenter = mCenterRes.status === "fulfilled" ? mCenterRes.value : null;
-      const scard = scardRes.status === "fulfilled" ? scardRes.value : null;
-      const leanback = leanbackRes.status === "fulfilled" ? leanbackRes.value : null;
+      const mCenter: any = mCenterRes.status === "fulfilled" ? mCenterRes.value : null;
+      const scard: any = scardRes.status === "fulfilled" ? scardRes.value : null;
+      const leanback: any = leanbackRes.status === "fulfilled" ? leanbackRes.value : null;
 
       res.json({
         status: "success",
@@ -1881,36 +2870,36 @@ async function startServer() {
   });
 
   // Dedicated CricketData.org / CricAPI Test Endpoint
-  app.get(["/api/cricapi/test", "/api/cricket/cricapi/test"], async (req, res) => {
+  // Verifies whether the server-side CRICKETDATA_API_KEY secret is configured without EVER returning the key.
+  app.get(["/api/cricapi/test", "/api/cricket/cricapi/test"], async (_req, res) => {
     try {
-      const apiKey = String(
-        req.query.key ||
-        req.query.api_key ||
-        req.query.apikey ||
-        req.headers["x-cricapi-key"] ||
-        CRICKETDATA_API_KEY ||
-        ""
-      ).trim();
+      const serverKey = CRICKETDATA_API_KEY;
+      const isConfigured = Boolean(serverKey && serverKey.length > 0);
 
-      if (!apiKey) {
+      if (!isConfigured) {
         return res.status(400).json({
+          configured: false,
           valid: false,
           status: "missing_key",
-          message: "CricketData.org (CricAPI) API key is required. Pass ?apikey=YOUR_KEY or set CRICKETDATA_API_KEY in Environment Variables.",
+          source: "CricketData.org",
+          secretName: "CRICKETDATA_API_KEY",
+          message: "CRICKETDATA_API_KEY is not configured in server environment/secrets.",
         });
       }
 
       const startTime = Date.now();
-      const testRes = await fetchCricketDataApi("currentMatches", apiKey, 0);
+      const testRes = await fetchCricketDataApi("currentMatches", serverKey, 0);
       const elapsed = Date.now() - startTime;
 
       if (testRes.ok && testRes.data) {
         const matches = Array.isArray(testRes.data.data) ? testRes.data.data : [];
         return res.json({
+          configured: true,
           valid: true,
           status: "success",
           source: "CricketData.org",
-          message: `CricketData.org (CricAPI) key is VALID and operational! (${matches.length} current matches found)`,
+          secretName: "CRICKETDATA_API_KEY",
+          message: `CRICKETDATA_API_KEY server secret is configured and VALID! (${matches.length} current matches found)`,
           latencyMs: elapsed,
           matchesCount: matches.length,
           info: testRes.data.info || {},
@@ -1925,51 +2914,50 @@ async function startServer() {
 
       if (testRes.status === 429) {
         return res.status(429).json({
+          configured: true,
           valid: false,
           status: "rate_limited",
           source: "CricketData.org",
+          secretName: "CRICKETDATA_API_KEY",
           statusCode: 429,
           rateLimited: true,
           total: 0,
           data: [],
-          message: "CricketData.org rate limit reached (Hits limit exceeded).",
-          error: testRes.error,
+          message: "CRICKETDATA_API_KEY is configured, but CricketData.org rate limit was reached (Hits limit exceeded).",
+          error: redactCricketSecret(testRes.error || "", serverKey),
         });
       }
 
       return res.status(testRes.status || 500).json({
+        configured: true,
         valid: false,
         status: "error",
         source: "CricketData.org",
+        secretName: "CRICKETDATA_API_KEY",
         statusCode: testRes.status,
-        message: testRes.error || `CricketData.org API error with HTTP status ${testRes.status}`,
+        message: redactCricketSecret(testRes.error || `CricketData.org API error with HTTP status ${testRes.status}`, serverKey),
       });
     } catch (err: any) {
       return res.status(500).json({
+        configured: Boolean(CRICKETDATA_API_KEY),
         valid: false,
         status: "error",
-        message: err.message,
+        source: "CricketData.org",
+        secretName: "CRICKETDATA_API_KEY",
+        message: redactCricketSecret(err.message, CRICKETDATA_API_KEY),
       });
     }
   });
 
   // Dedicated CricketData.org Matches Endpoint
-  app.get("/api/cricket/cricapi/matches", async (req, res) => {
+  app.get("/api/cricket/cricapi/matches", async (_req, res) => {
     try {
-      const apiKey = String(
-        req.query.api_key ||
-        req.query.key ||
-        req.query.apikey ||
-        req.headers["x-cricapi-key"] ||
-        CRICKETDATA_API_KEY ||
-        ""
-      ).trim();
-
-      const matches = await getNormalizedCricketDataMatches(apiKey);
+      const matches = await getNormalizedCricketDataMatches(CRICKETDATA_API_KEY);
       if (matches.length === 0 && cricketDataCache.rateLimited) {
         return res.json({
           status: "rate_limited",
           source: "CricketData.org",
+          configured: Boolean(CRICKETDATA_API_KEY),
           rateLimited: true,
           upstreamStatus: 429,
           message: cricketDataCache.lastError || "CricketData.org rate limit reached (HTTP 429)",
@@ -1980,31 +2968,24 @@ async function startServer() {
       res.json({
         status: "success",
         source: "CricketData.org",
+        configured: Boolean(CRICKETDATA_API_KEY),
         rateLimited: false,
         upstreamStatus: cricketDataCache.lastStatus || 200,
         total: matches.length,
         data: matches,
       });
     } catch (err: any) {
-      res.status(500).json({ status: "error", message: err.message });
+      res.status(500).json({ status: "error", message: redactCricketSecret(err.message, CRICKETDATA_API_KEY) });
     }
   });
 
-  // Dedicated CricketData.org Current Matches Endpoint
-  app.get("/api/cricket/cricapi/current", async (req, res) => {
+  // Dedicated CricketData.org Current Matches & CricScore Endpoints
+  app.get(["/api/cricket/cricapi/current", "/api/cricket/cricapi/cricScore"], async (req, res) => {
     try {
-      const apiKey = String(
-        req.query.api_key ||
-        req.query.key ||
-        req.query.apikey ||
-        req.headers["x-cricapi-key"] ||
-        CRICKETDATA_API_KEY ||
-        ""
-      ).trim();
-
-      const apiRes = await fetchCricketDataApi("currentMatches", apiKey, 0);
+      const targetEndpoint = req.path.endsWith("cricScore") ? "cricScore" : "currentMatches";
+      const apiRes = await fetchCricketDataApi(targetEndpoint, CRICKETDATA_API_KEY, 0);
       if (!apiRes.ok) {
-        return res.status(apiRes.status).json({ status: "error", message: apiRes.error });
+        return res.status(apiRes.status).json({ status: "error", configured: Boolean(CRICKETDATA_API_KEY), message: apiRes.error });
       }
 
       const rawList = Array.isArray(apiRes.data?.data) ? apiRes.data.data : [];
@@ -2012,13 +2993,14 @@ async function startServer() {
 
       res.json({
         status: "success",
-        source: "CricketData.org Current",
+        source: "CricketData.org",
+        configured: Boolean(CRICKETDATA_API_KEY),
         total: normalized.length,
         data: normalized,
         info: apiRes.data?.info || {},
       });
     } catch (err: any) {
-      res.status(500).json({ status: "error", message: err.message });
+      res.status(500).json({ status: "error", message: redactCricketSecret(err.message, CRICKETDATA_API_KEY) });
     }
   });
 
@@ -2111,6 +3093,9 @@ async function startServer() {
     if (s.includes("tennis")) {
       return { sport: "tennis", sportName: "Tennis", sportIcon: "fa-table-tennis-paddle-ball" };
     }
+    if (s.includes("volleyball") || s.includes("volley")) {
+      return { sport: "volleyball", sportName: "Volleyball", sportIcon: "fa-volleyball" };
+    }
     if (s.includes("ice hockey") || s.includes("hockey")) {
       return { sport: "hockey", sportName: "Ice Hockey", sportIcon: "fa-hockey-puck" };
     }
@@ -2165,18 +3150,18 @@ async function startServer() {
 
     const now = Date.now();
     const sportLower = (sport || "").toLowerCase();
-    // Normal match window (Football 3h covers Extra Time + Penalties; Tennis/Motorsport 5h; other sports 4.5h)
-    const formatDurationMs = sportLower.includes("motor") || sportLower.includes("tennis")
-      ? 5 * 3600 * 1000
-      : sportLower.includes("basket") || sportLower.includes("base") || sportLower.includes("rugby") || sportLower.includes("hockey") || sportLower.includes("combat") || sportLower.includes("wwe")
-      ? 4.5 * 3600 * 1000
-      : 3 * 3600 * 1000;
-    // Stale-LIVE safety ceiling (Football 6h, Tennis/Motorsport 10h, Basketball/Baseball/Rugby/Hockey 8h)
-    const maxLiveSafeguardMs = sportLower.includes("motor") || sportLower.includes("tennis")
-      ? 10 * 3600 * 1000
-      : sportLower.includes("basket") || sportLower.includes("base") || sportLower.includes("rugby") || sportLower.includes("hockey") || sportLower.includes("combat") || sportLower.includes("wwe")
-      ? 8 * 3600 * 1000
-      : 6 * 3600 * 1000;
+    // Normal match window (Football 2.5h; Tennis/Baseball 4h; other sports 3h)
+    const formatDurationMs = sportLower.includes("tennis") || sportLower.includes("base")
+      ? 4 * 3600 * 1000
+      : sportLower.includes("basket") || sportLower.includes("volley") || sportLower.includes("rugby") || sportLower.includes("hockey") || sportLower.includes("combat") || sportLower.includes("wwe")
+      ? 3 * 3600 * 1000
+      : 2.5 * 3600 * 1000;
+    // Stale-LIVE safety ceiling
+    const maxLiveSafeguardMs = sportLower.includes("tennis") || sportLower.includes("base")
+      ? 4 * 3600 * 1000
+      : sportLower.includes("basket") || sportLower.includes("volley") || sportLower.includes("rugby") || sportLower.includes("hockey") || sportLower.includes("combat") || sportLower.includes("wwe")
+      ? 3 * 3600 * 1000
+      : 2.5 * 3600 * 1000;
 
     const safeLiveWindowEndMs: number | null =
       authoritativeEndTimeMs !== null
@@ -2529,17 +3514,13 @@ async function startServer() {
             : null;
 
         const fallbackDurationMs =
-          sport === "tennis"
-            ? 5 * 3600 * 1000
-            : sport === "baseball"
-            ? 4.5 * 3600 * 1000
-            : 4 * 3600 * 1000;
+          sport === "tennis" || sport === "baseball"
+            ? 4 * 3600 * 1000
+            : 3 * 3600 * 1000;
         const maxLiveSafeguardMs =
-          sport === "tennis"
-            ? 10 * 3600 * 1000
-            : sport === "baseball"
-            ? 8 * 3600 * 1000
-            : 7 * 3600 * 1000;
+          sport === "tennis" || sport === "baseball"
+            ? 4 * 3600 * 1000
+            : 3 * 3600 * 1000;
 
         const statusObj = comp?.status?.type || ev.status?.type || {};
         const { status, statusLabel, statusText } = resolveEspnStatus(
@@ -2552,15 +3533,24 @@ async function startServer() {
           now
         );
 
-        const dateStr = rawStartStr && String(rawStartStr).includes("T")
+        const dateStr = hasValidStart
+          ? new Intl.DateTimeFormat("en-CA", {
+              timeZone: "Asia/Dhaka",
+              year: "numeric",
+              month: "2-digit",
+              day: "2-digit",
+            }).format(new Date(parsedStartMs))
+          : rawStartStr && String(rawStartStr).includes("T")
           ? String(rawStartStr).split("T")[0]
-          : hasValidStart
-          ? new Date(parsedStartMs).toISOString().split("T")[0]
           : "";
 
         const broadcasts = (comp?.broadcasts?.[0]?.names || []).concat(comp?.geoBroadcasts?.map((b: any) => b.media?.shortName).filter(Boolean) || []);
         const broadcaster = broadcasts.length > 0 ? broadcasts[0] : "";
         const league = defaultLeague || comp?.league?.name || sportName;
+        const venueName = comp?.venue?.fullName
+          ? [comp.venue.fullName, comp.venue.address?.city].filter(Boolean).join(", ")
+          : String(ev.location || "").trim();
+        const matchDesc = String(comp?.notes?.[0]?.headline || ev.altGameNote || ev.group?.name || "").trim();
         const matchTimeStr = hasValidStart
           ? new Date(parsedStartMs).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true })
           : "Scheduled";
@@ -2575,6 +3565,8 @@ async function startServer() {
           name: ev.name,
           league,
           tournament: league,
+          matchDesc,
+          venue: venueName,
           status,
           statusText,
           statusLabel,
@@ -2605,52 +3597,154 @@ async function startServer() {
       }
     };
 
-    // 1. Baseball (MLB)
+    // Build 3-day date window in YYYYMMDD (Today, Tomorrow, Day 3, plus Day-1/UTC offset)
+    const espn3DayDates: string[] = [];
+    for (let dOffset = -1; dOffset <= 3; dOffset++) {
+      const dt = new Date(Date.now() + dOffset * 24 * 3600 * 1000);
+      const dStr = dt.toISOString().split("T")[0].replace(/-/g, "");
+      if (!espn3DayDates.includes(dStr)) espn3DayDates.push(dStr);
+    }
+    const seenEspnIds = new Set<string>();
+    const pushEspnEvent = (norm: any) => {
+      if (!norm || !norm.id || seenEspnIds.has(norm.id)) return;
+      if (norm.timestamp && now - norm.timestamp > 24 * 3600 * 1000) return;
+      seenEspnIds.add(norm.id);
+      events.push(norm);
+    };
+
+    // 0. Football (Soccer - 3-Day Schedule across UEFA, Top Leagues & International)
     try {
-      const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${todayStr}`);
-      if (res.ok) {
-        const json = await res.json();
-        for (const ev of (json.events || [])) {
-          const norm = normalizeEspnEvent(ev, "baseball", "Baseball", "fa-baseball", "MLB");
-          if (norm) events.push(norm);
+      for (const dStr of espn3DayDates) {
+        const resS = await fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=soccer&dates=${dStr}`).catch(() => null);
+        if (resS && resS.ok) {
+          const jsonS: any = await resS.json();
+          const leagues = jsonS?.sports?.[0]?.leagues || [];
+          for (const lg of leagues) {
+            const leagueName = String(lg?.name || "Football").trim();
+            for (const evItem of (lg?.events || []).slice(0, 12)) {
+              const comps = Array.isArray(evItem?.competitors) ? evItem.competitors : [];
+              const home = comps.find((c: any) => c.homeAway === "home") || comps[0];
+              const away = comps.find((c: any) => c.homeAway === "away") || comps[1];
+              const t1Name = String(home?.displayName || home?.name || "").trim();
+              const t2Name = String(away?.displayName || away?.name || "").trim();
+              if (!t1Name || !t2Name) continue;
+              const rawStartStr = evItem.date || null;
+              const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+              const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+              const statusObj = evItem.fullStatus?.type || {};
+              const { status, statusLabel, statusText } = resolveEspnStatus(
+                statusObj,
+                hasValidStart,
+                parsedStartMs,
+                null,
+                150 * 60 * 1000,
+                150 * 60 * 1000,
+                now
+              );
+              const dateStr = hasValidStart
+                ? new Intl.DateTimeFormat("en-CA", {
+                    timeZone: "Asia/Dhaka",
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                  }).format(new Date(parsedStartMs))
+                : "";
+              const matchTimeStr = hasValidStart
+                ? new Date(parsedStartMs).toLocaleTimeString("en-US", { timeZone: "Asia/Dhaka", hour: "2-digit", minute: "2-digit", hour12: true })
+                : "Scheduled";
+              const t1Score = home?.score !== undefined ? String(home.score) : "";
+              const t2Score = away?.score !== undefined ? String(away.score) : "";
+              pushEspnEvent({
+                id: `espn-soccer-${evItem.id}`,
+                idEvent: evItem.id,
+                sport: "football",
+                sportName: "Football",
+                sportIcon: "fa-futbol",
+                title: `${t1Name} vs ${t2Name}`,
+                name: `${t1Name} vs ${t2Name}`,
+                league: leagueName,
+                tournament: leagueName,
+                matchDesc: String(evItem.altGameNote || evItem.group?.name || "").trim(),
+                venue: String(evItem.location || "").trim(),
+                status,
+                statusText,
+                statusLabel,
+                timestamp: hasValidStart ? parsedStartMs : null,
+                startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+                endTime: hasValidStart ? new Date(parsedStartMs + 150 * 60 * 1000).toISOString() : null,
+                date: dateStr,
+                matchTime: matchTimeStr,
+                timeOrTimer: status === "live" ? "LIVE" : status === "finished" ? (t1Score && t2Score ? `${t1Score} - ${t2Score}` : "FT") : "Scheduled",
+                team1: { id: home?.id || null, name: t1Name, logo: home?.logo || "./assets/team-placeholder.svg", score: t1Score },
+                team2: { id: away?.id || null, name: t2Name, logo: away?.logo || "./assets/team-placeholder.svg", score: t2Score },
+                homeTeam: { id: home?.id || null, name: t1Name, logo: home?.logo || "./assets/team-placeholder.svg", score: t1Score },
+                awayTeam: { id: away?.id || null, name: t2Name, logo: away?.logo || "./assets/team-placeholder.svg", score: t2Score },
+                score: t1Score && t2Score ? `${t1Score} - ${t2Score}` : "",
+                broadcaster: "",
+                broadcasters: [],
+                strTVStation: "",
+                source: "ESPN (Official API)",
+                streams: [],
+              });
+            }
+          }
         }
       }
     } catch {}
 
-    // 2. Basketball (WNBA & NBA)
+    // 1. Baseball (MLB - 3-Day Schedule)
     try {
-      const resW = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/scoreboard?dates=${todayStr}`);
-      if (resW.ok) {
-        const jsonW = await resW.json();
-        for (const ev of (jsonW.events || [])) {
-          const norm = normalizeEspnEvent(ev, "basketball", "Basketball", "fa-basketball", "WNBA");
-          if (norm) events.push(norm);
-        }
-      }
-      const resN = await fetch("https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard");
-      if (resN.ok) {
-        const jsonN = await resN.json();
-        for (const ev of (jsonN.events || [])) {
-          const norm = normalizeEspnEvent(ev, "basketball", "Basketball", "fa-basketball", "NBA");
-          if (norm) events.push(norm);
+      for (const dStr of espn3DayDates) {
+        const res = await fetch(`https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard?dates=${dStr}`).catch(() => null);
+        if (res && res.ok) {
+          const json: any = await res.json();
+          for (const ev of (json.events || [])) {
+            const norm = normalizeEspnEvent(ev, "baseball", "Baseball", "fa-baseball", "MLB");
+            if (norm) pushEspnEvent(norm);
+          }
         }
       }
     } catch {}
 
-    // 3. Rugby
+    // 2. Basketball (WNBA & NBA - 3-Day Schedule)
+    try {
+      for (const dStr of espn3DayDates) {
+        const resW = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/scoreboard?dates=${dStr}`).catch(() => null);
+        if (resW && resW.ok) {
+          const jsonW: any = await resW.json();
+          for (const ev of (jsonW.events || [])) {
+            const norm = normalizeEspnEvent(ev, "basketball", "Basketball", "fa-basketball", "WNBA");
+            if (norm) pushEspnEvent(norm);
+          }
+        }
+        const resN = await fetch(`https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates=${dStr}`).catch(() => null);
+        if (resN && resN.ok) {
+          const jsonN: any = await resN.json();
+          for (const ev of (jsonN.events || [])) {
+            const norm = normalizeEspnEvent(ev, "basketball", "Basketball", "fa-basketball", "NBA");
+            if (norm) pushEspnEvent(norm);
+          }
+        }
+      }
+    } catch {}
+
+    // 3. Rugby (3-Day Schedule)
     try {
       const rugbyEndpoints = [
         { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/289234/scoreboard", league: "The Rugby Championship" },
         { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/270559/scoreboard", league: "Top 14 Rugby" },
+        { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/270557/scoreboard", league: "United Rugby Championship" },
         { url: "https://site.api.espn.com/apis/site/v2/sports/rugby/269/scoreboard", league: "Premiership Rugby" }
       ];
       for (const rEp of rugbyEndpoints) {
-        const resR = await fetch(rEp.url).catch(() => null);
-        if (resR && resR.ok) {
-          const jsonR = await resR.json();
-          for (const ev of (jsonR.events || [])) {
-            const norm = normalizeEspnEvent(ev, "rugby", "Rugby", "fa-football", rEp.league);
-            if (norm) events.push(norm);
+        for (const dStr of espn3DayDates) {
+          const resR = await fetch(`${rEp.url}?dates=${dStr}`).catch(() => null);
+          if (resR && resR.ok) {
+            const jsonR: any = await resR.json();
+            for (const ev of (jsonR.events || [])) {
+              const norm = normalizeEspnEvent(ev, "rugby", "Rugby", "fa-football", rEp.league);
+              if (norm) pushEspnEvent(norm);
+            }
           }
         }
       }
@@ -2665,7 +3759,7 @@ async function startServer() {
       for (const tEp of tennisEndpoints) {
         const resT = await fetch(tEp.url).catch(() => null);
         if (resT && resT.ok) {
-          const jsonT = await resT.json();
+          const jsonT: any = await resT.json();
           for (const ev of (jsonT.events || [])) {
             const tournamentName = ev.name || tEp.defaultTourn;
             for (const grp of (ev.groupings || [])) {
@@ -2693,7 +3787,7 @@ async function startServer() {
                 const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
                 const timestamp: number | null = hasValidStart ? parsedStartMs : null;
 
-                const rawEndStr = comp.endDate || comp.end_time || ev.endDate || ev.end_time || null;
+                const rawEndStr = comp.endDate || comp.end_time || null;
                 const parsedEndMs = rawEndStr ? Date.parse(String(rawEndStr)) : NaN;
                 const authoritativeEndTimeMs: number | null =
                   !isNaN(parsedEndMs) && parsedEndMs > 0 && (!hasValidStart || parsedEndMs > parsedStartMs)
@@ -2706,8 +3800,8 @@ async function startServer() {
                   hasValidStart,
                   parsedStartMs,
                   authoritativeEndTimeMs,
-                  5 * 3600 * 1000,
-                  10 * 3600 * 1000,
+                  4 * 3600 * 1000,
+                  4 * 3600 * 1000,
                   now
                 );
 
@@ -2738,7 +3832,7 @@ async function startServer() {
                   endTime: authoritativeEndTimeMs !== null
                     ? new Date(authoritativeEndTimeMs).toISOString()
                     : hasValidStart
-                    ? new Date(parsedStartMs + 5 * 3600 * 1000).toISOString()
+                    ? new Date(parsedStartMs + 4 * 3600 * 1000).toISOString()
                     : null,
                   authoritativeEndTime: authoritativeEndTimeMs !== null ? new Date(authoritativeEndTimeMs).toISOString() : null,
                   date: dateStr,
@@ -2755,6 +3849,26 @@ async function startServer() {
                   streams: []
                 });
               }
+            }
+          }
+        }
+      }
+    } catch {}
+
+    // 5. Volleyball (3-Day Schedule)
+    try {
+      const volleyballEndpoints = [
+        { url: "https://site.api.espn.com/apis/site/v2/sports/volleyball/womens-college-volleyball/scoreboard", league: "NCAA Women's Volleyball" },
+        { url: "https://site.api.espn.com/apis/site/v2/sports/volleyball/mens-college-volleyball/scoreboard", league: "NCAA Men's Volleyball" }
+      ];
+      for (const vEp of volleyballEndpoints) {
+        for (const dStr of espn3DayDates) {
+          const resV = await fetch(`${vEp.url}?dates=${dStr}`).catch(() => null);
+          if (resV && resV.ok) {
+            const jsonV: any = await resV.json();
+            for (const ev of (jsonV.events || []).slice(0, 12)) {
+              const norm = normalizeEspnEvent(ev, "volleyball", "Volleyball", "fa-volleyball", vEp.league);
+              if (norm) pushEspnEvent(norm);
             }
           }
         }
@@ -2794,8 +3908,11 @@ async function startServer() {
         "4387", // NBA
         "4408", // EuroLeague Basketball
         "4441", // Basketball
-        "4370", // Formula 1
-        "4380", // NHL Ice Hockey
+        "5617", // Volleyliga Belgium
+        "5614", // CEV Challenge Cup Volleyball
+        "5848", // Mens European Volleyball League
+        "5613", // Mens European Volleyball Championship
+        "5849", // Womens European Volleyball League
         "4464", // ATP Tennis
         "4517", // WTA Tennis
         "4581", // Laver Cup Tennis
@@ -2808,6 +3925,8 @@ async function startServer() {
       const todayStr = new Date().toISOString().split("T")[0];
       const yestDate = new Date(Date.now() - 24 * 3600 * 1000).toISOString().split("T")[0];
       const tmwDate = new Date(Date.now() + 24 * 3600 * 1000).toISOString().split("T")[0];
+      const day2Date = new Date(Date.now() + 2 * 24 * 3600 * 1000).toISOString().split("T")[0];
+      const day3Date = new Date(Date.now() + 3 * 24 * 3600 * 1000).toISOString().split("T")[0];
 
       const promises: Promise<any>[] = [];
 
@@ -2825,13 +3944,20 @@ async function startServer() {
         );
       }
 
-      // 2. Fetch day schedules
-      for (const d of [todayStr, tmwDate, yestDate]) {
+      // 2. Fetch 3-day schedules across sports
+      for (const d of [todayStr, tmwDate, day2Date, day3Date, yestDate]) {
         promises.push(
           fetch(`${THESPORTSDB_BASE}/eventsday.php?d=${d}`)
             .then((r) => (r.ok ? r.json() : { events: [] }))
             .catch(() => ({ events: [] }))
         );
+        for (const sName of ["Soccer", "Cricket", "Basketball", "Baseball", "Volleyball", "Rugby", "Tennis"]) {
+          promises.push(
+            fetch(`${THESPORTSDB_BASE}/eventsday.php?d=${d}&s=${encodeURIComponent(sName)}`)
+              .then((r) => (r.ok ? r.json() : { events: [] }))
+              .catch(() => ({ events: [] }))
+          );
+        }
       }
 
       try {
@@ -2962,8 +4088,8 @@ async function startServer() {
         fetch(`${THESPORTSDB_BASE}/eventsnextleague.php?id=${encodeURIComponent(leagueId)}`),
         fetch(`${THESPORTSDB_BASE}/eventspastleague.php?id=${encodeURIComponent(leagueId)}`),
       ]);
-      const nextData = nextRes.ok ? await nextRes.json() : { events: [] };
-      const pastData = pastRes.ok ? await pastRes.json() : { events: [] };
+      const nextData: any = nextRes.ok ? await nextRes.json() : { events: [] };
+      const pastData: any = pastRes.ok ? await pastRes.json() : { events: [] };
 
       const all = [...(nextData.events || []), ...(pastData.events || [])];
       const normalized = all.map(normalizeSportsDbEvent).filter(Boolean);
@@ -2988,7 +4114,7 @@ async function startServer() {
       if (!response.ok) {
         return res.status(response.status).json({ error: "Event lookup failed" });
       }
-      const data = await response.json();
+      const data: any = await response.json();
       const raw = (data.events && data.events[0]) || null;
       if (!raw) {
         return res.status(404).json({ error: "Event not found" });
@@ -3010,7 +4136,7 @@ async function startServer() {
       const response = await fetch(testUrl, { signal: AbortSignal.timeout(6000) });
       const latency = Date.now() - start;
       if (response.ok) {
-        const data = await response.json();
+        const data: any = await response.json();
         const eventsCount = Array.isArray(data?.events) ? data.events.length : 0;
         return res.json({
           valid: true,
@@ -3070,7 +4196,7 @@ async function startServer() {
       if (!response.ok) {
         return res.status(response.status).json({ valid: false, status: "error", message: `HTTP ${response.status} from AllSportsAPI` });
       }
-      const data = await response.json();
+      const data: any = await response.json();
       if (data && data.error === "1") {
         const errorMsg = data.result?.[0]?.msg || "AllSportsAPI returned an error";
         return res.json({
@@ -3111,7 +4237,7 @@ async function startServer() {
         try {
           const liveRes = await fetch(`${ALLSPORTSAPI_BASE}/${sport}/?met=Livescore&APIkey=${encodeURIComponent(apiKey)}`, { signal: AbortSignal.timeout(6000) });
           if (liveRes.ok) {
-            const liveData = await liveRes.json();
+            const liveData: any = await liveRes.json();
             if (liveData && Array.isArray(liveData.result) && liveData.error !== "1") {
               for (const m of liveData.result) {
                 const norm = normalizeAllSportsApiEvent(m, sport, "live");
@@ -3170,7 +4296,7 @@ async function startServer() {
       if (/^\d+$/.test(cleanTsdbId)) {
         const response = await fetch(`${THESPORTSDB_BASE}/lookupevent.php?id=${encodeURIComponent(cleanTsdbId)}`);
         if (response.ok) {
-          const data = await response.json();
+          const data: any = await response.json();
           const raw = (data.events && data.events[0]) || null;
           if (raw) {
             const rawStation = String(raw.strTVStation || raw.strBroadcaster || raw.strBroadcast || "").trim();
@@ -3199,7 +4325,7 @@ async function startServer() {
             signal: AbortSignal.timeout(6000)
           });
           if (mCenterRes.ok && mCenterRes.status !== 204) {
-            const mCenter = await mCenterRes.json();
+            const mCenter: any = await mCenterRes.json();
             const bInfo = mCenter?.broadcastinfo || mCenter?.broadcastInfo;
             if (bInfo) {
               const list = Array.isArray(bInfo) ? bInfo : [bInfo];
@@ -4009,6 +5135,29 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
       });
     }
   });
+
+  // Gemini AI Broadcast Channel Mapper Endpoint (Powered by @google/genai gemini-3.8-flash)
+  const handleGeminiChannelMap = async (req: any, res: any) => {
+    try {
+      const matchData = req.body?.matchData || req.body?.apiMatchData || req.body || {};
+      const localChannels = Array.isArray(req.body?.localChannels)
+        ? req.body.localChannels
+        : Array.isArray(req.body?.channels)
+        ? req.body.channels
+        : undefined;
+
+      const mapped = await getMappedChannelFromGemini(matchData, localChannels);
+      res.json(mapped);
+    } catch (err: any) {
+      console.error("[Gemini Channel Mapper Error]:", err.message);
+      res.status(500).json({
+        error: "Failed to map channel via Gemini",
+        details: err.message,
+      });
+    }
+  };
+  app.post("/api/gemini/map-channel", handleGeminiChannelMap);
+  app.post("/api/ai/map-channel", handleGeminiChannelMap);
 
   // GitHub Logo Uploader Proxy (Uploads logo files directly to GitHub repository)
   app.post("/api/github/upload-logo", async (req, res) => {

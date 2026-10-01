@@ -7,10 +7,10 @@
 class TheSportsDBEngine {
   constructor() {
     this.storageKey = 'highfy_thesportsdb_key';
-    this.cacheKey = 'highfy_thesportsdb_cache';
+    this.cacheKey = 'highfy_thesportsdb_cache_v26';
     this.cache = {
       timestamp: 0,
-      ttl: 15 * 60 * 1000, // 15 minutes client cache to preserve free quota
+      ttl: 2 * 60 * 1000, // 2 minutes client cache
       data: []
     };
     this.detailsCache = new Map();
@@ -27,8 +27,13 @@ class TheSportsDBEngine {
       if (stored) {
         const parsed = JSON.parse(stored);
         if (parsed && Array.isArray(parsed.data) && parsed.data.length > 0) {
+          const now = Date.now();
           this.cache.timestamp = parsed.timestamp || 0;
-          this.cache.data = parsed.data;
+          this.cache.data = parsed.data.filter(ev => {
+            if (!ev) return false;
+            const ts = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+            return !ts || (now - ts <= 24 * 3600 * 1000);
+          });
         }
       }
     } catch (e) {}
@@ -148,6 +153,9 @@ class TheSportsDBEngine {
     }
     if (s.includes('tennis')) {
       return { sport: 'tennis', sportName: 'Tennis', sportIcon: 'fa-table-tennis-paddle-ball' };
+    }
+    if (s.includes('volleyball') || s.includes('volley')) {
+      return { sport: 'volleyball', sportName: 'Volleyball', sportIcon: 'fa-volleyball' };
     }
     if (s.includes('ice hockey') || s.includes('hockey')) {
       return { sport: 'hockey', sportName: 'Ice Hockey', sportIcon: 'fa-hockey-puck' };
@@ -321,139 +329,156 @@ class TheSportsDBEngine {
 
     this.inFlightPromise = (async () => {
       try {
-        // 1. Try Backend Proxy First
-        const apiBase = window.CONFIG?.API_BASE_URL || '';
-        const res = await fetch(`${apiBase}/api/thesportsdb/events`);
-        if (res.ok) {
-          const json = await res.json();
-          if (json && Array.isArray(json.data) && json.data.length > 0) {
-            this.saveLocalCache(json.data, Date.now());
-            return {
-              configured: true,
-              source: 'TheSportsDB (Free)',
-              events: json.data
-            };
+        try {
+          // 1. Try Backend Proxy First
+          const apiBase = window.CONFIG?.API_BASE_URL || '';
+          const res = await fetch(`${apiBase}/api/thesportsdb/events`);
+          if (res.ok) {
+            const json = await res.json();
+            if (json && Array.isArray(json.data) && json.data.length > 0) {
+              this.saveLocalCache(json.data, Date.now());
+              return {
+                configured: true,
+                source: 'TheSportsDB (Free)',
+                events: json.data
+              };
+            }
           }
+        } catch (e) {
+          console.warn('[TheSportsDB] Backend proxy notice:', e.message);
         }
-      } catch (e) {
-        console.warn('[TheSportsDB] Backend proxy notice:', e.message);
-      }
 
-      // 2. Direct Fallback to TheSportsDB Free Public Endpoint (Key: 3) & Seed Data Merge
-      // First load base authentic multi-sport seed from events.json
-      let baseEvents = [];
-      try {
-        const evRes = await fetch('./events.json');
-        if (evRes.ok) {
-          const evJson = await evRes.json();
-          if (Array.isArray(evJson) && evJson.length > 0) {
-            baseEvents = evJson.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
+        // 2. Direct Fallback to TheSportsDB Free Public Endpoint (Key: 3) & Seed Data Merge
+        // First load base authentic multi-sport seed from events.json
+        let baseEvents = [];
+        try {
+          const evRes = await fetch('./events.json');
+          if (evRes.ok) {
+            const evJson = await evRes.json();
+            if (Array.isArray(evJson) && evJson.length > 0) {
+              baseEvents = evJson.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
+            }
           }
-        }
-      } catch (_) {}
+        } catch (_) {}
 
-      try {
-        console.log('[TheSportsDB] Fetching directly from Free TheSportsDB endpoint...');
-        const baseUrl = this.getBaseUrl();
-        const topLeagueIds = [
-          '4328', // Premier League
-          '4335', // La Liga
-          '4332', // Serie A
-          '4331', // Bundesliga
-          '4334', // Ligue 1
-          '4480', // Champions League
-          '4481', // Europa League
-          '4427', // UEFA Nations League
-          '4906', // Saudi Pro League
-          '4346', // MLS
-          '4424', // MLB Baseball
-          '4387', // NBA Basketball
-          '4408', // EuroLeague Basketball
-          '4441', // Basketball / BBL
-          '4370', // Formula 1
-          '4380', // NHL Ice Hockey
-          '4464', // ATP Tennis
-          '4517', // WTA Tennis
-          '4581', // Laver Cup Tennis
-          '4466', // Grand Slam Tennis (US Open)
-          '4467', // Wimbledon
-          '4414', // Rugby Premiership
-          '4417', // NRL Rugby
-          '4885', // International Cricket Tours
-          '4886', // ICC T20 World Cup
-          '4443', // ICC Cricket World Cup / UFC
-          '4444', // ICC Champions Trophy
-          '4442', // Indian Premier League (IPL)
-          '4887', // Big Bash League (BBL)
-          '4888'  // Pakistan Super League (PSL)
-        ];
-        const promises = [];
+        try {
+          console.log('[TheSportsDB] Fetching directly from Free TheSportsDB endpoint...');
+          const baseUrl = this.getBaseUrl();
+          const topLeagueIds = [
+            '4328', // Premier League
+            '4335', // La Liga
+            '4332', // Serie A
+            '4331', // Bundesliga
+            '4334', // Ligue 1
+            '4480', // Champions League
+            '4481', // Europa League
+            '4427', // UEFA Nations League
+            '4906', // Saudi Pro League
+            '4346', // MLS
+            '4424', // MLB Baseball
+            '4387', // NBA Basketball
+            '4408', // EuroLeague Basketball
+            '4441', // Basketball / BBL
+            '5617', // Volleyliga Belgium
+            '5614', // CEV Challenge Cup Volleyball
+            '5848', // Mens European Volleyball League
+            '5613', // Mens European Volleyball Championship
+            '5849', // Womens European Volleyball League
+            '4464', // ATP Tennis
+            '4517', // WTA Tennis
+            '4581', // Laver Cup Tennis
+            '4466', // Grand Slam Tennis (US Open)
+            '4467', // Wimbledon
+            '4414', // Rugby Premiership
+            '4417', // NRL Rugby
+            '4885', // International Cricket Tours
+            '4886', // ICC T20 World Cup
+            '4443', // ICC Cricket World Cup / UFC
+            '4444', // ICC Champions Trophy
+            '4442', // Indian Premier League (IPL)
+            '4887', // Big Bash League (BBL)
+            '4888'  // Pakistan Super League (PSL)
+          ];
+          const promises = [];
 
-        for (const id of topLeagueIds) {
-          promises.push(
-            fetch(`${baseUrl}/eventsnextleague.php?id=${id}`)
-              .then(r => r.ok ? r.json() : { events: [] })
-              .catch(() => ({ events: [] }))
-          );
-          promises.push(
-            fetch(`${baseUrl}/eventspastleague.php?id=${id}`)
-              .then(r => r.ok ? r.json() : { events: [] })
-              .catch(() => ({ events: [] }))
-          );
-        }
-
-        const results = await Promise.allSettled(promises);
-        const eventMap = new Map();
-
-        // Hydrate map with base seed events (Tennis, Basketball, Rugby, Baseball, etc.)
-        for (const ev of baseEvents) {
-          if (ev && ev.id) {
-            eventMap.set(String(ev.id), ev);
+          for (const id of topLeagueIds) {
+            promises.push(
+              fetch(`${baseUrl}/eventsnextleague.php?id=${id}`)
+                .then(r => r.ok ? r.json() : { events: [] })
+                .catch(() => ({ events: [] }))
+            );
+            promises.push(
+              fetch(`${baseUrl}/eventspastleague.php?id=${id}`)
+                .then(r => r.ok ? r.json() : { events: [] })
+                .catch(() => ({ events: [] }))
+            );
           }
-        }
 
-        for (const r of results) {
-          if (r.status === 'fulfilled' && r.value && Array.isArray(r.value.events)) {
-            for (const raw of r.value.events) {
-              if (raw && raw.idEvent) {
-                const norm = this.normalizeEvent(raw);
-                if (norm) {
-                  eventMap.set(String(norm.id), norm);
+          // Also fetch 3-day schedules across sports (Today, Tomorrow, Day 3)
+          for (let dOffset = 0; dOffset <= 2; dOffset++) {
+            const dIso = new Date(Date.now() + dOffset * 24 * 3600 * 1000).toISOString().split('T')[0];
+            for (const sName of ['Soccer', 'Cricket', 'Basketball', 'Baseball', 'Volleyball', 'Rugby', 'Tennis']) {
+              promises.push(
+                fetch(`${baseUrl}/eventsday.php?d=${dIso}&s=${encodeURIComponent(sName)}`)
+                  .then(r => r.ok ? r.json() : { events: [] })
+                  .catch(() => ({ events: [] }))
+              );
+            }
+          }
+
+          const results = await Promise.allSettled(promises);
+          const eventMap = new Map();
+
+          // Hydrate map with base seed events (Tennis, Basketball, Rugby, Baseball, etc.)
+          for (const ev of baseEvents) {
+            if (ev && ev.id) {
+              eventMap.set(String(ev.id), ev);
+            }
+          }
+
+          for (const r of results) {
+            if (r.status === 'fulfilled' && r.value && Array.isArray(r.value.events)) {
+              for (const raw of r.value.events) {
+                if (raw && raw.idEvent) {
+                  const norm = this.normalizeEvent(raw);
+                  if (norm) {
+                    eventMap.set(String(norm.id), norm);
+                  }
                 }
               }
             }
           }
+
+          const events = Array.from(eventMap.values());
+          if (events.length > 0) {
+            this.saveLocalCache(events, Date.now());
+            return {
+              configured: true,
+              source: 'TheSportsDB (Free & Seed)',
+              events: events
+            };
+          }
+        } catch (e) {
+          console.warn('[TheSportsDB] Direct fetch failed:', e.message);
         }
 
-        const events = Array.from(eventMap.values());
-        if (events.length > 0) {
-          this.saveLocalCache(events, Date.now());
+        if (baseEvents.length > 0) {
+          this.saveLocalCache(baseEvents, Date.now());
           return {
             configured: true,
-            source: 'TheSportsDB (Free & Seed)',
-            events: events
+            source: 'TheSportsDB (Seed)',
+            events: baseEvents
           };
         }
-      } catch (e) {
-        console.warn('[TheSportsDB] Direct fetch failed:', e.message);
+
+        return {
+          configured: true,
+          source: 'TheSportsDB',
+          events: this.cache.data || []
+        };
       } finally {
         this.inFlightPromise = null;
       }
-
-      if (baseEvents.length > 0) {
-        this.saveLocalCache(baseEvents, Date.now());
-        return {
-          configured: true,
-          source: 'TheSportsDB (Seed)',
-          events: baseEvents
-        };
-      }
-
-      return {
-        configured: true,
-        source: 'TheSportsDB',
-        events: this.cache.data || []
-      };
     })();
 
     return this.inFlightPromise;

@@ -687,6 +687,22 @@
    */
   function sanitizeStorageQuota() {
     try {
+      // Purge obsolete event caches so stale 45h cards are never hydrated from browser storage
+      [
+        'highfy_coordinator_events_v23',
+        'highfy_coordinator_events_v24',
+        'highfy_coordinator_events_v25',
+        'highfy_coordinator_events_v26',
+        'highfy_event_channel_map_v3',
+        'highfy_cricket_events_cache_v23',
+        'highfy_cricket_events_cache_v24',
+        'highfy_cricket_events_cache_v25',
+        'highfy_thesportsdb_cache_v23',
+        'highfy_thesportsdb_cache_v24',
+        'highfy_thesportsdb_cache_v25'
+      ].forEach(k => {
+        try { localStorage.removeItem(k); } catch (_) {}
+      });
       const sportsLogos = state.customSportsCategoryLogos;
       if (sportsLogos && typeof sportsLogos === 'object') {
         for (const [key, val] of Object.entries(sportsLogos)) {
@@ -765,7 +781,10 @@
     }
 
     // Fast initial load using cached/seeded events for instant startup (<300ms)
-    await loadSportsEvents(false);
+    if (DOM.refreshIcon) {
+      DOM.refreshIcon.classList.remove('animate-spin', 'fa-spin');
+    }
+    await loadSportsEvents(false, false);
     updatePreloader(100, 'Starting Live Engine...');
 
     // Smoothly hide preloader immediately so user gets an ultra-responsive UI
@@ -775,22 +794,25 @@
     startAutoRefresh();
     startCountdownTimer();
 
-    // Trigger fresh live sports sync in background after UI renders
+    // Trigger fresh live sports sync silently in background after UI renders (never spin header refresh icon on startup)
     setTimeout(() => {
-      loadSportsEvents(true).catch(() => {});
+      loadSportsEvents(false, true).catch(() => {});
     }, 1200);
   }
 
   /**
    * Fetch All Sports Events via sportsCoordinator
    */
-  async function loadSportsEvents(isManualRefresh = false) {
+  let refreshSpinTimer = null;
+  async function loadSportsEvents(isManualRefresh = false, forceSilentRefresh = false) {
     refreshDOM();
+    const shouldForceRefresh = Boolean(isManualRefresh || forceSilentRefresh);
 
     // Guard against spam clicking manual refresh (minimum 10s cooldown)
     if (isManualRefresh) {
       const now = Date.now();
       if (now - lastManualRefreshTime < 10000 && state.events.length > 0) {
+        if (DOM.refreshIcon) DOM.refreshIcon.classList.remove('animate-spin', 'fa-spin');
         showToast('Scores are already up to date');
         return;
       }
@@ -798,7 +820,14 @@
     }
 
     if (isManualRefresh && DOM.refreshIcon) {
+      if (refreshSpinTimer) clearTimeout(refreshSpinTimer);
       DOM.refreshIcon.classList.add('animate-spin');
+      // Strict safety bound: never allow header refresh icon to spin longer than 1.5s
+      refreshSpinTimer = setTimeout(() => {
+        if (DOM.refreshIcon) DOM.refreshIcon.classList.remove('animate-spin', 'fa-spin');
+      }, 1500);
+    } else if (!isManualRefresh && DOM.refreshIcon) {
+      DOM.refreshIcon.classList.remove('animate-spin', 'fa-spin');
     }
 
     // If initial load and empty, show loading skeleton
@@ -816,7 +845,7 @@
       console.log('[HighFy] Fetching events via sportsCoordinator...');
       if (window.sportsCoordinator) {
         // Enforce 6s race timeout to prevent slow network from freezing UI
-        const fetchPromise = window.sportsCoordinator.fetchAllEvents(isManualRefresh);
+        const fetchPromise = window.sportsCoordinator.fetchAllEvents(shouldForceRefresh);
         const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(window.sportsCoordinator.events || []), 6000));
         state.events = await Promise.race([fetchPromise, timeoutPromise]);
       } else {
@@ -925,8 +954,18 @@
       console.error('[HighFy] Error loading sports events:', err);
       state.events = [];
     } finally {
-      if (isManualRefresh && DOM.refreshIcon) {
-        setTimeout(() => DOM.refreshIcon.classList.remove('animate-spin'), 600);
+      if (DOM.refreshIcon) {
+        if (isManualRefresh) {
+          setTimeout(() => {
+            if (refreshSpinTimer) {
+              clearTimeout(refreshSpinTimer);
+              refreshSpinTimer = null;
+            }
+            if (DOM.refreshIcon) DOM.refreshIcon.classList.remove('animate-spin', 'fa-spin');
+          }, 500);
+        } else {
+          DOM.refreshIcon.classList.remove('animate-spin', 'fa-spin');
+        }
       }
     }
 
@@ -959,7 +998,7 @@
   function isAppEventFinished(ev) {
     if (!ev) return false;
     if (window.sportsCoordinator && typeof window.sportsCoordinator.isEventFinished === 'function') {
-      return window.sportsCoordinator.isEventFinished(ev);
+      if (window.sportsCoordinator.isEventFinished(ev)) return true;
     }
     const status = String(ev.status || '').toLowerCase().trim();
     if (
@@ -990,47 +1029,163 @@
       String(ev.result || '') + ' ' +
       String(ev.time || '')
     ).toLowerCase();
-    if (/(^|\b)(won by|won the|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|full time|final score|winner)(\b|$)/i.test(text)) {
+    if (/(^|\b)(won by|won the match|match won|match tied|match drawn|match ended|no result|abandoned|concluded|completed|full time|final score|winner|stumps)(\b|$)/i.test(text)) {
       return true;
     }
-    if (ev.timestamp && typeof ev.timestamp === 'number') {
+    let rawTs = (ev.timestamp && typeof ev.timestamp === 'number') ? ev.timestamp : 0;
+    if (!rawTs && (ev.startTime || ev.date)) {
+      let s = String(ev.startTime || ev.date).trim();
+      if (!s.includes('T') && /^\d{4}-\d{2}-\d{2}$/.test(s)) {
+        s = `${s}T12:00:00Z`;
+      } else if (!s.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(s)) {
+        s = s.replace(' ', 'T') + 'Z';
+      }
+      const parsed = Date.parse(s);
+      if (!isNaN(parsed)) rawTs = parsed;
+    }
+    if (rawTs) {
       const now = Date.now();
-      const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+      const ts = rawTs < 10000000000 ? rawTs * 1000 : rawTs;
       const elapsed = now - ts;
       const sp = String(ev.sport || ev.sportName || '').toLowerCase();
       if (elapsed > 0) {
-        if ((sp === 'football' || sp === 'soccer') && elapsed > (135 * 60 * 1000)) return true;
+        if ((sp === 'football' || sp === 'soccer') && elapsed > (150 * 60 * 1000)) return true;
         if (sp === 'cricket') {
-          const fmt = String(ev.matchFormat || ev.matchType || '').toUpperCase();
+          const fmt = String(ev.matchFormat || ev.matchType || ev.tournament || '').toUpperCase();
           if (fmt.includes('T20') && elapsed > (4.5 * 3600 * 1000)) return true;
-          if (fmt.includes('ODI') && elapsed > (9 * 3600 * 1000)) return true;
+          if (elapsed > (8.5 * 3600 * 1000)) return true;
         }
-        if ((sp === 'tennis' || sp === 'basketball') && elapsed > (4 * 3600 * 1000)) return true;
-        if (elapsed > (14 * 3600 * 1000)) return true;
+        if ((sp === 'tennis' || sp === 'baseball') && elapsed > (4 * 3600 * 1000)) return true;
+        if ((sp === 'basketball' || sp === 'volleyball' || sp === 'rugby' || sp === 'wwe') && elapsed > (3 * 3600 * 1000)) return true;
+        if (elapsed > (8.5 * 3600 * 1000)) return true;
+      }
+    } else if (status === 'live') {
+      return true;
+    }
+    return false;
+  }
+
+  function isTodayEv(ev) {
+    if (!ev) return false;
+    const coordinator = window.sportsCoordinator;
+    if (coordinator && typeof coordinator.isEventToday === 'function') {
+      return coordinator.isEventToday(ev);
+    }
+    if ((ev.status || '').toLowerCase() === 'live') return true;
+    if (ev.timestamp && !isNaN(ev.timestamp)) {
+      const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+      const tz = 'Asia/Dhaka';
+      try {
+        const now = new Date();
+        const todayLocal = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+        const evLocal = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ts));
+        if (evLocal === todayLocal) return true;
+
+        const evHour = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', hour12: false }).format(new Date(ts)), 10);
+        const [evY, evM, evD] = evLocal.split(/[-/]/).map(Number);
+        const [nowY, nowM, nowD] = todayLocal.split(/[-/]/).map(Number);
+        const evDateOnly = new Date(Date.UTC(evY, evM - 1, evD));
+        const nowDateOnly = new Date(Date.UTC(nowY, nowM - 1, nowD));
+        const dayDiff = Math.round((evDateOnly.getTime() - nowDateOnly.getTime()) / (24 * 3600 * 1000));
+
+        if (dayDiff === 1 && evHour < 6) return true;
+      } catch (e) {
+        const d = new Date(ts);
+        if (d.toDateString() === (new Date()).toDateString()) return true;
       }
     }
     return false;
   }
+
+  function isWithin3Days(ev) {
+    if (!ev) return false;
+    const coordinator = window.sportsCoordinator;
+    if (coordinator && typeof coordinator.isEventWithin3Days === 'function') {
+      return coordinator.isEventWithin3Days(ev);
+    }
+    const status = (ev.status || '').toLowerCase().trim();
+    if (status === 'live') return true;
+    if (isTodayEv(ev)) return true;
+
+    const tz = 'Asia/Dhaka';
+    const now = new Date();
+    let todayLocalStr = '';
+    try {
+      todayLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
+    } catch (e) {
+      todayLocalStr = now.toISOString().split('T')[0];
+    }
+    const [nowY, nowM, nowD] = todayLocalStr.split(/[-/]/).map(Number);
+    const startOfToday = new Date(Date.UTC(nowY, nowM - 1, nowD));
+
+    let evDateObj = null;
+    if (ev.timestamp && !isNaN(ev.timestamp)) {
+      const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
+      evDateObj = new Date(ts);
+    } else if (ev.date) {
+      const dStr = String(ev.date).trim();
+      if (dStr.toLowerCase() === 'today') return true;
+      const parts = dStr.split(/[-/]/).map(Number);
+      if (parts.length === 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
+        evDateObj = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2], 12, 0, 0));
+      }
+    }
+    if (!evDateObj) return false;
+
+    let evLocalStr = '';
+    let evHour = 12;
+    try {
+      evLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(evDateObj);
+      evHour = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', hour12: false }).format(evDateObj), 10);
+    } catch (e) {
+      evLocalStr = evDateObj.toISOString().split('T')[0];
+    }
+    const [evY, evM, evD] = evLocalStr.split(/[-/]/).map(Number);
+    const evDateOnly = new Date(Date.UTC(evY, evM - 1, evD));
+    const dayDiff = Math.round((evDateOnly.getTime() - startOfToday.getTime()) / (24 * 3600 * 1000));
+    if (dayDiff >= 0 && dayDiff <= 2) return true;
+    if (dayDiff === 3 && evHour < 6) return true;
+    return false;
+  }
+
+  function isWithin7Days(ev) {
+    return isWithin3Days(ev);
+  }
+
+  window.isTodayEv = isTodayEv;
+  window.isWithin3Days = isWithin3Days;
+  window.isWithin7Days = isWithin7Days;
 
   /**
    * Update Status Counters
    */
   function updateEventCounters() {
     refreshDOM();
-    const coordinator = window.sportsCoordinator;
     let list = state.events || [];
 
-    // Count by individual sport for top circular badges (active matches only)
-    const activeList = list.filter(e => !isAppEventFinished(e));
+    // Deduplicate full list first so top circular badges match the exact deduplicated card count
+    const seenAllBadgeKeys = new Set();
+    list = list.filter(ev => {
+      if (!ev || !ev.id) return false;
+      const fp = window.SportsCoordinator && typeof window.SportsCoordinator.getMatchFingerprint === 'function'
+        ? window.SportsCoordinator.getMatchFingerprint(ev)
+        : null;
+      const key = fp || ev.id;
+      if (seenAllBadgeKeys.has(key)) return false;
+      seenAllBadgeKeys.add(key);
+      return true;
+    });
+
+    // Count by individual sport for top circular badges (active matches within 3-day horizon)
+    const activeList = list.filter(e => !isAppEventFinished(e) && isWithin3Days(e));
     const totalAllEvents = activeList.length;
     const totalFootball = activeList.filter(e => (e.sport || '').toLowerCase() === 'football').length;
     const totalCricket = activeList.filter(e => (e.sport || '').toLowerCase() === 'cricket').length;
     const totalBaseball = activeList.filter(e => (e.sport || '').toLowerCase() === 'baseball').length;
     const totalBasketball = activeList.filter(e => (e.sport || '').toLowerCase() === 'basketball').length;
     const totalTennis = activeList.filter(e => (e.sport || '').toLowerCase() === 'tennis').length;
-    const totalMotorsport = activeList.filter(e => (e.sport || '').toLowerCase() === 'motorsport' || (e.sport || '').toLowerCase() === 'f1').length;
     const totalWWE = activeList.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling').length;
-    const totalHockey = activeList.filter(e => (e.sport || '').toLowerCase() === 'hockey').length;
+    const totalVolleyball = activeList.filter(e => (e.sport || '').toLowerCase() === 'volleyball').length;
     const totalRugby = activeList.filter(e => (e.sport || '').toLowerCase() === 'rugby').length;
 
     const bAll = document.getElementById('scBadgeAll');
@@ -1039,9 +1194,8 @@
     const bBase = document.getElementById('scBadgeBaseball');
     const bBasket = document.getElementById('scBadgeBasketball');
     const bTennis = document.getElementById('scBadgeTennis');
-    const bMotor = document.getElementById('scBadgeMotorsport');
     const bWwe = document.getElementById('scBadgeWWE');
-    const bHock = document.getElementById('scBadgeHockey');
+    const bVolley = document.getElementById('scBadgeVolleyball');
     const bRugby = document.getElementById('scBadgeRugby');
 
     if (bAll) bAll.textContent = String(totalAllEvents);
@@ -1050,97 +1204,19 @@
     if (bBase) bBase.textContent = String(totalBaseball);
     if (bBasket) bBasket.textContent = String(totalBasketball);
     if (bTennis) bTennis.textContent = String(totalTennis);
-    if (bMotor) bMotor.textContent = String(totalMotorsport);
     if (bWwe) bWwe.textContent = String(totalWWE);
-    if (bHock) bHock.textContent = String(totalHockey);
+    if (bVolley) bVolley.textContent = String(totalVolleyball);
     if (bRugby) bRugby.textContent = String(totalRugby);
 
     // Filter by selectedSport for accurate header counters
     if (state.selectedSport && state.selectedSport !== 'All') {
       const sp = state.selectedSport.toLowerCase();
-      if (sp === 'motorsport' || sp === 'f1') {
-        list = list.filter(e => (e.sport || '').toLowerCase() === 'motorsport' || (e.sport || '').toLowerCase() === 'f1');
-      } else if (sp === 'wwe' || sp === 'wrestling') {
+      if (sp === 'wwe' || sp === 'wrestling') {
         list = list.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling');
       } else {
         list = list.filter(e => (e.sport || '').toLowerCase() === sp);
       }
     }
-
-    const isTodayEv = (ev) => {
-      if (coordinator && typeof coordinator.isEventToday === 'function') {
-        return coordinator.isEventToday(ev);
-      }
-      if ((ev.status || '').toLowerCase() === 'live') return true;
-      if (ev.timestamp && !isNaN(ev.timestamp)) {
-        const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
-        const tz = 'Asia/Dhaka';
-        try {
-          const now = new Date();
-          const todayLocal = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-          const evLocal = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(ts));
-          if (evLocal === todayLocal) return true;
-
-          const evHour = parseInt(new Intl.DateTimeFormat('en-US', { timeZone: tz, hour: 'numeric', hour12: false }).format(new Date(ts)), 10);
-          const [evY, evM, evD] = evLocal.split(/[-/]/).map(Number);
-          const [nowY, nowM, nowD] = todayLocal.split(/[-/]/).map(Number);
-          const evDateOnly = new Date(Date.UTC(evY, evM - 1, evD));
-          const nowDateOnly = new Date(Date.UTC(nowY, nowM - 1, nowD));
-          const dayDiff = Math.round((evDateOnly.getTime() - nowDateOnly.getTime()) / (24 * 3600 * 1000));
-
-          if (dayDiff === 1 && evHour < 6) return true;
-        } catch (e) {
-          const d = new Date(ts);
-          if (d.toDateString() === (new Date()).toDateString()) return true;
-        }
-      }
-      return false;
-    };
-
-    const isWithin7Days = (ev) => {
-      if (coordinator && typeof coordinator.isEventWithin7Days === 'function') {
-        return coordinator.isEventWithin7Days(ev);
-      }
-      const status = (ev.status || '').toLowerCase().trim();
-      if (status === 'live') return true;
-      if (isTodayEv(ev)) return true;
-
-      const tz = 'Asia/Dhaka';
-      const now = new Date();
-      let todayLocalStr = '';
-      try {
-        todayLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now);
-      } catch (e) {
-        todayLocalStr = now.toISOString().split('T')[0];
-      }
-      const [nowY, nowM, nowD] = todayLocalStr.split(/[-/]/).map(Number);
-      const startOfToday = new Date(Date.UTC(nowY, nowM - 1, nowD));
-
-      let evDateObj = null;
-      if (ev.timestamp && !isNaN(ev.timestamp)) {
-        const ts = ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp;
-        evDateObj = new Date(ts);
-      } else if (ev.date) {
-        const dStr = String(ev.date).trim();
-        if (dStr.toLowerCase() === 'today') return true;
-        const parts = dStr.split(/[-/]/).map(Number);
-        if (parts.length === 3 && !isNaN(parts[0]) && !isNaN(parts[1]) && !isNaN(parts[2])) {
-          evDateObj = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2], 12, 0, 0));
-        }
-      }
-      if (!evDateObj) return false;
-
-      let evLocalStr = '';
-      try {
-        evLocalStr = new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(evDateObj);
-      } catch (e) {
-        evLocalStr = evDateObj.toISOString().split('T')[0];
-      }
-      const [evY, evM, evD] = evLocalStr.split(/[-/]/).map(Number);
-      const evDateOnly = new Date(Date.UTC(evY, evM - 1, evD));
-      const dayDiff = Math.round((evDateOnly.getTime() - startOfToday.getTime()) / (24 * 3600 * 1000));
-      return (dayDiff >= 0 && dayDiff <= 6);
-    };
 
     const allCount = list.filter(e => !isAppEventFinished(e) && isWithin7Days(e)).length;
     const todayCount = list.filter(e => !isAppEventFinished(e) && isTodayEv(e)).length;
@@ -1164,9 +1240,8 @@
       else if (state.selectedSport === 'Baseball') { icon = 'fa-baseball'; title = 'Baseball Games (MLB)'; }
       else if (state.selectedSport === 'Basketball') { icon = 'fa-basketball'; title = 'Basketball Games (NBA/EuroLeague)'; }
       else if (state.selectedSport === 'Tennis') { icon = 'fa-table-tennis-paddle-ball'; title = 'Tennis Matches (Grand Slam / ATP / WTA)'; }
-      else if (state.selectedSport === 'Motorsport' || state.selectedSport === 'Motorsports') { icon = 'fa-car-side'; title = 'Motorsports'; }
       else if (state.selectedSport === 'WWE') { icon = 'fa-hand-fist'; title = 'WWE / Wrestling Events'; }
-      else if (state.selectedSport === 'Hockey') { icon = 'fa-hockey-puck'; title = 'Hockey Games (NHL)'; }
+      else if (state.selectedSport === 'Volleyball') { icon = 'fa-volleyball'; title = 'Volleyball Matches'; }
       else if (state.selectedSport === 'Rugby') { icon = 'fa-football'; title = 'Rugby Matches'; }
 
       DOM.activeSportTitle.innerHTML = `<i class="fa-solid ${icon}"></i> ${title}`;
@@ -1178,83 +1253,373 @@
    * Resolves crisp, vector & HD badges for International, County, and League cricket teams
    */
   const HD_CRICKET_TEAM_LOGOS = {
-    // International
-    'india': 'https://flagcdn.com/w320/in.png',
-    'ind': 'https://flagcdn.com/w320/in.png',
-    'bangladesh': 'https://flagcdn.com/w320/bd.png',
-    'ban': 'https://flagcdn.com/w320/bd.png',
-    'pakistan': 'https://flagcdn.com/w320/pk.png',
-    'pak': 'https://flagcdn.com/w320/pk.png',
-    'england': 'https://flagcdn.com/w320/gb-eng.png',
-    'eng': 'https://flagcdn.com/w320/gb-eng.png',
-    'australia': 'https://flagcdn.com/w320/au.png',
-    'aus': 'https://flagcdn.com/w320/au.png',
-    'sri lanka': 'https://flagcdn.com/w320/lk.png',
-    'sl': 'https://flagcdn.com/w320/lk.png',
-    'south africa': 'https://flagcdn.com/w320/za.png',
-    'sa': 'https://flagcdn.com/w320/za.png',
-    'new zealand': 'https://flagcdn.com/w320/nz.png',
-    'nz': 'https://flagcdn.com/w320/nz.png',
-    'west indies': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg',
-    'wi': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170818/west-indies.jpg',
-    'afghanistan': 'https://flagcdn.com/w320/af.png',
-    'afg': 'https://flagcdn.com/w320/af.png',
-    'ireland': 'https://flagcdn.com/w320/ie.png',
-    'ire': 'https://flagcdn.com/w320/ie.png',
-    'scotland': 'https://flagcdn.com/w320/gb-sct.png',
-    'sco': 'https://flagcdn.com/w320/gb-sct.png',
-    'netherlands': 'https://flagcdn.com/w320/nl.png',
-    'ned': 'https://flagcdn.com/w320/nl.png',
-    'zimbabwe': 'https://flagcdn.com/w320/zw.png',
-    'zim': 'https://flagcdn.com/w320/zw.png',
-    'nepal': 'https://flagcdn.com/w320/np.png',
-    'nep': 'https://flagcdn.com/w320/np.png',
-    'usa': 'https://flagcdn.com/w320/us.png',
-    'united states': 'https://flagcdn.com/w320/us.png',
-    'canada': 'https://flagcdn.com/w320/ca.png',
-    'can': 'https://flagcdn.com/w320/ca.png',
-    'uae': 'https://flagcdn.com/w320/ae.png',
-    'united arab emirates': 'https://flagcdn.com/w320/ae.png',
-    'oman': 'https://flagcdn.com/w320/om.png',
-    'namibia': 'https://flagcdn.com/w320/na.png',
+    // International & ICC Full/Associate Member Official Cricket Board Crests & Flags
+    'india': 'https://r2.thesportsdb.com/images/media/team/badge/donl7g1646775159.png',
+    'ind': 'https://r2.thesportsdb.com/images/media/team/badge/donl7g1646775159.png',
+    'bangladesh': 'https://r2.thesportsdb.com/images/media/team/badge/j74o4t1646775146.png',
+    'ban': 'https://r2.thesportsdb.com/images/media/team/badge/j74o4t1646775146.png',
+    'pakistan': 'https://r2.thesportsdb.com/images/media/team/badge/03o8241646775177.png',
+    'pak': 'https://r2.thesportsdb.com/images/media/team/badge/03o8241646775177.png',
+    'england': 'https://r2.thesportsdb.com/images/media/team/badge/y5wcl81646775152.png',
+    'eng': 'https://r2.thesportsdb.com/images/media/team/badge/y5wcl81646775152.png',
+    'australia': 'https://r2.thesportsdb.com/images/media/team/badge/zvm8581646775132.png',
+    'aus': 'https://r2.thesportsdb.com/images/media/team/badge/zvm8581646775132.png',
+    'sri lanka': 'https://r2.thesportsdb.com/images/media/team/badge/i5fqg01646775193.png',
+    'sl': 'https://r2.thesportsdb.com/images/media/team/badge/i5fqg01646775193.png',
+    'south africa': 'https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png',
+    'sa': 'https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png',
+    'rsa': 'https://r2.thesportsdb.com/images/media/team/badge/hn47e51646775185.png',
+    'new zealand': 'https://r2.thesportsdb.com/images/media/team/badge/1yyh9s1646775166.png',
+    'nz': 'https://r2.thesportsdb.com/images/media/team/badge/1yyh9s1646775166.png',
+    'west indies': 'https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png',
+    'wi': 'https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png',
+    'win': 'https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png',
+    'windies': 'https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png',
+    'afghanistan': 'https://r2.thesportsdb.com/images/media/team/badge/bzu3v71646775261.png',
+    'afg': 'https://r2.thesportsdb.com/images/media/team/badge/bzu3v71646775261.png',
+    'ireland': 'https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png',
+    'ire': 'https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png',
+    'irl': 'https://r2.thesportsdb.com/images/media/team/badge/wlryed1646775269.png',
+    'scotland': 'https://r2.thesportsdb.com/images/media/team/badge/78woeh1646775360.png',
+    'sco': 'https://r2.thesportsdb.com/images/media/team/badge/78woeh1646775360.png',
+    'netherlands': 'https://r2.thesportsdb.com/images/media/team/badge/um67l21779090256.png',
+    'ned': 'https://r2.thesportsdb.com/images/media/team/badge/um67l21779090256.png',
+    'zimbabwe': 'https://r2.thesportsdb.com/images/media/team/badge/7ah0831646775278.png',
+    'zim': 'https://r2.thesportsdb.com/images/media/team/badge/7ah0831646775278.png',
+    'nepal': 'https://r2.thesportsdb.com/images/media/team/badge/bn5wrv1646775335.png',
+    'nep': 'https://r2.thesportsdb.com/images/media/team/badge/bn5wrv1646775335.png',
+    'usa': 'https://r2.thesportsdb.com/images/media/team/badge/abmnzg1583580897.png',
+    'united states': 'https://r2.thesportsdb.com/images/media/team/badge/abmnzg1583580897.png',
+    'canada': 'https://r2.thesportsdb.com/images/media/team/badge/o49xhy1645907007.png',
+    'can': 'https://r2.thesportsdb.com/images/media/team/badge/o49xhy1645907007.png',
+    'uae': 'https://r2.thesportsdb.com/images/media/team/badge/6poybf1583580847.png',
+    'united arab emirates': 'https://r2.thesportsdb.com/images/media/team/badge/6poybf1583580847.png',
+    'oman': 'https://r2.thesportsdb.com/images/media/team/badge/5ybzn71625862595.png',
+    'oma': 'https://r2.thesportsdb.com/images/media/team/badge/5ybzn71625862595.png',
+    'namibia': 'https://r2.thesportsdb.com/images/media/team/badge/myxq3q1583580470.png',
+    'nam': 'https://r2.thesportsdb.com/images/media/team/badge/myxq3q1583580470.png',
+    'hong kong': 'https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png',
+    'hong kong, china': 'https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png',
+    'hkg': 'https://r2.thesportsdb.com/images/media/team/badge/5q02lz1625863342.png',
+    'papua new guinea': 'https://r2.thesportsdb.com/images/media/team/badge/swdkjm1646775345.png',
+    'png': 'https://r2.thesportsdb.com/images/media/team/badge/swdkjm1646775345.png',
+    'uganda': 'https://r2.thesportsdb.com/images/media/team/badge/155jix1625862051.png',
+    'uga': 'https://r2.thesportsdb.com/images/media/team/badge/155jix1625862051.png',
+    'kenya': 'https://r2.thesportsdb.com/images/media/team/badge/oym2v91646775312.png',
+    'ken': 'https://r2.thesportsdb.com/images/media/team/badge/oym2v91646775312.png',
+    'bahamas': 'https://flagcdn.com/w320/bs.png',
+    'bah': 'https://flagcdn.com/w320/bs.png',
+    'bermuda': 'https://flagcdn.com/w320/bm.png',
+    'ber': 'https://flagcdn.com/w320/bm.png',
+    'bmu': 'https://flagcdn.com/w320/bm.png',
+    'cayman islands': 'https://flagcdn.com/w320/ky.png',
+    'cay': 'https://flagcdn.com/w320/ky.png',
+    'malaysia': 'https://flagcdn.com/w320/my.png',
+    'mal': 'https://flagcdn.com/w320/my.png',
+    'mas': 'https://flagcdn.com/w320/my.png',
+    'kuwait': 'https://flagcdn.com/w320/kw.png',
+    'kuw': 'https://flagcdn.com/w320/kw.png',
+    'bahrain': 'https://flagcdn.com/w320/bh.png',
+    'bhr': 'https://flagcdn.com/w320/bh.png',
+    'qatar': 'https://flagcdn.com/w320/qa.png',
+    'qat': 'https://flagcdn.com/w320/qa.png',
+    'saudi arabia': 'https://flagcdn.com/w320/sa.png',
+    'ksa': 'https://flagcdn.com/w320/sa.png',
+    'singapore': 'https://flagcdn.com/w320/sg.png',
+    'sin': 'https://flagcdn.com/w320/sg.png',
+    'sgp': 'https://flagcdn.com/w320/sg.png',
+    'thailand': 'https://flagcdn.com/w320/th.png',
+    'tha': 'https://flagcdn.com/w320/th.png',
+    'japan': 'https://flagcdn.com/w320/jp.png',
+    'jpn': 'https://flagcdn.com/w320/jp.png',
+    'tanzania': 'https://flagcdn.com/w320/tz.png',
+    'tan': 'https://flagcdn.com/w320/tz.png',
+    'nigeria': 'https://flagcdn.com/w320/ng.png',
+    'ngr': 'https://flagcdn.com/w320/ng.png',
+    'rwanda': 'https://flagcdn.com/w320/rw.png',
+    'rwa': 'https://flagcdn.com/w320/rw.png',
+    'botswana': 'https://flagcdn.com/w320/bw.png',
+    'bot': 'https://flagcdn.com/w320/bw.png',
+    'jersey': 'https://flagcdn.com/w320/je.png',
+    'jer': 'https://flagcdn.com/w320/je.png',
+    'guernsey': 'https://flagcdn.com/w320/gg.png',
+    'gue': 'https://flagcdn.com/w320/gg.png',
+    'italy': 'https://flagcdn.com/w320/it.png',
+    'ita': 'https://flagcdn.com/w320/it.png',
+    'germany': 'https://flagcdn.com/w320/de.png',
+    'ger': 'https://flagcdn.com/w320/de.png',
+    'spain': 'https://flagcdn.com/w320/es.png',
+    'esp': 'https://flagcdn.com/w320/es.png',
+    'denmark': 'https://flagcdn.com/w320/dk.png',
+    'den': 'https://flagcdn.com/w320/dk.png',
+    'vanuatu': 'https://flagcdn.com/w320/vu.png',
+    'samoa': 'https://flagcdn.com/w320/ws.png',
+    'fiji': 'https://flagcdn.com/w320/fj.png',
+    'argentina': 'https://flagcdn.com/w320/ar.png',
+    'brazil': 'https://flagcdn.com/w320/br.png',
+    'switzerland': 'https://flagcdn.com/w320/ch.png',
+    'sui': 'https://flagcdn.com/w320/ch.png',
+    'belgium': 'https://flagcdn.com/w320/be.png',
+    'bel': 'https://flagcdn.com/w320/be.png',
+    'luxembourg': 'https://flagcdn.com/w320/lu.png',
+    'lux': 'https://flagcdn.com/w320/lu.png',
+    'china': 'https://flagcdn.com/w320/cn.png',
+    'chn': 'https://flagcdn.com/w320/cn.png',
+    'austria': 'https://flagcdn.com/w320/at.png',
+    'aut': 'https://flagcdn.com/w320/at.png',
+    'france': 'https://flagcdn.com/w320/fr.png',
+    'fra': 'https://flagcdn.com/w320/fr.png',
+    'norway': 'https://flagcdn.com/w320/no.png',
+    'nor': 'https://flagcdn.com/w320/no.png',
+    'sweden': 'https://flagcdn.com/w320/se.png',
+    'swe': 'https://flagcdn.com/w320/se.png',
+    'finland': 'https://flagcdn.com/w320/fi.png',
+    'fin': 'https://flagcdn.com/w320/fi.png',
+    'portugal': 'https://flagcdn.com/w320/pt.png',
+    'por': 'https://flagcdn.com/w320/pt.png',
+    'malta': 'https://flagcdn.com/w320/mt.png',
+    'mlt': 'https://flagcdn.com/w320/mt.png',
+    'romania': 'https://flagcdn.com/w320/ro.png',
+    'rou': 'https://flagcdn.com/w320/ro.png',
+    'greece': 'https://flagcdn.com/w320/gr.png',
+    'gre': 'https://flagcdn.com/w320/gr.png',
+    'cyprus': 'https://flagcdn.com/w320/cy.png',
+    'cyp': 'https://flagcdn.com/w320/cy.png',
+    'estonia': 'https://flagcdn.com/w320/ee.png',
+    'est': 'https://flagcdn.com/w320/ee.png',
+    'czech republic': 'https://flagcdn.com/w320/cz.png',
+    'czechia': 'https://flagcdn.com/w320/cz.png',
+    'cze': 'https://flagcdn.com/w320/cz.png',
+    'hungary': 'https://flagcdn.com/w320/hu.png',
+    'hun': 'https://flagcdn.com/w320/hu.png',
+    'serbia': 'https://flagcdn.com/w320/rs.png',
+    'srb': 'https://flagcdn.com/w320/rs.png',
+    'bulgaria': 'https://flagcdn.com/w320/bg.png',
+    'bul': 'https://flagcdn.com/w320/bg.png',
+    'croatia': 'https://flagcdn.com/w320/hr.png',
+    'cro': 'https://flagcdn.com/w320/hr.png',
+    'slovenia': 'https://flagcdn.com/w320/si.png',
+    'svn': 'https://flagcdn.com/w320/si.png',
+    'turkey': 'https://flagcdn.com/w320/tr.png',
+    'tur': 'https://flagcdn.com/w320/tr.png',
+    'israel': 'https://flagcdn.com/w320/il.png',
+    'isr': 'https://flagcdn.com/w320/il.png',
+    'philippines': 'https://flagcdn.com/w320/ph.png',
+    'phi': 'https://flagcdn.com/w320/ph.png',
+    'indonesia': 'https://flagcdn.com/w320/id.png',
+    'ina': 'https://flagcdn.com/w320/id.png',
+    'idn': 'https://flagcdn.com/w320/id.png',
+    'myanmar': 'https://flagcdn.com/w320/mm.png',
+    'mya': 'https://flagcdn.com/w320/mm.png',
+    'cambodia': 'https://flagcdn.com/w320/kh.png',
+    'cam': 'https://flagcdn.com/w320/kh.png',
+    'bhutan': 'https://flagcdn.com/w320/bt.png',
+    'bhu': 'https://flagcdn.com/w320/bt.png',
+    'maldives': 'https://flagcdn.com/w320/mv.png',
+    'mdv': 'https://flagcdn.com/w320/mv.png',
+    'mongolia': 'https://flagcdn.com/w320/mn.png',
+    'mgl': 'https://flagcdn.com/w320/mn.png',
+    'south korea': 'https://flagcdn.com/w320/kr.png',
+    'korea': 'https://flagcdn.com/w320/kr.png',
+    'kor': 'https://flagcdn.com/w320/kr.png',
+    'mexico': 'https://flagcdn.com/w320/mx.png',
+    'mex': 'https://flagcdn.com/w320/mx.png',
+    'chile': 'https://flagcdn.com/w320/cl.png',
+    'chi': 'https://flagcdn.com/w320/cl.png',
+    'peru': 'https://flagcdn.com/w320/pe.png',
+    'per': 'https://flagcdn.com/w320/pe.png',
+    'panama': 'https://flagcdn.com/w320/pa.png',
+    'pan': 'https://flagcdn.com/w320/pa.png',
+    'costa rica': 'https://flagcdn.com/w320/cr.png',
+    'crc': 'https://flagcdn.com/w320/cr.png',
+    'belize': 'https://flagcdn.com/w320/bz.png',
+    'blz': 'https://flagcdn.com/w320/bz.png',
+    'suriname': 'https://flagcdn.com/w320/sr.png',
+    'sur': 'https://flagcdn.com/w320/sr.png',
+    'sierra leone': 'https://flagcdn.com/w320/sl.png',
+    'sle': 'https://flagcdn.com/w320/sl.png',
+    'ghana': 'https://flagcdn.com/w320/gh.png',
+    'gha': 'https://flagcdn.com/w320/gh.png',
+    'cameroon': 'https://flagcdn.com/w320/cm.png',
+    'cmr': 'https://flagcdn.com/w320/cm.png',
+    'malawi': 'https://flagcdn.com/w320/mw.png',
+    'mwi': 'https://flagcdn.com/w320/mw.png',
+    'mozambique': 'https://flagcdn.com/w320/mz.png',
+    'moz': 'https://flagcdn.com/w320/mz.png',
+    'lesotho': 'https://flagcdn.com/w320/ls.png',
+    'les': 'https://flagcdn.com/w320/ls.png',
+    'eswatini': 'https://flagcdn.com/w320/sz.png',
+    'swz': 'https://flagcdn.com/w320/sz.png',
+    'gambia': 'https://flagcdn.com/w320/gm.png',
+    'gam': 'https://flagcdn.com/w320/gm.png',
+    'mali': 'https://flagcdn.com/w320/ml.png',
+    'mli': 'https://flagcdn.com/w320/ml.png',
+    'seychelles': 'https://flagcdn.com/w320/sc.png',
+    'sey': 'https://flagcdn.com/w320/sc.png',
+    'zambia': 'https://flagcdn.com/w320/zm.png',
+    'zam': 'https://flagcdn.com/w320/zm.png',
 
-    
-    // CPL Teams (Caribbean Premier League)
-    'guyana amazon warriors': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170876/guyana-amazon-warriors.jpg',
-    'antigua and barbuda falcons': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c414902/antigua-and-barbuda-falcons.jpg',
-    'barbados royals': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170875/barbados-royals.jpg',
-    'trinbago knight riders': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170877/trinbago-knight-riders.jpg',
-    'saint lucia kings': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170880/saint-lucia-kings.jpg',
-    'st lucia kings': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170880/saint-lucia-kings.jpg',
-    'st kitts and nevis patriots': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170879/st-kitts-and-nevis-patriots.jpg',
+    // IPL & WPL Teams (Official Original Transparent PNG Badges)
+    'chennai super kings': 'https://r2.thesportsdb.com/images/media/team/badge/okceh51487601098.png',
+    'csk': 'https://r2.thesportsdb.com/images/media/team/badge/okceh51487601098.png',
+    'mumbai indians': 'https://r2.thesportsdb.com/images/media/team/badge/l40j8p1487678631.png',
+    'mumbai indians women': 'https://r2.thesportsdb.com/images/media/team/badge/l40j8p1487678631.png',
+    'mi': 'https://r2.thesportsdb.com/images/media/team/badge/l40j8p1487678631.png',
+    'royal challengers bengaluru': 'https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png',
+    'royal challengers bangalore': 'https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png',
+    'royal challengers bengaluru women': 'https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png',
+    'rcb': 'https://r2.thesportsdb.com/images/media/team/badge/kynj5v1588331757.png',
+    'kolkata knight riders': 'https://r2.thesportsdb.com/images/media/team/badge/ows99r1487678296.png',
+    'kkr': 'https://r2.thesportsdb.com/images/media/team/badge/ows99r1487678296.png',
+    'delhi capitals': 'https://r2.thesportsdb.com/images/media/team/badge/dg4g0z1587334054.png',
+    'delhi capitals women': 'https://r2.thesportsdb.com/images/media/team/badge/dg4g0z1587334054.png',
+    'dc': 'https://r2.thesportsdb.com/images/media/team/badge/dg4g0z1587334054.png',
+    'rajasthan royals': 'https://r2.thesportsdb.com/images/media/team/badge/lehnfw1487601864.png',
+    'rr': 'https://r2.thesportsdb.com/images/media/team/badge/lehnfw1487601864.png',
+    'sunrisers hyderabad': 'https://r2.thesportsdb.com/images/media/team/badge/sc7m161487419327.png',
+    'srh': 'https://r2.thesportsdb.com/images/media/team/badge/sc7m161487419327.png',
+    'gujarat titans': 'https://r2.thesportsdb.com/images/media/team/badge/6qw4r71654174508.png',
+    'gt': 'https://r2.thesportsdb.com/images/media/team/badge/6qw4r71654174508.png',
+    'lucknow super giants': 'https://r2.thesportsdb.com/images/media/team/badge/4tzmfa1647445839.png',
+    'lsg': 'https://r2.thesportsdb.com/images/media/team/badge/4tzmfa1647445839.png',
+    'punjab kings': 'https://r2.thesportsdb.com/images/media/team/badge/r1tcie1630697821.png',
+    'pbks': 'https://r2.thesportsdb.com/images/media/team/badge/r1tcie1630697821.png',
 
-    // English County Championship
-    'durham': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170845/surrey.jpg',
-    'surrey': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170845/surrey.jpg',
-    'yorkshire': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170842/yorkshire.jpg',
+    // BPL - Bangladesh Premier League
+    'fortune barishal': 'https://r2.thesportsdb.com/images/media/team/badge/le1zwt1675495288.png',
+    'comilla victorians': 'https://r2.thesportsdb.com/images/media/team/badge/vfvitn1650477443.png',
+    'rangpur riders': 'https://r2.thesportsdb.com/images/media/team/badge/k26ccz1734181960.png',
+    'dhaka capitals': 'https://r2.thesportsdb.com/images/media/team/badge/ak27xm1734342873.png',
+    'dhaka dominators': 'https://r2.thesportsdb.com/images/media/team/badge/ak27xm1734342873.png',
+    'durdanto dhaka': 'https://r2.thesportsdb.com/images/media/team/badge/ak27xm1734342873.png',
+    'khulna tigers': 'https://r2.thesportsdb.com/images/media/team/badge/geh2qk1675420011.png',
+    'sylhet strikers': 'https://r2.thesportsdb.com/images/media/team/badge/y7jz6c1767353266.png',
+    'sylhet titans': 'https://r2.thesportsdb.com/images/media/team/badge/y7jz6c1767353266.png',
+    'chattogram challengers': 'https://r2.thesportsdb.com/images/media/team/badge/xgl2ou1767352661.png',
+    'chittagong kings': 'https://r2.thesportsdb.com/images/media/team/badge/xgl2ou1767352661.png',
+    'chattogram royals': 'https://r2.thesportsdb.com/images/media/team/badge/xgl2ou1767352661.png',
+    'durbar rajshahi': 'https://r2.thesportsdb.com/images/media/team/badge/diokvb1767353049.png',
+    'rajshahi warriors': 'https://r2.thesportsdb.com/images/media/team/badge/diokvb1767353049.png',
 
-    // IPL Teams (Authentic Official 300x300 High-Res Badges)
-    'chennai super kings': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170823/chennai-super-kings.jpg',
-    'csk': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170823/chennai-super-kings.jpg',
-    'mumbai indians': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170829/mumbai-indians.jpg',
-    'mi': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170829/mumbai-indians.jpg',
-    'royal challengers bengaluru': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170826/royal-challengers-bangalore.jpg',
-    'royal challengers bangalore': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170826/royal-challengers-bangalore.jpg',
-    'rcb': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170826/royal-challengers-bangalore.jpg',
-    'kolkata knight riders': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170827/kolkata-knight-riders.jpg',
-    'kkr': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170827/kolkata-knight-riders.jpg',
-    'delhi capitals': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170828/delhi-capitals.jpg',
-    'dc': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170828/delhi-capitals.jpg',
-    'rajasthan royals': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170831/rajasthan-royals.jpg',
-    'rr': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170831/rajasthan-royals.jpg',
-    'sunrisers hyderabad': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170830/sunrisers-hyderabad.jpg',
-    'srh': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170830/sunrisers-hyderabad.jpg',
-    'gujarat titans': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c225642/gujarat-titans.jpg',
-    'gt': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c225642/gujarat-titans.jpg',
-    'lucknow super giants': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c225645/lucknow-super-giants.jpg',
-    'lsg': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c225645/lucknow-super-giants.jpg',
-    'punjab kings': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170824/punjab-kings.jpg',
-    'pbks': 'https://static.cricbuzz.com/a/img/v1/300x300/i1/c170824/punjab-kings.jpg',
+    // PSL - Pakistan Super League
+    'islamabad united': 'https://r2.thesportsdb.com/images/media/team/badge/5bi3eb1709123559.png',
+    'karachi kings': 'https://r2.thesportsdb.com/images/media/team/badge/tfuvu11709123541.png',
+    'lahore qalandars': 'https://r2.thesportsdb.com/images/media/team/badge/hvrtrg1709123519.png',
+    'multan sultans': 'https://r2.thesportsdb.com/images/media/team/badge/mpijr01709123512.png',
+    'peshawar zalmi': 'https://r2.thesportsdb.com/images/media/team/badge/frp6xj1709123501.png',
+    'quetta gladiators': 'https://r2.thesportsdb.com/images/media/team/badge/rox6ge1709123486.png',
+
+    // BBL & Australian Domestic
+    'adelaide strikers': 'https://r2.thesportsdb.com/images/media/team/badge/c36k301492606884.png',
+    'brisbane heat': 'https://r2.thesportsdb.com/images/media/team/badge/6r5cly1492606239.png',
+    'hobart hurricanes': 'https://r2.thesportsdb.com/images/media/team/badge/vdcla41492606553.png',
+    'melbourne renegades': 'https://r2.thesportsdb.com/images/media/team/badge/fy0wik1492607045.png',
+    'melbourne stars': 'https://r2.thesportsdb.com/images/media/team/badge/l0t7v31715269757.png',
+    'perth scorchers': 'https://r2.thesportsdb.com/images/media/team/badge/ithlp51546681732.png',
+    'sydney sixers': 'https://r2.thesportsdb.com/images/media/team/badge/jtkm601492607206.png',
+    'sydney thunder': 'https://r2.thesportsdb.com/images/media/team/badge/t0tooq1492606384.png',
+    'victoria': 'https://r2.thesportsdb.com/images/media/team/badge/j5vbn41749588430.png',
+    'new south wales': 'https://r2.thesportsdb.com/images/media/team/badge/fbj6w51675420971.png',
+    'new south wales blues': 'https://r2.thesportsdb.com/images/media/team/badge/fbj6w51675420971.png',
+    'nsw blues': 'https://r2.thesportsdb.com/images/media/team/badge/fbj6w51675420971.png',
+    'tasmania': 'https://r2.thesportsdb.com/images/media/team/badge/1yd06z1675431414.png',
+    'tasmanian tigers': 'https://r2.thesportsdb.com/images/media/team/badge/1yd06z1675431414.png',
+
+    // CPL - Caribbean Premier League
+    'guyana amazon warriors': 'https://r2.thesportsdb.com/images/media/team/badge/amct1d1641785128.png',
+    'antigua and barbuda falcons': 'https://r2.thesportsdb.com/images/media/team/badge/fwozcu1752736011.png',
+    'barbados royals': 'https://r2.thesportsdb.com/images/media/team/badge/kg9ypo1786962015.png',
+    'barbados tridents': 'https://r2.thesportsdb.com/images/media/team/badge/kg9ypo1786962015.png',
+    'trinbago knight riders': 'https://r2.thesportsdb.com/images/media/team/badge/c8zwd61641785158.png',
+    'tkr': 'https://r2.thesportsdb.com/images/media/team/badge/c8zwd61641785158.png',
+    'saint lucia kings': 'https://r2.thesportsdb.com/images/media/team/badge/981c6z1752736461.png',
+    'st lucia kings': 'https://r2.thesportsdb.com/images/media/team/badge/981c6z1752736461.png',
+    'st kitts and nevis patriots': 'https://r2.thesportsdb.com/images/media/team/badge/t2zoaz1641785142.png',
+    'jamaica tallawahs': 'https://r2.thesportsdb.com/images/media/team/badge/7rvdsl1641785134.png',
+
+    // SA20 & South African Domestic
+    "durban's super giants": 'https://r2.thesportsdb.com/images/media/team/badge/oe6ikv1734183540.png',
+    'durbans super giants': 'https://r2.thesportsdb.com/images/media/team/badge/oe6ikv1734183540.png',
+    'joburg super kings': 'https://r2.thesportsdb.com/images/media/team/badge/bvjydr1734183753.png',
+    'mi cape town': 'https://r2.thesportsdb.com/images/media/team/badge/s146kh1734183906.png',
+    'paarl royals': 'https://r2.thesportsdb.com/images/media/team/badge/41azkk1734184030.png',
+    'pretoria capitals': 'https://r2.thesportsdb.com/images/media/team/badge/brbk561734184169.png',
+    'sunrisers eastern cape': 'https://r2.thesportsdb.com/images/media/team/badge/us5vei1734184224.png',
+    'titans': 'https://r2.thesportsdb.com/images/media/team/badge/50kzdm1644367943.png',
+    'multiply titans': 'https://r2.thesportsdb.com/images/media/team/badge/50kzdm1644367943.png',
+    'warriors': 'https://r2.thesportsdb.com/images/media/team/badge/w5fhrc1644367999.png',
+    'dolphins': 'https://r2.thesportsdb.com/images/media/team/badge/nc4cs31644367913.png',
+    'hollywoodbets dolphins': 'https://r2.thesportsdb.com/images/media/team/badge/nc4cs31644367913.png',
+    'lions': 'https://r2.thesportsdb.com/images/media/team/badge/1qh6c01644367448.png',
+    'dp world lions': 'https://r2.thesportsdb.com/images/media/team/badge/1qh6c01644367448.png',
+    'highveld lions': 'https://r2.thesportsdb.com/images/media/team/badge/1qh6c01644367448.png',
+    'north west': 'https://r2.thesportsdb.com/images/media/team/badge/p1gb4u1644367687.png',
+    'north west dragons': 'https://r2.thesportsdb.com/images/media/team/badge/p1gb4u1644367687.png',
+    'western province': 'https://r2.thesportsdb.com/images/media/team/badge/51wcio1512983228.png',
+    'cape cobras': 'https://r2.thesportsdb.com/images/media/team/badge/51wcio1512983228.png',
+    'easterns': 'https://r2.thesportsdb.com/images/media/team/badge/wavdxf1758097673.png',
+    'eastern storm': 'https://r2.thesportsdb.com/images/media/team/badge/wavdxf1758097673.png',
+    'kwazulu-natal inland': 'https://r2.thesportsdb.com/images/media/team/badge/mlrnuo1704976998.png',
+
+    // English County Championship & The Hundred
+    'surrey': 'https://r2.thesportsdb.com/images/media/team/badge/pl0yk51512933420.png',
+    'yorkshire': 'https://r2.thesportsdb.com/images/media/team/badge/i4la7t1512933445.png',
+    'durham': 'https://r2.thesportsdb.com/images/media/team/badge/chwe901512937550.png',
+    'essex': 'https://r2.thesportsdb.com/images/media/team/badge/yep86x1777629714.png',
+    'glamorgan': 'https://r2.thesportsdb.com/images/media/team/badge/rdsttx1590355851.png',
+    'hampshire': 'https://r2.thesportsdb.com/images/media/team/badge/zos2qr1512933145.png',
+    'leicestershire': 'https://r2.thesportsdb.com/images/media/team/badge/qluxic1512937633.png',
+    'nottinghamshire': 'https://r2.thesportsdb.com/images/media/team/badge/vzixwm1671721158.png',
+    'somerset': 'https://r2.thesportsdb.com/images/media/team/badge/ba0m9n1546518813.png',
+    'sussex': 'https://r2.thesportsdb.com/images/media/team/badge/5isw8o1512937679.png',
+    'warwickshire': 'https://r2.thesportsdb.com/images/media/team/badge/w5yo7x1512937763.png',
+    'birmingham bears': 'https://r2.thesportsdb.com/images/media/team/badge/w5yo7x1512937763.png',
+    'derbyshire': 'https://r2.thesportsdb.com/images/media/team/badge/uki6jc1512937529.png',
+    'gloucestershire': 'https://r2.thesportsdb.com/images/media/team/badge/0ss39a1554324931.png',
+    'kent': 'https://r2.thesportsdb.com/images/media/team/badge/j9k7om1717595438.png',
+    'lancashire': 'https://r2.thesportsdb.com/images/media/team/badge/m1ljqz1546518856.png',
+    'middlesex': 'https://r2.thesportsdb.com/images/media/team/badge/rlfxzh1512937652.png',
+    'northamptonshire': 'https://r2.thesportsdb.com/images/media/team/badge/391faz1512937726.png',
+    'worcestershire': 'https://r2.thesportsdb.com/images/media/team/badge/pnjm9d1512937464.png',
+    'birmingham phoenix': 'https://r2.thesportsdb.com/images/media/team/badge/aihn2d1641785176.png',
+    'london spirit': 'https://r2.thesportsdb.com/images/media/team/badge/k3q3mo1776457663.png',
+    'manchester originals': 'https://r2.thesportsdb.com/images/media/team/badge/5oapdn1776457699.png',
+    'oval invincibles': 'https://r2.thesportsdb.com/images/media/team/badge/ycy1xc1776457741.png',
+    'southern brave': 'https://r2.thesportsdb.com/images/media/team/badge/7c0a8j1776457761.png',
+    'northern superchargers': 'https://r2.thesportsdb.com/images/media/team/badge/46mctq1776457779.png',
+    'trent rockets': 'https://r2.thesportsdb.com/images/media/team/badge/9cp1ac1692900475.png',
+    'welsh fire': 'https://r2.thesportsdb.com/images/media/team/badge/49jl241645213505.png',
+
+    // MLC, ILT20, LPL, Super Smash
+    'los angeles knight riders': 'https://r2.thesportsdb.com/images/media/team/badge/6q2cnq1689146300.png',
+    'mi new york': 'https://r2.thesportsdb.com/images/media/team/badge/i4lxb71689146303.png',
+    'san francisco unicorns': 'https://r2.thesportsdb.com/images/media/team/badge/k6pv961689146306.png',
+    'seattle orcas': 'https://r2.thesportsdb.com/images/media/team/badge/wg325p1689146309.png',
+    'texas super kings': 'https://r2.thesportsdb.com/images/media/team/badge/777fr51689161316.png',
+    'washington freedom': 'https://r2.thesportsdb.com/images/media/team/badge/ro0khs1750233280.png',
+    'abu dhabi knight riders': 'https://r2.thesportsdb.com/images/media/team/badge/llghxr1721480701.png',
+    'desert vipers': 'https://r2.thesportsdb.com/images/media/team/badge/uqmlhc1721480710.png',
+    'dubai capitals': 'https://r2.thesportsdb.com/images/media/team/badge/f95loc1721480695.png',
+    'gulf giants': 'https://r2.thesportsdb.com/images/media/team/badge/y9hem51721480707.png',
+    'mi emirates': 'https://r2.thesportsdb.com/images/media/team/badge/6ttrki1721480699.png',
+    'sharjah warriorz': 'https://r2.thesportsdb.com/images/media/team/badge/gq0stf1721480730.png',
+    'colombo strikers': 'https://r2.thesportsdb.com/images/media/team/badge/lwar9d1720697266.png',
+    'dambulla sixers': 'https://r2.thesportsdb.com/images/media/team/badge/avsoxp1720697923.png',
+    'galle marvels': 'https://r2.thesportsdb.com/images/media/team/badge/dgqb9i1720698025.png',
+    'jaffna kings': 'https://r2.thesportsdb.com/images/media/team/badge/gs27jn1720698419.png',
+    'b-love kandy': 'https://r2.thesportsdb.com/images/media/team/badge/ukrqz61720698084.png',
+    'auckland aces': 'https://r2.thesportsdb.com/images/media/team/badge/gmbyx01705392031.png',
+    'auckland': 'https://r2.thesportsdb.com/images/media/team/badge/gmbyx01705392031.png',
+    'canterbury kings': 'https://r2.thesportsdb.com/images/media/team/badge/uex7eq1705391931.png',
+    'canterbury': 'https://r2.thesportsdb.com/images/media/team/badge/uex7eq1705391931.png',
+    'central stags': 'https://r2.thesportsdb.com/images/media/team/badge/34lmqg1705391924.png',
+    'central districts': 'https://r2.thesportsdb.com/images/media/team/badge/34lmqg1705391924.png',
+    'northern brave': 'https://r2.thesportsdb.com/images/media/team/badge/7lnb4g1705391916.png',
+    'northern districts': 'https://r2.thesportsdb.com/images/media/team/badge/7lnb4g1705391916.png',
+    'otago volts': 'https://r2.thesportsdb.com/images/media/team/badge/am7ce21705391910.png',
+    'otago': 'https://r2.thesportsdb.com/images/media/team/badge/am7ce21705391910.png',
+    'wellington firebirds': 'https://r2.thesportsdb.com/images/media/team/badge/ep5kr31705391899.png',
+    'wellington': 'https://r2.thesportsdb.com/images/media/team/badge/ep5kr31705391899.png',
 
     // WWE & AEW Official Brand & Superstar Logos (Crisp High-Res)
     'wwe raw': '/assets/wwe-logos/wwe_raw.png',
@@ -1325,19 +1690,93 @@
   };
 
   function getHighResTeamLogo(teamName, rawLogo) {
-    // 1. HIGHEST PRIORITY: If authentic original team logo is provided by feed/API, preserve and upgrade it!
-    if (rawLogo && typeof rawLogo === 'string') {
-      let cleanRaw = rawLogo.trim();
-      if (cleanRaw && !cleanRaw.includes('un.png') && !cleanRaw.includes('team_default.png')) {
-        // Upgrade Cricbuzz low-res 72x54 thumbnails to 300x300 crisp image
+    const cleanRawInput = (rawLogo && typeof rawLogo === 'string') ? rawLogo.trim() : '';
+
+    // 1. If rawLogo is ALREADY an official TheSportsDB transparent badge or WWE official asset, preserve it
+    if (
+      cleanRawInput &&
+      (cleanRawInput.includes('thesportsdb.com') || cleanRawInput.includes('wwe-logos/')) &&
+      !cleanRawInput.includes('un.png') &&
+      !cleanRawInput.includes('placeholder')
+    ) {
+      return cleanRawInput;
+    }
+
+    // 2. Check Official Original HD Team Logo & Flag Registry by teamName
+    if (teamName && typeof teamName === 'string') {
+      const bracketMatch = teamName.match(/\[([^\]]+)\]/);
+      const shortCode = bracketMatch ? bracketMatch[1].trim().toLowerCase() : '';
+      const nameClean = teamName.replace(/\s*\[[^\]]+\]\s*$/, '').trim().toLowerCase();
+
+      // Direct motorsport & wrestling logo resolution
+      if (nameClean === 'formula 1' || nameClean === 'f1' || nameClean.includes('formula 1') || nameClean.includes('motorsport') || nameClean.includes('racing') || nameClean.includes('grand prix')) {
+        return 'https://r2.thesportsdb.com/images/media/league/badge/g8cofl1513623681.png';
+      }
+      if (nameClean.includes('smackdown') || nameClean.includes('smack down')) {
+        return './assets/wwe-logos/wwe_smackdown.png';
+      }
+      if (nameClean === 'wwe' || nameClean.includes('wwe')) {
+        return './assets/wwe-logos/wwe_official.png';
+      }
+      if (nameClean.includes('raw')) {
+        return './assets/wwe-logos/wwe_raw.png';
+      }
+      if (nameClean.includes('nxt')) {
+        return './assets/wwe-logos/wwe_nxt.png';
+      }
+      if (nameClean === 'aew' || nameClean.includes('aew')) {
+        return './assets/wwe-logos/aew_official.svg';
+      }
+
+      // Exact match in Official Original HD Logos Registry
+      if (HD_CRICKET_TEAM_LOGOS[nameClean]) {
+        return HD_CRICKET_TEAM_LOGOS[nameClean];
+      }
+
+      // Strip Women / U19 / A-team / Emerging suffixes and check exact match
+      const baseName = nameClean
+        .replace(/(\s+|-)(women|w|u19|u-19|under-19|under 19|a|emerging|xi|shaheens|lions)$/i, '')
+        .replace(/,\s*china$/i, '')
+        .trim();
+      if (baseName && HD_CRICKET_TEAM_LOGOS[baseName]) {
+        return HD_CRICKET_TEAM_LOGOS[baseName];
+      }
+
+      // Check bracket shortCode
+      if (shortCode && HD_CRICKET_TEAM_LOGOS[shortCode]) {
+        return HD_CRICKET_TEAM_LOGOS[shortCode];
+      }
+
+      // Safe multi-word franchise match (never allow single-word or country substring false positives)
+      for (const [key, logoUrl] of Object.entries(HD_CRICKET_TEAM_LOGOS)) {
+        if (key.length >= 6 && key.includes(' ')) {
+          const regex = new RegExp(`(^|\\b)${key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(\\b|$)`, 'i');
+          if (regex.test(nameClean)) {
+            return logoUrl;
+          }
+        }
+      }
+    }
+
+    // 3. Fallback to API-provided rawLogo if it is NOT a generic placeholder / icon512
+    if (cleanRawInput) {
+      let cleanRaw = cleanRawInput;
+      if (
+        !cleanRaw.includes('un.png') &&
+        !cleanRaw.includes('icon512.png') &&
+        !cleanRaw.includes('placeholder') &&
+        !cleanRaw.includes('default-team') &&
+        !cleanRaw.includes('team_default.png')
+      ) {
+        if (cleanRaw.includes('g.cricapi.com/iapi/') && cleanRaw.includes('w=48')) {
+          cleanRaw = cleanRaw.replace('w=48', 'w=250');
+        }
         if (cleanRaw.includes('cricbuzz.com') && cleanRaw.includes('/72x54/')) {
           cleanRaw = cleanRaw.replace('/72x54/', '/300x300/');
         }
-        // Upgrade flagcdn w160 to w320
         if (cleanRaw.includes('flagcdn.com/w160/')) {
           cleanRaw = cleanRaw.replace('/w160/', '/w320/');
         }
-        // Ensure https
         if (cleanRaw.startsWith('http://static.cricbuzz.com')) {
           cleanRaw = cleanRaw.replace('http://', 'https://');
         }
@@ -1345,58 +1784,9 @@
       }
     }
 
-    if (!teamName) return DEFAULT_SPORTS_FALLBACK_LOGO;
-    const nameClean = teamName.toLowerCase().trim();
-
-    // Direct motorsport & wrestling logo resolution
-    if (nameClean === 'formula 1' || nameClean === 'f1' || nameClean.includes('formula 1') || nameClean.includes('motorsport') || nameClean.includes('racing') || nameClean.includes('grand prix')) {
-      return 'https://r2.thesportsdb.com/images/media/league/badge/g8cofl1513623681.png';
-    }
-    if (nameClean.includes('hong kong')) {
-      return 'https://flagcdn.com/w320/hk.png';
-    }
-    if (nameClean.includes('oman')) {
-      return 'https://flagcdn.com/w320/om.png';
-    }
-    if (nameClean.includes('smackdown') || nameClean.includes('smack down')) {
-      return './assets/wwe-logos/wwe_smackdown.png';
-    }
-    if (nameClean === 'wwe' || nameClean.includes('wwe')) {
-      return './assets/wwe-logos/wwe_official.png';
-    }
-    if (nameClean.includes('raw')) {
-      return './assets/wwe-logos/wwe_raw.png';
-    }
-    if (nameClean.includes('nxt')) {
-      return './assets/wwe-logos/wwe_nxt.png';
-    }
-    if (nameClean === 'aew' || nameClean.includes('aew')) {
-      return './assets/wwe-logos/aew_official.svg';
-    }
-
-    // 2. Curated database check (only when rawLogo is missing or un.png):
-    // First: exact key match
-    if (HD_CRICKET_TEAM_LOGOS[nameClean]) {
-      return HD_CRICKET_TEAM_LOGOS[nameClean];
-    }
-
-    // Second: Word-boundary match for abbreviations (<= 3 chars, e.g. mi, rr, csk, ind, ban, sa)
-    // and substring match only for multi-word / long team names
-    for (const [key, logoUrl] of Object.entries(HD_CRICKET_TEAM_LOGOS)) {
-      if (key.length <= 3) {
-        const regex = new RegExp(`(^|\\b|\\s)${key}(\\b|\\s|$)`, 'i');
-        if (regex.test(nameClean)) {
-          return logoUrl;
-        }
-      } else {
-        if (nameClean === key || nameClean.includes(key) || key.includes(nameClean)) {
-          return logoUrl;
-        }
-      }
-    }
-
     return DEFAULT_SPORTS_FALLBACK_LOGO;
   }
+  window.getHighResTeamLogo = getHighResTeamLogo;
 
   /**
    * Toggle Event Favorite
@@ -1449,7 +1839,9 @@
 
     const isFinished = isAppEventFinished(event);
     const statusLower = (event.status || 'upcoming').toLowerCase();
-    const isLive = !isFinished && (statusLower === 'live' || (event.time && event.time.toLowerCase().includes('live')));
+    const rawCardTs = event.timestamp ? (event.timestamp < 10000000000 ? event.timestamp * 1000 : event.timestamp) : 0;
+    const isFutureMatch = rawCardTs > (Date.now() + 5 * 60 * 1000) && !event.team1?.score && !event.team2?.score;
+    const isLive = !isFinished && !isFutureMatch && (statusLower === 'live' || (event.time && event.time.toLowerCase().includes('live')));
     const isUpcoming = !isLive && !isFinished;
     const isFav = state.eventFavorites.includes(event.id);
 
@@ -1619,10 +2011,32 @@
       }
     }
 
-    const t1Score = event.team1?.score !== undefined ? event.team1.score : (event.homeTeam?.score || '');
-    const t2Score = event.team2?.score !== undefined ? event.team2.score : (event.awayTeam?.score || '');
-    const t1Overs = event.team1?.overs || event.homeTeam?.overs || '';
-    const t2Overs = event.team2?.overs || event.awayTeam?.overs || '';
+    let t1Score = event.team1?.score !== undefined ? String(event.team1.score) : String(event.homeTeam?.score || '');
+    let t2Score = event.team2?.score !== undefined ? String(event.team2.score) : String(event.awayTeam?.score || '');
+    const formatOversLabel = (val) => {
+      if (!val) return '';
+      const cleaned = String(val).replace(/[()]/g, '').replace(/\s*ov\s*/gi, '').trim();
+      return cleaned ? `${cleaned} ov` : '';
+    };
+    const t1Overs = formatOversLabel(event.team1?.overs || event.homeTeam?.overs || '');
+    const t2Overs = formatOversLabel(event.team2?.overs || event.awayTeam?.overs || '');
+
+    // Self-heal limited-overs cricket scores if stale cache combined two teams' innings with " & "
+    const fmtUpper = String(event.matchFormat || event.matchType || '').toUpperCase();
+    const isLimitedOvers = fmtUpper === 'ODI' || fmtUpper === 'T20' || fmtUpper === 'T20I' || fmtUpper === 'T10';
+    if (isLimitedOvers && t1Score.includes(' & ') && !t2Score) {
+      const parts = t1Score.split(' & ').map(s => s.trim()).filter(Boolean);
+      if (parts.length === 2) {
+        t2Score = parts[0];
+        t1Score = parts[1];
+      }
+    } else if (isLimitedOvers && t2Score.includes(' & ') && !t1Score) {
+      const parts = t2Score.split(' & ').map(s => s.trim()).filter(Boolean);
+      if (parts.length === 2) {
+        t1Score = parts[0];
+        t2Score = parts[1];
+      }
+    }
 
     // Date / Time calculation in Asia/Dhaka (BST - GMT+6)
     const tz = 'Asia/Dhaka';
@@ -1728,22 +2142,43 @@
       }
     }
 
-    // Format Display Time and Date (e.g. 02:00 PM, 24/09/2026) matching user screenshot
+    // Format Display Time and Date in Asia/Dhaka (BST) with 3-day schedule labels
     let displayTime = '';
     let displayDate = '';
 
     if (evTs) {
       const d = new Date(evTs);
-      let hrs = d.getHours();
-      const mins = String(d.getMinutes()).padStart(2, '0');
-      const ampm = hrs >= 12 ? 'PM' : 'AM';
-      hrs = hrs % 12 || 12;
-      displayTime = `${String(hrs).padStart(2, '0')}:${mins} ${ampm}`;
+      try {
+        displayTime = new Intl.DateTimeFormat('en-US', {
+          timeZone: tz,
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: true
+        }).format(d);
 
-      const dd = String(d.getDate()).padStart(2, '0');
-      const mm = String(d.getMonth() + 1).padStart(2, '0');
-      const yyyy = d.getFullYear();
-      displayDate = `${dd}/${mm}/${yyyy}`;
+        const dhakaParts = new Intl.DateTimeFormat('en-CA', {
+          timeZone: tz,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }).format(d).split('-');
+        const shortNumericDate = dhakaParts.length === 3 ? `${dhakaParts[2]}/${dhakaParts[1]}/${dhakaParts[0]}` : '';
+        if (isUpcoming && (dateLabel === 'Today' || dateLabel === 'Tomorrow' || dateLabel === 'Tonight')) {
+          displayDate = `${dateLabel} • ${shortNumericDate}`;
+        } else {
+          displayDate = shortNumericDate;
+        }
+      } catch (e) {
+        let hrs = d.getHours();
+        const mins = String(d.getMinutes()).padStart(2, '0');
+        const ampm = hrs >= 12 ? 'PM' : 'AM';
+        hrs = hrs % 12 || 12;
+        displayTime = `${String(hrs).padStart(2, '0')}:${mins} ${ampm}`;
+        const dd = String(d.getDate()).padStart(2, '0');
+        const mm = String(d.getMonth() + 1).padStart(2, '0');
+        const yyyy = d.getFullYear();
+        displayDate = `${dd}/${mm}/${yyyy}`;
+      }
     } else {
       displayTime = timeStr || event.time || 'TBD';
       if (event.date) {
@@ -1758,11 +2193,19 @@
       }
     }
 
-    // Header Sport & League Title (e.g. Cricket || Asian Games, Motorsport || Formula 1)
+    // Header Sport & League Title (including Match Format/Stage & Venue for Upcoming/Live Details)
     const sportTitle = event.sportName || event.sport || 'Sports';
     let leagueTitle = (event.tournament || event.league || event.seriesName || '').trim();
     if (/^f\s*1$/i.test(leagueTitle) || /^formula\s*1$/i.test(leagueTitle)) {
       leagueTitle = 'Formula 1';
+    }
+    const matchDescClean = String(event.matchDesc || '').trim();
+    if (
+      matchDescClean &&
+      matchDescClean.length <= 28 &&
+      !leagueTitle.toLowerCase().includes(matchDescClean.toLowerCase())
+    ) {
+      leagueTitle = leagueTitle ? `${leagueTitle} • ${matchDescClean}` : matchDescClean;
     }
     let headerTitle = sportTitle;
     if (leagueTitle && leagueTitle.toLowerCase() !== sportTitle.toLowerCase()) {
@@ -1776,6 +2219,8 @@
       else if (sLower.includes('foot') || sLower.includes('soccer')) sportIcon = 'fa-futbol text-emerald-400';
       else if (sLower.includes('basket')) sportIcon = 'fa-basketball text-orange-400';
       else if (sLower.includes('base')) sportIcon = 'fa-baseball text-amber-400';
+      else if (sLower.includes('volley')) sportIcon = 'fa-volleyball text-cyan-400';
+      else if (sLower.includes('rugby')) sportIcon = 'fa-football text-emerald-400';
       else if (sLower.includes('tennis')) sportIcon = 'fa-table-tennis-paddle-ball text-yellow-400';
       else if (sLower.includes('f1') || sLower.includes('motor') || sLower.includes('formula')) sportIcon = 'fa-car-side text-red-400';
       else if (sLower.includes('wwe') || sLower.includes('wrestling')) sportIcon = 'fa-hand-fist text-red-500';
@@ -1903,18 +2348,25 @@
     }) : (state.events || []);
 
     if (state.selectedFilter === 'FINISHED') {
-      filtered = filtered.filter(ev => isAppEventFinished(ev));
+      const nowMs = Date.now();
+      filtered = filtered.filter(ev => {
+        if (!isAppEventFinished(ev)) return false;
+        const ts = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+        return !ts || (nowMs - ts <= 24 * 3600 * 1000);
+      });
     } else if (state.selectedFilter === 'LIVE') {
       filtered = filtered.filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'live');
     } else if (state.selectedFilter === 'UPCOMING') {
-      filtered = filtered.filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'upcoming');
+      filtered = filtered
+        .filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'upcoming' && isWithin3Days(ev))
+        .sort((a, b) => (a.timestamp || Number.MAX_SAFE_INTEGER) - (b.timestamp || Number.MAX_SAFE_INTEGER));
     } else if (state.selectedFilter === 'TODAY') {
       filtered = filtered.filter(ev => !isAppEventFinished(ev) && isTodayEv(ev));
     } else if (state.selectedFilter === 'FAVORITES') {
       filtered = filtered.filter(ev => !isAppEventFinished(ev) && state.eventFavorites.includes(ev.id));
     } else {
-      // Default / 'ALL' tab: strictly active matches only, excluding finished games
-      filtered = filtered.filter(ev => !isAppEventFinished(ev));
+      // Default / 'ALL' tab: strictly active matches within the 3-day horizon, excluding finished games
+      filtered = filtered.filter(ev => !isAppEventFinished(ev) && isWithin3Days(ev));
     }
 
     // Strictly deduplicate filtered events by canonical match fingerprint
@@ -2182,6 +2634,58 @@
       }
     };
 
+    // Build rich Match Details summary box for Live & 3-Day Upcoming events inside the popup
+    let matchDetailsSummaryHtml = '';
+    if (isEvent) {
+      const mTs = item.timestamp ? (item.timestamp < 10000000000 ? item.timestamp * 1000 : item.timestamp) : null;
+      let dhakaDateTimeStr = item.matchTime || item.date || 'Scheduled';
+      if (mTs) {
+        try {
+          dhakaDateTimeStr = new Intl.DateTimeFormat('en-US', {
+            timeZone: 'Asia/Dhaka',
+            weekday: 'short',
+            day: '2-digit',
+            month: 'short',
+            year: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            hour12: true
+          }).format(new Date(mTs)) + ' BST';
+        } catch (_) {}
+      }
+      const matchStageStr = item.matchDesc || item.matchFormat || item.matchType || '';
+      const venueStr = item.venue || '';
+      const statusTextStr = item.statusText || ((item.status || '').toLowerCase() === 'live' ? 'LIVE NOW' : 'Upcoming Match');
+
+      matchDetailsSummaryHtml = `
+        <div class="mb-3 p-3 rounded-xl bg-slate-900/80 border border-white/10 text-left space-y-1.5">
+          <div class="flex items-center justify-between gap-2">
+            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">
+              <i class="fa-regular fa-calendar-check mr-1"></i>${escapeHtml(statusTextStr)}
+            </span>
+            ${matchStageStr ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">${escapeHtml(matchStageStr)}</span>` : ''}
+          </div>
+          <div class="text-[11px] text-slate-200 font-semibold flex items-center gap-1.5 pt-0.5">
+            <i class="fa-regular fa-clock text-sky-400 text-[10px] shrink-0"></i>
+            <span>${escapeHtml(dhakaDateTimeStr)}</span>
+          </div>
+          ${venueStr ? `
+            <div class="text-[11px] text-slate-300 flex items-center gap-1.5">
+              <i class="fa-solid fa-location-dot text-rose-400 text-[10px] shrink-0"></i>
+              <span class="truncate" title="${escapeHtml(venueStr)}">${escapeHtml(venueStr)}</span>
+            </div>
+          ` : ''}
+          ${item.id ? `
+            <div class="pt-1.5">
+              <button type="button" class="btn-open-full-match-details w-full py-2 px-3 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold text-[11px] flex items-center justify-center gap-1.5 transition" data-detail-id="${escapeHtml(item.id)}">
+                <i class="fa-solid fa-circle-info"></i> View Full Match Details & Info
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
     // 4. Render State A: Has Valid Verified Streams
     if (hasValidStreams) {
       const totalChannels = channelDetails.length;
@@ -2202,7 +2706,7 @@
         modalSubTitle.style.display = 'block';
       }
 
-      listContainer.innerHTML = channelDetails.map((ch, chIdx) => {
+      listContainer.innerHTML = matchDetailsSummaryHtml + channelDetails.map((ch, chIdx) => {
         const cleanName = ch.name || `Broadcaster ${chIdx + 1}`;
         const chLogo = getSafeLogoUrl(ch.logo, cleanName, ch.id);
         const sourceText = ch.source || (ch.sourceType === 'direct_api' ? 'Direct API Stream' : 'Official Verified Broadcaster');
@@ -2317,6 +2821,7 @@
       }
 
       listContainer.innerHTML = `
+        ${matchDetailsSummaryHtml}
         <div class="channel-unavailable-card text-center p-5 rounded-2xl bg-rose-500/5 border border-rose-500/20">
           <div class="w-14 h-14 mx-auto mb-3.5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
             <i class="fa-solid fa-tv text-rose-400 text-2xl"></i>
@@ -2344,6 +2849,19 @@
           handleCloseModal();
         });
       }
+    }
+
+    const fullDetailsBtn = listContainer.querySelector('.btn-open-full-match-details');
+    if (fullDetailsBtn) {
+      fullDetailsBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const detailId = fullDetailsBtn.getAttribute('data-detail-id') || item.id;
+        closeModal('modal-select-server');
+        if (detailId) {
+          openMatchDetails(detailId);
+        }
+      });
     }
 
     // 6. Modal Open, Backdrop & Dismiss Handlers
@@ -2501,7 +3019,10 @@
         const elMins = Math.floor((totalSecs % 3600) / 60);
         const elSecs = totalSecs % 60;
 
-        if (elHours > 0) {
+        if (elHours >= 9) {
+          el.textContent = 'FT';
+          state._lastFinishCheck = 0;
+        } else if (elHours > 0) {
           el.textContent = `${elHours}h ${pad(elMins)}m ${pad(elSecs)}s`;
         } else if (elMins > 0) {
           el.textContent = `${elMins}m ${pad(elSecs)}s`;
@@ -3563,9 +4084,8 @@
       baseball: ['baseball', 'mlb', 'tbs', 'sportsnet', 'peacock', 'apple tv', 'fox sports', 'fs1', 'fs2', 'fancode'],
       basketball: ['basketball', 'nba', 'abc', 'tsn', 'prime video', 'sportsnet', 'nbc', 'peacock'],
       tennis: ['tennis', 'tennis channel', 'atp', 'wta', 'wimbledon', 'us open', 'roland garros', 'eurosport', 'sky sports tennis'],
-      motorsport: ['motorsport', 'formula 1', 'f1', 'f1 tv', 'canal+', 'viaplay', 'sky sports f1', 'racing'],
+      volleyball: ['volleyball', 'eurosport', 'espn', 'go3', 'ziggo'],
       wwe: ['wwe', 'wrestling', 'netflix', 'usa network', 'sony sports ten', 'sony ten 1', 'sony ten 2', 'sony ten 3'],
-      hockey: ['hockey', 'nhl', 'cbc', 'tva sports', 'sportsnet one'],
       rugby: ['rugby', 'six nations', 'florugby', 'stan sport', 'sky sports arena', 'supersport rugby']
     };
 
@@ -3575,9 +4095,8 @@
     else if (f.includes('baseball')) targetSportKey = 'baseball';
     else if (f.includes('basketball')) targetSportKey = 'basketball';
     else if (f.includes('tennis')) targetSportKey = 'tennis';
-    else if (f.includes('motor') || f.includes('f1')) targetSportKey = 'motorsport';
+    else if (f.includes('volley')) targetSportKey = 'volleyball';
     else if (f.includes('wwe') || f.includes('wrest')) targetSportKey = 'wwe';
-    else if (f.includes('hockey')) targetSportKey = 'hockey';
     else if (f.includes('rugby')) targetSportKey = 'rugby';
 
     if (targetSportKey) {
@@ -6923,7 +7442,7 @@
             rapidApiTestResultEl.innerHTML = '<i class="fa-solid fa-trash-can mr-1.5 text-rose-400"></i>RapidAPI key has been deleted.';
           }
           showToast('RapidAPI key removed');
-          loadSportsEvents(true);
+          loadSportsEvents(false, true);
         });
       }
 
@@ -6966,7 +7485,7 @@
 
         closeModal('modal-settings');
         showToast('Settings saved successfully');
-        await loadSportsEvents(true);
+        await loadSportsEvents(false, true);
       });
     }
 
@@ -7607,7 +8126,7 @@
             const evTitle = (state.events || []).find(e => e.id === targetEvId)?.title || 'Match';
             delete state.customEventStreams[targetEvId];
             localStorage.setItem('highfy_custom_event_streams', JSON.stringify(state.customEventStreams));
-            loadSportsEvents(true);
+            loadSportsEvents(false, true);
             populateAdminEvents();
             renderAdminCustomEvents();
             if (state.currentView === 'view-match-details' && state.currentMatchDetailsId === targetEvId) {
@@ -7639,7 +8158,7 @@
             if (confirm('আপনি কি সত্যিই সকল ম্যাচের কাস্টম লিংক মুছে ফেলতে চান?')) {
               state.customEventStreams = {};
               localStorage.removeItem('highfy_custom_event_streams');
-              loadSportsEvents(true);
+              loadSportsEvents(false, true);
               populateAdminEvents();
               renderAdminCustomEvents();
               showToast('🗑️ সব ম্যাচের কাস্টম লিংক মুছে ফেলা হয়েছে!');
@@ -7749,7 +8268,7 @@
               localStorage.setItem('highfy_custom_event_streams', JSON.stringify(state.customEventStreams));
             }
 
-            loadSportsEvents(true);
+            loadSportsEvents(false, true);
             populateAdminEvents();
             renderAdminCustomEvents();
             showToast('খেলার লিংক স্বয়ংক্রিয় ম্যাচিং মোডে রিসেট করা হয়েছে');
@@ -8577,7 +9096,7 @@
 
             applyCustomAppBranding();
             loadChannels(true);
-            loadSportsEvents(true);
+            loadSportsEvents(false, true);
             loadCategories();
 
             renderAdminCustomChannels();
@@ -8838,7 +9357,7 @@
 
         showToast('Syncing latest streams from remote JSON...');
         await loadChannels(true);
-        await loadSportsEvents(true);
+        await loadSportsEvents(false, true);
         closeModal('modal-stream-source');
         showToast(`Sync complete! ${state.channels.length} Live Channels Loaded.`);
       });

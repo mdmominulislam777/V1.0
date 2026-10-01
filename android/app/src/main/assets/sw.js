@@ -1,5 +1,5 @@
 // HighFy TV Service Worker
-const CACHE_NAME = 'highfy-tv-v20260924_1600';
+const CACHE_NAME = 'highfy-tv-v20261001_0500';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
