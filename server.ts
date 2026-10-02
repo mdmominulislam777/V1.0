@@ -36,7 +36,11 @@ function sanitizeCricbuzzHost(h?: any): string {
 }
 
 const RAPIDAPI_CRICKET_HOST = sanitizeCricbuzzHost(process.env.CRICBUZZ_RAPIDAPI_HOST);
-const THESPORTSDB_KEY = process.env.THESPORTSDB_API_KEY || "3";
+const RAW_THESPORTSDB_SECRET = (process.env.THESPORTSDB_API_KEY || "").trim();
+const IS_THESPORTSDB_SECRET_CONFIGURED = Boolean(RAW_THESPORTSDB_SECRET);
+const THESPORTSDB_KEY = RAW_THESPORTSDB_SECRET
+  ? RAW_THESPORTSDB_SECRET.replace(/^https?:\/\/www\.thesportsdb\.com\/api\/v1\/json\/?/i, "").replace(/\/+$/, "").trim() || "3"
+  : "3";
 const THESPORTSDB_BASE = `https://www.thesportsdb.com/api/v1/json/${THESPORTSDB_KEY}`;
 const ALLSPORTSAPI_KEY = (process.env.ALLSPORTS_API_KEY || process.env.ALLSPORTSAPI_KEY || "").trim();
 const ALLSPORTSAPI_BASE = "https://apiv2.allsportsapi.com";
@@ -5265,7 +5269,17 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
       cricbuzzConfigured: ENABLE_CRICBUZZ_API && !!RAPIDAPI_KEY,
       cricbuzzPaused: !ENABLE_CRICBUZZ_API,
       thesportsdbConfigured: true,
+      thesportsdbSecretConfigured: IS_THESPORTSDB_SECRET_CONFIGURED,
       allSportsApiConfigured: !!ALLSPORTSAPI_KEY,
+      configuration: {
+        CRICKETDATA_API_KEY: CRICKETDATA_API_KEY ? "configured" : "missing",
+        THESPORTSDB_API_KEY: IS_THESPORTSDB_SECRET_CONFIGURED ? "configured" : "3 (Free Tier Default)",
+        ALLSPORTS_API_KEY: ALLSPORTSAPI_KEY ? "configured" : "missing",
+        cricketDataBlocked: isBlockedNow,
+        cricketDataBlockedUntil: isBlockedNow ? cricketDataCache.blockedUntil : null,
+        cricketCacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
+        rapidApiConfigured: !!RAPIDAPI_KEY,
+      },
     });
   });
 
@@ -5282,8 +5296,9 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
       rapidApiConfigured: !!RAPIDAPI_KEY,
       cricbuzzConfigured: ENABLE_CRICBUZZ_API && !!RAPIDAPI_KEY,
       thesportsdbConfigured: true,
+      thesportsdbSecretConfigured: IS_THESPORTSDB_SECRET_CONFIGURED,
       allSportsApiConfigured: !!ALLSPORTSAPI_KEY,
-      thesportsdbKey: THESPORTSDB_KEY === "3" ? "3" : "configured",
+      thesportsdbKey: IS_THESPORTSDB_SECRET_CONFIGURED ? "configured" : "3 (Free Tier Default)",
     });
   });
 

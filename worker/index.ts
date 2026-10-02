@@ -12,6 +12,7 @@ export interface Env {
   CRICKET_API_KEY?: string;
   RAPIDAPI_KEY?: string;
   THESPORTSDB_API_KEY?: string;
+  THESPORTSDB_BASE_URL?: string;
   ALLSPORTS_API_KEY?: string;
   ALLSPORTSAPI_KEY?: string;
 }
@@ -1762,7 +1763,11 @@ export default {
     const serverCricketKey = (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
     const isCricketSecretConfigured = Boolean(serverCricketKey);
     const isCurrentlyBlocked = workerCricketCache.blockedUntil > Date.now();
-    const sportsDbKey = (env.THESPORTSDB_API_KEY || "3").trim();
+    const rawSportsDbSecret = (env.THESPORTSDB_API_KEY || "").trim();
+    const isSportsDbSecretConfigured = Boolean(rawSportsDbSecret);
+    const sportsDbKey = rawSportsDbSecret
+      ? rawSportsDbSecret.replace(/^https?:\/\/www\.thesportsdb\.com\/api\/v1\/json\/?/i, "").replace(/\/+$/, "").trim() || "3"
+      : "3";
     const allSportsKey = (env.ALLSPORTS_API_KEY || env.ALLSPORTSAPI_KEY || "").trim();
     const isAllSportsConfigured = Boolean(allSportsKey);
     const rapidApiKey = (env.RAPIDAPI_KEY || "").trim();
@@ -1792,7 +1797,7 @@ export default {
         fallbackCricketSource: "ESPN-Fallback",
         configuration: {
           CRICKETDATA_API_KEY: isCricketSecretConfigured ? "configured" : "missing",
-          THESPORTSDB_API_KEY: sportsDbKey === "3" ? "3 (Free Tier)" : "configured",
+          THESPORTSDB_API_KEY: isSportsDbSecretConfigured ? "configured" : "3 (Free Tier Default)",
           ALLSPORTS_API_KEY: isAllSportsConfigured ? "configured" : "missing",
           cricketDataBlocked: isCurrentlyBlocked,
           cricketDataBlockedUntil: isCurrentlyBlocked ? workerCricketCache.blockedUntil : null,
@@ -1840,7 +1845,8 @@ export default {
         cricketCacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
         rapidApiConfigured: Boolean(rapidApiKey),
         thesportsdbConfigured: true,
-        thesportsdbKey: sportsDbKey === "3" ? "3" : "configured",
+        thesportsdbSecretConfigured: isSportsDbSecretConfigured,
+        thesportsdbKey: isSportsDbSecretConfigured ? "configured" : "3 (Free Tier Default)",
         allSportsApiConfigured: Boolean(allSportsKey),
         appName: "HIGHFY TV",
         version: "4.2",
@@ -2152,11 +2158,13 @@ export default {
           const count = (json.leagues && json.leagues.length) || (json.events && json.events.length) || 0;
           return jsonResponse({
             configured: true,
+            secretConfigured: isSportsDbSecretConfigured,
             valid: true,
             status: "success",
             source: "TheSportsDB",
+            secretName: "THESPORTSDB_API_KEY",
             latencyMs: elapsed,
-            key: sportsDbKey === "3" ? "3 (Free Tier)" : "Custom",
+            key: isSportsDbSecretConfigured ? "configured" : "3 (Free Tier Default)",
             itemsCount: count,
           });
         }
@@ -2222,11 +2230,26 @@ export default {
         const elapsed = Date.now() - start;
         if (testRes.ok) {
           const json: any = await testRes.json();
+          if (json && (json.error === "1" || json.error === 1)) {
+            return jsonResponse(
+              {
+                configured: true,
+                valid: false,
+                status: "auth_error",
+                source: "AllSportsAPI",
+                secretName: "ALLSPORTS_API_KEY",
+                latencyMs: elapsed,
+                message: "AllSportsAPI authentication failed (Invalid API key)",
+              },
+              401
+            );
+          }
           return jsonResponse({
             configured: true,
             valid: true,
             status: "success",
             source: "AllSportsAPI",
+            secretName: "ALLSPORTS_API_KEY",
             latencyMs: elapsed,
             leaguesCount: json.result?.length || 0,
           });
