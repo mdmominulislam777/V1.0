@@ -338,6 +338,8 @@ body #app {
     rgba(0, 0, 0, 0.2) 72%,
     rgba(0, 0, 0, 0.92) 100%
   );
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3947,11 +3949,16 @@ body .category-name,
   }
 }
 
-.player-video-element {
+.player-video-element,
+#hls-video-element {
   width: 100%;
   height: 100%;
   object-fit: contain;
   background: #000000;
+  filter: none !important;
+  -webkit-filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* ==========================================================================
@@ -4017,6 +4024,76 @@ body .category-name,
 }
 
 /* Fullscreen Mode (Native & CSS Fullscreen) */
+:fullscreen .player-video-wrapper,
+:-webkit-full-screen .player-video-wrapper,
+.player-video-wrapper:fullscreen,
+.player-video-wrapper:-webkit-full-screen,
+.player-video-wrapper.fullscreen,
+#player-modal:fullscreen .player-video-wrapper,
+#player-modal:-webkit-full-screen .player-video-wrapper,
+#player-modal.fullscreen .player-video-wrapper {
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  aspect-ratio: unset !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  background: #000000 !important;
+}
+
+:fullscreen .player-video-element,
+:-webkit-full-screen .player-video-element,
+.player-video-wrapper:fullscreen .player-video-element,
+.player-video-wrapper:-webkit-full-screen .player-video-element,
+.player-video-wrapper.fullscreen .player-video-element,
+#player-modal:fullscreen .player-video-element,
+#player-modal:-webkit-full-screen .player-video-element,
+#player-modal.fullscreen .player-video-element {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+}
+
+/* Mobile Landscape Mode Optimization */
+@media (orientation: landscape) and (max-height: 600px) {
+  #player-modal.active {
+    position: fixed !important;
+    inset: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    z-index: 999999 !important;
+  }
+
+  #player-modal.active .player-top-bar {
+    display: none !important;
+  }
+
+  #player-modal.active .player-video-wrapper {
+    width: 100vw !important;
+    height: 100vh !important;
+    max-width: 100vw !important;
+    max-height: 100vh !important;
+    aspect-ratio: unset !important;
+    flex-grow: 1 !important;
+  }
+
+  #player-modal.active .player-video-element {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+  }
+
+  #player-modal.active .player-controls-container {
+    display: none !important;
+  }
+}
+
 .player-video-wrapper:fullscreen .player-watermark,
 .player-video-wrapper:-webkit-full-screen .player-watermark,
 .player-video-wrapper.fullscreen .player-watermark,
@@ -4035,28 +4112,37 @@ body .category-name,
 
 .player-buffering-overlay {
   position: absolute;
+  inset: 0;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(11, 15, 25, 0.7);
-  backdrop-filter: blur(4px);
+  background: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  filter: none !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 12px;
   z-index: 22;
   pointer-events: none;
 }
 
 .player-spinner-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px;
+  margin-left: -24px;
   width: 48px;
   height: 48px;
-  border: 3.5px solid rgba(255, 255, 255, 0.15);
+  border: 3.5px solid rgba(255, 255, 255, 0.25);
   border-top-color: #ef4444;
   border-radius: 50%;
   animation: player-spin 0.8s linear infinite;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
 }
 
 @keyframes player-spin {
@@ -4064,11 +4150,7 @@ body .category-name,
 }
 
 .player-buffering-text {
-  font-size: 13px;
-  font-weight: 600;
-  color: #e2e8f0;
-  letter-spacing: 0.3px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
+  display: none !important;
 }
 
 .player-loading-spinner {

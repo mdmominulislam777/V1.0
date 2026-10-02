@@ -1,0 +1,12 @@
+name = "highfy-tv"
+main = "worker/index.ts"
+compatibility_date = "2026-09-29"
+compatibility_flags = ["nodejs_compat"]
+
+[vars]
+APP_NAME = "HIGHFY TV"
+THESPORTSDB_BASE_URL = "https://www.thesportsdb.com/api/v1/json"
+ALLSPORTSAPI_BASE_URL = "https://apiv2.allsportsapi.com"
+
+[observability]
+enabled = true

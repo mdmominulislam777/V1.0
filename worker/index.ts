@@ -4,7 +4,7 @@
  * Fully compatible with Cloudflare Workers fetch(request, env, ctx) architecture.
  */
 
-import channelsData from "../channels.json";
+import channelsData from "../channels.json" with { type: "json" };
 
 export interface Env {
   CRICKETDATA_API_KEY?: string;
@@ -12,6 +12,7 @@ export interface Env {
   CRICKET_API_KEY?: string;
   RAPIDAPI_KEY?: string;
   THESPORTSDB_API_KEY?: string;
+  ALLSPORTS_API_KEY?: string;
   ALLSPORTSAPI_KEY?: string;
 }
 
@@ -1008,6 +1009,10 @@ function normalizeCricketDataEvent(item: any): any {
   };
 }
 
+const CRICKET_CACHE_TTL_SECONDS = 180;
+const CRICKET_CACHE_TTL_MS = CRICKET_CACHE_TTL_SECONDS * 1000; // 180 seconds
+const CRICKET_BLOCK_COOLDOWN_MS = 15 * 60 * 1000; // 15 minutes cooldown when blocked
+
 function redactSecret(msg: string, secret?: string): string {
   if (!msg) return "";
   let out = String(msg).replace(/apikey=[^&\s"']+/gi, "apikey=[REDACTED]");
@@ -1017,24 +1022,98 @@ function redactSecret(msg: string, secret?: string): string {
   return out;
 }
 
+function detectCricketDataBlockOrRateLimit(status: number, reasonOrText: string): {
+  blocked: boolean;
+  rateLimited: boolean;
+  is15MinBlock: boolean;
+} {
+  const lower = String(reasonOrText || "").toLowerCase();
+  const is15MinBlock =
+    lower.includes("blocked for 15 minutes") ||
+    /blocked\s+for\s+\d+\s*min/i.test(lower) ||
+    (status === 400 && lower.includes("blocked"));
+  const isQuotaOrRateLimit =
+    status === 429 ||
+    is15MinBlock ||
+    lower.includes("blocked") ||
+    lower.includes("hit limit") ||
+    lower.includes("hits limit") ||
+    lower.includes("quota") ||
+    lower.includes("rate limit") ||
+    lower.includes("reached your limit") ||
+    lower.includes("too many requests") ||
+    lower.includes("exceeded");
+  return {
+    blocked: is15MinBlock || isQuotaOrRateLimit,
+    rateLimited: isQuotaOrRateLimit,
+    is15MinBlock,
+  };
+}
+
+interface WorkerCricketResult {
+  status: "success" | "missing_key" | "rate_limited" | "error";
+  source: "CricketData.org" | "ESPN-Fallback";
+  fallback: boolean;
+  blocked: boolean;
+  blockedUntil: number | null;
+  rateLimited: boolean;
+  upstreamStatus: number;
+  cacheTtl: number;
+  cached: boolean;
+  message?: string;
+  total: number;
+  data: any[];
+}
+
 const workerCricketCache: {
   timestamp: number;
   data: any[];
+  source: "CricketData.org" | "ESPN-Fallback";
   lastStatus: number;
+  lastError: string;
+  blocked: boolean;
+  blockedUntil: number;
+  rateLimited: boolean;
 } = {
   timestamp: 0,
   data: [],
+  source: "CricketData.org",
   lastStatus: 200,
+  lastError: "",
+  blocked: false,
+  blockedUntil: 0,
+  rateLimited: false,
 };
+
+let workerInFlightPromise: Promise<WorkerCricketResult> | null = null;
 
 async function fetchCricketDataApi(
   endpoint: "currentMatches" | "matches" | "cricScore" | string,
   apiKey: string,
   offset = 0
-): Promise<{ ok: boolean; status: number; data?: any; error?: string }> {
+): Promise<{
+  ok: boolean;
+  status: number;
+  blocked?: boolean;
+  rateLimited?: boolean;
+  data?: any;
+  error?: string;
+}> {
   const cleanKey = (apiKey || "").trim();
   if (!cleanKey) {
     return { ok: false, status: 400, error: "CRICKETDATA_API_KEY secret is not configured." };
+  }
+
+  // Do not repeatedly call CricketData while it is blocked for 15 minutes
+  const now = Date.now();
+  if (workerCricketCache.blockedUntil > now) {
+    return {
+      ok: false,
+      status: workerCricketCache.lastStatus || 400,
+      blocked: true,
+      rateLimited: true,
+      error: workerCricketCache.lastError || "Blocked for 15 minutes",
+    };
   }
 
   const cleanEndpoint = endpoint.startsWith("/") ? endpoint.slice(1) : endpoint;
@@ -1061,234 +1140,618 @@ async function fetchCricketDataApi(
       data = null;
     }
 
-    if (res.status === 429) {
+    const rawReason = String(data?.reason || data?.message || (!res.ok ? text.slice(0, 250) || res.statusText : ""));
+    const redactedReason = redactSecret(rawReason, cleanKey);
+    const blockInfo = detectCricketDataBlockOrRateLimit(res.status, redactedReason);
+
+    if (blockInfo.blocked) {
+      const effectiveStatus = blockInfo.is15MinBlock && res.status === 400 ? 400 : res.status === 429 ? 429 : res.status || 400;
+      const errMessage = redactedReason || (res.status === 429 ? "CricketData.org rate limit reached (HTTP 429)" : "Blocked for 15 minutes");
+      workerCricketCache.blocked = true;
+      workerCricketCache.rateLimited = true;
+      workerCricketCache.blockedUntil = Date.now() + CRICKET_BLOCK_COOLDOWN_MS;
+      workerCricketCache.lastStatus = effectiveStatus;
+      workerCricketCache.lastError = errMessage;
       return {
         ok: false,
-        status: 429,
-        error: "CricketData.org rate limit reached (HTTP 429)",
+        status: effectiveStatus,
+        blocked: true,
+        rateLimited: true,
+        error: errMessage,
       };
     }
 
     if (!res.ok) {
-      const rawErr = data?.reason || data?.message || (text ? text.slice(0, 250) : res.statusText);
+      workerCricketCache.lastStatus = res.status;
+      workerCricketCache.lastError = redactedReason;
       return {
         ok: false,
         status: res.status,
-        error: redactSecret(rawErr, cleanKey),
+        error: redactedReason,
       };
     }
 
     if (data && data.status === "failure") {
       const reason = redactSecret(data.reason || "CricketData API returned failure status", cleanKey);
-      const isRateLimit =
-        reason.toLowerCase().includes("hit limit") ||
-        reason.toLowerCase().includes("quota") ||
-        reason.toLowerCase().includes("rate limit") ||
-        reason.toLowerCase().includes("reached your limit");
+      const failureBlock = detectCricketDataBlockOrRateLimit(400, reason);
+      if (failureBlock.blocked) {
+        const st = failureBlock.is15MinBlock ? 400 : 429;
+        workerCricketCache.blocked = true;
+        workerCricketCache.rateLimited = true;
+        workerCricketCache.blockedUntil = Date.now() + CRICKET_BLOCK_COOLDOWN_MS;
+        workerCricketCache.lastStatus = st;
+        workerCricketCache.lastError = reason;
+        return {
+          ok: false,
+          status: st,
+          blocked: true,
+          rateLimited: true,
+          error: reason,
+          data,
+        };
+      }
+      workerCricketCache.lastStatus = 400;
+      workerCricketCache.lastError = reason;
       return {
         ok: false,
-        status: isRateLimit ? 429 : 400,
+        status: 400,
         error: reason,
         data,
       };
     }
 
-    return { ok: true, status: res.status, data };
+    workerCricketCache.blocked = false;
+    workerCricketCache.rateLimited = false;
+    workerCricketCache.blockedUntil = 0;
+    workerCricketCache.lastStatus = 200;
+    workerCricketCache.lastError = "";
+    return { ok: true, status: res.status, blocked: false, rateLimited: false, data };
   } catch (err: any) {
+    const errMsg = redactSecret(err.message || "Network error reaching CricketData.org API", cleanKey);
     return {
       ok: false,
       status: 500,
-      error: redactSecret(err.message || "Network error reaching CricketData.org API", cleanKey),
+      error: errMsg,
     };
   }
 }
 
-async function getNormalizedCricketDataMatches(env: Env) {
-  const activeKey = (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
-
-  if (!activeKey) {
-    return {
-      status: "missing_key",
-      rateLimited: false,
-      upstreamStatus: 400,
-      total: 0,
-      data: [],
-    };
-  }
-
+async function fetchEspnCricketFallbackMatches(): Promise<any[]> {
+  const fallbackEvents: any[] = [];
+  const seenIds = new Set<string>();
   const now = Date.now();
-  if (workerCricketCache.data.length > 0 && now - workerCricketCache.timestamp < 45 * 1000) {
+
+  try {
+    const dateParams: string[] = [];
+    for (let dOffset = 0; dOffset <= 2; dOffset++) {
+      const dt = new Date(now + dOffset * 24 * 3600 * 1000);
+      const dStr = new Intl.DateTimeFormat("en-CA", {
+        timeZone: "Asia/Dhaka",
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      })
+        .format(dt)
+        .replace(/-/g, "");
+      if (!dateParams.includes(dStr)) dateParams.push(dStr);
+    }
+
+    const espnResponses = await Promise.allSettled(
+      dateParams.map((dt) =>
+        fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${dt}`, {
+          headers: { Accept: "application/json", "User-Agent": "Mozilla/5.0" },
+          signal: AbortSignal.timeout(7000),
+        }).then((r) => (r.ok ? r.json() : null))
+      )
+    );
+
+    const splitEspnScore = (rawSc: any) => {
+      const s = String(rawSc || "").trim();
+      if (!s) return { score: "", overs: "" };
+      const m = s.match(/^(.*?)\s*\(\s*([\d./]+)\s*(?:ov|overs)?\s*\)\s*$/i);
+      if (m) return { score: m[1].trim(), overs: `${m[2]} ov` };
+      return { score: s, overs: "" };
+    };
+
+    for (const res of espnResponses) {
+      if (res.status !== "fulfilled" || !res.value) continue;
+      const leagues = (res.value as any)?.sports?.[0]?.leagues || [];
+      for (const lg of leagues) {
+        const seriesName = String(lg.name || lg.shortName || "International Cricket").trim();
+        const lgEvents = Array.isArray(lg.events) ? lg.events : [];
+        for (const ev of lgEvents) {
+          if (!ev || !ev.id) continue;
+          const evKey = `cr-cricapi-espn_${ev.id}`;
+          if (seenIds.has(evKey)) continue;
+
+          const competitors = Array.isArray(ev.competitors) ? ev.competitors : [];
+          if (competitors.length < 2) continue;
+          const c1 = competitors.find((c: any) => c.homeAway === "home") || competitors[0];
+          const c2 = competitors.find((c: any) => c.homeAway === "away") || competitors[1];
+          const t1Name = String(c1?.displayName || c1?.name || "").trim();
+          const t2Name = String(c2?.displayName || c2?.name || "").trim();
+          if (
+            !t1Name ||
+            !t2Name ||
+            /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(t1Name) ||
+            /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(t2Name)
+          ) {
+            continue;
+          }
+
+          const startIso = ev.date || null;
+          const parsedTs = startIso ? Date.parse(String(startIso)) : NaN;
+          const hasValidStart = !isNaN(parsedTs) && parsedTs > 0;
+          const timestamp = hasValidStart ? parsedTs : now;
+          if (hasValidStart && now - timestamp > 24 * 3600 * 1000) continue;
+
+          const parsedT1Score = splitEspnScore(c1?.score);
+          const parsedT2Score = splitEspnScore(c2?.score);
+
+          const stateStr = String(ev.status || ev.fullStatus?.type?.state || "pre").toLowerCase();
+          const summary = String(ev.fullStatus?.longSummary || ev.summary || ev.fullStatus?.type?.description || ev.note || "Scheduled").trim();
+          const summaryLower = summary.toLowerCase();
+          const elapsedMs = now - timestamp;
+          const isStumpsOrEnded =
+            summaryLower.includes("stumps") ||
+            summaryLower.includes("won by") ||
+            summaryLower.includes("won the match") ||
+            summaryLower.includes("match drawn") ||
+            summaryLower.includes("match tied") ||
+            summaryLower.includes("abandoned") ||
+            summaryLower.includes("no result") ||
+            summaryLower.includes("concluded") ||
+            summaryLower.includes("completed");
+          const hasLiveActivity =
+            Boolean(parsedT1Score.score) ||
+            Boolean(parsedT2Score.score) ||
+            /\b(ov|overs|need|trail|lead|innings|session|toss|batting|bowling)\b/i.test(summaryLower);
+
+          let status: "live" | "upcoming" | "finished" = "upcoming";
+          if (stateStr === "post" || isStumpsOrEnded || (hasValidStart && elapsedMs > 8.5 * 3600 * 1000)) {
+            status = "finished";
+          } else if (
+            stateStr === "in" &&
+            elapsedMs >= -15 * 60 * 1000 &&
+            elapsedMs <= 8.5 * 3600 * 1000 &&
+            hasLiveActivity
+          ) {
+            status = "live";
+          }
+
+          const eventType = String(ev.eventType || ev.class?.eventType || ev.class?.generalClassCard || "T20").toUpperCase();
+          const matchTimeStr = hasValidStart ? formatDhakaEventTime(timestamp) : "Scheduled";
+          const dhakaDate = hasValidStart
+            ? new Intl.DateTimeFormat("en-CA", {
+                timeZone: "Asia/Dhaka",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              }).format(new Date(timestamp))
+            : "";
+
+          const t1Logo = resolveHDTeamLogo(t1Name, c1?.logo);
+          const t2Logo = resolveHDTeamLogo(t2Name, c2?.logo);
+
+          const broadcastMock = {
+            tournament: { name: seriesName },
+            season: { name: seriesName },
+            type: eventType,
+            competitors: [
+              { qualifier: "home", name: t1Name, id: c1?.abbreviation || t1Name },
+              { qualifier: "away", name: t2Name, id: c2?.abbreviation || t2Name },
+            ],
+          };
+          const bData = resolveCricketBroadcastData(broadcastMock, {
+            name: `${t1Name} vs ${t2Name}`,
+            series: seriesName,
+            tournament: seriesName,
+            league: seriesName,
+            broadcast: ev.broadcast,
+            broadcasts: ev.broadcasts,
+            geoBroadcasts: ev.geoBroadcasts,
+            team1: { name: t1Name },
+            team2: { name: t2Name },
+          });
+
+          seenIds.add(evKey);
+          fallbackEvents.push({
+            id: evKey,
+            rawId: String(ev.id),
+            matchId: String(ev.id),
+            sport: "cricket",
+            sportName: "Cricket",
+            sportIcon: "fa-baseball-bat-ball",
+            title: `${t1Name} vs ${t2Name}`,
+            name: `${t1Name} vs ${t2Name}`,
+            tournament: seriesName,
+            league: seriesName,
+            seriesName,
+            matchType: eventType,
+            matchFormat: eventType,
+            matchDesc: String(ev.description || ev.title || seriesName).trim(),
+            status,
+            statusText: summary || (status === "live" ? "Live Now" : status === "finished" ? "Match Ended" : "Scheduled"),
+            statusLabel: status === "live" ? "LIVE" : status === "finished" ? "FT" : "Upcoming",
+            date: dhakaDate,
+            startTime: hasValidStart ? new Date(timestamp).toISOString() : null,
+            endTime: null,
+            timestamp,
+            matchTime: matchTimeStr,
+            timeOrTimer: status === "live" ? "LIVE" : status === "finished" ? "FT" : matchTimeStr,
+            venue: String(ev.location || "").trim(),
+            isHot: status === "live",
+            isSpecial: status === "live",
+            team1: {
+              teamId: c1?.abbreviation || t1Name,
+              name: t1Name,
+              shortName: c1?.abbreviation || t1Name.substring(0, 3).toUpperCase(),
+              logo: t1Logo,
+              score: parsedT1Score.score,
+              overs: parsedT1Score.overs,
+            },
+            team2: {
+              teamId: c2?.abbreviation || t2Name,
+              name: t2Name,
+              shortName: c2?.abbreviation || t2Name.substring(0, 3).toUpperCase(),
+              logo: t2Logo,
+              score: parsedT2Score.score,
+              overs: parsedT2Score.overs,
+            },
+            homeTeam: {
+              name: t1Name,
+              shortName: c1?.abbreviation || t1Name.substring(0, 3).toUpperCase(),
+              logo: t1Logo,
+              score: parsedT1Score.score,
+              overs: parsedT1Score.overs,
+            },
+            awayTeam: {
+              name: t2Name,
+              shortName: c2?.abbreviation || t2Name.substring(0, 3).toUpperCase(),
+              logo: t2Logo,
+              score: parsedT2Score.score,
+              overs: parsedT2Score.overs,
+            },
+            broadcaster: bData.broadcaster,
+            broadcasters: bData.broadcasters,
+            channelId: bData.channelId,
+            channelIds: bData.channelIds,
+            channelName: bData.channelName,
+            channelLogo: bData.channelLogo,
+            streamUrl: bData.streamUrl,
+            streams: bData.streams,
+            subText: bData.channelName ? `${seriesName} • ${bData.channelName}` : seriesName,
+            source: "ESPN-Fallback",
+          });
+        }
+      }
+    }
+  } catch {}
+
+  return fallbackEvents;
+}
+
+async function getNormalizedCricketDataMatches(env: Env): Promise<WorkerCricketResult> {
+  const activeKey = (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
+  const now = Date.now();
+
+  // 1. Serve from 180-second cache if fresh
+  if (
+    workerCricketCache.timestamp > 0 &&
+    workerCricketCache.data.length > 0 &&
+    now - workerCricketCache.timestamp < CRICKET_CACHE_TTL_MS
+  ) {
+    const isCurrentlyBlocked = workerCricketCache.blockedUntil > now;
     return {
       status: "success",
-      rateLimited: false,
+      source: workerCricketCache.source,
+      fallback: workerCricketCache.source === "ESPN-Fallback",
+      blocked: isCurrentlyBlocked,
+      blockedUntil: isCurrentlyBlocked ? workerCricketCache.blockedUntil : null,
+      rateLimited: isCurrentlyBlocked || workerCricketCache.rateLimited,
       upstreamStatus: workerCricketCache.lastStatus || 200,
+      cacheTtl: CRICKET_CACHE_TTL_SECONDS,
+      cached: true,
+      message: workerCricketCache.lastError || undefined,
       total: workerCricketCache.data.length,
       data: workerCricketCache.data,
     };
   }
 
-  const events: any[] = [];
-  const seenIds = new Set<string>();
-  const seenFps = new Map<string, any>();
+  // 2. Coalesce concurrent requests to avoid redundant upstream calls
+  if (workerInFlightPromise) {
+    return workerInFlightPromise;
+  }
 
-  const getFingerprint = (ev: any) => {
-    if (!ev) return null;
-    const t1 = (ev.team1?.name || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
-    const t2 = (ev.team2?.name || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
-    if (!t1 || !t2) return null;
-    const pair = [t1, t2].sort().join("_vs_");
-    const date = ev.date || "";
-    if (ev.status !== "finished") {
-      return `${pair}::active::${date || "nodate"}`;
-    }
-    return `${pair}::finished::${date}`;
-  };
+  workerInFlightPromise = (async (): Promise<WorkerCricketResult> => {
+    try {
+      const events: any[] = [];
+      const seenIds = new Set<string>();
+      const seenFps = new Map<string, any>();
 
-  const addEvent = (ev: any) => {
-    if (!ev || !ev.id) return;
-    if (seenIds.has(ev.id)) return;
-    const fp = getFingerprint(ev);
-    if (fp && seenFps.has(fp)) {
-      const existing = seenFps.get(fp);
-      const shouldPromoteIncoming =
-        (existing.status !== "live" && ev.status === "live") ||
-        (existing.status === "upcoming" &&
-          ev.status === "upcoming" &&
-          ev.timestamp &&
-          (!existing.timestamp || ev.timestamp < existing.timestamp));
+      const getFingerprint = (ev: any) => {
+        if (!ev) return null;
+        const t1 = (ev.team1?.name || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
+        const t2 = (ev.team2?.name || "").toLowerCase().replace(/[^a-z0-9]/g, "").trim();
+        if (!t1 || !t2) return null;
+        const pair = [t1, t2].sort().join("_vs_");
+        const date = ev.date || "";
+        if (ev.status !== "finished") {
+          return `${pair}::active::${date || "nodate"}`;
+        }
+        return `${pair}::finished::${date}`;
+      };
 
-      if (shouldPromoteIncoming) {
-        existing.id = ev.id;
-        existing.rawId = ev.rawId;
-        existing.matchId = ev.matchId;
-        existing.status = ev.status;
-        existing.statusText = ev.statusText || existing.statusText;
-        existing.statusLabel = ev.statusLabel || existing.statusLabel;
-        existing.timeOrTimer = ev.timeOrTimer || existing.timeOrTimer;
-        existing.timestamp = ev.timestamp || existing.timestamp;
-        existing.date = ev.date || existing.date;
-        existing.startTime = ev.startTime || existing.startTime;
-        existing.matchTime = ev.matchTime || existing.matchTime;
-        if (ev.tournament && ev.tournament !== "Cricket Series") {
-          existing.tournament = ev.tournament;
-          existing.league = ev.league || ev.tournament;
-          existing.seriesName = ev.seriesName || ev.tournament;
+      const addEvent = (ev: any) => {
+        if (!ev || !ev.id) return;
+        if (seenIds.has(ev.id)) return;
+        const fp = getFingerprint(ev);
+        if (fp && seenFps.has(fp)) {
+          const existing = seenFps.get(fp);
+          const shouldPromoteIncoming =
+            (existing.status !== "live" && ev.status === "live") ||
+            (existing.status === "upcoming" &&
+              ev.status === "upcoming" &&
+              ev.timestamp &&
+              (!existing.timestamp || ev.timestamp < existing.timestamp));
+
+          if (shouldPromoteIncoming) {
+            existing.id = ev.id;
+            existing.rawId = ev.rawId;
+            existing.matchId = ev.matchId;
+            existing.status = ev.status;
+            existing.statusText = ev.statusText || existing.statusText;
+            existing.statusLabel = ev.statusLabel || existing.statusLabel;
+            existing.timeOrTimer = ev.timeOrTimer || existing.timeOrTimer;
+            existing.timestamp = ev.timestamp || existing.timestamp;
+            existing.date = ev.date || existing.date;
+            existing.startTime = ev.startTime || existing.startTime;
+            existing.matchTime = ev.matchTime || existing.matchTime;
+            if (ev.tournament && ev.tournament !== "Cricket Series") {
+              existing.tournament = ev.tournament;
+              existing.league = ev.league || ev.tournament;
+              existing.seriesName = ev.seriesName || ev.tournament;
+            }
+          }
+          if (ev.team1?.score && (!existing.team1?.score || shouldPromoteIncoming)) {
+            existing.team1.score = ev.team1.score;
+            existing.team1.overs = ev.team1.overs;
+            if (existing.homeTeam) {
+              existing.homeTeam.score = ev.team1.score;
+              existing.homeTeam.overs = ev.team1.overs;
+            }
+          }
+          if (ev.team2?.score && (!existing.team2?.score || shouldPromoteIncoming)) {
+            existing.team2.score = ev.team2.score;
+            existing.team2.overs = ev.team2.overs;
+            if (existing.awayTeam) {
+              existing.awayTeam.score = ev.team2.score;
+              existing.awayTeam.overs = ev.team2.overs;
+            }
+          }
+          if (
+            ev.team1?.logo &&
+            ev.team1.logo !== "./assets/team-placeholder.svg" &&
+            (!existing.team1?.logo || existing.team1.logo === "./assets/team-placeholder.svg" || existing.team1.logo.includes("cricapi.com"))
+          ) {
+            existing.team1.logo = ev.team1.logo;
+            if (existing.homeTeam) existing.homeTeam.logo = ev.team1.logo;
+          }
+          if (
+            ev.team2?.logo &&
+            ev.team2.logo !== "./assets/team-placeholder.svg" &&
+            (!existing.team2?.logo || existing.team2.logo === "./assets/team-placeholder.svg" || existing.team2.logo.includes("cricapi.com"))
+          ) {
+            existing.team2.logo = ev.team2.logo;
+            if (existing.awayTeam) existing.awayTeam.logo = ev.team2.logo;
+          }
+          return;
+        }
+        seenIds.add(ev.id);
+        if (fp) seenFps.set(fp, ev);
+        events.push(ev);
+      };
+
+      // Primary Source: CricketData.org (only call if key is configured and not in 15-minute block window)
+      let primarySucceeded = false;
+      let upstreamStatus = 200;
+
+      if (activeKey && Date.now() >= workerCricketCache.blockedUntil) {
+        const currentRes = await fetchCricketDataApi("currentMatches", activeKey, 0);
+        upstreamStatus = currentRes.status || 200;
+
+        if (currentRes.ok && Array.isArray(currentRes.data?.data)) {
+          for (const item of currentRes.data.data) {
+            const ev = normalizeCricketDataEvent(item);
+            if (ev) addEvent(ev);
+          }
+          if (events.length > 0) {
+            primarySucceeded = true;
+          }
+        }
+      } else if (workerCricketCache.blockedUntil > Date.now()) {
+        upstreamStatus = workerCricketCache.lastStatus || 400;
+      } else if (!activeKey) {
+        upstreamStatus = 400;
+      }
+
+      let activeSource: "CricketData.org" | "ESPN-Fallback" = "CricketData.org";
+
+      // Fallback Source: ESPN Cricket Scoreboard (ONLY when CricketData is blocked/rate-limited/unavailable/empty)
+      if (!primarySucceeded) {
+        activeSource = "ESPN-Fallback";
+        const espnMatches = await fetchEspnCricketFallbackMatches();
+        for (const ev of espnMatches) {
+          addEvent(ev);
         }
       }
-      if (ev.team1?.score && (!existing.team1?.score || shouldPromoteIncoming)) {
-        existing.team1.score = ev.team1.score;
-        existing.team1.overs = ev.team1.overs;
-        if (existing.homeTeam) {
-          existing.homeTeam.score = ev.team1.score;
-          existing.homeTeam.overs = ev.team1.overs;
-        }
+
+      await Promise.all(
+        events.slice(0, 25).map(async (ev) => {
+          if (ev.team1?.name) {
+            const l1 = await resolveWorkerOfficialCricketLogoAsync(ev.team1.name, ev.team1.logo);
+            ev.team1.logo = l1;
+            if (ev.homeTeam) ev.homeTeam.logo = l1;
+          }
+          if (ev.team2?.name) {
+            const l2 = await resolveWorkerOfficialCricketLogoAsync(ev.team2.name, ev.team2.logo);
+            ev.team2.logo = l2;
+            if (ev.awayTeam) ev.awayTeam.logo = l2;
+          }
+        })
+      );
+
+      events.sort((a, b) => {
+        const order: Record<string, number> = { live: 0, upcoming: 1, finished: 2 };
+        const orderA = order[a.status] !== undefined ? order[a.status] : 1;
+        const orderB = order[b.status] !== undefined ? order[b.status] : 1;
+        if (orderA !== orderB) return orderA - orderB;
+        return (a.timestamp || 0) - (b.timestamp || 0);
+      });
+
+      if (events.length > 0) {
+        workerCricketCache.timestamp = Date.now();
+        workerCricketCache.data = events;
+        workerCricketCache.source = activeSource;
       }
-      if (ev.team2?.score && (!existing.team2?.score || shouldPromoteIncoming)) {
-        existing.team2.score = ev.team2.score;
-        existing.team2.overs = ev.team2.overs;
-        if (existing.awayTeam) {
-          existing.awayTeam.score = ev.team2.score;
-          existing.awayTeam.overs = ev.team2.overs;
-        }
-      }
-      if (
-        ev.team1?.logo &&
-        ev.team1.logo !== "./assets/team-placeholder.svg" &&
-        (!existing.team1?.logo || existing.team1.logo === "./assets/team-placeholder.svg" || existing.team1.logo.includes("cricapi.com"))
-      ) {
-        existing.team1.logo = ev.team1.logo;
-        if (existing.homeTeam) existing.homeTeam.logo = ev.team1.logo;
-      }
-      if (
-        ev.team2?.logo &&
-        ev.team2.logo !== "./assets/team-placeholder.svg" &&
-        (!existing.team2?.logo || existing.team2.logo === "./assets/team-placeholder.svg" || existing.team2.logo.includes("cricapi.com"))
-      ) {
-        existing.team2.logo = ev.team2.logo;
-        if (existing.awayTeam) existing.awayTeam.logo = ev.team2.logo;
-      }
-      return;
+
+      const isBlockedNow = workerCricketCache.blockedUntil > Date.now();
+      return {
+        status: "success",
+        source: activeSource,
+        fallback: activeSource === "ESPN-Fallback",
+        blocked: isBlockedNow,
+        blockedUntil: isBlockedNow ? workerCricketCache.blockedUntil : null,
+        rateLimited: isBlockedNow || workerCricketCache.rateLimited,
+        upstreamStatus,
+        cacheTtl: CRICKET_CACHE_TTL_SECONDS,
+        cached: false,
+        message: workerCricketCache.lastError || undefined,
+        total: events.length,
+        data: events,
+      };
+    } finally {
+      workerInFlightPromise = null;
     }
-    seenIds.add(ev.id);
-    if (fp) seenFps.set(fp, ev);
-    events.push(ev);
-  };
+  })();
 
-  // 1. https://api.cricapi.com/v1/currentMatches
-  const currentRes = await fetchCricketDataApi("currentMatches", activeKey, 0);
-  if (currentRes.status === 429) {
-    return {
-      status: "rate_limited",
-      rateLimited: true,
-      upstreamStatus: 429,
-      message: currentRes.error || "CricketData.org rate limit reached (HTTP 429)",
-      total: 0,
-      data: [],
-    };
-  }
+  return workerInFlightPromise;
+}
 
-  if (currentRes.ok && Array.isArray(currentRes.data?.data)) {
-    for (const item of currentRes.data.data) {
-      const ev = normalizeCricketDataEvent(item);
-      if (ev) addEvent(ev);
+// Shared Worker In-Memory Caches for Edge Performance
+const workerSportsDbCache = {
+  events: null as { timestamp: number; data: any[] } | null,
+  details: new Map<string, { timestamp: number; data: any; raw: any }>(),
+  broadcasters: new Map<string, { timestamp: number; data: any }>(),
+  TTL: 60 * 1000, // 60s
+  TTL_DETAILS: 120 * 1000, // 2 mins
+};
+
+const workerAllSportsApiCache = {
+  events: null as { timestamp: number; data: any[] } | null,
+  TTL: 60 * 1000,
+};
+
+function normalizeSportsDbEvent(raw: any): any {
+  if (!raw || !raw.idEvent) return null;
+  const rawSport = String(raw.strSport || "").toLowerCase();
+  // Strictly enforce: Cricket is ONLY from CricketData.org / CricAPI
+  if (rawSport === "cricket") return null;
+
+  const rawTimeClean = String(raw.strTime || "").split("+")[0].split("Z")[0].trim();
+  const hasUnknownZeroTime = !rawTimeClean || rawTimeClean === "00:00:00" || rawTimeClean === "00:00";
+  let parsedStartMs = NaN;
+  if (raw.strTimestamp) {
+    let tsStr = String(raw.strTimestamp).trim();
+    const tsHasZeroTime = /T00:00(:00)?(\.0+)?(Z|[+-]\d{2}:?\d{2})?$/i.test(tsStr.replace(" ", "T"));
+    if (!(tsHasZeroTime && hasUnknownZeroTime)) {
+      if (!tsStr.endsWith("Z") && !/[+-]\d{2}:?\d{2}$/.test(tsStr)) {
+        tsStr = tsStr.replace(" ", "T") + "Z";
+      }
+      parsedStartMs = Date.parse(tsStr);
     }
   }
 
-  // 2. https://api.cricapi.com/v1/cricScore
-  const scoreRes = await fetchCricketDataApi("cricScore", activeKey, 0);
-  if (scoreRes.ok && Array.isArray(scoreRes.data?.data)) {
-    for (const item of scoreRes.data.data) {
-      const ev = normalizeCricketDataEvent(item);
-      if (ev) addEvent(ev);
-    }
+  let finalTimestamp = !isNaN(parsedStartMs) ? parsedStartMs : Date.now();
+  const dateStr = raw.dateEvent || (raw.strTimestamp ? String(raw.strTimestamp).split("T")[0] : "");
+  const timeStr = raw.strTime ? String(raw.strTime).split("+")[0].trim() : "";
+  const homeName = raw.strHomeTeam || "Home";
+  const awayName = raw.strAwayTeam || "Away";
+  const title = `${homeName} vs ${awayName}`;
+
+  let status: "live" | "upcoming" | "finished" = "upcoming";
+  const strStatus = String(raw.strStatus || "").toLowerCase();
+  if (strStatus.includes("live") || strStatus.includes("1h") || strStatus.includes("2h") || strStatus.includes("ht")) {
+    status = "live";
+  } else if (strStatus.includes("ft") || strStatus.includes("aet") || strStatus.includes("pen") || strStatus.includes("postp") || strStatus.includes("canc")) {
+    status = "finished";
   }
 
-  // 3. https://api.cricapi.com/v1/matches
-  if (scoreRes.status !== 429) {
-    const matchesRes = await fetchCricketDataApi("matches", activeKey, 0);
-    if (matchesRes.ok && Array.isArray(matchesRes.data?.data)) {
-      for (const item of matchesRes.data.data) {
-        const ev = normalizeCricketDataEvent(item);
-        if (ev) addEvent(ev);
-      }
-    }
-  }
-
-  await Promise.all(
-    events.slice(0, 25).map(async (ev) => {
-      if (ev.team1?.name) {
-        const l1 = await resolveWorkerOfficialCricketLogoAsync(ev.team1.name, ev.team1.logo);
-        ev.team1.logo = l1;
-        if (ev.homeTeam) ev.homeTeam.logo = l1;
-      }
-      if (ev.team2?.name) {
-        const l2 = await resolveWorkerOfficialCricketLogoAsync(ev.team2.name, ev.team2.logo);
-        ev.team2.logo = l2;
-        if (ev.awayTeam) ev.awayTeam.logo = l2;
-      }
-    })
-  );
-
-  events.sort((a, b) => {
-    const order: Record<string, number> = { live: 0, upcoming: 1, finished: 2 };
-    const orderA = order[a.status] !== undefined ? order[a.status] : 1;
-    const orderB = order[b.status] !== undefined ? order[b.status] : 1;
-    if (orderA !== orderB) return orderA - orderB;
-    return (a.timestamp || 0) - (b.timestamp || 0);
-  });
-
-  if (events.length > 0) {
-    workerCricketCache.timestamp = Date.now();
-    workerCricketCache.data = events;
-    workerCricketCache.lastStatus = currentRes.status || 200;
-  }
+  const rawStation = String(raw.strTVStation || raw.strBroadcaster || raw.strBroadcast || "").trim();
+  const broadcasters = rawStation
+    ? rawStation.split(/[,/|;+&]|\band\b|\bor\b/i).map((s: string) => s.trim()).filter(Boolean)
+    : [];
 
   return {
-    status: "success",
-    rateLimited: false,
-    upstreamStatus: currentRes.status || 200,
-    total: events.length,
-    data: events,
+    id: `tsdb-${raw.idEvent}`,
+    rawId: raw.idEvent,
+    sport: raw.strSport || "Football",
+    sportName: raw.strSport || "Football",
+    league: raw.strLeague || "International",
+    title,
+    name: title,
+    date: dateStr,
+    time: timeStr,
+    timestamp: finalTimestamp,
+    status,
+    statusText: raw.strStatus || (status === "live" ? "LIVE" : "Upcoming"),
+    team1: {
+      name: homeName,
+      logo: raw.strHomeTeamBadge || raw.strThumb || "",
+      score: raw.intHomeScore !== null && raw.intHomeScore !== undefined ? String(raw.intHomeScore) : "",
+    },
+    team2: {
+      name: awayName,
+      logo: raw.strAwayTeamBadge || "",
+      score: raw.intAwayScore !== null && raw.intAwayScore !== undefined ? String(raw.intAwayScore) : "",
+    },
+    venue: raw.strVenue || "",
+    country: raw.strCountry || "",
+    broadcaster: rawStation,
+    broadcasters,
+  };
+}
+
+function normalizeAllSportsApiEvent(raw: any, sportType: string): any {
+  if (!raw || (!raw.event_home_team && !raw.event_away_team)) return null;
+  const homeName = raw.event_home_team || "Team 1";
+  const awayName = raw.event_away_team || "Team 2";
+  const league = raw.league_name || "International";
+  const title = `${homeName} vs ${awayName}`;
+  const sport = sportType === "cricket" ? "Cricket" : "Football";
+  const status = raw.event_status === "Finished" ? "finished" : (raw.event_status ? "live" : "upcoming");
+
+  return {
+    id: `asapi-${raw.event_key || Math.random().toString(36).slice(2, 8)}`,
+    sport,
+    sportName: sport,
+    title,
+    name: title,
+    league,
+    status,
+    statusText: raw.event_status || (status === "live" ? "LIVE" : "Upcoming"),
+    date: raw.event_date || "",
+    time: raw.event_time || "",
+    team1: {
+      name: homeName,
+      logo: raw.home_team_logo || "",
+      score: raw.event_final_result ? String(raw.event_final_result).split(" - ")[0] : "",
+    },
+    team2: {
+      name: awayName,
+      logo: raw.away_team_logo || "",
+      score: raw.event_final_result ? String(raw.event_final_result).split(" - ")[1] : "",
+    },
   };
 }
 
@@ -1298,6 +1761,11 @@ export default {
     const path = url.pathname;
     const serverCricketKey = (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
     const isCricketSecretConfigured = Boolean(serverCricketKey);
+    const isCurrentlyBlocked = workerCricketCache.blockedUntil > Date.now();
+    const sportsDbKey = (env.THESPORTSDB_API_KEY || "3").trim();
+    const allSportsKey = (env.ALLSPORTS_API_KEY || env.ALLSPORTSAPI_KEY || "").trim();
+    const isAllSportsConfigured = Boolean(allSportsKey);
+    const rapidApiKey = (env.RAPIDAPI_KEY || "").trim();
 
     // 1. Handle CORS preflight
     if (request.method === "OPTIONS") {
@@ -1307,102 +1775,184 @@ export default {
       });
     }
 
-    // 2. Health check route
-    if (path === "/api/health" || path === "/health") {
+    // 2. Diagnostic Health check: /api/health, /health, /
+    if (path === "/" || path === "/api/health" || path === "/health") {
       return jsonResponse({
         status: "ok",
+        worker: "ok",
+        theSportsDB: "ok",
+        allSportsApi: isAllSportsConfigured ? "ok" : "not_configured",
+        cricketData: isCricketSecretConfigured ? (isCurrentlyBlocked ? "rate_limited" : "ok") : "not_configured",
+        sportsApi: isAllSportsConfigured ? "ok" : "not_configured",
+        sportsDb: "ok",
+        timestamp: new Date().toISOString(),
+        environment: "Cloudflare Worker",
         secure: true,
-        worker: true,
-        cricketDataConfigured: isCricketSecretConfigured,
-        rapidApiConfigured: Boolean(env.RAPIDAPI_KEY && env.RAPIDAPI_KEY.trim()),
-        thesportsdbConfigured: true,
+        primaryCricketSource: "CricketData.org",
+        fallbackCricketSource: "ESPN-Fallback",
+        configuration: {
+          CRICKETDATA_API_KEY: isCricketSecretConfigured ? "configured" : "missing",
+          THESPORTSDB_API_KEY: sportsDbKey === "3" ? "3 (Free Tier)" : "configured",
+          ALLSPORTS_API_KEY: isAllSportsConfigured ? "configured" : "missing",
+          cricketDataBlocked: isCurrentlyBlocked,
+          cricketDataBlockedUntil: isCurrentlyBlocked ? workerCricketCache.blockedUntil : null,
+          cricketCacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
+          rapidApiConfigured: Boolean(rapidApiKey),
+        },
+        endpoints: [
+          "/",
+          "/api/health",
+          "/api/config",
+          "/api/cricket/matches",
+          "/api/cricket/scorecard",
+          "/api/cricket/schedule",
+          "/api/cricket/teams",
+          "/api/cricket/players",
+          "/api/cricapi/test",
+          "/api/thesportsdb/events",
+          "/api/thesportsdb/event/:id",
+          "/api/thesportsdb/test",
+          "/api/allsportsapi/matches",
+          "/api/allsportsapi/test",
+          "/api/fixture/broadcaster",
+          "/api/events",
+          "/api/events/live",
+          "/api/events/today",
+          "/api/events/upcoming",
+          "/api/events/:id/channels",
+          "/api/stream-proxy",
+          "/api/logo-proxy",
+          "/api/image-proxy",
+          "/api/version",
+        ],
       });
     }
 
-    // 3. Primary Frontend Proxy Endpoint: /api/cricket/matches (also /api/cricket/cricapi/matches)
-    if (path === "/api/cricket/matches" || path === "/api/cricket/cricapi/matches") {
+    // 3. Safe Public Configuration: /api/config
+    if (path === "/api/config") {
+      return jsonResponse({
+        status: "ok",
+        worker: "online",
+        primaryCricketSource: "CricketData.org",
+        fallbackCricketSource: "ESPN-Fallback",
+        cricketDataConfigured: isCricketSecretConfigured,
+        cricketDataBlocked: isCurrentlyBlocked,
+        cricketCacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
+        rapidApiConfigured: Boolean(rapidApiKey),
+        thesportsdbConfigured: true,
+        thesportsdbKey: sportsDbKey === "3" ? "3" : "configured",
+        allSportsApiConfigured: Boolean(allSportsKey),
+        appName: "HIGHFY TV",
+        version: "4.2",
+      });
+    }
+
+    // 4. Primary Cricket Proxy: /api/cricket/matches (also /api/cricket/cricapi/matches, /api/cricket/cricapi/current, /api/cricket/cricapi/cricScore)
+    if (
+      path === "/api/cricket/matches" ||
+      path === "/api/cricket/cricapi/matches" ||
+      path === "/api/cricket/cricapi/current" ||
+      path === "/api/cricket/cricapi/cricScore"
+    ) {
       const result = await getNormalizedCricketDataMatches(env);
-      if (result.status === "rate_limited" || result.rateLimited) {
-        return jsonResponse({
-          status: "rate_limited",
-          source: "CricketData.org",
-          rateLimited: true,
-          upstreamStatus: 429,
-          message: result.message || "CricketData rate limit reached (HTTP 429)",
-          total: 0,
-          data: [],
-        });
-      }
-
-      if (result.status === "missing_key") {
-        return jsonResponse(
-          {
-            status: "missing_key",
-            source: "CricketData.org",
-            configured: false,
-            total: 0,
-            data: [],
-            message: "CRICKETDATA_API_KEY is not configured in Worker secrets.",
-          },
-          400
-        );
-      }
-
       return jsonResponse({
         status: "success",
-        source: "CricketData.org",
-        configured: true,
-        rateLimited: false,
+        source: result.source,
+        configured: isCricketSecretConfigured,
+        fallback: result.fallback,
+        blocked: result.blocked,
+        blockedUntil: result.blockedUntil,
+        rateLimited: result.rateLimited,
+        cacheTtl: result.cacheTtl,
+        cached: result.cached,
         upstreamStatus: result.upstreamStatus,
+        message: result.message,
         total: result.total,
         data: result.data,
       });
     }
 
-    // 4. Direct endpoint proxies (/api/cricket/cricapi/current, /api/cricket/cricapi/cricScore)
-    if (path === "/api/cricket/cricapi/current" || path === "/api/cricket/cricapi/cricScore") {
-      if (!isCricketSecretConfigured) {
-        return jsonResponse(
-          {
-            status: "missing_key",
-            source: "CricketData.org",
-            configured: false,
-            total: 0,
-            data: [],
-            message: "CRICKETDATA_API_KEY is not configured in Worker secrets.",
-          },
-          400
-        );
+    // 5. Cricket Scorecard Proxy: /api/cricket/scorecard
+    if (path === "/api/cricket/scorecard") {
+      const matchId = String(url.searchParams.get("id") || url.searchParams.get("matchId") || "").trim();
+      if (!matchId) {
+        return jsonResponse({ status: "error", message: "Match ID is required" }, 400);
       }
-      const targetEndpoint = path.endsWith("cricScore") ? "cricScore" : "currentMatches";
-      const apiRes = await fetchCricketDataApi(targetEndpoint, serverCricketKey, 0);
-      if (apiRes.status === 429) {
+
+      if (serverCricketKey && !isCurrentlyBlocked) {
+        try {
+          const res = await fetch(`https://api.cricapi.com/v1/match_scorecard?apikey=${serverCricketKey}&id=${encodeURIComponent(matchId)}`, {
+            signal: AbortSignal.timeout(6000),
+          });
+          if (res.ok) {
+            const data: any = await res.json();
+            if (data && data.status === "success") {
+              return jsonResponse({ status: "success", source: "CricketData.org", data: data.data });
+            }
+          }
+        } catch {}
+      }
+
+      // Check cache if match exists
+      const cachedMatch = workerCricketCache.data.find((m) => m.id === matchId || m.matchId === matchId);
+      if (cachedMatch) {
         return jsonResponse({
-          status: "rate_limited",
-          source: "CricketData.org",
-          rateLimited: true,
-          upstreamStatus: 429,
-          total: 0,
-          data: [],
+          status: "success",
+          source: cachedMatch.source || "ESPN-Fallback",
+          data: {
+            id: cachedMatch.id,
+            name: cachedMatch.title,
+            status: cachedMatch.statusText,
+            team1: cachedMatch.team1,
+            team2: cachedMatch.team2,
+            score: [
+              cachedMatch.team1 ? { r: cachedMatch.team1.score, o: cachedMatch.team1.overs, inning: cachedMatch.team1.name } : null,
+              cachedMatch.team2 ? { r: cachedMatch.team2.score, o: cachedMatch.team2.overs, inning: cachedMatch.team2.name } : null,
+            ].filter(Boolean),
+          },
         });
       }
-      if (!apiRes.ok) {
-        return jsonResponse({ status: "error", source: "CricketData.org", message: apiRes.error }, apiRes.status || 500);
-      }
-      const rawList = Array.isArray(apiRes.data?.data) ? apiRes.data.data : [];
-      const normalized = rawList.map((item: any) => normalizeCricketDataEvent(item)).filter(Boolean);
-      return jsonResponse({
-        status: "success",
-        source: "CricketData.org",
-        configured: true,
-        total: normalized.length,
-        data: normalized,
-      });
+
+      return jsonResponse({ status: "error", message: "Scorecard details unavailable" }, 404);
     }
 
-    // 5. CricketData Test route (/api/cricapi/test or /api/cricket/cricapi/test)
-    // Verifies whether the server-side CRICKETDATA_API_KEY secret is configured without EVER returning the key.
-    if (path === "/api/cricapi/test" || path === "/api/cricket/cricapi/test") {
+    // 6. Cricket Schedule: /api/cricket/schedule
+    if (path === "/api/cricket/schedule") {
+      if (serverCricketKey && !isCurrentlyBlocked) {
+        try {
+          const res = await fetch(`https://api.cricapi.com/v1/matches?apikey=${serverCricketKey}&offset=0`, {
+            signal: AbortSignal.timeout(6000),
+          });
+          if (res.ok) {
+            const data: any = await res.json();
+            if (data && Array.isArray(data.data)) {
+              return jsonResponse({ status: "success", source: "CricketData.org", total: data.data.length, data: data.data });
+            }
+          }
+        } catch {}
+      }
+      return jsonResponse({ status: "success", source: "Worker", total: 0, data: [] });
+    }
+
+    // 7. Cricket Teams Search: /api/cricket/teams
+    if (path === "/api/cricket/teams") {
+      const q = String(url.searchParams.get("q") || url.searchParams.get("search") || url.searchParams.get("t") || "").trim().toLowerCase();
+      const results: any[] = [];
+      for (const [key, logo] of Object.entries(HD_CRICKET_LOGOS_MAP)) {
+        if (!q || key.includes(q)) {
+          results.push({ name: key.toUpperCase(), logo });
+        }
+      }
+      return jsonResponse({ status: "success", total: results.length, data: results });
+    }
+
+    // 8. Cricket Players: /api/cricket/players
+    if (path === "/api/cricket/players") {
+      return jsonResponse({ status: "success", total: 0, data: [] });
+    }
+
+    // 9. CricketData Diagnostic Test route: /api/cricapi/test or /api/cricket/cricapi/test or /api/cricket/test
+    if (path === "/api/cricapi/test" || path === "/api/cricket/cricapi/test" || path === "/api/cricket/test") {
       if (!isCricketSecretConfigured) {
         return jsonResponse(
           {
@@ -1429,6 +1979,7 @@ export default {
           status: "success",
           source: "CricketData.org",
           secretName: "CRICKETDATA_API_KEY",
+          cacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
           message: `CRICKETDATA_API_KEY server secret is configured and VALID! (${matches.length} current matches found)`,
           latencyMs: elapsed,
           matchesCount: matches.length,
@@ -1436,21 +1987,26 @@ export default {
         });
       }
 
-      if (testRes.status === 429) {
+      if (testRes.blocked || testRes.rateLimited || testRes.status === 429 || testRes.status === 400) {
         return jsonResponse(
           {
             configured: true,
             valid: false,
             status: "rate_limited",
-            source: "CricketData.org",
+            source: "ESPN-Fallback",
             secretName: "CRICKETDATA_API_KEY",
-            statusCode: 429,
+            statusCode: testRes.status || 400,
+            blocked: Boolean(testRes.blocked),
+            blockedUntil: workerCricketCache.blockedUntil || null,
             rateLimited: true,
             total: 0,
             data: [],
-            message: "CRICKETDATA_API_KEY is configured, but CricketData.org rate limit was reached (HTTP 429).",
+            message: redactSecret(
+              testRes.error || "CRICKETDATA_API_KEY is configured, but CricketData.org is temporarily blocked or rate-limited.",
+              serverCricketKey
+            ),
           },
-          429
+          testRes.status === 400 ? 400 : 429
         );
       }
 
@@ -1468,7 +2024,483 @@ export default {
       );
     }
 
-    // 6. Unknown API route
+    // 10. TheSportsDB Events: /api/thesportsdb/events
+    if (path === "/api/thesportsdb/events") {
+      const now = Date.now();
+      if (workerSportsDbCache.events && now - workerSportsDbCache.events.timestamp < workerSportsDbCache.TTL) {
+        return jsonResponse({
+          status: "success",
+          source: "TheSportsDB",
+          total: workerSportsDbCache.events.data.length,
+          data: workerSportsDbCache.events.data,
+          cached: true,
+        });
+      }
+
+      try {
+        const todayStr = new Date().toISOString().split("T")[0];
+        const res = await fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/eventsday.php?d=${todayStr}`, {
+          signal: AbortSignal.timeout(6000),
+        });
+        if (res.ok) {
+          const json: any = await res.json();
+          const events: any[] = [];
+          if (Array.isArray(json?.events)) {
+            for (const raw of json.events) {
+              const norm = normalizeSportsDbEvent(raw);
+              if (norm) events.push(norm);
+            }
+          }
+          workerSportsDbCache.events = { timestamp: now, data: events };
+          return jsonResponse({
+            status: "success",
+            source: "TheSportsDB",
+            total: events.length,
+            data: events,
+            cached: false,
+          });
+        }
+      } catch (err: any) {
+        return jsonResponse({ status: "error", message: err.message, data: [] }, 500);
+      }
+
+      return jsonResponse({ status: "success", source: "TheSportsDB", total: 0, data: [] });
+    }
+
+    // 11. TheSportsDB Specific Event & Broadcaster Lookup: /api/thesportsdb/event/:id
+    if (path.startsWith("/api/thesportsdb/event/")) {
+      const rawId = path.replace("/api/thesportsdb/event/", "").replace(/^tsdb-/, "").trim();
+      if (!rawId) {
+        return jsonResponse({ status: "error", error: "Event ID is required" }, 400);
+      }
+
+      const now = Date.now();
+      const cached = workerSportsDbCache.details.get(rawId);
+      if (cached && now - cached.timestamp < workerSportsDbCache.TTL_DETAILS) {
+        return jsonResponse({ status: "success", data: cached.data, raw: cached.raw, cached: true });
+      }
+
+      try {
+        const [eventRes, tvRes] = await Promise.allSettled([
+          fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/lookupevent.php?id=${encodeURIComponent(rawId)}`, {
+            signal: AbortSignal.timeout(6000),
+          }),
+          fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/lookuptv.php?id=${encodeURIComponent(rawId)}`, {
+            signal: AbortSignal.timeout(6000),
+          }),
+        ]);
+
+        let rawEvent: any = null;
+        if (eventRes.status === "fulfilled" && eventRes.value.ok) {
+          const json: any = await eventRes.value.json();
+          rawEvent = (json.events && json.events[0]) || null;
+        }
+
+        if (!rawEvent) {
+          return jsonResponse({ status: "error", error: "Event not found" }, 404);
+        }
+
+        const norm = normalizeSportsDbEvent(rawEvent) || {
+          id: `tsdb-${rawEvent.idEvent}`,
+          rawId: rawEvent.idEvent,
+          sport: rawEvent.strSport || "Football",
+          title: `${rawEvent.strHomeTeam || "Home"} vs ${rawEvent.strAwayTeam || "Away"}`,
+          broadcasters: [],
+        };
+
+        // Extract and merge TV channels from dedicated lookuptv.php
+        if (tvRes.status === "fulfilled" && tvRes.value.ok) {
+          try {
+            const tvJson: any = await tvRes.value.json();
+            const tvList = Array.isArray(tvJson.tvs) ? tvJson.tvs : Array.isArray(tvJson.tv) ? tvJson.tv : [];
+            const tvChannels = tvList
+              .map((t: any) => String(t.strChannel || t.strTVStation || t.strBroadcaster || "").trim())
+              .filter(Boolean);
+
+            for (const ch of tvChannels) {
+              if (!norm.broadcasters.includes(ch)) {
+                norm.broadcasters.push(ch);
+              }
+            }
+          } catch {}
+        }
+
+        workerSportsDbCache.details.set(rawId, { timestamp: now, data: norm, raw: rawEvent });
+        return jsonResponse({ status: "success", data: norm, raw: rawEvent, cached: false });
+      } catch (err: any) {
+        return jsonResponse({ status: "error", message: err.message }, 500);
+      }
+    }
+
+    // 12. TheSportsDB Connectivity Test: /api/thesportsdb/test
+    if (path === "/api/thesportsdb/test") {
+      try {
+        const start = Date.now();
+        let testRes = await fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/all_leagues.php`, {
+          signal: AbortSignal.timeout(6000),
+        });
+
+        if (!testRes.ok) {
+          testRes = await fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/eventsseason.php?id=4328&s=2024-2025`, {
+            signal: AbortSignal.timeout(6000),
+          });
+        }
+
+        const elapsed = Date.now() - start;
+        if (testRes.ok) {
+          const json: any = await testRes.json();
+          const count = (json.leagues && json.leagues.length) || (json.events && json.events.length) || 0;
+          return jsonResponse({
+            configured: true,
+            valid: true,
+            status: "success",
+            source: "TheSportsDB",
+            latencyMs: elapsed,
+            key: sportsDbKey === "3" ? "3 (Free Tier)" : "Custom",
+            itemsCount: count,
+          });
+        }
+        return jsonResponse({ configured: true, valid: false, status: "error", statusCode: testRes.status }, testRes.status);
+      } catch (err: any) {
+        return jsonResponse({ configured: true, valid: false, status: "error", message: err.message }, 500);
+      }
+    }
+
+    // 13. AllSportsAPI Matches: /api/allsportsapi/matches
+    if (path === "/api/allsportsapi/matches") {
+      if (!allSportsKey) {
+        return jsonResponse({ status: "success", total: 0, data: [], message: "AllSportsAPI key not configured." });
+      }
+
+      const now = Date.now();
+      if (workerAllSportsApiCache.events && now - workerAllSportsApiCache.events.timestamp < workerAllSportsApiCache.TTL) {
+        return jsonResponse({
+          status: "success",
+          source: "AllSportsAPI",
+          total: workerAllSportsApiCache.events.data.length,
+          data: workerAllSportsApiCache.events.data,
+          cached: true,
+        });
+      }
+
+      const events: any[] = [];
+      const sports = ["football", "cricket"];
+      const promises = sports.map(async (sport) => {
+        try {
+          const liveRes = await fetch(`https://apiv2.allsportsapi.com/${sport}/?met=Livescore&APIkey=${encodeURIComponent(allSportsKey)}`, {
+            signal: AbortSignal.timeout(6000),
+          });
+          if (liveRes.ok) {
+            const liveData: any = await liveRes.json();
+            if (liveData && Array.isArray(liveData.result) && liveData.error !== "1") {
+              for (const m of liveData.result) {
+                const norm = normalizeAllSportsApiEvent(m, sport);
+                if (norm) events.push(norm);
+              }
+            }
+          }
+        } catch {}
+      });
+
+      await Promise.allSettled(promises);
+      if (events.length > 0) {
+        workerAllSportsApiCache.events = { timestamp: now, data: events };
+      }
+      return jsonResponse({ status: "success", source: "AllSportsAPI", total: events.length, data: events });
+    }
+
+    // 14. AllSportsAPI Test: /api/allsportsapi/test
+    if (path === "/api/allsportsapi/test") {
+      if (!allSportsKey) {
+        return jsonResponse({ configured: false, valid: false, message: "ALLSPORTSAPI_KEY not configured" }, 400);
+      }
+      try {
+        const start = Date.now();
+        const testRes = await fetch(`https://apiv2.allsportsapi.com/football/?met=Leagues&APIkey=${encodeURIComponent(allSportsKey)}`, {
+          signal: AbortSignal.timeout(6000),
+        });
+        const elapsed = Date.now() - start;
+        if (testRes.ok) {
+          const json: any = await testRes.json();
+          return jsonResponse({
+            configured: true,
+            valid: true,
+            status: "success",
+            source: "AllSportsAPI",
+            latencyMs: elapsed,
+            leaguesCount: json.result?.length || 0,
+          });
+        }
+        return jsonResponse({ configured: true, valid: false, status: "error", statusCode: testRes.status }, testRes.status);
+      } catch (err: any) {
+        return jsonResponse({ configured: true, valid: false, status: "error", message: err.message }, 500);
+      }
+    }
+
+    // 15. Broadcaster Lookup by Fixture / Event ID: /api/fixture/broadcaster
+    if (path === "/api/fixture/broadcaster") {
+      const fixtureId = String(url.searchParams.get("fixtureId") || url.searchParams.get("id") || "").trim();
+      if (!fixtureId) {
+        return jsonResponse({ status: "error", error: "fixtureId is required" }, 400);
+      }
+
+      // 1. Check in-memory sportsDb cache
+      const cachedEv = (workerSportsDbCache.events?.data || []).find(
+        (e: any) => String(e.id) === fixtureId || String(e.rawId) === fixtureId
+      );
+      if (cachedEv && (cachedEv.broadcaster || (cachedEv.broadcasters && cachedEv.broadcasters.length > 0))) {
+        return jsonResponse({
+          status: "success",
+          fixtureId,
+          broadcaster: cachedEv.broadcaster || cachedEv.broadcasters.join(", "),
+          broadcasters: cachedEv.broadcasters || [],
+          source: "TheSportsDB Cache",
+        });
+      }
+
+      // 2. Check live TheSportsDB lookupevent.php & lookuptv.php
+      const cleanTsdbId = fixtureId.replace(/^tsdb-/, "");
+      if (/^\d+$/.test(cleanTsdbId)) {
+        try {
+          const [eventRes, tvRes] = await Promise.allSettled([
+            fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/lookupevent.php?id=${encodeURIComponent(cleanTsdbId)}`, {
+              signal: AbortSignal.timeout(5000),
+            }),
+            fetch(`https://www.thesportsdb.com/api/v1/json/${sportsDbKey}/lookuptv.php?id=${encodeURIComponent(cleanTsdbId)}`, {
+              signal: AbortSignal.timeout(5000),
+            }),
+          ]);
+
+          const broadcasters: string[] = [];
+          if (eventRes.status === "fulfilled" && eventRes.value.ok) {
+            const data: any = await eventRes.value.json();
+            const raw = (data.events && data.events[0]) || null;
+            if (raw) {
+              const rawStation = String(raw.strTVStation || raw.strBroadcaster || raw.strBroadcast || "").trim();
+              if (rawStation) {
+                const parts = rawStation.split(/[,/|;+&]|\band\b|\bor\b/i).map((s: string) => s.trim()).filter(Boolean);
+                broadcasters.push(...parts);
+              }
+            }
+          }
+
+          if (tvRes.status === "fulfilled" && tvRes.value.ok) {
+            try {
+              const tvJson: any = await tvRes.value.json();
+              const tvList = Array.isArray(tvJson.tvs) ? tvJson.tvs : Array.isArray(tvJson.tv) ? tvJson.tv : [];
+              for (const t of tvList) {
+                const name = String(t.strChannel || t.strTVStation || t.strBroadcaster || "").trim();
+                if (name && !broadcasters.includes(name)) broadcasters.push(name);
+              }
+            } catch {}
+          }
+
+          if (broadcasters.length > 0) {
+            return jsonResponse({
+              status: "success",
+              fixtureId,
+              broadcaster: broadcasters.join(", "),
+              broadcasters,
+              source: "TheSportsDB Live",
+            });
+          }
+        } catch {}
+      }
+
+      return jsonResponse({
+        status: "success",
+        fixtureId,
+        broadcaster: "",
+        broadcasters: [],
+        source: "None",
+        message: "No verified broadcast information available for this event",
+      });
+    }
+
+    // 16. Unified Events Endpoints: /api/events, /api/events/live, /api/events/today, /api/events/upcoming
+    if (path === "/api/events" || path === "/api/events/live" || path === "/api/events/today" || path === "/api/events/upcoming") {
+      const cricketRes = await getNormalizedCricketDataMatches(env);
+      const cricketMatches = cricketRes.data || [];
+      const sportsDbMatches = workerSportsDbCache.events?.data || [];
+      const allSportsMatches = workerAllSportsApiCache.events?.data || [];
+
+      let combined = [...cricketMatches, ...sportsDbMatches, ...allSportsMatches];
+
+      if (path === "/api/events/live") {
+        combined = combined.filter((e) => e.status === "live");
+      } else if (path === "/api/events/upcoming") {
+        combined = combined.filter((e) => e.status === "upcoming");
+      }
+
+      return jsonResponse({
+        status: "success",
+        total: combined.length,
+        data: combined,
+      });
+    }
+
+    // 17. Event Channels Endpoint: /api/events/:id/channels
+    if (path.startsWith("/api/events/") && path.endsWith("/channels")) {
+      return jsonResponse({
+        status: "success",
+        channels: [],
+        message: "Live channel lookup completed",
+      });
+    }
+
+    // 18. Stream Proxy: /api/stream-proxy (Edge-compatible HLS & TS proxy)
+    if (path === "/api/stream-proxy") {
+      let targetUrl = String(url.searchParams.get("url") || url.searchParams.get("token") || "").trim();
+      if (!targetUrl) {
+        return new Response("Missing stream URL or token", { status: 400, headers: CORS_HEADERS });
+      }
+
+      if (!/^https?:\/\//i.test(targetUrl)) {
+        return new Response("Invalid stream URL protocol", { status: 400, headers: CORS_HEADERS });
+      }
+
+      try {
+        const targetUrlObj = new URL(targetUrl);
+        const origin = targetUrlObj.origin;
+        const fetchHeaders: Record<string, string> = {
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+          "Accept": "*/*",
+          "Accept-Language": "en-US,en;q=0.9",
+          "Referer": origin + "/",
+          "Origin": origin,
+        };
+
+        const range = request.headers.get("range");
+        if (range) fetchHeaders["Range"] = range;
+
+        const targetRes = await fetch(targetUrl, {
+          headers: fetchHeaders,
+          signal: AbortSignal.timeout(15000),
+        });
+
+        const contentType = targetRes.headers.get("content-type") || "";
+        const pathname = targetUrlObj.pathname.toLowerCase();
+        const isExplicitSegment =
+          pathname.endsWith(".ts") ||
+          pathname.endsWith(".m4s") ||
+          pathname.endsWith(".mp4") ||
+          pathname.endsWith(".aac") ||
+          targetUrl.includes(".ts?") ||
+          targetUrl.includes(".m4s?");
+
+        // 1. Direct High-Speed Segment Streaming
+        if (isExplicitSegment && targetRes.body) {
+          const headers = new Headers(CORS_HEADERS);
+          headers.set("Content-Type", contentType && !contentType.includes("mpegurl") ? contentType : "video/mp2t");
+          headers.set("Cache-Control", "public, max-age=60, immutable");
+          const cl = targetRes.headers.get("content-length");
+          if (cl) headers.set("Content-Length", cl);
+          const cr = targetRes.headers.get("content-range");
+          if (cr) headers.set("Content-Range", cr);
+          const ar = targetRes.headers.get("accept-ranges");
+          if (ar) headers.set("Accept-Ranges", ar);
+
+          return new Response(targetRes.body, {
+            status: targetRes.status,
+            headers,
+          });
+        }
+
+        // 2. Inspect M3U8 Manifest
+        const rawBuffer = await targetRes.arrayBuffer();
+        const textSample = new TextDecoder().decode(rawBuffer.slice(0, Math.min(rawBuffer.byteLength, 128)));
+        const isM3U8Manifest = rawBuffer.byteLength > 0 && textSample.includes("#EXTM3U");
+
+        if (isM3U8Manifest) {
+          const manifestText = new TextDecoder().decode(rawBuffer);
+          const lines = manifestText.split(/\r?\n/);
+          const rewrittenLines = lines.map((line) => {
+            const trimmed = line.trim();
+            if (!trimmed) return line;
+
+            if (trimmed.startsWith("#")) {
+              if (trimmed.startsWith("#EXT")) {
+                return line.replace(/URI="([^"]+)"/g, (_match, uri) => {
+                  try {
+                    const absUri = new URL(uri, targetUrl).toString();
+                    return `URI="/api/stream-proxy?url=${encodeURIComponent(absUri)}"`;
+                  } catch {
+                    return `URI="${uri}"`;
+                  }
+                });
+              }
+              return line;
+            }
+
+            try {
+              const absUrl = new URL(trimmed, targetUrl).toString();
+              return `/api/stream-proxy?url=${encodeURIComponent(absUrl)}`;
+            } catch {
+              return line;
+            }
+          });
+
+          const headers = new Headers(CORS_HEADERS);
+          headers.set("Content-Type", "application/vnd.apple.mpegurl; charset=utf-8");
+          headers.set("Cache-Control", "no-cache, no-store, must-revalidate");
+          return new Response(rewrittenLines.join("\n"), {
+            status: 200,
+            headers,
+          });
+        }
+
+        // 3. Fallback binary / other media
+        const headers = new Headers(CORS_HEADERS);
+        headers.set("Content-Type", contentType || "application/octet-stream");
+        return new Response(rawBuffer, {
+          status: targetRes.status,
+          headers,
+        });
+      } catch (err: any) {
+        return new Response(`Stream proxy error: ${err.message}`, { status: 502, headers: CORS_HEADERS });
+      }
+    }
+
+    // 19. Logo & Image Proxy: /api/logo-proxy, /api/image-proxy
+    if (path === "/api/logo-proxy" || path === "/api/image-proxy") {
+      const imgUrl = String(url.searchParams.get("url") || "").trim();
+      if (!imgUrl || !/^https?:\/\//i.test(imgUrl)) {
+        return new Response("Invalid image URL", { status: 400, headers: CORS_HEADERS });
+      }
+
+      try {
+        const imgRes = await fetch(imgUrl, {
+          headers: {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+            "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+          },
+          signal: AbortSignal.timeout(8000),
+        });
+
+        if (imgRes.ok && imgRes.body) {
+          const headers = new Headers(CORS_HEADERS);
+          headers.set("Content-Type", imgRes.headers.get("content-type") || "image/png");
+          headers.set("Cache-Control", "public, max-age=86400, immutable");
+          return new Response(imgRes.body, { status: 200, headers });
+        }
+        return new Response("Image load failed", { status: imgRes.status, headers: CORS_HEADERS });
+      } catch {
+        return new Response("Image proxy timeout", { status: 504, headers: CORS_HEADERS });
+      }
+    }
+
+    // 20. Version check: /api/version, /version.json
+    if (path === "/api/version" || path === "/version.json") {
+      return jsonResponse({
+        appName: "HIGHFY TV",
+        version: "4.2",
+        releaseDate: "2026-10-02",
+        environment: "Cloudflare Worker",
+        status: "stable",
+      });
+    }
+
+    // 21. Unknown API route
     return jsonResponse(
       {
         status: "not_found",

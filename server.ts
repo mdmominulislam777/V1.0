@@ -38,7 +38,7 @@ function sanitizeCricbuzzHost(h?: any): string {
 const RAPIDAPI_CRICKET_HOST = sanitizeCricbuzzHost(process.env.CRICBUZZ_RAPIDAPI_HOST);
 const THESPORTSDB_KEY = process.env.THESPORTSDB_API_KEY || "3";
 const THESPORTSDB_BASE = `https://www.thesportsdb.com/api/v1/json/${THESPORTSDB_KEY}`;
-const ALLSPORTSAPI_KEY = (process.env.ALLSPORTSAPI_KEY || "").trim();
+const ALLSPORTSAPI_KEY = (process.env.ALLSPORTS_API_KEY || process.env.ALLSPORTSAPI_KEY || "").trim();
 const ALLSPORTSAPI_BASE = "https://apiv2.allsportsapi.com";
 
 const CRICKETDATA_API_KEY = (process.env.CRICKETDATA_API_KEY || process.env.CRICAPI_KEY || process.env.CRICKET_API_KEY || "").trim();
@@ -81,18 +81,25 @@ const sportsDbCache = {
   TTL_DETAILS: 30 * 60 * 1000, // 30 minutes for event details
 };
 
+const CRICKET_CACHE_TTL_SECONDS = 180;
+const CRICKET_CACHE_TTL_MS = CRICKET_CACHE_TTL_SECONDS * 1000; // 180 seconds
+const CRICKET_BLOCK_COOLDOWN_MS = 15 * 60 * 1000; // 15 minutes cooldown when blocked
+
 const cricketDataCache = {
   matches: null as CacheEntry<any[]> | null,
   current: null as CacheEntry<any> | null,
   allMatches: null as CacheEntry<any> | null,
   series: null as CacheEntry<any> | null,
   details: new Map<string, CacheEntry<any>>(),
+  source: "CricketData.org" as "CricketData.org" | "ESPN-Fallback",
   lastStatus: 200 as number,
   lastError: "" as string,
+  blocked: false as boolean,
+  blockedUntil: 0 as number,
   rateLimited: false as boolean,
-  TTL_LIVE: 60 * 1000,         // 60 seconds for live matches so scores update rapidly
-  TTL_SCHEDULE: 2 * 60 * 1000, // 2 minutes for general matches
-  TTL_STATIC: 30 * 60 * 1000,  // 30 minutes for series list
+  TTL_LIVE: CRICKET_CACHE_TTL_MS,     // 180 seconds cache TTL
+  TTL_SCHEDULE: CRICKET_CACHE_TTL_MS, // 180 seconds cache TTL
+  TTL_STATIC: 30 * 60 * 1000,         // 30 minutes for series list
 };
 
 const allSportsApiCache = {
@@ -1273,15 +1280,54 @@ async function startServer() {
     return out;
   }
 
+  function detectCricketDataBlockOrRateLimit(status: number, reasonOrText: string): {
+    blocked: boolean;
+    rateLimited: boolean;
+    is15MinBlock: boolean;
+  } {
+    const lower = String(reasonOrText || "").toLowerCase();
+    const is15MinBlock =
+      lower.includes("blocked for 15 minutes") ||
+      /blocked\s+for\s+\d+\s*min/i.test(lower) ||
+      (status === 400 && lower.includes("blocked"));
+    const isQuotaOrRateLimit =
+      status === 429 ||
+      is15MinBlock ||
+      lower.includes("blocked") ||
+      lower.includes("hit limit") ||
+      lower.includes("hits limit") ||
+      lower.includes("quota") ||
+      lower.includes("rate limit") ||
+      lower.includes("reached your limit") ||
+      lower.includes("too many requests") ||
+      lower.includes("exceeded");
+    return {
+      blocked: is15MinBlock || isQuotaOrRateLimit,
+      rateLimited: isQuotaOrRateLimit,
+      is15MinBlock,
+    };
+  }
+
   let lastCricketDataApiTime = 0;
   async function fetchCricketDataApi(
     endpoint: "currentMatches" | "matches" | "cricScore" | string,
     apiKey: string = CRICKETDATA_API_KEY,
     offset: number = 0
-  ): Promise<{ ok: boolean; status: number; data?: any; error?: string; rawText?: string }> {
+  ): Promise<{ ok: boolean; status: number; blocked?: boolean; rateLimited?: boolean; data?: any; error?: string; rawText?: string }> {
     const activeKey = (apiKey || "").trim() || CRICKETDATA_API_KEY;
     if (!activeKey) {
-      return { ok: false, status: 401, error: "CRICKETDATA_API_KEY is not configured in server environment." };
+      return { ok: false, status: 400, error: "CRICKETDATA_API_KEY is not configured in server environment." };
+    }
+
+    // Do not repeatedly call CricketData while it is blocked for 15 minutes
+    if (cricketDataCache.blockedUntil > Date.now()) {
+      return {
+        ok: false,
+        status: cricketDataCache.lastStatus || 400,
+        blocked: true,
+        rateLimited: true,
+        error: cricketDataCache.lastError || "Blocked for 15 minutes",
+      };
     }
 
     // Throttle to respect rate limits
@@ -1316,42 +1362,54 @@ async function startServer() {
         data = null;
       }
 
-      if (res.status === 429) {
-        cricketDataCache.lastStatus = 429;
+      const rawErr = String(data?.reason || data?.message || (!res.ok ? (text ? text.slice(0, 250) : res.statusText) : ""));
+      const redactedReason = redactCricketSecret(rawErr, activeKey);
+      const blockInfo = detectCricketDataBlockOrRateLimit(res.status, redactedReason);
+
+      if (blockInfo.blocked) {
+        const effectiveStatus = blockInfo.is15MinBlock && res.status === 400 ? 400 : res.status === 429 ? 429 : res.status || 400;
+        const errMsg = redactedReason || (res.status === 429 ? "CricketData.org rate limit reached (HTTP 429)" : "Blocked for 15 minutes");
+        cricketDataCache.lastStatus = effectiveStatus;
+        cricketDataCache.blocked = true;
         cricketDataCache.rateLimited = true;
-        cricketDataCache.lastError = "CricketData.org rate limit reached (HTTP 429)";
-        return { ok: false, status: 429, error: "Rate limit reached (HTTP 429)" };
+        cricketDataCache.blockedUntil = Date.now() + CRICKET_BLOCK_COOLDOWN_MS;
+        cricketDataCache.lastError = errMsg;
+        return { ok: false, status: effectiveStatus, blocked: true, rateLimited: true, error: errMsg };
       }
 
       if (!res.ok) {
-        const rawErr = data?.reason || data?.message || (text ? text.slice(0, 250) : res.statusText);
+        cricketDataCache.lastStatus = res.status;
+        cricketDataCache.lastError = redactedReason;
         return {
           ok: false,
           status: res.status,
-          error: redactCricketSecret(rawErr, activeKey),
+          error: redactedReason,
         };
       }
 
       if (data && data.status === "failure") {
         const reason = redactCricketSecret(data.reason || "CricketData API returned failure status", activeKey);
-        const isRateLimit =
-          String(reason).toLowerCase().includes("hit limit") ||
-          String(reason).toLowerCase().includes("quota") ||
-          String(reason).toLowerCase().includes("rate limit") ||
-          String(reason).toLowerCase().includes("reached your limit");
-        if (isRateLimit) {
-          cricketDataCache.lastStatus = 429;
+        const failureBlock = detectCricketDataBlockOrRateLimit(400, reason);
+        if (failureBlock.blocked) {
+          const st = failureBlock.is15MinBlock ? 400 : 429;
+          cricketDataCache.lastStatus = st;
+          cricketDataCache.blocked = true;
           cricketDataCache.rateLimited = true;
+          cricketDataCache.blockedUntil = Date.now() + CRICKET_BLOCK_COOLDOWN_MS;
           cricketDataCache.lastError = reason;
-          return { ok: false, status: 429, error: reason };
+          return { ok: false, status: st, blocked: true, rateLimited: true, error: reason, data };
         }
+        cricketDataCache.lastStatus = 400;
+        cricketDataCache.lastError = reason;
         return { ok: false, status: 400, error: reason, data };
       }
 
       cricketDataCache.lastStatus = 200;
+      cricketDataCache.blocked = false;
       cricketDataCache.rateLimited = false;
+      cricketDataCache.blockedUntil = 0;
       cricketDataCache.lastError = "";
-      return { ok: true, status: 200, data };
+      return { ok: true, status: 200, blocked: false, rateLimited: false, data };
     } catch (err: any) {
       return {
         ok: false,
@@ -2272,8 +2330,7 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
   }
 
   async function getNormalizedCricketDataMatches(apiKey: string = CRICKETDATA_API_KEY): Promise<any[]> {
-    const activeKey = apiKey.trim() || CRICKETDATA_API_KEY;
-    if (!activeKey) return [];
+    const activeKey = (apiKey || "").trim() || CRICKETDATA_API_KEY;
 
     const now = Date.now();
     if (cricketDataCache.matches && now - cricketDataCache.matches.timestamp < cricketDataCache.TTL_LIVE) {
@@ -2373,241 +2430,231 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
           events.push(ev);
         };
 
-        // 1. Fetch current live/ongoing matches (https://api.cricapi.com/v1/currentMatches)
-        const currentRes = await fetchCricketDataApi("currentMatches", activeKey, 0);
-        if (currentRes.ok && Array.isArray(currentRes.data?.data)) {
-          for (const item of currentRes.data.data) {
-            const ev = normalizeCricketDataEvent(item);
-            if (ev) addEvent(ev);
-          }
-        }
-
-        // 2. Fetch live cricScore feed (https://api.cricapi.com/v1/cricScore) if quota permits
-        let scoreStatus = currentRes.status;
-        if (currentRes.status !== 429) {
-          const scoreRes = await fetchCricketDataApi("cricScore", activeKey, 0);
-          scoreStatus = scoreRes.status;
-          if (scoreRes.ok && Array.isArray(scoreRes.data?.data)) {
-            for (const item of scoreRes.data.data) {
+        // 1. Primary Source: CricketData.org (single request per 180s cache window; skip if blocked for 15 minutes)
+        let primarySucceeded = false;
+        if (activeKey && Date.now() >= cricketDataCache.blockedUntil) {
+          const currentRes = await fetchCricketDataApi("currentMatches", activeKey, 0);
+          if (currentRes.ok && Array.isArray(currentRes.data?.data)) {
+            for (const item of currentRes.data.data) {
               const ev = normalizeCricketDataEvent(item);
               if (ev) addEvent(ev);
+            }
+            if (events.length > 0) {
+              primarySucceeded = true;
             }
           }
         }
 
-        // 3. Fetch matches list (https://api.cricapi.com/v1/matches) if quota permits
-        if (currentRes.status !== 429 && scoreStatus !== 429) {
-          const matchesRes = await fetchCricketDataApi("matches", activeKey, 0);
-          if (matchesRes.ok && Array.isArray(matchesRes.data?.data)) {
-            for (const item of matchesRes.data.data) {
-              const ev = normalizeCricketDataEvent(item);
-              if (ev) addEvent(ev);
+        let activeSource: "CricketData.org" | "ESPN-Fallback" = "CricketData.org";
+
+        // 2. Fallback Source: ESPN Cricket Scoreboard (ONLY when CricketData is blocked/rate-limited/unavailable/empty)
+        if (!primarySucceeded) {
+          activeSource = "ESPN-Fallback";
+          try {
+            const espnDates: string[] = [];
+            for (let dOffset = 0; dOffset <= 2; dOffset++) {
+              const dt = new Date(Date.now() + dOffset * 24 * 3600 * 1000);
+              const dStr = new Intl.DateTimeFormat("en-CA", {
+                timeZone: "Asia/Dhaka",
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              })
+                .format(dt)
+                .replace(/-/g, "");
+              if (!espnDates.includes(dStr)) espnDates.push(dStr);
             }
-          }
-        }
 
-        // 4. Fetch 3-day upcoming & live Cricket fixtures with full match details from ESPN Cricket API
-        try {
-          const espnDates: string[] = [];
-          for (let dOffset = 0; dOffset <= 3; dOffset++) {
-            const dt = new Date(Date.now() + dOffset * 24 * 3600 * 1000);
-            const dStr = new Intl.DateTimeFormat("en-CA", {
-              timeZone: "Asia/Dhaka",
-              year: "numeric",
-              month: "2-digit",
-              day: "2-digit",
-            })
-              .format(dt)
-              .replace(/-/g, "");
-            if (!espnDates.includes(dStr)) espnDates.push(dStr);
-          }
+            const espnResponses = await Promise.all(
+              espnDates.map((d) =>
+                fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${d}`)
+                  .then((r) => (r.ok ? r.json() : null))
+                  .catch(() => null)
+              )
+            );
 
-          const espnResponses = await Promise.all(
-            espnDates.map((d) =>
-              fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${d}`)
-                .then((r) => (r.ok ? r.json() : null))
-                .catch(() => null)
-            )
-          );
+            for (const espnJson of espnResponses as any[]) {
+              const leagues = espnJson?.sports?.[0]?.leagues || [];
+              for (const lg of leagues) {
+                const leagueName = String(lg?.name || "Cricket Series").trim();
+                for (const evItem of lg?.events || []) {
+                  const comps = Array.isArray(evItem?.competitors) ? evItem.competitors : [];
+                  const homeComp = comps.find((c: any) => c.homeAway === "home") || comps[0];
+                  const awayComp = comps.find((c: any) => c.homeAway === "away") || comps[1];
+                  const homeName = String(homeComp?.displayName || homeComp?.name || "").trim();
+                  const awayName = String(awayComp?.displayName || awayComp?.name || "").trim();
+                  if (
+                    !homeName ||
+                    !awayName ||
+                    /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(homeName) ||
+                    /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(awayName)
+                  ) {
+                    continue;
+                  }
 
-          for (const espnJson of espnResponses as any[]) {
-            const leagues = espnJson?.sports?.[0]?.leagues || [];
-            for (const lg of leagues) {
-              const leagueName = String(lg?.name || "Cricket Series").trim();
-              for (const evItem of lg?.events || []) {
-                const comps = Array.isArray(evItem?.competitors) ? evItem.competitors : [];
-                const homeComp = comps.find((c: any) => c.homeAway === "home") || comps[0];
-                const awayComp = comps.find((c: any) => c.homeAway === "away") || comps[1];
-                const homeName = String(homeComp?.displayName || homeComp?.name || "").trim();
-                const awayName = String(awayComp?.displayName || awayComp?.name || "").trim();
-                if (
-                  !homeName ||
-                  !awayName ||
-                  /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(homeName) ||
-                  /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(awayName)
-                ) {
-                  continue;
+                  const rawStartStr = evItem.date || null;
+                  const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+                  const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+                  const timestamp = hasValidStart ? parsedStartMs : null;
+
+                  const stateStr = String(evItem.status || evItem.fullStatus?.type?.state || "pre").toLowerCase();
+                  const shortSumStr = String(evItem.summary || "").trim();
+                  const summaryStr = String(evItem.fullStatus?.longSummary || shortSumStr || "Scheduled").trim();
+
+                  const splitEspnScore = (rawSc: any) => {
+                    const s = String(rawSc || "").trim();
+                    if (!s) return { score: "", overs: "" };
+                    const m = s.match(/^(.*?)\s*\(\s*([\d./]+)\s*(?:ov|overs)?\s*\)\s*$/i);
+                    if (m) return { score: m[1].trim(), overs: `${m[2]} ov` };
+                    return { score: s, overs: "" };
+                  };
+                  const parsedHomeSc = splitEspnScore(homeComp?.score);
+                  const parsedAwaySc = splitEspnScore(awayComp?.score);
+                  const homeScore = parsedHomeSc.score;
+                  const homeOvers = parsedHomeSc.overs;
+                  const awayScore = parsedAwaySc.score;
+                  const awayOvers = parsedAwaySc.overs;
+
+                  const elapsedMs = hasValidStart ? Date.now() - parsedStartMs : 0;
+                  if (hasValidStart && elapsedMs > 24 * 3600 * 1000) {
+                    continue;
+                  }
+                  const isFutureUnstarted = hasValidStart && parsedStartMs > Date.now();
+                  const fullDescStr = String(evItem.fullStatus?.type?.description || "").trim();
+                  const rawLongSummary = String(evItem.fullStatus?.longSummary || "").trim();
+                  const hasActivePlaySignal = Boolean(
+                    homeScore ||
+                      awayScore ||
+                      (rawLongSummary && !/^(live|scheduled|match scheduled.*)$/i.test(rawLongSummary))
+                  );
+                  const isOverDurationOrStumps =
+                    (hasValidStart && elapsedMs > 8.5 * 3600 * 1000) ||
+                    /\bstumps\b/i.test(`${fullDescStr} ${shortSumStr} ${summaryStr}`);
+
+                  let status: "live" | "upcoming" | "finished" = "upcoming";
+                  if (
+                    stateStr === "post" ||
+                    isOverDurationOrStumps ||
+                    /(won by|won the match|drawn|tied|no result|abandoned|concluded|completed)/i.test(summaryStr)
+                  ) {
+                    status = "finished";
+                  } else if (stateStr === "in" && !isFutureUnstarted && hasActivePlaySignal) {
+                    status = "live";
+                  } else if (!isFutureUnstarted && elapsedMs > 45 * 60 * 1000 && !hasActivePlaySignal) {
+                    continue;
+                  } else {
+                    status = "upcoming";
+                  }
+
+                  const eventType = String(evItem.eventType || evItem.class?.eventType || evItem.class?.generalClassCard || "ODI").toUpperCase();
+                  const matchDesc = String(evItem.title || evItem.eventType || eventType).trim();
+                  const venue = String(evItem.location || "").trim();
+                  const homeLogo = resolveHDTeamLogo(homeName, homeComp?.logo || "");
+                  const awayLogo = resolveHDTeamLogo(awayName, awayComp?.logo || "");
+
+                  const dhakaDate = hasValidStart
+                    ? new Intl.DateTimeFormat("en-CA", {
+                        timeZone: "Asia/Dhaka",
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }).format(new Date(parsedStartMs))
+                    : "";
+                  const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
+
+                  const broadcastMock = {
+                    tournament: { name: leagueName },
+                    season: { name: leagueName },
+                    type: eventType,
+                    competitors: [
+                      { qualifier: "home", name: homeName, id: homeComp?.abbreviation || homeName },
+                      { qualifier: "away", name: awayName, id: awayComp?.abbreviation || awayName },
+                    ],
+                  };
+                  const bData = resolveCricketBroadcastData(broadcastMock, {
+                    name: `${homeName} vs ${awayName}`,
+                    series: leagueName,
+                    tournament: leagueName,
+                    league: leagueName,
+                    broadcast: evItem.broadcast,
+                    broadcasts: evItem.broadcasts,
+                    geoBroadcasts: evItem.geoBroadcasts,
+                    team1: { name: homeName },
+                    team2: { name: awayName },
+                  });
+
+                  addEvent({
+                    id: `cr-cricapi-espn_${evItem.id}`,
+                    rawId: String(evItem.id),
+                    matchId: String(evItem.id),
+                    sport: "cricket",
+                    sportName: "Cricket",
+                    sportIcon: "fa-baseball-bat-ball",
+                    title: `${homeName} vs ${awayName}`,
+                    name: `${homeName} vs ${awayName}`,
+                    seriesName: leagueName,
+                    tournament: leagueName,
+                    league: leagueName,
+                    matchDesc,
+                    matchFormat: eventType,
+                    matchType: eventType,
+                    startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+                    endTime: null,
+                    status,
+                    statusText: summaryStr,
+                    statusLabel: status === "live" ? "LIVE" : status === "finished" ? "FT" : "Upcoming",
+                    timestamp,
+                    date: dhakaDate,
+                    matchTime: matchTimeStr,
+                    timeOrTimer: status === "live" ? "LIVE" : status === "finished" ? "FT" : matchTimeStr,
+                    venue,
+                    isHot: status === "live",
+                    isSpecial: status === "live",
+                    team1: {
+                      teamId: homeComp?.abbreviation || homeName,
+                      name: homeName,
+                      shortName: homeComp?.abbreviation || "",
+                      logo: homeLogo,
+                      score: homeScore,
+                      overs: homeOvers,
+                    },
+                    team2: {
+                      teamId: awayComp?.abbreviation || awayName,
+                      name: awayName,
+                      shortName: awayComp?.abbreviation || "",
+                      logo: awayLogo,
+                      score: awayScore,
+                      overs: awayOvers,
+                    },
+                    homeTeam: {
+                      name: homeName,
+                      logo: homeLogo,
+                      score: homeScore,
+                      overs: homeOvers,
+                    },
+                    awayTeam: {
+                      name: awayName,
+                      logo: awayLogo,
+                      score: awayScore,
+                      overs: awayOvers,
+                    },
+                    broadcaster: bData.broadcaster,
+                    broadcasters: bData.broadcasters,
+                    channelId: bData.channelId,
+                    channelIds: bData.channelIds,
+                    channelName: bData.channelName,
+                    channelLogo: bData.channelLogo,
+                    streamUrl: bData.streamUrl,
+                    streams: bData.streams,
+                    subText: [leagueName, matchDesc, venue].filter(Boolean).join(" • "),
+                    source: "ESPN-Fallback",
+                  });
                 }
-
-                const rawStartStr = evItem.date || null;
-                const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
-                const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
-                const timestamp = hasValidStart ? parsedStartMs : null;
-
-                const stateStr = String(evItem.status || evItem.fullStatus?.type?.state || "pre").toLowerCase();
-                const shortSumStr = String(evItem.summary || "").trim();
-                const summaryStr = String(evItem.fullStatus?.longSummary || shortSumStr || "Scheduled").trim();
-
-                const splitEspnScore = (rawSc: any) => {
-                  const s = String(rawSc || "").trim();
-                  if (!s) return { score: "", overs: "" };
-                  const m = s.match(/^(.*?)\s*\(\s*([\d./]+)\s*(?:ov|overs)?\s*\)\s*$/i);
-                  if (m) return { score: m[1].trim(), overs: `${m[2]} ov` };
-                  return { score: s, overs: "" };
-                };
-                const parsedHomeSc = splitEspnScore(homeComp?.score);
-                const parsedAwaySc = splitEspnScore(awayComp?.score);
-                const homeScore = parsedHomeSc.score;
-                const homeOvers = parsedHomeSc.overs;
-                const awayScore = parsedAwaySc.score;
-                const awayOvers = parsedAwaySc.overs;
-
-                const elapsedMs = hasValidStart ? Date.now() - parsedStartMs : 0;
-                if (hasValidStart && elapsedMs > 24 * 3600 * 1000) {
-                  continue;
-                }
-                const isFutureUnstarted = hasValidStart && parsedStartMs > Date.now();
-                const fullDescStr = String(evItem.fullStatus?.type?.description || "").trim();
-                const rawLongSummary = String(evItem.fullStatus?.longSummary || "").trim();
-                const hasActivePlaySignal = Boolean(
-                  homeScore ||
-                    awayScore ||
-                    (rawLongSummary && !/^(live|scheduled|match scheduled.*)$/i.test(rawLongSummary))
-                );
-                const isOverDurationOrStumps =
-                  (hasValidStart && elapsedMs > 8.5 * 3600 * 1000) ||
-                  /\bstumps\b/i.test(`${fullDescStr} ${shortSumStr} ${summaryStr}`);
-
-                let status: "live" | "upcoming" | "finished" = "upcoming";
-                if (
-                  stateStr === "post" ||
-                  isOverDurationOrStumps ||
-                  /(won by|won the match|drawn|tied|no result|abandoned|concluded|completed)/i.test(summaryStr)
-                ) {
-                  status = "finished";
-                } else if (stateStr === "in" && !isFutureUnstarted && hasActivePlaySignal) {
-                  status = "live";
-                } else if (!isFutureUnstarted && elapsedMs > 45 * 60 * 1000 && !hasActivePlaySignal) {
-                  continue;
-                } else {
-                  status = "upcoming";
-                }
-
-                const eventType = String(evItem.eventType || evItem.class?.eventType || evItem.class?.generalClassCard || "ODI").toUpperCase();
-                const matchDesc = String(evItem.title || evItem.eventType || eventType).trim();
-                const venue = String(evItem.location || "").trim();
-                const homeLogo = resolveHDTeamLogo(homeName, homeComp?.logo || "");
-                const awayLogo = resolveHDTeamLogo(awayName, awayComp?.logo || "");
-
-                const dhakaDate = hasValidStart
-                  ? new Intl.DateTimeFormat("en-CA", {
-                      timeZone: "Asia/Dhaka",
-                      year: "numeric",
-                      month: "2-digit",
-                      day: "2-digit",
-                    }).format(new Date(parsedStartMs))
-                  : "";
-                const matchTimeStr = hasValidStart ? formatDhakaEventTime(parsedStartMs) : "Scheduled";
-
-                const broadcastMock = {
-                  tournament: { name: leagueName },
-                  season: { name: leagueName },
-                  type: eventType,
-                  competitors: [
-                    { qualifier: "home", name: homeName, id: homeComp?.abbreviation || homeName },
-                    { qualifier: "away", name: awayName, id: awayComp?.abbreviation || awayName },
-                  ],
-                };
-                const bData = resolveCricketBroadcastData(broadcastMock, {
-                  name: `${homeName} vs ${awayName}`,
-                  series: leagueName,
-                  tournament: leagueName,
-                  league: leagueName,
-                  team1: { name: homeName },
-                  team2: { name: awayName },
-                });
-
-                addEvent({
-                  id: `cr-espn-${evItem.id}`,
-                  rawId: String(evItem.id),
-                  matchId: String(evItem.id),
-                  sport: "cricket",
-                  sportName: "Cricket",
-                  sportIcon: "fa-baseball-bat-ball",
-                  title: `${homeName} vs ${awayName}`,
-                  name: `${homeName} vs ${awayName}`,
-                  seriesName: leagueName,
-                  tournament: leagueName,
-                  league: leagueName,
-                  matchDesc,
-                  matchFormat: eventType,
-                  matchType: eventType,
-                  startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
-                  endTime: null,
-                  status,
-                  statusText: summaryStr,
-                  statusLabel: status === "live" ? "LIVE" : status === "finished" ? "FT" : "Upcoming",
-                  timestamp,
-                  date: dhakaDate,
-                  matchTime: matchTimeStr,
-                  timeOrTimer: status === "live" ? "LIVE" : status === "finished" ? "FT" : matchTimeStr,
-                  venue,
-                  isHot: status === "live",
-                  isSpecial: status === "live",
-                  team1: {
-                    teamId: homeComp?.abbreviation || homeName,
-                    name: homeName,
-                    shortName: homeComp?.abbreviation || "",
-                    logo: homeLogo,
-                    score: homeScore,
-                    overs: homeOvers,
-                  },
-                  team2: {
-                    teamId: awayComp?.abbreviation || awayName,
-                    name: awayName,
-                    shortName: awayComp?.abbreviation || "",
-                    logo: awayLogo,
-                    score: awayScore,
-                    overs: awayOvers,
-                  },
-                  homeTeam: {
-                    name: homeName,
-                    logo: homeLogo,
-                    score: homeScore,
-                    overs: homeOvers,
-                  },
-                  awayTeam: {
-                    name: awayName,
-                    logo: awayLogo,
-                    score: awayScore,
-                    overs: awayOvers,
-                  },
-                  broadcaster: bData.broadcaster,
-                  broadcasters: bData.broadcasters,
-                  channelId: bData.channelId,
-                  channelIds: bData.channelIds,
-                  channelName: bData.channelName,
-                  channelLogo: bData.channelLogo,
-                  streamUrl: bData.streamUrl,
-                  streams: bData.streams,
-                  subText: [leagueName, matchDesc, venue].filter(Boolean).join(" • "),
-                  source: "ESPN Cricket / CricketData.org",
-                });
               }
             }
+          } catch (espnCrErr: any) {
+            console.warn("[CricketData] ESPN fallback error:", espnCrErr?.message);
           }
-        } catch (espnCrErr: any) {
-          console.warn("[CricketData] ESPN 3-day supplement error:", espnCrErr?.message);
         }
 
         // Enrich any remaining unmapped teams with official TheSportsDB Cricket badges
@@ -2635,6 +2682,7 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
           return (a.timestamp || 0) - (b.timestamp || 0);
         });
 
+        cricketDataCache.source = activeSource;
         if (events.length > 0) {
           cricketDataCache.matches = { timestamp: Date.now(), data: events };
           return events;
@@ -2642,34 +2690,6 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
         if (cricketDataCache.matches?.data && cricketDataCache.matches.data.length > 0) {
           return cricketDataCache.matches.data;
         }
-        try {
-          const diskEvents = JSON.parse(fs.readFileSync(path.join(process.cwd(), "events.json"), "utf8"));
-          const diskCricket = Array.isArray(diskEvents)
-            ? diskEvents
-                .filter((e: any) => e && String(e.sport || "").toLowerCase() === "cricket" && String(e.source || "").includes("CricketData"))
-                .map((e: any) => {
-                  if (!e.channelId || !e.broadcaster) {
-                    const bData = resolveCricketBroadcastData(e, e);
-                    return {
-                      ...e,
-                      broadcaster: bData.broadcaster,
-                      broadcasters: bData.broadcasters,
-                      channelId: bData.channelId,
-                      channelIds: bData.channelIds || (bData.channelId ? [bData.channelId] : []),
-                      channelName: bData.channelName,
-                      channelLogo: bData.channelLogo,
-                      streamUrl: bData.streamUrl,
-                      streams: bData.streams,
-                    };
-                  }
-                  return e;
-                })
-            : [];
-          if (diskCricket.length > 0) {
-            cricketDataCache.matches = { timestamp: Date.now(), data: diskCricket };
-            return diskCricket;
-          }
-        } catch {}
         return [];
       } catch (err: any) {
         console.warn("[CricketData] Matches error:", err.message);
@@ -2682,40 +2702,25 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
     return inFlightPromises.cricketDataMatches;
   }
 
-  // Proxy: Cricket Data API (CricketData.org / CricAPI)
+  // Proxy: Cricket Data API (CricketData.org primary, ESPN-Fallback when blocked/rate-limited)
   app.get("/api/cricket/matches", async (_req, res) => {
     try {
       const isConfigured = Boolean(CRICKETDATA_API_KEY && CRICKETDATA_API_KEY.length > 0);
-      if (!isConfigured) {
-        return res.json({
-          status: "missing_key",
-          source: "CricketData.org",
-          configured: false,
-          rateLimited: false,
-          total: 0,
-          data: [],
-          message: "CRICKETDATA_API_KEY is not configured in server environment.",
-        });
-      }
       const matches = await getNormalizedCricketDataMatches();
-      if (matches.length === 0 && cricketDataCache.rateLimited) {
-        return res.json({
-          status: "rate_limited",
-          source: "CricketData.org",
-          configured: true,
-          rateLimited: true,
-          upstreamStatus: 429,
-          message: cricketDataCache.lastError || "CricketData.org rate limit reached (HTTP 429)",
-          total: 0,
-          data: [],
-        });
-      }
+      const isBlockedNow = cricketDataCache.blockedUntil > Date.now();
+      const activeSource = cricketDataCache.source || (isConfigured && !isBlockedNow ? "CricketData.org" : "ESPN-Fallback");
+
       return res.json({
         status: "success",
-        source: "CricketData.org",
-        configured: true,
-        rateLimited: false,
+        source: activeSource,
+        configured: isConfigured,
+        fallback: activeSource === "ESPN-Fallback",
+        blocked: isBlockedNow,
+        blockedUntil: isBlockedNow ? cricketDataCache.blockedUntil : null,
+        rateLimited: isBlockedNow || cricketDataCache.rateLimited,
+        cacheTtl: CRICKET_CACHE_TTL_SECONDS,
         upstreamStatus: cricketDataCache.lastStatus || 200,
+        message: cricketDataCache.lastError || undefined,
         total: matches.length,
         data: matches,
       });
@@ -2723,11 +2728,11 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
       console.warn("[Backend Proxy] CricketData error:", err.message);
       res.json({
         status: "error",
-        source: "CricketData.org",
+        source: "ESPN-Fallback",
         configured: Boolean(CRICKETDATA_API_KEY),
         total: 0,
         data: [],
-        error: "Failed to fetch cricket matches from CricketData.org",
+        error: "Failed to fetch cricket matches",
       });
     }
   });
@@ -2953,24 +2958,19 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
   app.get("/api/cricket/cricapi/matches", async (_req, res) => {
     try {
       const matches = await getNormalizedCricketDataMatches(CRICKETDATA_API_KEY);
-      if (matches.length === 0 && cricketDataCache.rateLimited) {
-        return res.json({
-          status: "rate_limited",
-          source: "CricketData.org",
-          configured: Boolean(CRICKETDATA_API_KEY),
-          rateLimited: true,
-          upstreamStatus: 429,
-          message: cricketDataCache.lastError || "CricketData.org rate limit reached (HTTP 429)",
-          total: 0,
-          data: [],
-        });
-      }
+      const isBlockedNow = cricketDataCache.blockedUntil > Date.now();
+      const activeSource = cricketDataCache.source || (CRICKETDATA_API_KEY && !isBlockedNow ? "CricketData.org" : "ESPN-Fallback");
       res.json({
         status: "success",
-        source: "CricketData.org",
+        source: activeSource,
         configured: Boolean(CRICKETDATA_API_KEY),
-        rateLimited: false,
+        fallback: activeSource === "ESPN-Fallback",
+        blocked: isBlockedNow,
+        blockedUntil: isBlockedNow ? cricketDataCache.blockedUntil : null,
+        rateLimited: isBlockedNow || cricketDataCache.rateLimited,
+        cacheTtl: CRICKET_CACHE_TTL_SECONDS,
         upstreamStatus: cricketDataCache.lastStatus || 200,
+        message: cricketDataCache.lastError || undefined,
         total: matches.length,
         data: matches,
       });
@@ -2980,24 +2980,22 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
   });
 
   // Dedicated CricketData.org Current Matches & CricScore Endpoints
-  app.get(["/api/cricket/cricapi/current", "/api/cricket/cricapi/cricScore"], async (req, res) => {
+  app.get(["/api/cricket/cricapi/current", "/api/cricket/cricapi/cricScore"], async (_req, res) => {
     try {
-      const targetEndpoint = req.path.endsWith("cricScore") ? "cricScore" : "currentMatches";
-      const apiRes = await fetchCricketDataApi(targetEndpoint, CRICKETDATA_API_KEY, 0);
-      if (!apiRes.ok) {
-        return res.status(apiRes.status).json({ status: "error", configured: Boolean(CRICKETDATA_API_KEY), message: apiRes.error });
-      }
-
-      const rawList = Array.isArray(apiRes.data?.data) ? apiRes.data.data : [];
-      const normalized = rawList.map((item: any) => normalizeCricketDataEvent(item)).filter(Boolean);
-
+      const matches = await getNormalizedCricketDataMatches(CRICKETDATA_API_KEY);
+      const isBlockedNow = cricketDataCache.blockedUntil > Date.now();
+      const activeSource = cricketDataCache.source || (CRICKETDATA_API_KEY && !isBlockedNow ? "CricketData.org" : "ESPN-Fallback");
       res.json({
         status: "success",
-        source: "CricketData.org",
+        source: activeSource,
         configured: Boolean(CRICKETDATA_API_KEY),
-        total: normalized.length,
-        data: normalized,
-        info: apiRes.data?.info || {},
+        fallback: activeSource === "ESPN-Fallback",
+        blocked: isBlockedNow,
+        blockedUntil: isBlockedNow ? cricketDataCache.blockedUntil : null,
+        rateLimited: isBlockedNow || cricketDataCache.rateLimited,
+        cacheTtl: CRICKET_CACHE_TTL_SECONDS,
+        total: matches.length,
+        data: matches,
       });
     } catch (err: any) {
       res.status(500).json({ status: "error", message: redactCricketSecret(err.message, CRICKETDATA_API_KEY) });
@@ -5246,13 +5244,26 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
 
   // Backend Health check (Does not expose internal keys or secrets)
   app.get("/api/health", (_req, res) => {
+    const isBlockedNow = cricketDataCache.blockedUntil > Date.now();
     res.json({
       status: "ok",
+      worker: "ok",
+      theSportsDB: "ok",
+      allSportsApi: ALLSPORTSAPI_KEY ? "ok" : "not_configured",
+      cricketData: CRICKETDATA_API_KEY ? (isBlockedNow ? "rate_limited" : "ok") : "not_configured",
+      sportsApi: ALLSPORTSAPI_KEY ? "ok" : "not_configured",
+      sportsDb: "ok",
+      timestamp: new Date().toISOString(),
       secure: true,
+      primaryCricketSource: "CricketData.org",
+      fallbackCricketSource: "ESPN-Fallback",
+      cricketDataConfigured: !!CRICKETDATA_API_KEY,
+      cricketDataBlocked: isBlockedNow,
+      cricketDataBlockedUntil: isBlockedNow ? cricketDataCache.blockedUntil : null,
+      cricketCacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
       rapidApiConfigured: !!RAPIDAPI_KEY,
       cricbuzzConfigured: ENABLE_CRICBUZZ_API && !!RAPIDAPI_KEY,
       cricbuzzPaused: !ENABLE_CRICBUZZ_API,
-      cricketDataConfigured: !!CRICKETDATA_API_KEY,
       thesportsdbConfigured: true,
       allSportsApiConfigured: !!ALLSPORTSAPI_KEY,
     });
@@ -5260,11 +5271,16 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
 
   // Client configuration status endpoint (Secure, returns flags and public config only)
   app.get("/api/config", (_req, res) => {
+    const isBlockedNow = cricketDataCache.blockedUntil > Date.now();
     res.json({
       status: "ok",
+      primaryCricketSource: "CricketData.org",
+      fallbackCricketSource: "ESPN-Fallback",
+      cricketDataConfigured: !!CRICKETDATA_API_KEY,
+      cricketDataBlocked: isBlockedNow,
+      cricketCacheTtlSeconds: CRICKET_CACHE_TTL_SECONDS,
       rapidApiConfigured: !!RAPIDAPI_KEY,
       cricbuzzConfigured: ENABLE_CRICBUZZ_API && !!RAPIDAPI_KEY,
-      cricketDataConfigured: !!CRICKETDATA_API_KEY,
       thesportsdbConfigured: true,
       allSportsApiConfigured: !!ALLSPORTSAPI_KEY,
       thesportsdbKey: THESPORTSDB_KEY === "3" ? "3" : "configured",

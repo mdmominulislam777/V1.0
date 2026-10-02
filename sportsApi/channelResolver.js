@@ -2,11 +2,12 @@
  * HIGHFY TV - CHANNEL RESOLVER & AUTHORIZED STREAM BUILDER
  * Matches resolved broadcaster/channel signals against HighFy TV channel registry.
  * Strictly enforces sport isolation and multi-server architecture without guessing.
+ * Separates Broadcaster Discovery from Playback Authorization.
  */
 
 (function(root, factory) {
+  let eventModel = null;
   if (typeof module === 'object' && module && module.exports) {
-    let eventModel = null;
     try {
       eventModel = require('./eventModel.js');
     } catch (e) {
@@ -14,9 +15,19 @@
         eventModel = require('./sportsApi/eventModel.js');
       } catch (e2) {}
     }
-    module.exports = factory(eventModel);
-  } else {
-    root.HighFyChannelResolver = factory(root.HighFyEventModel);
+  }
+  const resolved = factory(eventModel || (typeof root !== 'undefined' ? root.HighFyEventModel : null));
+  if (typeof exports === 'object' && typeof module !== 'undefined') {
+    module.exports = resolved;
+  }
+  if (typeof root !== 'undefined') {
+    root.HighFyChannelResolver = resolved;
+  }
+  if (typeof globalThis !== 'undefined') {
+    globalThis.HighFyChannelResolver = resolved;
+  }
+  if (typeof window !== 'undefined') {
+    window.HighFyChannelResolver = resolved;
   }
 })(typeof globalThis !== 'undefined' ? globalThis : (typeof window !== 'undefined' ? window : (typeof self !== 'undefined' ? self : this)), function(EventModel) {
   'use strict';
@@ -43,7 +54,6 @@
     if (!channel || !sport) return true;
     const spLower = sport.toLowerCase().trim();
     const chName = (channel.name || '').toLowerCase();
-    const chCategory = (channel.category || '').toLowerCase().trim();
     const chSports = Array.isArray(channel.sports) ? channel.sports.map(s => String(s).toLowerCase().trim()) : [];
 
     // If channel specifies supported sports, strictly verify inclusion
@@ -130,7 +140,7 @@
           seenUrls.add(url.trim());
           servers.push(createStream({
             id: st.id || `${channel.id}-st-${idx + 1}`,
-            name: st.name || `Server ${servers.length + 1}`,
+            name: st.name || `${channel.name} Server ${servers.length + 1}`,
             serverLabel: st.serverLabel || `SERVER ${servers.length + 1} (${st.quality || 'HD'})`,
             quality: st.quality || '1080p FHD',
             url: url.trim(),
@@ -172,7 +182,7 @@
           seenUrls.add(url.trim());
           servers.push(createStream({
             id: srv.id || `${channel.id}-srv-${servers.length + 1}`,
-            name: srv.name || `Server ${servers.length + 1}`,
+            name: srv.name || `${channel.name} Server ${servers.length + 1}`,
             serverLabel: srv.serverLabel || `SERVER ${servers.length + 1}`,
             quality: srv.quality || '720p HD',
             url: url.trim(),
@@ -213,13 +223,67 @@
   }
 
   /**
-   * Main Channel Resolver
-   * Priority:
-   * 1. exact channelId from API
-   * 2. exact broadcasterId from API
-   * 3. exact normalized broadcaster/channel name or provider/network token from API
-   * 4. verified provider mapping (e.g. WWE franchise contract or explicit ID verification)
-   * 5. no match -> Live channel unavailable
+   * Enriches discovered broadcasters with authorization & playback status against HighFy TV channels
+   * Maintains strict separation: Discovered != Authorized != Playable.
+   */
+  function resolveDiscoveredBroadcasters(discoveredList, channelRegistry = [], eventSport = '') {
+    if (!Array.isArray(discoveredList) || discoveredList.length === 0) {
+      return [];
+    }
+
+    const activeChannels = Array.isArray(channelRegistry) ? channelRegistry.filter(c => c && c.active !== false) : [];
+
+    return discoveredList.map(bcast => {
+      const record = {
+        ...bcast,
+        discovered: true,
+        authorizationStatus: 'unknown',
+        playbackStatus: 'unavailable',
+        servers: []
+      };
+
+      if (!bcast || !bcast.name) return record;
+
+      const normBcast = normalizeName(bcast.name);
+      if (!normBcast || normBcast.length < 2) return record;
+
+      // Search HighFy TV channel registry
+      let matchedChannel = activeChannels.find(c => {
+        if (!matchesSportIsolation(c, eventSport)) return false;
+        const normCh = normalizeName(c.name || '');
+        return normCh === normBcast;
+      });
+
+      if (!matchedChannel) {
+        matchedChannel = activeChannels.find(c => {
+          if (!matchesSportIsolation(c, eventSport)) return false;
+          const normCh = normalizeName(c.name || '');
+          if (normCh.length >= 3 && normBcast.length >= 3) {
+            return normCh.includes(normBcast) || normBcast.includes(normCh);
+          }
+          return false;
+        });
+      }
+
+      if (matchedChannel) {
+        const servers = getChannelServers(matchedChannel);
+        if (servers.length > 0 && servers.some(s => s.active)) {
+          record.authorizationStatus = 'authorized';
+          record.playbackStatus = 'playable';
+          record.servers = servers;
+          record.channelId = matchedChannel.id;
+          if (!record.logo && (matchedChannel.logo || matchedChannel.image)) {
+            record.logo = matchedChannel.logo || matchedChannel.image;
+          }
+        }
+      }
+
+      return record;
+    });
+  }
+
+  /**
+   * Main Channel Resolver for Event Model
    */
   function resolveEventChannels(event, channelRegistry = []) {
     const eventId = String(event?.id || event?.rawId || event?.idEvent || 'UNKNOWN');
@@ -244,10 +308,6 @@
     const channelIdFromApi = event?.channelId || (Array.isArray(event?.channelIds) ? event.channelIds.join(', ') : 'NONE');
 
     if (!event || !Array.isArray(channelRegistry) || channelRegistry.length === 0) {
-      const matchReason = 'EMPTY_EVENT_OR_REGISTRY';
-      if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
-        console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
-      }
       return {
         status: 'UNAVAILABLE',
         channelId: null,
@@ -298,7 +358,7 @@
     if (!matchedChannel && rawBroadcasterTokens.length > 0) {
       for (const bcast of rawBroadcasterTokens) {
         const normBcast = normalizeName(bcast);
-        if (!normBcast || normBcast.length < 3) continue;
+        if (!normBcast || normBcast.length < 2) continue;
 
         // Try exact normalized name
         matchedChannel = activeChannels.find(c => {
@@ -358,14 +418,6 @@
 
     // 5. No match -> Strict fallback
     if (!matchedChannel) {
-      if (rawBroadcasterTokens.length > 0) {
-        matchReason = 'NO_AUTHORIZED_CHANNEL_FOR_BROADCASTER';
-      } else {
-        matchReason = 'NO_BROADCASTER_FROM_API';
-      }
-      if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
-        console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
-      }
       return {
         status: 'UNAVAILABLE',
         channelId: null,
@@ -381,10 +433,6 @@
     const servers = getChannelServers(matchedChannel);
 
     if (servers.length === 0 || !servers.some(s => s.active)) {
-      matchReason = 'MATCHED_CHANNEL_HAS_NO_ACTIVE_STREAMS';
-      if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
-        console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" NONE ${matchReason} 0`);
-      }
       return {
         status: 'UNAVAILABLE',
         channelId: matchedChannel.id,
@@ -394,13 +442,6 @@
         verified: false,
         message: 'Live channel unavailable'
       };
-    }
-
-    const channelMatchResult = matchedChannel.name || matchedChannel.id;
-    const authorizedStreamCount = servers.length;
-
-    if (typeof window !== 'undefined' && window.HIGHFY_DEBUG_RESOLVER) {
-      console.log(`[CHANNEL_RESOLVER] ${eventId} ${sportUpper} "${league}" "${homeTeam}" "${awayTeam}" "${broadcasterFromApi}" "${channelIdFromApi}" "${channelMatchResult}" ${matchReason} ${authorizedStreamCount}`);
     }
 
     return {
@@ -420,6 +461,7 @@
     matchesSportIsolation,
     getChannelStreamUrl,
     getChannelServers,
+    resolveDiscoveredBroadcasters,
     resolveEventChannels
   };
 });
