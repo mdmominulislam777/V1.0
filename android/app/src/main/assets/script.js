@@ -2520,11 +2520,12 @@
   }
 
   /**
-   * HIGHFY TV — REAL BROADCASTER CHANNEL POPUP SYSTEM
-   * Strictly 2-Step Playback Flow:
-   * First Click: Opens popup displaying API-verified broadcaster/channel(s) with real logo and verified badge.
-   * If no verified channel exists: displays clean "Live channel unavailable" state inside popup (no guessing).
-   * Second Click: User taps the verified channel button -> shows connection status & launches player.
+   * HIGHFY TV — DYNAMIC BROADCASTER & CHANNEL DISCOVERY POPUP SYSTEM
+   * 
+   * Strict 2-Step Playback Flow:
+   * First Click: Match Card -> Opens Channel Popup ("Where to Watch") displaying ALL API-verified broadcasters/channels.
+   * Broadcaster discovery is independent from playback authorization (Discovered != Playable).
+   * Second Click: User taps a playable server button -> starts video playback.
    * Full Android Mobile touch (≥44px target) & Android TV D-pad / Remote navigation.
    * Prevents scroll jump on open/close with instant position lock.
    */
@@ -2536,80 +2537,14 @@
       originalScrollY = window.scrollY || document.documentElement.scrollTop || 0;
     }
 
-    const isEvent = !!(item.team1 || item.sport || item.isEvent || item.title);
+    const isEvent = !!(item.team1 || item.sport || item.isEvent || item.title || item.league);
     const t1Name = item.team1?.name || item.homeTeam?.name || '';
     const t2Name = item.team2?.name || item.awayTeam?.name || '';
     const title = (t1Name && t2Name) ? `${t1Name} vs ${t2Name}` : (item.name || item.title || 'Live Match');
     const tourn = item.tournament || item.league || item.sport || item.category || 'Sports Match';
-    const broadcaster = item.broadcaster || item.strTVStation || '';
+    const eventSport = item.sport || item.category || 'Sports';
 
-    // 1. Resolve streams and verified channel details
-    let streams = [];
-    let channelDetails = [];
-
-    if (item.broadcastingChannelDetails && Array.isArray(item.broadcastingChannelDetails) && item.broadcastingChannelDetails.length > 0) {
-      channelDetails = item.broadcastingChannelDetails;
-    }
-    if (item.streams && Array.isArray(item.streams) && item.streams.length > 0) {
-      streams = item.streams;
-    }
-
-    if ((!streams.length || !channelDetails.length) && isEvent && window.sportsCoordinator) {
-      const matchInfo = window.sportsCoordinator.matchLiveStream(item);
-      if (matchInfo && matchInfo.hasStream && matchInfo.streams.length > 0) {
-        streams = matchInfo.streams;
-        channelDetails = matchInfo.broadcastingChannelDetails || [];
-        item.streams = matchInfo.streams;
-        item.broadcastChannels = matchInfo.broadcastChannels;
-        item.broadcastingChannelDetails = matchInfo.broadcastingChannelDetails;
-      }
-    }
-
-    // Fallback for TV Channel if selected directly from channel list (not an event)
-    if ((!streams || streams.length === 0) && !isEvent && (item.url || item.stream_url || item.streamUrl)) {
-      const pUrl = item.stream_url || item.url || item.streamUrl;
-      const bUrls = item.backupUrls || (item.backup_stream_url ? [item.backup_stream_url] : []);
-      const chLogo = getSafeLogoUrl(item.logo, item.name, item.id);
-      streams = [
-        { name: `${item.name || 'Channel'} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: item.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
-        ...bUrls.map((u, i) => ({ name: `${item.name || 'Server'} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: item.name, channelLogo: chLogo, quality: '720p HD', url: u }))
-      ];
-      channelDetails = [{
-        id: item.id || 'channel-single',
-        name: item.name || 'Live Channel',
-        logo: chLogo,
-        source: 'Live TV Channel',
-        quality: '1080p FHD',
-        servers: streams
-      }];
-    }
-
-    // 2. Ensure channelDetails is cleanly structured if streams exist
-    if ((!channelDetails || channelDetails.length === 0) && streams.length > 0) {
-      const chMap = new Map();
-      streams.forEach(st => {
-        const cName = st.channelName || st.name || item.broadcaster || 'Verified Channel';
-        if (!chMap.has(cName)) {
-          const rawLogo = st.channelLogo || item.channelLogo || '';
-          chMap.set(cName, {
-            id: st.channelId || 'ch-single',
-            name: cName,
-            logo: getSafeLogoUrl(rawLogo, cName, st.channelId),
-            source: st.source || (item.broadcaster ? 'Verified Broadcaster' : 'Direct API'),
-            quality: st.quality || '1080p FHD',
-            servers: []
-          });
-        }
-        chMap.get(cName).servers.push(st);
-      });
-      channelDetails = Array.from(chMap.values());
-    }
-
-    // Filter out any invalid streams without active url
-    streams = streams.filter(s => s && typeof s.url === 'string' && s.url.trim().length > 0);
-    const hasValidStreams = streams.length > 0 && channelDetails.length > 0;
-
-    // 3. Modal Elements
+    // 1. Modal Elements
     const modalEl = document.getElementById('modal-select-server');
     const listContainer = document.getElementById('server-selection-list');
     const modalTitle = document.getElementById('server-modal-title');
@@ -2634,208 +2569,274 @@
       }
     };
 
-    // Build rich Match Details summary box for Live & 3-Day Upcoming events inside the popup
-    let matchDetailsSummaryHtml = '';
-    if (isEvent) {
-      const mTs = item.timestamp ? (item.timestamp < 10000000000 ? item.timestamp * 1000 : item.timestamp) : null;
-      let dhakaDateTimeStr = item.matchTime || item.date || 'Scheduled';
-      if (mTs) {
-        try {
-          dhakaDateTimeStr = new Intl.DateTimeFormat('en-US', {
-            timeZone: 'Asia/Dhaka',
-            weekday: 'short',
-            day: '2-digit',
-            month: 'short',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            hour12: true
-          }).format(new Date(mTs)) + ' BST';
-        } catch (_) {}
-      }
-      const matchStageStr = item.matchDesc || item.matchFormat || item.matchType || '';
-      const venueStr = item.venue || '';
-      const statusTextStr = item.statusText || ((item.status || '').toLowerCase() === 'live' ? 'LIVE NOW' : 'Upcoming Match');
+    // 2. Discover Broadcasters & Resolve Playback Status
+    let discoveredBroadcasters = [];
+    const allChannels = (state && Array.isArray(state.channels)) ? state.channels : (window.channelsData || []);
 
-      matchDetailsSummaryHtml = `
-        <div class="mb-3 p-3 rounded-xl bg-slate-900/80 border border-white/10 text-left space-y-1.5">
-          <div class="flex items-center justify-between gap-2">
-            <span class="text-[10px] font-extrabold uppercase tracking-wider px-2 py-0.5 rounded bg-sky-500/15 text-sky-400 border border-sky-500/30">
-              <i class="fa-regular fa-calendar-check mr-1"></i>${escapeHtml(statusTextStr)}
-            </span>
-            ${matchStageStr ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded bg-amber-500/15 text-amber-400 border border-amber-500/30">${escapeHtml(matchStageStr)}</span>` : ''}
-          </div>
-          <div class="text-[11px] text-slate-200 font-semibold flex items-center gap-1.5 pt-0.5">
-            <i class="fa-regular fa-clock text-sky-400 text-[10px] shrink-0"></i>
-            <span>${escapeHtml(dhakaDateTimeStr)}</span>
-          </div>
-          ${venueStr ? `
-            <div class="text-[11px] text-slate-300 flex items-center gap-1.5">
-              <i class="fa-solid fa-location-dot text-rose-400 text-[10px] shrink-0"></i>
-              <span class="truncate" title="${escapeHtml(venueStr)}">${escapeHtml(venueStr)}</span>
-            </div>
-          ` : ''}
-          ${item.id ? `
-            <div class="pt-1.5">
-              <button type="button" class="btn-open-full-match-details w-full py-2 px-3 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold text-[11px] flex items-center justify-center gap-1.5 transition" data-detail-id="${escapeHtml(item.id)}">
-                <i class="fa-solid fa-circle-info"></i> View Full Match Details & Info
-              </button>
-            </div>
-          ` : ''}
-        </div>
-      `;
+    if (isEvent) {
+      // 2a. Recursive API Broadcaster Discovery on complete event object
+      if (typeof window.HighFyBroadcasterResolver !== 'undefined' && window.HighFyBroadcasterResolver.discoverBroadcasters) {
+        const discResult = window.HighFyBroadcasterResolver.discoverBroadcasters(item);
+        discoveredBroadcasters = discResult.broadcasters || [];
+      } else if (Array.isArray(item.broadcastingChannelDetails) && item.broadcastingChannelDetails.length > 0) {
+        discoveredBroadcasters = item.broadcastingChannelDetails.map(c => ({
+          name: c.name,
+          logo: c.logo || null,
+          country: c.country || null,
+          territory: c.territory || null,
+          type: 'TV',
+          source: 'sports_api',
+          sourcePath: 'event.broadcastingChannelDetails',
+          discovered: true,
+          authorizationStatus: 'unknown',
+          playbackStatus: 'unavailable',
+          servers: []
+        }));
+      }
+
+      // 2b. Enrich discovered broadcasters with authorization & playback against HighFy channels
+      if (typeof window.HighFyChannelResolver !== 'undefined' && window.HighFyChannelResolver.resolveDiscoveredBroadcasters) {
+        discoveredBroadcasters = window.HighFyChannelResolver.resolveDiscoveredBroadcasters(discoveredBroadcasters, allChannels, eventSport);
+      }
+
+      // 2c. Dedicated TheSportsDB TV-Broadcast Discovery if reliable TheSportsDB Event ID is matched
+      const tsdbId = (typeof window.HighFyBroadcasterResolver !== 'undefined' && window.HighFyBroadcasterResolver.matchTheSportsDbEventId)
+        ? window.HighFyBroadcasterResolver.matchTheSportsDbEventId(item)
+        : null;
+
+      if (tsdbId && discoveredBroadcasters.length === 0) {
+        window.HighFyBroadcasterResolver.fetchTheSportsDbBroadcasters(item).then(tsdbBcasts => {
+          if (tsdbBcasts && tsdbBcasts.length > 0) {
+            item.broadcasters = tsdbBcasts.map(b => b.name);
+            item.broadcaster = tsdbBcasts[0].name;
+            item.strTVStation = tsdbBcasts[0].name;
+            item.source = 'TheSportsDB';
+            const modalEl = document.getElementById('modal-select-server');
+            if (modalEl && modalEl.style.display !== 'none') {
+              openServerSelectionModal(item, clickedElement, originalScrollY);
+            }
+          }
+        }).catch(() => {});
+      }
+    } else {
+      // Direct TV Channel from channel catalog
+      const pUrl = item.stream_url || item.url || item.streamUrl;
+      const bUrls = item.backupUrls || (item.backup_stream_url ? [item.backup_stream_url] : []);
+      const chLogo = getSafeLogoUrl(item.logo, item.name, item.id);
+      const chStreams = [
+        { name: `${item.name || 'Channel'} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: item.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
+        ...bUrls.map((u, i) => ({ name: `${item.name || 'Server'} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: item.name, channelLogo: chLogo, quality: '720p HD', url: u }))
+      ].filter(s => s && s.url);
+
+      discoveredBroadcasters = [{
+        eventId: item.id || 'channel-direct',
+        name: item.name || 'Live Channel',
+        logo: chLogo,
+        country: item.country || null,
+        territory: null,
+        type: 'Live TV',
+        source: 'channel_catalog',
+        sourcePath: 'channel.direct',
+        discovered: true,
+        authorizationStatus: 'authorized',
+        playbackStatus: chStreams.length > 0 ? 'playable' : 'unavailable',
+        officialUrl: null,
+        streamUrl: pUrl,
+        servers: chStreams
+      }];
     }
 
-    // 4. Render State A: Has Valid Verified Streams
-    if (hasValidStreams) {
-      const totalChannels = channelDetails.length;
+    const hasDiscoveredBroadcasters = discoveredBroadcasters.length > 0;
 
-      if (modalTitle) {
-        if (totalChannels > 1) {
-          modalTitle.innerHTML = `<i class="fa-solid fa-satellite-dish text-sky-400 mr-2"></i> Multiple Links / Available Channels (${totalChannels})`;
-        } else {
-          modalTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-2"></i> Verified Broadcast Channel`;
-        }
-      }
+    // 3. Render Channel Popup ("Where to Watch")
+    if (modalTitle) {
+      modalTitle.innerHTML = `<i class="fa-solid fa-satellite-dish text-sky-400 mr-2"></i> Where to Watch`;
+    }
 
-      if (modalSubTitle) {
-        const liveBadge = (item.status || '').toLowerCase() === 'live'
-          ? `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-extrabold bg-rose-500/20 text-rose-400 border border-rose-500/30 mr-1.5"><span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>LIVE</span>`
-          : `<span class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-[10px] font-bold bg-sky-500/20 text-sky-400 border border-sky-500/30 mr-1.5"><i class="fa-regular fa-clock text-[9px]"></i>MATCH</span>`;
-        modalSubTitle.innerHTML = `${liveBadge}<strong class="text-white">${escapeHtml(title)}</strong> &bull; <span class="text-slate-400">${escapeHtml(tourn)}</span>`;
-        modalSubTitle.style.display = 'block';
-      }
+    if (modalSubTitle) {
+      modalSubTitle.innerHTML = `<strong class="text-white">${escapeHtml(title)}</strong> &bull; <span class="text-slate-400">${escapeHtml(tourn)}</span>`;
+      modalSubTitle.style.display = 'block';
+    }
 
-      listContainer.innerHTML = matchDetailsSummaryHtml + channelDetails.map((ch, chIdx) => {
-        const cleanName = ch.name || `Broadcaster ${chIdx + 1}`;
-        const chLogo = getSafeLogoUrl(ch.logo, cleanName, ch.id);
-        const sourceText = ch.source || (ch.sourceType === 'direct_api' ? 'Direct API Stream' : 'Official Verified Broadcaster');
-        const chServers = Array.isArray(ch.servers) && ch.servers.length > 0 ? ch.servers : [
-          {
-            name: ch.name,
-            serverLabel: 'SERVER 1 (1080P HD)',
-            quality: ch.quality || '1080p FHD',
-            url: ch.streamUrl
-          }
-        ];
+    if (hasDiscoveredBroadcasters) {
+      // Render all discovered broadcaster records
+      listContainer.innerHTML = discoveredBroadcasters.map((bcast, bIdx) => {
+        const cleanName = bcast.name || `Broadcaster ${bIdx + 1}`;
+        const bcastLogo = bcast.logo || '';
+        const countryName = bcast.country || bcast.territory || '';
+        const countryFlag = (typeof window.HighFyBroadcasterResolver !== 'undefined' && countryName) 
+          ? (window.HighFyBroadcasterResolver.COUNTRY_FLAGS[countryName.toLowerCase()] || '') 
+          : '';
+        const countryBadgeStr = countryName ? `${countryFlag ? countryFlag + ' ' : ''}${escapeHtml(countryName)}` : '';
+        const sourcePathStr = bcast.sourcePath || 'API';
+        const isPlayable = bcast.playbackStatus === 'playable' && Array.isArray(bcast.servers) && bcast.servers.length > 0;
+        const bcastServers = isPlayable ? bcast.servers : [];
 
-        const serverButtonsHtml = chServers.map((srv, sIdx) => {
-          let globalIdx = streams.findIndex(st => st.url === srv.url);
-          if (globalIdx === -1) {
-            globalIdx = streams.findIndex(st => st.name === srv.name);
-          }
-          if (globalIdx === -1) globalIdx = 0;
+        // Server playback buttons if authorized and playable in HighFy TV
+        let playbackHtml = '';
+        if (isPlayable) {
+          const serverBtns = bcastServers.map((srv, sIdx) => {
+            const srvLabel = srv.serverLabel || (bcastServers.length > 1 ? `SERVER ${sIdx + 1} (${srv.quality || 'HD'})` : `Watch Live on ${cleanName}`);
+            const srvQuality = srv.quality || '1080p FHD';
+            const subLabel = bcastServers.length > 1 ? `${cleanName} • Server ${sIdx + 1}` : `${cleanName} • Tap to watch live`;
 
-          const srvLabel = srv.serverLabel || (chServers.length > 1 ? `SERVER ${sIdx + 1} (${srv.quality || 'HD'})` : `Watch Live on ${cleanName}`);
-          const srvQuality = srv.quality || '1080p FHD';
-          const subLabel = chServers.length > 1 ? `${cleanName} • Server ${sIdx + 1}` : `${cleanName} • Tap to watch live`;
-
-          return `
-            <button class="multiple-link-server-btn"
-                    data-stream-idx="${globalIdx}"
-                    tabindex="0"
-                    role="button"
-                    aria-label="Play ${escapeHtml(cleanName)} on ${escapeHtml(srvLabel)}">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="server-badge-pill">
-                  <i class="fa-solid fa-play text-[9px]"></i>
-                </span>
-                <div class="min-w-0 text-left">
-                  <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
-                  <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
+            return `
+              <button class="multiple-link-server-btn"
+                      data-bcast-idx="${bIdx}"
+                      data-server-idx="${sIdx}"
+                      tabindex="0"
+                      role="button"
+                      aria-label="Play ${escapeHtml(cleanName)} on ${escapeHtml(srvLabel)}">
+                <div class="flex items-center gap-2.5 min-w-0">
+                  <span class="server-badge-pill">
+                    <i class="fa-solid fa-play text-[9px]"></i>
+                  </span>
+                  <div class="min-w-0 text-left">
+                    <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
+                    <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
+                  </div>
                 </div>
-              </div>
-              <div class="flex items-center gap-2 shrink-0">
-                <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
-                <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
-              </div>
-            </button>
+                <div class="flex items-center gap-2 shrink-0">
+                  <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
+                  <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
+                </div>
+              </button>
+            `;
+          }).join('');
+
+          playbackHtml = `
+            <div class="channel-servers-list space-y-1.5 mt-2.5">
+              ${serverBtns}
+            </div>
           `;
-        }).join('');
+        } else {
+          // Broadcaster discovered, but stream is unavailable or external in HighFy TV
+          const officialBtnHtml = bcast.officialUrl ? `
+            <button type="button" 
+                    class="btn-open-official-stream w-full mt-2 py-2 px-3 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
+                    data-official-url="${escapeHtml(bcast.officialUrl)}">
+              <i class="fa-solid fa-arrow-up-right-from-square"></i> Watch Official
+            </button>
+          ` : '';
+
+          playbackHtml = `
+            <div class="mt-2.5 p-2 rounded-lg bg-white/5 border border-white/5 flex flex-col gap-1.5">
+              <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-info text-amber-400 shrink-0"></i>
+                <span>Official broadcaster • Stream unavailable in HighFy TV</span>
+              </div>
+              ${officialBtnHtml}
+            </div>
+          `;
+        }
 
         return `
-          <div class="multiple-links-channel-card">
+          <div class="multiple-links-channel-card" data-source-path="${escapeHtml(sourcePathStr)}">
             <div class="channel-card-header">
               <div class="flex items-center gap-2.5 min-w-0">
-                <img src="${escapeHtml(chLogo)}" 
-                     alt="${escapeHtml(cleanName)}"
-                     onerror="this.src='./assets/category-logos/sports.png'"
-                     class="w-8 h-8 rounded-lg object-contain bg-black/50 p-1 border border-white/10 shrink-0" />
+                ${bcastLogo ? `
+                  <img src="${escapeHtml(bcastLogo)}" 
+                       alt="${escapeHtml(cleanName)}"
+                       onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
+                       class="w-8 h-8 rounded-lg object-contain bg-black/50 p-1 border border-white/10 shrink-0" />
+                  <div class="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 hidden items-center justify-center text-slate-400 text-xs shrink-0">
+                    <i class="fa-solid fa-tv"></i>
+                  </div>
+                ` : `
+                  <div class="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-sky-400 text-xs shrink-0">
+                    <i class="fa-solid fa-tv"></i>
+                  </div>
+                `}
                 <div class="min-w-0">
                   <div class="font-extrabold text-xs text-white truncate">${escapeHtml(cleanName)}</div>
                   <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-check text-[9px]"></i>
-                    <span class="truncate">${escapeHtml(sourceText)}</span>
+                    <span class="truncate">✓ API Verified</span>
                   </div>
                 </div>
               </div>
-              <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
-                ${escapeHtml(ch.quality || '1080p FHD')}
-              </span>
+              ${countryBadgeStr ? `
+                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-slate-800 text-slate-300 border border-white/10 shrink-0">
+                  ${countryBadgeStr}
+                </span>
+              ` : `
+                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
+                  ${escapeHtml(bcast.type || 'TV')}
+                </span>
+              `}
             </div>
-            <div class="channel-servers-list space-y-1.5 mt-2.5">
-              ${serverButtonsHtml}
-            </div>
+            ${playbackHtml}
           </div>
         `;
       }).join('');
 
-      // Attach click listeners to server buttons (THIS IS THE SECOND CLICK)
+      // Attach click listeners to server playback buttons (SECOND CLICK)
       listContainer.querySelectorAll('.multiple-link-server-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
-          const idx = parseInt(btn.getAttribute('data-stream-idx'), 10) || 0;
-          const chosenStream = streams[idx] || streams[0];
-          const chName = chosenStream?.channelName || chosenStream?.name || item.broadcaster || 'Live Channel';
+          const bIdx = parseInt(btn.getAttribute('data-bcast-idx'), 10) || 0;
+          const sIdx = parseInt(btn.getAttribute('data-server-idx'), 10) || 0;
+          const chosenBcast = discoveredBroadcasters[bIdx];
+          const chosenServer = chosenBcast?.servers?.[sIdx] || chosenBcast?.servers?.[0];
+
+          if (!chosenServer || !chosenServer.url) {
+            showToast('Stream is currently unavailable in HighFy TV', 'warning');
+            return;
+          }
 
           closeModal('modal-select-server');
-          showToast(`Connecting to ${chName}...`, 'info');
+          showToast(`Connecting to ${chosenBcast.name}...`, 'info');
 
           playMedia({
             title: title,
-            streams: streams,
+            streams: chosenBcast.servers,
             id: item.id,
             team1: item.team1 || { name: t1Name },
             team2: item.team2 || { name: t2Name },
             isEvent: isEvent,
-            sport: item.sport || item.category,
+            sport: eventSport,
             category: item.category || 'Sports',
             tournament: tourn,
-            broadcaster: chName,
+            broadcaster: chosenBcast.name,
             status: item.status || 'live',
-            activeStreamIndex: idx
+            activeStreamIndex: sIdx
           });
         });
       });
 
+      // Attach click listeners to official stream links
+      listContainer.querySelectorAll('.btn-open-official-stream').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          const officialUrl = btn.getAttribute('data-official-url');
+          if (officialUrl && (officialUrl.startsWith('http://') || officialUrl.startsWith('https://'))) {
+            try {
+              window.open(officialUrl, '_blank', 'noopener,noreferrer');
+            } catch (_) {
+              window.location.href = officialUrl;
+            }
+          }
+        });
+      });
+
     } else {
-      // 5. Render State B: No Verified Channel Available (Zero Guessing)
-      if (modalTitle) {
-        modalTitle.innerHTML = `<i class="fa-solid fa-tv text-rose-400 mr-2"></i> Live Broadcast Channel`;
-      }
-
-      if (modalSubTitle) {
-        modalSubTitle.innerHTML = `<strong class="text-white">${escapeHtml(title)}</strong> &bull; <span class="text-slate-400">${escapeHtml(tourn)}</span>`;
-        modalSubTitle.style.display = 'block';
-      }
-
+      // 4. Fallback State: No Broadcaster Verified from API
       listContainer.innerHTML = `
-        ${matchDetailsSummaryHtml}
         <div class="channel-unavailable-card text-center p-5 rounded-2xl bg-rose-500/5 border border-rose-500/20">
           <div class="w-14 h-14 mx-auto mb-3.5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
             <i class="fa-solid fa-tv text-rose-400 text-2xl"></i>
           </div>
           <span class="inline-block px-3 py-1 mb-2 text-[10px] font-extrabold uppercase tracking-wider text-rose-400 bg-rose-500/10 rounded-full border border-rose-500/20">
-            Live channel unavailable
+            Broadcast information unavailable
           </span>
           <h3 class="text-sm font-bold text-white mb-1 leading-snug">${escapeHtml(title)}</h3>
           <p class="text-[11px] text-slate-400 mb-3">${escapeHtml(tourn)}</p>
-          ${broadcaster ? `<div class="text-[11px] text-slate-300 mb-3 bg-white/5 py-1.5 px-3 rounded-lg border border-white/5">Official Broadcaster: <span class="text-sky-400 font-semibold">${escapeHtml(broadcaster)}</span></div>` : ''}
           <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-            এই ম্যাচের জন্য কোনো ভেরিফাইড লাইভ ব্রডকাস্ট চ্যানেল বর্তমানে আমাদের সার্ভারে উপলব্ধ নেই। অনুগ্রহ করে অন্য ম্যাচ অথবা চ্যানেল দেখুন।
+            HighFy TV could not verify a broadcaster for this event.
           </p>
-          <button class="modal-unavailable-close-btn w-full py-3 px-4 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-white/10" role="button" tabindex="0">
+          <button class="modal-unavailable-close-btn w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-white/10" role="button" tabindex="0">
             Close
           </button>
         </div>
@@ -2851,20 +2852,7 @@
       }
     }
 
-    const fullDetailsBtn = listContainer.querySelector('.btn-open-full-match-details');
-    if (fullDetailsBtn) {
-      fullDetailsBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        const detailId = fullDetailsBtn.getAttribute('data-detail-id') || item.id;
-        closeModal('modal-select-server');
-        if (detailId) {
-          openMatchDetails(detailId);
-        }
-      });
-    }
-
-    // 6. Modal Open, Backdrop & Dismiss Handlers
+    // 5. Modal Open, Backdrop & Dismiss Handlers
     modalEl.style.zIndex = '99999';
     modalEl.style.display = 'flex';
     modalEl.style.visibility = 'visible';
@@ -2889,36 +2877,30 @@
     }
 
     modalEl.onkeydown = (e) => {
-      const btns = Array.from(modalEl.querySelectorAll('.multiple-link-server-btn, .modal-unavailable-close-btn, .modal-close-btn'));
+      const btns = Array.from(modalEl.querySelectorAll('.multiple-link-server-btn, .btn-open-official-stream, .modal-unavailable-close-btn, .modal-close-btn'));
       if (!btns.length) return;
       const currentIndex = btns.indexOf(document.activeElement);
 
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const nextIndex = currentIndex < btns.length - 1 ? currentIndex + 1 : 0;
-        btns[nextIndex].focus({ preventScroll: true });
+        const nextIndex = (currentIndex + 1) % btns.length;
+        btns[nextIndex].focus();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const prevIndex = currentIndex > 0 ? currentIndex - 1 : btns.length - 1;
-        btns[prevIndex].focus({ preventScroll: true });
-      } else if (e.key === 'Enter' || e.key === ' ') {
-        if (document.activeElement && (document.activeElement.classList.contains('multiple-link-server-btn') || document.activeElement.classList.contains('modal-unavailable-close-btn'))) {
-          e.preventDefault();
-          document.activeElement.click();
-        }
-      } else if (e.key === 'Escape' || e.key === 'Backspace' || e.key === 'GoBack') {
+        const prevIndex = (currentIndex - 1 + btns.length) % btns.length;
+        btns[prevIndex].focus();
+      } else if (e.key === 'Escape' || e.key === 'Back' || e.key === 'Backspace' || e.keyCode === 27 || e.keyCode === 10009 || e.keyCode === 461) {
         e.preventDefault();
-        e.stopPropagation();
         handleCloseModal();
       }
     };
 
-    openModal('modal-select-server');
-
-    // Automatically focus first item with preventScroll to ensure 100% stable viewport
+    // Auto-focus first interactive element for TV remote navigation
     setTimeout(() => {
-      const firstBtn = modalEl.querySelector('.multiple-link-server-btn, .modal-unavailable-close-btn');
-      if (firstBtn) firstBtn.focus({ preventScroll: true });
+      const firstBtn = modalEl.querySelector('.multiple-link-server-btn, .btn-open-official-stream, .modal-unavailable-close-btn, .modal-close-btn');
+      if (firstBtn && typeof firstBtn.focus === 'function') {
+        firstBtn.focus({ preventScroll: true });
+      }
     }, 50);
   }
 
@@ -5805,7 +5787,7 @@
     }
 
     if (DOM.playerError) DOM.playerError.style.display = 'none';
-    if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'block';
+    if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'flex';
     hidePlayerWatermark();
 
     // Clean up any existing player instances
@@ -5913,7 +5895,7 @@
     DOM.videoElement.onloadeddata = onVideoReadyOrPlaying;
     DOM.videoElement.onwaiting = () => {
       if (DOM.playerSpinner && (!DOM.playerError || DOM.playerError.style.display !== 'flex')) {
-        DOM.playerSpinner.style.display = 'block';
+        DOM.playerSpinner.style.display = 'flex';
       }
     };
     DOM.videoElement.ontimeupdate = () => {
@@ -6462,28 +6444,77 @@
 
     // 10. Fullscreen Mode
     if (DOM.btnPlayerFullscreen) {
-      DOM.btnPlayerFullscreen.addEventListener('click', (e) => {
+      DOM.btnPlayerFullscreen.addEventListener('click', async (e) => {
         e.stopPropagation();
         const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
-        if (!document.fullscreenElement) {
-          if (wrapper?.requestFullscreen) {
-            wrapper.requestFullscreen().catch(() => {});
-          } else if (DOM.videoElement?.webkitEnterFullscreen) {
-            DOM.videoElement.webkitEnterFullscreen();
+        const isCurrentlyFullscreen = Boolean(
+          document.fullscreenElement ||
+          document['webkitFullscreenElement'] ||
+          (wrapper && wrapper.classList.contains('fullscreen'))
+        );
+
+        if (!isCurrentlyFullscreen) {
+          try {
+            if (wrapper && wrapper.requestFullscreen) {
+              await wrapper.requestFullscreen();
+            } else if (wrapper && wrapper['webkitRequestFullscreen']) {
+              await wrapper['webkitRequestFullscreen']();
+            } else if (DOM.videoElement && DOM.videoElement['webkitEnterFullscreen']) {
+              DOM.videoElement['webkitEnterFullscreen']();
+            }
+            if (screen.orientation && screen.orientation['lock']) {
+              try {
+                screen.orientation['lock']('landscape').catch(() => {});
+              } catch (e) {}
+            }
+          } catch (err) {
+            console.warn('[StreamZX Player] Fullscreen error:', err);
           }
+          if (wrapper) wrapper.classList.add('fullscreen');
+          if (DOM.playerModal) DOM.playerModal.classList.add('fullscreen');
           if (DOM.playerFullscreenIcon) {
             DOM.playerFullscreenIcon.className = 'fa-solid fa-compress text-sm';
           }
         } else {
-          if (document.exitFullscreen) {
-            document.exitFullscreen().catch(() => {});
+          try {
+            if (document.exitFullscreen) {
+              await document.exitFullscreen();
+            } else if (document['webkitExitFullscreen']) {
+              await document['webkitExitFullscreen']();
+            }
+            if (screen.orientation && screen.orientation['unlock']) {
+              try {
+                screen.orientation['unlock']();
+              } catch (e) {}
+            }
+          } catch (err) {
+            console.warn('[StreamZX Player] Exit Fullscreen error:', err);
           }
+          if (wrapper) wrapper.classList.remove('fullscreen');
+          if (DOM.playerModal) DOM.playerModal.classList.remove('fullscreen');
           if (DOM.playerFullscreenIcon) {
             DOM.playerFullscreenIcon.className = 'fa-solid fa-expand text-sm';
           }
         }
         showPlayerOverlay(true);
       });
+
+      // Synchronize icons & classes on native fullscreen state change
+      const onFullscreenStateChange = () => {
+        const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
+        const isFs = Boolean(document.fullscreenElement || document['webkitFullscreenElement']);
+        if (wrapper) wrapper.classList.toggle('fullscreen', isFs);
+        if (DOM.playerModal) DOM.playerModal.classList.toggle('fullscreen', isFs);
+        if (DOM.playerFullscreenIcon) {
+          DOM.playerFullscreenIcon.className = isFs ? 'fa-solid fa-compress text-sm' : 'fa-solid fa-expand text-sm';
+        }
+        if (!isFs && screen.orientation && screen.orientation['unlock']) {
+          try { screen.orientation['unlock'](); } catch (e) {}
+        }
+      };
+
+      document.addEventListener('fullscreenchange', onFullscreenStateChange);
+      document.addEventListener('webkitfullscreenchange', onFullscreenStateChange);
     }
 
     // 11. Stream Settings Sheet

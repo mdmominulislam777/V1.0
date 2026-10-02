@@ -24,7 +24,7 @@ class SportsCoordinator {
     this.fetchTtl = 60 * 1000; // 60 seconds coordinator cache for live accuracy
     this.channels = [];
     this.favKey = 'highfy_sports_favs';
-    this.cacheKey = 'highfy_coordinator_events_v27';
+    this.cacheKey = 'highfy_coordinator_events_v28';
     this.mappingStorageKey = 'highfy_event_channel_map_v4';
     this.eventChannelMap = new Map();
     this.inFlightFetch = null;
@@ -93,8 +93,14 @@ class SportsCoordinator {
     // If events are still empty on cold boot, hydrate synchronously from bundled window.EVENTS_DATA if available
     if ((!this.events || this.events.length === 0) && typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
       try {
-        this.events = this.curateEvents(window.EVENTS_DATA);
-        this.lastFetchTime = Date.now() - 10000;
+        const now = Date.now();
+        const validBundled = window.EVENTS_DATA.filter(ev => {
+          if (!ev || !ev.id) return false;
+          const evTs = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+          return !evTs || (now - evTs <= 24 * 60 * 60 * 1000);
+        });
+        this.events = this.curateEvents(validBundled);
+        this.lastFetchTime = Date.now() - 30000;
         this.lastUpdated = new Date(this.lastFetchTime);
       } catch (_) {}
     }
@@ -106,8 +112,14 @@ class SportsCoordinator {
           .then(r => r.ok ? r.json() : null)
           .then(list => {
             if (Array.isArray(list) && list.length > 0 && (!this.events || this.events.length === 0)) {
-              this.events = this.curateEvents(list);
-              this.lastFetchTime = Date.now() - 10000;
+              const now = Date.now();
+              const validList = list.filter(ev => {
+                if (!ev || !ev.id) return false;
+                const evTs = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+                return !evTs || (now - evTs <= 24 * 60 * 60 * 1000);
+              });
+              this.events = this.curateEvents(validList);
+              this.lastFetchTime = Date.now() - 30000;
               this.lastUpdated = new Date(this.lastFetchTime);
             }
           })
@@ -1852,10 +1864,15 @@ class SportsCoordinator {
       sameMatchDateOrId &&
       ((incoming.status || '').toLowerCase() === 'finished' || SportsCoordinator.isEventFinished(incoming));
 
+    const existingFinishedSameMatch =
+      sameMatchDateOrId &&
+      ((existing.status || '').toLowerCase() === 'finished' || SportsCoordinator.isEventFinished(existing));
+
     const incomingIsPrimary =
-      incomingFinishedSameMatch ||
-      (inP > exP) ||
-      (inP === exP && inP === 2 && getTs(incoming) < getTs(existing));
+      !existingFinishedSameMatch &&
+      (incomingFinishedSameMatch ||
+        (inP > exP) ||
+        (inP === exP && inP === 2 && getTs(incoming) < getTs(existing)));
 
     if (incomingIsPrimary) {
       existing.id = incoming.id || existing.id;
@@ -2213,13 +2230,23 @@ class SportsCoordinator {
 
           const sp = (ev.sport || '').toLowerCase();
 
-          // Cricket data MUST strictly come ONLY from CricketData.org / CricAPI
+          // Cricket data validation (Accept CricketData, CricAPI, ESPN fallback, TheSportsDB cricket, Seed)
           if (sp === 'cricket') {
-            const isCricketData = (ev.source && (String(ev.source).toLowerCase().includes('cricketdata') || String(ev.source).toLowerCase().includes('cricapi'))) ||
-                                 String(ev.id).startsWith('cr-cricapi-') ||
-                                 String(ev.id).startsWith('cr-cricketdata-');
+            const isCricketData = (ev.source && (
+              String(ev.source).toLowerCase().includes('cricketdata') ||
+              String(ev.source).toLowerCase().includes('cricapi') ||
+              String(ev.source).toLowerCase().includes('espn') ||
+              String(ev.source).toLowerCase().includes('thesportsdb') ||
+              String(ev.source).toLowerCase().includes('seed')
+            )) ||
+            String(ev.id).startsWith('cr-cricapi-') ||
+            String(ev.id).startsWith('cr-cricketdata-') ||
+            String(ev.id).startsWith('cr-espn-') ||
+            String(ev.id).startsWith('cr-tsdb-') ||
+            String(ev.id).startsWith('cricket-');
+
             if (!isCricketData) {
-              return; // Block other cricket sources
+              return; // Block invalid sources
             }
             if (typeof window !== 'undefined' && typeof window.getHighResTeamLogo === 'function') {
               const t1Name = ev.team1?.name || ev.homeTeam?.name || '';
@@ -2292,23 +2319,32 @@ class SportsCoordinator {
       addList(tsdbEvents);
       addList(wweEvents);
 
-      // Merge base authentic multi-sport seed from events.json only for non-stale events not already covered by live APIs
+      // Merge base authentic multi-sport seed from window.EVENTS_DATA or events.json
+      const seedFilter = (e) => {
+        if (!e || !e.id) return false;
+        const sp = String(e.sport || '').toLowerCase();
+        if (sp === 'cricket' && crEvents.length > 0) return false;
+        const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+        if (ts && (Date.now() - ts > 24 * 3600 * 1000)) return false;
+        return true;
+      };
+
       let seedEvents = [];
-      try {
-        const seedRes = await fetch('./events.json');
-        if (seedRes.ok) {
-          const sJson = await seedRes.json();
-          if (Array.isArray(sJson)) {
-            seedEvents = sJson.filter(e => {
-              if (!e) return false;
-              const sp = String(e.sport || '').toLowerCase();
-              // If live Cricket API returned events, never mix stale seed cricket events
-              if (sp === 'cricket' && crEvents.length > 0) return false;
-              return true;
-            });
+      if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+        seedEvents = window.EVENTS_DATA.filter(seedFilter);
+      }
+
+      if (seedEvents.length === 0) {
+        try {
+          const seedRes = await fetch('./events.json');
+          if (seedRes.ok) {
+            const sJson = await seedRes.json();
+            if (Array.isArray(sJson)) {
+              seedEvents = sJson.filter(seedFilter);
+            }
           }
-        }
-      } catch (_) {}
+        } catch (_) {}
+      }
 
       addList(seedEvents);
 

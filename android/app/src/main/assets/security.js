@@ -348,17 +348,6 @@
         }
       };
     } catch (e) {}
-
-    // 4. Anti-Debugger Trap for Active Reverse-Engineering sessions
-    setInterval(() => {
-      if (!isAdminOrCreator()) {
-        const start = performance.now();
-        // Timing check to detect open DevTools paused states
-        if (performance.now() - start > 100) {
-          triggerReqableLockdown('Debugger inspection detected');
-        }
-      }
-    }, 4000);
   }
 
   /**

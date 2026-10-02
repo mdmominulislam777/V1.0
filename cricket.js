@@ -6,7 +6,7 @@
 
 class CricketEngine {
   constructor() {
-    this.cacheKey = 'highfy_cricket_events_cache_v26';
+    this.cacheKey = 'highfy_cricket_events_cache_v27';
     this.cache = {
       timestamp: 0,
       ttl: 60 * 1000, // 60 seconds cache for live score accuracy
@@ -143,6 +143,21 @@ class CricketEngine {
         }
       }
     } catch (e) {}
+
+    if ((!this.cache.data || this.cache.data.length === 0) && typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+      try {
+        const now = Date.now();
+        const seeded = window.EVENTS_DATA.filter(ev => {
+          if (!ev || String(ev.sport || '').toLowerCase() !== 'cricket') return false;
+          const evTs = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+          return !evTs || (now - evTs <= 24 * 60 * 60 * 1000);
+        });
+        if (seeded.length > 0) {
+          this.cache.data = this.deduplicateCricketSeries(seeded);
+          this.cache.timestamp = Date.now() - 30000;
+        }
+      } catch (_) {}
+    }
   }
 
   /**
@@ -295,6 +310,179 @@ class CricketEngine {
       }
     } catch (cricFallbackErr) {
       console.warn('[CricketEngine] CricketData fallback error:', cricFallbackErr.message);
+    }
+
+    // 3. Direct Client-Side Multi-Day ESPN Cricket Scoreboard Fallback (for standalone Android APK / static hosting parity)
+    try {
+      const timezone = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
+      const espnDates = [];
+      for (let dOffset = 0; dOffset <= 2; dOffset++) {
+        const dt = new Date(Date.now() + dOffset * 24 * 3600 * 1000);
+        const dStr = new Intl.DateTimeFormat('en-CA', {
+          timeZone: timezone,
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit'
+        }).format(dt).replace(/-/g, '');
+        if (!espnDates.includes(dStr)) espnDates.push(dStr);
+      }
+
+      const espnResponses = await Promise.all(
+        espnDates.map(d =>
+          fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${d}`)
+            .then(r => (r.ok ? r.json() : null))
+            .catch(() => null)
+        )
+      );
+
+      const espnMatches = [];
+      const seenEspnIds = new Set();
+      for (const espnJson of espnResponses) {
+        const leagues = espnJson?.sports?.[0]?.leagues || [];
+        for (const lg of leagues) {
+          const leagueName = String(lg?.name || 'Cricket Series').trim();
+          for (const evItem of lg?.events || []) {
+            if (!evItem || !evItem.id || seenEspnIds.has(String(evItem.id))) continue;
+            const comps = Array.isArray(evItem.competitors) ? evItem.competitors : [];
+            const homeComp = comps.find(c => c.homeAway === 'home') || comps[0];
+            const awayComp = comps.find(c => c.homeAway === 'away') || comps[1];
+            const homeName = String(homeComp?.displayName || homeComp?.name || '').trim();
+            const awayName = String(awayComp?.displayName || awayComp?.name || '').trim();
+            if (!homeName || !awayName || /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(homeName) || /^(tbc|tbd|tba|team\s*\d|unknown)$/i.test(awayName)) {
+              continue;
+            }
+
+            const rawStartStr = evItem.date || null;
+            const parsedStartMs = rawStartStr ? Date.parse(String(rawStartStr)) : NaN;
+            const hasValidStart = !isNaN(parsedStartMs) && parsedStartMs > 0;
+            const timestamp = hasValidStart ? parsedStartMs : null;
+            const elapsedMs = hasValidStart ? Date.now() - parsedStartMs : 0;
+            if (hasValidStart && elapsedMs > 24 * 3600 * 1000) continue;
+
+            const stateStr = String(evItem.status || evItem.fullStatus?.type?.state || 'pre').toLowerCase();
+            const shortSumStr = String(evItem.summary || '').trim();
+            const summaryStr = String(evItem.fullStatus?.longSummary || shortSumStr || 'Scheduled').trim();
+
+            const splitEspnScore = (rawSc) => {
+              const s = String(rawSc || '').trim();
+              if (!s) return { score: '', overs: '' };
+              const m = s.match(/^(.*?)\s*\(\s*([\d./]+)\s*(?:ov|overs)?\s*\)\s*$/i);
+              if (m) return { score: m[1].trim(), overs: `${m[2]} ov` };
+              return { score: s, overs: '' };
+            };
+            const parsedHomeSc = splitEspnScore(homeComp?.score);
+            const parsedAwaySc = splitEspnScore(awayComp?.score);
+            const homeScore = parsedHomeSc.score;
+            const homeOvers = parsedHomeSc.overs;
+            const awayScore = parsedAwaySc.score;
+            const awayOvers = parsedAwaySc.overs;
+
+            const isFutureUnstarted = hasValidStart && parsedStartMs > Date.now();
+            const fullDescStr = String(evItem.fullStatus?.type?.description || '').trim();
+            const rawLongSummary = String(evItem.fullStatus?.longSummary || '').trim();
+            const hasActivePlaySignal = Boolean(
+              homeScore || awayScore || (rawLongSummary && !/^(live|scheduled|match scheduled.*)$/i.test(rawLongSummary))
+            );
+            const isOverDurationOrStumps =
+              (hasValidStart && elapsedMs > 8.5 * 3600 * 1000) ||
+              /\bstumps\b/i.test(`${fullDescStr} ${shortSumStr} ${summaryStr}`);
+
+            let status = 'upcoming';
+            if (
+              stateStr === 'post' ||
+              isOverDurationOrStumps ||
+              /(won by|won the match|drawn|tied|no result|abandoned|concluded|completed)/i.test(summaryStr)
+            ) {
+              status = 'finished';
+            } else if (stateStr === 'in' && !isFutureUnstarted && hasActivePlaySignal) {
+              status = 'live';
+            } else if (!isFutureUnstarted && elapsedMs > 45 * 60 * 1000 && !hasActivePlaySignal) {
+              continue;
+            }
+
+            const eventType = String(evItem.eventType || evItem.class?.eventType || evItem.class?.generalClassCard || 'ODI').toUpperCase();
+            const matchDesc = String(evItem.title || evItem.eventType || eventType).trim();
+            const venue = String(evItem.location || '').trim();
+            const homeLogo = this.resolveHDLogo(homeName, homeComp?.logo || '');
+            const awayLogo = this.resolveHDLogo(awayName, awayComp?.logo || '');
+            const dhakaDate = hasValidStart
+              ? new Intl.DateTimeFormat('en-CA', { timeZone: timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(parsedStartMs))
+              : '';
+            const matchTimeStr = hasValidStart ? this.formatMatchTime(new Date(parsedStartMs).toISOString(), timezone) : 'Scheduled';
+
+            seenEspnIds.add(String(evItem.id));
+            espnMatches.push({
+              id: `cr-cricapi-espn_${evItem.id}`,
+              rawId: String(evItem.id),
+              matchId: String(evItem.id),
+              sport: 'cricket',
+              sportName: 'Cricket',
+              sportIcon: 'fa-baseball-bat-ball',
+              title: `${homeName} vs ${awayName}`,
+              name: `${homeName} vs ${awayName}`,
+              seriesName: leagueName,
+              tournament: leagueName,
+              league: leagueName,
+              matchDesc,
+              matchFormat: eventType,
+              matchType: eventType,
+              startTime: hasValidStart ? new Date(parsedStartMs).toISOString() : null,
+              status,
+              statusText: summaryStr,
+              statusLabel: status === 'live' ? 'LIVE' : status === 'finished' ? 'FT' : 'Upcoming',
+              timestamp,
+              date: dhakaDate,
+              matchTime: matchTimeStr,
+              timeOrTimer: status === 'live' ? 'LIVE' : status === 'finished' ? 'FT' : matchTimeStr,
+              venue,
+              isHot: status === 'live',
+              isSpecial: status === 'live',
+              team1: {
+                teamId: homeComp?.abbreviation || homeName,
+                name: homeName,
+                shortName: homeComp?.abbreviation || '',
+                logo: homeLogo,
+                score: homeScore,
+                overs: homeOvers
+              },
+              team2: {
+                teamId: awayComp?.abbreviation || awayName,
+                name: awayName,
+                shortName: awayComp?.abbreviation || '',
+                logo: awayLogo,
+                score: awayScore,
+                overs: awayOvers
+              },
+              homeTeam: { name: homeName, logo: homeLogo, score: homeScore, overs: homeOvers },
+              awayTeam: { name: awayName, logo: awayLogo, score: awayScore, overs: awayOvers },
+              broadcaster: evItem.broadcast || null,
+              broadcasters: evItem.broadcast ? [evItem.broadcast] : [],
+              subText: [leagueName, matchDesc, venue].filter(Boolean).join(' • '),
+              source: 'ESPN-Fallback',
+              streams: []
+            });
+          }
+        }
+      }
+
+      if (espnMatches.length > 0) {
+        return { success: true, status: 'success', data: espnMatches, source: 'ESPN-Fallback' };
+      }
+    } catch (espnErr) {
+      console.warn('[CricketEngine] Direct ESPN fallback error:', espnErr.message);
+    }
+
+    // 4. Offline Bundled Seed Fallback (window.EVENTS_DATA)
+    if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+      const now = Date.now();
+      const bundledCricket = window.EVENTS_DATA.filter(e => {
+        if (!e || String(e.sport || '').toLowerCase() !== 'cricket') return false;
+        const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+        return !ts || (now - ts <= 24 * 3600 * 1000);
+      });
+      if (bundledCricket.length > 0) {
+        return { success: true, status: 'success', data: bundledCricket, source: 'Bundled Seed' };
+      }
     }
 
     return { error: 'no_matches', status: 'empty', source: 'CricketData.org', total: 0, data: [], message: 'No live cricket matches available from CricketData.org.' };
@@ -634,6 +822,58 @@ class CricketEngine {
         }
       }
     } catch (tsdbErr) {}
+
+    // Tier 4: ESPN Cricket Scoreboard fallback (Always live and free)
+    try {
+      const espnRes = await fetch('https://site.api.espn.com/apis/site/v2/sports/cricket/scoreboard');
+      if (espnRes.ok) {
+        const espnJson = await espnRes.json();
+        const events = Array.isArray(espnJson.events) ? espnJson.events : [];
+        if (events.length > 0) {
+          const espnMatches = [];
+          for (const ev of events) {
+            const comp = ev.competitions && ev.competitions[0];
+            if (!comp) continue;
+            const competitors = comp.competitors || [];
+            const t1 = competitors[0] || {};
+            const t2 = competitors[1] || {};
+            const title = `${t1.team?.displayName || 'Team 1'} vs ${t2.team?.displayName || 'Team 2'}`;
+            const state = ev.status?.type?.state || 'pre';
+            const status = state === 'in' ? 'live' : (state === 'post' ? 'finished' : 'upcoming');
+            espnMatches.push({
+              id: `cr-espn-${ev.id}`,
+              matchId: ev.id,
+              sport: 'cricket',
+              sportName: 'Cricket',
+              sportIcon: 'fa-baseball-bat-ball',
+              title,
+              name: title,
+              league: comp.notes?.[0]?.headline || ev.season?.name || 'International Cricket',
+              status,
+              statusText: ev.status?.type?.shortDetail || (status === 'live' ? 'LIVE' : 'Scheduled'),
+              team1: { name: t1.team?.displayName || 'Team 1', logo: t1.team?.logo || '', score: t1.score || '' },
+              team2: { name: t2.team?.displayName || 'Team 2', logo: t2.team?.logo || '', score: t2.score || '' },
+              homeTeam: { name: t1.team?.displayName || 'Team 1', logo: t1.team?.logo || '', score: t1.score || '' },
+              awayTeam: { name: t2.team?.displayName || 'Team 2', logo: t2.team?.logo || '', score: t2.score || '' },
+              broadcaster: comp.broadcasts?.[0]?.names?.[0] || null,
+              source: 'ESPN-Fallback',
+              streams: []
+            });
+          }
+          if (espnMatches.length > 0) {
+            return { success: true, data: espnMatches, source: 'ESPN-Fallback' };
+          }
+        }
+      }
+    } catch (_) {}
+
+    // Tier 5: Bundled window.EVENTS_DATA Cricket Matches
+    if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+      const bundledCricket = window.EVENTS_DATA.filter(e => e && String(e.sport || '').toLowerCase() === 'cricket');
+      if (bundledCricket.length > 0) {
+        return { success: true, data: bundledCricket, source: 'Bundled Seed' };
+      }
+    }
 
     return { error: 'no_matches', message: 'No live cricket matches at this time.' };
   }

@@ -11,7 +11,14 @@
       this.isTV = this.detectTVEnvironment();
       this.currentFocusIndex = -1;
       this.focusableElements = [];
-      this.tvModeActive = this.isTV || localStorage.getItem('highfy_tv_mode') === 'true';
+      const isMobilePhoneScreen = !this.isTV && (
+        ((navigator.userAgent || '').toLowerCase().includes('(mobile)') && !(navigator.userAgent || '').toLowerCase().includes('androidtv')) ||
+        (typeof window !== 'undefined' && window.innerWidth > 0 && window.innerWidth < 768 && ('ontouchstart' in window || navigator.maxTouchPoints > 0))
+      );
+      if (isMobilePhoneScreen) {
+        try { localStorage.removeItem('highfy_tv_mode'); } catch (e) {}
+      }
+      this.tvModeActive = this.isTV || (!isMobilePhoneScreen && localStorage.getItem('highfy_tv_mode') === 'true');
       this.lastInteractionTime = Date.now();
       this.remoteCooldown = false;
       this.activeZone = 'channels'; // 'header', 'tabs', 'channels', 'player', 'modal', 'bottom-nav'
@@ -23,29 +30,15 @@
      * Detect if running on Android TV, Google TV, Smart TV or Big Screen
      */
     detectTVEnvironment() {
-      const ua = (navigator.userAgent || '').toLowerCase();
-      const isTVDevice = (
-        ua.includes('tv') ||
-        ua.includes('smarttv') ||
-        ua.includes('googletv') ||
-        ua.includes('android tv') ||
-        ua.includes('tizen') ||
-        ua.includes('webos') ||
-        ua.includes('bravia') ||
-        ua.includes('aft') || // Amazon Fire TV
-        ua.includes('crkey') || // Chromecast
-        ua.includes('roku') ||
-        ua.includes('hisense') ||
-        ua.includes('mi box')
-      );
+      const rawUa = (navigator.userAgent || '').toLowerCase();
+      // Strip app name 'highfytv-app' / 'highfytv' so 'tv' inside 'highfytv' never triggers false positive on mobile phones
+      const ua = rawUa.replace(/highfytv(-app)?/g, '');
 
-      // Also check if no primary pointer/touch and widescreen
-      const isNoTouchWidescreen = (
-        window.matchMedia &&
-        window.matchMedia('(hover: none) and (pointer: coarse)').matches === false &&
-        window.innerWidth >= 1280 &&
-        window.innerHeight >= 720
-      );
+      if (rawUa.includes('(mobile)') && !rawUa.includes('androidtv')) {
+        return false;
+      }
+
+      const isTVDevice = /\b(tv|smarttv|smart-tv|googletv|android\s*tv|androidtv|tizen|webos|bravia|aft[a-z0-9]*|crkey|roku|hisense|mi\s*box|viera|aquos|netcast|hbbtv)\b/i.test(ua);
 
       return isTVDevice;
     }
@@ -55,6 +48,9 @@
 
       if (this.tvModeActive) {
         document.body.classList.add('highfy-tv-mode');
+      } else {
+        document.body.classList.remove('highfy-tv-mode');
+        document.querySelectorAll('.tv-focused').forEach(el => el.classList.remove('tv-focused'));
       }
 
       this.bindKeyListeners();

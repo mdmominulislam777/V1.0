@@ -3285,35 +3285,6 @@
     "isHD": true
   },
   {
-    "id": "ch-ayna-019de785-3b69-786a-a331-847da93e5d3d",
-    "name": "Dhinchaak",
-    "category": "Ayana",
-    "categories": [
-      "Ayana"
-    ],
-    "sports": [],
-    "priority": 1,
-    "active": true,
-    "streamUrl": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-    "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-    "stream_url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-    "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_a7fe328956ad0b1e64e29ca727c1159c_playmist_dhinchaak_400x400.jpg",
-    "provider": "Ayana",
-    "isAyana": true,
-    "isAyna": true,
-    "originalGroup": "Hindi",
-    "streams": [
-      {
-        "name": "Dhinchaak (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "Dhinchaak",
-        "url": "https://tvsen6.aynaott.com/a2cKGQtB/index.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
     "id": "ch-dazn-4",
     "name": "DAZN 4",
     "category": "Sports",
@@ -3405,54 +3376,6 @@
     ],
     "backupUrls": [
       "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2531/index.m3u8"
-    ],
-    "isLive": true,
-    "isHD": true
-  },
-  {
-    "id": "ch-dazn-5",
-    "name": "DAZN 5",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports",
-      "Football",
-      "Combat Sports",
-      "Boxing"
-    ],
-    "sports": [
-      "Football",
-      "Boxing",
-      "Combat Sports"
-    ],
-    "priority": 1,
-    "active": true,
-    "provider": "HighFy",
-    "isAkashGo": false,
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/DAZN_Logo_Master.svg/320px-DAZN_Logo_Master.svg.png",
-    "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
-    "streamUrl": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
-    "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
-    "streams": [
-      {
-        "name": "DAZN 5 (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "DAZN 5",
-        "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "DAZN 5 (Server 2 (1080p FHD))",
-        "serverLabel": "Server 2 (1080p FHD)",
-        "channelName": "DAZN 5",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2535/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2535/index.m3u8"
     ],
     "isLive": true,
     "isHD": true
@@ -5647,75 +5570,6 @@
     "isHD": true
   },
   {
-    "id": "jio-156",
-    "name": "Star Gold HD",
-    "category": "Jio TV",
-    "categories": [
-      "LiveTV",
-      "Jio TV",
-      "Movies",
-      "Movie",
-      "Entertainment"
-    ],
-    "sports": [],
-    "priority": 2,
-    "active": true,
-    "provider": "Jio TV",
-    "isJio": true,
-    "isJioTV": true,
-    "logo": "",
-    "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020175.ts",
-    "streamUrl": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020175.ts",
-    "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020175.ts",
-    "streams": [
-      {
-        "name": "Star Gold HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "Star Gold HD",
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020175.ts",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": [],
-    "isLive": true,
-    "isHD": true
-  },
-  {
-    "id": "jio-289",
-    "name": "Sony Max SD",
-    "category": "Jio TV",
-    "categories": [
-      "LiveTV",
-      "Jio TV",
-      "Movies",
-      "Movie",
-      "Entertainment"
-    ],
-    "sports": [],
-    "priority": 2,
-    "active": true,
-    "provider": "Jio TV",
-    "isJio": true,
-    "isJioTV": true,
-    "logo": "",
-    "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020169.ts",
-    "streamUrl": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020169.ts",
-    "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020169.ts",
-    "streams": [
-      {
-        "name": "Sony Max SD (Server 1 (480p SD))",
-        "serverLabel": "Server 1 (480p SD)",
-        "channelName": "Sony Max SD",
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1020169.ts",
-        "quality": "480p SD",
-        "isHD": false
-      }
-    ],
-    "backupUrls": [],
-    "isLive": true,
-    "isHD": false
-  },
-  {
     "id": "jio-1110",
     "name": "Star Movies Select HD",
     "category": "Jio TV",
@@ -5811,40 +5665,6 @@
         "channelName": "Colors Cineplex Bollywood",
         "url": "http://202.70.146.135:8000/play/a058/index.m3u8",
         "quality": "720p HD"
-      }
-    ],
-    "backupUrls": [],
-    "isLive": true,
-    "isHD": true
-  },
-  {
-    "id": "jio-482",
-    "name": "Colors Cineplex",
-    "category": "Jio TV",
-    "categories": [
-      "LiveTV",
-      "Jio TV",
-      "Movies",
-      "Movie",
-      "Entertainment"
-    ],
-    "sports": [],
-    "priority": 2,
-    "active": true,
-    "provider": "Jio TV",
-    "isJio": true,
-    "isJioTV": true,
-    "logo": "",
-    "url": "http://41smartpro.xyz:80/live/bmg12mk788/UPBTUU4/1020166.ts",
-    "streamUrl": "http://41smartpro.xyz:80/live/bmg12mk788/UPBTUU4/1020166.ts",
-    "stream_url": "http://41smartpro.xyz:80/live/bmg12mk788/UPBTUU4/1020166.ts",
-    "streams": [
-      {
-        "name": "Colors Cineplex (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "Colors Cineplex",
-        "url": "http://41smartpro.xyz:80/live/bmg12mk788/UPBTUU4/1020166.ts",
-        "quality": "1080p FHD"
       }
     ],
     "backupUrls": [],
@@ -7157,38 +6977,6 @@
     "isHD": true
   },
   {
-    "id": "ch-sun-bangla",
-    "name": "Sun Bangla",
-    "category": "Bangla",
-    "categories": [
-      "Bangla",
-      "LiveTV",
-      "Entertainment",
-      "News"
-    ],
-    "sports": [],
-    "priority": 5,
-    "active": true,
-    "provider": "Standard",
-    "isAkashGo": false,
-    "logo": "",
-    "url": "https://ireentv.pages.dev/Sun_Bangla_Server_1.m3u8",
-    "streamUrl": "https://ireentv.pages.dev/Sun_Bangla_Server_1.m3u8",
-    "stream_url": "https://ireentv.pages.dev/Sun_Bangla_Server_1.m3u8",
-    "streams": [
-      {
-        "name": "Sun Bangla (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "Sun Bangla",
-        "url": "https://ireentv.pages.dev/Sun_Bangla_Server_1.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": [],
-    "isLive": true,
-    "isHD": true
-  },
-  {
     "id": "ch-zee-bangla-cinema",
     "name": "Zee Bangla Cinema",
     "category": "Movie",
@@ -7311,37 +7099,6 @@
         "serverLabel": "Server 1 (1080p FHD)",
         "channelName": "Channel 9 HD",
         "url": "http://premiumtvs.space/live/YqXTywueEV/damp2purchase/434.ts",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": [],
-    "isLive": true,
-    "isHD": true
-  },
-  {
-    "id": "ch-sony-pix-hd",
-    "name": "Sony PIX HD",
-    "category": "Movie",
-    "categories": [
-      "Movie",
-      "Entertainment",
-      "LiveTV"
-    ],
-    "sports": [],
-    "priority": 5,
-    "active": true,
-    "provider": "Standard",
-    "isAkashGo": false,
-    "logo": "",
-    "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/72148.ts",
-    "streamUrl": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/72148.ts",
-    "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/72148.ts",
-    "streams": [
-      {
-        "name": "Sony PIX HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "Sony PIX HD",
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/72148.ts",
         "quality": "1080p FHD"
       }
     ],
@@ -7564,37 +7321,6 @@
         "serverLabel": "Server 1 (1080p FHD)",
         "channelName": "Islamic TV",
         "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/islamictvbd.stream/index.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": [],
-    "isLive": true,
-    "isHD": true
-  },
-  {
-    "id": "ch-jalsha-movies-hd",
-    "name": "Jalsha Movies HD",
-    "category": "Movie",
-    "categories": [
-      "Movie",
-      "Entertainment",
-      "LiveTV"
-    ],
-    "sports": [],
-    "priority": 5,
-    "active": true,
-    "provider": "Standard",
-    "isAkashGo": false,
-    "logo": "",
-    "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/76205.ts",
-    "streamUrl": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/76205.ts",
-    "stream_url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/76205.ts",
-    "streams": [
-      {
-        "name": "Jalsha Movies HD (Server 1 (1080p FHD))",
-        "serverLabel": "Server 1 (1080p FHD)",
-        "channelName": "Jalsha Movies HD",
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/76205.ts",
         "quality": "1080p FHD"
       }
     ],

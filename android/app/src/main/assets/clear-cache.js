@@ -1,6 +1,6 @@
 // HighFy TV Cache Clearing & Service Worker Reset Guard
 (function() {
-  var CURRENT_CACHE_KEY = 'highfy_cache_v20260924_card_sync_03';
+  var CURRENT_CACHE_KEY = 'highfy_cache_v20261002_app_preview_sync_02';
   var hasRefreshed = localStorage.getItem('highfy_cache_version') === CURRENT_CACHE_KEY;
 
   if (!hasRefreshed) {
@@ -24,6 +24,11 @@
 
     try {
       sessionStorage.clear();
+      localStorage.removeItem('highfy_tv_mode');
+      localStorage.removeItem('highfy_coordinator_events_v26');
+      localStorage.removeItem('highfy_coordinator_events_v27');
+      localStorage.removeItem('highfy_cricket_events_cache_v26');
+      localStorage.removeItem('highfy_thesportsdb_cache_v26');
       localStorage.setItem('highfy_cache_version', CURRENT_CACHE_KEY);
       localStorage.setItem('highfy_theme', 'dark');
     } catch(e) {}

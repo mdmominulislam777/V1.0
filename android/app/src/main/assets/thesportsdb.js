@@ -7,7 +7,7 @@
 class TheSportsDBEngine {
   constructor() {
     this.storageKey = 'highfy_thesportsdb_key';
-    this.cacheKey = 'highfy_thesportsdb_cache_v26';
+    this.cacheKey = 'highfy_thesportsdb_cache_v27';
     this.cache = {
       timestamp: 0,
       ttl: 2 * 60 * 1000, // 2 minutes client cache
@@ -38,22 +38,38 @@ class TheSportsDBEngine {
       }
     } catch (e) {}
 
-    // If cache is empty, hydrate from local events.json seed
-    if ((!this.cache.data || this.cache.data.length === 0) && typeof fetch !== 'undefined') {
-      try {
-        fetch('./events.json')
-          .then(r => r.ok ? r.json() : null)
-          .then(list => {
-            if (Array.isArray(list) && list.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
-              const sportsEvents = list.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
-              if (sportsEvents.length > 0) {
-                this.cache.data = sportsEvents;
-                this.cache.timestamp = Date.now();
+    // If cache is empty, hydrate from window.EVENTS_DATA or local events.json seed
+    if (!this.cache.data || this.cache.data.length === 0) {
+      const now = Date.now();
+      const filterValidSeed = (list) => list.filter(e => {
+        if (!e || !e.id) return false;
+        const sp = String(e.sport || '').toLowerCase();
+        if (sp === 'wwe' || sp === 'cricket') return false;
+        const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+        return !ts || (now - ts <= 24 * 3600 * 1000);
+      });
+      if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+        const seeded = filterValidSeed(window.EVENTS_DATA);
+        if (seeded.length > 0) {
+          this.cache.data = seeded;
+          this.cache.timestamp = Date.now() - 30000;
+        }
+      } else if (typeof fetch !== 'undefined') {
+        try {
+          fetch('./events.json')
+            .then(r => r.ok ? r.json() : null)
+            .then(list => {
+              if (Array.isArray(list) && list.length > 0 && (!this.cache.data || this.cache.data.length === 0)) {
+                const sportsEvents = filterValidSeed(list);
+                if (sportsEvents.length > 0) {
+                  this.cache.data = sportsEvents;
+                  this.cache.timestamp = Date.now() - 30000;
+                }
               }
-            }
-          })
-          .catch(() => {});
-      } catch (_) {}
+            })
+            .catch(() => {});
+        } catch (_) {}
+      }
     }
   }
 
@@ -348,18 +364,32 @@ class TheSportsDBEngine {
           console.warn('[TheSportsDB] Backend proxy notice:', e.message);
         }
 
-        // 2. Direct Fallback to TheSportsDB Free Public Endpoint (Key: 3) & Seed Data Merge
-        // First load base authentic multi-sport seed from events.json
+        // 2. Direct Fallback to TheSportsDB Free Public Endpoint (Key: 3), ESPN Multi-Sport & Seed Data Merge
+        const curNow = Date.now();
+        const filterSeedList = (list) => list.filter(e => {
+          if (!e || !e.id) return false;
+          const sp = String(e.sport || '').toLowerCase();
+          if (sp === 'wwe' || sp === 'cricket') return false;
+          const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+          return !ts || (curNow - ts <= 24 * 3600 * 1000);
+        });
+
         let baseEvents = [];
-        try {
-          const evRes = await fetch('./events.json');
-          if (evRes.ok) {
-            const evJson = await evRes.json();
-            if (Array.isArray(evJson) && evJson.length > 0) {
-              baseEvents = evJson.filter(e => e && (!e.sport || (e.sport.toLowerCase() !== 'wwe' && e.sport.toLowerCase() !== 'cricket')));
+        if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
+          baseEvents = filterSeedList(window.EVENTS_DATA);
+        }
+
+        if (baseEvents.length === 0) {
+          try {
+            const evRes = await fetch('./events.json');
+            if (evRes.ok) {
+              const evJson = await evRes.json();
+              if (Array.isArray(evJson) && evJson.length > 0) {
+                baseEvents = filterSeedList(evJson);
+              }
             }
-          }
-        } catch (_) {}
+          } catch (_) {}
+        }
 
         try {
           console.log('[TheSportsDB] Fetching directly from Free TheSportsDB endpoint...');
