@@ -10,11 +10,81 @@ export interface Env {
   CRICKETDATA_API_KEY?: string;
   CRICAPI_KEY?: string;
   CRICKET_API_KEY?: string;
+  CRICKETDATA_BASE_URL?: string;
   RAPIDAPI_KEY?: string;
   THESPORTSDB_API_KEY?: string;
+  THESPORTSDB_KEY?: string;
   THESPORTSDB_BASE_URL?: string;
   ALLSPORTS_API_KEY?: string;
   ALLSPORTSAPI_KEY?: string;
+  ALLSPORTSAPI_BASE_URL?: string;
+  ALLSPORTS_BASE_URL?: string;
+}
+
+function resolveCricketSecretKey(env: Env): string {
+  const candidates = [
+    env.CRICKETDATA_API_KEY,
+    env.CRICAPI_KEY,
+    env.CRICKET_API_KEY,
+    env.CRICKETDATA_BASE_URL,
+  ];
+  for (const raw of candidates) {
+    const val = (raw || "").trim();
+    if (!val) continue;
+    if (/^https?:\/\//i.test(val)) {
+      try {
+        const u = new URL(val);
+        const k = (u.searchParams.get("apikey") || u.searchParams.get("apiKey") || u.searchParams.get("key") || "").trim();
+        if (k) return k;
+      } catch {}
+      continue;
+    }
+    return val;
+  }
+  return "";
+}
+
+function resolveAllSportsSecretKey(env: Env): string {
+  const candidates = [
+    env.ALLSPORTS_API_KEY,
+    env.ALLSPORTSAPI_KEY,
+    env.ALLSPORTSAPI_BASE_URL,
+    env.ALLSPORTS_BASE_URL,
+  ];
+  for (const raw of candidates) {
+    const val = (raw || "").trim();
+    if (!val) continue;
+    if (/^https?:\/\//i.test(val)) {
+      try {
+        const u = new URL(val);
+        const k = (u.searchParams.get("APIkey") || u.searchParams.get("apikey") || u.searchParams.get("apiKey") || u.searchParams.get("key") || "").trim();
+        if (k) return k;
+      } catch {}
+      continue;
+    }
+    return val;
+  }
+  return "";
+}
+
+function resolveSportsDbSecret(env: Env): { configured: boolean; key: string } {
+  const candidates = [
+    env.THESPORTSDB_API_KEY,
+    env.THESPORTSDB_KEY,
+    env.THESPORTSDB_BASE_URL,
+  ];
+  for (const raw of candidates) {
+    const val = (raw || "").trim();
+    if (!val) continue;
+    const extracted = val
+      .replace(/^https?:\/\/www\.thesportsdb\.com\/api\/v1\/json\/?/i, "")
+      .replace(/\/+$/, "")
+      .trim();
+    if (extracted) {
+      return { configured: true, key: extracted };
+    }
+  }
+  return { configured: false, key: "3" };
 }
 
 const CORS_HEADERS: Record<string, string> = {
@@ -1433,7 +1503,7 @@ async function fetchEspnCricketFallbackMatches(): Promise<any[]> {
 }
 
 async function getNormalizedCricketDataMatches(env: Env): Promise<WorkerCricketResult> {
-  const activeKey = (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
+  const activeKey = resolveCricketSecretKey(env);
   const now = Date.now();
 
   // 1. Serve from 180-second cache if fresh
@@ -1760,15 +1830,13 @@ export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const path = url.pathname;
-    const serverCricketKey = (env.CRICKETDATA_API_KEY || env.CRICAPI_KEY || env.CRICKET_API_KEY || "").trim();
+    const serverCricketKey = resolveCricketSecretKey(env);
     const isCricketSecretConfigured = Boolean(serverCricketKey);
     const isCurrentlyBlocked = workerCricketCache.blockedUntil > Date.now();
-    const rawSportsDbSecret = (env.THESPORTSDB_API_KEY || "").trim();
-    const isSportsDbSecretConfigured = Boolean(rawSportsDbSecret);
-    const sportsDbKey = rawSportsDbSecret
-      ? rawSportsDbSecret.replace(/^https?:\/\/www\.thesportsdb\.com\/api\/v1\/json\/?/i, "").replace(/\/+$/, "").trim() || "3"
-      : "3";
-    const allSportsKey = (env.ALLSPORTS_API_KEY || env.ALLSPORTSAPI_KEY || "").trim();
+    const sportsDbResolved = resolveSportsDbSecret(env);
+    const isSportsDbSecretConfigured = sportsDbResolved.configured;
+    const sportsDbKey = sportsDbResolved.key;
+    const allSportsKey = resolveAllSportsSecretKey(env);
     const isAllSportsConfigured = Boolean(allSportsKey);
     const rapidApiKey = (env.RAPIDAPI_KEY || "").trim();
 

@@ -36,13 +36,42 @@ function sanitizeCricbuzzHost(h?: any): string {
 }
 
 const RAPIDAPI_CRICKET_HOST = sanitizeCricbuzzHost(process.env.CRICBUZZ_RAPIDAPI_HOST);
-const RAW_THESPORTSDB_SECRET = (process.env.THESPORTSDB_API_KEY || "").trim();
+const RAW_THESPORTSDB_SECRET = (
+  process.env.THESPORTSDB_API_KEY ||
+  process.env.THESPORTSDB_KEY ||
+  process.env.THESPORTSDB_BASE_URL ||
+  ""
+).trim();
 const IS_THESPORTSDB_SECRET_CONFIGURED = Boolean(RAW_THESPORTSDB_SECRET);
 const THESPORTSDB_KEY = RAW_THESPORTSDB_SECRET
   ? RAW_THESPORTSDB_SECRET.replace(/^https?:\/\/www\.thesportsdb\.com\/api\/v1\/json\/?/i, "").replace(/\/+$/, "").trim() || "3"
   : "3";
 const THESPORTSDB_BASE = `https://www.thesportsdb.com/api/v1/json/${THESPORTSDB_KEY}`;
-const ALLSPORTSAPI_KEY = (process.env.ALLSPORTS_API_KEY || process.env.ALLSPORTSAPI_KEY || "").trim();
+
+function extractAllSportsEnvKey(): string {
+  const candidates = [
+    process.env.ALLSPORTS_API_KEY,
+    process.env.ALLSPORTSAPI_KEY,
+    process.env.ALLSPORTSAPI_BASE_URL,
+    process.env.ALLSPORTS_BASE_URL,
+  ];
+  for (const raw of candidates) {
+    const val = (raw || "").trim();
+    if (!val) continue;
+    if (/^https?:\/\//i.test(val)) {
+      try {
+        const u = new URL(val);
+        const k = (u.searchParams.get("APIkey") || u.searchParams.get("apikey") || u.searchParams.get("apiKey") || u.searchParams.get("key") || "").trim();
+        if (k) return k;
+      } catch {}
+      continue;
+    }
+    return val;
+  }
+  return "";
+}
+
+const ALLSPORTSAPI_KEY = extractAllSportsEnvKey();
 const ALLSPORTSAPI_BASE = "https://apiv2.allsportsapi.com";
 
 const CRICKETDATA_API_KEY = (process.env.CRICKETDATA_API_KEY || process.env.CRICAPI_KEY || process.env.CRICKET_API_KEY || "").trim();
