@@ -2578,20 +2578,6 @@
       if (typeof window.HighFyBroadcasterResolver !== 'undefined' && window.HighFyBroadcasterResolver.discoverBroadcasters) {
         const discResult = window.HighFyBroadcasterResolver.discoverBroadcasters(item);
         discoveredBroadcasters = discResult.broadcasters || [];
-      } else if (Array.isArray(item.broadcastingChannelDetails) && item.broadcastingChannelDetails.length > 0) {
-        discoveredBroadcasters = item.broadcastingChannelDetails.map(c => ({
-          name: c.name,
-          logo: c.logo || null,
-          country: c.country || null,
-          territory: c.territory || null,
-          type: 'TV',
-          source: 'sports_api',
-          sourcePath: 'event.broadcastingChannelDetails',
-          discovered: true,
-          authorizationStatus: 'unknown',
-          playbackStatus: 'unavailable',
-          servers: []
-        }));
       }
 
       // 2b. Enrich discovered broadcasters with authorization & playback against HighFy channels
@@ -2599,20 +2585,73 @@
         discoveredBroadcasters = window.HighFyChannelResolver.resolveDiscoveredBroadcasters(discoveredBroadcasters, allChannels, eventSport);
       }
 
-      // 2c. Dedicated TheSportsDB TV-Broadcast Discovery if reliable TheSportsDB Event ID is matched
-      const tsdbId = (typeof window.HighFyBroadcasterResolver !== 'undefined' && window.HighFyBroadcasterResolver.matchTheSportsDbEventId)
-        ? window.HighFyBroadcasterResolver.matchTheSportsDbEventId(item)
-        : null;
+      // Also include any verified channels matched via explicit channelId / resolveEventChannels
+      if (typeof window.HighFyChannelResolver !== 'undefined' && window.HighFyChannelResolver.resolveEventChannels) {
+        const resolvedEv = window.HighFyChannelResolver.resolveEventChannels(item, allChannels);
+        if (resolvedEv && resolvedEv.verified && Array.isArray(resolvedEv.channels)) {
+          const existingIds = new Set(discoveredBroadcasters.map(b => b.channelId));
+          for (const vch of resolvedEv.channels) {
+            if (vch && vch.id && !existingIds.has(vch.id) && Array.isArray(vch.servers) && vch.servers.length > 0) {
+              existingIds.add(vch.id);
+              discoveredBroadcasters.push({
+                eventId: item.id,
+                name: vch.name,
+                logo: vch.logo || null,
+                country: null,
+                territory: null,
+                type: 'TV',
+                source: 'sports_api',
+                sourcePath: resolvedEv.matchType || 'api.broadcaster',
+                channelId: vch.id,
+                discovered: true,
+                authorizationStatus: 'authorized',
+                playbackStatus: 'playable',
+                servers: vch.servers
+              });
+            }
+          }
+        }
+      }
 
-      if (tsdbId && discoveredBroadcasters.length === 0) {
-        window.HighFyBroadcasterResolver.fetchTheSportsDbBroadcasters(item).then(tsdbBcasts => {
-          if (tsdbBcasts && tsdbBcasts.length > 0) {
-            item.broadcasters = tsdbBcasts.map(b => b.name);
-            item.broadcaster = tsdbBcasts[0].name;
-            item.strTVStation = tsdbBcasts[0].name;
-            item.source = 'TheSportsDB';
-            const modalEl = document.getElementById('modal-select-server');
-            if (modalEl && modalEl.style.display !== 'none') {
+      // Include any verified channels returned directly by backend /api/fixture/broadcaster
+      if (Array.isArray(item.verifiedChannels) && item.verifiedChannels.length > 0) {
+        const existingIds = new Set(discoveredBroadcasters.map(b => b.channelId));
+        for (const vch of item.verifiedChannels) {
+          if (vch && vch.id && !existingIds.has(vch.id) && Array.isArray(vch.servers) && vch.servers.length > 0) {
+            existingIds.add(vch.id);
+            discoveredBroadcasters.push({
+              eventId: item.id,
+              name: vch.name,
+              logo: vch.logo || null,
+              country: null,
+              territory: null,
+              type: 'TV',
+              source: 'sports_api',
+              sourcePath: 'api.fixture.broadcaster',
+              channelId: vch.id,
+              discovered: true,
+              authorizationStatus: 'authorized',
+              playbackStatus: 'playable',
+              servers: vch.servers
+            });
+          }
+        }
+      }
+
+      // 2c. Live Real API Broadcaster Fetch (TheSportsDB, CricketData/ESPN, AllSportsAPI) when event is clicked
+      if (!item._liveBroadcasterResolved && typeof window.HighFyBroadcasterResolver !== 'undefined' && window.HighFyBroadcasterResolver.fetchRealApiBroadcastersForEvent) {
+        item._liveBroadcasterResolved = true;
+        window.HighFyBroadcasterResolver.fetchRealApiBroadcastersForEvent(item).then(liveBcasts => {
+          if (liveBcasts && liveBcasts.length > 0) {
+            const existingNames = Array.isArray(item.broadcasters) ? item.broadcasters : [];
+            const mergedNames = Array.from(new Set([...existingNames, ...liveBcasts.map(b => b.name).filter(Boolean)]));
+            item.broadcasters = mergedNames;
+            item.broadcaster = mergedNames.join(', ');
+            if (!item.strTVStation && mergedNames[0]) {
+              item.strTVStation = mergedNames[0];
+            }
+            const activeModalEl = document.getElementById('modal-select-server');
+            if (activeModalEl && activeModalEl.style.display !== 'none') {
               openServerSelectionModal(item, clickedElement, originalScrollY);
             }
           }
@@ -2646,7 +2685,18 @@
       }];
     }
 
-    const hasDiscoveredBroadcasters = discoveredBroadcasters.length > 0;
+    // Only display verified channels from the HighFy TV catalog with active authorized streams
+    const verifiedPlayableChannels = discoveredBroadcasters.filter(bcast => {
+      return (
+        bcast &&
+        bcast.playbackStatus === 'playable' &&
+        bcast.authorizationStatus === 'authorized' &&
+        Array.isArray(bcast.servers) &&
+        bcast.servers.length > 0
+      );
+    });
+
+    const hasVerifiedChannels = verifiedPlayableChannels.length > 0;
 
     // 3. Render Channel Popup ("Where to Watch")
     if (modalTitle) {
@@ -2658,10 +2708,10 @@
       modalSubTitle.style.display = 'block';
     }
 
-    if (hasDiscoveredBroadcasters) {
-      // Render all discovered broadcaster records
-      listContainer.innerHTML = discoveredBroadcasters.map((bcast, bIdx) => {
-        const cleanName = bcast.name || `Broadcaster ${bIdx + 1}`;
+    if (hasVerifiedChannels) {
+      // Render all verified channels from the catalog
+      listContainer.innerHTML = verifiedPlayableChannels.map((bcast, bIdx) => {
+        const cleanName = bcast.name || `Channel ${bIdx + 1}`;
         const bcastLogo = bcast.logo || '';
         const countryName = bcast.country || bcast.territory || '';
         const countryFlag = (typeof window.HighFyBroadcasterResolver !== 'undefined' && countryName) 
@@ -2669,66 +2719,38 @@
           : '';
         const countryBadgeStr = countryName ? `${countryFlag ? countryFlag + ' ' : ''}${escapeHtml(countryName)}` : '';
         const sourcePathStr = bcast.sourcePath || 'API';
-        const isPlayable = bcast.playbackStatus === 'playable' && Array.isArray(bcast.servers) && bcast.servers.length > 0;
-        const bcastServers = isPlayable ? bcast.servers : [];
+        const bcastServers = bcast.servers || [];
 
-        // Server playback buttons if authorized and playable in HighFy TV
-        let playbackHtml = '';
-        if (isPlayable) {
-          const serverBtns = bcastServers.map((srv, sIdx) => {
-            const srvLabel = srv.serverLabel || (bcastServers.length > 1 ? `SERVER ${sIdx + 1} (${srv.quality || 'HD'})` : `Watch Live on ${cleanName}`);
-            const srvQuality = srv.quality || '1080p FHD';
-            const subLabel = bcastServers.length > 1 ? `${cleanName} • Server ${sIdx + 1}` : `${cleanName} • Tap to watch live`;
+        // Server playback buttons with mobile touch target >=44px and D-pad navigation
+        const serverBtns = bcastServers.map((srv, sIdx) => {
+          const srvLabel = srv.serverLabel || (bcastServers.length > 1 ? `SERVER ${sIdx + 1} (${srv.quality || 'HD'})` : `Watch Live on ${cleanName}`);
+          const srvQuality = srv.quality || '1080p FHD';
+          const subLabel = bcastServers.length > 1 ? `${cleanName} • Server ${sIdx + 1}` : `${cleanName} • Tap to watch live`;
 
-            return `
-              <button class="multiple-link-server-btn"
-                      data-bcast-idx="${bIdx}"
-                      data-server-idx="${sIdx}"
-                      tabindex="0"
-                      role="button"
-                      aria-label="Play ${escapeHtml(cleanName)} on ${escapeHtml(srvLabel)}">
-                <div class="flex items-center gap-2.5 min-w-0">
-                  <span class="server-badge-pill">
-                    <i class="fa-solid fa-play text-[9px]"></i>
-                  </span>
-                  <div class="min-w-0 text-left">
-                    <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
-                    <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
-                  </div>
+          return `
+            <button class="multiple-link-server-btn"
+                    style="min-height: 44px; min-width: 44px;"
+                    data-bcast-idx="${bIdx}"
+                    data-server-idx="${sIdx}"
+                    tabindex="0"
+                    role="button"
+                    aria-label="Play ${escapeHtml(cleanName)} on ${escapeHtml(srvLabel)}">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <span class="server-badge-pill">
+                  <i class="fa-solid fa-play text-[9px]"></i>
+                </span>
+                <div class="min-w-0 text-left">
+                  <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
+                  <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
                 </div>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
-                  <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
-                </div>
-              </button>
-            `;
-          }).join('');
-
-          playbackHtml = `
-            <div class="channel-servers-list space-y-1.5 mt-2.5">
-              ${serverBtns}
-            </div>
-          `;
-        } else {
-          // Broadcaster discovered, but stream is unavailable or external in HighFy TV
-          const officialBtnHtml = bcast.officialUrl ? `
-            <button type="button" 
-                    class="btn-open-official-stream w-full mt-2 py-2 px-3 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 border border-sky-500/30 text-sky-300 font-bold text-xs flex items-center justify-center gap-1.5 transition active:scale-95"
-                    data-official-url="${escapeHtml(bcast.officialUrl)}">
-              <i class="fa-solid fa-arrow-up-right-from-square"></i> Watch Official
-            </button>
-          ` : '';
-
-          playbackHtml = `
-            <div class="mt-2.5 p-2 rounded-lg bg-white/5 border border-white/5 flex flex-col gap-1.5">
-              <div class="text-[11px] text-slate-400 flex items-center gap-1.5">
-                <i class="fa-solid fa-circle-info text-amber-400 shrink-0"></i>
-                <span>Official broadcaster • Stream unavailable in HighFy TV</span>
               </div>
-              ${officialBtnHtml}
-            </div>
+              <div class="flex items-center gap-2 shrink-0">
+                <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
+                <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
+              </div>
+            </button>
           `;
-        }
+        }).join('');
 
         return `
           <div class="multiple-links-channel-card" data-source-path="${escapeHtml(sourcePathStr)}">
@@ -2751,7 +2773,7 @@
                   <div class="font-extrabold text-xs text-white truncate">${escapeHtml(cleanName)}</div>
                   <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1.5">
                     <i class="fa-solid fa-circle-check text-[9px]"></i>
-                    <span class="truncate">✓ API Verified</span>
+                    <span class="truncate">✓ Verified Channel</span>
                   </div>
                 </div>
               </div>
@@ -2760,24 +2782,26 @@
                   ${countryBadgeStr}
                 </span>
               ` : `
-                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/20 shrink-0">
+                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
                   ${escapeHtml(bcast.type || 'TV')}
                 </span>
               `}
             </div>
-            ${playbackHtml}
+            <div class="channel-servers-list space-y-1.5 mt-2.5">
+              ${serverBtns}
+            </div>
           </div>
         `;
       }).join('');
 
-      // Attach click listeners to server playback buttons (SECOND CLICK)
+      // Attach click listeners to server playback buttons (SECOND CLICK - Starts Player)
       listContainer.querySelectorAll('.multiple-link-server-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
           const bIdx = parseInt(btn.getAttribute('data-bcast-idx'), 10) || 0;
           const sIdx = parseInt(btn.getAttribute('data-server-idx'), 10) || 0;
-          const chosenBcast = discoveredBroadcasters[bIdx];
+          const chosenBcast = verifiedPlayableChannels[bIdx];
           const chosenServer = chosenBcast?.servers?.[sIdx] || chosenBcast?.servers?.[0];
 
           if (!chosenServer || !chosenServer.url) {
@@ -2805,38 +2829,22 @@
         });
       });
 
-      // Attach click listeners to official stream links
-      listContainer.querySelectorAll('.btn-open-official-stream').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-          e.preventDefault();
-          e.stopPropagation();
-          const officialUrl = btn.getAttribute('data-official-url');
-          if (officialUrl && (officialUrl.startsWith('http://') || officialUrl.startsWith('https://'))) {
-            try {
-              window.open(officialUrl, '_blank', 'noopener,noreferrer');
-            } catch (_) {
-              window.location.href = officialUrl;
-            }
-          }
-        });
-      });
-
     } else {
-      // 4. Fallback State: No Broadcaster Verified from API
+      // 4. Fallback State: No Verified Channel Exists
       listContainer.innerHTML = `
         <div class="channel-unavailable-card text-center p-5 rounded-2xl bg-rose-500/5 border border-rose-500/20">
           <div class="w-14 h-14 mx-auto mb-3.5 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
             <i class="fa-solid fa-tv text-rose-400 text-2xl"></i>
           </div>
           <span class="inline-block px-3 py-1 mb-2 text-[10px] font-extrabold uppercase tracking-wider text-rose-400 bg-rose-500/10 rounded-full border border-rose-500/20">
-            Broadcast information unavailable
+            Live channel unavailable
           </span>
           <h3 class="text-sm font-bold text-white mb-1 leading-snug">${escapeHtml(title)}</h3>
           <p class="text-[11px] text-slate-400 mb-3">${escapeHtml(tourn)}</p>
           <p class="text-xs text-slate-400 mb-4 leading-relaxed">
-            HighFy TV could not verify a broadcaster for this event.
+            Live channel unavailable
           </p>
-          <button class="modal-unavailable-close-btn w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-white/10" role="button" tabindex="0">
+          <button class="modal-unavailable-close-btn w-full py-2.5 px-4 rounded-xl font-bold text-xs text-white bg-slate-800 hover:bg-slate-700 active:scale-95 transition-all border border-white/10" style="min-height: 44px; min-width: 44px;" role="button" tabindex="0">
             Close
           </button>
         </div>
@@ -2892,6 +2900,11 @@
       } else if (e.key === 'Escape' || e.key === 'Back' || e.key === 'Backspace' || e.keyCode === 27 || e.keyCode === 10009 || e.keyCode === 461) {
         e.preventDefault();
         handleCloseModal();
+      } else if ((e.key === 'Enter' || e.key === ' ' || e.key === 'Select' || e.keyCode === 23) && document.activeElement && modalEl.contains(document.activeElement)) {
+        if (document.activeElement.tagName === 'BUTTON') {
+          e.preventDefault();
+          document.activeElement.click();
+        }
       }
     };
 
@@ -3509,7 +3522,7 @@
           </div>
           <div class="p-4 text-center">
             <i class="fa-solid fa-circle-exclamation text-slate-500 text-xl mb-1.5 block"></i>
-            <div class="text-xs font-bold text-slate-300">Channel Not Available</div>
+            <div class="text-xs font-bold text-slate-300">Live channel unavailable</div>
             <div class="text-[11px] text-slate-500 mt-0.5">এই ইভেন্টের জন্য সরাসরি সম্প্রচার চ্যানেল পাওয়া যায়নি</div>
           </div>
         </div>
@@ -3609,13 +3622,9 @@
     }
 
     const btnPlayStream = document.getElementById('btn-md-play-stream');
-    if (btnPlayStream && Array.isArray(match.streams) && match.streams.length > 0) {
+    if (btnPlayStream) {
       btnPlayStream.addEventListener('click', () => {
-        playMedia({
-          title: `${t1Name} vs ${t2Name}`,
-          streams: match.streams,
-          id: match.id
-        });
+        openServerSelectionModal(match);
       });
     }
 
@@ -5056,10 +5065,13 @@
   function openCategoryDetail(catName) {
     state.activeCategoryName = catName;
     const matched = getChannelsForCategory(catName);
+    const isAynaCategory = catName.toLowerCase() === 'ayna' || catName.toLowerCase() === 'ayana';
     
     // Display Title
     let displayTitle = catName;
-    if (catName.toLowerCase() === 'news' && !catName.toLowerCase().includes('channels')) {
+    if (isAynaCategory) {
+      displayTitle = 'Ayna OTT';
+    } else if (catName.toLowerCase() === 'news' && !catName.toLowerCase().includes('channels')) {
       displayTitle = 'News Channels';
     } else if (catName.toLowerCase() === 'sports' && !catName.toLowerCase().includes('channels')) {
       displayTitle = 'Sports Channels';
@@ -5071,17 +5083,133 @@
     const searchContainer = document.getElementById('cat-detail-search-bar');
     const searchInput = document.getElementById('cat-detail-search-input');
     const searchClear = document.getElementById('btn-cat-search-clear');
+    const searchToggleBtn = document.getElementById('btn-cat-search-toggle');
+
     if (searchInput) searchInput.value = '';
     if (searchContainer) searchContainer.classList.add('hidden');
     if (searchClear) searchClear.classList.add('hidden');
 
+    if (searchToggleBtn && searchContainer && searchInput) {
+      searchToggleBtn.onclick = (e) => {
+        e.preventDefault();
+        const isHidden = searchContainer.classList.toggle('hidden');
+        if (!isHidden) {
+          searchInput.focus();
+        } else {
+          searchInput.value = '';
+          if (searchClear) searchClear.classList.add('hidden');
+          renderCategoryChannelsList();
+        }
+      };
+    }
+
+    if (searchInput) {
+      searchInput.oninput = () => {
+        const val = searchInput.value;
+        if (searchClear) searchClear.classList.toggle('hidden', !val.trim());
+        renderCategoryChannelsList(val);
+      };
+    }
+
+    if (searchClear && searchInput) {
+      searchClear.onclick = (e) => {
+        e.preventDefault();
+        searchInput.value = '';
+        searchClear.classList.add('hidden');
+        renderCategoryChannelsList('');
+        searchInput.focus();
+      };
+    }
+
+    // Subcategory matching helper
+    function matchSub(ch, subId) {
+      if (subId === 'all') return true;
+      const target = subId.toLowerCase().trim();
+      const sub = String(ch.subCategory || '').toLowerCase().trim();
+      const grp = String(ch.group || '').toLowerCase().trim();
+      const cats = Array.isArray(ch.categories) ? ch.categories.map(c => String(c).toLowerCase().trim()) : [];
+      if (target === 'bangla') return sub === 'bangla' || grp === 'bangla' || grp === 'indian bangla' || cats.includes('bangla');
+      if (target === 'sports') return sub === 'sports' || grp === 'sports' || cats.includes('sports');
+      if (target === 'news') return sub === 'news' || grp === 'news' || cats.includes('news');
+      if (target === 'entertainment') return sub === 'entertainment' || grp === 'hindi' || grp === 'english' || grp === 'live tv' || grp === 'urdhu' || cats.includes('entertainment');
+      if (target === 'islamic') return sub === 'islamic' || grp === 'religious' || grp === 'islamic' || cats.includes('islamic') || cats.includes('religious');
+      if (target === 'kids') return sub === 'kids' || grp === 'kids' || cats.includes('kids');
+      return false;
+    }
+
+    // Subcategories Horizontal Swipeable Bar
+    const subnavContainer = document.getElementById('cat-detail-subnav-container');
+    const subnavRow = document.getElementById('cat-detail-subnav-row');
+    let currentSubCat = 'all';
+
+    if (isAynaCategory && subnavContainer && subnavRow) {
+      subnavContainer.classList.remove('hidden');
+      const aynaSubcategories = [
+        { id: 'all', label: 'All', icon: 'fa-layer-group' },
+        { id: 'bangla', label: 'Bangla', icon: 'fa-tv' },
+        { id: 'sports', label: 'Sports', icon: 'fa-trophy' },
+        { id: 'news', label: 'News', icon: 'fa-newspaper' },
+        { id: 'entertainment', label: 'Entertainment', icon: 'fa-film' },
+        { id: 'islamic', label: 'Islamic', icon: 'fa-mosque' },
+        { id: 'kids', label: 'Kids', icon: 'fa-shapes' }
+      ];
+
+      subnavRow.innerHTML = aynaSubcategories.map(tab => {
+        const count = matched.filter(c => matchSub(c, tab.id)).length;
+        const isActive = currentSubCat === tab.id;
+        return `
+          <button type="button" 
+                  class="cat-subnav-pill ${isActive ? 'active' : ''}" 
+                  data-subcat="${tab.id}"
+                  role="tab"
+                  aria-selected="${isActive ? 'true' : 'false'}"
+                  aria-label="${tab.label} category"
+                  style="min-height: 44px; min-width: 44px;">
+            <i class="fa-solid ${tab.icon}"></i>
+            <span>${escapeHtml(tab.label)}</span>
+            <span class="badge-count">${count}</span>
+          </button>
+        `;
+      }).join('');
+
+      subnavRow.querySelectorAll('.cat-subnav-pill').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          const targetSub = btn.getAttribute('data-subcat') || 'all';
+          currentSubCat = targetSub;
+
+          subnavRow.querySelectorAll('.cat-subnav-pill').forEach(b => {
+            const isActive = b.getAttribute('data-subcat') === currentSubCat;
+            b.classList.toggle('active', isActive);
+            b.setAttribute('aria-selected', isActive ? 'true' : 'false');
+          });
+
+          try {
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+          } catch (_) {}
+
+          renderCategoryChannelsList(searchInput ? searchInput.value : '');
+        });
+      });
+    } else if (subnavContainer) {
+      subnavContainer.classList.add('hidden');
+    }
+
     function renderCategoryChannelsList(filterQuery = '') {
       if (!DOM.catDetailGrid) return;
       let list = matched;
+
+      // Filter by active Ayna subcategory
+      if (isAynaCategory && currentSubCat !== 'all') {
+        list = list.filter(ch => matchSub(ch, currentSubCat));
+      }
+
       if (filterQuery.trim()) {
         const q = filterQuery.toLowerCase().trim();
         list = list.filter(ch => (ch.name || '').toLowerCase().includes(q));
       }
+
+      if (DOM.catDetailCount) DOM.catDetailCount.textContent = `${list.length} Channels`;
 
       if (list.length === 0) {
         DOM.catDetailGrid.innerHTML = `

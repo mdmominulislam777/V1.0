@@ -1,144 +1,249 @@
-# ⚡ HIGHFY TV — Live TV & Sports Streaming Platform (v4.2)
+# HighFy TV — Production-Ready Auto-Update Data System
 
-A high-performance, mobile-first Web & Android TV application for live sports events (**Football**, **Cricket**, **WWE**) and M3U8/HLS TV channels. Built with vanilla HTML5, CSS3, and JavaScript, strictly compatible with **GitHub Pages** (zero backend/server required).
+Automated, GitHub Actions-driven sports event synchronization, broadcaster verification, EPG generation, and channel management system for **HighFy TV** (Android Mobile & Android TV).
 
 ---
 
-## 📁 File Structure
+## 1. Repository Structure
 
-```text
-/
-├── index.html          # Main application structure & views
-├── style.css           # AMOLED dark theme stylesheet (responsive & TV-ready)
-├── script.js           # Core application coordinator & view engine
-├── config.js           # Central configuration for API keys & settings
-├── football.js         # API-Football v3 engine (Live, Upcoming, Finished & Lineups)
-├── cricket.js          # CricketData.org engine (Live, Scores, Overs & Scorecards)
-├── wwe.js              # WWE Events engine (Raw, SmackDown, NXT & PLE schedule)
-├── sports.js           # Unified Sports coordinator, caching, search & stream matching
-├── channels.json       # Live TV channels directory with M3U8 streams
-├── categories.json     # Channel categories definition
-└── README.md           # Documentation & setup guide
+```
+HighFy-TV-Data/
+│
+├── .github/
+│   └── workflows/
+│       └── auto-update.yml       # Scheduled GitHub Actions workflow (runs every 30m)
+│
+├── data/
+│   ├── channels.json             # Normalized verified channels and authorized sources
+│   ├── sports-events.json        # Normalized sports events with verification metadata
+│   └── epg.json                  # Program guide generated from verified match schedules
+│
+├── scripts/
+│   ├── update.py                 # Main orchestrator script with failure protection
+│   ├── sports_api.py             # Unified client for CricketData, TheSportsDB, AllSports
+│   ├── broadcaster.py            # Broadcaster extraction & deterministic catalog matcher
+│   └── validator.py              # Strict schema, timestamp, and security validator
+│
+├── logos/
+│   └── channels/                 # Verified high-resolution channel logos
+│
+├── README.md                     # Technical architecture and developer guide
+└── requirements.txt              # Python runtime dependencies
 ```
 
 ---
 
-## 🔑 How to Configure API Keys
+## 2. Required GitHub Secrets
 
-You can configure your API keys in **two easy ways**:
+Configure these environment variables in your GitHub Repository under **Settings → Secrets and variables → Actions**:
 
-### Method 1: In `config.js` (Recommended for GitHub Pages)
-Open `config.js` and paste your API keys:
+| Secret Name | Description | Default / Fallback |
+| :--- | :--- | :--- |
+| `CRICKETDATA_API_KEY` | CricketData.org / CricAPI API key | Read from env |
+| `THESPORTSDB_API_KEY` | TheSportsDB API key | Defaults to `"3"` (Free Tier) |
+| `ALLSPORTS_API_KEY` | All Sports API key (Livescore & Fixtures) | Optional / Configured |
 
-```javascript
-const CONFIG = {
-  // ⚽ API-Football Key (Get free key at https://dashboard.api-football.com/)
-  FOOTBALL_API_KEY: "PASTE_YOUR_API_FOOTBALL_KEY_HERE",
+*Note: Never hardcode API keys in any JSON file, script, or commit.*
 
-  // 🏏 CricketData.org Key (Get free key at https://cricketdata.org/)
-  CRICKET_API_KEY: "PASTE_YOUR_CRICKET_KEY_HERE",
+---
 
-  // 🤼 WWE Events Data URL (Optional custom JSON feed)
-  WWE_API_URL: "",
+## 3. How to Run Locally
 
-  // Refresh intervals in milliseconds
-  FOOTBALL_REFRESH: 60000,  // 60 seconds
-  CRICKET_REFRESH: 60000,   // 60 seconds
-  WWE_REFRESH: 300000,      // 5 minutes
+### Prerequisites
+- Python 3.10+ (Python 3.12 recommended)
+- `pip`
 
-  TIMEZONE: "Asia/Dhaka"
-};
+### Step 1: Install Dependencies
+```bash
+pip install -r requirements.txt
 ```
 
-### Method 2: Directly in Application UI Settings
-1. Click the **Menu (☰)** icon in the top left corner of the app.
-2. Select **Settings & API Keys**.
-3. Paste your **API-Football Key** and **CricketData Key**.
-4. Click **Save Settings**. (Keys are securely saved in browser `localStorage`).
+### Step 2: Set Environment Variables (Optional)
+```bash
+export CRICKETDATA_API_KEY="your_cricketdata_key"
+export THESPORTSDB_API_KEY="your_thesportsdb_key"
+export ALLSPORTS_API_KEY="your_allsports_key"
+```
+
+### Step 3: Run Update Orchestrator
+```bash
+python scripts/update.py
+```
+
+### Step 4: Run Data Validator Independently
+```bash
+python scripts/validator.py
+```
 
 ---
 
-## ⚽ 1. How to Get a Free Football API Key (API-Football)
-1. Go to [https://dashboard.api-football.com/](https://dashboard.api-football.com/) and register for a free account.
-2. Go to **Account** → **API Key**.
-3. Copy your API Key.
-4. Paste it into `config.js` under `FOOTBALL_API_KEY` or in the in-app Settings modal.
-5. **Features Provided**: Real live match scores, elapsed time (e.g. `68'`), upcoming fixtures, completed match results, lineups, statistics bar charts, and timeline events (goals, red/yellow cards, substitutions).
+## 4. How GitHub Actions Works
+
+1. **Schedule**: The workflow `.github/workflows/auto-update.yml` triggers automatically every 30 minutes via cron (`*/30 * * * *`), or manually via `workflow_dispatch`.
+2. **Fetch**: `scripts/update.py` queries configured APIs, maps broadcasters against `data/channels.json`, and generates `sports-events.json` and `epg.json`.
+3. **Validate**: `scripts/validator.py` ensures 100% data integrity, rejecting malformed URLs, broken references, duplicate IDs, or invalid statuses.
+4. **Commit & Push**: If changes exist and validation passes, updates are committed with `"Auto update sports data"` and pushed directly to the repository.
 
 ---
 
-## 🏏 2. How to Get a Free Cricket API Key (CricketData.org)
-1. Go to [https://cricketdata.org/](https://cricketdata.org/) and register for a free account.
-2. Navigate to your dashboard and copy your **API Key**.
-3. Paste it into `config.js` under `CRICKET_API_KEY` or in the in-app Settings modal.
-4. **Features Provided**: Real live cricket scores, team runs, wickets, overs (e.g. `145/4 (18.2 ov)`), series/tournament info, venue details, and full inning scorecards.
+## 5. JSON Schemas
 
----
-
-## 🤼 3. How to Configure WWE Events Data Source
-WWE does not have an open real-time live score API. HighFy TV strictly **never generates fake live scores or fictional events**.
-Instead, it provides a configurable data source module for WWE Raw, SmackDown, NXT, and Premium Live Events (WrestleMania, Royal Rumble, SummerSlam, Survivor Series).
-
-- Set `WWE_API_URL` in `config.js` (or in Settings) to point to your custom JSON endpoint or schedule feed.
-- Example JSON schema for custom WWE feed:
+### `data/sports-events.json`
 ```json
-[
-  {
-    "id": "wrestlemania-41",
-    "name": "WWE WrestleMania 41",
-    "brand": "PLE",
-    "date": "2026-04-19T00:00:00Z",
-    "venue": "Allegiant Stadium, Las Vegas, NV",
-    "status": "upcoming",
-    "matches": [
-      { "title": "Undisputed WWE Championship Match", "stipulation": "Singles Match" }
-    ]
-  }
-]
+{
+  "updatedAt": "2026-10-03T05:30:00Z",
+  "sourceStatus": {
+    "cricketdata": "ok",
+    "thesportsdb": "ok",
+    "allsports": "ok"
+  },
+  "events": [
+    {
+      "eventId": "tsdb_12345",
+      "sport": "Soccer",
+      "league": "Premier League",
+      "homeTeam": "Arsenal",
+      "awayTeam": "Chelsea",
+      "startTime": "2026-10-03T19:00:00Z",
+      "status": "LIVE",
+      "homeTeamLogo": "https://...",
+      "awayTeamLogo": "https://...",
+      "broadcasters": [
+        {
+          "name": "Sky Sports Premier League",
+          "channelId": "ch-sky-sports-premier-league",
+          "verification": "api_verified"
+        },
+        {
+          "name": "NBC Sports",
+          "channelId": null,
+          "verification": "name_only"
+        }
+      ]
+    }
+  ]
+}
 ```
-- If `WWE_API_URL` is empty, the app clearly displays: `⚠️ WWE data source is not configured yet.`
+
+*Allowed Status Values:* `LIVE`, `TODAY`, `UPCOMING`, `FINISHED`, `UNKNOWN`.
+
+### `data/channels.json`
+```json
+{
+  "updatedAt": "2026-10-03T05:30:00Z",
+  "channels": [
+    {
+      "id": "ch-t-sports-hd",
+      "name": "T Sports HD",
+      "logo": "https://...",
+      "category": "sports",
+      "country": "BD",
+      "status": "verified",
+      "sources": [
+        {
+          "name": "Official Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://...",
+          "quality": "1080p FHD"
+        }
+      ]
+    }
+  ]
+}
+```
+
+### `data/epg.json`
+```json
+{
+  "updatedAt": "2026-10-03T05:30:00Z",
+  "channels": [
+    {
+      "channelId": "ch-t-sports-hd",
+      "channelName": "T Sports HD",
+      "programs": [
+        {
+          "title": "Live: Arsenal vs Chelsea (Premier League)",
+          "start": "2026-10-03T19:00:00Z",
+          "end": "2026-10-03T22:00:00Z",
+          "eventId": "tsdb_12345"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ---
 
-## 🎯 How to Test Live, Upcoming, and Finished Matches
+## 6. Sports API Sources
 
-1. **Top Sports Navigation**: Click **⚽ Football**, **🏏 Cricket**, **🤼 WWE**, or **All Sports**.
-2. **Status Pills**:
-   - **All**: Displays all available real matches.
-   - **Live**: Filter for in-progress fixtures with real-time pulsing indicator.
-   - **Upcoming**: Filter for scheduled fixtures with real-time countdown timer (`Starts in 02:14:36`).
-   - **Finished**: Filter for concluded matches (`FT` / match results).
-   - **Favorites**: Filter for your starred matches.
-3. **Match Details View**: Tap any event card to open the deep details page (Lineups, Statistics, Scorecards, Timeline, Venue & Referee).
-4. **▶ WATCH LIVE Button**: If a matching TV channel in `channels.json` or direct event stream exists, the button opens the stream directly in the HLS video player.
+1. **TheSportsDB**: Multi-sport event calendar, fixtures, and TV broadcast records (`lookuptv.php`).
+2. **CricketData.org / CricAPI**: International & domestic cricket match status, live ball-by-ball updates, and broadcast schedules.
+3. **All Sports API**: Real-time livescores and fixtures across football, basketball, cricket, and tennis.
 
 ---
 
-## 🛡️ API Security & GitHub Automation
+## 7. Broadcaster Verification Rules
 
-### How Your API Keys Are Protected:
-1. **GitHub Secrets Support (`.github/workflows/deploy.yml`)**:
-   - You do NOT need to hardcode API keys into public git commits.
-   - Go to your GitHub Repo **Settings** → **Secrets and variables** → **Actions** → **New repository secret**.
-   - Add your secret keys:
-     - `SPORTMONKS_API_TOKEN`
-     - `FOOTBALL_API_KEY`
-     - `CRICKET_API_KEY`
-     - `WWE_API_URL`
-   - When you push to GitHub, the **automated GitHub Actions workflow** automatically injects these secrets into `config.js` and deploys your site live to GitHub Pages.
-
-2. **Client-Side Masking & Password Protection**:
-   - In-app settings inputs are masked with password security (`••••••••`) with show/hide toggle.
-   - Keys configured in UI settings are stored in local browser storage (`localStorage`), keeping them isolated to your device.
-
-3. **Anti-Scraping Obfuscation**:
-   - Base64 token resolution protects against automated crawler bots scraping public repositories.
+- **ZERO Guessed Mappings**: Never assign a broadcaster merely because a team, league, or sport is commonly shown on that network.
+- **Strict Evidence**: Extract broadcaster names only from explicit API response fields (`strTVStation`, `broadcaster`, `tvStation`, etc.).
+- **Verification Levels**:
+  - `api_verified`: API returned a valid broadcaster name matching a verified playable channel in `data/channels.json`.
+  - `name_only`: API returned a broadcaster name that is not in HighFy TV's verified channel catalog. The UI **never** treats `name_only` as a playable stream.
 
 ---
 
-## 🚀 GitHub Pages Deployment (Automatic via GitHub Actions)
+## 8. Channel Verification Rules
 
-1. Push this repository to GitHub.
-2. Go to **Settings** → **Pages**.
-3. Under **Build and deployment** → **Source**, select **GitHub Actions**.
-4. Every push to `main` or `master` will automatically build, inject your secrets, and deploy your live site!
+- Channel IDs must remain immutable and stable.
+- Stream sources must be authorized and validated for HTTPS / proper streaming protocols.
+- If a channel has no active authorized playable source, its status is marked as `unavailable`, displaying `"Live channel unavailable"` in the UI.
+
+---
+
+## 9. EPG System
+
+- Built dynamically from verified match schedules and authorized broadcast times.
+- Programs are tied to verified `eventId` and `channelId` references.
+- No artificial schedules or placeholder programs.
+
+---
+
+## 10. Failure Handling & Protection
+
+- **Transient Outage Defense**: If external APIs return temporary network errors or 0 events while a previous valid dataset exists (e.g. 178 events), `update.py` preserves the previous dataset and logs:
+  ```
+  API FAILURE: Keeping previous valid dataset
+  ```
+- **Never Overwrite Empty**: The system will not overwrite valid data with empty data unless the API confirms zero fixtures genuinely exist.
+
+---
+
+## 11. HighFy TV Integration
+
+### Match Card Click Flow:
+```
+User Clicks Match Card
+         ↓
+Read event.broadcasters
+         ↓
+Find matching channelId
+         ↓
+Check data/channels.json (status == "verified")
+         ↓
+Open Channel / Server Selection Modal
+         ↓
+Show only Authorized Playable Servers (≥44px Touch / D-pad Focus)
+         ↓
+Play Stream via HLS.js / Fast Edge Proxy
+```
+
+*Fallback State:* If no verified playable channel exists, HighFy TV cleanly displays `"Live channel unavailable"`.
+
+---
+
+## 12. Security Rules
+
+- **No Credentials in Frontend / JSON**: No API keys or tokens are stored in client-accessible JSON files.
+- **Proxy Protection**: CORS-restricted or hotlink-protected streams are safely routed through `/api/stream-proxy`.
+- **Validation Gates**: Every push is blocked if `scripts/validator.py` encounters invalid URLs, broken IDs, or malformed schemas.

@@ -145,12 +145,12 @@
   },
   {
     "id": "ayna",
-    "name": "Ayana",
+    "name": "Ayna",
     "icon": "fa-film",
     "logo": "./assets/category-logos/ayna.png",
     "ringColor": "#6366f1",
     "glowColor": "rgba(99, 102, 241, 0.4)",
-    "description": "Ayana OTT Live TV Channels, Bengali Cinema, Natok & Entertainment"
+    "description": "Ayna OTT Live TV Channels (Bangla, Sports, News, Entertainment, Islamic, Kids)"
   },
   {
     "id": "chorki",

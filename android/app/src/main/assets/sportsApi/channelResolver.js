@@ -67,9 +67,9 @@
       } else if (spLower === 'tennis') {
         if (!chSports.includes('tennis')) return false;
       } else if (spLower === 'wwe' || spLower === 'combat') {
-        if (!chSports.includes('wwe') && !chSports.includes('combat') && !chSports.includes('mma') && !chSports.includes('boxing')) return false;
+        if (!chSports.some(s => s.includes('wwe') || s.includes('combat') || s.includes('mma') || s.includes('boxing') || s.includes('ufc'))) return false;
       } else if (spLower === 'motorsport' || spLower === 'f1') {
-        if (!chSports.includes('motorsport') && !chSports.includes('f1') && !chSports.includes('racing')) return false;
+        if (!chSports.some(s => s.includes('motorsport') || s.includes('f1') || s.includes('formula') || s.includes('racing'))) return false;
       }
     }
 
@@ -80,7 +80,7 @@
     }
 
     if (spLower === 'football' || spLower === 'soccer') {
-      const isCricketSpecific = (chName.includes('cricket') || chName.includes('willow') || chName.includes('star sports 1') || chName.includes('ptv sports') || chName.includes('t sports')) && !chName.includes('football');
+      const isCricketSpecific = (chName.includes('cricket') || chName.includes('willow') || chName.includes('star sports 1') || chName.includes('ptv sports') || /\bt sports\b/i.test(chName)) && !chName.includes('football');
       if (isCricketSpecific) return false;
     }
 
@@ -96,8 +96,15 @@
     }
 
     if (spLower === 'combat' || spLower === 'wwe') {
-      const isWweCh = chName.includes('wwe') || chName.includes('sony sports ten 1') || chName.includes('sony ten 1') || chSports.includes('wwe');
-      return isWweCh;
+      const isCombatOrWweCh =
+        chName.includes('wwe') ||
+        chName.includes('ufc') ||
+        chName.includes('sony sports') ||
+        chName.includes('sony ten') ||
+        chName.includes('tnt sports') ||
+        chName.includes('dazn') ||
+        chSports.some(s => s.includes('wwe') || s.includes('combat') || s.includes('boxing') || s.includes('ufc') || s.includes('mma'));
+      return isCombatOrWweCh;
     }
 
     return true;
@@ -223,75 +230,254 @@
   }
 
   /**
+   * Banned generic umbrella networks and OTT platforms that must NEVER auto-assign channels
+   */
+  const BANNED_UMBRELLA_OR_OTT = new Set([
+    'starsports', 'starsportsselect', 'sonysports', 'skysports', 'tntsports',
+    'dazn', 'beinsports', 'bein', 'eurosport', 'supersport', 'foxsports',
+    'fancode', 'cricbuzz', 'hotstar', 'disneyhotstar', 'jiohotstar', 'peacock',
+    'paramount', 'paramountplus', 'optussport', 'optus', 'primevideo', 'amazonprimevideo',
+    'amazonprime', 'canal', 'viaplay', 'stansport', 'jiocinema', 'sports18', 'sports181',
+    'starsportsnetwork', 'sonysportsnetwork', 'sonynetwork', 'sonyliv', 'skysportsnetwork',
+    'tntsportsnetwork', 'beinsportsnetwork', 'tsn', 'mlbtv', 'wnbaleaguepass', 'nbaleaguepass',
+    'nbatv', 'espnplus', 'appletv', 'appletvplus', 'fubo', 'fubotv', 'kayosports', 'sparksport'
+  ]);
+
+  /**
+   * Deterministic verified broadcaster aliases mapped strictly to HighFy TV channels.json IDs
+   */
+  const EXPLICIT_CATALOG_ALIASES = {
+    'tsports': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
+    'gazitv': ['ch-gazi-tv'],
+    'gtv': ['ch-gazi-tv'],
+    'gazitelevision': ['ch-gazi-tv'],
+    'gazi': ['ch-gazi-tv'],
+    'maasranga': ['ch-maasranga-tv-hd'],
+    'maasrangatv': ['ch-maasranga-tv-hd'],
+    'nagorik': ['ch-nagorik-tv'],
+    'nagoriktv': ['ch-nagorik-tv'],
+    'starsports1hindi': ['ch-star-sports-1-hindi'],
+    'starsportshindi': ['ch-star-sports-1-hindi'],
+    'ss1hindi': ['ch-star-sports-1-hindi'],
+    'starsports1': ['ch-star-sports-1-hd'],
+    'starsportsone': ['ch-star-sports-1-hd'],
+    'starsport1': ['ch-star-sports-1-hd'],
+    'ss1': ['ch-star-sports-1-hd'],
+    'starsportsselect1': ['ch-star-sports-s1-hd'],
+    'starselect1': ['ch-star-sports-s1-hd'],
+    'select1': ['ch-star-sports-s1-hd'],
+    'ssselect1': ['ch-star-sports-s1-hd'],
+    'starsportss1': ['ch-star-sports-s1-hd'],
+    'starsportsselect2': ['ch-star-sports-sl-2'],
+    'starselect2': ['ch-star-sports-sl-2'],
+    'select2': ['ch-star-sports-sl-2'],
+    'ssselect2': ['ch-star-sports-sl-2'],
+    'starsportssl2': ['ch-star-sports-sl-2'],
+    'willow': ['ch-willow-hd', 'ch-willow-sports'],
+    'willowcricket': ['ch-willow-hd', 'ch-willow-sports'],
+    'willowtv': ['ch-willow-hd', 'ch-willow-sports'],
+    'willowusa': ['ch-willow-hd', 'ch-willow-sports'],
+    'willowsports': ['ch-willow-sports', 'ch-willow-hd'],
+    'willowsports2': ['ch-willow-sports-2'],
+    'willow2': ['ch-willow-sports-2'],
+    'willowxtra': ['ch-willow-cricket-extra'],
+    'willowextra': ['ch-willow-cricket-extra'],
+    'willowcricketextra': ['ch-willow-cricket-extra'],
+    'ptvsports': ['ch-ptv-sports-hd'],
+    'ptvsport': ['ch-ptv-sports-hd'],
+    'ptv': ['ch-ptv-sports-hd'],
+    'asports': ['ch-a-sports'],
+    'asport': ['ch-a-sports'],
+    'tensports': ['ch-ten-sports-hd'],
+    'tensportspakistan': ['ch-ten-sports-hd'],
+    'tensportspk': ['ch-ten-sports-hd'],
+    'tencricket': ['ch-ten-cricket'],
+    'sonyten1': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-1-hd', 'ch-sony-sports-ten-1'],
+    'sonysportsten1': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-1-hd', 'ch-sony-sports-ten-1'],
+    'ten1': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-1-hd', 'ch-sony-sports-ten-1'],
+    'sonysports1': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-1-hd', 'ch-sony-sports-ten-1'],
+    'sonyten2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+    'sonysportsten2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+    'ten2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+    'tensports2': ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd'],
+    'sonysports2': ['ch-sony-sports-2-hd', 'ch-sony-sports-ten-2-hd'],
+    'sonyten3': ['ch-sony-sports-ten-3'],
+    'sonysportsten3': ['ch-sony-sports-ten-3'],
+    'ten3': ['ch-sony-sports-ten-3'],
+    'tensports3': ['ch-sony-sports-ten-3'],
+    'sonyten3hindi': ['ch-sony-sports-ten-3'],
+    'foxcricket': ['ch-fox-cricket-501'],
+    'foxcricket501': ['ch-fox-cricket-501'],
+    'foxsports501': ['ch-fox-cricket-501'],
+    'astrocricket': ['ch-astro-cricbuz'],
+    'astrocricbuz': ['ch-astro-cricbuz'],
+    'astrofootball': ['ch-astro-football'],
+    'skysportspremierleague': ['ch-sky-sports-epl'],
+    'skysportspremier': ['ch-sky-sports-epl'],
+    'skypremierleague': ['ch-sky-sports-epl'],
+    'skysportsepl': ['ch-sky-sports-epl'],
+    'skysportsmainevent': ['ch-sky-sports-epl'],
+    'skyspmainev': ['ch-sky-sports-epl'],
+    'skysppl': ['ch-sky-sports-epl'],
+    'skysportsfootball': ['ch-sky-sports-football'],
+    'skysportscricket': ['ch-sky-sports-cricket'],
+    'skycricket': ['ch-sky-sports-cricket'],
+    'skysportsf1': ['ch-sky-sports-f1'],
+    'skyf1': ['ch-sky-sports-f1'],
+    'skysportstennis': ['ch-sky-sports-tennis'],
+    'skytennis': ['ch-sky-sports-tennis'],
+    'skysportsgolf': ['ch-sky-sports-golf'],
+    'skygolf': ['ch-sky-sports-golf'],
+    'skysportsmix': ['ch-sky-sports-mix'],
+    'skysportsracing': ['ch-sky-sports-racing'],
+    'skyracing': ['ch-sky-sports-racing'],
+    'skysportsaction': ['ch-sky-sports-action'],
+    'skyaction': ['ch-sky-sports-action'],
+    'tntsports1': ['ch-tnt-sports-1'],
+    'tnt1': ['ch-tnt-sports-1'],
+    'tntsports2': ['ch-tnt-sports-2'],
+    'tnt2': ['ch-tnt-sports-2'],
+    'tntsports3': ['ch-tnt-sports-3'],
+    'tnt3': ['ch-tnt-sports-3'],
+    'tntsports4': ['ch-tnt-sports-4'],
+    'tnt4': ['ch-tnt-sports-4'],
+    'dazn1': ['ch-dazn-1'],
+    'dazn2': ['ch-dazn-2'],
+    'dazn3': ['ch-dazn-3'],
+    'dazn4': ['ch-dazn-4'],
+    'dazn5': ['ch-dazn-5'],
+    'daznlaliga': ['ch-dazn-laliga'],
+    'eurosport1': ['ch-eurosport-1'],
+    'eurosport2': ['ch-eurosport-2'],
+    'ziggosport1': ['ch-ziggo-sport-1'],
+    'ziggo1': ['ch-ziggo-sport-1'],
+    'ziggosport2': ['ch-ziggo-sport-2'],
+    'ziggo2': ['ch-ziggo-sport-2'],
+    'ziggosport3': ['ch-ziggo-sport-3'],
+    'ziggo3': ['ch-ziggo-sport-3'],
+    'beinsports1': ['ch-bein-sports-1-hd'],
+    'bein1': ['ch-bein-sports-1-hd'],
+    'beinsports2': ['ch-bein-sports-2'],
+    'bein2': ['ch-bein-sports-2'],
+    'beinsports3': ['ch-bein-sports-3-hd'],
+    'bein3': ['ch-bein-sports-3-hd'],
+    'beinsports4': ['ch-bein-sports-4-hd'],
+    'bein4': ['ch-bein-sports-4-hd'],
+    'beinsports5': ['ch-bein-sports-5-hd'],
+    'bein5': ['ch-bein-sports-5-hd'],
+    'beinxtra': ['ch-bein-xtra', 'ch-bein-sports-xtra'],
+    'beinsportsxtra': ['ch-bein-sports-xtra', 'ch-bein-xtra'],
+    'ddsports': ['ch-dd-sports'],
+    'qazsports': ['ch-qaz-sports-hd'],
+    'qazsport': ['ch-qaz-sports-hd'],
+    'mundialsports': ['ch-mundial-sports-hd'],
+    'aspor': ['ch-a-spor'],
+    'pksports': ['ch-pk-sports-hd'],
+    'fifaplus': ['ch-ayna-019efa45-d8f0-7732-8263-6030073a34fe'],
+    'motorvision': ['ch-motor-vision'],
+    'cricketgold': ['ch-cricket-gold'],
+    'espn': ['ch-espn'],
+    'espn2': ['ch-espn-2'],
+    'espn3': ['ch-espn-3'],
+    'go3sport1': ['ch-go3-sport-1-hd'],
+    'go3sport2': ['ch-go3-sport-2-hd'],
+    'ufctv': ['ch-ufc-tv'],
+    'ufcfightpass': ['ch-ufc-fight-pass'],
+    'supersportlaliga': ['ch-super-sport-laliga'],
+    'dsports': ['ch-dsports'],
+    'directvsports': ['ch-dsports'],
+    'goaltv': ['ch-goal-tv']
+  };
+
+  /**
+   * Deterministic lookup of verified active channels for a normalized broadcaster token.
+   * Never uses substring/fuzzy matching.
+   */
+  function findDeterministicChannels(normBcast, activeChannels, eventSport) {
+    if (!normBcast || normBcast.length < 2) return [];
+    if (BANNED_UMBRELLA_OR_OTT.has(normBcast)) return [];
+
+    const matched = [];
+    const seenIds = new Set();
+
+    // 1. Check explicit deterministic alias catalog
+    const mappedIds = EXPLICIT_CATALOG_ALIASES[normBcast];
+    if (Array.isArray(mappedIds) && mappedIds.length > 0) {
+      for (const cid of mappedIds) {
+        const ch = activeChannels.find(c => c && (c.id === cid || c.id === `ch-${cid}`) && matchesSportIsolation(c, eventSport));
+        if (ch && !seenIds.has(ch.id)) {
+          seenIds.add(ch.id);
+          matched.push(ch);
+        }
+      }
+      return matched;
+    }
+
+    // 2. Exact normalized channel name match (only if unambiguous single match)
+    const exactCandidates = activeChannels.filter(c => {
+      if (!matchesSportIsolation(c, eventSport)) return false;
+      const normCh = normalizeName(c.name || '');
+      return normCh === normBcast;
+    });
+
+    if (exactCandidates.length === 1) {
+      matched.push(exactCandidates[0]);
+    }
+
+    return matched;
+  }
+
+  /**
    * Enriches discovered broadcasters with authorization & playback status against HighFy TV channels
    * Maintains strict separation: Discovered != Authorized != Playable.
+   * Never uses fuzzy substring matching.
    */
   function resolveDiscoveredBroadcasters(discoveredList, channelRegistry = [], eventSport = '') {
     if (!Array.isArray(discoveredList) || discoveredList.length === 0) {
       return [];
     }
 
-    const activeChannels = Array.isArray(channelRegistry) ? channelRegistry.filter(c => c && c.active !== false) : [];
+    const activeChannels = Array.isArray(channelRegistry) ? channelRegistry.filter(c => c && c.active === true) : [];
+    const results = [];
+    const seenChannelIds = new Set();
 
-    return discoveredList.map(bcast => {
-      const record = {
-        ...bcast,
-        discovered: true,
-        authorizationStatus: 'unknown',
-        playbackStatus: 'unavailable',
-        servers: []
-      };
-
-      if (!bcast || !bcast.name) return record;
-
+    for (const bcast of discoveredList) {
+      if (!bcast || !bcast.name) continue;
       const normBcast = normalizeName(bcast.name);
-      if (!normBcast || normBcast.length < 2) return record;
+      if (!normBcast || normBcast.length < 2) continue;
 
-      // Search HighFy TV channel registry
-      let matchedChannel = activeChannels.find(c => {
-        if (!matchesSportIsolation(c, eventSport)) return false;
-        const normCh = normalizeName(c.name || '');
-        return normCh === normBcast;
-      });
-
-      if (!matchedChannel) {
-        matchedChannel = activeChannels.find(c => {
-          if (!matchesSportIsolation(c, eventSport)) return false;
-          const normCh = normalizeName(c.name || '');
-          if (normCh.length >= 3 && normBcast.length >= 3) {
-            return normCh.includes(normBcast) || normBcast.includes(normCh);
-          }
-          return false;
-        });
-      }
-
-      if (matchedChannel) {
-        const servers = getChannelServers(matchedChannel);
-        if (servers.length > 0 && servers.some(s => s.active)) {
-          record.authorizationStatus = 'authorized';
-          record.playbackStatus = 'playable';
-          record.servers = servers;
-          record.channelId = matchedChannel.id;
-          if (!record.logo && (matchedChannel.logo || matchedChannel.image)) {
-            record.logo = matchedChannel.logo || matchedChannel.image;
+      const matchedChannels = findDeterministicChannels(normBcast, activeChannels, eventSport);
+      if (matchedChannels.length > 0) {
+        for (const matchedChannel of matchedChannels) {
+          if (seenChannelIds.has(matchedChannel.id)) continue;
+          const servers = getChannelServers(matchedChannel);
+          if (servers.length > 0 && servers.some(s => s.active)) {
+            seenChannelIds.add(matchedChannel.id);
+            results.push({
+              ...bcast,
+              name: matchedChannel.name || bcast.name,
+              apiBroadcasterName: bcast.name,
+              logo: matchedChannel.logo || matchedChannel.image || bcast.logo || null,
+              channelId: matchedChannel.id,
+              discovered: true,
+              authorizationStatus: 'authorized',
+              playbackStatus: 'playable',
+              servers
+            });
           }
         }
       }
+    }
 
-      return record;
-    });
+    return results;
   }
 
   /**
    * Main Channel Resolver for Event Model
    */
   function resolveEventChannels(event, channelRegistry = []) {
-    const eventId = String(event?.id || event?.rawId || event?.idEvent || 'UNKNOWN');
     const sport = (event?.sport || event?.sportName || '').toLowerCase().trim();
-    const sportUpper = sport ? sport.toUpperCase() : 'UNKNOWN';
     const league = event?.league || event?.tournament || event?.seriesName || event?.competition || 'UNKNOWN';
-    const homeTeam = event?.homeTeam?.name || event?.homeTeam || event?.team1?.name || (Array.isArray(event?.teams) ? event.teams[0] : '') || 'TBD';
-    const awayTeam = event?.awayTeam?.name || event?.awayTeam || event?.team2?.name || (Array.isArray(event?.teams) ? event.teams[1] : '') || 'TBD';
     
     // Extract raw broadcaster signals from API without inventing any
     const rawBroadcasterTokens = [];
@@ -303,9 +489,6 @@
     if (typeof event?.channelName === 'string' && event.channelName.trim()) rawBroadcasterTokens.push(event.channelName.trim());
     if (typeof event?.network === 'string' && event.network.trim()) rawBroadcasterTokens.push(event.network.trim());
     if (typeof event?.provider === 'string' && event.provider.trim()) rawBroadcasterTokens.push(event.provider.trim());
-
-    const broadcasterFromApi = rawBroadcasterTokens.length > 0 ? rawBroadcasterTokens.join(', ') : 'NONE';
-    const channelIdFromApi = event?.channelId || (Array.isArray(event?.channelIds) ? event.channelIds.join(', ') : 'NONE');
 
     if (!event || !Array.isArray(channelRegistry) || channelRegistry.length === 0) {
       return {
@@ -319,125 +502,116 @@
       };
     }
 
-    const activeChannels = channelRegistry.filter(c => c && c.active !== false);
-    let matchedChannel = null;
+    const activeChannels = channelRegistry.filter(c => c && c.active === true);
+    const matchedChannels = [];
+    const seenMatchedIds = new Set();
     let matchType = null;
-    let matchReason = 'NO_VERIFIED_BROADCASTER_METADATA';
+
+    const addMatchedChannel = (ch, type) => {
+      if (!ch || !ch.id || seenMatchedIds.has(ch.id)) return;
+      seenMatchedIds.add(ch.id);
+      matchedChannels.push(ch);
+      if (!matchType) matchType = type;
+    };
 
     // 1. Exact channelId from API
     if (event.channelId) {
       const cid = String(event.channelId).trim().toLowerCase();
-      matchedChannel = activeChannels.find(c => {
+      const found = activeChannels.find(c => {
         const chId = String(c.id || '').trim().toLowerCase();
         return chId === cid || chId === `ch-${cid}` || `ch-${chId}` === cid;
       });
-      if (matchedChannel && matchesSportIsolation(matchedChannel, sport)) {
-        matchType = 'exact_channel_id';
-        matchReason = 'API_CHANNEL_ID_MATCH';
-      } else {
-        matchedChannel = null;
+      if (found && matchesSportIsolation(found, sport)) {
+        addMatchedChannel(found, 'exact_channel_id');
       }
     }
 
     // 2. Exact broadcasterId from API
-    if (!matchedChannel && event.broadcasterId) {
+    if (event.broadcasterId) {
       const bid = String(event.broadcasterId).trim().toLowerCase();
-      matchedChannel = activeChannels.find(c => {
+      const found = activeChannels.find(c => {
         const bId = String(c.broadcasterId || c.tvg_id || c.tvgId || '').trim().toLowerCase();
         return bId && bId === bid;
       });
-      if (matchedChannel && matchesSportIsolation(matchedChannel, sport)) {
-        matchType = 'exact_broadcaster_id';
-        matchReason = 'API_BROADCASTER_ID_MATCH';
-      } else {
-        matchedChannel = null;
+      if (found && matchesSportIsolation(found, sport)) {
+        addMatchedChannel(found, 'exact_broadcaster_id');
       }
     }
 
-    // 3. Exact normalized broadcaster/channel name or provider/network token from API
-    if (!matchedChannel && rawBroadcasterTokens.length > 0) {
+    // 3. Deterministic normalized broadcaster/channel name from API (NO fuzzy substring matching)
+    if (rawBroadcasterTokens.length > 0) {
       for (const bcast of rawBroadcasterTokens) {
-        const normBcast = normalizeName(bcast);
-        if (!normBcast || normBcast.length < 2) continue;
-
-        // Try exact normalized name
-        matchedChannel = activeChannels.find(c => {
-          if (!matchesSportIsolation(c, sport)) return false;
-          const normCh = normalizeName(c.name || '');
-          return normCh === normBcast;
-        });
-
-        // Try high-confidence token inclusion if no exact match
-        if (!matchedChannel) {
-          matchedChannel = activeChannels.find(c => {
-            if (!matchesSportIsolation(c, sport)) return false;
-            const normCh = normalizeName(c.name || '');
-            if (normCh.length > 3 && normBcast.length > 3) {
-              return normCh.includes(normBcast) || normBcast.includes(normCh);
-            }
-            return false;
-          });
-        }
-
-        if (matchedChannel) {
-          matchType = 'normalized_broadcaster_name';
-          matchReason = 'API_BROADCASTER_NAME_MATCH';
-          break;
+        const parts = String(bcast).split(/[,/|;+&]|\band\b|\bor\b/i).map(p => p.trim()).filter(Boolean);
+        for (const part of parts) {
+          const normBcast = normalizeName(part);
+          const deterministicMatches = findDeterministicChannels(normBcast, activeChannels, sport);
+          for (const dm of deterministicMatches) {
+            addMatchedChannel(dm, 'normalized_broadcaster_name');
+          }
         }
       }
     }
 
-    // 4. Verified provider mapping (Franchise contract or explicit event ID)
-    if (!matchedChannel) {
-      // 4a. WWE Flagship Contract
-      const isWwe = sport === 'combat' || sport === 'wwe' || (league || '').toLowerCase().includes('wwe');
-      if (isWwe) {
-        matchedChannel = activeChannels.find(c => {
-          const cId = String(c.id || '').toLowerCase();
-          const cName = String(c.name || '').toLowerCase();
-          return cId === 'jio-162' || cId === 'jio-3510' || cId === 'ch-sony-sports-ten-1-hd' || cId === 'sports-wwe-network' || cName.includes('sony ten 1') || cName.includes('wwe network');
-        });
-        if (matchedChannel) {
-          matchType = 'verified_franchise_contract';
-          matchReason = 'WWE_SOUTH_ASIA_FRANCHISE_CONTRACT';
-        }
-      }
-
-      // 4b. Explicit event ID listed inside channel.events array
-      if (!matchedChannel && event.id) {
-        const evId = String(event.id);
-        matchedChannel = activeChannels.find(c => {
-          return Array.isArray(c.events) && c.events.map(String).includes(evId);
-        });
-        if (matchedChannel) {
-          matchType = 'verified_event_id';
-          matchReason = 'CHANNEL_REGISTRY_EVENT_ID_MATCH';
-        }
+    // 4. Verified explicit event ID mapping in catalog (if explicitly linked)
+    if (matchedChannels.length === 0 && event.id) {
+      const evId = String(event.id);
+      const found = activeChannels.find(c => {
+        return Array.isArray(c.events) && c.events.map(String).includes(evId);
+      });
+      if (found && matchesSportIsolation(found, sport)) {
+        addMatchedChannel(found, 'verified_event_id');
       }
     }
 
     // 5. No match -> Strict fallback
-    if (!matchedChannel) {
+    if (matchedChannels.length === 0) {
       return {
         status: 'UNAVAILABLE',
         channelId: null,
         channelName: null,
         channelLogo: null,
+        channels: [],
         streams: [],
         verified: false,
         message: 'Live channel unavailable'
       };
     }
 
-    // Build multi-server authorized streams
-    const servers = getChannelServers(matchedChannel);
+    // Build multi-server authorized streams across all verified matched channels
+    const allServers = [];
+    const verifiedChannels = [];
+    const seenStreamUrls = new Set();
 
-    if (servers.length === 0 || !servers.some(s => s.active)) {
+    for (const ch of matchedChannels) {
+      const servers = getChannelServers(ch).filter(s => s && s.active && isValidStreamUrl(s.url));
+      if (servers.length > 0) {
+        verifiedChannels.push({
+          id: ch.id,
+          name: ch.name,
+          logo: ch.logo || ch.image || '',
+          category: ch.category || 'Sports',
+          sports: Array.isArray(ch.sports) ? ch.sports : [],
+          verified: true,
+          servers
+        });
+        for (const srv of servers) {
+          const key = `${ch.id}::${srv.url}`;
+          if (!seenStreamUrls.has(key)) {
+            seenStreamUrls.add(key);
+            allServers.push(srv);
+          }
+        }
+      }
+    }
+
+    const primaryChannel = verifiedChannels[0] || null;
+    if (!primaryChannel || allServers.length === 0) {
       return {
         status: 'UNAVAILABLE',
-        channelId: matchedChannel.id,
-        channelName: matchedChannel.name,
-        channelLogo: matchedChannel.logo || '',
+        channelId: null,
+        channelName: null,
+        channelLogo: null,
+        channels: [],
         streams: [],
         verified: false,
         message: 'Live channel unavailable'
@@ -447,10 +621,11 @@
     return {
       status: 'MATCHED',
       matchType,
-      channelId: matchedChannel.id,
-      channelName: matchedChannel.name,
-      channelLogo: matchedChannel.logo || matchedChannel.image || '',
-      streams: servers,
+      channelId: primaryChannel.id,
+      channelName: primaryChannel.name,
+      channelLogo: primaryChannel.logo || '',
+      channels: verifiedChannels,
+      streams: allServers,
       verified: true,
       message: 'Channel matched and verified'
     };

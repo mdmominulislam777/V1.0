@@ -36846,35 +36846,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "T Sports HD, Gazi TV",
-    "broadcasters": [
-      "T Sports HD",
-      "Gazi TV"
-    ],
-    "channelId": "ch-t-sports-hd",
-    "channelIds": [
-      "ch-t-sports-hd"
-    ],
-    "channelName": "T Sports HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-    "streams": [
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Pakistan Women's Under-19s T20 Tri-Series 2026/27 • 1st Match • Iqbal Stadium, Faisalabad",
     "source": "ESPN-Fallback"
   },
@@ -36933,81 +36912,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool B • Uplands College, White River",
     "source": "ESPN-Fallback"
   },
@@ -37066,81 +36978,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool B (D/N) • Mangaung Oval, Bloemfontein",
     "source": "ESPN-Fallback"
   },
@@ -37199,81 +37044,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool A (D/N) • The Wanderers Stadium, Johannesburg",
     "source": "ESPN-Fallback"
   },
@@ -37332,81 +37110,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Fox Cricket, Star Sports 1 HD, Willow HD",
-    "broadcasters": [
-      "Fox Cricket",
-      "Star Sports 1 HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-fox-cricket-501",
-    "channelIds": [
-      "ch-fox-cricket-501",
-      "ch-star-sports-1-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "FOX CRICKET 501",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-    "streams": [
-      {
-        "name": "FOX CRICKET 501 (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-fox-cricket-501",
-        "channelName": "FOX CRICKET 501",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Canada Super60 • 10th Match • BC Place, Vancouver",
     "source": "ESPN-Fallback"
   },
@@ -37465,35 +37176,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "T Sports HD, Gazi TV",
-    "broadcasters": [
-      "T Sports HD",
-      "Gazi TV"
-    ],
-    "channelId": "ch-t-sports-hd",
-    "channelIds": [
-      "ch-t-sports-hd"
-    ],
-    "channelName": "T Sports HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-    "streams": [
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Asian Games Men's Cricket Competition • 3rd Place Play-off • Korogi Sports Park, Nisshin",
     "source": "ESPN-Fallback"
   },
@@ -37552,81 +37242,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Willow HD, T Sports HD, Cricket Gold",
-    "broadcasters": [
-      "Willow HD",
-      "T Sports HD",
-      "Cricket Gold"
-    ],
-    "channelId": "ch-willow-hd",
-    "channelIds": [
-      "ch-willow-hd",
-      "ch-willow-sports",
-      "ch-t-sports-hd",
-      "ch-cricket-gold"
-    ],
-    "channelName": "Willow HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-    "streams": [
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Cricket Gold (Server 1 — 720p HD)",
-        "serverLabel": "Server 1 — 720p HD",
-        "channelId": "ch-cricket-gold",
-        "channelName": "Cricket Gold",
-        "channelLogo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-09/images_dde39b3fb713d4946a32e2c8ad5db00a_playmist_cricket_gold_400x400.jpg",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://tvsen6.aynaott.com/M2W2UR49dmeKbZnmdRzN/index.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Indonesia tour of South Korea 2026/27 • 1st T20I • Yeonhui Cricket Ground, Incheon",
     "source": "ESPN-Fallback"
   },
@@ -37685,81 +37308,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "Canada Super60 • 11th Match (D/N) • BC Place, Vancouver",
     "source": "ESPN-Fallback"
   },
@@ -37818,35 +37374,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "T Sports HD, Gazi TV",
-    "broadcasters": [
-      "T Sports HD",
-      "Gazi TV"
-    ],
-    "channelId": "ch-t-sports-hd",
-    "channelIds": [
-      "ch-t-sports-hd"
-    ],
-    "channelName": "T Sports HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-    "streams": [
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "National Cricket League • 4th Match • Bir Sreshtho Flight Lieutenant Matiur Rahman Stadium, Chattogram",
     "source": "ESPN-Fallback"
   },
@@ -37905,35 +37440,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "T Sports HD, Gazi TV",
-    "broadcasters": [
-      "T Sports HD",
-      "Gazi TV"
-    ],
-    "channelId": "ch-t-sports-hd",
-    "channelIds": [
-      "ch-t-sports-hd"
-    ],
-    "channelName": "T Sports HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-    "streams": [
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "National Cricket League • 2nd Match • Shere Bangla National Stadium, Mirpur, Dhaka",
     "source": "ESPN-Fallback"
   },
@@ -37992,35 +37506,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "T Sports HD, Gazi TV",
-    "broadcasters": [
-      "T Sports HD",
-      "Gazi TV"
-    ],
-    "channelId": "ch-t-sports-hd",
-    "channelIds": [
-      "ch-t-sports-hd"
-    ],
-    "channelName": "T Sports HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-    "streams": [
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "National Cricket League • 3rd Match • Sheikh Abu Naser Stadium, Khulna",
     "source": "ESPN-Fallback"
   },
@@ -38079,35 +37572,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "T Sports HD, Gazi TV",
-    "broadcasters": [
-      "T Sports HD",
-      "Gazi TV"
-    ],
-    "channelId": "ch-t-sports-hd",
-    "channelIds": [
-      "ch-t-sports-hd"
-    ],
-    "channelName": "T Sports HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-    "streams": [
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "National Cricket League • 1st Match • Sylhet International Cricket Stadium",
     "source": "ESPN-Fallback"
   },
@@ -38166,127 +37638,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Star Sports 1 HD, Star Sports 1 Hindi, DD Sports",
-    "broadcasters": [
-      "Star Sports 1 HD",
-      "Star Sports 1 Hindi",
-      "DD Sports",
-      "Willow HD"
-    ],
-    "channelId": "ch-star-sports-1-hd",
-    "channelIds": [
-      "ch-star-sports-1-hd",
-      "ch-star-sports-1-hindi",
-      "ch-dd-sports",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "Star Sports 1 HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-    "streams": [
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 Hindi (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hindi",
-        "channelName": "Star Sports 1 Hindi",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 Hindi (Server 2 — 720p HD)",
-        "serverLabel": "Server 2 — 720p HD",
-        "channelId": "ch-star-sports-1-hindi",
-        "channelName": "Star Sports 1 Hindi",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://starsportshindiii.pages.dev/index.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 Hindi (Server 3 — 1080p FHD)",
-        "serverLabel": "Server 3 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hindi",
-        "channelName": "Star Sports 1 Hindi",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1404528.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "DD Sports (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-dd-sports",
-        "channelName": "DD Sports",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/38/DD_Sports_logo.svg/320px-DD_Sports_logo.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football",
-          "Olympic Sports"
-        ],
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Asian Games Men's Cricket Competition • Final • Korogi Sports Park, Nisshin",
     "source": "ESPN-Fallback"
   },
@@ -38345,110 +37704,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "PTV Sports, A Sports, Ten Sports HD",
-    "broadcasters": [
-      "PTV Sports",
-      "A Sports",
-      "Ten Sports HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-ptv-sports-hd",
-    "channelIds": [
-      "ch-ptv-sports-hd",
-      "ch-a-sports",
-      "ch-ten-sports-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "PTV Sports",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
-    "streams": [
-      {
-        "name": "PTV Sports (Server 1 — 720p HD)",
-        "serverLabel": "Server 1 — 720p HD",
-        "channelId": "ch-ptv-sports-hd",
-        "channelName": "PTV Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      },
-      {
-        "name": "PTV Sports (Server 2 — 1080p FHD)",
-        "serverLabel": "Server 2 — 1080p FHD",
-        "channelId": "ch-ptv-sports-hd",
-        "channelName": "PTV Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1404537.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "A Sports (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-a-sports",
-        "channelName": "A Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Ten Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-ten-sports-hd",
-        "channelName": "Ten Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Pakistan Women's Under-19s T20 Tri-Series 2026/27 • 2nd Match • Iqbal Stadium, Faisalabad",
     "source": "ESPN-Fallback"
   },
@@ -38507,66 +37770,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Willow HD, Star Sports 1 HD, Ten Cricket",
-    "broadcasters": [
-      "Willow HD",
-      "Star Sports 1 HD",
-      "Ten Cricket"
-    ],
-    "channelId": "ch-willow-hd",
-    "channelIds": [
-      "ch-willow-hd",
-      "ch-willow-sports",
-      "ch-star-sports-1-hd"
-    ],
-    "channelName": "Willow HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-    "streams": [
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Canada Super60 • 12th Match (D/N) • BC Place, Vancouver",
     "source": "ESPN-Fallback"
   },
@@ -38625,81 +37836,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "CSA Women Pro50 Series 2026/27 • 2nd Match • St George's Park, Gqeberha",
     "source": "ESPN-Fallback"
   },
@@ -38758,81 +37902,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "CSA Women Pro50 Series 2026/27 • 3rd Match • Tshwane University of Technology Oval, Pretoria",
     "source": "ESPN-Fallback"
   },
@@ -38891,81 +37968,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "CSA Women Pro50 Series 2026/27 • 1st Match • Newlands, Cape Town",
     "source": "ESPN-Fallback"
   },
@@ -39024,81 +38034,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Fox Cricket, Star Sports 1 HD, Willow HD",
-    "broadcasters": [
-      "Fox Cricket",
-      "Star Sports 1 HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-fox-cricket-501",
-    "channelIds": [
-      "ch-fox-cricket-501",
-      "ch-star-sports-1-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "FOX CRICKET 501",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-    "streams": [
-      {
-        "name": "FOX CRICKET 501 (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-fox-cricket-501",
-        "channelName": "FOX CRICKET 501",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Australia tour of South Africa 2026/27 • Tour Match • Senwes Park, Potchefstroom",
     "source": "ESPN-Fallback"
   },
@@ -39157,127 +38100,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Star Sports 1 HD, Star Sports 1 Hindi, DD Sports",
-    "broadcasters": [
-      "Star Sports 1 HD",
-      "Star Sports 1 Hindi",
-      "DD Sports",
-      "Willow HD"
-    ],
-    "channelId": "ch-star-sports-1-hd",
-    "channelIds": [
-      "ch-star-sports-1-hd",
-      "ch-star-sports-1-hindi",
-      "ch-dd-sports",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "Star Sports 1 HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-    "streams": [
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 Hindi (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hindi",
-        "channelName": "Star Sports 1 Hindi",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 Hindi (Server 2 — 720p HD)",
-        "serverLabel": "Server 2 — 720p HD",
-        "channelId": "ch-star-sports-1-hindi",
-        "channelName": "Star Sports 1 Hindi",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://starsportshindiii.pages.dev/index.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 Hindi (Server 3 — 1080p FHD)",
-        "serverLabel": "Server 3 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hindi",
-        "channelName": "Star Sports 1 Hindi",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1404528.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "DD Sports (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-dd-sports",
-        "channelName": "DD Sports",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/38/DD_Sports_logo.svg/320px-DD_Sports_logo.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football",
-          "Olympic Sports"
-        ],
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "West Indies tour of India 2026/27 • 3rd ODI (D/N) • Maharaja Yadavindra Singh International Cricket Stadium, New Chandigarh",
     "source": "ESPN-Fallback"
   },
@@ -39336,99 +38166,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sony Sports Ten 2 HD, Ten Cricket, T Sports HD",
-    "broadcasters": [
-      "Sony Sports Ten 2 HD",
-      "Ten Cricket",
-      "T Sports HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-sony-sports-ten-2-hd",
-    "channelIds": [
-      "ch-sony-sports-ten-2-hd",
-      "ch-sony-sports-2-hd",
-      "ch-t-sports-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "SONY SPORTS TEN 2 HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
-    "streams": [
-      {
-        "name": "SONY SPORTS TEN 2 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sony-sports-ten-2-hd",
-        "channelName": "SONY SPORTS TEN 2 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Sony Sports 2 HD (Server 1 — 720p HD)",
-        "serverLabel": "Server 1 — 720p HD",
-        "channelId": "ch-sony-sports-2-hd",
-        "channelName": "Sony Sports 2 HD",
-        "channelLogo": "./assets/channel-logos/sports-sony-ten-2.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "WWE",
-          "Football"
-        ],
-        "url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      },
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "West Indies Women tour of Zimbabwe 2026 • 1st T20I • Takashinga Sports Club, Harare",
     "source": "ESPN-Fallback"
   },
@@ -39487,99 +38232,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sony Sports Ten 2 HD, Ten Cricket, T Sports HD",
-    "broadcasters": [
-      "Sony Sports Ten 2 HD",
-      "Ten Cricket",
-      "T Sports HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-sony-sports-ten-2-hd",
-    "channelIds": [
-      "ch-sony-sports-ten-2-hd",
-      "ch-sony-sports-2-hd",
-      "ch-t-sports-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "SONY SPORTS TEN 2 HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
-    "streams": [
-      {
-        "name": "SONY SPORTS TEN 2 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sony-sports-ten-2-hd",
-        "channelName": "SONY SPORTS TEN 2 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Sony Sports 2 HD (Server 1 — 720p HD)",
-        "serverLabel": "Server 1 — 720p HD",
-        "channelId": "ch-sony-sports-2-hd",
-        "channelName": "Sony Sports 2 HD",
-        "channelLogo": "./assets/channel-logos/sports-sony-ten-2.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "WWE",
-          "Football"
-        ],
-        "url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      },
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "ICC Men's Cricket World Cup League 2 • 127th Match • Grand Prairie Stadium, Dallas",
     "source": "ESPN-Fallback"
   },
@@ -39638,81 +38298,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "Canada Super60 • 13th Match • BC Place, Vancouver",
     "source": "ESPN-Fallback"
   },
@@ -39771,81 +38364,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Willow HD, T Sports HD, Cricket Gold",
-    "broadcasters": [
-      "Willow HD",
-      "T Sports HD",
-      "Cricket Gold"
-    ],
-    "channelId": "ch-willow-hd",
-    "channelIds": [
-      "ch-willow-hd",
-      "ch-willow-sports",
-      "ch-t-sports-hd",
-      "ch-cricket-gold"
-    ],
-    "channelName": "Willow HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-    "streams": [
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "T Sports HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-t-sports-hd",
-        "channelName": "T Sports HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Football"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Cricket Gold (Server 1 — 720p HD)",
-        "serverLabel": "Server 1 — 720p HD",
-        "channelId": "ch-cricket-gold",
-        "channelName": "Cricket Gold",
-        "channelLogo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-09/images_dde39b3fb713d4946a32e2c8ad5db00a_playmist_cricket_gold_400x400.jpg",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://tvsen6.aynaott.com/M2W2UR49dmeKbZnmdRzN/index.m3u8",
-        "quality": "720p HD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Indonesia tour of South Korea 2026/27 • 2nd T20I • Yeonhui Cricket Ground, Incheon",
     "source": "ESPN-Fallback"
   },
@@ -39904,81 +38430,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Fox Cricket, Star Sports 1 HD, Willow HD",
-    "broadcasters": [
-      "Fox Cricket",
-      "Star Sports 1 HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-fox-cricket-501",
-    "channelIds": [
-      "ch-fox-cricket-501",
-      "ch-star-sports-1-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "FOX CRICKET 501",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-    "streams": [
-      {
-        "name": "FOX CRICKET 501 (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-fox-cricket-501",
-        "channelName": "FOX CRICKET 501",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Canada Super60 • 14th Match (D/N) • BC Place, Vancouver",
     "source": "ESPN-Fallback"
   },
@@ -40037,81 +38496,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Fox Cricket, Star Sports 1 HD, Willow HD",
-    "broadcasters": [
-      "Fox Cricket",
-      "Star Sports 1 HD",
-      "Willow HD"
-    ],
-    "channelId": "ch-fox-cricket-501",
-    "channelIds": [
-      "ch-fox-cricket-501",
-      "ch-star-sports-1-hd",
-      "ch-willow-hd",
-      "ch-willow-sports"
-    ],
-    "channelName": "FOX CRICKET 501",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-    "streams": [
-      {
-        "name": "FOX CRICKET 501 (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-fox-cricket-501",
-        "channelName": "FOX CRICKET 501",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Ahmad Shah Abdali First-class Trophy • Final • Ghazi Amanullah Khan International Cricket Stadium",
     "source": "ESPN-Fallback"
   },
@@ -40170,66 +38562,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Willow HD, Star Sports 1 HD, Ten Cricket",
-    "broadcasters": [
-      "Willow HD",
-      "Star Sports 1 HD",
-      "Ten Cricket"
-    ],
-    "channelId": "ch-willow-hd",
-    "channelIds": [
-      "ch-willow-hd",
-      "ch-willow-sports",
-      "ch-star-sports-1-hd"
-    ],
-    "channelName": "Willow HD",
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
     "channelLogo": null,
-    "streamUrl": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-    "streams": [
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      }
-    ],
+    "streamUrl": null,
+    "streams": [],
     "subText": "Canada Super60 • 15th Match (D/N) • BC Place, Vancouver",
     "source": "ESPN-Fallback"
   },
@@ -40288,81 +38628,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "CSA Women Pro20 Series 2026/27 • 2nd Match • St George's Park, Gqeberha",
     "source": "ESPN-Fallback"
   },
@@ -40421,81 +38694,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "CSA Women Pro20 Series 2026/27 • 3rd Match • Tshwane University of Technology Oval, Pretoria",
     "source": "ESPN-Fallback"
   },
@@ -40554,81 +38760,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "CSA Women Pro20 Series 2026/27 • 1st Match • Newlands, Cape Town",
     "source": "ESPN-Fallback"
   },
@@ -40687,81 +38826,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool B • City Oval, Pietermaritzburg",
     "source": "ESPN-Fallback"
   },
@@ -40820,81 +38892,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool A • Cricket Club Ground, Polokwane",
     "source": "ESPN-Fallback"
   },
@@ -40953,81 +38958,14 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool A (D/N) • St George's Park, Gqeberha",
     "source": "ESPN-Fallback"
   },
@@ -41086,258 +39024,15 @@
       "score": "",
       "overs": ""
     },
-    "broadcaster": "Sky Sports Cricket, Star Sports 1 HD, Willow Sports",
-    "broadcasters": [
-      "Sky Sports Cricket",
-      "Star Sports 1 HD",
-      "Willow Sports"
-    ],
-    "channelId": "ch-sky-sports-cricket",
-    "channelIds": [
-      "ch-sky-sports-cricket",
-      "ch-star-sports-1-hd",
-      "ch-willow-sports",
-      "ch-willow-hd"
-    ],
-    "channelName": "Sky Sports Cricket",
-    "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-    "streams": [
-      {
-        "name": "Sky Sports Cricket (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-sky-sports-cricket",
-        "channelName": "Sky Sports Cricket",
-        "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Sky_Sports_Cricket_logo_2020.svg/320px-Sky_Sports_Cricket_logo_2020.svg.png",
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Star Sports 1 HD (Server 1 — 1080p FHD)",
-        "serverLabel": "Server 1 — 1080p FHD",
-        "channelId": "ch-star-sports-1-hd",
-        "channelName": "Star Sports 1 HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket",
-          "Kabaddi"
-        ],
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "1080p FHD",
-        "isHD": true
-      },
-      {
-        "name": "Willow Sports (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-sports",
-        "channelName": "Willow Sports",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      },
-      {
-        "name": "Willow HD (Server 1 — 540p SD)",
-        "serverLabel": "Server 1 — 540p SD",
-        "channelId": "ch-willow-hd",
-        "channelName": "Willow HD",
-        "channelLogo": null,
-        "category": "Sports",
-        "sports": [
-          "Cricket"
-        ],
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "540p SD",
-        "isHD": false
-      }
-    ],
+    "broadcaster": "",
+    "broadcasters": [],
+    "channelId": null,
+    "channelIds": [],
+    "channelName": null,
+    "channelLogo": null,
+    "streamUrl": null,
+    "streams": [],
     "subText": "South Africa Domestic T20/Pro20 • Pool B (D/N) • Newlands, Cape Town",
     "source": "ESPN-Fallback"
-  },
-  {
-    "id": "wwe-smackdown-live",
-    "matchId": "wwe-smackdown",
-    "sport": "wwe",
-    "sportName": "WWE",
-    "sportIcon": "fa-hand-fist",
-    "title": "WWE Friday Night SmackDown",
-    "name": "WWE Friday Night SmackDown",
-    "seriesName": "WWE Friday Night SmackDown",
-    "tournament": "WWE Friday Night SmackDown",
-    "league": "WWE Friday Night SmackDown",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791003223604,
-    "date": "2026-10-03",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "06:00 AM",
-    "venue": "Allstate Arena, Rosemont, IL",
-    "isHot": true,
-    "team1": {
-      "name": "WWE",
-      "logo": "./assets/wwe-logos/wwe_official.png"
-    },
-    "team2": {
-      "name": "SmackDown",
-      "logo": "./assets/wwe-logos/wwe_smackdown.png"
-    },
-    "homeTeam": {
-      "name": "WWE",
-      "logo": "./assets/wwe-logos/wwe_official.png"
-    },
-    "awayTeam": {
-      "name": "SmackDown",
-      "logo": "./assets/wwe-logos/wwe_smackdown.png"
-    },
-    "broadcaster": "Sony Sports Ten 1 HD",
-    "broadcasters": [
-      "Sony Sports Ten 1 HD"
-    ],
-    "subText": "WWE Friday Night SmackDown • 06:00 AM (BST)",
-    "source": "WWE Official",
-    "streams": []
-  },
-  {
-    "id": "wwe-monday-night-raw",
-    "matchId": "wwe-raw",
-    "sport": "wwe",
-    "sportName": "WWE",
-    "sportIcon": "fa-hand-fist",
-    "title": "WWE Monday Night RAW",
-    "name": "WWE Monday Night RAW",
-    "seriesName": "WWE Monday Night RAW",
-    "tournament": "WWE Monday Night RAW",
-    "league": "WWE Monday Night RAW",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791176023604,
-    "date": "2026-10-05",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "06:00 AM",
-    "venue": "TD Garden, Boston, MA",
-    "isHot": true,
-    "team1": {
-      "name": "WWE",
-      "logo": "./assets/wwe-logos/wwe_official.png"
-    },
-    "team2": {
-      "name": "RAW",
-      "logo": "./assets/wwe-logos/wwe_raw.png"
-    },
-    "homeTeam": {
-      "name": "WWE",
-      "logo": "./assets/wwe-logos/wwe_official.png"
-    },
-    "awayTeam": {
-      "name": "RAW",
-      "logo": "./assets/wwe-logos/wwe_raw.png"
-    },
-    "broadcaster": "Sony Sports Ten 1 HD",
-    "broadcasters": [
-      "Sony Sports Ten 1 HD"
-    ],
-    "subText": "WWE Monday Night RAW • 06:00 AM (BST)",
-    "source": "WWE Official",
-    "streams": []
-  },
-  {
-    "id": "wwe-nxt-super-tuesday",
-    "matchId": "wwe-nxt",
-    "sport": "wwe",
-    "sportName": "WWE",
-    "sportIcon": "fa-bolt",
-    "title": "WWE NXT Live",
-    "name": "WWE NXT Live",
-    "seriesName": "WWE NXT Live",
-    "tournament": "WWE NXT Live",
-    "league": "WWE NXT Live",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791262423604,
-    "date": "2026-10-06",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "06:00 AM",
-    "venue": "WWE Performance Center, Orlando, FL",
-    "isHot": false,
-    "team1": {
-      "name": "WWE",
-      "logo": "./assets/wwe-logos/wwe_official.png"
-    },
-    "team2": {
-      "name": "NXT",
-      "logo": "./assets/wwe-logos/wwe_nxt.png"
-    },
-    "homeTeam": {
-      "name": "WWE",
-      "logo": "./assets/wwe-logos/wwe_official.png"
-    },
-    "awayTeam": {
-      "name": "NXT",
-      "logo": "./assets/wwe-logos/wwe_nxt.png"
-    },
-    "broadcaster": "Sony Sports Ten 1 HD",
-    "broadcasters": [
-      "Sony Sports Ten 1 HD"
-    ],
-    "subText": "WWE NXT Live • 06:00 AM (BST)",
-    "source": "WWE Official",
-    "streams": []
-  },
-  {
-    "id": "aew-dynamite-live",
-    "matchId": "aew-dynamite",
-    "sport": "wwe",
-    "sportName": "AEW",
-    "sportIcon": "fa-hand-back-fist",
-    "title": "AEW Dynamite",
-    "name": "AEW Dynamite",
-    "seriesName": "AEW Dynamite",
-    "tournament": "AEW Dynamite",
-    "league": "AEW Dynamite",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791089623604,
-    "date": "2026-10-04",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "06:00 AM",
-    "venue": "NOW Arena, Chicago, IL",
-    "isHot": false,
-    "team1": {
-      "name": "AEW",
-      "logo": "./assets/wwe-logos/aew_official.svg"
-    },
-    "team2": {
-      "name": "Dynamite",
-      "logo": "./assets/wwe-logos/aew_official.svg"
-    },
-    "homeTeam": {
-      "name": "AEW",
-      "logo": "./assets/wwe-logos/aew_official.svg"
-    },
-    "awayTeam": {
-      "name": "Dynamite",
-      "logo": "./assets/wwe-logos/aew_official.svg"
-    },
-    "broadcaster": "Sony Sports Ten 2 HD",
-    "broadcasters": [
-      "Sony Sports Ten 2 HD"
-    ],
-    "subText": "AEW Dynamite • 06:00 AM (BST)",
-    "source": "AEW Official",
-    "streams": []
   }
 ]

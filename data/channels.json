@@ -1,0 +1,5178 @@
+{
+  "updatedAt": "2026-10-03T05:29:08.652Z",
+  "channels": [
+    {
+      "id": "ch-saudia-arabia",
+      "name": "Saudia Arabia",
+      "logo": "",
+      "category": "entertainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-iran-news",
+      "name": "Iran News",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://dev-live.livetvstream.co.uk/LS-63503-4/chunklist_b1196000.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ntv-720p",
+      "name": "NTV (720p)",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-fm-radio",
+      "name": "FM Radio",
+      "logo": "",
+      "category": "radio",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://stream.spicefmbd.com/stream.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-saudi-sunnah",
+      "name": "Saudi Sunnah",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cdn-globecast.akamaized.net/live/eds/saudi_sunnah/hls_roku/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-deshi-tv-720p",
+      "name": "Deshi TV (720p)",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://deshitv.deshitv24.net/live/myStream/playlist.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-channel-s",
+      "name": "Channel S",
+      "logo": "https://assets-prod.services.toffeelive.com/f_png,w_300,q_85/WyPuDJsBEef-9-uVUA_z/posters/ea20055c-a824-443c-8083-ce8e2da8b922.png",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/channels.stream/live-orgin/channels.stream/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-al-ekhbaria",
+      "name": "AL EKHBARIA",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cdn-globecast.akamaized.net/live/eds/al_ekhbariya/hls_roku/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-boishakhi-tv",
+      "name": "Boishakhi TV",
+      "logo": "",
+      "category": "entertainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-pk-sports-hd",
+      "name": "Pk Sports HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-motor-vision",
+      "name": "Motor Vision",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "F1",
+        "Motorsport"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://mvg-mv-xumo.otteravision.com/mvg/mv/mv.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bbc-cbeebies",
+      "name": "BBC Cbeebies",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-arabica-tv",
+      "name": "Arabica TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://istream.binarywaves.com:8081/hls/arabica/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-my-tv",
+      "name": "My TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/mytv-up-off.stream/live-orgin/mytv-up-off.stream/playlist.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-quran-radiotv-smc",
+      "name": "QURAN RADIOTV SMC",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live.kwikmotion.com/smcquranlive/quranradiolive/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-maasranga-tv-hd",
+      "name": "Maasranga TV HD",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-almasira-mubasher",
+      "name": "ALMASIRA MUBASHER",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live2.cdnbridge.tv/AlmasirahMubasher/Mubasher_All/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-real-wild",
+      "name": "REAL WILD",
+      "logo": "",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00426-littledotstudio-realwild-tcl/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-travel-xp-english",
+      "name": "Travel XP English",
+      "logo": "",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-deshe-bideshe",
+      "name": "Deshe Bideshe",
+      "logo": "https://pbs.twimg.com/profile_images/739539785304281088/zMwNO936_400x400.jpg",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://dbcanada.sonarbanglatv.com/deshebideshe/dbtv/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-deepto-tv",
+      "name": "Deepto TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-france-news-24",
+      "name": "France News 24",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live.france24.com/hls/live/2037179/F24_FR_HI_HLS/master_5000.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-global-news-us",
+      "name": "Global News (US)",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live.corusdigitaldev.com/groupb/live/3062d0e3-ed4c-4f47-8482-95648250f4b8/live.isml/.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-t-global-news-canada",
+      "name": "T Global News (Canada)",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live.corusdigitaldev.com/groupd/live/49a91e7f-1023-430f-8d66-561055f3d0f7/live.isml/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ndtv-english",
+      "name": "NDTV English",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-mundial-sports-hd",
+      "name": "Mundial Sports HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-madani-tv",
+      "name": "Madani Tv",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://streaming.madanichannel.tv/static/streaming-playlists/hls/d3e49b76-ac06-4689-a641-9200445b647f/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-qaz-sports-hd",
+      "name": "QAZ Sports HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://stream.mcquack.net/72/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-news-max-2",
+      "name": "News Max 2",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://nmxlive.akamaized.net/hls/live/529965/Live_1/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ndtv-news",
+      "name": "NDTV NEWS",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678-b/ndtv24x7/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-cnn-us",
+      "name": "CNN (US)",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/CNN.svg/320px-CNN.svg.png",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-france-24-english-720p",
+      "name": "France 24 English (720p)",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_2300.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-star-sports-1-hd",
+      "name": "Star Sports 1 HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket",
+        "Kabaddi"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-willow-hd",
+      "name": "Willow HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (540p SD)",
+          "type": "authorized",
+          "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
+          "quality": "540p SD"
+        }
+      ]
+    },
+    {
+      "id": "ch-live-quran-tv",
+      "name": "Live Quran TV",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/playlist.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/sharjahtvquranpublish/shqurantv_source/chunks.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ndtv-hindi",
+      "name": "NDTV Hindi",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679-b/ndtvindia/master.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-pcv",
+      "name": "pcv",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://padmaonline.duckdns.org:8088/pcv/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-rtnews-global",
+      "name": "RTNEWS GLOBAL",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://rt-rtd.rttv.com/dvr/rtdoc/playlist.m3u8?v=1",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-colors-infinity-sd",
+      "name": "Colors Infinity SD",
+      "logo": "",
+      "category": "india",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (480p SD)",
+          "type": "authorized",
+          "url": "https://livecdn.live247stream.com/joomusic/tv/playlist.m3u8",
+          "quality": "480p SD"
+        }
+      ]
+    },
+    {
+      "id": "ch-t-sports-hd",
+      "name": "T Sports HD",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-13/images_8b38d691dfaf072e6c964dea814a44ba_playmist_t_sports_hd400x400.jpg",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket",
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-nk",
+      "name": "NK",
+      "logo": "",
+      "category": "kolkata",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg01218-republictvfast-amg01218c1-samsung-in-1918.playouts.now.amagi.tv/playlist/amg01218-republictvfast-rbangla-samsungin/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-action-hollywood-movies",
+      "name": "Action Hollywood Movies",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg01076-lightningintern-actionhollywood-samsungnz-82rry.amagi.tv/playlist/amg01076-lightningintern-actionhollywood-samsungnz/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dw-news",
+      "name": "DW NEWS",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_e9cbcb0f33668b33e4b5dd06143aa1c6_playmist_dw400x400.jpg",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-star-sports-1-hindi",
+      "name": "Star Sports 1 Hindi",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://starsportshindiii.pages.dev/index.m3u8",
+          "quality": "720p HD"
+        },
+        {
+          "name": "Server 3 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1404528.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-gopal-bhar-tv",
+      "name": "Gopal Bhar TV",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-travel-xp-english-nz",
+      "name": "Travel XP English NZ",
+      "logo": "",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-motu-patlu",
+      "name": "Motu Patlu",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-rtv",
+      "name": "RTV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/ba47dHpDk3Se/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-times-of-india",
+      "name": "Times Of India",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live.sli.ke/live/npnhm84gz9/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ananda-tv",
+      "name": "Ananda TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/anandatv.stream/live-orgin/anandatv.stream/playlist.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8",
+          "quality": "720p HD"
+        },
+        {
+          "name": "Server 3 (720p HD)",
+          "type": "authorized",
+          "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/anandatv.stream/tracks-v1a1/mono.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-arihant-tv",
+      "name": "Arihant TV",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://aasthaott.akamaized.net/110923/smil:arihant.smil/chunklist_b1928000.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-amazon-sat",
+      "name": "Amazon SAT",
+      "logo": "",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amazonsat.brasilstream.com.br/hls/amazonsat/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-tom-jarry",
+      "name": "Tom & Jarry",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-hindi-hits-hd",
+      "name": "Hindi Hits HD",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://146.59.253.52:8080/hindihitshd/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-al-qamar",
+      "name": "AL QAMAR",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://streamer3.premio.link/alqamar/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-cowboy-tv",
+      "name": "Cowboy tv",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg17292-amg17292c1-distrotv-us-4170.playouts.now.amagi.tv/playlist/amg17292-tetonridgellc-tetonridgefast-distrotvus/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ewtn-tv",
+      "name": "EWTN TV",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cdn3.wowza.com/1/ZVBYYXFLLzE0c3NC/Qk1FMURC/hls/qrpsvkxl/720/chunklist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-baallee",
+      "name": "Baallee",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://mcncdndigital.com/balleballetv/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-rt-news-usa",
+      "name": "RT NEWS USA",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8?v=1",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-mr-bean-animated",
+      "name": "Mr Bean Animated",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg00627-amg00627c29-rakuten-it-3989.playouts.now.amagi.tv/playlist/amg00627-banijayfast-mrbeanitcc-rakutenit/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-al-istiqama",
+      "name": "AL ISTIQAMA",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://jmc-live.ercdn.net/alistiqama/alistiqama.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-doraemon-tv",
+      "name": "Doraemon TV",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209902/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/147746.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-rt-news-en",
+      "name": "RT News (EN)",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://rt-glb.rttv.com/live/rtnews/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dw-english",
+      "name": "DW English _",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-live-sports-3",
+      "name": "Live Sports-3",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-yrf-music-hd",
+      "name": "YRF Music HD",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-tom-jerry-tv",
+      "name": "Tom & Jerry TV",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dd-sports",
+      "name": "DD Sports",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/3/38/DD_Sports_logo.svg/320px-DD_Sports_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket",
+        "Football",
+        "Olympic Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-mbc-tv",
+      "name": "MBC tv",
+      "logo": "",
+      "category": "entertainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://93.184.10.248/MBCBollywood/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bahrain-quran",
+      "name": "BAHRAIN QURAN",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainquran_all/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sheemaroo-bollywood",
+      "name": "Sheemaroo Bollywood",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg00864-shemarooenterta-shemabollywood-ono/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-south-movies",
+      "name": "South Movies",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209593/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-hindi-movies",
+      "name": "Hindi Movies",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209612/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-sports-racing",
+      "name": "Sky Sports Racing",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/90/Sky_Sports_Racing_logo_2020.svg/320px-Sky_Sports_Racing_logo_2020.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Motorsport",
+        "Horse Racing"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7341/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-eurosport-1",
+      "name": "Eurosport 1",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Eurosport_1_logo_2015.svg/320px-Eurosport_1_logo_2015.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Tennis",
+        "Cycling",
+        "Motorsport",
+        "Olympic Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-eurosport-2",
+      "name": "Eurosport 2",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Eurosport_2_logo_2015.svg/320px-Eurosport_2_logo_2015.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Tennis",
+        "Cycling",
+        "Motorsport",
+        "Olympic Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://151.80.18.177:86/Eurosport_2_HD/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-b4u-movies",
+      "name": "B4U Movies",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg00877-b4unew-amg00877c2-xiaomi-in-5489.playouts.now.amagi.tv/playlist.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/72155.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ziggo-sport-1",
+      "name": "Ziggo Sport 1",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Ziggo_Sport_2022.svg/320px-Ziggo_Sport_2022.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Motorsport",
+        "Tennis"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2560/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2560/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ziggo-sport-2",
+      "name": "Ziggo Sport 2",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Ziggo_Sport_2022.svg/320px-Ziggo_Sport_2022.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Motorsport",
+        "Tennis"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2561/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ziggo-sport-3",
+      "name": "Ziggo Sport 3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Ziggo_Sport_2022.svg/320px-Ziggo_Sport_2022.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Motorsport",
+        "Tennis"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXSYCA/2559/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dazn-2",
+      "name": "DAZN 2",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/DAZN_Logo_Master.svg/320px-DAZN_Logo_Master.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Boxing",
+        "Combat Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2532/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2532/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dazn-4",
+      "name": "DAZN 4",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/DAZN_Logo_Master.svg/320px-DAZN_Logo_Master.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Boxing",
+        "Combat Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2534/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2534/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dazn-1",
+      "name": "DAZN 1",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/DAZN_Logo_Master.svg/320px-DAZN_Logo_Master.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Boxing",
+        "Combat Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2531/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2531/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-fashion-one",
+      "name": "FASHION ONE",
+      "logo": "",
+      "category": "entertainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://b01c02nl.mediatriple.net/videoonlylive/mtkgeuihrlfwlive/broadcast_5c9e2ee690051.smil/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-cricket-gold",
+      "name": "Cricket Gold",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-09/images_dde39b3fb713d4946a32e2c8ad5db00a_playmist_cricket_gold_400x400.jpg",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/M2W2UR49dmeKbZnmdRzN/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ntv-live",
+      "name": "NTV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-a-spor",
+      "name": "A SPOR",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (480p SD)",
+          "type": "authorized",
+          "url": "https://rnttwmjcin.turknet.ercdn.net/lcpmvefbyo/aspor/aspor_480p.m3u8",
+          "quality": "480p SD"
+        }
+      ]
+    },
+    {
+      "id": "ch-wion",
+      "name": "Wion",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/52/WION_logo.svg/320px-WION_logo.svg.png",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://d7x8z4yuq42qn.cloudfront.net/index_7.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sa-tv",
+      "name": "SA TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/rELXiuUXqbgzPb06Npom/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-somoy-tv",
+      "name": "Somoy TV",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-trt-world",
+      "name": "TRT WORLD",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-goal-tv",
+      "name": "Goal TV",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://streams2.sofast.tv/sofastplayout/WiseM3U8_1/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-tv9-bangla",
+      "name": "TV9 Bangla",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9banaen8yq/liveabr/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-news-weather",
+      "name": "Sky News Weather",
+      "logo": "./assets/channel-logos/news-sky-news.png",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-weather-spy",
+      "name": "Weather SPY",
+      "logo": "https://images.pluto.tv/channels/5f1b259d816a75000788cf24/featuredImage.jpg",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-talk-sport",
+      "name": "Talk Sport",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/Talksport_logo.svg/320px-Talksport_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/talkSPORT/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-nexus-tv",
+      "name": "NEXUS TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/Epm7WrFa/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/nexus_tv_abr/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-mohona-tv",
+      "name": "Mohona TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/AkyX5dunzju4cpo26dr7/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/mohona_tv_abr/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-kolkata-tv",
+      "name": "Kolkata TV",
+      "logo": "./assets/channel-logos/ch-kolkata-tv.png",
+      "category": "kolkata",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/kolkatatv/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-cartoon-network",
+      "name": "Cartoon Network",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209624/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/117177.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-thikana-tv",
+      "name": "Thikana",
+      "logo": "https://thikana.net/wp-content/uploads/2021/04/logo.png",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://5dd3981940faa.streamlock.net:443/thikanatv/thikanatv/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sangeet-bangla",
+      "name": "Sangeet Bangla",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/34727.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sony-sports-2-hd",
+      "name": "Sony Sports 2 HD",
+      "logo": "./assets/channel-logos/sports-sony-ten-2.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket",
+        "WWE",
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sports-fishing-tv",
+      "name": "Sports Fishing TV",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Fishing",
+        "Outdoor"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-zv68-sports-stream",
+      "name": "ZV68 Sports Stream",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-duronto-tv",
+      "name": "Duronto TV",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/6xyZ3N4oHv2KBJdB6W4p/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/433.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-zee-24-ghanta",
+      "name": "Zee 24 Ghanta",
+      "logo": "",
+      "category": "news",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://d2dsoyvkr33m05.cloudfront.net/index_5.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bein-xtra",
+      "name": "beIN XTRA",
+      "logo": "./assets/category-logos/bein-sports.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ptv-sports-hd",
+      "name": "PTV Sports",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
+          "quality": "720p HD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1404537.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-animal-planet-hd",
+      "name": "Animal Planet HD",
+      "logo": "",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/5249.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-discovery-hd",
+      "name": "Discovery HD",
+      "logo": "",
+      "category": "infotainment",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "http://202.70.146.135:8000/play/a05z/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "jio-625",
+      "name": "Zee Bangla",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23305.ts",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72135.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-756",
+      "name": "Colors Bangla HD",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72156.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-154",
+      "name": "Sony SAB",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/145.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-1110",
+      "name": "Star Movies Select HD",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23270.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-1113",
+      "name": "Star Gold Select HD",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/210.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-1763",
+      "name": "Colors Cineplex Bollywood",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "http://202.70.146.135:8000/play/a058/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "jio-3098",
+      "name": "Star Gold Thrills",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/773735.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-173",
+      "name": "Aaj Tak",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://aajtaklive-amd.akamaized.net/hls/live/2014416/aajtak/aajtaklive/live_720p/chunks.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "jio-559",
+      "name": "Pogo Hindi",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/pogo_sd_abr/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "jio-872",
+      "name": "Sony Yay Hindi",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/sony_yay_abr/live/sony_yay_720/chunks.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dazn-3",
+      "name": "DAZN 3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/DAZN_Logo_Master.svg/320px-DAZN_Logo_Master.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Boxing",
+        "Combat Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2533/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-trace-sport-stars",
+      "name": "Trace Sport",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Trace_Sport_Stars_logo.svg/320px-Trace_Sport_Stars_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Lifestyle",
+        "Sports Entertainment"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://lightning-tracesport-samsungau.amagi.tv/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-sports-football",
+      "name": "Sky Sports Football",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/4b/Sky_Sports_Football_logo_2020.svg/320px-Sky_Sports_Football_logo_2020.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-sports-golf",
+      "name": "Sky Sports Golf",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/9/9e/Sky_Sports_Golf_logo_2020.svg/320px-Sky_Sports_Golf_logo_2020.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Golf"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/19132/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-sports-mix",
+      "name": "Sky Sports Mix",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Sky_Sports_Mix_logo_2020.svg/320px-Sky_Sports_Mix_logo_2020.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Cricket",
+        "Motorsport"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9310/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-sports-epl",
+      "name": "Sky Sports Premier League",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Sky_Sports_Premier_League_logo_2020.svg/320px-Sky_Sports_Premier_League_logo_2020.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sky-sports-f1",
+      "name": "Sky Sports F1",
+      "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/7a/Sky_Sports_F1_logo_2020.svg/320px-Sky_Sports_F1_logo_2020.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Motorsport",
+        "Formula 1"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sport-1",
+      "name": "Sport 1",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sport1_Logo_2013.svg/320px-Sport1_Logo_2013.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Motorsport"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sport-2",
+      "name": "Sport 2",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Sport1_Logo_2013.svg/320px-Sport1_Logo_2013.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Motorsport"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-go3-sport-1-hd",
+      "name": "GO3 Sport 1 HD",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Go3_Sport_logo.png/320px-Go3_Sport_logo.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Basketball"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18000/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-tnt-sports-1",
+      "name": "TNT Sports 1",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/TNT_Sports_%28United_Kingdom%29_logo.svg/320px-TNT_Sports_%28United_Kingdom%29_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Champions League",
+        "Premier League"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-btv",
+      "name": "BTV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-tnt-sports-3",
+      "name": "TNT Sports 3",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/TNT_Sports_%28United_Kingdom%29_logo.svg/320px-TNT_Sports_%28United_Kingdom%29_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Combat Sports",
+        "Boxing",
+        "UFC"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-n-tv",
+      "name": "N TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-channel-24",
+      "name": "Channel 24",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/channel_24_abr/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bein-sports-4-hd",
+      "name": "beIN Sports 4 HD",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/BeIN_Sports_4_logo.svg/320px-BeIN_Sports_4_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Basketball"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6125/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-srk",
+      "name": "SRK",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://srknowapp.ncare.live/srktvhlswodrm/srktv.stream/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bein-sports-5-hd",
+      "name": "beIN Sports 5 HD",
+      "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/BeIN_Sports_5_logo.svg/320px-BeIN_Sports_5_logo.svg.png",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football",
+        "Motorsport",
+        "Tennis"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6126/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-g-serise",
+      "name": "G-Serise",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://vods2.aynaott.com/gseriesDrama/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-star-jalsha-hd",
+      "name": "Star Jalsha HD",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/198.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-news-21-bangla-tv",
+      "name": "News 21 Bangla TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://103.190.133.68:1935/news21live/live/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ekushe-tv",
+      "name": "Ekushe TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://210.4.72.204/hls-live/livepkgr/_definst_/liveevent/livestream3.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bein-sports-1-hd",
+      "name": "beIN Sports 1 HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-enter-tv",
+      "name": "Enter TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live1.entertv.com.bd/entertv/index.fmp4.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ruposhi-bangla",
+      "name": "Ruposhi Bangla",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://mumt05.tangotv.in/87NeALx2RUPASIBANGLA/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-r-plus-news",
+      "name": "R Plus News",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://thelegitpro.in/pntv/rplusnews24x7/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-tv",
+      "name": "& Tv",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/and_tv_hd_abr/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-movies-now",
+      "name": "Movies Now",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/152387.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-movies-thriller-1080p",
+      "name": "Movies Thriller (1080p)",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://shd-amg-fast.edgenextcdn.net/tx012/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-news18-bangla-33",
+      "name": "News18 Bangla 33",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://amg01448-samsungin-news18bangla-samsungin-ad-qy.amagi.tv/ts-eu-w1-n2/playlist/amg01448-samsungin-news18bangla-samsungin/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-541",
+      "name": "Discovery Turbo",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sony-television-hd",
+      "name": "Sony Television HD",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://38.96.178.205/SONYHD/index.m3u8",
+          "quality": "1080p FHD"
+        },
+        {
+          "name": "Server 2 (720p HD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/sony_ent_sd_abr/index.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-rongeen",
+      "name": "Rongeen",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://server.thelegitpro.in/rongeentv/rongeentv/tracks-v1a1/mono.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-national-geographic-hindi-all-languages",
+      "name": "National Geographic বাংলা/HINDI All languages",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-star-news",
+      "name": "Star News",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://app24.jagobd.com.bd/c3VydmVyX8RpbEU9Mi8xNy8yMFDEEHGcfRgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcEdsEfeDeKiNkVN3PTOmdFseWRtaW51aiPhnPTI2/starnewsbd.stream/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-a-sports",
+      "name": "A Sports",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/zv68oqPDu7MZZwmHhRxt/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-willow-sports",
+      "name": "Willow Sports",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (540p SD)",
+          "type": "authorized",
+          "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
+          "quality": "540p SD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sony-kal-hindi",
+      "name": "Sony KAL Hindi",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://wurlsonypicturestv.global.transmit.live/hls/68deeb1c0238cda82df543dd/v1/spt_sonykal_1/lg_us/latest/main/hls/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-carton-vantu-bangla-4k",
+      "name": "Carton Vantu Bangla 4k",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209869/tracks-v1a1/mono.ts.m3u8?nocache=1785119026625",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-discovery-hindi-all-languages",
+      "name": "Discovery বাংলা/Hindi All Languages",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98872.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ufc-tv",
+      "name": "UFC TV",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "WWE",
+        "Combat Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://linear-893.frequency.stream/mt/plex/893/hls/master/playlist_640x360.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-wild-flix-hindi",
+      "name": "Wild Flix Hindi",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cc-qgrxgp51645lw.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-qgrxgp51645lw/IQJW/WBD/WildFlix_IN/WildFlix_IN.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-discovery-kids",
+      "name": "Discovery Kids",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-1335",
+      "name": "National Geographic HD",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-250",
+      "name": "Music India",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72218.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-587",
+      "name": "9XM",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://wiselp.wiseplayout.com/9XM/HD1080/HD1080.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-jungle-book",
+      "name": "Jungle Book",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://cc-4bhi5osabejc9.akamaized.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-4bhi5osabejc9/junglebook.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-investigation-discovery-hindi",
+      "name": "Investigation Discovery HINDI",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23790.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "jio-146",
+      "name": "History TV18 HD",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://n18syndication.akamaized.net/bpk-tv/History_TV18_Hindi_NW18_MOB/output01/master.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-9x-jalwa",
+      "name": "9X Jalwa",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-amar-digital-tv",
+      "name": "Amar Digital TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI/amarbanglatv.stream/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-trace-uk",
+      "name": "TRACE UK",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://d2l4tng0wskzvn.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-i4w0aagbo260c/Trace_GB.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sport-fishing-tv",
+      "name": "Sport Fishing TV",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-fox-cricket-501",
+      "name": "FOX CRICKET 501",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4748.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-channel-1-tv",
+      "name": "Channel 1 TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://stream.ottplus.live/live/channel_1_hd_abr/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bengali-beats",
+      "name": "Bengali Beats",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209587/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-astro-cricbuz",
+      "name": "ASTRO CRICBUZ",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Cricket"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/2494.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sananda-tv",
+      "name": "Sananda TV",
+      "logo": "",
+      "category": "bangla",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://live-stream.amarbanglatv.in:8080/hls/sanandatv/index.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ten-sports-hd",
+      "name": "Ten Sports HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sony-movies",
+      "name": "Sony Movies",
+      "logo": "",
+      "category": "movie",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://a-cdn.klowdtv.com/live1/smc_720p/chunks.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-adventure-earth-eng",
+      "name": "Adventure Earth ENG",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://autentic-adventure-earth-1-gb.lg.wurl.tv/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-nikki-hd",
+      "name": "Nikki HD",
+      "logo": "",
+      "category": "kids",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://iptv.prosto.tv:7000/ch72/video.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bangla-waz",
+      "name": "Bangla Waz",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209617/tracks-v1a1/mono.ts.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sony-sports-ten-3",
+      "name": "SONY SPORTS TEN 3",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98863.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-vevo-pop",
+      "name": "Vevo Pop",
+      "logo": "",
+      "category": "music",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://d2n3779oy6efpi.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-5rxuagztow0k3/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-iqraa-tv",
+      "name": "Iqraa TV",
+      "logo": "",
+      "category": "islamic",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://playlist.fasttvcdn.com/pl/dlkqw1ftuvuuzkcb4pxdcg/Iqraafasttv1/playlist.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-sony-sports-ten-2-hd",
+      "name": "SONY SPORTS TEN 2 HD",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-dazn-laliga",
+      "name": "DAZN LALIGA",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [
+        "Football"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://31.43.191.125:8080/live/20102023/123456789/243.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-animal-planet-eng",
+      "name": "ANIMAL PLANET ENG",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-wipeout-xtra-powered-by-banijay",
+      "name": "Wipeout Xtra Powered by Banijay",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "https://d36nnn435goed2.cloudfront.net/v1/master/3722c60a815c199d9c0ef36c5b73da68a62b09d1/cc-skhf82opa3tf4/WipeoutXtraPoweredbyBanijay_GB.m3u8",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-discovery-science-hindi",
+      "name": "DISCOVERY SCIENCE Hindi",
+      "logo": "",
+      "category": "discovery",
+      "country": "GLOBAL",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-bein-sports-xtra",
+      "name": "beIN Sports Xtra",
+      "logo": "",
+      "category": "sports",
+      "country": "INT",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (720p HD)",
+          "type": "authorized",
+          "url": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
+          "quality": "720p HD"
+        }
+      ]
+    },
+    {
+      "id": "jio-164",
+      "name": "Travelxp HD",
+      "logo": "",
+      "category": "jio tv",
+      "country": "IN",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (1080p FHD)",
+          "type": "authorized",
+          "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/181.ts",
+          "quality": "1080p FHD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3984-7c6c-b734-30d6bb22b3b8",
+      "name": "Ananda TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_fb867854a7203c153946b83ab4e972e6_playmist_ananda_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/LeUAm4F1iixYns3s3Non/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-396e-7c75-b530-cb197f010279",
+      "name": "Asian TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_a5ac9561e182c07073e46bc30b3c8cab_playmist_asian_tv.png",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/pKb5k6NnzxsKpWUs6E8M/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-ef0a-7e72-86c1-af820f1f22e7",
+      "name": "ATN Bangla",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-28/images_4ff2f8e87d71747b70ab273686c9df9a_playmist_atn_bangla_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3947-7f58-bf5b-525377fb71bd",
+      "name": "ATN News",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_4c788f2e0bc6f83a4fdde6022843368a_playmist_atn_news_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3974-7dc3-8710-4c1947b08deb",
+      "name": "Bangla TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_8fd7517559098b744a0595d094228d8d_playmist_bangla_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/39ee93nUbCCmm5LsyD4t/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3957-788f-a366-97dc52d1eced",
+      "name": "Bangla Vision",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_15c72a2cb794593278c9e7efe4df32d5_playmist_bangla_vision_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/tgUzpPc9r6xw/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-397e-718c-b601-253c31a282eb",
+      "name": "Bijoy TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_82c9c8c5aa07c6b94a62cf2ffbe21375_playmist_bijoy_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/N8Xbo5vdwVU6sF43RsW0/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3978-7f99-9708-4a0d34e53511",
+      "name": "Boishakhi TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_8a69251df11b66c4e85e7a2fe6d89286_playmist_boishakhi_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-e602-76d0-b2f0-155f9f2b893d",
+      "name": "BTV CTG",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-24/0cff8323fa888ccb69dde38a6880f150.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3943-7dff-ae3b-9b79fed284a3",
+      "name": "Channel 24",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_82f2d197736c65ee983b3d691ad7c1f3_playmist_channel24.png",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/YrVDF8gujkdh/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019f9d1e-903a-70f7-b217-aabdbdc97163",
+      "name": "Channel 52",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-26/images_9b7bab426198d5e39dea4b494cad717b_playmist_channel52.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/channel52/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3970-7fa3-a850-d2ca0e07c1e0",
+      "name": "Channel 9",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_0f3afa480f77dd7d97d49b449a05f3fa_playmist_channel_9_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/kajlsd57jnzxyo/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3953-7390-925e-0b52e8d2cf6b",
+      "name": "Channel I",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-01/images_99c9ba1977777337bdc037f79ed921ea_playmist_channel_i_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3968-7782-b69b-7c6151ae6fe1",
+      "name": "DBC News",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_f38ba3f3f90338a11e3004e52cf804af_playmist_dbc_news_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/pF66Tkz0qFwP2aMMqHyt/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3960-7cad-a051-6b707a28890b",
+      "name": "Deepto TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-09/images_ebcb173e194bfeede20303e348b80999_playmist_deepto_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/tK2BNdfsdfsdf/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3976-7d3f-ba88-3ab13963f65d",
+      "name": "Desh TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_c852d6eba40e680a258e9e18aff2d9f2_playmist_desh_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-db24-7232-933d-0105a23669d7",
+      "name": "Drama 24",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-24/30554e50000b538aef52a9181052af56.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://vods2.aynaott.com/gseriesDrama/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3941-7ff1-a7e5-67c5887e9142",
+      "name": "Ekattor TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_d5ddbbec6b7919b1003233819616e19b_playmist_ekattor_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/EWDrV5QskgarZEUBb3pU/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3964-7509-9edd-8ad75adc1a89",
+      "name": "Ekhon TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_2ae0833e484c0a032e46050cbb8c9cc0_playmist_ekhon_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/fbgZV3X17hwWcyfZ4pdb/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-395b-7132-9cc9-b3571e766644",
+      "name": "ETV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_0b5269c6ae6e8c382e43c2be02789c60_playmist_etv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/SyQuXz8sC3TB/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3980-7029-a5ea-c1e27b34c6d7",
+      "name": "Global TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_e58bddfe000aa3e5df9f7c2e90416d90_playmist_global_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/y0q9eFAuquAtvTxRzUHq/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3945-77dc-81be-262720b600b9",
+      "name": "Jamuna TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_4be60fcb499d59949c222f746ece58f4_playmist_jamuna_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/KGdZEdA7qQ43dmPkgk1j/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-395d-7a37-8097-0780a16dc766",
+      "name": "Maasranga TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_9a9da509523ff5fa2e65e262fe3d0125_playmist_maasranga_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/maasrangatv/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c17-7ee9-9f97-7bc4e8bd84e7",
+      "name": "MADANI TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_b8b896039b6eb685a11aab0b7b4a33d3_playmist_madani_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen3.aynaott.com/z24qLsqV/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-397a-7df0-b523-b00c861be256",
+      "name": "Mohona TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_1c2c83a36e990c46964ce6ef25528d84_playmist_mohona_tv400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/AkyX5dunzju4cpo26dr7/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3982-77f6-b5ed-24caa6edc4c8",
+      "name": "My TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_6131ede1b10602da29f1271fff0cda77_playmist_my_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/XMpHaEf0ANBhv8w6NWR7/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3966-7972-9dda-3707d71073ac",
+      "name": "News 24 BD",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_a401495935874d01a5dcd992c40c3a2d_playmist_news24.png",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/cdgr3tw6WoG7JyRnLbi0/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-397c-7793-918c-acbc11004934",
+      "name": "NEXUS TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_7e6104384dddd36f39e1a27fe0a61059_playmist_nexus_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/Epm7WrFa/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3955-7c15-983a-4bc06362816a",
+      "name": "NTV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-28/images_73ae9b4f27a23375a0308a3b222ee649_playmist_ntv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-e6cf-77d1-ab66-0528b71c3826",
+      "name": "NTV Europe",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-28/images_7eb39c04f7cf7ab782e6324c484d93e5_playmist_ntv_europe_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/ntvuk00332211.stream/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3959-77e1-84fb-723fe5548b8a",
+      "name": "RTV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_d6c5ece652161d2d88ed547f00343687_playmist_rtv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/ba47dHpDk3Se/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-396c-7f21-9261-2bd1e5230130",
+      "name": "SA TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_b6f2363fef23e117f9a13b7c185ce26c_playmist_satv.png",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/rELXiuUXqbgzPb06Npom/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7",
+      "name": "T Sports HD",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-13/images_8b38d691dfaf072e6c964dea814a44ba_playmist_t_sports_hd400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3993-7ccc-8bc0-184c2c761c69",
+      "name": "Thikana",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_b9a8bdbfcea2fb4656204d06f615682a_playmist_thikana400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://5dd3981940faa.streamlock.net:443/thikanatv/thikanatv/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c2b-750a-a77e-06dda24907f2",
+      "name": "ABN",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-14/images_8610a5f1c975ccf85e23a6077de2f1f2_playmist_abn.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://mediaserver.abnvideos.com/streams/abnurdu.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3bfa-71a7-92c2-a1cad28b99e5",
+      "name": "Accu Weather",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_a220fac6da08a832112ea4603c9a3c33_playmist_accu_weather_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://cdn-ue1-prod.tsv2.amagi.tv/linear/amg00684-accuweather-accuweather-plex/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b82-7f2d-a547-3c57eaa3dc10",
+      "name": "Aljazeera News",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_c8ecdf803a94e7b04619fb573f201146_playmist_aljazeera_news400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b7d-74a7-8be1-7bd2335ecb31",
+      "name": "BBC News",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_bea6d56aa19a59e2bc272736880a97f3_playmist_bbc_news_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen1.aynaott.com/shn6jGTk/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a41-744d-9181-46d6365a8432",
+      "name": "Bharat Samachar",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_d52623f16135dea6bd76f7bdacd4b886_playmist_bharat_samachar_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen3.aynaott.com/m94BZDYb/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b88-7be1-b385-a9648ad6a2cd",
+      "name": "Bloomberg TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_e7674693d1fdcfada9523f3b4315d417_playmist_bloomberg_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/bloombergtv/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b8c-7795-b739-15e0a02e5237",
+      "name": "CNBC TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_e67654cc3d37f4eda1a16709b2b88f6d_playmist_cnbc_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/cnbc/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b80-71c1-84a7-8a74b1a63534",
+      "name": "CNN",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_3ce5ce236141274767c8ee8148b88a5d_playmist_cnn_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3bfc-77c2-821f-120164b37e37",
+      "name": "Fox Weather",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_c6a3d7e8d5ba4bd874a958a0c6f16e8e_playmist_fox_weather400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://247wlive.foxweather.com/stream/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a43-72bb-8d94-e1309e246905",
+      "name": "India Today",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_c7e1c6e2ec548dee61a1a754955b76e1_playmist_india_today400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://feeds.intoday.in/hltapps/api/master.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b59-7a32-a356-afc80c069215",
+      "name": "News 1 India",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_292f3cc412bf05a14544657749e4a0be_playmist_news_1_india_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/TaVfw58T/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b5b-7c37-a953-8eed8e882836",
+      "name": "Sadhna Prime News",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_ad482966b8ccc41fc9bd98dd9382ff0d_playmist_sadhna_prime_news_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen3.aynaott.com/P2hjvFHV/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3bfe-7a3a-920f-aa4ed99d20ac",
+      "name": "Sky News Weather",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_c9929be9ffadd600f20e2d1c4fd26b95_playmist_sky_news_weather400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://distro001-gb-hls1-prd.delivery.skycdp.com/easel_cdn/ngrp:weather_loop.stream_all/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c00-718e-9487-01b8e71feb2d",
+      "name": "Weather SPY",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_12ff352e97642f2042f8e88a93eca33d_playmist_weather_spy400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://jukin-weatherspy-2-in.samsung.wurl.tv/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3baa-7783-bf80-236068ce4990",
+      "name": "Wion",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_af4d270a6fc7246b2dc185399cce7dbd_playmist_wion_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://d7x8z4yuq42qn.cloudfront.net/index_7.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39fd-7973-b24f-0a07344fa15f",
+      "name": "Bahrain Sports 1",
+      "logo": "https://s3.aynaott.com/storage/0ec8d8b83b191cf915316a1751c8787e",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-dea3-7243-b8d8-f530f119cd09",
+      "name": "Bahrain Sports 2",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-14/images_d0852f6f8708108efafbae1e1b32564f_playmist_bahrain_sports_1_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/BahrainSports2/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-d907-74c0-b05a-87e38a871d8b",
+      "name": "Bein Sports 1",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-09/images_02eb54f07cbc8c01db3c545aca60d37c_playmist_4g.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://1nyaler.streamhostingcdn.top/stream/23/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-e8e5-7353-a606-b361cf5f42ce",
+      "name": "Cricket Gold",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-09/images_dde39b3fb713d4946a32e2c8ad5db00a_playmist_cricket_gold_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/M2W2UR49dmeKbZnmdRzN/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-d8f0-7732-8263-6030073a34fe",
+      "name": "FIFA+",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-24/bcc9699c8a3c8faf509c92e9280e576f.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://4397879b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWRlX0ZJRkFQbHVzR2VybWFuX0hMUw/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39de-7743-b801-2f7bd6007fe5",
+      "name": "Goal TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_db46edea3e5aae6a063369b686c1192d_playmist_goal_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://streams2.sofast.tv/sofastplayout/WiseM3U8_1/master.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39f1-7e14-93de-7debf3a4fc03",
+      "name": "KTV Sport Plus",
+      "logo": "https://s3.aynaott.com/storage/44c0d062e5dda8b8a4f2e9933165cd91",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-eb56-7241-b7d5-ebb6c8209ebb",
+      "name": "Marquee Sports Network",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-24/d59971a29af79ba0f40aff4c18d29aae.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/MarqueeSportsNetwork/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39bc-7bd5-b9e5-bab23ceba9ea",
+      "name": "PTV Sports",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-20/images_5704c544bcbe25521134b299a0298be7_playmist_ptv_sports_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://amg00716-globo-amg00716c1-tcl-br-9495.playouts.now.amagi.tv/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39d0-72a7-a714-e1e8998a87d2",
+      "name": "Sports First TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_1e8f6268734530db4020f0af078ed8cb_playmist_sports_first400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://d4ddgdmj1cvnm.cloudfront.net/scheduler/scheduleMaster/409.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a07-7ed8-95b9-91d3fcaea7c0",
+      "name": "Sports Fishing TV",
+      "logo": "https://s3.aynaott.com/storage/52e9f8f5c78d59a205f0d2bd056d0869",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/eea68b79-bfe2-451e-a227-d637a5b9548a/manifest.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-eb97-7633-b4b2-682cef878a7e",
+      "name": "Talk Sport",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-24/e190f393ddda707426d58a0f295bd7cd.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/talkSPORT/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39e6-7f60-8105-3113bd407d09",
+      "name": "Xtrem Sports",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_e38c97217aa2b9b08475963910ec7e53_playmist_xtrem_sports400x400.png",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://streams2.sofast.tv/v1/master/611d79b11b77e2f571934fd80ca1413453772ac7/e0b81a5c-6ab5-48cd-aaa9-f82de4ab5bf9/manifest.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39af-74c7-ad3c-bb81cae61141",
+      "name": "DD Bangla",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-13/images_9cd5e0424aa0759556a829aa36fd4121_playmist_dd_bangla400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index_3.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39b1-7763-ad62-b9087039241f",
+      "name": "Enter 10 Bangla",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-13/images_fc0d1242765efd4c1494fbfe4ff65c7a_playmist_enter_10_bangla400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://live-bangla.akamaized.net/liveabr/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-399b-79d8-9d87-854339381669",
+      "name": "Khushboo",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_1544964341f4ed337430057b9634b1ad_playmist_khushboo_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/mzwbzfZ4/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39a3-74dd-8ef6-fbe0295e1222",
+      "name": "kolkata TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_067234e427ca902620258631b762cea8_playmist_kolkata_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/kolkatatv/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-df9a-7792-8f7c-3ea7e9aae905",
+      "name": "Sony AATH",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-14/images_6b500d2d4c6979f37f2854565a68bcf0_playmist_sony_aath_logowine.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-399f-7d6a-9f41-dc7f834b3300",
+      "name": "TV9 Bangla",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-02/images_4c08302f7fbe506a998e74c89fcf08ac_playmist_tv9_bangla_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://dyjmyiv3bp2ez.cloudfront.net/pub-iotv9banaen8yq/liveabr/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b61-739b-86ee-8c08d972388a",
+      "name": "B4U Kadak",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_4398175b0b608f28ed92652c90450a2f_playmist_b4u_music_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen3.aynaott.com/X9E6bxg3/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a57-7892-b06f-caf61a17d1cb",
+      "name": "Goldmines Movies",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_3f22715a97b25bb49be73ed06edcabef_playmist_goldmines_movies_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen3.aynaott.com/5CGfPvGp/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b6b-7874-988b-5d148182b02d",
+      "name": "Hindi Movie Classic 24",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_af0da7926606216768d48d2189e3e12c_playmist_hindi_movie_classic_24.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://vods2.aynaott.com/hindimovies/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b7b-7f49-8f57-6c8fdcb2ee40",
+      "name": "Manoranjan TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_d546efbebdcf2327bea4479cca130908_playmist_manoranjan_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/vhu6qz5Nsd/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b67-7f41-bb8e-f5ad36bb3bcb",
+      "name": "Taaza TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_95fe091155ffd0cd20eedb9db083e61e_playmist_taaza_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen3.aynaott.com/yRMLky2j/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c27-75af-aecc-b972908c76b3",
+      "name": "Adventure Earth",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-14/images_535399f1d6f11a7f9e501b4db33e2d0c_playmist_adventure_earth.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://autentic-adventure-earth-1-eu.rakuten.wurl.tv/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3ba4-7280-8f39-3e3a00e1c89b",
+      "name": "Afroturk TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_19592dbb4ffcc259b63e2508c91dc065_playmist_afroturk_tv_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://edge.socialsmart.tv/naturaltv/bant1/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c29-7f47-bacb-ad12c787ba00",
+      "name": "OAN",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-14/images_e8d396ba6ceb67ea33eedd2060880807_playmist_oan_sports_logo400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://a-cdn.klowdtv.com/live1/oan_720p/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3be8-7ff3-b1fe-7d1221d39d34",
+      "name": "Power Turk",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_921be7b2d6ccc058938b643f66c6e3a8_playmist_power_turk_tv_400x400_update.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://livetv.powerapp.com.tr/powerturkTV/powerturkhd.smil/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3bd9-7f0c-9cba-351b78930e42",
+      "name": "RDS Social TV",
+      "logo": "https://s3.aynaott.com/storage/a98854ba711798a82c172f935482f22a",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://stream.rdstv.radio/out/v1/ec85f72b87f04555aa41d616d5be41dc/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3be2-7139-8c0c-8009bd0b8c74",
+      "name": "Travel XP",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_5196b31badd89d9bba61ff57c49fb73b_playmist_travel_xp400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://27c980761ff9437d929e64647afe183a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-eu_TravelXP/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3b9e-7f03-a443-6f49d828ee88",
+      "name": "Wild TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_aa21af3895b9d45aab5b8b41517ad1f7_playmist_wild_tv.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://dfhsahpa45kk2.cloudfront.net/scheduler/scheduleMaster/476.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3bf0-7393-9a87-366242140422",
+      "name": "World War TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_ac6813356117e23244894d632de90fe9_playmist_world_war_tv.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://aenetworks-worldwartv-rakuten.amagi.tv/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a2e-7cc6-ae53-9a7700f7b056",
+      "name": "3ABN Kids",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_42d248089af768d78ab12e716c674e77_playmist_3abn_kids.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://3abn.bozztv.com/3abn2/Kids_live/smil:Kids_live.smil/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a2a-7029-93bc-c12049a5d8d9",
+      "name": "Dios Te Ve Kids",
+      "logo": "https://s3.aynaott.com/storage/dc654c62fa2f2cd754894ebc9353da9c",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://s.emisoras.tv:8081/diostevekids/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a2c-791d-bed4-1a70e99b3858",
+      "name": "Moonbug Kids",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_4be00646d9e8f7a973d43b52166407ff_playmist_moonbug_kids400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://moonbug-rokuus.amagi.tv/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a34-7633-bc80-6c35f6723bca",
+      "name": "PBS Kids",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-06-28/images_ab1b8e6f265620cd2720adc23bd2ba0e_playmist_pbs_kids_400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://2-fss-2.streamhoster.com/pl_140/amlst:200914-1298290/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019efa45-e9a4-7c81-b8bd-efdeb31d84ec",
+      "name": "TVC Arabic Kids",
+      "logo": "https://s3.aynaott.com/storage/31957d5960d3a36d8f9ca4d5a56eee96",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://tvsen6.aynaott.com/TVCArabicKids/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3a28-7902-88ee-0f42afbc7d50",
+      "name": "TVCARiB Kids & Teens",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_fbef127efb1f4148d2730e59a78a9662_playmist_tvcarib_kids_teens400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://cdn.mycloudstream.io/hls/live/broadcast/nro19k2h/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3c02-77aa-aa8c-5457eec46ac3",
+      "name": "Discover Pikstan",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-15/images_efeb6a966b36ef807b0aa9bfd5229360_playmist_discover_pikstan.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://livecdn.live247stream.com/discoverpakistan/web/playlist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3995-7e6d-9338-21fd1417ccee",
+      "name": "G series",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-04-08/images_167c4819de7e4c8618edd4369a0ebefa_playmist_g_series_drama400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://vods2.aynaott.com/gseriesDrama/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-39ff-7db1-94c6-e17acf6a6da4",
+      "name": "Oman Sports TV HD",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-04-09/images_db7e2ba86e75cc789ccffacd59521127_playmist_oman_sports_tv_hd400x400.jpg",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [
+        "Sports"
+      ],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://partneta.cdn.mgmlcdn.com/omsport/smil:omsport.stream.smil/chunklist.m3u8",
+          "quality": "HD"
+        }
+      ]
+    },
+    {
+      "id": "ch-ayna-019de785-3937-7e18-be86-47d2a7a4ab2d",
+      "name": "Test Live TV",
+      "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-04-05/thumbnails_e7c232fc971625f04bb5f1c464a92159_playmist_live_tv_placeholder.png",
+      "category": "ayna",
+      "country": "BD",
+      "status": "verified",
+      "sports": [],
+      "sources": [
+        {
+          "name": "Server 1 (HD)",
+          "type": "authorized",
+          "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
+          "quality": "HD"
+        }
+      ]
+    }
+  ]
+}

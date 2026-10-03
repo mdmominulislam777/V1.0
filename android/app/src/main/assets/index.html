@@ -494,6 +494,12 @@
         </button>
         <div class="cat-detail-title-wrapper">
           <h2 class="cat-detail-title" id="cat-detail-title">News Channels</h2>
+          <span class="cat-detail-count text-[11px] text-slate-400 font-semibold" id="cat-detail-count">0 Channels</span>
+        </div>
+        <div class="cat-detail-actions">
+          <button id="btn-cat-search-toggle" class="cat-detail-action-btn" title="Search channels" aria-label="Search channels">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
         </div>
       </div>
 
@@ -505,6 +511,13 @@
           <button id="btn-cat-search-clear" class="cat-detail-clear-btn hidden">
             <i class="fa-solid fa-xmark"></i>
           </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Swipeable Subcategories Bar (Bangla, Sports, News, Entertainment, Islamic, Kids) -->
+      <div id="cat-detail-subnav-container" class="cat-detail-subnav-container hidden">
+        <div id="cat-detail-subnav-row" class="cat-detail-subnav-row" role="tablist" aria-label="Subcategories">
+          <!-- Rendered dynamically -->
         </div>
       </div>
 

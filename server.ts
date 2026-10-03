@@ -22,6 +22,14 @@ const aiClient = new GoogleGenAI({
   }
 });
 
+// Universal multi-sport channel resolver loader
+let channelResolverModule: any = null;
+import("./sportsApi/channelResolver.js")
+  .then((m) => {
+    channelResolverModule = m?.default || (globalThis as any).HighFyChannelResolver;
+  })
+  .catch(() => {});
+
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81";
 const DEFAULT_CRICKET_HOST = "cricbuzz-cricket2.p.rapidapi.com";
 
@@ -1457,11 +1465,43 @@ async function startServer() {
   function getChannelsFromDisk(): any[] {
     if (cachedChannelsJson && cachedChannelsJson.length > 0) return cachedChannelsJson;
     try {
-      const raw = fs.readFileSync(path.join(process.cwd(), "channels.json"), "utf8");
-      cachedChannelsJson = JSON.parse(raw);
-      return cachedChannelsJson || [];
+      const dataPath = path.join(process.cwd(), "data", "channels.json");
+      const rootPath = path.join(process.cwd(), "channels.json");
+      if (fs.existsSync(dataPath)) {
+        const raw = fs.readFileSync(dataPath, "utf8");
+        const parsed = JSON.parse(raw);
+        cachedChannelsJson = Array.isArray(parsed) ? parsed : (parsed.channels || []);
+        return cachedChannelsJson || [];
+      } else if (fs.existsSync(rootPath)) {
+        const raw = fs.readFileSync(rootPath, "utf8");
+        cachedChannelsJson = JSON.parse(raw);
+        return cachedChannelsJson || [];
+      }
+      return [];
     } catch (e: any) {
       console.warn("[Channels] Error reading channels.json:", e.message);
+      return [];
+    }
+  }
+
+  let cachedEventsJson: any[] | null = null;
+  function getEventsFromDisk(): any[] {
+    if (cachedEventsJson && cachedEventsJson.length > 0) return cachedEventsJson;
+    try {
+      const dataPath = path.join(process.cwd(), "data", "sports-events.json");
+      const rootPath = path.join(process.cwd(), "events.json");
+      if (fs.existsSync(dataPath)) {
+        const raw = fs.readFileSync(dataPath, "utf8");
+        const parsed = JSON.parse(raw);
+        cachedEventsJson = Array.isArray(parsed) ? parsed : (parsed.events || []);
+        return cachedEventsJson || [];
+      } else if (fs.existsSync(rootPath)) {
+        const raw = fs.readFileSync(rootPath, "utf8");
+        cachedEventsJson = JSON.parse(raw);
+        return cachedEventsJson || [];
+      }
+      return [];
+    } catch (e: any) {
       return [];
     }
   }
@@ -1550,47 +1590,12 @@ async function startServer() {
       extractFromEntry(src);
     }
 
-    // Priority 2: Verified Cricket Broadcast Rights / Official Regional Broadcaster Contract Mapping
-    // When CricketData.org API does not return direct broadcaster fields, resolve verified broadcast partners by series/team rights
-    if (extracted.length === 0) {
-      const compNames = Array.isArray(sportEvent?.competitors)
-        ? sportEvent.competitors.map((c: any) => String(c?.name || c?.id || "")).join(" ")
-        : "";
-      const teamArrNames = Array.isArray(item?.teams) ? item.teams.join(" ") : "";
-      const tournStr =
-        typeof sportEvent?.tournament === "string"
-          ? sportEvent.tournament
-          : sportEvent?.tournament?.name || "";
-      const contextStr = `${tournStr} ${sportEvent?.league || ""} ${sportEvent?.seriesName || ""} ${sportEvent?.title || ""} ${sportEvent?.team1?.name || ""} ${sportEvent?.team2?.name || ""} ${sportEvent?.homeTeam?.name || ""} ${sportEvent?.awayTeam?.name || ""} ${sportEvent?.season?.name || ""} ${item?.series || ""} ${item?.name || ""} ${item?.t1 || ""} ${item?.t2 || ""} ${compNames} ${teamArrNames}`
-        .toLowerCase()
-        .trim();
-
-      if (/\b(bangladesh|ban|bpl|bangladesh premier league|dhaka|chattogram|chittagong|rangpur|sylhet|barishal|khulna|rajshahi)\b/i.test(contextStr)) {
-        extracted.push("T Sports HD", "Gazi TV");
-      } else if (/\b(india|ind|ipl|indian premier league|wpl|women's premier league|ranji|duleep|irani|syed mushtaq|delhi|mumbai|chennai|kolkata|bengaluru|bangalore|hyderabad|rajasthan|punjab|gujarat|lucknow)\b/i.test(contextStr)) {
-        extracted.push("Star Sports 1 HD", "Star Sports 1 Hindi", "DD Sports", "Willow HD");
-      } else if (/\b(pakistan|pak|psl|pakistan super league|lahore|karachi|multan|peshawar|quetta|islamabad)\b/i.test(contextStr)) {
-        extracted.push("PTV Sports", "A Sports", "Ten Sports HD", "Willow HD");
-      } else if (/\b(england|eng|county|vitality blast|the hundred|one-day cup|surrey|yorkshire|somerset|lancashire|middlesex|hampshire|sussex|durham|essex|glamorgan|warwickshire|nottinghamshire|kent|gloucestershire|derbyshire|worcestershire|leicestershire|northamptonshire|oval invincibles|trent rockets|london spirit|southern brave|manchester originals|northern superchargers|birmingham phoenix|welsh fire)\b/i.test(contextStr)) {
-        extracted.push("Sky Sports Cricket", "Sony Sports Ten 2 HD", "Willow HD");
-      } else if (/\b(australia|aus|big bash|bbl|wbbl|sheffield shield|marsh cup|victoria|new south wales|tasmania|queensland|scorchers|sixers|thunder|renegades|strikers|hurricanes|brisbane heat|melbourne stars)\b/i.test(contextStr)) {
-        extracted.push("Fox Cricket", "Star Sports 1 HD", "Willow HD");
-      } else if (/\b(south africa|rsa|sa20|titans|warriors|dolphins|lions|western province|north west|northern cape|limpopo|boland|knights|paarl|joburg|pretoria|durban)\b/i.test(contextStr)) {
-        extracted.push("Sky Sports Cricket", "Star Sports 1 HD", "Willow Sports");
-      } else if (/\b(sri lanka|lpl|new zealand|super smash|zimbabwe|afghanistan|asia cup|nepal|oman|uae|united arab emirates|hong kong)\b/i.test(contextStr)) {
-        extracted.push("Sony Sports Ten 2 HD", "Ten Cricket", "T Sports HD", "Willow HD");
-      } else if (/\b(west indies|windies|cpl|caribbean premier league|mlc|major league cricket|usa|united states|canada|bermuda|bahamas|cayman)\b/i.test(contextStr)) {
-        extracted.push("Willow HD", "Star Sports 1 HD", "Ten Cricket");
-      } else {
-        extracted.push("Willow HD", "T Sports HD", "Cricket Gold");
-      }
-    }
-
     if (extracted.length === 0) {
       return {
         broadcaster: null,
         broadcasters: [],
         channelId: null,
+        channelIds: [],
         channelName: null,
         channelLogo: null,
         streamUrl: null,
@@ -1625,9 +1630,9 @@ async function startServer() {
     ];
 
     const explicitServerAliases: Record<string, string[]> = {
-      't sports': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
-      't sports hd': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
-      'tsports': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
+      't sports': ['ch-t-sports-hd', 'ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7', 'ch-t-sports-server-2'],
+      't sports hd': ['ch-t-sports-hd', 'ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7', 'ch-t-sports-server-2'],
+      'tsports': ['ch-t-sports-hd', 'ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7', 'ch-t-sports-server-2'],
       'gazi tv': ['ch-gazi-tv'],
       'gtv': ['ch-gazi-tv'],
       'gazi tv hd': ['ch-gazi-tv'],
@@ -1953,156 +1958,164 @@ async function startServer() {
     };
   }
 
-  // Gemini AI-powered Broadcast Channel Mapper Cache
+  // Gemini AI-powered Broadcast Channel Mapper Cache (Strictly normalizes API-returned broadcasters only)
   const geminiChannelMapCache = new Map<string, any>();
 
   async function getMappedChannelFromGemini(apiMatchData: any, localChannels?: any[]) {
     const matchId = String(apiMatchData?.match_id || apiMatchData?.id || apiMatchData?.rawId || "unknown");
-    const title = String(apiMatchData?.title || apiMatchData?.name || "");
-    const tournament = String(apiMatchData?.tournament || apiMatchData?.league || apiMatchData?.seriesName || apiMatchData?.series || "");
-    const status = String(apiMatchData?.status || "LIVE");
+    const sport = String(apiMatchData?.sport || apiMatchData?.sportName || "cricket").toLowerCase();
 
-    const allCatalogChannels = getChannelsFromDisk();
-    const candidateChannels =
-      Array.isArray(localChannels) && localChannels.length > 0
-        ? localChannels
-        : allCatalogChannels
-            .filter((c: any) => {
-              if (!c || c.active === false) return false;
-              const sports = Array.isArray(c.sports) ? c.sports.map((s: any) => String(s).toLowerCase()) : [];
-              const cats = Array.isArray(c.categories) ? c.categories.map((cat: any) => String(cat).toLowerCase()) : [];
-              const name = String(c.name || "").toLowerCase();
-              return (
-                sports.includes("cricket") ||
-                cats.includes("cricket") ||
-                /t sports|tsports|gazi|gtv|star sports 1|dd sports|willow|ptv sports|a sports|ten sports|ten cricket|sky sports cricket|sony sports ten 2|sony sports 2|fox cricket|astro cric|cricket gold/i.test(name)
-              );
-            })
-            .map((c: any) => ({
-              channel_id: c.id || c.channel_id,
-              name: c.name,
-              sports: c.sports || ["Cricket"],
-              category: c.category || "Sports",
-            }));
+    // Extract ONLY broadcaster/channel fields actually returned by the API
+    const rawBroadcasterInputs: string[] = [];
+    const collectRawBcast = (val: any) => {
+      if (!val) return;
+      if (Array.isArray(val)) {
+        val.forEach(collectRawBcast);
+      } else if (typeof val === "string" && val.trim()) {
+        rawBroadcasterInputs.push(val.trim());
+      } else if (typeof val === "object") {
+        if (Array.isArray(val.names)) collectRawBcast(val.names);
+        const cname = val.name || val.channel_name || val.broadcaster_name || val.station || val.tv_name || val.channel || val.media?.shortName || val.media?.name || "";
+        if (typeof cname === "string" && cname.trim()) rawBroadcasterInputs.push(cname.trim());
+      }
+    };
 
-    const cacheKey = `${matchId}::${title}::${tournament}::${candidateChannels.map((c: any) => c.channel_id || c.id).join(",")}`;
+    collectRawBcast(apiMatchData?.broadcaster);
+    collectRawBcast(apiMatchData?.broadcasters);
+    collectRawBcast(apiMatchData?.strTVStation);
+    collectRawBcast(apiMatchData?.tvStation);
+    collectRawBcast(apiMatchData?.broadcast);
+    collectRawBcast(apiMatchData?.broadcasts);
+    collectRawBcast(apiMatchData?.geoBroadcasts);
+    collectRawBcast(apiMatchData?.tv_channels);
+
+    // STRICT RULE: If broadcaster data is missing from the API response, NEVER invent or guess a channel
+    if (rawBroadcasterInputs.length === 0 && !apiMatchData?.channelId) {
+      return {
+        match_id: matchId,
+        status: "unavailable",
+        verified: false,
+        extracted_broadcasters: [],
+        mapped_channel_id: null,
+        primary_channel_id: null,
+        fallback_channel_id: null,
+        verified_channel_ids: [],
+        match_confidence: "0%",
+        message: "Live channel unavailable",
+      };
+    }
+
+    const cacheKey = `${matchId}::${sport}::${rawBroadcasterInputs.join("|")}::${apiMatchData?.channelId || ""}`;
     if (geminiChannelMapCache.has(cacheKey)) {
       return geminiChannelMapCache.get(cacheKey);
     }
 
-    // Deterministic verified contract fallback
-    const buildDeterministicResult = () => {
-      const bData = resolveCricketBroadcastData(apiMatchData, apiMatchData);
-      const cids = Array.isArray(bData.channelIds) ? bData.channelIds : [];
-      let primaryId = bData.channelId || cids[0] || "";
-      let fallbackId = cids[1] || cids[0] || "";
+    let normalizedApiBroadcasters = [...rawBroadcasterInputs];
 
-      // If custom candidateChannels were provided (e.g. star_sports_1, t_sports, willow_tv), match by name/id
-      if (Array.isArray(localChannels) && localChannels.length > 0) {
-        const bNames = Array.isArray(bData.broadcasters) ? bData.broadcasters : [];
-        const matchedCustomIds: string[] = [];
-        for (const bName of bNames) {
-          const bNorm = bName.toLowerCase().replace(/\b(hd|sd|tv)\b/g, "").replace(/[^a-z0-9]+/g, " ").trim();
-          for (const lc of localChannels) {
-            const lcId = String(lc.channel_id || lc.id || "");
-            const lcNorm = String(lc.name || lcId).toLowerCase().replace(/\b(hd|sd|tv)\b/g, "").replace(/[^a-z0-9]+/g, " ").trim();
-            if (lcNorm && bNorm && (lcNorm === bNorm || lcNorm.includes(bNorm) || bNorm.includes(lcNorm))) {
-              if (!matchedCustomIds.includes(lcId)) matchedCustomIds.push(lcId);
-            }
+    // Optional AI normalization of raw API broadcaster strings ONLY (AI may NOT create broadcasters/channels/URLs)
+    const activeGeminiKey = (process.env.GEMINI_API_KEY || "").trim();
+    if (activeGeminiKey && rawBroadcasterInputs.length > 0) {
+      try {
+        const prompt = `Extract and normalize ONLY the television broadcaster/channel names explicitly present in these raw sports API broadcaster strings.
+Do NOT invent, guess, or infer any broadcaster from teams, leagues, or countries.
+Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
+
+        const response = await aiClient.models.generateContent({
+          model: "gemini-3-flash-preview",
+          contents: prompt,
+          config: {
+            systemInstruction:
+              "You are a strict broadcaster string normalizer for HighFy TV. You may ONLY extract and normalize broadcaster names that are explicitly present in the input strings. Never invent or guess broadcasters.",
+            temperature: 0,
+            responseMimeType: "application/json",
+            responseSchema: {
+              type: Type.OBJECT,
+              properties: {
+                normalized_broadcasters: {
+                  type: Type.ARRAY,
+                  items: { type: Type.STRING },
+                  description: "Clean canonical broadcaster names extracted strictly from the input strings.",
+                },
+              },
+              required: ["normalized_broadcasters"],
+            },
+          },
+        });
+
+        const responseText = (response.text || "").trim();
+        if (responseText) {
+          const parsed = JSON.parse(responseText);
+          if (Array.isArray(parsed.normalized_broadcasters) && parsed.normalized_broadcasters.length > 0) {
+            normalizedApiBroadcasters = Array.from(new Set([...rawBroadcasterInputs, ...parsed.normalized_broadcasters]));
           }
         }
-        if (matchedCustomIds.length === 0 && localChannels.length > 0) {
-          matchedCustomIds.push(String(localChannels[0].channel_id || localChannels[0].id || ""));
-          if (localChannels[1]) matchedCustomIds.push(String(localChannels[1].channel_id || localChannels[1].id || ""));
-        }
-        primaryId = matchedCustomIds[0] || primaryId;
-        fallbackId = matchedCustomIds[1] || matchedCustomIds[0] || fallbackId;
+      } catch (err: any) {
+        console.warn("[Gemini Broadcaster Normalizer] Using deterministic API broadcaster extraction:", err.message);
       }
+    }
 
-      return {
-        match_id: matchId,
-        mapped_channel_id: primaryId,
-        primary_channel_id: primaryId,
-        fallback_channel_id: fallbackId,
-        match_confidence: "95%",
-      };
+    // Deterministic matching strictly against verified HighFy TV channel catalog
+    const resolver = channelResolverModule || (globalThis as any).HighFyChannelResolver;
+    const allChannels = getChannelsFromDisk();
+    let resolvedData: any = null;
+
+    if (resolver && typeof resolver.resolveEventChannels === "function") {
+      resolvedData = resolver.resolveEventChannels(
+        {
+          id: matchId,
+          sport: sport || apiMatchData?.sport || "Sports",
+          channelId: apiMatchData?.channelId,
+          broadcasterId: apiMatchData?.broadcasterId,
+          broadcasters: normalizedApiBroadcasters,
+        },
+        allChannels
+      );
+    }
+
+    // Cricket fallback/enrichment
+    if ((!resolvedData || !resolvedData.verified) && (!sport || sport.toLowerCase().includes("cricket"))) {
+      const bData = resolveCricketBroadcastData(
+        { broadcast: normalizedApiBroadcasters },
+        { broadcasters: normalizedApiBroadcasters }
+      );
+      if (bData && bData.channelId) {
+        resolvedData = {
+          status: "MATCHED",
+          channelId: bData.channelId,
+          channelName: bData.channelName,
+          channelLogo: bData.channelLogo,
+          channels: (bData as any).channels || [],
+          streams: bData.streams || [],
+          verified: true,
+          message: "Channel matched and verified",
+        };
+      }
+    }
+
+    const isVerified = Boolean(resolvedData && resolvedData.verified && resolvedData.channelId);
+    const primaryId = isVerified ? resolvedData.channelId : null;
+    const cids = isVerified && Array.isArray(resolvedData.channels)
+      ? resolvedData.channels.map((c: any) => c.id).filter(Boolean)
+      : (primaryId ? [primaryId] : []);
+    const fallbackId = cids[1] || primaryId || null;
+
+    const result = {
+      match_id: matchId,
+      status: primaryId ? "matched" : "unavailable",
+      verified: isVerified,
+      extracted_broadcasters: normalizedApiBroadcasters,
+      mapped_channel_id: primaryId,
+      primary_channel_id: primaryId,
+      fallback_channel_id: fallbackId,
+      verified_channel_ids: cids,
+      channels: isVerified ? (resolvedData.channels || []) : [],
+      streams: isVerified ? (resolvedData.streams || []) : [],
+      match_confidence: primaryId ? "100%" : "0%",
+      message: primaryId ? "Verified channel matched" : "Live channel unavailable",
     };
 
-    const activeGeminiKey = (process.env.GEMINI_API_KEY || "").trim();
-    if (!activeGeminiKey) {
-      const det = buildDeterministicResult();
-      geminiChannelMapCache.set(cacheKey, det);
-      return det;
-    }
-
-    try {
-      const prompt = `You are an expert sports broadcast matching system for HighFy TV.
-Analyze this match and map it to the correct channel_id from the available channel list based on official broadcasting rights context (e.g., BCCI/India/IPL -> Star Sports 1 HD / DD Sports; Bangladesh/BPL -> T Sports HD / Gazi TV; Pakistan/PSL -> PTV Sports / A Sports / Ten Sports HD; England/County -> Sky Sports Cricket / Sony Sports Ten 2 HD; Australia/BBL -> Fox Cricket / Star Sports 1 HD; West Indies/CPL/USA/Associate -> Willow HD / T Sports HD).
-
-Match Data: ${JSON.stringify({ match_id: matchId, title, tournament, status })}
-Channel List: ${JSON.stringify(candidateChannels)}
-
-Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallback_channel_id, and match_confidence.`;
-
-      const response = await aiClient.models.generateContent({
-        model: "gemini-3.8-flash",
-        contents: prompt,
-        config: {
-          responseMimeType: "application/json",
-          responseSchema: {
-            type: Type.OBJECT,
-            properties: {
-              match_id: {
-                type: Type.STRING,
-                description: "The ID of the match.",
-              },
-              mapped_channel_id: {
-                type: Type.STRING,
-                description: "The primary mapped channel_id from the channel list.",
-              },
-              primary_channel_id: {
-                type: Type.STRING,
-                description: "The primary mapped channel_id from the channel list.",
-              },
-              fallback_channel_id: {
-                type: Type.STRING,
-                description: "The secondary/fallback channel_id from the channel list.",
-              },
-              match_confidence: {
-                type: Type.STRING,
-                description: "Confidence percentage string, e.g. '98%'.",
-              },
-            },
-            required: ["match_id", "mapped_channel_id", "primary_channel_id", "fallback_channel_id", "match_confidence"],
-          },
-        },
-      });
-
-      const responseText = (response.text || "").trim();
-      if (responseText) {
-        const parsed = JSON.parse(responseText);
-        const validIds = new Set(candidateChannels.map((c: any) => String(c.channel_id || c.id || "")));
-        const pId = parsed.mapped_channel_id || parsed.primary_channel_id || "";
-        const fId = parsed.fallback_channel_id || pId;
-        if (validIds.has(pId)) {
-          const result = {
-            match_id: String(parsed.match_id || matchId),
-            mapped_channel_id: pId,
-            primary_channel_id: pId,
-            fallback_channel_id: validIds.has(fId) ? fId : pId,
-            match_confidence: String(parsed.match_confidence || "95%"),
-          };
-          geminiChannelMapCache.set(cacheKey, result);
-          return result;
-        }
-      }
-    } catch (err: any) {
-      console.warn("[Gemini Channel Mapper] Fallback to verified contract rules:", err.message);
-    }
-
-    const det = buildDeterministicResult();
-    geminiChannelMapCache.set(cacheKey, det);
-    return det;
+    geminiChannelMapCache.set(cacheKey, result);
+    return result;
   }
 
   function normalizeCricketDataEvent(item: any): any {
@@ -4297,53 +4310,107 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
         return res.status(400).json({ status: "error", error: "fixtureId is required" });
       }
 
-      // Check rapidCache and sportsDbCache first if cached events have broadcaster
+      // Check serverUnifiedCache, espnCache, rapidCache, cricketDataCache, allSportsApiCache, sportsDbCache, and disk events
+      const diskEvents = getEventsFromDisk();
       const allCached = [
+        ...(serverUnifiedCache?.data || []),
+        ...(espnCache.data || []),
         ...(rapidCache.matches?.data || []),
-        ...(sportsDbCache.events?.data || [])
+        ...(cricketDataCache.matches?.data || []),
+        ...(allSportsApiCache.events?.data || []),
+        ...(sportsDbCache.events?.data || []),
+        ...diskEvents
       ];
       const cachedEv = allCached.find((e: any) =>
         String(e.id) === fixtureId || String(e.rawId) === fixtureId || String(e.idEvent) === fixtureId
       );
-      if (cachedEv && (cachedEv.broadcaster || cachedEv.strTVStation)) {
-        const rawStation = String(cachedEv.broadcaster || cachedEv.strTVStation).trim();
-        if (rawStation) {
-          const broadcasters = rawStation
-            .split(/[,/|;+&]|\band\b|\bor\b/i)
-            .map((s: string) => s.trim())
-            .filter(Boolean);
+      if (cachedEv && (cachedEv.broadcaster || (Array.isArray(cachedEv.broadcasters) && cachedEv.broadcasters.length > 0) || cachedEv.strTVStation)) {
+        const bList = Array.isArray(cachedEv.broadcasters) && cachedEv.broadcasters.length > 0
+          ? cachedEv.broadcasters
+          : String(cachedEv.broadcaster || cachedEv.strTVStation || "")
+              .split(/[,/|;+&]|\band\b|\bor\b/i)
+              .map((s: string) => s.trim())
+              .filter(Boolean);
+        if (bList.length > 0) {
+          const aiResolved = await getMappedChannelFromGemini({
+            id: fixtureId,
+            sport: cachedEv.sport || req.query.sport || "",
+            broadcasters: bList,
+          });
           return res.json({
-            status: "success",
+            status: aiResolved.verified ? "success" : "not_found",
             fixtureId,
-            broadcaster: rawStation,
-            broadcasters,
+            broadcaster: bList.join(", "),
+            broadcasters: aiResolved.extracted_broadcasters || bList,
+            verified: aiResolved.verified,
+            channelId: aiResolved.primary_channel_id || null,
+            channelIds: aiResolved.verified_channel_ids || [],
+            channels: aiResolved.channels || [],
+            streams: aiResolved.streams || [],
+            message: aiResolved.message || (aiResolved.verified ? "Verified channel matched" : "Live channel unavailable"),
             source: "Cache"
           });
         }
       }
 
-      // Check TheSportsDB event lookup if fixture is numeric or starts with tsdb-
+      // Check TheSportsDB lookupevent.php AND lookuptv.php if fixture is numeric or starts with tsdb-
       const cleanTsdbId = fixtureId.replace(/^tsdb-/, "");
       if (/^\d+$/.test(cleanTsdbId)) {
-        const response = await fetch(`${THESPORTSDB_BASE}/lookupevent.php?id=${encodeURIComponent(cleanTsdbId)}`);
-        if (response.ok) {
-          const data: any = await response.json();
+        const [eventRes, tvRes] = await Promise.allSettled([
+          fetch(`${THESPORTSDB_BASE}/lookupevent.php?id=${encodeURIComponent(cleanTsdbId)}`, { signal: AbortSignal.timeout(6000) }),
+          fetch(`${THESPORTSDB_BASE}/lookuptv.php?id=${encodeURIComponent(cleanTsdbId)}`, { signal: AbortSignal.timeout(6000) }),
+        ]);
+
+        const broadcasters: string[] = [];
+        let evSport = String(req.query.sport || "football");
+        if (eventRes.status === "fulfilled" && eventRes.value.ok) {
+          const data: any = await eventRes.value.json();
           const raw = (data.events && data.events[0]) || null;
           if (raw) {
+            if (raw.strSport) evSport = raw.strSport;
             const rawStation = String(raw.strTVStation || raw.strBroadcaster || raw.strBroadcast || "").trim();
-            const broadcasters = rawStation
-              ? rawStation.split(/[,/|;+&]|\band\b|\bor\b/i).map((s: string) => s.trim()).filter(Boolean)
-              : [];
             if (rawStation) {
-              return res.json({
-                status: "success",
-                fixtureId,
-                broadcaster: rawStation,
-                broadcasters,
-                source: "TheSportsDB"
-              });
+              rawStation
+                .split(/[,/|;+&]|\band\b|\bor\b/i)
+                .map((s: string) => s.trim())
+                .filter(Boolean)
+                .forEach((b: string) => {
+                  if (!broadcasters.includes(b)) broadcasters.push(b);
+                });
             }
           }
+        }
+
+        if (tvRes.status === "fulfilled" && tvRes.value.ok) {
+          try {
+            const tvJson: any = await tvRes.value.json();
+            const tvList = Array.isArray(tvJson.tvs) ? tvJson.tvs : Array.isArray(tvJson.tv) ? tvJson.tv : [];
+            for (const t of tvList) {
+              const name = String(t.strChannel || t.strTVStation || t.strBroadcaster || "").trim();
+              if (name && !broadcasters.includes(name)) broadcasters.push(name);
+            }
+          } catch {}
+        }
+
+        if (broadcasters.length > 0) {
+          const aiResolved = await getMappedChannelFromGemini({
+            id: fixtureId,
+            sport: evSport,
+            broadcasters,
+          });
+          return res.json({
+            status: aiResolved.verified ? "success" : "not_found",
+            fixtureId,
+            broadcaster: broadcasters.join(", "),
+            broadcasters: aiResolved.extracted_broadcasters || broadcasters,
+            verified: aiResolved.verified,
+            channelId: aiResolved.primary_channel_id || null,
+            channelIds: aiResolved.verified_channel_ids || [],
+            channels: aiResolved.channels || [],
+            streams: aiResolved.streams || [],
+            message: aiResolved.message || (aiResolved.verified ? "Verified channel matched" : "Live channel unavailable"),
+            source: "TheSportsDB"
+          });
         }
       }
 
@@ -4374,11 +4441,22 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
               }
               if (extracted.length > 0) {
                 const uniqueBc = Array.from(new Set(extracted));
+                const aiResolved = await getMappedChannelFromGemini({
+                  id: fixtureId,
+                  sport: "cricket",
+                  broadcasters: uniqueBc,
+                });
                 return res.json({
-                  status: "success",
+                  status: aiResolved.verified ? "success" : "not_found",
                   fixtureId,
                   broadcaster: uniqueBc.join(", "),
-                  broadcasters: uniqueBc,
+                  broadcasters: aiResolved.extracted_broadcasters || uniqueBc,
+                  verified: aiResolved.verified,
+                  channelId: aiResolved.primary_channel_id || null,
+                  channelIds: aiResolved.verified_channel_ids || [],
+                  channels: aiResolved.channels || [],
+                  streams: aiResolved.streams || [],
+                  message: aiResolved.message || (aiResolved.verified ? "Verified channel matched" : "Live channel unavailable"),
                   source: "Cricbuzz RapidAPI"
                 });
               }
@@ -4393,7 +4471,13 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
         status: "not_found",
         fixtureId,
         broadcaster: "",
-        broadcasters: []
+        broadcasters: [],
+        verified: false,
+        channelId: null,
+        channelIds: [],
+        channels: [],
+        streams: [],
+        message: "Live channel unavailable"
       });
     } catch (err: any) {
       res.status(500).json({ status: "error", message: err.message });
@@ -4632,9 +4716,10 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
           }
         }
 
-        // Match broadcaster token in channel name or vice versa
-        const cleanCh = chName.replace(/\b(hd|fhd|uhd|4k|live|stream|tv|channel|stb)\b/gi, " ").replace(/\s+/g, " ").trim();
-        if (cleanCh && (bNorm.includes(cleanCh) || cleanCh.includes(bNorm))) {
+        // Deterministic match ONLY (exact normalized name, no substring fuzzy matching)
+        const cleanCh = chName.replace(/\b(hd|fhd|uhd|4k|live|stream|tv|channel|stb)\b/gi, " ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+        const cleanBNorm = bNorm.replace(/\b(hd|fhd|uhd|4k|live|stream|tv|channel|stb)\b/gi, " ").replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+        if (cleanCh && cleanBNorm && cleanCh === cleanBNorm) {
           const streamUrl = ch.stream_url || ch.streamUrl || ch.url || "";
           if (streamUrl) {
             const streams = [{
@@ -4850,6 +4935,24 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
     }
   });
 
+  // EPG Electronic Program Guide Endpoint
+  app.get(["/api/epg", "/data/epg.json"], (_req, res) => {
+    try {
+      const epgPath = path.join(process.cwd(), "data", "epg.json");
+      if (fs.existsSync(epgPath)) {
+        const epgData = JSON.parse(fs.readFileSync(epgPath, "utf8"));
+        return res.json({ status: "success", ...epgData });
+      }
+      return res.json({
+        status: "success",
+        updatedAt: new Date().toISOString(),
+        channels: []
+      });
+    } catch (err: any) {
+      return res.status(500).json({ status: "error", message: err.message });
+    }
+  });
+
   // Universal Resilient M3U8 & Live Stream Proxy with CORS & URL Rewriting
   app.options("/api/stream-proxy", (_req, res) => {
     res.setHeader("Access-Control-Allow-Origin", "*");
@@ -4892,12 +4995,19 @@ Return JSON format with match_id, mapped_channel_id, primary_channel_id, fallbac
       const targetUrlObj = new URL(decodedUrl);
       const origin = targetUrlObj.origin;
 
+      let reqReferer = origin + "/";
+      let reqOrigin = origin;
+      if (targetUrlObj.hostname.includes("aynaott.com")) {
+        reqReferer = "https://web.aynaott.com/";
+        reqOrigin = "https://web.aynaott.com";
+      }
+
       const fetchHeaders: Record<string, string> = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
         "Accept": "*/*",
         "Accept-Language": "en-US,en;q=0.9,bn;q=0.8,hi;q=0.7",
-        "Referer": origin + "/",
-        "Origin": origin,
+        "Referer": reqReferer,
+        "Origin": reqOrigin,
       };
 
       if (req.headers.range) {

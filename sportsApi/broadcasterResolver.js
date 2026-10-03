@@ -336,7 +336,7 @@
         discovered: false,
         broadcasters: [],
         count: 0,
-        displayLabel: 'Broadcast information unavailable'
+        displayLabel: 'Live channel unavailable'
       };
     }
 
@@ -365,7 +365,7 @@
       discovered: finalBroadcasters.length > 0,
       broadcasters: finalBroadcasters,
       count: finalBroadcasters.length,
-      displayLabel: finalBroadcasters.length > 0 ? finalBroadcasters.map(b => b.name).join(', ') : 'Broadcast information unavailable'
+      displayLabel: finalBroadcasters.length > 0 ? finalBroadcasters.map(b => b.name).join(', ') : 'Live channel unavailable'
     };
   }
 
@@ -421,29 +421,97 @@
   }
 
   /**
-   * Asynchronous discovery wrapper that also queries TheSportsDB when a reliable ID is present
+   * Fetches real broadcaster data for any sports event from the configured backend sports APIs
+   * (/api/fixture/broadcaster + /api/thesportsdb/event/:id) and extracts ONLY API-returned broadcaster fields.
+   */
+  async function fetchRealApiBroadcastersForEvent(event, apiBaseUrl = '') {
+    if (!event || typeof event !== 'object') return [];
+    const apiBase = apiBaseUrl || (typeof window !== 'undefined' ? (window.CONFIG?.API_BASE_URL || '') : '');
+    const eventId = String(event.id || event.rawId || event.matchId || event.idEvent || '').trim();
+    const sport = String(event.sport || event.sportName || '').trim();
+    const home = String(event.team1?.name || event.homeTeam?.name || '').trim();
+    const away = String(event.team2?.name || event.awayTeam?.name || '').trim();
+    const league = String(event.tournament || event.league || event.seriesName || '').trim();
+    const date = String(event.date || '').trim();
+
+    const collectedCandidates = [];
+
+    try {
+      const params = new URLSearchParams();
+      if (eventId) params.set('fixtureId', eventId);
+      if (sport) params.set('sport', sport);
+      if (home) params.set('home', home);
+      if (away) params.set('away', away);
+      if (league) params.set('league', league);
+      if (date) params.set('date', date);
+
+      const requests = [
+        fetch(`${apiBase}/api/fixture/broadcaster?${params.toString()}`).then(r => r.ok ? r.json() : null).catch(() => null)
+      ];
+
+      const tsdbId = matchTheSportsDbEventId(event);
+      if (tsdbId) {
+        requests.push(
+          fetch(`${apiBase}/api/thesportsdb/event/${encodeURIComponent(tsdbId)}`).then(r => r.ok ? r.json() : null).catch(() => null)
+        );
+      }
+
+      const results = await Promise.all(requests);
+      const fixtureData = results[0];
+      const tsdbData = results[1];
+
+      if (fixtureData) {
+        if (fixtureData.channelId) {
+          event.channelId = fixtureData.channelId;
+        }
+        if (Array.isArray(fixtureData.channelIds) && fixtureData.channelIds.length > 0) {
+          event.channelIds = fixtureData.channelIds;
+        }
+        if (Array.isArray(fixtureData.channels) && fixtureData.channels.length > 0) {
+          event.verifiedChannels = fixtureData.channels;
+        }
+        if (Array.isArray(fixtureData.streams) && fixtureData.streams.length > 0) {
+          event.streams = fixtureData.streams;
+        }
+        const bList = Array.isArray(fixtureData.broadcasters) ? fixtureData.broadcasters : [];
+        const bSingle = typeof fixtureData.broadcaster === 'string' && fixtureData.broadcaster.trim() ? [fixtureData.broadcaster.trim()] : [];
+        const rawPayload = {
+          broadcasters: [...bList, ...bSingle],
+          strTVStation: fixtureData.strTVStation || ''
+        };
+        const found = findBroadcastCandidates(rawPayload, 'api.fixture.broadcaster');
+        collectedCandidates.push(...found);
+      }
+
+      if (tsdbData) {
+        const foundTsdb = findBroadcastCandidates(tsdbData, 'api.thesportsdb.event');
+        collectedCandidates.push(...foundTsdb);
+      }
+    } catch (_) {}
+
+    return normalizeAndDeduplicate(collectedCandidates, eventId || 'event-live', event.source || 'sports_api');
+  }
+
+  /**
+   * Asynchronous discovery wrapper that queries the real configured sports APIs
    */
   async function discoverBroadcastersAsync(eventData, apiBaseUrl = '') {
     const syncResult = discoverBroadcasters(eventData);
-    const tsdbId = matchTheSportsDbEventId(eventData);
+    const liveBroadcasters = await fetchRealApiBroadcastersForEvent(eventData, apiBaseUrl);
 
-    if (tsdbId) {
-      const tsdbBroadcasters = await fetchTheSportsDbBroadcasters(eventData, apiBaseUrl);
-      if (tsdbBroadcasters.length > 0) {
-        // Merge sync candidates with TheSportsDB discovered records
-        const combined = normalizeAndDeduplicate(
-          [...syncResult.broadcasters, ...tsdbBroadcasters],
-          syncResult.eventId,
-          eventData.source || 'TheSportsDB'
-        );
-        return {
-          eventId: syncResult.eventId,
-          discovered: combined.length > 0,
-          broadcasters: combined,
-          count: combined.length,
-          displayLabel: combined.length > 0 ? combined.map(b => b.name).join(', ') : 'Broadcast information unavailable'
-        };
-      }
+    if (liveBroadcasters.length > 0) {
+      const combined = normalizeAndDeduplicate(
+        [...syncResult.broadcasters, ...liveBroadcasters],
+        syncResult.eventId,
+        eventData.source || 'sports_api'
+      );
+      return {
+        eventId: syncResult.eventId,
+        discovered: combined.length > 0,
+        broadcasters: combined,
+        count: combined.length,
+        displayLabel: combined.length > 0 ? combined.map(b => b.name).join(', ') : 'Live channel unavailable'
+      };
     }
 
     return syncResult;
@@ -466,6 +534,7 @@
   return {
     discoverBroadcasters,
     discoverBroadcastersAsync,
+    fetchRealApiBroadcastersForEvent,
     matchTheSportsDbEventId,
     fetchTheSportsDbBroadcasters,
     resolveBroadcasters,

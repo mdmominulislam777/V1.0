@@ -675,44 +675,11 @@ function resolveCricketBroadcastData(sportEvent: any, item: any) {
   }
 
   if (extracted.length === 0) {
-    const compNames = Array.isArray(sportEvent?.competitors)
-      ? sportEvent.competitors.map((c: any) => String(c?.name || c?.id || "")).join(" ")
-      : "";
-    const teamArrNames = Array.isArray(item?.teams) ? item.teams.join(" ") : "";
-    const tournStr =
-      typeof sportEvent?.tournament === "string"
-        ? sportEvent.tournament
-        : sportEvent?.tournament?.name || "";
-    const contextStr = `${tournStr} ${sportEvent?.league || ""} ${sportEvent?.seriesName || ""} ${sportEvent?.title || ""} ${sportEvent?.team1?.name || ""} ${sportEvent?.team2?.name || ""} ${sportEvent?.homeTeam?.name || ""} ${sportEvent?.awayTeam?.name || ""} ${sportEvent?.season?.name || ""} ${item?.series || ""} ${item?.name || ""} ${item?.t1 || ""} ${item?.t2 || ""} ${compNames} ${teamArrNames}`
-      .toLowerCase()
-      .trim();
-
-    if (/\b(bangladesh|ban|bpl|bangladesh premier league|dhaka|chattogram|chittagong|rangpur|sylhet|barishal|khulna|rajshahi)\b/i.test(contextStr)) {
-      extracted.push("T Sports HD", "Gazi TV");
-    } else if (/\b(india|ind|ipl|indian premier league|wpl|women's premier league|ranji|duleep|irani|syed mushtaq|delhi|mumbai|chennai|kolkata|bengaluru|bangalore|hyderabad|rajasthan|punjab|gujarat|lucknow)\b/i.test(contextStr)) {
-      extracted.push("Star Sports 1 HD", "Star Sports 1 Hindi", "DD Sports", "Willow HD");
-    } else if (/\b(pakistan|pak|psl|pakistan super league|lahore|karachi|multan|peshawar|quetta|islamabad)\b/i.test(contextStr)) {
-      extracted.push("PTV Sports", "A Sports", "Ten Sports HD", "Willow HD");
-    } else if (/\b(england|eng|county|vitality blast|the hundred|one-day cup|surrey|yorkshire|somerset|lancashire|middlesex|hampshire|sussex|durham|essex|glamorgan|warwickshire|nottinghamshire|kent|gloucestershire|derbyshire|worcestershire|leicestershire|northamptonshire|oval invincibles|trent rockets|london spirit|southern brave|manchester originals|northern superchargers|birmingham phoenix|welsh fire)\b/i.test(contextStr)) {
-      extracted.push("Sky Sports Cricket", "Sony Sports Ten 2 HD", "Willow HD");
-    } else if (/\b(australia|aus|big bash|bbl|wbbl|sheffield shield|marsh cup|victoria|new south wales|tasmania|queensland|scorchers|sixers|thunder|renegades|strikers|hurricanes|brisbane heat|melbourne stars)\b/i.test(contextStr)) {
-      extracted.push("Fox Cricket", "Star Sports 1 HD", "Willow HD");
-    } else if (/\b(south africa|rsa|sa20|titans|warriors|dolphins|lions|western province|north west|northern cape|limpopo|boland|knights|paarl|joburg|pretoria|durban)\b/i.test(contextStr)) {
-      extracted.push("Sky Sports Cricket", "Star Sports 1 HD", "Willow Sports");
-    } else if (/\b(sri lanka|lpl|new zealand|super smash|zimbabwe|afghanistan|asia cup|nepal|oman|uae|united arab emirates|hong kong)\b/i.test(contextStr)) {
-      extracted.push("Sony Sports Ten 2 HD", "Ten Cricket", "T Sports HD", "Willow HD");
-    } else if (/\b(west indies|windies|cpl|caribbean premier league|mlc|major league cricket|usa|united states|canada|bermuda|bahamas|cayman)\b/i.test(contextStr)) {
-      extracted.push("Willow HD", "Star Sports 1 HD", "Ten Cricket");
-    } else {
-      extracted.push("Willow HD", "T Sports HD", "Cricket Gold");
-    }
-  }
-
-  if (extracted.length === 0) {
     return {
       broadcaster: null,
       broadcasters: [],
       channelId: null,
+      channelIds: [],
       channelName: null,
       channelLogo: null,
       streamUrl: null,
@@ -725,9 +692,9 @@ function resolveCricketBroadcastData(sportEvent: any, item: any) {
   const allChannels = Array.isArray(channelsData) ? channelsData : [];
 
   const explicitServerAliases: Record<string, string[]> = {
-    "t sports": ["ch-t-sports-hd", "ch-t-sports-server-2"],
-    "t sports hd": ["ch-t-sports-hd", "ch-t-sports-server-2"],
-    tsports: ["ch-t-sports-hd", "ch-t-sports-server-2"],
+    "t sports": ["ch-t-sports-hd", "ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7", "ch-t-sports-server-2"],
+    "t sports hd": ["ch-t-sports-hd", "ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7", "ch-t-sports-server-2"],
+    tsports: ["ch-t-sports-hd", "ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7", "ch-t-sports-server-2"],
     "gazi tv": ["ch-gazi-tv"],
     gtv: ["ch-gazi-tv"],
     "gazi tv hd": ["ch-gazi-tv"],
@@ -2335,17 +2302,30 @@ export default {
         return jsonResponse({ status: "error", error: "fixtureId is required" }, 400);
       }
 
-      // 1. Check in-memory sportsDb cache
-      const cachedEv = (workerSportsDbCache.events?.data || []).find(
-        (e: any) => String(e.id) === fixtureId || String(e.rawId) === fixtureId
+      // 1. Check in-memory caches (SportsDB, CricketData, AllSportsAPI)
+      const allCached = [
+        ...(workerSportsDbCache.events?.data || []),
+        ...(workerCricketCache.data || []),
+        ...(workerAllSportsApiCache.events?.data || []),
+      ];
+      const cachedEv = allCached.find(
+        (e: any) => String(e.id) === fixtureId || String(e.rawId) === fixtureId || String(e.idEvent) === fixtureId
       );
       if (cachedEv && (cachedEv.broadcaster || (cachedEv.broadcasters && cachedEv.broadcasters.length > 0))) {
+        const bList = Array.isArray(cachedEv.broadcasters) && cachedEv.broadcasters.length > 0
+          ? cachedEv.broadcasters
+          : String(cachedEv.broadcaster).split(/[,/|;+&]|\band\b|\bor\b/i).map((s: string) => s.trim()).filter(Boolean);
+        const bData = resolveCricketBroadcastData({ broadcast: bList }, { broadcasters: bList });
         return jsonResponse({
           status: "success",
           fixtureId,
-          broadcaster: cachedEv.broadcaster || cachedEv.broadcasters.join(", "),
-          broadcasters: cachedEv.broadcasters || [],
-          source: "TheSportsDB Cache",
+          broadcaster: cachedEv.broadcaster || bList.join(", "),
+          broadcasters: bList,
+          verified: Boolean(bData.channelId),
+          channelId: bData.channelId || null,
+          channelIds: bData.channelIds || [],
+          streams: bData.streams || [],
+          source: "Cache",
         });
       }
 
@@ -2387,11 +2367,16 @@ export default {
           }
 
           if (broadcasters.length > 0) {
+            const bData = resolveCricketBroadcastData({ broadcast: broadcasters }, { broadcasters });
             return jsonResponse({
               status: "success",
               fixtureId,
               broadcaster: broadcasters.join(", "),
               broadcasters,
+              verified: Boolean(bData.channelId),
+              channelId: bData.channelId || null,
+              channelIds: bData.channelIds || [],
+              streams: bData.streams || [],
               source: "TheSportsDB Live",
             });
           }
@@ -2403,8 +2388,12 @@ export default {
         fixtureId,
         broadcaster: "",
         broadcasters: [],
+        verified: false,
+        channelId: null,
+        channelIds: [],
+        streams: [],
         source: "None",
-        message: "No verified broadcast information available for this event",
+        message: "Live channel unavailable",
       });
     }
 
@@ -2432,10 +2421,46 @@ export default {
 
     // 17. Event Channels Endpoint: /api/events/:id/channels
     if (path.startsWith("/api/events/") && path.endsWith("/channels")) {
+      const parts = path.split("/");
+      const eventId = decodeURIComponent(parts[3] || "");
+      const allCached = [
+        ...(workerSportsDbCache.events?.data || []),
+        ...(workerCricketCache.data || []),
+        ...(workerAllSportsApiCache.events?.data || []),
+      ];
+      const target = allCached.find(
+        (e: any) => String(e.id) === eventId || String(e.rawId) === eventId || String(e.idEvent) === eventId
+      );
+      if (target) {
+        const bList = Array.isArray(target.broadcasters) && target.broadcasters.length > 0
+          ? target.broadcasters
+          : target.broadcaster
+          ? String(target.broadcaster).split(/[,/|;+&]|\band\b|\bor\b/i).map((s: string) => s.trim()).filter(Boolean)
+          : [];
+        const bData = resolveCricketBroadcastData({ broadcast: bList }, { broadcasters: bList });
+        return jsonResponse({
+          status: "success",
+          eventId: target.id,
+          title: target.title,
+          broadcaster: target.broadcaster || "",
+          broadcasters: bList,
+          verified: Boolean(bData.channelId),
+          channelId: bData.channelId || null,
+          channelName: bData.channelName || null,
+          channelLogo: bData.channelLogo || null,
+          hasStream: Boolean(bData.streams && bData.streams.length > 0),
+          streams: bData.streams || [],
+          message: bData.channelId ? "Verified channel matched" : "Live channel unavailable",
+        });
+      }
       return jsonResponse({
         status: "success",
+        eventId,
+        verified: false,
+        hasStream: false,
         channels: [],
-        message: "Live channel lookup completed",
+        streams: [],
+        message: "Live channel unavailable",
       });
     }
 

@@ -1,0 +1,276 @@
+{
+  "updatedAt": "2026-10-03T05:32:38.808139+00:00",
+  "sourceStatus": {
+    "cricketdata": "ok",
+    "thesportsdb": "ok",
+    "allsports": "ok"
+  },
+  "events": [
+    {
+      "eventId": "as_football_None",
+      "sport": "Football",
+      "league": "General League",
+      "homeTeam": "Home",
+      "awayTeam": "Away",
+      "startTime": "2026-10-03T00:00:00Z",
+      "status": "LIVE",
+      "homeTeamLogo": "",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "as_cricket_None",
+      "sport": "Cricket",
+      "league": "General League",
+      "homeTeam": "Home",
+      "awayTeam": "Away",
+      "startTime": "2026-10-03T00:00:00Z",
+      "status": "LIVE",
+      "homeTeamLogo": "",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "as_basketball_None",
+      "sport": "Basketball",
+      "league": "General League",
+      "homeTeam": "Home",
+      "awayTeam": "Away",
+      "startTime": "2026-10-03T00:00:00Z",
+      "status": "LIVE",
+      "homeTeamLogo": "",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "as_tennis_None",
+      "sport": "Tennis",
+      "league": "General League",
+      "homeTeam": "Home",
+      "awayTeam": "Away",
+      "startTime": "2026-10-03T00:00:00Z",
+      "status": "LIVE",
+      "homeTeamLogo": "",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2371482",
+      "sport": "Motorsport",
+      "league": "NASCAR Xfinity Series",
+      "homeTeam": "Focused Health 302",
+      "awayTeam": "",
+      "startTime": "2026-10-03T00:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/event/thumb/axwy5l1770290517.jpg",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2553369",
+      "sport": "Fighting",
+      "league": "MLP",
+      "homeTeam": "Northern Rising",
+      "awayTeam": "",
+      "startTime": "2026-10-03T00:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2368494",
+      "sport": "Motorsport",
+      "league": "MotoGP",
+      "homeTeam": "Japan Sprint Race",
+      "awayTeam": "",
+      "startTime": "2026-10-03T06:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/event/thumb/eb920u1759847579.jpg",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2487900",
+      "sport": "Basketball",
+      "league": "Australian NBL",
+      "homeTeam": "Brisbane Bullets",
+      "awayTeam": "Tasmania JackJumpers",
+      "startTime": "2026-10-03T07:30:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/ubzenr1545867000.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/xbmi6c1755702783.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2524737",
+      "sport": "Cricket",
+      "league": "One Day International Series",
+      "homeTeam": "India Cricket",
+      "awayTeam": "West Indies Cricket",
+      "startTime": "2026-10-03T08:30:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/donl7g1646775159.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/1x0a681646775209.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2487901",
+      "sport": "Basketball",
+      "league": "Australian NBL",
+      "homeTeam": "Melbourne United",
+      "awayTeam": "Cairns Taipans",
+      "startTime": "2026-10-03T09:30:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/adpuke1755702629.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/v2c1wc1550073460.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2371868",
+      "sport": "Motorsport",
+      "league": "British Superbike Championship",
+      "homeTeam": "Donington Park GP Race 1",
+      "awayTeam": "",
+      "startTime": "2026-10-03T15:10:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/event/thumb/fahzk31772110987.jpg",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2548284",
+      "sport": "Fighting",
+      "league": "Boxing",
+      "homeTeam": "Ben Whittaker",
+      "awayTeam": "Conor Wallace",
+      "startTime": "2026-10-03T15:30:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/event/thumb/xk7xck1790028100.jpg",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2558807",
+      "sport": "Fighting",
+      "league": "UFC",
+      "homeTeam": "UFC 332 Silva",
+      "awayTeam": "Wang",
+      "startTime": "2026-10-03T21:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/event/thumb/h0bbzs1789892654.jpg",
+      "awayTeamLogo": "",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2397357",
+      "sport": "Soccer",
+      "league": "American USL Championship",
+      "homeTeam": "Brooklyn FC",
+      "awayTeam": "Rhode Island FC",
+      "startTime": "2026-10-03T23:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/p4tzze1765559400.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/bswh0q1700305340.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2397359",
+      "sport": "Soccer",
+      "league": "American USL Championship",
+      "homeTeam": "Detroit City FC",
+      "awayTeam": "Birmingham Legion",
+      "startTime": "2026-10-03T23:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/aw7ceo1688514082.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/8uw1mc1629299635.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2397363",
+      "sport": "Soccer",
+      "league": "American USL Championship",
+      "homeTeam": "Lexington SC",
+      "awayTeam": "El Paso Locomotive",
+      "startTime": "2026-10-03T23:00:00Z",
+      "status": "TODAY",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/whrnkt1674118711.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/gsjebh1688514517.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2397360",
+      "sport": "Soccer",
+      "league": "American USL Championship",
+      "homeTeam": "FC Tulsa",
+      "awayTeam": "Sacramento Republic",
+      "startTime": "2026-10-04T00:00:00Z",
+      "status": "UPCOMING",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/nyfdw21580480972.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/qlxpys1706283543.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2397358",
+      "sport": "Soccer",
+      "league": "American USL Championship",
+      "homeTeam": "Colorado Springs Switchbacks",
+      "awayTeam": "Oakland Roots",
+      "startTime": "2026-10-04T01:00:00Z",
+      "status": "UPCOMING",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/oql6wu1629304849.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/vzzkkj1616767958.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2397362",
+      "sport": "Soccer",
+      "league": "American USL Championship",
+      "homeTeam": "Las Vegas Lights",
+      "awayTeam": "San Antonio",
+      "startTime": "2026-10-04T02:30:00Z",
+      "status": "UPCOMING",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/wr69xv1629387151.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/b4sbj21688514660.png",
+      "broadcasters": []
+    },
+    {
+      "eventId": "cric_56d07759-19dd-4a8c-a3d5-58bfd6a142a1",
+      "sport": "Cricket",
+      "league": "ODI Match",
+      "homeTeam": "India",
+      "awayTeam": "West Indies",
+      "startTime": "2026-09-30T08:30:00Z",
+      "status": "FINISHED",
+      "homeTeamLogo": "https://g.cricapi.com/iapi/31-637877061080567215.webp?w=48",
+      "awayTeamLogo": "https://g.cricapi.com/iapi/100-637877077978319234.webp?w=48",
+      "score": [
+        {
+          "r": 405,
+          "w": 7,
+          "o": 50,
+          "inning": "West Indies Inning 1"
+        },
+        {
+          "r": 406,
+          "w": 2,
+          "o": 43.3,
+          "inning": "India Inning 1"
+        }
+      ],
+      "broadcasters": []
+    },
+    {
+      "eventId": "tsdb_2532677",
+      "sport": "Basketball",
+      "league": "Mexican LNBP",
+      "homeTeam": "Correcaminos UAT Victoria",
+      "awayTeam": "Lobos de Puebla",
+      "startTime": "2026-10-03T01:15:00Z",
+      "status": "FINISHED",
+      "homeTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/5efdy91693990767.png",
+      "awayTeamLogo": "https://r2.thesportsdb.com/images/media/team/badge/dwniih1782898976.png",
+      "broadcasters": []
+    }
+  ]
+}

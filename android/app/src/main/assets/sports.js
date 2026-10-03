@@ -1368,13 +1368,14 @@ class SportsCoordinator {
     // 4. Verified Logic-Based Sources (Second Priority - ONLY if no Direct API matched)
     // -------------------------------------------------------------------------------------
     if (verifiedChannelEntries.length === 0) {
-      // 4a. Reliable Mapped Channel Check (Authenticated Persistent Audit Cache)
+      // 4a. Reliable Mapped Channel Check (Authenticated Persistent Audit Cache from verified API broadcaster resolution)
       const mappedCh = this.getMappedChannel(event);
-      if (mappedCh && mappedCh.active === true && !seenChannelIds.has(mappedCh.id)) {
+      const entry = mappedCh?._mappingEntry || {};
+      const isAuthenticApiVerifiedCache = entry.sourceField && entry.sourceField !== 'official_franchise_contract';
+      if (mappedCh && mappedCh.active === true && isAuthenticApiVerifiedCache && !seenChannelIds.has(mappedCh.id)) {
         const chainCheck = this.validateAuthorizationChain(mappedCh.name || mappedCh.id, mappedCh, event);
         if (chainCheck.valid) {
           seenChannelIds.add(mappedCh.id);
-          const entry = mappedCh._mappingEntry || {};
           const vDetail = entry.verificationDetail || `Verified event mapping from persistent audit cache for event ${eventId}`;
           verifiedChannelEntries.push({
             channel: mappedCh,
@@ -1384,74 +1385,6 @@ class SportsCoordinator {
             token: eventId,
             verificationDetail: vDetail
           });
-        }
-      }
-
-      // 4b. Official WWE Flagship Franchise Contract (Verified Logic-Based)
-      const isWwe = this.isWweEvent(event);
-      if (isWwe) {
-        const wweCandidateIds = ['ch-sony-sports-2-hd', 'ch-sony-sports-ten-2-hd', 'ch-sony-sports-ten-3', 'ch-tnt-sports-4'];
-        for (const wweCid of wweCandidateIds) {
-          const wweChannel = sportsChannels.find(c => c && c.id === wweCid && c.active === true);
-          if (wweChannel && !seenChannelIds.has(wweChannel.id)) {
-            const chainCheck = this.validateAuthorizationChain('WWE Contract', wweChannel, event);
-            if (chainCheck.valid) {
-              seenChannelIds.add(wweChannel.id);
-              verifiedChannelEntries.push({
-                channel: wweChannel,
-                source: 'Official WWE Contract',
-                sourceType: 'verified_logic',
-                sourceField: 'official_franchise_contract',
-                token: 'WWE Contract',
-                verificationDetail: `WWE official South Asian broadcast rights contract -> ${wweChannel.name} (${wweChannel.id})`
-              });
-              break;
-            }
-          }
-        }
-      }
-
-      // 4b-cricket. Official Cricket Broadcast Rights Contract (Verified Logic-Based)
-      if (sport === 'cricket') {
-        const t1Name = event.team1?.name || event.homeTeam?.name || '';
-        const t2Name = event.team2?.name || event.awayTeam?.name || '';
-        const crContext = `${tourn} ${title} ${t1Name} ${t2Name}`.toLowerCase();
-        let crCandidateIds = ['ch-willow-hd', 'ch-t-sports-hd', 'ch-cricket-gold'];
-
-        if (/\b(bangladesh|ban|bpl|bangladesh premier league|dhaka|chattogram|chittagong|rangpur|sylhet|barishal|khulna|rajshahi)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-t-sports-hd', 'ch-t-sports-server-2', 'ch-gazi-tv'];
-        } else if (/\b(india|ind|ipl|indian premier league|wpl|ranji|duleep|irani|syed mushtaq|delhi|mumbai|chennai|kolkata|bengaluru|bangalore|hyderabad|rajasthan|punjab|gujarat|lucknow)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-dd-sports', 'ch-willow-hd'];
-        } else if (/\b(pakistan|pak|psl|pakistan super league|lahore|karachi|multan|peshawar|quetta|islamabad)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-ptv-sports-hd', 'ch-a-sports', 'ch-ten-sports-hd', 'ch-willow-hd'];
-        } else if (/\b(england|eng|county|vitality blast|the hundred|one-day cup|surrey|yorkshire|somerset|lancashire|middlesex|hampshire|sussex|durham|essex|glamorgan|warwickshire|nottinghamshire|kent|gloucestershire|derbyshire|worcestershire|leicestershire|northamptonshire)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-sky-sports-cricket', 'ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd', 'ch-willow-hd'];
-        } else if (/\b(australia|aus|big bash|bbl|wbbl|sheffield shield|marsh cup|victoria|new south wales|tasmania|queensland|scorchers|sixers|thunder|renegades|strikers|hurricanes|brisbane heat|melbourne stars)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-fox-cricket-501', 'ch-star-sports-1-hd', 'ch-willow-hd'];
-        } else if (/\b(south africa|rsa|sa20|titans|warriors|dolphins|lions|western province|north west|northern cape|limpopo|boland|knights|paarl|joburg|pretoria|durban)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-sky-sports-cricket', 'ch-star-sports-1-hd', 'ch-willow-sports'];
-        } else if (/\b(sri lanka|lpl|new zealand|super smash|zimbabwe|afghanistan|asia cup|nepal|oman|uae|united arab emirates|hong kong)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-sony-sports-ten-2-hd', 'ch-sony-sports-2-hd', 'ch-ten-cricket', 'ch-t-sports-hd', 'ch-willow-hd'];
-        } else if (/\b(west indies|windies|cpl|caribbean premier league|mlc|major league cricket|usa|united states|canada|bermuda|bahamas|cayman)\b/i.test(crContext)) {
-          crCandidateIds = ['ch-willow-hd', 'ch-willow-sports', 'ch-star-sports-1-hd', 'ch-ten-cricket'];
-        }
-
-        for (const crCid of crCandidateIds) {
-          const crChannel = sportsChannels.find(c => c && c.id === crCid && c.active === true);
-          if (crChannel && !seenChannelIds.has(crChannel.id)) {
-            const chainCheck = this.validateAuthorizationChain('Cricket Broadcast Contract', crChannel, event);
-            if (chainCheck.valid) {
-              seenChannelIds.add(crChannel.id);
-              verifiedChannelEntries.push({
-                channel: crChannel,
-                source: 'Official Cricket Broadcast Contract',
-                sourceType: 'verified_logic',
-                sourceField: 'official_franchise_contract',
-                token: 'Cricket Broadcast Contract',
-                verificationDetail: `Official Cricket broadcast rights contract -> ${crChannel.name} (${crChannel.id})`
-              });
-            }
-          }
         }
       }
 
