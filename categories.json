@@ -1,14 +1,5 @@
 [
   {
-    "id": "sports",
-    "name": "Sports",
-    "icon": "fa-trophy",
-    "logo": "./assets/category-logos/sports-channels.png",
-    "ringColor": "#10b981",
-    "glowColor": "rgba(16, 185, 129, 0.4)",
-    "description": "T Sports HD, PTV Sports, Willow HD, TSN, beIN, SonyLiv, Star Sports Network, Football, Cricket & more"
-  },
-  {
     "id": "bangla",
     "name": "Bangla",
     "icon": "fa-tv",

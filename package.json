@@ -10,7 +10,10 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "sync:android": "node scripts/generate_bundled_data.cjs && node scripts/sync-android-assets.cjs",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "test:load:health": "k6 run -e BASE_URL=${BASE_URL:-http://localhost:3000} tests/load/health.js",
+    "test:load:integrity": "k6 run -e BASE_URL=${BASE_URL:-http://localhost:3000} tests/load/broadcaster-integrity.js",
+    "test:load:production": "k6 run -e BASE_URL=${BASE_URL:-http://localhost:3000} tests/load/production-load.js"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -26,6 +29,7 @@
     "hls.js": "^1.7.0",
     "lucide-react": "^0.546.0",
     "motion": "^12.23.24",
+    "pdfkit": "^0.20.2",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
     "vite": "^6.2.3"
@@ -34,6 +38,7 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^22.14.0",
+    "@types/pdfkit": "^0.17.6",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.28.2",
     "sharp": "^0.35.3",

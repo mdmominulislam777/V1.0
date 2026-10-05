@@ -247,7 +247,8 @@
    * Deterministic verified broadcaster aliases mapped strictly to HighFy TV channels.json IDs
    */
   const EXPLICIT_CATALOG_ALIASES = {
-    'tsports': ['ch-t-sports-hd', 'ch-t-sports-server-2'],
+    'tsports': ['ch-t-sports-hd', 'ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7', 'ch-t-sports-server-2'],
+    'tsportshd': ['ch-t-sports-hd', 'ch-ayna-019de785-3962-77a1-8f50-c541bb5a02c7', 'ch-t-sports-server-2'],
     'gazitv': ['ch-gazi-tv'],
     'gtv': ['ch-gazi-tv'],
     'gazitelevision': ['ch-gazi-tv'],

@@ -4100,6 +4100,19 @@ body .category-name,
 }
 
 /* Fullscreen Mode (Native & CSS Fullscreen) */
+#player-modal.fullscreen {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-width: 100vw !important;
+  max-height: 100vh !important;
+  z-index: 9999999 !important;
+  background: #000000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
 :fullscreen .player-video-wrapper,
 :-webkit-full-screen .player-video-wrapper,
 .player-video-wrapper:fullscreen,

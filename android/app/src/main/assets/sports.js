@@ -5,6 +5,28 @@
  * Compatible with GitHub Pages.
  */
 
+/**
+ * Helper function to normalize strings:
+ * Strips spaces, special characters, case sensitivity, and common prefixes (e.g., tsdb-, cr-, ch-, event-).
+ */
+function normalizeString(str) {
+  if (!str || typeof str !== 'string') return '';
+  return str
+    .toLowerCase()
+    .replace(/^(tsdb|cr|ch|event|mcenter)[-_]/i, '')
+    .replace(/[\s\-_.:/\\,+|&]+/g, ' ')
+    .replace(/[^a-z0-9 ]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+if (typeof window !== 'undefined') {
+  window.normalizeString = normalizeString;
+}
+if (typeof globalThis !== 'undefined') {
+  globalThis.normalizeString = normalizeString;
+}
+
 class SportsCoordinator {
   constructor() {
     this.events = [];
@@ -271,23 +293,169 @@ class SportsCoordinator {
   }
 
   /**
+   * Helper function normalizeString inside SportsCoordinator
+   */
+  normalizeString(str) {
+    return normalizeString(str);
+  }
+
+  /**
+   * Smart Broadcaster Search in channels.json:
+   * Match extracted normalized broadcaster string against all channel name, title, and tags inside channels.json
+   * with fuzzy keyword matching.
+   */
+  findChannelsByBroadcasterSearch(broadcasterText, sportsChannels, eventSport) {
+    if (!broadcasterText || typeof broadcasterText !== 'string' || broadcasterText.trim().length < 3 || !Array.isArray(sportsChannels) || sportsChannels.length === 0) return [];
+    const rawLower = broadcasterText.trim().toLowerCase();
+    const invalidTokens = ['null', 'undefined', 'none', 'tbd', 'unknown', 'n/a', 'na', 'live', 'stream', 'match', 'sports', 'tv'];
+    if (invalidTokens.includes(rawLower)) return [];
+
+    if (this.isBannedNetworkOrOttName(broadcasterText) || this.isBannedNetworkOrOttName(rawLower)) return [];
+
+    const normBcast = normalizeString(broadcasterText);
+    if (!normBcast || normBcast.length < 3 || invalidTokens.includes(normBcast)) return [];
+    if (this.isBannedNetworkOrOttName(normBcast)) return [];
+
+    const bcastKeywords = normBcast.split(' ').filter(w => w.length >= 3 && !['the', 'and', 'live', 'network', 'tv', 'hd', 'channel', 'sports'].includes(w));
+    if (bcastKeywords.length === 0 && normBcast.length < 4) return [];
+
+    const activeChannels = sportsChannels.filter(c => {
+      if (!c) return false;
+      const isActive = c.active === true || c.is_active === true || (c.active !== false && c.is_active !== false);
+      const isLive = c.isLive !== false && c.is_live !== false;
+      const hasStream = Boolean(c.streamUrl || c.stream_url || c.url || (Array.isArray(c.streams) && c.streams.length > 0));
+      return isActive && isLive && hasStream;
+    });
+
+    const scoredChannels = [];
+
+    for (const ch of activeChannels) {
+      const chNameNorm = normalizeString(ch.name || ch.title || '');
+      const chIdNorm = normalizeString(ch.id || '');
+      const chTags = Array.isArray(ch.tags) ? ch.tags.map(t => normalizeString(String(t))) : [];
+      const chSports = Array.isArray(ch.sports) ? ch.sports.map(s => normalizeString(String(s))) : [];
+
+      let score = 0;
+
+      if (chNameNorm === normBcast || chIdNorm === normBcast) {
+        score += 100;
+      } else if ((chNameNorm.length >= 4 && normBcast.includes(chNameNorm)) || (normBcast.length >= 4 && chNameNorm.includes(normBcast))) {
+        score += 70;
+      }
+
+      let matchedKeywords = 0;
+      for (const kw of bcastKeywords) {
+        if (chNameNorm.includes(kw) || chIdNorm.includes(kw) || chTags.some(t => t.includes(kw))) {
+          matchedKeywords++;
+          score += 25;
+        }
+      }
+
+      if (eventSport) {
+        const sNorm = normalizeString(eventSport);
+        if (chSports.some(s => s.includes(sNorm) || sNorm.includes(s)) || (ch.category && normalizeString(ch.category).includes(sNorm))) {
+          score += 10;
+        }
+      }
+
+      // Must have matched specific non-stopword keywords or exact name match
+      if ((score >= 60 && (matchedKeywords > 0 || chNameNorm === normBcast || chIdNorm === normBcast)) || (bcastKeywords.length > 0 && matchedKeywords === bcastKeywords.length)) {
+        scoredChannels.push({ channel: ch, score });
+      }
+    }
+
+    scoredChannels.sort((a, b) => b.score - a.score || (a.channel.priority || 99) - (b.channel.priority || 99));
+    return scoredChannels.map(sc => sc.channel);
+  }
+
+  /**
+   * Sport & League Default Fallback (Secondary Fallback):
+   * If API provides NO broadcaster name or broadcaster search returns 0 channels,
+   * query channels.json for all verified, active channels tagged with that specific sport.
+   */
+  findChannelsBySportFallback(sportName, sportsChannels) {
+    if (!sportName || !Array.isArray(sportsChannels)) return [];
+    const sNorm = normalizeString(sportName);
+    if (!sNorm) return [];
+
+    const activeChannels = sportsChannels.filter(c => {
+      if (!c) return false;
+      const isActive = c.active === true || c.is_active === true || (c.active !== false && c.is_active !== false);
+      const isLive = c.isLive !== false && c.is_live !== false;
+      const hasStream = Boolean(c.streamUrl || c.stream_url || c.url || (Array.isArray(c.streams) && c.streams.length > 0));
+      return isActive && isLive && hasStream;
+    });
+
+    const matched = activeChannels.filter(c => {
+      const chSports = Array.isArray(c.sports) ? c.sports.map(s => normalizeString(String(s))) : [];
+      const chCat = normalizeString(c.category || '');
+      const chCats = Array.isArray(c.categories) ? c.categories.map(x => normalizeString(String(x))) : [];
+      const chName = normalizeString(c.name || '');
+
+      if (sNorm === 'cricket') {
+        return chSports.includes('cricket') || chCats.includes('cricket') ||
+          chName.includes('cricket') || chName.includes('willow') || chName.includes('t sports') ||
+          chName.includes('tsports') || chName.includes('ptv sports') || chName.includes('star sports') ||
+          chName.includes('gazi') || chName.includes('gtv') || chName.includes('a sports') || chName.includes('ten sports');
+      } else if (sNorm === 'football' || sNorm === 'soccer') {
+        return chSports.includes('football') || chSports.includes('soccer') || chCats.includes('football') ||
+          chName.includes('football') || chName.includes('premier league') || chName.includes('la liga') ||
+          chName.includes('bein sports') || chName.includes('sky sports') || chName.includes('tnt sports') ||
+          chName.includes('sony sports') || chName.includes('dazn');
+      } else if (sNorm === 'basketball' || sNorm === 'nba') {
+        return chSports.includes('basketball') || chSports.includes('nba') || chCats.includes('basketball') ||
+          chName.includes('nba') || chName.includes('espn') || chName.includes('tnt sports');
+      } else if (sNorm === 'tennis') {
+        return chSports.includes('tennis') || chCats.includes('tennis') || chName.includes('tennis') ||
+          chName.includes('eurosport') || chName.includes('sony sports') || chName.includes('bein sports');
+      } else if (sNorm === 'wwe' || sNorm === 'combat' || sNorm === 'ufc' || sNorm === 'boxing') {
+        return chSports.some(s => s.includes('wwe') || s.includes('combat') || s.includes('ufc')) ||
+          chName.includes('wwe') || chName.includes('ufc') || chName.includes('sony ten') || chName.includes('tnt');
+      } else if (sNorm === 'motorsport' || sNorm === 'f1' || sNorm === 'racing') {
+        return chSports.some(s => s.includes('motor') || s.includes('f1') || s.includes('racing')) ||
+          chName.includes('f1') || chName.includes('sky sports f1') || chName.includes('motorsport');
+      }
+
+      return chSports.some(s => s.includes(sNorm) || sNorm.includes(s)) ||
+        chCats.some(ct => ct.includes(sNorm) || sNorm.includes(ct)) ||
+        chCat.includes(sNorm) ||
+        chName.includes(sNorm);
+    });
+
+    matched.sort((a, b) => (a.priority || 99) - (b.priority || 99));
+    return matched;
+  }
+
+  /**
    * Resolve authentic Fixture Broadcaster directly from API if missing
    */
   async resolveFixtureBroadcaster(event) {
-    if (!event || (event.source && (String(event.source).toLowerCase().includes('cricketdata') || String(event.source).toLowerCase().includes('cricapi')))) return null;
+    if (!event) return null;
 
     const fixtureId = event.rawId || event.idEvent || event.matchId || event.id;
     if (fixtureId) {
       try {
-        const cleanId = String(fixtureId).replace(/^tsdb-/, '');
         const apiBase = window.CONFIG?.API_BASE_URL || '';
-        const res = await fetch(`${apiBase}/api/fixture/broadcaster?fixtureId=${encodeURIComponent(cleanId)}`);
+        const sportParam = encodeURIComponent(event.sport || event.sportName || '');
+        const res = await fetch(`${apiBase}/api/fixture/broadcaster?fixtureId=${encodeURIComponent(fixtureId)}&sport=${sportParam}`);
         if (res.ok) {
           const data = await res.json();
-          if (data && data.status === 'success' && data.broadcaster) {
-            event.broadcaster = data.broadcaster;
-            event.broadcasters = data.broadcasters || [data.broadcaster];
-            event.strTVStation = data.broadcaster;
+          if (data && (data.status === 'success' || data.verified)) {
+            if (data.broadcaster && !data.broadcaster.includes('Live Channels')) {
+              event.broadcaster = data.broadcaster;
+              event.broadcasters = data.broadcasters || [data.broadcaster];
+              event.strTVStation = data.broadcaster;
+            }
+            if (data.channelId) {
+              event.channelId = data.channelId;
+            }
+            if (Array.isArray(data.streams) && data.streams.length > 0) {
+              event.streams = data.streams;
+              event.hasStream = true;
+            }
+            if (Array.isArray(data.channels) && data.channels.length > 0) {
+              event.channels = data.channels;
+            }
           }
         }
       } catch (e) {
@@ -323,7 +491,9 @@ class SportsCoordinator {
             ev.broadcastChannels = matchInfo.broadcastChannels;
             ev.broadcastingChannelDetails = matchInfo.broadcastingChannelDetails;
             ev.hasStream = true;
-            ev.channelId = matchInfo.streams[0]?.channelId || ev.channelId;
+            if (!matchInfo.isSportFallback && matchInfo.primaryChannelId) {
+              ev.channelId = matchInfo.primaryChannelId;
+            }
           } else {
             ev.streams = [];
             ev.broadcastChannels = [];
@@ -1117,16 +1287,29 @@ class SportsCoordinator {
    * - Validates complete 4-step authorization chain for every candidate channel.
    */
   findMatchingChannelsForBroadcaster(rawBroadcaster, sportsChannels, event) {
-    if (!rawBroadcaster || !Array.isArray(sportsChannels) || sportsChannels.length === 0) {
+    if (!rawBroadcaster || typeof rawBroadcaster !== 'string' || rawBroadcaster.trim().length < 3 || !Array.isArray(sportsChannels) || sportsChannels.length === 0) {
+      return [];
+    }
+
+    const cleanRaw = rawBroadcaster.trim();
+    const rawLower = cleanRaw.toLowerCase();
+    const invalidTokens = ['null', 'undefined', 'none', 'tbd', 'unknown', 'n/a', 'na', 'live', 'stream', 'match', 'sports', 'tv'];
+    if (invalidTokens.includes(rawLower)) {
+      return [];
+    }
+
+    if (this.isBannedNetworkOrOttName(cleanRaw) || this.isBannedNetworkOrOttName(rawLower)) {
       return [];
     }
 
     const aliases = this.getBroadcasterAliases();
     // Split on delimiters (comma, semicolon, slash, pipe, 'and', '&')
-    const tokens = String(rawBroadcaster)
+    const tokens = cleanRaw
       .split(/[,/|;+&]|\band\b|\bor\b/i)
       .map(t => t.trim())
-      .filter(Boolean);
+      .filter(t => t.length >= 3 && !invalidTokens.includes(t.toLowerCase()));
+
+    if (tokens.length === 0) return [];
 
     const matchedChannels = [];
     const matchedIds = new Set();
@@ -1408,6 +1591,58 @@ class SportsCoordinator {
           }
         }
       }
+
+      // 4d. Multi-Tier Fallback: Smart Broadcaster Search in channels.json (Fuzzy Keyword Matching)
+      // Strictly query real broadcaster/station fields only (NEVER event.title or event.name)
+      if (verifiedChannelEntries.length === 0) {
+        const candidateBroadcasterStrings = [
+          event.broadcaster,
+          event.strTVStation,
+          event.tvStation,
+          event.tv_rights,
+          event.tvRights,
+          event.broadcast,
+          event.network,
+          event.channelName,
+          event.broadcastingChannel
+        ].filter(b => b && typeof b === 'string' && b.trim().length >= 3);
+
+        for (const bStr of candidateBroadcasterStrings) {
+          const matched = this.findChannelsByBroadcasterSearch(String(bStr), sportsChannels, sport);
+          for (const ch of matched) {
+            if (!seenChannelIds.has(ch.id) && (ch.active === true || ch.is_active === true)) {
+              seenChannelIds.add(ch.id);
+              verifiedChannelEntries.push({
+                channel: ch,
+                source: `Broadcaster Search: ${bStr}`,
+                sourceType: 'broadcaster_search',
+                sourceField: 'broadcaster_search',
+                token: String(bStr),
+                verificationDetail: `Smart search matched broadcaster "${bStr}" -> ${ch.name}`
+              });
+            }
+          }
+          if (verifiedChannelEntries.length > 0) break;
+        }
+      }
+
+      // 4e. Multi-Tier Fallback: Sport & League Default Fallback (Secondary Fallback)
+      if (verifiedChannelEntries.length === 0 && sport) {
+        const sportFallbackChannels = this.findChannelsBySportFallback(sport, sportsChannels);
+        for (const ch of sportFallbackChannels) {
+          if (!seenChannelIds.has(ch.id) && (ch.active === true || ch.is_active === true)) {
+            seenChannelIds.add(ch.id);
+            verifiedChannelEntries.push({
+              channel: ch,
+              source: `Sport Fallback: ${sport}`,
+              sourceType: 'sport_fallback',
+              sourceField: 'sport_fallback',
+              token: sport,
+              verificationDetail: `Sport default fallback matched active channel ${ch.name} for ${sport}`
+            });
+          }
+        }
+      }
     }
 
     // -------------------------------------------------------------------------------------
@@ -1575,11 +1810,17 @@ class SportsCoordinator {
     console.log(`[CHANNEL_RESOLVER] ${devEvId} ${devSport} "${devLeague}" "${devHome}" "${devAway}" "${devBcast}" "${devCid}" "${devMatchRes}" ${devReason} ${devStreamCnt}`);
     console.log(`EVENT_ID=${devEvId} SPORT=${devSport} LEAGUE="${devLeague}" HOME_TEAM="${devHome}" AWAY_TEAM="${devAway}" BROADCASTER_FROM_API="${devBcast}" CHANNEL_ID_FROM_API="${devCid}" CHANNEL_MATCH_RESULT="${devMatchRes}" MATCH_REASON="${devReason}" AUTHORIZED_STREAM_COUNT=${devStreamCnt}`);
 
+    const isSportFallbackMode = verifiedChannelEntries.length > 0 && verifiedChannelEntries.every(e => e.sourceType === 'sport_fallback');
+    const primaryEntry = verifiedChannelEntries.find(e => e.sourceType !== 'sport_fallback');
+    const primaryChannelId = primaryEntry ? primaryEntry.channel.id : null;
+
     return {
       hasStream: allStreams.length > 0,
       streams: allStreams,
       broadcastChannels: broadcastingChannelDetails.map(c => c.name),
       broadcastingChannelDetails: broadcastingChannelDetails,
+      isSportFallback: isSportFallbackMode,
+      primaryChannelId: primaryChannelId,
       verificationSource: verifiedChannelEntries[0]?.sourceType || 'unverified',
       sourceField: verifiedChannelEntries[0]?.sourceField || null,
       verificationDetail: verifiedChannelEntries.map(e => e.verificationDetail).join('; ') || 'No verification'
@@ -2058,7 +2299,11 @@ class SportsCoordinator {
         ev.broadcastChannels = streamInfo.broadcastChannels;
         ev.broadcastingChannelDetails = streamInfo.broadcastingChannelDetails;
         ev.hasStream = true;
-        ev.channelId = streamInfo.streams[0]?.channelId || ev.channelId;
+        if (!streamInfo.isSportFallback && streamInfo.primaryChannelId) {
+          ev.channelId = streamInfo.primaryChannelId;
+        } else if (streamInfo.isSportFallback) {
+          ev.channelId = null;
+        }
       } else {
         ev.streams = [];
         ev.broadcastChannels = [];
@@ -2214,9 +2459,13 @@ class SportsCoordinator {
             ev.broadcastChannels = streamInfo.broadcastChannels;
             ev.broadcastingChannelDetails = streamInfo.broadcastingChannelDetails;
             ev.hasStream = true;
-            ev.channelId = streamInfo.streams[0]?.channelId || ev.channelId;
-            if (!ev.broadcaster && streamInfo.streams[0]?.channelName && !String(ev.source || '').toLowerCase().includes('cricketdata') && !String(ev.source || '').toLowerCase().includes('cricapi')) {
-              ev.broadcaster = streamInfo.streams[0].channelName;
+            if (!streamInfo.isSportFallback && streamInfo.primaryChannelId) {
+              ev.channelId = streamInfo.primaryChannelId;
+              if (!ev.broadcaster && streamInfo.streams[0]?.channelName && !String(ev.source || '').toLowerCase().includes('cricketdata') && !String(ev.source || '').toLowerCase().includes('cricapi')) {
+                ev.broadcaster = streamInfo.streams[0].channelName;
+              }
+            } else if (streamInfo.isSportFallback) {
+              ev.channelId = null;
             }
           } else {
             ev.streams = [];
@@ -2690,6 +2939,40 @@ class SportsCoordinator {
       console.warn('[SportsCoordinator] Gemini channel mapping fallback:', err.message);
       return null;
     }
+  }
+
+  /**
+   * Mid-Match Auth Expiry Handling:
+   * Validates authorization chain and seamlessly refreshes the stream token in the background
+   * without dropping the active video player session.
+   */
+  async renewBroadcasterAuth(event, channel, currentToken) {
+    if (!channel) return { refreshed: false, reason: 'No channel provided' };
+    const chainCheck = this.validateAuthorizationChain(currentToken || channel.name, channel, event);
+    if (!chainCheck.valid) {
+      console.warn('[SportsCoordinator] Authorization check failed during renewal:', chainCheck.reason);
+      return { refreshed: false, reason: chainCheck.reason };
+    }
+    try {
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
+      const response = await fetch(`${apiBase}/api/stream/renew-token`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: currentToken })
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return {
+          refreshed: true,
+          token: data.token,
+          proxyUrl: data.proxyUrl,
+          refreshedAt: data.refreshedAt
+        };
+      }
+    } catch (err) {
+      console.warn('[SportsCoordinator] Silent token refresh note:', err.message);
+    }
+    return { refreshed: false, reason: 'Renewal network fallback' };
   }
 }
 

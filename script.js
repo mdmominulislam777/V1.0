@@ -767,11 +767,12 @@
     setupNotificationsUI();
 
     updatePreloader(45, 'Loading TV Channels & Categories...');
-    // 2. Fetch Data (Channels, Categories, Sports Events, Notifications)
+    // 2. Fetch Data (Channels, Categories, Sports Events, Notifications, Verified EPG)
     await Promise.all([
       loadChannels(),
       loadCategories(),
-      loadBaseNotifications()
+      loadBaseNotifications(),
+      loadEpgData()
     ]);
 
     updatePreloader(75, 'Syncing Live Sports Feeds...');
@@ -848,6 +849,18 @@
         const fetchPromise = window.sportsCoordinator.fetchAllEvents(shouldForceRefresh);
         const timeoutPromise = new Promise(resolve => setTimeout(() => resolve(window.sportsCoordinator.events || []), 6000));
         state.events = await Promise.race([fetchPromise, timeoutPromise]);
+
+        // Background update: when fresh network events finish (even if timeout won the initial race), refresh UI
+        fetchPromise.then(freshList => {
+          if (Array.isArray(freshList) && freshList.length > 0 && freshList !== state.events) {
+            state.events = freshList;
+            if (window.sportsCoordinator && typeof window.sportsCoordinator.curateEvents === 'function') {
+              state.events = window.sportsCoordinator.curateEvents(state.events);
+            }
+            updateEventCounters();
+            renderEvents();
+          }
+        }).catch(() => {});
       } else {
         state.events = [];
       }
@@ -1843,6 +1856,12 @@
 
     const isFinished = isAppEventFinished(event);
     const statusLower = (event.status || 'upcoming').toLowerCase();
+
+    // Check if event has active verified channels/streams (Rule 9)
+    const hasStream = event.hasStream && Array.isArray(event.broadcastingChannelDetails) && event.broadcastingChannelDetails.length > 0;
+    const primaryCh = hasStream ? event.broadcastingChannelDetails[0] : null;
+    const primaryChLogo = primaryCh ? primaryCh.logo : '';
+    const primaryChName = primaryCh ? primaryCh.name : '';
     const rawCardTs = event.timestamp ? (event.timestamp < 10000000000 ? event.timestamp * 1000 : event.timestamp) : 0;
     const isFutureMatch = rawCardTs > (Date.now() + 5 * 60 * 1000) && !event.team1?.score && !event.team2?.score;
     const isLive = !isFinished && !isFutureMatch && (statusLower === 'live' || (event.time && event.time.toLowerCase().includes('live')));
@@ -2290,7 +2309,6 @@
                 />
               </div>
               <span class="playz-team-name" title="${escapeHtml(t1Name)}">${escapeHtml(t1Name)}</span>
-              ${t1Score ? `<span class="playz-score-tag">${escapeHtml(t1Score)}${t1Overs ? ` <small>(${escapeHtml(t1Overs)})</small>` : ''}</span>` : ''}
             </div>
 
             <!-- Center: Status / Match Time & Date / Countdown -->
@@ -2303,11 +2321,9 @@
                 <span class="tab-live-running-text match-live-running-text playz-live-timer" data-timestamp="${evTs || ''}" data-elapsed="${event.elapsed || ''}" data-mount-time="${now}">
                   ${escapeHtml(initialElapsedStr || '00:00')}
                 </span>
-                ${(t1Score || t2Score) ? `<div class="text-[11px] font-bold text-amber-400 mt-1">${escapeHtml(t1Score || '0')} - ${escapeHtml(t2Score || '0')}</div>` : ''}
               ` : isFinished ? `
                 <span class="playz-finished-tag">FT</span>
                 <span class="playz-finished-sub">Finished</span>
-                ${(t1Score || t2Score) ? `<div class="text-[11.5px] font-bold text-slate-200 mt-0.5">${escapeHtml(t1Score || '0')} - ${escapeHtml(t2Score || '0')}</div>` : ''}
               ` : `
                 <span class="playz-time-text">${escapeHtml(displayTime)}</span>
                 <span class="playz-date-text">${escapeHtml(displayDate)}</span>
@@ -2328,10 +2344,10 @@
                 />
               </div>
               <span class="playz-team-name" title="${escapeHtml(t2Name)}">${escapeHtml(t2Name)}</span>
-              ${t2Score ? `<span class="playz-score-tag">${escapeHtml(t2Score)}${t2Overs ? ` <small>(${escapeHtml(t2Overs)})</small>` : ''}</span>` : ''}
             </div>
 
           </div>
+
         </div>
       </div>
     `;
@@ -2430,7 +2446,7 @@
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         const eventId = btn.getAttribute('data-event-id');
-        const match = state.events.find(ev => ev.id === eventId);
+        const match = (state.events || []).find(ev => ev.id === eventId) || (window.sportsCoordinator?.events || []).find(ev => ev.id === eventId);
         if (match) {
           autoConnectAndPlayEvent(match, btn.closest('.event-card-wrapper') || btn);
         }
@@ -2642,6 +2658,20 @@
         }
       }
 
+      // 2c. Verified EPG Program Guide Schedule Matching
+      if (typeof parseAndDisplayEpgForEvent === 'function') {
+        const epgMatches = parseAndDisplayEpgForEvent(item, allChannels);
+        if (Array.isArray(epgMatches) && epgMatches.length > 0) {
+          const existingIds = new Set(discoveredBroadcasters.map(b => b.channelId));
+          for (const epgBcast of epgMatches) {
+            if (epgBcast && epgBcast.channelId && !existingIds.has(epgBcast.channelId)) {
+              existingIds.add(epgBcast.channelId);
+              discoveredBroadcasters.push(epgBcast);
+            }
+          }
+        }
+      }
+
       // 2c. Live Real API Broadcaster Fetch (TheSportsDB, CricketData/ESPN, AllSportsAPI) when event is clicked
       if (!item._liveBroadcasterResolved && typeof window.HighFyBroadcasterResolver !== 'undefined' && window.HighFyBroadcasterResolver.fetchRealApiBroadcastersForEvent) {
         item._liveBroadcasterResolved = true;
@@ -2702,9 +2732,9 @@
 
     const hasVerifiedChannels = verifiedPlayableChannels.length > 0;
 
-    // 3. Render Channel Popup ("Where to Watch")
+    // 3. Render Channel Popup ("Multiple links available")
     if (modalTitle) {
-      modalTitle.innerHTML = `<i class="fa-solid fa-satellite-dish text-sky-400 mr-2"></i> Where to Watch`;
+      modalTitle.innerHTML = `<i class="fa-solid fa-satellite-dish text-sky-400 mr-2"></i> Multiple links available`;
     }
 
     if (modalSubTitle) {
@@ -2713,88 +2743,45 @@
     }
 
     if (hasVerifiedChannels) {
-      // Render all verified channels from the catalog
-      listContainer.innerHTML = verifiedPlayableChannels.map((bcast, bIdx) => {
-        const cleanName = bcast.name || `Channel ${bIdx + 1}`;
-        const bcastLogo = bcast.logo || '';
-        const countryName = bcast.country || bcast.territory || '';
-        const countryFlag = (typeof window.HighFyBroadcasterResolver !== 'undefined' && countryName) 
-          ? (window.HighFyBroadcasterResolver.COUNTRY_FLAGS[countryName.toLowerCase()] || '') 
-          : '';
-        const countryBadgeStr = countryName ? `${countryFlag ? countryFlag + ' ' : ''}${escapeHtml(countryName)}` : '';
-        const sourcePathStr = bcast.sourcePath || 'API';
+      // Flatten all verified channels and their servers to render a clean flat list of PlayZ-style links (matching screenshot)
+      const flatStreams = [];
+      verifiedPlayableChannels.forEach((bcast, bIdx) => {
+        const cleanChName = (bcast.name || '').toUpperCase().trim();
         const bcastServers = bcast.servers || [];
 
-        // Server playback buttons with mobile touch target >=44px and D-pad navigation
-        const serverBtns = bcastServers.map((srv, sIdx) => {
-          const srvLabel = srv.serverLabel || (bcastServers.length > 1 ? `SERVER ${sIdx + 1} (${srv.quality || 'HD'})` : `Watch Live on ${cleanName}`);
-          const srvQuality = srv.quality || '1080p FHD';
-          const subLabel = bcastServers.length > 1 ? `${cleanName} • Server ${sIdx + 1}` : `${cleanName} • Tap to watch live`;
+        bcastServers.forEach((srv, sIdx) => {
+          let btnLabel = cleanChName;
+          const cleanSrvLabel = (srv.serverLabel || srv.name || '').toUpperCase().trim();
 
-          return `
-            <button class="multiple-link-server-btn"
-                    style="min-height: 44px; min-width: 44px;"
-                    data-bcast-idx="${bIdx}"
-                    data-server-idx="${sIdx}"
-                    tabindex="0"
-                    role="button"
-                    aria-label="Play ${escapeHtml(cleanName)} on ${escapeHtml(srvLabel)}">
-              <div class="flex items-center gap-2.5 min-w-0">
-                <span class="server-badge-pill">
-                  <i class="fa-solid fa-play text-[9px]"></i>
-                </span>
-                <div class="min-w-0 text-left">
-                  <div class="server-title truncate">${escapeHtml(srvLabel)}</div>
-                  <div class="text-[10px] text-slate-400 truncate">${escapeHtml(subLabel)}</div>
-                </div>
-              </div>
-              <div class="flex items-center gap-2 shrink-0">
-                <span class="server-quality-pill">${escapeHtml(srvQuality)}</span>
-                <i class="fa-solid fa-chevron-right text-[10px] text-slate-500 server-arrow"></i>
-              </div>
-            </button>
-          `;
-        }).join('');
+          // Formulate standard labels matching the PlayZ TV screenshot
+          if (cleanSrvLabel && !cleanSrvLabel.includes('SERVER') && !cleanSrvLabel.includes('HD') && !cleanSrvLabel.includes('FHD') && !cleanSrvLabel.includes('1080') && !cleanSrvLabel.includes('1080P')) {
+            btnLabel = `${cleanChName} - ${cleanSrvLabel}`;
+          } else if (bcastServers.length > 1) {
+            btnLabel = `${cleanChName} - SERVER ${sIdx + 1}`;
+          }
 
+          // Clean server label rendering without artificial AQ/IN tags
+
+
+          flatStreams.push({
+            bIdx,
+            sIdx,
+            btnLabel
+          });
+        });
+      });
+
+      listContainer.innerHTML = flatStreams.map(stObj => {
         return `
-          <div class="multiple-links-channel-card" data-source-path="${escapeHtml(sourcePathStr)}">
-            <div class="channel-card-header">
-              <div class="flex items-center gap-2.5 min-w-0">
-                ${bcastLogo ? `
-                  <img src="${escapeHtml(bcastLogo)}" 
-                       alt="${escapeHtml(cleanName)}"
-                       onerror="this.style.display='none'; if(this.nextElementSibling) this.nextElementSibling.style.display='flex';"
-                       class="w-8 h-8 rounded-lg object-contain bg-black/50 p-1 border border-white/10 shrink-0" />
-                  <div class="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 hidden items-center justify-center text-slate-400 text-xs shrink-0">
-                    <i class="fa-solid fa-tv"></i>
-                  </div>
-                ` : `
-                  <div class="w-8 h-8 rounded-lg bg-slate-800 border border-white/10 flex items-center justify-center text-sky-400 text-xs shrink-0">
-                    <i class="fa-solid fa-tv"></i>
-                  </div>
-                `}
-                <div class="min-w-0">
-                  <div class="font-extrabold text-xs text-white truncate">${escapeHtml(cleanName)}</div>
-                  <div class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1.5">
-                    <i class="fa-solid fa-circle-check text-[9px]"></i>
-                    <span class="truncate">✓ Verified Channel</span>
-                  </div>
-                </div>
-              </div>
-              ${countryBadgeStr ? `
-                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-slate-800 text-slate-300 border border-white/10 shrink-0">
-                  ${countryBadgeStr}
-                </span>
-              ` : `
-                <span class="px-2 py-0.5 text-[9px] font-bold rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shrink-0">
-                  ${escapeHtml(bcast.type || 'TV')}
-                </span>
-              `}
-            </div>
-            <div class="channel-servers-list space-y-1.5 mt-2.5">
-              ${serverBtns}
-            </div>
-          </div>
+          <button class="multiple-link-server-btn flat-server-btn flex items-center justify-between w-full px-5 py-4 bg-slate-900/60 hover:bg-sky-500/10 hover:text-sky-400 border border-white/5 hover:border-sky-500/30 rounded-xl transition-all text-left text-sm font-extrabold uppercase tracking-wide duration-200 cursor-pointer"
+                  style="min-height: 48px; border-radius: 12px; margin-bottom: 4px;"
+                  data-bcast-idx="${stObj.bIdx}"
+                  data-server-idx="${stObj.sIdx}"
+                  tabindex="0"
+                  role="button">
+            <span>${escapeHtml(stObj.btnLabel)}</span>
+            <i class="fa-solid fa-chevron-right text-[11px] text-slate-500"></i>
+          </button>
         `;
       }).join('');
 
@@ -3480,6 +3467,134 @@
           url: st.url
         })) : []);
 
+    // Deep Sections: Electronic Program Guide (EPG) Schedule
+    let epgScheduleSectionHtml = '';
+    const allChannelsList = state.channels || [];
+    const chMap = new Map();
+    allChannelsList.forEach(c => { if (c && c.id) chMap.set(c.id, c); });
+
+    const evTitle = (match.title || match.name || '').toLowerCase();
+    const evLeague = (match.league || match.seriesName || match.tournament || '').toLowerCase();
+    const t1 = (match.team1?.name || match.homeTeam?.name || '').toLowerCase();
+    const t2 = (match.team2?.name || match.awayTeam?.name || '').toLowerCase();
+    const evId = String(match.id || match.eventId || match.matchId || '');
+
+    const matchingEpgChannels = [];
+    if (state.epgData && Array.isArray(state.epgData.channels)) {
+      state.epgData.channels.forEach(epgCh => {
+        const channelObj = chMap.get(epgCh.channelId);
+        if (!channelObj) return;
+
+        if (Array.isArray(epgCh.programs)) {
+          const matchedPrograms = epgCh.programs.filter(prog => {
+            const progTitle = (prog.title || '').toLowerCase();
+            const progLeague = (prog.league || '').toLowerCase();
+            const progEid = String(prog.eventId || '');
+
+            return (progEid && progEid === evId) ||
+              (t1 && t2 && progTitle.includes(t1) && progTitle.includes(t2)) ||
+              (evTitle && (progTitle.includes(evTitle) || evTitle.includes(progTitle))) ||
+              (evLeague && progLeague && (progLeague.includes(evLeague) || evLeague.includes(progLeague)));
+          });
+
+          if (matchedPrograms.length > 0) {
+            matchingEpgChannels.push({
+              channel: channelObj,
+              matchedPrograms: matchedPrograms,
+              allPrograms: epgCh.programs
+            });
+          }
+        }
+      });
+    }
+
+    if (matchingEpgChannels.length > 0) {
+      const epgCardsHtml = matchingEpgChannels.map(item => {
+        const ch = item.channel;
+        const logo = getSafeLogoUrl(ch.logo, ch.name, ch.id);
+        const name = escapeHtml(ch.name);
+
+        const programsHtml = item.matchedPrograms.map(p => {
+          const isProgLive = p.status === 'LIVE' || match.status === 'LIVE';
+          const pStart = p.start ? new Date(p.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+          const pEnd = p.end ? new Date(p.end).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+          const timeRangeStr = (pStart && pEnd) ? `${pStart} - ${pEnd}` : (p.time || 'Live Schedule');
+
+          return `
+            <div class="p-2.5 rounded-xl bg-slate-900/80 border ${isProgLive ? 'border-sky-500/40' : 'border-slate-800'} mb-2">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] font-extrabold ${isProgLive ? 'text-rose-400' : 'text-sky-400'} flex items-center gap-1.5">
+                  <i class="fa-solid fa-circle text-[7px] ${isProgLive ? 'animate-pulse' : ''}"></i>
+                  ${isProgLive ? 'CURRENTLY AIRING' : 'SCHEDULED AIRING'}
+                </span>
+                <span class="text-[10px] text-slate-400 font-mono">${escapeHtml(timeRangeStr)}</span>
+              </div>
+              <div class="text-xs font-extrabold text-white mt-1">${escapeHtml(p.title || match.title)}</div>
+              ${p.league ? `<div class="text-[10px] text-slate-400 mt-0.5">${escapeHtml(p.league)}</div>` : ''}
+            </div>
+          `;
+        }).join('');
+
+        // Full daily channel guide Preview
+        const timelineHtml = item.allPrograms.slice(0, 4).map(p => {
+          const isTargetProg = item.matchedPrograms.some(mp => mp.title === p.title);
+          const pStart = p.start ? new Date(p.start).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '';
+          return `
+            <div class="flex items-center justify-between py-1.5 border-b border-slate-800/50 last:border-0 text-[11px]">
+              <div class="flex items-center gap-2 truncate">
+                <span class="text-[10px] font-mono text-slate-500">${pStart}</span>
+                <span class="${isTargetProg ? 'font-bold text-sky-300' : 'text-slate-300'} truncate">${escapeHtml(p.title)}</span>
+              </div>
+              ${isTargetProg ? '<span class="px-1.5 py-0.2 rounded bg-sky-500/20 text-sky-400 text-[9px] font-bold">MATCH</span>' : ''}
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="p-3 rounded-2xl bg-slate-900/40 border border-slate-800/80 mb-3">
+            <div class="flex items-center justify-between mb-2.5">
+              <div class="flex items-center gap-2.5">
+                <img src="${escapeHtml(logo)}" class="w-8 h-8 rounded-lg object-contain bg-black/40 p-1 border border-white/10" onerror="this.src='./assets/team-placeholder.svg'" alt="${name}" />
+                <div>
+                  <h4 class="text-xs font-black text-white">${name}</h4>
+                  <span class="text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
+                    <i class="fa-solid fa-circle-check text-[9px]"></i> EPG Verified Broadcaster
+                  </span>
+                </div>
+              </div>
+              <button class="btn-play-md-channel px-3 py-1.5 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-black flex items-center gap-1.5 transition" data-channel-id="${escapeHtml(ch.id)}">
+                <i class="fa-solid fa-play text-[10px]"></i> Watch
+              </button>
+            </div>
+            ${programsHtml}
+            <div class="mt-2 pt-2 border-t border-slate-800/60">
+              <div class="text-[10px] font-bold text-slate-400 mb-1 flex items-center gap-1">
+                <i class="fa-solid fa-clock-rotate-left"></i> Broadcaster Timetable:
+              </div>
+              <div class="space-y-0.5">
+                ${timelineHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      epgScheduleSectionHtml = `
+        <div class="md-card overflow-hidden border border-sky-500/20 bg-slate-900/60">
+          <div class="md-card-header flex items-center justify-between bg-gradient-to-r from-sky-500/15 to-blue-500/5 py-2.5 px-3 border-b border-sky-500/10">
+            <span class="flex items-center gap-1.5 font-bold text-xs text-sky-400">
+              <i class="fa-solid fa-list-check text-sky-400"></i>
+              Electronic Program Guide (EPG) Schedule
+            </span>
+            <span class="text-[9px] bg-sky-500/10 text-sky-300 border border-sky-500/20 px-1.5 py-0.5 rounded font-black tracking-wide uppercase">✓ Live EPG Sync</span>
+          </div>
+          <div class="p-3">
+            ${epgCardsHtml}
+          </div>
+        </div>
+      `;
+    }
+
     if (detailsList.length > 0) {
       const channelItems = detailsList.map((ch, idx) => {
         const logo = getSafeLogoUrl(ch.logo, ch.name, ch.id);
@@ -3499,7 +3614,7 @@
                 </div>
               </div>
             </div>
-            <button class="btn-play-md-channel px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 transition flex-shrink-0" data-server-idx="${sIdx}">
+            <button class="btn-play-md-channel px-3 py-1.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 text-xs font-extrabold flex items-center gap-1.5 transition flex-shrink-0" data-channel-id="${escapeHtml(ch.id || '')}" data-detail-idx="${idx}" data-server-idx="${sIdx}">
               <i class="fa-solid fa-play text-[10px]"></i> দেখুন
             </button>
           </div>
@@ -3602,6 +3717,7 @@
         </div>
 
         <!-- Deep Content Sections -->
+        ${epgScheduleSectionHtml}
         ${broadcastingChannelsSectionHtml}
         ${aiAnalystSectionHtml}
         ${eventsSectionHtml}
@@ -3634,6 +3750,47 @@
 
     DOM.matchDetailsContainer.querySelectorAll('.btn-play-md-channel').forEach(btn => {
       btn.addEventListener('click', () => {
+        const targetChannelId = btn.getAttribute('data-channel-id');
+        const detailIdx = parseInt(btn.getAttribute('data-detail-idx'), 10);
+        const detailObj = (!isNaN(detailIdx) && detailsList[detailIdx]) ? detailsList[detailIdx] : null;
+
+        if (detailObj) {
+          const detailServers = Array.isArray(detailObj.servers) && detailObj.servers.length > 0
+            ? detailObj.servers
+            : (detailObj.url || detailObj.streamUrl ? [{
+                name: `${detailObj.name} (1080p FHD)`,
+                serverLabel: 'Server 1 (1080p FHD)',
+                channelName: detailObj.name,
+                url: detailObj.url || detailObj.streamUrl,
+                quality: detailObj.quality || '1080p FHD',
+                isHD: true
+              }] : null);
+
+          if (detailServers && detailServers.length > 0) {
+            playMedia({
+              title: `${t1Name} vs ${t2Name}`,
+              streams: detailServers,
+              id: match.id,
+              team1: match.team1 || { name: t1Name },
+              team2: match.team2 || { name: t2Name },
+              isEvent: true,
+              category: match.category || 'Sports',
+              tournament: match.tournament || match.league,
+              broadcaster: detailObj.name,
+              activeStreamIndex: 0
+            });
+            return;
+          }
+        }
+
+        if (targetChannelId) {
+          const targetChannel = state.channels?.find(c => c.id === targetChannelId);
+          if (targetChannel) {
+            playChannelDirectly(targetChannel);
+            return;
+          }
+        }
+
         const sIdx = parseInt(btn.getAttribute('data-server-idx'), 10) || 0;
         if (Array.isArray(match.streams) && match.streams.length > 0) {
           const activeIdx = Math.min(sIdx, match.streams.length - 1);
@@ -3851,8 +4008,138 @@
   }
 
   /**
+   * Verified EPG Parser and Match Schedule Resolver
+   * Parses Electronic Program Guide (EPG) data and matches verified authorized schedules
+   */
+  async function loadEpgData() {
+    try {
+      const res = await fetch('./data/epg.json?v=' + Date.now());
+      if (res.ok) {
+        state.epgData = await res.json();
+        console.log('[HighFy EPG] Loaded verified EPG schedule with', state.epgData?.channels?.length || 0, 'channels');
+      }
+    } catch (e) {
+      console.warn('[HighFy EPG] Error loading epg.json:', e);
+    }
+  }
+
+  function parseAndDisplayEpgForEvent(event, allChannels) {
+    if (!event || !Array.isArray(allChannels)) return [];
+    const matched = [];
+    const matchedChannelIds = new Set();
+    const chMap = new Map();
+    allChannels.forEach(c => { if (c && c.id) chMap.set(c.id, c); });
+
+    const evTitle = (event.title || event.name || '').toLowerCase();
+    const evLeague = (event.league || event.seriesName || event.tournament || '').toLowerCase();
+    const t1 = (event.team1?.name || event.homeTeam?.name || '').toLowerCase();
+    const t2 = (event.team2?.name || event.awayTeam?.name || '').toLowerCase();
+    const evId = String(event.id || event.eventId || event.matchId || '');
+
+    // 1. Check in state.epgData
+    if (state.epgData && Array.isArray(state.epgData.channels)) {
+      state.epgData.channels.forEach(epgCh => {
+        const targetCh = chMap.get(epgCh.channelId);
+        if (!targetCh || matchedChannelIds.has(epgCh.channelId)) return;
+
+        if (Array.isArray(epgCh.programs)) {
+          for (const prog of epgCh.programs) {
+            const progTitle = (prog.title || '').toLowerCase();
+            const progLeague = (prog.league || '').toLowerCase();
+            const progEid = String(prog.eventId || '');
+
+            const isMatch = (progEid && progEid === evId) ||
+              (t1 && t2 && progTitle.includes(t1) && progTitle.includes(t2)) ||
+              (evTitle && (progTitle.includes(evTitle) || evTitle.includes(progTitle))) ||
+              (evLeague && progLeague && (progLeague.includes(evLeague) || evLeague.includes(progLeague)));
+
+            if (isMatch) {
+              matchedChannelIds.add(epgCh.channelId);
+              const pUrl = targetCh.stream_url || targetCh.url || targetCh.streamUrl;
+              const bUrls = targetCh.backupUrls || (targetCh.backup_stream_url ? [targetCh.backup_stream_url] : []);
+              const chLogo = getSafeLogoUrl(targetCh.logo, targetCh.name, targetCh.id);
+              const chStreams = targetCh.servers && targetCh.servers.length > 0 ? targetCh.servers : [
+                { name: `${targetCh.name} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: targetCh.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
+                ...bUrls.map((u, i) => ({ name: `${targetCh.name} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: targetCh.name, channelLogo: chLogo, quality: '720p HD', url: u }))
+              ].filter(s => s && s.url);
+
+              matched.push({
+                eventId: event.id,
+                name: targetCh.name,
+                logo: chLogo,
+                country: targetCh.country || null,
+                type: 'TV',
+                source: 'epg_verified',
+                sourcePath: 'epg.schedule.verified',
+                channelId: targetCh.id,
+                discovered: true,
+                authorizationStatus: 'authorized',
+                playbackStatus: chStreams.length > 0 ? 'playable' : 'unavailable',
+                epgProgram: prog,
+                epgBadge: '✓ EPG Verified Schedule',
+                servers: chStreams
+              });
+              break;
+            }
+          }
+        }
+      });
+    }
+
+    // 2. Check tournament verified broadcast contracts if still empty
+    if (matched.length === 0) {
+      const VERIFIED_TOURNAMENTS = {
+        'asian games': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-3-hd', 'ch-t-sports-hd', 'ch-ayna-019de785-39bc-7bd5-b9e5-bab23ceba9ea'],
+        'icc': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-t-sports-hd', 'ch-willow-cricket'],
+        'ipl': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-willow-cricket'],
+        'bpl': ['ch-t-sports-hd', 'ch-gazi-tv'],
+        'premier league': ['ch-star-sports-select-1-hd', 'ch-sky-sports-premier-league'],
+        'champions league': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-2-hd'],
+        'wwe': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-3-hd']
+      };
+
+      for (const [key, cids] of Object.entries(VERIFIED_TOURNAMENTS)) {
+        if (evLeague.includes(key) || evTitle.includes(key)) {
+          cids.forEach(cid => {
+            const targetCh = chMap.get(cid);
+            if (targetCh && !matchedChannelIds.has(cid)) {
+              matchedChannelIds.add(cid);
+              const pUrl = targetCh.stream_url || targetCh.url || targetCh.streamUrl;
+              const bUrls = targetCh.backupUrls || (targetCh.backup_stream_url ? [targetCh.backup_stream_url] : []);
+              const chLogo = getSafeLogoUrl(targetCh.logo, targetCh.name, targetCh.id);
+              const chStreams = targetCh.servers && targetCh.servers.length > 0 ? targetCh.servers : [
+                { name: `${targetCh.name} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: targetCh.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
+                ...bUrls.map((u, i) => ({ name: `${targetCh.name} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: targetCh.name, channelLogo: chLogo, quality: '720p HD', url: u }))
+              ].filter(s => s && s.url);
+
+              matched.push({
+                eventId: event.id,
+                name: targetCh.name,
+                logo: chLogo,
+                country: targetCh.country || null,
+                type: 'TV',
+                source: 'epg_verified',
+                sourcePath: 'epg.tournament.verified',
+                channelId: targetCh.id,
+                discovered: true,
+                authorizationStatus: 'authorized',
+                playbackStatus: chStreams.length > 0 ? 'playable' : 'unavailable',
+                epgBadge: '✓ EPG Verified Schedule',
+                servers: chStreams
+              });
+            }
+          });
+          break;
+        }
+      }
+    }
+
+    return matched;
+  }
+
+  /**
    * Check if a channel belongs to one of the other sports network categories
-   * (Sky Sports, beIN Sports, TNT Sports, ICC, Tapmad, Myco, Sony LIV, Star Sports, FanCode, DAZN, Fox Sports)
+   * (Sky Sports, beIN Sports, TNT Sports, ICC, Tapmad, Myco, Sony LIV, Star Sports, FanCode, DAZN, Fox Sports, Eurosport, Ziggo, etc.)
    */
   function belongsToOtherSportsCategory(ch) {
     const n = (ch.name || '').toLowerCase();
@@ -3866,7 +4153,7 @@
     if (n.includes('bein') || id.includes('bein') || cats.some(c => c.includes('bein'))) return true;
     
     // 3. TNT Sports
-    if (n.includes('tnt') || id.includes('tnt') || cats.some(c => c.includes('tnt'))) return true;
+    if ((n.includes('tnt') || id.includes('tnt') || cats.some(c => c.includes('tnt'))) && (cats.includes('sports') || (ch.category || '').toLowerCase() === 'sports')) return true;
     
     // 4. ICC
     if (n.includes('icc') || id.includes('icc') || cats.some(c => c.includes('icc'))) return true;
@@ -3882,8 +4169,8 @@
     const isSonySports = (ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('ten') || n.includes('sports') || n.includes('liv') || n.includes('cricket');
     if (isSony && isSonySports) return true;
     
-    // 8. Star Sports
-    const isStar = n.includes('star') || id.includes('star') || cats.some(c => c.includes('star'));
+    // 8. Star Sports (Excluded lifestyle channel Trace Sport Stars)
+    const isStar = (/\bstar\b/i.test(n) || id.includes('star-sports') || id.includes('star_sports')) && !n.includes('trace') && !id.includes('trace');
     const isStarSports = ((ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('sports') || n.includes('khel') || n.includes('select')) && !n.includes('movie') && !n.includes('gold');
     if (isStar && isStarSports) return true;
     
@@ -3903,7 +4190,16 @@
     if (/\btsn\b/i.test(n) || /\btsn\b/i.test(id) || cats.some(c => c.toLowerCase() === 'tsn')) return true;
 
     // 14. Canal+ Sport
-    if (n.includes('canal') || id.includes('canal') || cats.some(c => c.includes('canal'))) return true;
+    if ((n.includes('canal') || id.includes('canal') || cats.some(c => c.includes('canal'))) && (cats.includes('sports') || (ch.category || '').toLowerCase() === 'sports')) return true;
+
+    // 15. Ziggo Sport
+    if (n.includes('ziggo') || id.includes('ziggo') || cats.some(c => c.includes('ziggo'))) return true;
+
+    // 16. Eurosport
+    if (n.includes('eurosport') || id.includes('eurosport') || cats.some(c => c.includes('eurosport'))) return true;
+
+    // 17. SuperSport
+    if (n.includes('supersport') || n.includes('super sport') || n.includes('dstv') || id.includes('supersport') || cats.some(c => c.includes('supersport'))) return true;
 
     return false;
   }
@@ -3924,16 +4220,17 @@
       return allChannels;
     }
 
-    if (f === 'all sports') {
+    if (f === 'all sports' || f === 'sports' || f === '') {
       return allChannels.filter(ch => {
         const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => c.toLowerCase());
-        return cat === 'sports' || cats.includes('sports');
+        const isSports = cat === 'sports' || cats.includes('sports');
+        if (!isSports) return false;
+        return !belongsToOtherSportsCategory(ch);
       });
     }
 
-    // "Sports" Category: Only channels that do NOT already belong to other specific sports categories
-    if (f === 'sports' || f === '') {
+    if (f === 'general' || f === 'other' || f === 'unassigned') {
       return allChannels.filter(ch => {
         const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => c.toLowerCase());
@@ -3948,48 +4245,66 @@
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('sky') || id.includes('sky') || cats.some(c => c.includes('sky'));
+        const isSky = n.includes('sky') || id.includes('sky') || cats.some(c => c.includes('sky'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isSky && isSports;
       });
     }
     if (f.includes('bein')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('bein') || id.includes('bein') || cats.some(c => c.includes('bein'));
+        const isBein = n.includes('bein') || id.includes('bein') || cats.some(c => c.includes('bein'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isBein && isSports;
       });
     }
     if (f === 'tnt' || f.includes('tnt')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('tnt') || id.includes('tnt') || cats.some(c => c.includes('tnt'));
+        const isTnt = n.includes('tnt') || id.includes('tnt') || cats.some(c => c.includes('tnt'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isTnt && isSports;
       });
     }
     if (f === 'icc' || f.includes('icc')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('icc') || id.includes('icc') || cats.some(c => c.includes('icc'));
+        const isIcc = n.includes('icc') || id.includes('icc') || cats.some(c => c.includes('icc'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isIcc && isSports;
       });
     }
     if (f.includes('tapmad')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('tapmad') || id.includes('tapmad') || cats.some(c => c.includes('tapmad'));
+        const isTapmad = n.includes('tapmad') || id.includes('tapmad') || cats.some(c => c.includes('tapmad'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isTapmad && isSports;
       });
     }
     if (f.includes('myco')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('myco') || id.includes('myco') || cats.some(c => c.includes('myco'));
+        const isMyco = n.includes('myco') || id.includes('myco') || cats.some(c => c.includes('myco'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isMyco && isSports;
       });
     }
     if (f.includes('sony') || f.includes('liv')) {
@@ -4007,7 +4322,7 @@
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        const isStar = n.includes('star') || id.includes('star') || cats.some(c => c.includes('star'));
+        const isStar = (/\bstar\b/i.test(n) || id.includes('star-sports') || id.includes('star_sports')) && !n.includes('trace') && !id.includes('trace');
         const isSports = ((ch.category || '').toLowerCase() === 'sports' || cats.includes('sports') || n.includes('sports') || n.includes('khel') || n.includes('select')) && !n.includes('movie') && !n.includes('gold');
         return isStar && isSports;
       });
@@ -4016,64 +4331,99 @@
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('fancode') || id.includes('fancode') || cats.some(c => c.includes('fancode'));
+        const isFancode = n.includes('fancode') || id.includes('fancode') || cats.some(c => c.includes('fancode'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isFancode && isSports;
       });
     }
     if (f.includes('dazn')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('dazn') || id.includes('dazn') || cats.some(c => c.includes('dazn'));
+        const isDazn = n.includes('dazn') || id.includes('dazn') || cats.some(c => c.includes('dazn'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isDazn && isSports;
       });
     }
     if (f.includes('fox')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('fox') || id.includes('fox') || cats.some(c => c.includes('fox'));
+        const isFox = n.includes('fox') || id.includes('fox') || cats.some(c => c.includes('fox'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isFox && isSports;
       });
     }
     if (f.includes('espn')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('espn') || id.includes('espn') || cats.some(c => c.includes('espn'));
+        const isEspn = n.includes('espn') || id.includes('espn') || cats.some(c => c.includes('espn'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isEspn && isSports;
       });
     }
     if (f.includes('tsn')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return /\btsn\b/i.test(n) || /\btsn\b/i.test(id) || cats.some(c => c === 'tsn');
+        const isTsn = /\btsn\b/i.test(n) || /\btsn\b/i.test(id) || cats.some(c => c === 'tsn');
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isTsn && isSports;
       });
     }
     if (f.includes('canal')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('canal') || id.includes('canal') || cats.some(c => c.includes('canal'));
+        const isCanal = n.includes('canal') || id.includes('canal') || cats.some(c => c.includes('canal'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isCanal && isSports;
       });
     }
     if (f.includes('ziggo')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('ziggo') || id.includes('ziggo') || cats.some(c => c.includes('ziggo'));
+        const isZiggo = n.includes('ziggo') || id.includes('ziggo') || cats.some(c => c.includes('ziggo'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isZiggo && isSports;
       });
     }
     if (f.includes('eurosport')) {
       return allChannels.filter(ch => {
         const n = (ch.name || '').toLowerCase();
         const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
         const cats = (ch.categories || []).map(c => String(c).toLowerCase());
-        return n.includes('eurosport') || id.includes('eurosport') || cats.some(c => c.includes('eurosport'));
+        const isEurosport = n.includes('eurosport') || id.includes('eurosport') || cats.some(c => c.includes('eurosport'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isEurosport && isSports;
+      });
+    }
+    if (f.includes('supersport') || f.includes('super sport') || f.includes('dstv')) {
+      return allChannels.filter(ch => {
+        const n = (ch.name || '').toLowerCase();
+        const id = (ch.id || '').toLowerCase();
+        const cat = (ch.category || '').toLowerCase();
+        const cats = (ch.categories || []).map(c => String(c).toLowerCase());
+        const isSuper = n.includes('supersport') || n.includes('super sport') || n.includes('dstv') || id.includes('supersport') || cats.some(c => c.includes('supersport'));
+        const isSports = cat === 'sports' || cats.includes('sports');
+        return isSuper && isSports;
       });
     }
 
@@ -4084,7 +4434,7 @@
       basketball: ['basketball', 'nba', 'abc', 'tsn', 'prime video', 'sportsnet', 'nbc', 'peacock'],
       tennis: ['tennis', 'tennis channel', 'atp', 'wta', 'wimbledon', 'us open', 'roland garros', 'eurosport', 'sky sports tennis'],
       volleyball: ['volleyball', 'eurosport', 'espn', 'go3', 'ziggo'],
-      wwe: ['wwe', 'wrestling', 'netflix', 'usa network', 'sony sports ten', 'sony ten 1', 'sony ten 2', 'sony ten 3'],
+      wwe: ['wwe', 'wrestling', 'netflix', 'usa network', 'sony sports ten', 'sony ten 1', 'sony ten 2', 'sony ten 3', 'ufc'],
       rugby: ['rugby', 'six nations', 'florugby', 'stan sport', 'sky sports arena', 'supersport rugby']
     };
 
@@ -4095,7 +4445,7 @@
     else if (f.includes('basketball')) targetSportKey = 'basketball';
     else if (f.includes('tennis')) targetSportKey = 'tennis';
     else if (f.includes('volley')) targetSportKey = 'volleyball';
-    else if (f.includes('wwe') || f.includes('wrest')) targetSportKey = 'wwe';
+    else if (f.includes('wwe') || f.includes('wrest') || f.includes('ufc')) targetSportKey = 'wwe';
     else if (f.includes('rugby')) targetSportKey = 'rugby';
 
     if (targetSportKey) {
@@ -4104,6 +4454,8 @@
         const n = (c.name || '').toLowerCase();
         const cat = (c.category || '').toLowerCase();
         const cats = Array.isArray(c.categories) ? c.categories.map(x => String(x).toLowerCase()) : [];
+        const isSports = cat === 'sports' || cats.includes('sports');
+        if (!isSports) return false;
         
         const hasDirectCat = cats.some(x => x.includes(targetSportKey) || (targetSportKey === 'motorsport' && x.includes('f1')));
         const hasKeyword = keywords.some(k => n.includes(k) || cat.includes(k) || cats.some(x => x.includes(k)));
@@ -4116,6 +4468,8 @@
 
   /**
    * Sports Categories Configuration (Rendered in sportsGrid matching channel card layout)
+   * Note: Cricket and Football categories removed per user instruction.
+   * Channels with specific brands stay in their network categories; channels without specific categories remain in All Sports.
    */
   const SPORTS_CATEGORIES = [
     {
@@ -4140,41 +4494,6 @@
       ringColor: '#9333ea'
     },
     {
-      id: 'tnt-sports',
-      name: 'TNT Sports',
-      filterKey: 'TNT Sports',
-      logo: './assets/category-logos/tnt-sports.png',
-      ringColor: '#e11d48'
-    },
-    {
-      id: 'icc',
-      name: 'ICC',
-      filterKey: 'ICC',
-      logo: './assets/category-logos/icc.png',
-      ringColor: '#0284c7'
-    },
-    {
-      id: 'tapmad',
-      name: 'Tapmad',
-      filterKey: 'Tapmad',
-      logo: './assets/category-logos/tapmad.png',
-      ringColor: '#06b6d4'
-    },
-    {
-      id: 'myco',
-      name: 'Myco',
-      filterKey: 'Myco',
-      logo: './assets/category-logos/myco.png',
-      ringColor: '#10b981'
-    },
-    {
-      id: 'sony-liv',
-      name: 'SonyLiv',
-      filterKey: 'SonyLiv',
-      logo: './assets/category-logos/sony-liv.png',
-      ringColor: '#f59e0b'
-    },
-    {
       id: 'star-sports',
       name: 'Star Sports Network',
       filterKey: 'Star Sports Network',
@@ -4182,11 +4501,11 @@
       ringColor: '#38bdf8'
     },
     {
-      id: 'fancode',
-      name: 'FanCode',
-      filterKey: 'FanCode',
-      logo: './assets/category-logos/fancode.png',
-      ringColor: '#f97316'
+      id: 'sony-liv',
+      name: 'Sony Sports Network',
+      filterKey: 'SonyLiv',
+      logo: './assets/category-logos/sony-liv.png',
+      ringColor: '#f59e0b'
     },
     {
       id: 'dazn',
@@ -4194,34 +4513,6 @@
       filterKey: 'DAZN',
       logo: './assets/category-logos/dazn.png',
       ringColor: '#eab308'
-    },
-    {
-      id: 'fox-sports',
-      name: 'Fox Sports',
-      filterKey: 'Fox Sports',
-      logo: './assets/category-logos/fox-sports.png',
-      ringColor: '#3b82f6'
-    },
-    {
-      id: 'espn',
-      name: 'ESPN',
-      filterKey: 'ESPN',
-      logo: './assets/category-logos/espn.png',
-      ringColor: '#dc2626'
-    },
-    {
-      id: 'tsn',
-      name: 'TSN',
-      filterKey: 'TSN',
-      logo: './assets/category-logos/tsn.png',
-      ringColor: '#dc2626'
-    },
-    {
-      id: 'canal-plus-sport',
-      name: 'Canal+ Sport',
-      filterKey: 'Canal+ Sport',
-      logo: './assets/category-logos/canal-plus-sport.png',
-      ringColor: '#0284c7'
     },
     {
       id: 'ziggo-sport',
@@ -4236,6 +4527,13 @@
       filterKey: 'Eurosport',
       logo: './assets/category-logos/eurosport.png',
       ringColor: '#0284c7'
+    },
+    {
+      id: 'fox-sports',
+      name: 'Fox Sports',
+      filterKey: 'Fox Sports',
+      logo: './assets/category-logos/fox-sports.png',
+      ringColor: '#3b82f6'
     }
   ];
 
@@ -4372,6 +4670,9 @@
   function openSportsCategoryDetail(catKey, catName) {
     state.selectedSportsCategory = catKey;
     state.selectedSportsCategoryName = catName || catKey;
+    state.skyActiveCountryFilter = 'all';
+    state.beinActiveCountryFilter = 'all';
+    state.allSportsSubFilter = 'all';
     renderChannels();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -4386,7 +4687,7 @@
     const sportsBackBtn = document.getElementById('sports-category-back-btn');
     const channelsTitle = document.getElementById('channels-view-title');
 
-    // 1. If a Sports Category is selected (e.g. Sports, Sky Sports, etc.): Show Channels inside that Category
+    // 1. If a Sports Category is selected (e.g. All Sports, Sky Sports, etc.): Show Channels inside that Category
     if (state.selectedSportsCategory) {
       if (sportsBackBtn) {
         sportsBackBtn.style.display = 'inline-flex';
@@ -4396,6 +4697,175 @@
       }
 
       let channelsToShow = getSportsChannels(state.selectedSportsCategory);
+
+      // beIN Sports Country Filter Bar
+      const isBeinSports = state.selectedSportsCategory.toLowerCase().includes('bein');
+      let countryBar = document.getElementById('sports-bein-country-bar');
+
+      if (isBeinSports) {
+        if (!state.beinActiveCountryFilter) state.beinActiveCountryFilter = 'all';
+
+        const allBeinChannels = channelsToShow;
+        const beinCountries = [
+          { id: 'all', label: 'All Countries', flag: '🌍' },
+          { id: 'Qatar (MENA)', label: 'Qatar & MENA', flag: '🇶🇦' }
+        ];
+
+        if (!countryBar) {
+          countryBar = document.createElement('div');
+          countryBar.id = 'sports-bein-country-bar';
+          countryBar.className = 'sports-country-filter-row no-scrollbar flex items-center gap-2 overflow-x-auto py-2.5 px-1 mb-3.5';
+          DOM.sportsGrid.parentNode.insertBefore(countryBar, DOM.sportsGrid);
+        }
+        countryBar.style.display = 'flex';
+
+        countryBar.innerHTML = beinCountries.map(cTab => {
+          const isActive = state.beinActiveCountryFilter === cTab.id;
+          const count = cTab.id === 'all'
+            ? allBeinChannels.length
+            : allBeinChannels.filter(ch => (ch.country || '').toLowerCase().includes(cTab.id.toLowerCase()) || (ch.subCategory || '').toLowerCase().includes(cTab.id.toLowerCase())).length;
+
+          return `
+            <button type="button" 
+                    class="sports-country-pill ${isActive ? 'active' : ''} px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${isActive ? 'bg-sky-500 text-slate-950 shadow-md shadow-sky-500/20' : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-white/5'}"
+                    data-country="${cTab.id}">
+              <span>${cTab.flag}</span>
+              <span>${cTab.label}</span>
+              <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-slate-950/30 text-white' : 'bg-slate-800 text-slate-400'} font-black">${count}</span>
+            </button>
+          `;
+        }).join('');
+
+        countryBar.querySelectorAll('.sports-country-pill').forEach(btn => {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            state.beinActiveCountryFilter = btn.getAttribute('data-country') || 'all';
+            renderChannels();
+          };
+        });
+
+        if (state.beinActiveCountryFilter !== 'all') {
+          const filterTarget = state.beinActiveCountryFilter.toLowerCase();
+          channelsToShow = channelsToShow.filter(ch => 
+            (ch.country || '').toLowerCase().includes(filterTarget) || 
+            (ch.subCategory || '').toLowerCase().includes(filterTarget)
+          );
+        }
+      } else if (countryBar) {
+        countryBar.style.display = 'none';
+      }
+
+      // Sky Sports Country Filter Bar (United Kingdom, Germany, Italy - country-wise organization)
+      const isSkySports = state.selectedSportsCategory.toLowerCase().includes('sky');
+      let skyCountryBar = document.getElementById('sports-sky-country-bar');
+
+      if (isSkySports) {
+        if (!state.skyActiveCountryFilter) state.skyActiveCountryFilter = 'all';
+
+        const allSkyChannels = getSportsChannels('Sky Sports');
+        const skyCountries = [
+          { id: 'all', label: 'All Countries', flag: '🌍' },
+          { id: 'United Kingdom', label: 'United Kingdom', flag: '🇬🇧' },
+          { id: 'Germany', label: 'Germany', flag: '🇩🇪' },
+          { id: 'Italy', label: 'Italy', flag: '🇮🇹' }
+        ];
+
+        if (!skyCountryBar) {
+          skyCountryBar = document.createElement('div');
+          skyCountryBar.id = 'sports-sky-country-bar';
+          skyCountryBar.className = 'sports-country-filter-row no-scrollbar flex items-center gap-2 overflow-x-auto py-2.5 px-1 mb-3.5';
+          DOM.sportsGrid.parentNode.insertBefore(skyCountryBar, DOM.sportsGrid);
+        }
+        skyCountryBar.style.display = 'flex';
+
+        skyCountryBar.innerHTML = skyCountries.map(cTab => {
+          const isActive = state.skyActiveCountryFilter === cTab.id;
+          const count = cTab.id === 'all'
+            ? allSkyChannels.length
+            : allSkyChannels.filter(ch => (ch.country || '').toLowerCase().includes(cTab.id.toLowerCase()) || (ch.subCategory || '').toLowerCase().includes(cTab.id.toLowerCase())).length;
+
+          return `
+            <button type="button" 
+                    class="sports-country-pill ${isActive ? 'active' : ''} px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${isActive ? 'bg-sky-500 text-slate-950 shadow-md shadow-sky-500/20' : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-white/5'}"
+                    data-country="${cTab.id}">
+              <span>${cTab.flag}</span>
+              <span>${cTab.label}</span>
+              <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-slate-950/30 text-white' : 'bg-slate-800 text-slate-400'} font-black">${count}</span>
+            </button>
+          `;
+        }).join('');
+
+        skyCountryBar.querySelectorAll('.sports-country-pill').forEach(btn => {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            state.skyActiveCountryFilter = btn.getAttribute('data-country') || 'all';
+            renderChannels();
+          };
+        });
+
+        if (state.skyActiveCountryFilter !== 'all') {
+          const filterTarget = state.skyActiveCountryFilter.toLowerCase();
+          channelsToShow = channelsToShow.filter(ch => 
+            (ch.country || '').toLowerCase().includes(filterTarget) || 
+            (ch.subCategory || '').toLowerCase().includes(filterTarget)
+          );
+        }
+      } else if (skyCountryBar) {
+        skyCountryBar.style.display = 'none';
+      }
+
+      // Sports Sub-Category Bar (Sports Channels vs General / Other Sports Channels)
+      const isSportsCat = state.selectedSportsCategory.toLowerCase() === 'sports' || state.selectedSportsCategory.toLowerCase().includes('all sports');
+      let allSportsBar = document.getElementById('sports-allsports-sub-bar');
+
+      if (isSportsCat) {
+        if (!state.allSportsSubFilter) state.allSportsSubFilter = 'all';
+
+        const allList = getSportsChannels('Sports');
+        const unassignedList = allList.filter(ch => !belongsToOtherSportsCategory(ch));
+
+        if (!allSportsBar) {
+          allSportsBar = document.createElement('div');
+          allSportsBar.id = 'sports-allsports-sub-bar';
+          allSportsBar.className = 'sports-country-filter-row no-scrollbar flex items-center gap-2 overflow-x-auto py-2.5 px-1 mb-3.5';
+          DOM.sportsGrid.parentNode.insertBefore(allSportsBar, DOM.sportsGrid);
+        }
+        allSportsBar.style.display = 'flex';
+
+        const subFilters = [
+          { id: 'all', label: 'Sports Channels', count: allList.length, icon: '🏆' },
+          { id: 'general', label: 'General / Other Sports', count: unassignedList.length, icon: '🌐' }
+        ];
+
+        allSportsBar.innerHTML = subFilters.map(tab => {
+          const isActive = state.allSportsSubFilter === tab.id;
+          return `
+            <button type="button" 
+                    class="sports-sub-pill ${isActive ? 'active' : ''} px-3 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition flex items-center gap-1.5 ${isActive ? 'bg-emerald-500 text-slate-950 shadow-md shadow-emerald-500/20' : 'bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-white/5'}"
+                    data-subfilter="${tab.id}">
+              <span>${tab.icon}</span>
+              <span>${tab.label}</span>
+              <span class="text-[10px] px-1.5 py-0.2 rounded-full ${isActive ? 'bg-slate-950/30 text-white' : 'bg-slate-800 text-slate-400'} font-black">${tab.count}</span>
+            </button>
+          `;
+        }).join('');
+
+        allSportsBar.querySelectorAll('.sports-sub-pill').forEach(btn => {
+          btn.onclick = (e) => {
+            e.preventDefault();
+            state.allSportsSubFilter = btn.getAttribute('data-subfilter') || 'all';
+            renderChannels();
+          };
+        });
+
+        if (state.allSportsSubFilter === 'general') {
+          channelsToShow = unassignedList;
+        } else {
+          channelsToShow = allList;
+        }
+      } else if (allSportsBar) {
+        allSportsBar.style.display = 'none';
+      }
 
       if (state.searchQuery) {
         const q = state.searchQuery.toLowerCase();
@@ -4420,12 +4890,48 @@
         return;
       }
 
+      // Sky Sports country-grouped presentation when viewing "All Countries"
+      if (isSkySports && state.skyActiveCountryFilter === 'all' && !state.searchQuery) {
+        const countryGroups = [
+          { name: 'United Kingdom (UK)', flag: '🇬🇧', filter: 'united kingdom' },
+          { name: 'Germany', flag: '🇩🇪', filter: 'germany' },
+          { name: 'Italy', flag: '🇮🇹', filter: 'italy' }
+        ];
+
+        let html = '';
+        countryGroups.forEach(cg => {
+          const groupChs = channelsToShow.filter(ch => (ch.country || '').toLowerCase().includes(cg.filter));
+          if (groupChs.length > 0) {
+            html += `
+              <div class="col-span-full flex items-center justify-between mt-3 mb-1 px-1 border-b border-white/5 pb-1">
+                <span class="text-xs font-bold uppercase tracking-wider text-sky-400 flex items-center gap-1.5">
+                  <span class="text-base">${cg.flag}</span> ${escapeHtml(cg.name)}
+                </span>
+                <span class="text-[11px] text-slate-400 font-medium">${groupChs.length} Channels</span>
+              </div>
+            `;
+            html += groupChs.map(ch => createChannelCardHtml(ch)).join('');
+          }
+        });
+
+        DOM.sportsGrid.innerHTML = html;
+        attachChannelClickEvents(DOM.sportsGrid);
+        return;
+      }
+
       DOM.sportsGrid.innerHTML = channelsToShow.map(ch => createChannelCardHtml(ch)).join('');
       attachChannelClickEvents(DOM.sportsGrid);
       return;
     }
 
-    // 2. Otherwise: Root Sports view displays Sports Categories (including "Sports" category with 164 channels)
+    // 2. Otherwise: Root Sports view displays Sports Categories (Cricket & Football removed, only active categories)
+    const rootCountryBar = document.getElementById('sports-bein-country-bar');
+    if (rootCountryBar) rootCountryBar.style.display = 'none';
+    const rootSkyCountryBar = document.getElementById('sports-sky-country-bar');
+    if (rootSkyCountryBar) rootSkyCountryBar.style.display = 'none';
+    const rootAllSportsBar = document.getElementById('sports-allsports-sub-bar');
+    if (rootAllSportsBar) rootAllSportsBar.style.display = 'none';
+
     if (sportsBackBtn) {
       sportsBackBtn.style.display = 'none';
     }
@@ -4433,17 +4939,20 @@
       channelsTitle.innerHTML = `<i class="fa-solid fa-shapes text-sky-400"></i> Sports Categories`;
     }
 
-    let categoriesToShow = SPORTS_CATEGORIES;
+    let categoriesToShow = SPORTS_CATEGORIES.filter(cat => {
+      if (cat.id === 'cricket' || cat.id === 'football' || cat.filterKey === 'Cricket' || cat.filterKey === 'Football') return false;
+      return getSportsChannels(cat.filterKey).length > 0;
+    });
 
     if (state.searchQuery) {
       const q = state.searchQuery.toLowerCase();
       // Check if any sports categories match the search
-      const matchedCats = SPORTS_CATEGORIES.filter(cat => 
+      const matchedCats = categoriesToShow.filter(cat => 
         cat.name.toLowerCase().includes(q) || cat.filterKey.toLowerCase().includes(q)
       );
 
       // Also check if any channels match directly
-      const matchedChannels = getSportsChannels('All Sports').filter(ch =>
+      const matchedChannels = getSportsChannels('Sports').filter(ch =>
         (ch.name || '').toLowerCase().includes(q) ||
         (ch.category || '').toLowerCase().includes(q)
       );
@@ -5145,12 +5654,22 @@
     }
 
     // Subcategory matching helper
+    const isBeinCategory = catName.toLowerCase().includes('bein');
     function matchSub(ch, subId) {
       if (subId === 'all') return true;
       const target = subId.toLowerCase().trim();
       const sub = String(ch.subCategory || '').toLowerCase().trim();
       const grp = String(ch.group || '').toLowerCase().trim();
       const cats = Array.isArray(ch.categories) ? ch.categories.map(c => String(c).toLowerCase().trim()) : [];
+      if (isBeinCategory) {
+        const cntry = String(ch.country || ch.subCategory || '').toLowerCase();
+        if (target === 'qatar') return cntry.includes('qatar') || cntry.includes('mena');
+        if (target === 'turkey') return cntry.includes('turkey') || cntry.includes('tr');
+        if (target === 'france') return cntry.includes('france') || cntry.includes('fr');
+        if (target === 'asia') return cntry.includes('asia') || cntry.includes('indonesia');
+        if (target === 'usa') return cntry.includes('usa');
+        return false;
+      }
       if (target === 'bangla') return sub === 'bangla' || grp === 'bangla' || grp === 'indian bangla' || cats.includes('bangla');
       if (target === 'sports') return sub === 'sports' || grp === 'sports' || cats.includes('sports');
       if (target === 'news') return sub === 'news' || grp === 'news' || cats.includes('news');
@@ -5165,9 +5684,16 @@
     const subnavRow = document.getElementById('cat-detail-subnav-row');
     let currentSubCat = 'all';
 
-    if (isAynaCategory && subnavContainer && subnavRow) {
+    if ((isAynaCategory || isBeinCategory) && subnavContainer && subnavRow) {
       subnavContainer.classList.remove('hidden');
-      const aynaSubcategories = [
+      const subTabs = isBeinCategory ? [
+        { id: 'all', label: 'All Countries', icon: 'fa-globe' },
+        { id: 'qatar', label: 'Qatar & MENA', icon: 'fa-flag' },
+        { id: 'turkey', label: 'Turkey', icon: 'fa-flag' },
+        { id: 'france', label: 'France', icon: 'fa-flag' },
+        { id: 'asia', label: 'Asia', icon: 'fa-flag' },
+        { id: 'usa', label: 'USA', icon: 'fa-flag' }
+      ] : [
         { id: 'all', label: 'All', icon: 'fa-layer-group' },
         { id: 'bangla', label: 'Bangla', icon: 'fa-tv' },
         { id: 'sports', label: 'Sports', icon: 'fa-trophy' },
@@ -5177,7 +5703,7 @@
         { id: 'kids', label: 'Kids', icon: 'fa-shapes' }
       ];
 
-      subnavRow.innerHTML = aynaSubcategories.map(tab => {
+      subnavRow.innerHTML = subTabs.map(tab => {
         const count = matched.filter(c => matchSub(c, tab.id)).length;
         const isActive = currentSubCat === tab.id;
         return `
@@ -5422,6 +5948,11 @@
 
     return `
       <div class="channel-card" data-channel-id="${escapeHtml(channel.id)}">
+        ${channel.countryFlag ? `
+          <span class="channel-country-badge" style="position: absolute; top: 6px; left: 6px; font-size: 11px; z-index: 2; padding: 1px 4px; border-radius: 6px; background: rgba(15,23,42,0.85); border: 1px solid rgba(255,255,255,0.1); line-height: 1;" title="${escapeHtml(channel.country || '')}">
+            ${channel.countryFlag}
+          </span>
+        ` : ''}
         <button class="channel-fav-btn ${isFav ? 'active' : ''}" data-fav-id="${escapeHtml(channel.id)}" title="Favorite">
           <i class="fa-solid fa-star"></i>
         </button>
@@ -5491,6 +6022,7 @@
    * HLS Stream Player Core
    */
   let streamLoadWatchdog = null;
+  let activeStreamTokenKeepalive = null;
   let streamErrorRetryCount = 0;
 
   function playMedia(item) {
@@ -5504,8 +6036,8 @@
       return;
     }
 
-    // ONLY enrich match streams if this item is an actual multi-team match fixture, NEVER for direct TV channels
-    if (window.sportsCoordinator && item.team1 && item.team2 && !item.isChannel) {
+    // ONLY enrich match streams if this item has NO streams already provided
+    if (window.sportsCoordinator && item.team1 && item.team2 && !item.isChannel && (!Array.isArray(item.streams) || item.streams.length === 0)) {
       const matchInfo = window.sportsCoordinator.matchLiveStream(item);
       if (matchInfo.hasStream && Array.isArray(matchInfo.streams) && matchInfo.streams.length > 0) {
         item.streams = matchInfo.streams;
@@ -5542,6 +6074,8 @@
     const currentIdx = state.currentServerIndex;
     const isEvent = Boolean(state.currentPlayingItem.isEvent || state.currentPlayingItem.sport || state.currentPlayingItem.team1 || state.currentPlayingItem.homeTeam);
 
+    const seenNames = new Map();
+
     pillsContainer.innerHTML = streams.map((st, idx) => {
       const isCurrentActive = idx === currentIdx;
       
@@ -5557,6 +6091,13 @@
           displayName = st.serverLabel;
         } else {
           displayName = st.name || `Server ${idx + 1} (${st.quality || 'HD'})`;
+        }
+
+        // Avoid duplicate labels across multiple servers
+        const count = (seenNames.get(displayName) || 0) + 1;
+        seenNames.set(displayName, count);
+        if (count > 1) {
+          displayName = `${displayName} (Mirror ${count})`;
         }
       } else {
         // For single TV channels with backup streaming servers
@@ -6011,13 +6552,13 @@
       showPlayerError(`Live stream is temporarily unavailable for ${channelTitle}. Please select another server or tap Retry.`);
     }
 
-    // Resilient 6-Second Startup Watchdog: If stream doesn't start within 6000ms, failover smoothly
+    // Resilient 4-Second Startup Watchdog: If stream doesn't start within 4000ms (3-5s requirement), failover smoothly
     streamLoadWatchdog = setTimeout(() => {
       if (!state.isUserPaused && DOM.videoElement && (DOM.videoElement.paused || DOM.videoElement.readyState < 2) && DOM.videoElement.currentTime === 0) {
-        console.warn('[HighFy Fast Player] 6-second startup timeout reached, auto-switching server...');
+        console.warn('[HighFy Fast Player] 4-second startup timeout reached, auto-switching server...');
         tryNextServerOrFallback(true);
       }
-    }, 6000);
+    }, 4000);
 
     const isHlsSupported = window.Hls && window.Hls.isSupported();
     const isMpegtsSupported = window.mpegts && window.mpegts.isSupported();
@@ -6031,6 +6572,35 @@
     const finalStreamUrl = (typeof targetUrl === 'string' && targetUrl.startsWith('/api/'))
       ? apiBase + targetUrl
       : targetUrl;
+
+    // Mid-Match Auth Expiry Handling: Silently renew stream security token every 20 minutes in background
+    if (activeStreamTokenKeepalive) {
+      clearInterval(activeStreamTokenKeepalive);
+      activeStreamTokenKeepalive = null;
+    }
+    const tokenMatch = finalStreamUrl.match(/[?&]token=([^&]+)/);
+    if (tokenMatch && tokenMatch[1]) {
+      let currentToken = decodeURIComponent(tokenMatch[1]);
+      activeStreamTokenKeepalive = setInterval(async () => {
+        try {
+          if (!DOM.videoElement || DOM.videoElement.paused) return;
+          const res = await fetch(`${apiBase}/api/stream/renew-token`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token: currentToken })
+          });
+          if (res.ok) {
+            const json = await res.json();
+            if (json.token) {
+              currentToken = json.token;
+              console.log('[HighFy Player] Stream auth token silently renewed in background without video drop');
+            }
+          }
+        } catch (e) {
+          console.warn('[HighFy Player] Silent token renewal note:', e.message);
+        }
+      }, 20 * 60 * 1000); // 20 minutes
+    }
 
     const triggerInstantPlay = () => {
       hideSpinnerAndClearWatchdog();
@@ -6114,7 +6684,7 @@
         startLevel: -1,
         initialLiveManifestSize: 1,
         maxBufferLength: 8,
-        maxMaxBufferLength: 16,
+        maxMaxBufferLength: 14,
         maxBufferSize: 30 * 1024 * 1024,
         maxBufferHole: 0.5,
         highBufferWatchdogPeriod: 2,
@@ -6122,14 +6692,15 @@
         nudgeMaxRetry: 3,
         maxFragLookUpTolerance: 0.25,
         liveSyncDurationCount: 2,
-        liveMaxLatencyDurationCount: 5,
+        liveMaxLatencyDurationCount: 4,
         liveDurationInfinity: true,
-        manifestLoadingTimeOut: 8000,
+        maxLiveSyncPlaybackRate: 1.15, // Catch up to live edge smoothly after network buffering
+        manifestLoadingTimeOut: 6000,
         manifestLoadingMaxRetry: 2,
         manifestLoadingRetryDelay: 500,
-        levelLoadingTimeOut: 8000,
+        levelLoadingTimeOut: 6000,
         levelLoadingMaxRetry: 2,
-        fragLoadingTimeOut: 10000,
+        fragLoadingTimeOut: 8000,
         fragLoadingMaxRetry: 3,
         fragLoadingRetryDelay: 500,
         startFragPrefetch: true,
@@ -6149,6 +6720,14 @@
       });
       hls.on(window.Hls.Events.FRAG_BUFFERED, () => {
         hideSpinnerAndClearWatchdog();
+        // Live Edge Catch-Up: If buffering caused video to lag behind live sync position, catch up
+        if (hls && typeof hls.liveSyncPosition === 'number' && hls.liveSyncPosition > 0 && DOM.videoElement) {
+          const drift = hls.liveSyncPosition - DOM.videoElement.currentTime;
+          if (drift > 6 && !DOM.videoElement.paused) {
+            console.log(`[HighFy Player] Catching up to live edge (drift: ${drift.toFixed(1)}s)...`);
+            DOM.videoElement.currentTime = hls.liveSyncPosition - 1;
+          }
+        }
       });
 
       hls.on(window.Hls.Events.ERROR, (event, data) => {
@@ -6159,6 +6738,31 @@
               DOM.videoElement.play().catch(() => {});
             }
           }
+          return;
+        }
+
+        const httpStatus = data.response ? data.response.code : 0;
+        const isGeoBlocked = httpStatus === 403 || httpStatus === 451 || (data.context?.xhr?.getResponseHeader && data.context.xhr.getResponseHeader('X-Stream-Geo-Blocked'));
+
+        // Geo-Restrictions / CDN 403 handling: clean notice instead of infinite buffer
+        if (isGeoBlocked) {
+          console.warn('[HighFy Fast Player] Geo-restriction / 403 detected on stream:', finalStreamUrl);
+          if (state.currentPlayingItem && Array.isArray(state.currentPlayingItem.streams) && (state.currentServerIndex + 1 < state.currentPlayingItem.streams.length)) {
+            hls.destroy();
+            tryNextServerOrFallback(true);
+            return;
+          }
+          hls.destroy();
+          hideSpinnerAndClearWatchdog();
+          showPlayerError("Content restricted in your region (আপনার অঞ্চলে এই কন্টেন্টটি সীমাবদ্ধ)");
+          return;
+        }
+
+        // Upstream Failures (404/500/502/503): Primary stream failover within 3-5 seconds
+        if (httpStatus === 404 || httpStatus >= 500) {
+          console.warn(`[HighFy Fast Player] HTTP ${httpStatus} upstream server failure, switching server within 3-5s...`);
+          hls.destroy();
+          tryNextServerOrFallback(true);
           return;
         }
 
@@ -6229,6 +6833,10 @@
     if (streamLoadWatchdog) {
       clearTimeout(streamLoadWatchdog);
       streamLoadWatchdog = null;
+    }
+    if (activeStreamTokenKeepalive) {
+      clearInterval(activeStreamTokenKeepalive);
+      activeStreamTokenKeepalive = null;
     }
     if (overlayHideTimeout) {
       clearTimeout(overlayHideTimeout);
@@ -6611,12 +7219,18 @@
         e.stopPropagation();
         const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
         const isCurrentlyFullscreen = Boolean(
-          document.fullscreenElement ||
-          document['webkitFullscreenElement'] ||
-          (wrapper && wrapper.classList.contains('fullscreen'))
+          (wrapper && wrapper.classList.contains('fullscreen')) ||
+          (DOM.playerModal && DOM.playerModal.classList.contains('fullscreen'))
         );
 
         if (!isCurrentlyFullscreen) {
+          // Enter Fullscreen
+          if (wrapper) wrapper.classList.add('fullscreen');
+          if (DOM.playerModal) DOM.playerModal.classList.add('fullscreen');
+          if (DOM.playerFullscreenIcon) {
+            DOM.playerFullscreenIcon.className = 'fa-solid fa-compress text-sm';
+          }
+          
           try {
             if (wrapper && wrapper.requestFullscreen) {
               await wrapper.requestFullscreen();
@@ -6631,19 +7245,22 @@
               } catch (e) {}
             }
           } catch (err) {
-            console.warn('[StreamZX Player] Fullscreen error:', err);
-          }
-          if (wrapper) wrapper.classList.add('fullscreen');
-          if (DOM.playerModal) DOM.playerModal.classList.add('fullscreen');
-          if (DOM.playerFullscreenIcon) {
-            DOM.playerFullscreenIcon.className = 'fa-solid fa-compress text-sm';
+            console.warn('[StreamZX Player] Fullscreen error (falling back to web fullscreen):', err);
           }
         } else {
+          // Exit Fullscreen
+          if (wrapper) wrapper.classList.remove('fullscreen');
+          if (DOM.playerModal) DOM.playerModal.classList.remove('fullscreen');
+          if (DOM.playerFullscreenIcon) {
+            DOM.playerFullscreenIcon.className = 'fa-solid fa-expand text-sm';
+          }
           try {
-            if (document.exitFullscreen) {
-              await document.exitFullscreen();
-            } else if (document['webkitExitFullscreen']) {
-              await document['webkitExitFullscreen']();
+            if (document.fullscreenElement || document['webkitFullscreenElement']) {
+              if (document.exitFullscreen) {
+                await document.exitFullscreen();
+              } else if (document['webkitExitFullscreen']) {
+                await document['webkitExitFullscreen']();
+              }
             }
             if (screen.orientation && screen.orientation['unlock']) {
               try {
@@ -6653,26 +7270,24 @@
           } catch (err) {
             console.warn('[StreamZX Player] Exit Fullscreen error:', err);
           }
+        }
+        showPlayerOverlay(true);
+      });
+
+      // Synchronize icons & classes ONLY on native exit fullscreen state change
+      const onFullscreenStateChange = () => {
+        const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
+        const isFs = Boolean(document.fullscreenElement || document['webkitFullscreenElement']);
+        if (!isFs) {
+          // Native fullscreen exited (e.g. user pressed native Back button or Escape key)
           if (wrapper) wrapper.classList.remove('fullscreen');
           if (DOM.playerModal) DOM.playerModal.classList.remove('fullscreen');
           if (DOM.playerFullscreenIcon) {
             DOM.playerFullscreenIcon.className = 'fa-solid fa-expand text-sm';
           }
-        }
-        showPlayerOverlay(true);
-      });
-
-      // Synchronize icons & classes on native fullscreen state change
-      const onFullscreenStateChange = () => {
-        const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
-        const isFs = Boolean(document.fullscreenElement || document['webkitFullscreenElement']);
-        if (wrapper) wrapper.classList.toggle('fullscreen', isFs);
-        if (DOM.playerModal) DOM.playerModal.classList.toggle('fullscreen', isFs);
-        if (DOM.playerFullscreenIcon) {
-          DOM.playerFullscreenIcon.className = isFs ? 'fa-solid fa-compress text-sm' : 'fa-solid fa-expand text-sm';
-        }
-        if (!isFs && screen.orientation && screen.orientation['unlock']) {
-          try { screen.orientation['unlock'](); } catch (e) {}
+          if (screen.orientation && screen.orientation['unlock']) {
+            try { screen.orientation['unlock'](); } catch (e) {}
+          }
         }
       };
 

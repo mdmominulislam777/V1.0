@@ -1,4 +1,367 @@
 {
-  "updatedAt": "2026-10-03T05:32:38.808372+00:00",
-  "channels": []
+  "updatedAt": "2026-10-03T07:17:01.190315+00:00",
+  "sourceStatus": {
+    "epg_sync": "ok",
+    "verified_schedules": 8
+  },
+  "channels": [
+    {
+      "channelId": "ch-star-sports-1-hd",
+      "channelName": "Star Sports 1 HD",
+      "channelLogo": "",
+      "category": "sports",
+      "totalPrograms": 3,
+      "programs": [
+        {
+          "title": "ICC Cricket World Cup Classics",
+          "start": "2026-10-03T06:00:00Z",
+          "end": "2026-10-03T09:00:00Z",
+          "sport": "Cricket",
+          "league": "ICC",
+          "status": "LIVE",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "Cricket Countdown & Match Centre",
+          "start": "2026-10-03T09:00:00Z",
+          "end": "2026-10-03T10:00:00Z",
+          "sport": "Cricket",
+          "league": "Star Sports Special",
+          "status": "UPCOMING",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "Live: Namibia vs United Arab Emirates",
+          "subtitle": "ICC Men's Cricket World Cup League 2 • Live Broadcast",
+          "start": "2026-10-03T15:00:00+00:00",
+          "end": "2026-10-03T18:30:00+00:00",
+          "eventId": "cr-cricapi-espn_1554409",
+          "sport": "cricket",
+          "league": "ICC Men's Cricket World Cup League 2",
+          "homeTeam": "Namibia",
+          "awayTeam": "United Arab Emirates",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "channelId": "ch-t-sports-hd",
+      "channelName": "T Sports HD",
+      "channelLogo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-13/images_8b38d691dfaf072e6c964dea814a44ba_playmist_t_sports_hd400x400.jpg",
+      "category": "sports",
+      "totalPrograms": 5,
+      "programs": [
+        {
+          "title": "Live: Bangladesh vs Sri Lanka",
+          "subtitle": "Asian Games Men's Cricket Competition • Live Broadcast",
+          "start": "2026-10-03T00:00:00+00:00",
+          "end": "2026-10-03T03:30:00+00:00",
+          "eventId": "cr-cricapi-espn_1552778",
+          "sport": "cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "homeTeam": "Bangladesh",
+          "awayTeam": "Sri Lanka",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        },
+        {
+          "title": "Live: India vs Pakistan",
+          "subtitle": "Asian Games Men's Cricket Competition • Live Broadcast",
+          "start": "2026-10-03T04:30:00+00:00",
+          "end": "2026-10-03T08:00:00+00:00",
+          "eventId": "cr-cricapi-espn_1552779",
+          "sport": "cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "homeTeam": "India",
+          "awayTeam": "Pakistan",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        },
+        {
+          "title": "Canada Super 60 2026: Brampton Blitz vs Mississauga",
+          "start": "2026-10-03T06:00:00Z",
+          "end": "2026-10-03T09:30:00Z",
+          "sport": "Cricket",
+          "league": "Canada Super 60",
+          "status": "LIVE",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "T Sports Daily Bulletin & Match Highlights",
+          "start": "2026-10-03T09:30:00Z",
+          "end": "2026-10-03T10:30:00Z",
+          "sport": "Sports News",
+          "league": "T Sports Original",
+          "status": "UPCOMING",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "Live: Namibia vs United Arab Emirates",
+          "subtitle": "ICC Men's Cricket World Cup League 2 • Live Broadcast",
+          "start": "2026-10-03T15:00:00+00:00",
+          "end": "2026-10-03T18:30:00+00:00",
+          "eventId": "cr-cricapi-espn_1554409",
+          "sport": "cricket",
+          "league": "ICC Men's Cricket World Cup League 2",
+          "homeTeam": "Namibia",
+          "awayTeam": "United Arab Emirates",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "channelId": "ch-star-sports-1-hindi",
+      "channelName": "Star Sports 1 Hindi",
+      "channelLogo": "",
+      "category": "sports",
+      "totalPrograms": 1,
+      "programs": [
+        {
+          "title": "Live: Namibia vs United Arab Emirates",
+          "subtitle": "ICC Men's Cricket World Cup League 2 • Live Broadcast",
+          "start": "2026-10-03T15:00:00+00:00",
+          "end": "2026-10-03T18:30:00+00:00",
+          "eventId": "cr-cricapi-espn_1554409",
+          "sport": "cricket",
+          "league": "ICC Men's Cricket World Cup League 2",
+          "homeTeam": "Namibia",
+          "awayTeam": "United Arab Emirates",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "channelId": "ch-sky-sports-epl",
+      "channelName": "Sky Sports Premier League",
+      "channelLogo": "https://upload.wikimedia.org/wikipedia/en/thumb/4/46/Sky_Sports_Premier_League_logo_2020.svg/320px-Sky_Sports_Premier_League_logo_2020.svg.png",
+      "category": "sports",
+      "totalPrograms": 1,
+      "programs": [
+        {
+          "title": "Live: Arsenal vs Leeds United",
+          "subtitle": "English Premier League • Live Broadcast",
+          "start": "2026-10-10T11:30:00+00:00",
+          "end": "2026-10-10T15:00:00+00:00",
+          "eventId": "tsdb-2494052",
+          "sport": "football",
+          "league": "English Premier League",
+          "homeTeam": "Arsenal",
+          "awayTeam": "Leeds United",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "channelId": "ch-ten-sports-hd",
+      "channelName": "Ten Sports HD",
+      "channelLogo": "",
+      "category": "sports",
+      "totalPrograms": 1,
+      "programs": [
+        {
+          "title": "Live: Asian Games Men's Cricket Final - India vs Pakistan",
+          "start": "2026-10-03T07:00:00Z",
+          "end": "2026-10-03T11:00:00Z",
+          "sport": "Cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "status": "LIVE",
+          "verification": "epg_verified",
+          "authorized": true
+        }
+      ]
+    },
+    {
+      "channelId": "ch-sony-sports-ten-3",
+      "channelName": "SONY SPORTS TEN 3",
+      "channelLogo": "",
+      "category": "sports",
+      "totalPrograms": 2,
+      "programs": [
+        {
+          "title": "Live: Asian Games Men's Cricket Final - India vs Pakistan (Hindi)",
+          "start": "2026-10-03T07:00:00Z",
+          "end": "2026-10-03T11:00:00Z",
+          "sport": "Cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "status": "LIVE",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "WWE SmackDown Live Highlights",
+          "start": "2026-10-03T11:00:00Z",
+          "end": "2026-10-03T13:30:00Z",
+          "sport": "WWE",
+          "league": "WWE SmackDown",
+          "status": "UPCOMING",
+          "verification": "epg_verified",
+          "authorized": true
+        }
+      ]
+    },
+    {
+      "channelId": "ch-sony-sports-ten-2-hd",
+      "channelName": "SONY SPORTS TEN 2 HD",
+      "channelLogo": "",
+      "category": "sports",
+      "totalPrograms": 8,
+      "programs": [
+        {
+          "title": "Live: Como vs RB Leipzig",
+          "subtitle": "UEFA Champions League • Live Broadcast",
+          "start": "2026-09-10T19:00:00+00:00",
+          "end": "2026-09-10T22:30:00+00:00",
+          "eventId": "tsdb-2594669",
+          "sport": "football",
+          "league": "UEFA Champions League",
+          "homeTeam": "Como",
+          "awayTeam": "RB Leipzig",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "finished"
+        },
+        {
+          "title": "Live: Austria Vienna vs Internazionale",
+          "subtitle": "UEFA Women's Champions League • Live Broadcast",
+          "start": "2026-10-01T16:45:00+00:00",
+          "end": "2026-10-01T20:15:00+00:00",
+          "eventId": "espn-soccer-401917004",
+          "sport": "football",
+          "league": "UEFA Women's Champions League",
+          "homeTeam": "Austria Vienna",
+          "awayTeam": "Internazionale",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "finished"
+        },
+        {
+          "title": "Live: HB Køge vs Servette",
+          "subtitle": "UEFA Women's Champions League • Live Broadcast",
+          "start": "2026-10-01T16:45:00+00:00",
+          "end": "2026-10-01T20:15:00+00:00",
+          "eventId": "espn-soccer-401917003",
+          "sport": "football",
+          "league": "UEFA Women's Champions League",
+          "homeTeam": "HB Køge",
+          "awayTeam": "Servette",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "finished"
+        },
+        {
+          "title": "Live: Manchester City vs Real Madrid",
+          "subtitle": "UEFA Women's Champions League • Live Broadcast",
+          "start": "2026-10-01T19:00:00+00:00",
+          "end": "2026-10-01T22:30:00+00:00",
+          "eventId": "espn-soccer-401917002",
+          "sport": "football",
+          "league": "UEFA Women's Champions League",
+          "homeTeam": "Manchester City",
+          "awayTeam": "Real Madrid",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "finished"
+        },
+        {
+          "title": "Live: Paris Saint-Germain vs OH Leuven",
+          "subtitle": "UEFA Women's Champions League • Live Broadcast",
+          "start": "2026-10-01T19:00:00+00:00",
+          "end": "2026-10-01T22:30:00+00:00",
+          "eventId": "espn-soccer-401917001",
+          "sport": "football",
+          "league": "UEFA Women's Champions League",
+          "homeTeam": "Paris Saint-Germain",
+          "awayTeam": "OH Leuven",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "finished"
+        },
+        {
+          "title": "Live: Asian Games Men's Cricket Final - India vs Pakistan",
+          "start": "2026-10-03T07:00:00Z",
+          "end": "2026-10-03T11:00:00Z",
+          "sport": "Cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "status": "LIVE",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "UEFA Champions League Highlights",
+          "start": "2026-10-03T11:00:00Z",
+          "end": "2026-10-03T12:00:00Z",
+          "sport": "Football",
+          "league": "UEFA Champions League",
+          "status": "UPCOMING",
+          "verification": "epg_verified",
+          "authorized": true
+        },
+        {
+          "title": "Live: Lens vs Sporting CP",
+          "subtitle": "UEFA Champions League • Live Broadcast",
+          "start": "2026-10-13T16:45:00+00:00",
+          "end": "2026-10-13T20:15:00+00:00",
+          "eventId": "tsdb-2594564",
+          "sport": "football",
+          "league": "UEFA Champions League",
+          "homeTeam": "Lens",
+          "awayTeam": "Sporting CP",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "channelId": "ch-ayna-019de785-39bc-7bd5-b9e5-bab23ceba9ea",
+      "channelName": "PTV Sports",
+      "channelLogo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-20/images_5704c544bcbe25521134b299a0298be7_playmist_ptv_sports_400x400.jpg",
+      "category": "ayna",
+      "totalPrograms": 2,
+      "programs": [
+        {
+          "title": "Live: Bangladesh vs Sri Lanka",
+          "subtitle": "Asian Games Men's Cricket Competition • Live Broadcast",
+          "start": "2026-10-03T00:00:00+00:00",
+          "end": "2026-10-03T03:30:00+00:00",
+          "eventId": "cr-cricapi-espn_1552778",
+          "sport": "cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "homeTeam": "Bangladesh",
+          "awayTeam": "Sri Lanka",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        },
+        {
+          "title": "Live: India vs Pakistan",
+          "subtitle": "Asian Games Men's Cricket Competition • Live Broadcast",
+          "start": "2026-10-03T04:30:00+00:00",
+          "end": "2026-10-03T08:00:00+00:00",
+          "eventId": "cr-cricapi-espn_1552779",
+          "sport": "cricket",
+          "league": "Asian Games Men's Cricket Competition",
+          "homeTeam": "India",
+          "awayTeam": "Pakistan",
+          "verification": "epg_verified",
+          "authorized": true,
+          "status": "upcoming"
+        }
+      ]
+    }
+  ]
 }

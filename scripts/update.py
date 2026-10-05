@@ -19,6 +19,7 @@ from typing import Dict, Any, List
 
 from sports_api import fetch_all_sports_events
 from validator import validate_all_datasets
+from epg_parser import parse_and_sync_epg_data
 
 DATA_DIR = "data"
 CHANNELS_PATH = os.path.join(DATA_DIR, "channels.json")
@@ -156,16 +157,25 @@ def main():
         "events": final_events
     }
 
-    # 4. Generate EPG
+    # 4. Generate EPG & Synchronize Verified Schedules
     print("\n[2/3] Generating EPG program guide from verified schedules...")
-    epg_payload = generate_epg_from_events(final_events, channels_list)
+    epg_payload = parse_and_sync_epg_data(final_events, channels_list)
 
-    # 5. Write Temporary Output Files
+    # 5. Write Synchronized Output Files
     with open(EVENTS_PATH, "w", encoding="utf-8") as f:
-        json.dump(events_payload, f, indent=2)
-    
-    with open(EPG_PATH, "w", encoding="utf-8") as f:
-        json.dump(epg_payload, f, indent=2)
+        json.dump(events_payload, f, indent=2, ensure_ascii=False)
+
+    # Also keep root events.json synchronized if present
+    if os.path.exists("events.json"):
+        try:
+            with open("events.json", "r", encoding="utf-8") as rf:
+                root_evs = json.load(rf)
+            if isinstance(root_evs, list):
+                parse_and_sync_epg_data(root_evs, channels_list)
+                with open("events.json", "w", encoding="utf-8") as wf:
+                    json.dump(root_evs, wf, indent=2, ensure_ascii=False)
+        except Exception as e:
+            print(f"[update.py] Note: root events sync notice: {e}")
 
     # 6. Run Strict Validator
     print("\n[3/3] Running data integrity and schema validation...")
