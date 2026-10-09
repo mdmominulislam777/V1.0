@@ -3464,7 +3464,72 @@ body .cat-detail-action-btn.active {
 /* ==========================================================================
    Channels Grid (Exact 3-Column Layout: চ্যানেল থাকবে তিন ঘরে)
    ========================================================================== */
-.channels-grid-4col,
+.channels-grid-4col {
+  padding: 0 6px 24px 6px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .channels-grid-4col {
+    padding: 0 10px 26px 10px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (min-width: 900px) {
+  .channels-grid-4col {
+    padding: 0 14px 28px 14px;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .channels-grid-4col {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
+
+.channels-grid-4col .channel-card {
+  min-height: 98px;
+  padding: 6px 2px 6px 2px;
+  border-radius: 14px;
+}
+
+.channels-grid-4col .channel-logo-wrapper {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  min-height: 58px;
+  border-radius: 50%;
+  background: #ffffff;
+  padding: 3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+.channels-grid-4col .channel-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.channels-grid-4col .channel-name-text {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 96%;
+  margin-top: 2px;
+}
+
 .channels-grid-3col,
 .channels-grid {
   padding: 0 8px 24px 8px;
@@ -3476,7 +3541,6 @@ body .cat-detail-action-btn.active {
 }
 
 @media (min-width: 640px) {
-  .channels-grid-4col,
   .channels-grid-3col,
   .channels-grid {
     padding: 0 10px 26px 10px;
@@ -3486,7 +3550,6 @@ body .cat-detail-action-btn.active {
 }
 
 @media (min-width: 900px) {
-  .channels-grid-4col,
   .channels-grid-3col,
   .channels-grid {
     padding: 0 14px 28px 14px;
@@ -3496,7 +3559,6 @@ body .cat-detail-action-btn.active {
 }
 
 @media (min-width: 1200px) {
-  .channels-grid-4col,
   .channels-grid-3col,
   .channels-grid {
     grid-template-columns: repeat(6, minmax(0, 1fr));
@@ -4100,87 +4162,110 @@ body .category-name,
 }
 
 /* Fullscreen Mode (Native & CSS Fullscreen) */
-#player-modal.fullscreen {
+#player-modal.fullscreen,
+#player-modal.player-in-fullscreen-mode,
+#player-modal.player-fullscreen-landscape-90,
+body.player-in-rotated-fullscreen #player-modal {
   position: fixed !important;
   inset: 0 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
   width: 100vw !important;
+  width: 100dvw !important;
   height: 100vh !important;
+  height: 100dvh !important;
   max-width: 100vw !important;
   max-height: 100vh !important;
-  z-index: 9999999 !important;
+  z-index: 2147483640 !important;
   background: #000000 !important;
-  display: flex !important;
-  flex-direction: column !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  display: block !important;
 }
 
-:fullscreen .player-video-wrapper,
-:-webkit-full-screen .player-video-wrapper,
-.player-video-wrapper:fullscreen,
-.player-video-wrapper:-webkit-full-screen,
-.player-video-wrapper.fullscreen,
-#player-modal:fullscreen .player-video-wrapper,
-#player-modal:-webkit-full-screen .player-video-wrapper,
-#player-modal.fullscreen .player-video-wrapper {
-  width: 100vw !important;
-  height: 100vh !important;
-  max-width: 100vw !important;
-  max-height: 100vh !important;
-  aspect-ratio: unset !important;
+#player-modal.fullscreen .player-controls-container,
+#player-modal.player-in-fullscreen-mode .player-controls-container,
+#player-modal.player-fullscreen-landscape-90 .player-controls-container,
+body.player-in-rotated-fullscreen .player-controls-container,
+#player-modal.fullscreen .player-pinned-controls-bar,
+#player-modal.player-in-fullscreen-mode .player-pinned-controls-bar,
+#player-modal.player-fullscreen-landscape-90 .player-pinned-controls-bar,
+body.player-in-rotated-fullscreen .player-pinned-controls-bar,
+#player-modal.fullscreen .player-support-banner,
+#player-modal.player-in-fullscreen-mode .player-support-banner,
+#player-modal.player-fullscreen-landscape-90 .player-support-banner,
+body.player-in-rotated-fullscreen .player-support-banner,
+#player-modal.fullscreen .player-top-bar,
+#player-modal.player-in-fullscreen-mode .player-top-bar,
+#player-modal.player-fullscreen-landscape-90 .player-top-bar,
+body.player-in-rotated-fullscreen .player-top-bar {
+  display: none !important;
+}
+
+#player-modal.fullscreen .player-video-wrapper,
+#player-modal.player-in-fullscreen-mode .player-video-wrapper,
+#player-modal.player-fullscreen-landscape-90 .player-video-wrapper,
+.player-video-wrapper.player-fullscreen-landscape-90 {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
   border-radius: 0 !important;
+  border: none !important;
+  z-index: 2147483647 !important;
   background: #000000 !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+  aspect-ratio: unset !important;
+  max-width: none !important;
+  max-height: none !important;
+  touch-action: manipulation;
 }
 
-:fullscreen .player-video-element,
-:-webkit-full-screen .player-video-element,
-.player-video-wrapper:fullscreen .player-video-element,
-.player-video-wrapper:-webkit-full-screen .player-video-element,
-.player-video-wrapper.fullscreen .player-video-element,
-#player-modal:fullscreen .player-video-element,
-#player-modal:-webkit-full-screen .player-video-element,
-#player-modal.fullscreen .player-video-element {
+#player-modal.fullscreen .player-video-element,
+#player-modal.player-in-fullscreen-mode .player-video-element,
+#player-modal.player-fullscreen-landscape-90 .player-video-element,
+.player-video-wrapper.player-fullscreen-landscape-90 .player-video-element,
+#player-modal.fullscreen #hls-video-element,
+#player-modal.player-in-fullscreen-mode #hls-video-element,
+#player-modal.player-fullscreen-landscape-90 #hls-video-element,
+.player-video-wrapper.player-fullscreen-landscape-90 #hls-video-element {
   width: 100% !important;
   height: 100% !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain !important;
+  background: #000000 !important;
 }
 
-/* Mobile Landscape Mode Optimization */
-@media (orientation: landscape) and (max-height: 600px) {
-  #player-modal.active {
-    position: fixed !important;
-    inset: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
-    max-width: 100vw !important;
-    max-height: 100vh !important;
-    z-index: 999999 !important;
-  }
+#player-modal.fullscreen .player-controls-overlay,
+#player-modal.player-in-fullscreen-mode .player-controls-overlay,
+#player-modal.player-fullscreen-landscape-90 .player-controls-overlay,
+.player-video-wrapper.player-fullscreen-landscape-90 .player-controls-overlay {
+  width: 100% !important;
+  height: 100% !important;
+  padding: 10px 16px !important;
+}
 
-  #player-modal.active .player-top-bar {
-    display: none !important;
-  }
+#player-modal.fullscreen .player-watermark,
+#player-modal.player-in-fullscreen-mode .player-watermark,
+#player-modal.player-fullscreen-landscape-90 .player-watermark,
+.player-video-wrapper.player-fullscreen-landscape-90 .player-watermark {
+  bottom: clamp(52px, 12%, 76px) !important;
+  right: max(16px, env(safe-area-inset-right, 16px)) !important;
+}
 
-  #player-modal.active .player-video-wrapper {
-    width: 100vw !important;
-    height: 100vh !important;
-    max-width: 100vw !important;
-    max-height: 100vh !important;
-    aspect-ratio: unset !important;
-    flex-grow: 1 !important;
-  }
-
-  #player-modal.active .player-video-element {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: contain !important;
-  }
-
-  #player-modal.active .player-controls-container {
-    display: none !important;
-  }
+body.player-in-rotated-fullscreen {
+  overflow: hidden !important;
+  touch-action: none !important;
+  position: fixed !important;
+  width: 100% !important;
+  height: 100% !important;
 }
 
 .player-video-wrapper:fullscreen .player-watermark,
@@ -4558,36 +4643,59 @@ body .category-name,
   transform: scale(1.15);
 }
 
-/* Announcement Notice Bar matching screenshot */
+/* Announcement Marquee Bar under Player (Matching Video UI) */
 .player-announcement-bar {
   background: #0d1424;
-  border: 1px solid rgba(56, 189, 248, 0.2);
+  border: 1px solid rgba(56, 189, 248, 0.25);
   border-radius: 10px;
-  padding: 8px 12px;
+  padding: 6px 10px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 11px;
-  font-weight: 600;
-  color: #94a3b8;
-  line-height: 1.35;
-  cursor: pointer;
-  transition: all 0.2s ease;
+  gap: 8px;
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+  overflow: hidden;
+  transition: all 0.2s ease;
 }
 
 .player-announcement-bar:hover {
-  background: #131c31;
-  border-color: rgba(56, 189, 248, 0.4);
-  color: #e2e8f0;
+  background: #121c33;
+  border-color: rgba(56, 189, 248, 0.45);
 }
 
-.player-announcement-icon {
-  color: #38bdf8;
-  font-size: 14px;
+.player-announcement-badge {
+  background: #dc2626;
+  color: #ffffff;
+  font-size: 9.5px;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
   flex-shrink: 0;
+  box-shadow: 0 1px 4px rgba(220, 38, 38, 0.4);
+}
+
+.player-announcement-marquee {
+  flex: 1;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+
+.player-announcement-marquee span {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #cbd5e1;
+  animation: playerMarqueeScroll 20s linear infinite;
+  padding-left: 100%;
+}
+
+@keyframes playerMarqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
 }
 
 /* Live & Upcoming Match Events inside Player Modal */
@@ -4630,34 +4738,104 @@ body .category-name,
   transform: translateY(-1px);
 }
 
-/* Switch Channels Grid & Channel Cards inside Player Modal (Matching Category Channel Model) */
+/* Switch Channels Grid & Channel Cards inside Player Modal (Matching 4-Column Video Layout) */
 .player-switch-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 6px;
   width: 100%;
+  box-sizing: border-box;
 }
 
-@media (min-width: 640px) {
+@media (min-width: 600px) {
   .player-switch-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 12px;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 8px;
+  }
+}
+
+@media (min-width: 900px) {
+  .player-switch-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 10px;
   }
 }
 
 .player-switch-grid .channel-card {
+  min-height: 96px;
+  padding: 6px 2px 6px 2px;
+  border-radius: 14px;
+  background: #111a2e;
+  border: 1.5px solid #1f2c44;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.player-switch-grid .channel-card .channel-logo-wrapper {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  min-height: 58px;
+  border-radius: 50%;
+  background: #ffffff;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  border: none;
+}
+
+.player-switch-grid .channel-card .channel-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.player-switch-grid .channel-card .channel-name-text {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #e2e8f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 96%;
+  margin-top: 1px;
 }
 
 .player-switch-grid .channel-card.is-current-stream {
   border-color: #38bdf8 !important;
-  background: #12213d !important;
-  box-shadow: 0 0 16px rgba(56, 189, 248, 0.4), inset 0 0 8px rgba(56, 189, 248, 0.2) !important;
+  background: #0f1d38 !important;
+  box-shadow: 0 0 14px rgba(56, 189, 248, 0.45) !important;
 }
 
-.player-switch-grid .channel-card.is-current-stream .channel-logo-wrapper {
-  border: none;
-  box-shadow: none;
+/* Support Us Banner at Bottom */
+.player-support-banner {
+  margin-top: 14px;
+  margin-bottom: 24px;
+  padding: 10px 14px;
+  background: linear-gradient(135deg, #0f1c30 0%, #0d1527 100%);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.player-support-banner:hover {
+  border-color: rgba(16, 185, 129, 0.6);
+  transform: translateY(-1px);
 }
 
 .channel-playing-badge {
@@ -5875,17 +6053,19 @@ body .switch-slider {
 }
 
 /* ==========================================================================
-   19. Standard & Clean Splash & Loading Screen
+   19. Standard & Clean Splash & Loading Screen (PlayZ TV Style)
    ========================================================================== */
 .app-preloader {
   position: fixed;
   inset: 0;
   z-index: 99999;
-  background: radial-gradient(circle at 50% 25%, #151e33 0%, #0c1222 55%, #070b14 100%);
+  background-color: #0c101c;
+  background: #0c101c;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  padding: 0 20px 24px 20px;
   overflow: hidden;
   opacity: 1;
   visibility: visible;
@@ -5912,7 +6092,7 @@ body .switch-slider {
 }
 
 /* ==========================================================================
-   SPORTZFY-STYLE SPLASH SCREEN
+   PLAYZ TV-STYLE SPLASH SCREEN
    ========================================================================== */
 
 .sportzfy-splash-stage {
@@ -5927,18 +6107,17 @@ body .switch-slider {
   box-sizing: border-box;
 }
 
-/* 1. Circular Card Container */
+/* 1. Rounded Square Card Container */
 .sportzfy-app-card {
   position: relative;
-  width: 132px;
-  height: 132px;
-  max-width: 38vw;
-  max-height: 38vw;
-  aspect-ratio: 1 / 1;
-  border-radius: 50%;
-  background: #141b2d;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), inset 0 1px 1px rgba(255, 255, 255, 0.12);
+  width: 110px;
+  height: 110px;
+  max-width: 110px;
+  max-height: 110px;
+  border-radius: 22px;
+  background: #060911;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -5947,19 +6126,12 @@ body .switch-slider {
 
 @media (min-width: 640px) {
   .sportzfy-app-card {
-    width: 140px;
-    height: 140px;
-    max-width: 140px;
-    max-height: 140px;
-    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 24px;
   }
-}
-
-.sportzfy-app-card-glow {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(circle at 50% 30%, rgba(56, 189, 248, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
-  pointer-events: none;
 }
 
 .sportzfy-app-card-inner {
@@ -5970,155 +6142,121 @@ body .switch-slider {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0;
+  padding: 14px;
   box-sizing: border-box;
   overflow: hidden;
-  border-radius: 50%;
 }
 
 .sportzfy-logo-img {
   width: 100%;
   height: 100%;
+  max-width: 82px;
+  max-height: 82px;
   aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 50% !important;
+  object-fit: contain;
+  border-radius: 12px !important;
   border: none !important;
   background: transparent !important;
-  box-shadow: none !important;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
   display: block;
 }
 
-/* 2. Brand Title & Tagline */
+/* 2. Brand Title */
 .sportzfy-brand-text-wrap {
-  margin-top: 24px;
+  margin-top: 18px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 6px;
 }
 
 .sportzfy-splash-title {
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 700;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
   color: #ffffff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
 }
 
-.sportzfy-splash-tagline {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  font-size: 13.5px;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  color: #94a3b8;
-}
-
-/* 3. Sports Balls Stationary Rotating Loader */
-.sports-balls-loader {
-  margin-top: 110px;
+/* 3. Lower Stage: Animated TV with Arrows & Version */
+.playz-bottom-stage {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 16px;
   width: 100%;
-  padding: 10px 0;
+  margin-bottom: 8px;
 }
-.sports-ball-item {
+
+.playz-dots-loader-wrap {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 15px;
-  height: 15px;
-}
-.ball-icon-wrap {
-  width: 15px;
-  height: 15px;
-  background: transparent;
-  border-radius: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 15px;
-  line-height: 1;
-  box-shadow: none;
-  box-sizing: border-box;
-  animation: sportsBallSpin 0.9s linear infinite;
-  animation-delay: calc(var(--i) * 0.08s);
-}
-.ball-cricket .ball-icon-wrap {
-  color: #dc2626; /* Real Cricket Red */
-  filter: drop-shadow(0 1px 3px rgba(220, 38, 38, 0.5));
-}
-.ball-soccer .ball-icon-wrap {
-  color: #ffffff; /* Real Classic Soccer White */
-  filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.4));
-}
-.ball-rugby .ball-icon-wrap {
-  color: #9a3412; /* Real Leather Rugby Brown */
-  filter: drop-shadow(0 1px 3px rgba(154, 52, 18, 0.5));
-}
-.ball-basketball .ball-icon-wrap {
-  color: #ea580c; /* Real Basketball Orange */
-  filter: drop-shadow(0 1px 3px rgba(234, 88, 12, 0.5));
-}
-.ball-tennis .ball-icon-wrap {
-  color: #ccff00; /* Real Optic Tennis Neon Yellow */
-  filter: drop-shadow(0 1px 3px rgba(204, 255, 0, 0.5));
+  gap: 10px;
+  height: 38px;
 }
 
-@keyframes sportsBallSpin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.playz-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(56, 189, 248, 0.4);
+  opacity: 0.5;
+  transform: scale(1);
+  animation: playzPulseBounce 1.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
-@keyframes tvGlowPulse {
-  0% {
-    transform: scale(0.85);
-    opacity: 0.3;
+.playz-dot:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.playz-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.playz-dot:nth-child(3),
+.playz-dot.active {
+  animation-delay: 0.4s;
+}
+
+.playz-dot:nth-child(4) {
+  animation-delay: 0.6s;
+}
+
+.playz-dot:nth-child(5) {
+  animation-delay: 0.8s;
+}
+
+@keyframes playzPulseBounce {
+  0%, 100% {
+    transform: translateY(0) scale(0.85);
+    background: rgba(56, 189, 248, 0.4);
+    box-shadow: none;
+    opacity: 0.4;
   }
-  100% {
-    transform: scale(1.3);
-    opacity: 0.9;
+  50% {
+    transform: translateY(-8px) scale(1.35);
+    background: #38bdf8;
+    box-shadow: 0 0 14px rgba(56, 189, 248, 0.95);
+    opacity: 1;
   }
 }
 
-@keyframes broadcastSignalWave {
-  0% {
-    transform: scale(0.5);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
-
-/* 3. Version Label Positioned at the Absolute Bottom */
 .cricfy-version-bottom {
-  position: absolute;
-  bottom: 24px;
-  left: 0;
-  right: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #94a3b8;
+  letter-spacing: 0.02em;
   text-align: center;
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #475569;
-  z-index: 2;
-  pointer-events: none;
+  margin: 0;
+  opacity: 0.85;
 }
 
 /* Admin Dashboard & Tabs Styles */

@@ -50,12 +50,13 @@
       position: fixed !important;
       inset: 0 !important;
       z-index: 999999 !important;
-      background: radial-gradient(circle at 50% 28%, #161e32 0%, #0d1322 55%, #080c16 100%) !important;
+      background-color: #0c101c !important; /* PlayZ TV Pure Dark Charcoal */
+      background: #0c101c !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
       justify-content: space-between !important;
-      padding: 40px 20px 28px 20px !important;
+      padding: 0 20px 24px 20px !important;
       box-sizing: border-box !important;
       overflow: hidden !important;
       opacity: 1;
@@ -87,16 +88,17 @@
       width: 100% !important;
       box-sizing: border-box !important;
     }
+    /* PlayZ TV App Card: Rounded square box with soft inner depth */
     .sportzfy-app-card {
       position: relative !important;
-      width: 128px !important;
-      height: 128px !important;
-      max-width: 128px !important;
-      max-height: 128px !important;
-      border-radius: 50% !important;
-      background: #141c2e !important;
-      border: 1px solid rgba(255, 255, 255, 0.08) !important;
-      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.12) !important;
+      width: 110px !important;
+      height: 110px !important;
+      max-width: 110px !important;
+      max-height: 110px !important;
+      border-radius: 22px !important;
+      background: #060911 !important;
+      border: 1.5px solid rgba(255, 255, 255, 0.12) !important;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.15) !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -112,183 +114,164 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      padding: 16px !important;
+      padding: 14px !important;
       box-sizing: border-box !important;
     }
     .sportzfy-logo-img {
       width: 100% !important;
       height: 100% !important;
-      max-width: 96px !important;
-      max-height: 96px !important;
+      max-width: 82px !important;
+      max-height: 82px !important;
       aspect-ratio: 1 / 1 !important;
       object-fit: contain !important;
       display: block !important;
-      filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5)) !important;
+      filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6)) !important;
+      border-radius: 12px !important;
     }
     .sportzfy-brand-text-wrap {
-      margin-top: 22px !important;
+      margin-top: 18px !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
       text-align: center !important;
-      gap: 6px !important;
       width: 100% !important;
     }
+    /* PlayZ TV Style Brand Title: Clean bold typography */
     .sportzfy-splash-title {
       margin: 0 !important;
       padding: 0 !important;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-      font-size: 22px !important;
+      font-size: 24px !important;
       font-weight: 700 !important;
-      letter-spacing: -0.01em !important;
+      letter-spacing: -0.02em !important;
       color: #ffffff !important;
       text-align: center !important;
-      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6) !important;
-    }
-    .sportzfy-splash-tagline {
-      margin: 0 !important;
-      padding: 0 !important;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-      font-size: 13.5px !important;
-      font-weight: 400 !important;
-      letter-spacing: 0.01em !important;
-      color: #94a3b8 !important;
-      text-align: center !important;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8) !important;
     }
 
-    /* 3. Sports Balls Stationary Rotating Loader */
-    .sports-balls-loader {
-      margin-top: 110px !important;
+    /* PlayZ TV Lower Animated TV & Arrows Stage */
+    .playz-bottom-stage {
       display: flex !important;
+      flex-direction: column !important;
       align-items: center !important;
       justify-content: center !important;
-      gap: 6px !important;
+      gap: 16px !important;
       width: 100% !important;
-      padding: 10px 0 !important;
+      margin-bottom: 8px !important;
     }
-    .sports-ball-item {
+
+    .playz-tv-loader-wrap {
       position: relative !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      width: 15px !important;
-      height: 15px !important;
+      gap: 20px !important;
+      height: 38px !important;
     }
-    .ball-icon-wrap {
-      width: 15px !important;
-      height: 15px !important;
-      background: transparent !important;
-      border-radius: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      font-size: 15px !important;
+
+    .playz-tv-icon {
+      font-size: 26px !important;
+      color: #ffffff !important;
       line-height: 1 !important;
-      box-shadow: none !important;
-      box-sizing: border-box !important;
-      animation: sportsBallSpin 0.9s linear infinite !important;
-      animation-delay: calc(var(--i) * 0.08s) !important;
-    }
-    .ball-cricket .ball-icon-wrap {
-      color: #dc2626 !important; /* Real Cricket Red */
-      filter: drop-shadow(0 1px 3px rgba(220, 38, 38, 0.5)) !important;
-    }
-    .ball-soccer .ball-icon-wrap {
-      color: #ffffff !important; /* Real Classic Soccer White */
-      filter: drop-shadow(0 1px 3px rgba(255, 255, 255, 0.4)) !important;
-    }
-    .ball-rugby .ball-icon-wrap {
-      color: #9a3412 !important; /* Real Leather Rugby Brown */
-      filter: drop-shadow(0 1px 3px rgba(154, 52, 18, 0.5)) !important;
-    }
-    .ball-basketball .ball-icon-wrap {
-      color: #ea580c !important; /* Real Basketball Orange */
-      filter: drop-shadow(0 1px 3px rgba(234, 88, 12, 0.5)) !important;
-    }
-    .ball-tennis .ball-icon-wrap {
-      color: #ccff00 !important; /* Real Optic Tennis Neon Yellow */
-      filter: drop-shadow(0 1px 3px rgba(204, 255, 0, 0.5)) !important;
+      filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.2)) !important;
     }
 
-    @keyframes sportsBallSpin {
-      0% {
-        transform: rotate(0deg);
+    .playz-arrow {
+      font-size: 11px !important;
+      color: #cbd5e1 !important;
+      opacity: 0.9 !important;
+    }
+
+    .playz-arrow-left {
+      animation: playzPulseLeft 1.2s ease-in-out infinite !important;
+    }
+
+    .playz-arrow-right {
+      animation: playzPulseRight 1.2s ease-in-out infinite !important;
+    }
+
+    @keyframes playzPulseLeft {
+      0%, 100% {
+        transform: translateX(-4px);
+        opacity: 0.4;
       }
-      100% {
-        transform: rotate(360deg);
+      50% {
+        transform: translateX(4px);
+        opacity: 1;
       }
     }
 
+    @keyframes playzPulseRight {
+      0%, 100% {
+        transform: translateX(4px);
+        opacity: 0.4;
+      }
+      50% {
+        transform: translateX(-4px);
+        opacity: 1;
+      }
+    }
+
+    /* PlayZ TV Version Display: Exact clean style */
     .cricfy-version-bottom {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
-      font-size: 12px !important;
+      font-size: 13px !important;
       font-weight: 500 !important;
-      color: #64748b !important;
-      letter-spacing: 0.04em !important;
+      color: #94a3b8 !important;
+      letter-spacing: 0.02em !important;
       text-align: center !important;
-      margin-bottom: 8px !important;
+      margin: 0 !important;
+      opacity: 0.85 !important;
     }
   </style>
 </head>
 <body>
 
   <!-- ======================================================================
-       0. HighFy TV Standard & Clean Loading / Splash Screen
+       0. HighFy TV Standard & Clean Loading / Splash Screen (PlayZ TV & App #3 Inspired)
        ====================================================================== -->
   <div id="app-preloader" class="app-preloader">
     <div class="cricfy-splash-container">
       
-      <!-- Sportzfy-Inspired Clean & Modern Splash Stage -->
+      <!-- PlayZ TV Style Clean Center Stage -->
       <div class="sportzfy-splash-stage">
         
-        <!-- 1. Central Circular App Icon Container -->
-        <div class="sportzfy-app-card" style="width: 120px; height: 120px; border-radius: 50%; background: #141c2e; display: flex; align-items: center; justify-content: center; overflow: hidden; margin: 0 auto; box-shadow: 0 16px 36px rgba(0,0,0,0.6), 0 0 20px rgba(14, 165, 233, 0.25); border: 2px solid rgba(56, 189, 248, 0.3);">
-          <div class="sportzfy-app-card-inner" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0; box-sizing: border-box; overflow: hidden; border-radius: 50%;">
+        <!-- 1. Central Rounded Square Box Container with Logo -->
+        <div class="sportzfy-app-card">
+          <div class="sportzfy-app-card-inner">
             <img 
               id="cricfy-splash-logo-img"
               src="./highfy_logo1.png" 
               alt="HighFy TV" 
               class="sportzfy-logo-img"
-              style="width: 100%; height: 100%; max-width: 100%; max-height: 100%; object-fit: cover; display: block; border-radius: 50%;"
               referrerpolicy="no-referrer"
               onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
             />
           </div>
         </div>
 
-        <!-- 2. Brand Title & Tagline -->
-        <div class="sportzfy-brand-text-wrap" style="margin-top: 22px; text-align: center;">
-          <h1 class="sportzfy-splash-title" style="font-size: 22px; font-weight: 700; color: #ffffff; margin: 0; text-align: center;">HighFy TV</h1>
-          <p class="sportzfy-splash-tagline" style="font-size: 13.5px; color: #94a3b8; margin: 6px 0 0 0; text-align: center;">Live sports, instant access</p>
-        </div>
-
-        <!-- 3. Sports Balls Stationary Rotating Loader -->
-        <div class="sports-balls-loader" aria-label="Loading HighFy TV...">
-          <div class="sports-ball-item ball-cricket" style="--i: 0;" title="Cricket">
-            <span class="ball-icon-wrap"><i class="fa-solid fa-baseball-bat-ball"></i></span>
-          </div>
-          <div class="sports-ball-item ball-soccer" style="--i: 1;" title="Soccer">
-            <span class="ball-icon-wrap"><i class="fa-solid fa-futbol"></i></span>
-          </div>
-          <div class="sports-ball-item ball-rugby" style="--i: 2;" title="Rugby">
-            <span class="ball-icon-wrap"><i class="fa-solid fa-football"></i></span>
-          </div>
-          <div class="sports-ball-item ball-basketball" style="--i: 3;" title="Basketball">
-            <span class="ball-icon-wrap"><i class="fa-solid fa-basketball"></i></span>
-          </div>
-          <div class="sports-ball-item ball-tennis" style="--i: 4;" title="Tennis">
-            <span class="ball-icon-wrap"><i class="fa-solid fa-table-tennis-paddle-ball"></i></span>
-          </div>
+        <!-- 2. Brand Title -->
+        <div class="sportzfy-brand-text-wrap">
+          <h1 class="sportzfy-splash-title">HighFy TV</h1>
         </div>
 
       </div>
 
     </div>
 
-    <!-- Version Label Fixed at the Absolute Bottom -->
-    <div class="cricfy-version-bottom" id="preloader-version">
-      v1.0
+    <!-- 4. Bottom Area: Sliding Dots Loader (Marked by Screenshot) & Version -->
+    <div class="playz-bottom-stage">
+      <div class="playz-dots-loader-wrap" aria-label="Loading HighFy TV...">
+        <span class="playz-dot"></span>
+        <span class="playz-dot"></span>
+        <span class="playz-dot active"></span>
+        <span class="playz-dot"></span>
+        <span class="playz-dot"></span>
+      </div>
+      <div class="cricfy-version-bottom" id="preloader-version">
+        Version: 1.0.0
+      </div>
     </div>
   </div>
 
@@ -737,26 +720,50 @@
         <!-- 1. Horizontal Server Pills Row -->
         <div class="player-server-pills-bar">
           <div id="player-server-pills" class="player-server-pills-row">
-            <!-- Server pills e.g. [✓ Server 1 • FHD] [Server 2 • Proxy] -->
+            <!-- Server pills e.g. [✓ Server 1 • HD] [Server 2 • HD] -->
           </div>
         </div>
 
-        <!-- 2. Header Row: Switch Channel Category & Count -->
+        <!-- 2. Announcement / Update Ticker Bar (Matching Video Model) -->
+        <div class="player-announcement-bar cursor-pointer" onclick="if(typeof openModal === 'function') openModal('modal-notice');" title="App Updates & Notifications">
+          <span class="player-announcement-badge">⚡ Update</span>
+          <div class="player-announcement-marquee">
+            <span id="player-marquee-text">HighFy TV v2.0 • Live Sports, Cricket &amp; 24/7 TV Channels! Tap any channel below to switch instantly.</span>
+          </div>
+        </div>
+
+        <!-- 3. Header Row: Switch Channel Category & Count -->
         <div class="player-server-header-row">
           <h3 class="text-sm font-extrabold text-white flex items-center gap-1.5" id="player-related-events-header">
-            <i class="fa-solid fa-trophy text-amber-400"></i> Sports Channels
+            <i class="fa-solid fa-tv text-sky-400"></i> Bangla Channels
           </h3>
           <span class="text-[11px] text-sky-400 font-bold flex items-center gap-1" id="player-related-events-count">
-            Tap to Watch
+            Tap to Switch
           </span>
         </div>
       </div>
 
-      <!-- Under-Player Channels Section (Matching Screenshot "Sports Channels" Heading & Grid) -->
+      <!-- Under-Player Channels Section (Matching Video 4-Column Grid) -->
       <div class="player-related-events-section" id="player-related-events-section">
         <div id="player-related-events-list" class="player-related-events-list">
-          <!-- Dynamic Channel Cards matching 3-column screenshot model -->
+          <!-- Dynamic Channel Cards matching 4-column video model -->
         </div>
+      </div>
+
+      <!-- Support Us Banner at Bottom (Matching Video) -->
+      <div class="player-support-banner cursor-pointer" onclick="if(typeof openModal === 'function') openModal('modal-share');">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-emerald-400 text-sm flex-shrink-0">
+            <i class="fa-solid fa-heart"></i>
+          </div>
+          <div class="min-w-0">
+            <div class="text-xs font-bold text-white truncate">SUPPORT HIGHFY TV</div>
+            <div class="text-[10px] text-slate-400 truncate">Click here to share &amp; support our free service</div>
+          </div>
+        </div>
+        <button type="button" class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-[11px] flex items-center gap-1 transition flex-shrink-0">
+          <i class="fa-solid fa-share-nodes"></i> Share
+        </button>
       </div>
     </div>
 
@@ -1793,21 +1800,17 @@
       
       <div class="modal-input-group">
         <label class="modal-label flex items-center justify-between">
-          <span>⚡ RapidAPI Key</span>
+          <span>☁️ Cloudflare Worker API URL</span>
           <div class="flex items-center gap-2">
-            <button type="button" id="btn-clear-rapidapi" class="text-[11px] font-semibold text-rose-400 hover:text-rose-300 bg-rose-500/10 hover:bg-rose-500/20 px-2 py-0.5 rounded border border-rose-500/30 transition-colors">Clear</button>
-            <button type="button" id="btn-test-rapidapi" class="text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30 transition-colors">Test Key</button>
-            <a href="https://rapidapi.com/" target="_blank" class="text-sky-400 text-[10px] underline">RapidAPI Hub</a>
+            <button type="button" id="btn-test-worker" class="text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30 transition-colors">Test Connection</button>
+            <span class="text-sky-400 text-[10px]">Zero Keys in APK</span>
           </div>
         </label>
         <div class="relative flex items-center">
-          <input type="password" id="setting-rapidapi-key" class="modal-input pr-9" placeholder="Paste your RapidAPI key (x-rapidapi-key)" />
-          <button type="button" class="absolute right-2.5 text-slate-400 hover:text-slate-200 text-xs toggle-token-vis" data-target="setting-rapidapi-key">
-            <i class="fa-solid fa-eye"></i>
-          </button>
+          <input type="text" id="setting-worker-url" class="modal-input" placeholder="https://your-worker.workers.dev (Optional custom worker)" />
         </div>
-        <div id="rapidapi-test-result" class="hidden text-[11px] mt-1.5 p-2 rounded-lg border font-medium"></div>
-        <p class="text-[10px] text-slate-400 mt-1">Optional RapidAPI key for auxiliary sports endpoints.</p>
+        <div id="worker-test-result" class="hidden text-[11px] mt-1.5 p-2 rounded-lg border font-medium"></div>
+        <p class="text-[10px] text-slate-400 mt-1">Worker proxy routes all sports APIs securely without exposing secrets to frontend or Android app.</p>
       </div>
 
       <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-xs flex items-center justify-between mb-3">

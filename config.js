@@ -36,24 +36,11 @@
     (window.location.hostname === 'localhost' && !window.location.port);
 
   const CONFIG = {
-    // Centralized API Base URL for Web & APK compatibility
-    API_BASE_URL: env.API_BASE_URL || (isNativeOrFileOrigin
+    // Cloudflare Worker API Architecture
+    CLOUDFLARE_WORKER_BASE_URL: env.CLOUDFLARE_WORKER_BASE_URL || "",
+    API_BASE_URL: env.API_BASE_URL || env.CLOUDFLARE_WORKER_BASE_URL || (isNativeOrFileOrigin
       ? 'https://ais-pre-4n6xu2ltg6dzfgsxbb5usk-847516639097.asia-east1.run.app'
       : ''),
-
-    // ⚡ RapidAPI Key
-    RAPIDAPI_KEY: env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81",
-
-    // 🏏 CricketData.org / CricAPI (Managed strictly server-side via /api/cricket/matches; never exposed in frontend/APK)
-    CRICKETDATA_API_KEY: "",
-    CRICAPI_KEY: "",
-
-    // 🏟️ TheSportsDB Free API Tier (Public Key '3')
-    THESPORTSDB_API_KEY: env.THESPORTSDB_API_KEY || "3",
-    THESPORTSDB_BASE_URL: "https://www.thesportsdb.com/api/v1/json",
-
-    // 🤼 WWE Data Source
-    WWE_API_URL: env.WWE_API_URL || "",
 
     // Auto-refresh intervals in milliseconds (rate-limit conscious)
     CRICKET_REFRESH: 60000,   // 60 seconds
@@ -62,7 +49,7 @@
     // Default Timezone
     TIMEZONE: "Asia/Dhaka",
 
-    // Remote Dynamic JSON Feeds (GitHub Gist, Pastebin, or your own server)
+    // Remote Dynamic JSON Feeds (optional custom feeds)
     CHANNELS_JSON_URL: env.CHANNELS_JSON_URL || "",
     MATCHES_JSON_URL: env.MATCHES_JSON_URL || "",
 

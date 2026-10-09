@@ -30,7 +30,7 @@ import("./sportsApi/channelResolver.js")
   })
   .catch(() => {});
 
-const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || "2da9bc7707msh95f431d97eae2d9p11dacfjsn8ac155ee8d81";
+const RAPIDAPI_KEY = (process.env.RAPIDAPI_KEY || "").trim();
 const DEFAULT_CRICKET_HOST = "cricbuzz-cricket2.p.rapidapi.com";
 
 function sanitizeCricbuzzHost(h?: any): string {
@@ -5725,34 +5725,92 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
     }
   });
 
-  app.get("/api/events/live", async (_req, res) => {
+  // Verified Channels Endpoint: /api/channels/verified
+  app.get("/api/channels/verified", (_req, res) => {
     try {
-      const allEvents = await getUnifiedServerEvents();
-      const live = allEvents.filter(e => e.status === "LIVE");
-      return res.json({ status: "success", total: live.length, data: live });
+      const allChannels = getChannelsFromDisk();
+      const verifiedList = allChannels.map((ch: any) => {
+        const isAuthorized = ch.active && Boolean(ch.streamUrl || (Array.isArray(ch.streams) && ch.streams.length > 0));
+        return {
+          id: ch.id,
+          name: ch.name,
+          logo: ch.logo || null,
+          category: ch.category || "Sports",
+          sports: ch.sports || [],
+          priority: ch.priority || 99,
+          active: ch.active === true,
+          verified: isAuthorized,
+          status: isAuthorized ? "verified" : "unavailable",
+          streams: isAuthorized
+            ? (ch.streams || [{ name: "Server 1", url: `/api/stream-proxy?url=${encodeURIComponent(ch.streamUrl)}` }])
+            : [],
+        };
+      });
+      return res.json({
+        success: true,
+        status: "success",
+        total: verifiedList.length,
+        data: verifiedList,
+        timestamp: new Date().toISOString(),
+      });
     } catch (err: any) {
-      return res.status(500).json({ status: "error", message: err.message, data: [] });
+      return res.status(500).json({ success: false, error: err.message, data: [] });
     }
   });
 
-  app.get("/api/events/today", async (_req, res) => {
+  // Verified Broadcasters Endpoint: /api/broadcasters/verified
+  app.get("/api/broadcasters/verified", (_req, res) => {
+    const verifiedBroadcasters = [
+      { id: "sony-sports", name: "Sony Sports Network", channels: ["ch-sony-sports-ten-1-hd", "ch-sony-sports-ten-2-hd", "ch-sony-sports-ten-3", "ch-sony-sports-ten-5-hd"], region: "South Asia", status: "verified" },
+      { id: "t-sports", name: "T Sports", channels: ["ch-t-sports-hd"], region: "Bangladesh", status: "verified" },
+      { id: "star-sports", name: "Star Sports Network", channels: ["ch-star-sports-1-hd", "ch-star-sports-2-hd", "ch-star-sports-hindi-1"], region: "India", status: "verified" },
+      { id: "ptv-sports", name: "PTV Sports", channels: ["ch-ptv-sports-hd"], region: "Pakistan", status: "verified" },
+      { id: "a-sports", name: "A Sports HD", channels: ["ch-a-sports"], region: "Pakistan", status: "verified" },
+      { id: "ten-sports", name: "Ten Sports", channels: ["ch-ten-sports-hd"], region: "Pakistan/Middle East", status: "verified" },
+      { id: "sky-sports", name: "Sky Sports", channels: ["ch-sky-sports-main-event", "ch-sky-sports-premier-league", "ch-sky-sports-cricket", "ch-sky-sports-football"], region: "United Kingdom", status: "verified" },
+      { id: "tnt-sports", name: "TNT Sports", channels: ["ch-tnt-sports-1", "ch-tnt-sports-2"], region: "United Kingdom", status: "verified" },
+      { id: "supersport", name: "SuperSport", channels: ["ch-supersport-premier-league", "ch-supersport-grandstand", "ch-supersport-cricket"], region: "Africa", status: "verified" },
+      { id: "willow-tv", name: "Willow TV", channels: ["ch-willow-cricket-hd", "ch-willow-extra"], region: "USA/North America", status: "verified" },
+      { id: "tapmad", name: "Tapmad Sports", channels: ["ch-tapmad-sports"], region: "Pakistan", status: "verified" },
+      { id: "wwe-network", name: "WWE Network 24/7", channels: ["ch-wwe-24-7", "ch-sony-sports-ten-1-hd"], region: "Worldwide / South Asia", status: "verified" },
+    ];
+    return res.json({
+      success: true,
+      status: "success",
+      total: verifiedBroadcasters.length,
+      data: verifiedBroadcasters,
+      timestamp: new Date().toISOString(),
+    });
+  });
+
+  app.get(["/api/sports/live", "/api/events/live"], async (_req, res) => {
+    try {
+      const allEvents = await getUnifiedServerEvents();
+      const live = allEvents.filter(e => e.status === "LIVE");
+      return res.json({ success: true, status: "success", total: live.length, data: live });
+    } catch (err: any) {
+      return res.status(502).json({ success: false, status: "error", error: "Upstream API unavailable", message: err.message, data: [] });
+    }
+  });
+
+  app.get(["/api/sports/today", "/api/events/today"], async (_req, res) => {
     try {
       const allEvents = await getUnifiedServerEvents();
       const todayStr = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Dhaka", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date());
       const todayEvents = allEvents.filter(e => e.status === "LIVE" || (e.date && e.date.includes(todayStr)));
-      return res.json({ status: "success", total: todayEvents.length, data: todayEvents });
+      return res.json({ success: true, status: "success", total: todayEvents.length, data: todayEvents });
     } catch (err: any) {
-      return res.status(500).json({ status: "error", message: err.message, data: [] });
+      return res.status(502).json({ success: false, status: "error", error: "Upstream API unavailable", message: err.message, data: [] });
     }
   });
 
-  app.get("/api/events/upcoming", async (_req, res) => {
+  app.get(["/api/sports/upcoming", "/api/events/upcoming"], async (_req, res) => {
     try {
       const allEvents = await getUnifiedServerEvents();
       const upcoming = allEvents.filter(e => e.status === "UPCOMING");
-      return res.json({ status: "success", total: upcoming.length, data: upcoming });
+      return res.json({ success: true, status: "success", total: upcoming.length, data: upcoming });
     } catch (err: any) {
-      return res.status(500).json({ status: "error", message: err.message, data: [] });
+      return res.status(502).json({ success: false, status: "error", error: "Upstream API unavailable", message: err.message, data: [] });
     }
   });
 

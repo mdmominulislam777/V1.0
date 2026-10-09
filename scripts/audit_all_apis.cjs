@@ -98,7 +98,7 @@ async function runAudit() {
   const hasGemini = !!process.env.GEMINI_API_KEY;
   console.log(`\n--- Server Environment Keys ---`);
   console.log(`Gemini API Key: ${hasGemini ? '✓ Configured in process.env' : 'ℹ Not set (optional)'}`);
-  console.log(`RapidAPI Key: ${process.env.RAPIDAPI_KEY || '2da9bc77...8d81 (Default Configured)'}`);
+  console.log(`RapidAPI Key: ${process.env.RAPIDAPI_KEY ? '✓ Configured in process.env' : 'ℹ Not set (optional)'}`);
   console.log(`TheSportsDB Key: ${process.env.THESPORTSDB_API_KEY || '3 (Default Free Tier)'}`);
   console.log(`AllSportsAPI Key: ${process.env.ALLSPORTSAPI_KEY ? 'Configured' : 'Not set (optional)'}`);
 

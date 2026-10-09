@@ -387,7 +387,12 @@
     'supersportlaliga': ['ch-super-sport-laliga'],
     'dsports': ['ch-dsports'],
     'directvsports': ['ch-dsports'],
-    'goaltv': ['ch-goal-tv']
+    'goaltv': ['ch-goal-tv'],
+    'wwe247': ['ch-wwe-24-7'],
+    'wwe247hd': ['ch-wwe-24-7'],
+    'wwenetwork': ['ch-wwe-24-7', 'ch-sony-sports-ten-1-hd'],
+    'wwe': ['ch-wwe-24-7', 'ch-sony-sports-ten-1-hd'],
+    'wwelive': ['ch-wwe-24-7']
   };
 
   /**

@@ -1,11 +1,83 @@
 {
-  "updatedAt": "2026-10-04T11:50:42.700Z",
-  "sourceStatus": {
-    "cricketdata": "ok",
-    "thesportsdb": "ok",
-    "allsports": "ok"
-  },
   "events": [
+    {
+      "id": "wwe-24-7-live",
+      "idEvent": "wwe-24-7-live",
+      "sport": "wwe",
+      "sportName": "WWE",
+      "sportIcon": "fa-hand-fist",
+      "title": "WWE 24/7 Non-Stop Live Action",
+      "name": "WWE 24/7 Live Stream",
+      "league": "WWE Network",
+      "tournament": "WWE Special",
+      "leagueBadge": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png",
+      "matchDesc": "Non-stop 24/7 WWE and professional wrestling streaming action featuring WWE RAW, SmackDown, NXT, and Premium Live Events.",
+      "status": "live",
+      "statusText": "LIVE 24/7",
+      "statusLabel": "LIVE",
+      "startTime": "2026-10-07T15:27:38.585Z",
+      "endTime": null,
+      "authoritativeEndTime": null,
+      "timestamp": 1791386858585,
+      "date": "2026-10-07",
+      "matchTime": "Live 24/7 Stream",
+      "timeOrTimer": "LIVE",
+      "venue": "WWE Worldwide",
+      "isHot": true,
+      "isSpecial": true,
+      "videoUrl": null,
+      "team1": {
+        "id": null,
+        "name": "WWE Superstars",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png",
+        "score": ""
+      },
+      "team2": {
+        "id": null,
+        "name": "WWE 24/7 HD",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png",
+        "score": ""
+      },
+      "homeTeam": {
+        "id": null,
+        "name": "WWE Superstars",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png",
+        "score": ""
+      },
+      "awayTeam": {
+        "id": null,
+        "name": "WWE 24/7 HD",
+        "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png",
+        "score": ""
+      },
+      "broadcaster": "WWE 24/7 HD",
+      "broadcasters": [
+        "WWE 24/7 HD",
+        "WWE Network"
+      ],
+      "strTVStation": "WWE 24/7 HD",
+      "channelId": "ch-wwe-24-7",
+      "channelName": "WWE 24/7 HD",
+      "subText": "WWE Network • Live 24/7",
+      "source": "WWE Official",
+      "hasStream": true,
+      "verified": true,
+      "streams": [
+        {
+          "id": "ch-wwe-24-7-st-1",
+          "name": "WWE 24/7 (Server 1 HD)",
+          "serverLabel": "SERVER 1 (1080P FHD)",
+          "quality": "1080p FHD",
+          "url": "http://103.114.11.37:8081/WWE-24/7/index.m3u8",
+          "provider": "HighFy Stream",
+          "verified": true,
+          "active": true,
+          "channelId": "ch-wwe-24-7",
+          "channelName": "WWE 24/7 HD",
+          "channelLogo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/WWE_Logo.svg/512px-WWE_Logo.svg.png"
+        }
+      ]
+    },
     {
       "id": "cr-cricapi-espn_1551344",
       "rawId": "1551344",

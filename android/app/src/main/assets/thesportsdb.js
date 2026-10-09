@@ -85,37 +85,12 @@ class TheSportsDBEngine {
   }
 
   /**
-   * Get active API Key (Defaults to free tier key '3')
-   */
-  getApiKey() {
-    try {
-      const stored = localStorage.getItem(this.storageKey);
-      if (stored && stored.trim()) return stored.trim();
-    } catch (e) {}
-    return window.CONFIG?.THESPORTSDB_API_KEY || '3';
-  }
-
-  /**
-   * Set or update custom TheSportsDB API key
-   */
-  setApiKey(key) {
-    try {
-      if (key && key.trim()) {
-        localStorage.setItem(this.storageKey, key.trim());
-      } else {
-        localStorage.removeItem(this.storageKey);
-      }
-      this.cache.timestamp = 0;
-      this.cache.data = [];
-    } catch (e) {}
-  }
-
-  /**
-   * Base API URL
+   * TheSportsDB is proxied through the Cloudflare Worker API.
+   * Zero secrets or third-party URLs in frontend.
    */
   getBaseUrl() {
-    const key = this.getApiKey();
-    return `https://www.thesportsdb.com/api/v1/json/${encodeURIComponent(key)}`;
+    const apiBase = window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || window.CONFIG?.API_BASE_URL || '';
+    return `${apiBase}/api/thesportsdb`;
   }
 
   /**
@@ -430,30 +405,19 @@ class TheSportsDBEngine {
             '4888'  // Pakistan Super League (PSL)
           ];
           const promises = [];
-
-          for (const id of topLeagueIds) {
+          if (apiBase) {
             promises.push(
-              fetch(`${baseUrl}/eventsnextleague.php?id=${id}`)
-                .then(r => r.ok ? r.json() : { events: [] })
+              fetch(`${apiBase}/api/sports/today`)
+                .then(r => r.ok ? r.json() : { data: [] })
+                .then(d => ({ events: Array.isArray(d?.data) ? d.data : [] }))
                 .catch(() => ({ events: [] }))
             );
             promises.push(
-              fetch(`${baseUrl}/eventspastleague.php?id=${id}`)
-                .then(r => r.ok ? r.json() : { events: [] })
+              fetch(`${apiBase}/api/sports/upcoming`)
+                .then(r => r.ok ? r.json() : { data: [] })
+                .then(d => ({ events: Array.isArray(d?.data) ? d.data : [] }))
                 .catch(() => ({ events: [] }))
             );
-          }
-
-          // Also fetch 3-day schedules across sports (Today, Tomorrow, Day 3)
-          for (let dOffset = 0; dOffset <= 2; dOffset++) {
-            const dIso = new Date(Date.now() + dOffset * 24 * 3600 * 1000).toISOString().split('T')[0];
-            for (const sName of ['Soccer', 'Cricket', 'Basketball', 'Baseball', 'Volleyball', 'Rugby', 'Tennis']) {
-              promises.push(
-                fetch(`${baseUrl}/eventsday.php?d=${dIso}&s=${encodeURIComponent(sName)}`)
-                  .then(r => r.ok ? r.json() : { events: [] })
-                  .catch(() => ({ events: [] }))
-              );
-            }
           }
 
           const results = await Promise.allSettled(promises);
@@ -534,21 +498,6 @@ class TheSportsDBEngine {
         if (json && json.data) {
           this.detailsCache.set(cleanId, json.data);
           return json.data;
-        }
-      }
-    } catch (e) {}
-
-    // Direct lookup
-    try {
-      const baseUrl = this.getBaseUrl();
-      const res = await fetch(`${baseUrl}/lookupevent.php?id=${encodeURIComponent(cleanId)}`);
-      if (res.ok) {
-        const json = await res.json();
-        const raw = json.events?.[0];
-        if (raw) {
-          const norm = this.normalizeEvent(raw);
-          this.detailsCache.set(cleanId, norm);
-          return norm;
         }
       }
     } catch (e) {}

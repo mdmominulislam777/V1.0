@@ -42,10 +42,10 @@
       startTime,
       rawStatus: raw.status || 'upcoming',
       venue: raw.venue || 'WWE Arena',
-      broadcaster: 'Sony Sports Ten 1 HD',
-      broadcasters: ['Sony Sports Ten 1 HD', 'WWE Network'],
-      channelId: 'ch-sony-sports-ten-1-hd',
-      channelName: 'Sony Sports Ten 1 HD',
+      broadcaster: 'WWE 24/7 HD',
+      broadcasters: ['WWE 24/7 HD', 'Sony Sports Ten 1 HD', 'WWE Network'],
+      channelId: 'ch-wwe-24-7',
+      channelName: 'WWE 24/7 HD',
       source: 'WWE Official',
       verified: true
     });

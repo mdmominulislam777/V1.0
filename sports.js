@@ -738,6 +738,9 @@ class SportsCoordinator {
     if (id === 'ch-ufc-tv' || id === 'ch-ufc-fight-pass' || name.includes('ufc')) {
       return { sports: ['Combat', 'WWE'], leagues: ['UFC', 'MMA', 'Combat', 'WWE'], priority: 9 };
     }
+    if (id === 'ch-wwe-24-7' || name.includes('wwe 24/7') || name.includes('wwe 24 7')) {
+      return { sports: ['WWE', 'Combat'], leagues: ['WWE', 'WWE RAW', 'WWE SmackDown', 'WWE NXT', 'WWE Special', 'WWE Network'], priority: 1 };
+    }
     if (id === 'ch-motor-vision' || name.includes('motor vision')) {
       return { sports: ['Motorsport', 'F1'], leagues: ['Motorsport', 'Racing'], priority: 6 };
     }
@@ -960,7 +963,13 @@ class SportsCoordinator {
       'supersport la liga': ['ch-super-sport-laliga'],
       'dsports': ['ch-dsports'],
       'directv sports': ['ch-dsports'],
-      'goal tv': ['ch-goal-tv']
+      'goal tv': ['ch-goal-tv'],
+      'wwe 24/7': ['ch-wwe-24-7'],
+      'wwe 24 7': ['ch-wwe-24-7'],
+      'wwe 24/7 hd': ['ch-wwe-24-7'],
+      'wwe network': ['ch-wwe-24-7', 'ch-sony-sports-ten-1-hd'],
+      'wwe': ['ch-wwe-24-7', 'ch-sony-sports-ten-1-hd'],
+      'wwe live': ['ch-wwe-24-7']
     };
   }
 
@@ -2332,15 +2341,20 @@ class SportsCoordinator {
       const thesportsdbEngine = window.thesportsdbEngine;
       const wweEngine = window.wweEngine;
 
+      const apiBase = window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || window.CONFIG?.API_BASE_URL || '';
       const fetches = [
         cricketEngine ? cricketEngine.getAllMatches(forceRefresh) : Promise.resolve({ configured: false, events: [] }),
         thesportsdbEngine ? thesportsdbEngine.getAllMatches(forceRefresh) : Promise.resolve({ configured: false, events: [] }),
         wweEngine ? wweEngine.getAllEvents(forceRefresh) : Promise.resolve({ configured: false, events: [] }),
-        fetch('/api/tapmad/matches')
+        fetch(`${apiBase}/api/sports/live`)
+          .then(r => r.ok ? r.json() : null)
+          .then(d => ({ configured: true, events: Array.isArray(d?.data) ? d.data : [] }))
+          .catch(() => ({ configured: false, events: [] })),
+        fetch(`${apiBase}/api/tapmad/matches`)
           .then(r => r.ok ? r.json() : null)
           .then(d => ({ configured: true, events: Array.isArray(d?.events) ? d.events : [] }))
           .catch(() => ({ configured: false, events: [] })),
-        fetch('/api/sports-data/matches')
+        fetch(`${apiBase}/api/sports-data/matches`)
           .then(r => r.ok ? r.json() : null)
           .then(d => ({ configured: true, events: Array.isArray(d?.events) ? d.events : [] }))
           .catch(() => ({ configured: false, events: [] }))

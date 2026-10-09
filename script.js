@@ -592,7 +592,7 @@
     if (preloader) {
       updatePreloader(100, 'Ready');
       const elapsed = Date.now() - preloaderStartTime;
-      const minDisplayTime = 2500; // 2.5 seconds loading duration
+      const minDisplayTime = 3000; // 3 seconds loading duration
       const delay = Math.max(100, minDisplayTime - elapsed);
 
       setTimeout(() => {
@@ -4095,7 +4095,7 @@
         'bpl': ['ch-t-sports-hd', 'ch-gazi-tv'],
         'premier league': ['ch-star-sports-select-1-hd', 'ch-sky-sports-premier-league'],
         'champions league': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-2-hd'],
-        'wwe': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-3-hd']
+        'wwe': ['ch-wwe-24-7', 'ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-3-hd']
       };
 
       for (const [key, cids] of Object.entries(VERIFIED_TOURNAMENTS)) {
@@ -6878,6 +6878,9 @@
     if (DOM.playerModal) {
       DOM.playerModal.classList.remove('active');
     }
+    if (typeof exitPlayerLandscapeFullscreen === 'function') {
+      exitPlayerLandscapeFullscreen();
+    }
   }
 
   /**
@@ -7129,7 +7132,22 @@
     }
 
     const btnBack = document.getElementById('btn-player-back');
-    if (btnBack) btnBack.addEventListener('click', closePlayer);
+    if (btnBack) {
+      btnBack.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
+        const isFullscreenActive = Boolean(
+          state.isPlayerRotatedFullscreen ||
+          (wrapper && (wrapper.classList.contains('fullscreen') || wrapper.classList.contains('player-fullscreen-landscape-90'))) ||
+          document.fullscreenElement || document['webkitFullscreenElement']
+        );
+        if (isFullscreenActive) {
+          exitPlayerLandscapeFullscreen();
+        } else {
+          closePlayer();
+        }
+      });
+    }
 
     const btnClose = document.getElementById('btn-close-player');
     if (btnClose) btnClose.addEventListener('click', closePlayer);
@@ -7213,87 +7231,196 @@
       });
     }
 
-    // 10. Fullscreen Mode
-    if (DOM.btnPlayerFullscreen) {
-      DOM.btnPlayerFullscreen.addEventListener('click', async (e) => {
-        e.stopPropagation();
-        const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
-        const isCurrentlyFullscreen = Boolean(
-          (wrapper && wrapper.classList.contains('fullscreen')) ||
-          (DOM.playerModal && DOM.playerModal.classList.contains('fullscreen'))
-        );
+    // =========================================================================
+    // 10. 90° Landscape Fullscreen Mode (Mobile Portrait-to-Landscape Override)
+    // When clicking the fullscreen button, even if mobile is held straight (portrait),
+    // it goes true fullscreen and rotates 90° into landscape view.
+    // =========================================================================
+    function updateRotatedFullscreenLayout() {
+      const modal = DOM.playerModal || document.getElementById('player-modal');
+      const wrapper = document.querySelector('.player-video-wrapper');
+      if (!modal || !wrapper || !state.isPlayerRotatedFullscreen) return;
 
-        if (!isCurrentlyFullscreen) {
-          // Enter Fullscreen
-          if (wrapper) wrapper.classList.add('fullscreen');
-          if (DOM.playerModal) DOM.playerModal.classList.add('fullscreen');
-          if (DOM.playerFullscreenIcon) {
-            DOM.playerFullscreenIcon.className = 'fa-solid fa-compress text-sm';
-          }
-          
-          try {
-            if (wrapper && wrapper.requestFullscreen) {
-              await wrapper.requestFullscreen();
-            } else if (wrapper && wrapper['webkitRequestFullscreen']) {
-              await wrapper['webkitRequestFullscreen']();
-            } else if (DOM.videoElement && DOM.videoElement['webkitEnterFullscreen']) {
-              DOM.videoElement['webkitEnterFullscreen']();
-            }
-            if (screen.orientation && screen.orientation['lock']) {
-              try {
-                screen.orientation['lock']('landscape').catch(() => {});
-              } catch (e) {}
-            }
-          } catch (err) {
-            console.warn('[StreamZX Player] Fullscreen error (falling back to web fullscreen):', err);
-          }
-        } else {
-          // Exit Fullscreen
-          if (wrapper) wrapper.classList.remove('fullscreen');
-          if (DOM.playerModal) DOM.playerModal.classList.remove('fullscreen');
-          if (DOM.playerFullscreenIcon) {
-            DOM.playerFullscreenIcon.className = 'fa-solid fa-expand text-sm';
-          }
-          try {
-            if (document.fullscreenElement || document['webkitFullscreenElement']) {
-              if (document.exitFullscreen) {
-                await document.exitFullscreen();
-              } else if (document['webkitExitFullscreen']) {
-                await document['webkitExitFullscreen']();
-              }
-            }
-            if (screen.orientation && screen.orientation['unlock']) {
-              try {
-                screen.orientation['unlock']();
-              } catch (e) {}
-            }
-          } catch (err) {
-            console.warn('[StreamZX Player] Exit Fullscreen error:', err);
-          }
-        }
-        showPlayerOverlay(true);
-      });
+      const winW = (window.visualViewport ? window.visualViewport.width : window.innerWidth) || document.documentElement.clientWidth;
+      const winH = (window.visualViewport ? window.visualViewport.height : window.innerHeight) || document.documentElement.clientHeight;
 
-      // Synchronize icons & classes ONLY on native exit fullscreen state change
-      const onFullscreenStateChange = () => {
-        const wrapper = document.querySelector('.player-video-wrapper') || DOM.playerModal;
-        const isFs = Boolean(document.fullscreenElement || document['webkitFullscreenElement']);
-        if (!isFs) {
-          // Native fullscreen exited (e.g. user pressed native Back button or Escape key)
-          if (wrapper) wrapper.classList.remove('fullscreen');
-          if (DOM.playerModal) DOM.playerModal.classList.remove('fullscreen');
-          if (DOM.playerFullscreenIcon) {
-            DOM.playerFullscreenIcon.className = 'fa-solid fa-expand text-sm';
-          }
-          if (screen.orientation && screen.orientation['unlock']) {
-            try { screen.orientation['unlock'](); } catch (e) {}
-          }
-        }
-      };
-
-      document.addEventListener('fullscreenchange', onFullscreenStateChange);
-      document.addEventListener('webkitfullscreenchange', onFullscreenStateChange);
+      if (winW < winH) {
+        // Mobile held straight / portrait: Force 90° clockwise rotation into landscape
+        wrapper.style.position = 'fixed';
+        wrapper.style.top = '0px';
+        wrapper.style.left = '0px';
+        wrapper.style.width = winH + 'px';
+        wrapper.style.height = winW + 'px';
+        wrapper.style.transformOrigin = '0px 0px';
+        wrapper.style.transform = `rotate(90deg) translateY(-${winW}px)`;
+        wrapper.style.zIndex = '2147483647';
+        wrapper.style.maxWidth = 'none';
+        wrapper.style.maxHeight = 'none';
+      } else {
+        // Device is physically in landscape: Standard 100vw x 100vh display
+        wrapper.style.position = 'fixed';
+        wrapper.style.top = '0px';
+        wrapper.style.left = '0px';
+        wrapper.style.width = '100vw';
+        wrapper.style.height = '100vh';
+        wrapper.style.transform = 'none';
+        wrapper.style.transformOrigin = 'center center';
+        wrapper.style.zIndex = '2147483647';
+        wrapper.style.maxWidth = 'none';
+        wrapper.style.maxHeight = 'none';
+      }
     }
+
+    async function enterPlayerLandscapeFullscreen() {
+      const modal = DOM.playerModal || document.getElementById('player-modal');
+      const wrapper = document.querySelector('.player-video-wrapper');
+      if (!wrapper) return;
+
+      state.isPlayerRotatedFullscreen = true;
+      if (modal) {
+        modal.classList.add('fullscreen', 'player-in-fullscreen-mode', 'player-fullscreen-landscape-90');
+      }
+      wrapper.classList.add('fullscreen', 'player-fullscreen-landscape-90');
+      document.body.classList.add('player-in-rotated-fullscreen');
+
+      if (DOM.playerFullscreenIcon) {
+        DOM.playerFullscreenIcon.className = 'fa-solid fa-compress text-sm';
+      }
+
+      // Apply 90° rotation transform immediately
+      updateRotatedFullscreenLayout();
+
+      // Request browser native fullscreen on playerModal
+      try {
+        const targetFsElement = modal || wrapper;
+        if (targetFsElement.requestFullscreen) {
+          await targetFsElement.requestFullscreen().catch(() => {});
+        } else if (targetFsElement['webkitRequestFullscreen']) {
+          await targetFsElement['webkitRequestFullscreen']().catch(() => {});
+        }
+      } catch (e) {}
+
+      // Request screen orientation lock to landscape if available
+      if (screen.orientation && screen.orientation['lock']) {
+        try {
+          await screen.orientation['lock']('landscape').catch(() => {});
+        } catch (e) {}
+      }
+
+      // Adjust for dynamic browser chrome/viewport updates
+      setTimeout(updateRotatedFullscreenLayout, 40);
+      setTimeout(updateRotatedFullscreenLayout, 150);
+      setTimeout(updateRotatedFullscreenLayout, 350);
+      showPlayerOverlay(true);
+    }
+
+    async function exitPlayerLandscapeFullscreen() {
+      const modal = DOM.playerModal || document.getElementById('player-modal');
+      const wrapper = document.querySelector('.player-video-wrapper');
+      state.isPlayerRotatedFullscreen = false;
+
+      if (modal) {
+        modal.classList.remove('fullscreen', 'player-in-fullscreen-mode', 'player-fullscreen-landscape-90');
+      }
+      if (wrapper) {
+        wrapper.classList.remove('fullscreen', 'player-fullscreen-landscape-90');
+        wrapper.style.position = '';
+        wrapper.style.top = '';
+        wrapper.style.left = '';
+        wrapper.style.width = '';
+        wrapper.style.height = '';
+        wrapper.style.transform = '';
+        wrapper.style.transformOrigin = '';
+        wrapper.style.zIndex = '';
+        wrapper.style.maxWidth = '';
+        wrapper.style.maxHeight = '';
+      }
+
+      document.body.classList.remove('player-in-rotated-fullscreen');
+
+      if (DOM.playerFullscreenIcon) {
+        DOM.playerFullscreenIcon.className = 'fa-solid fa-expand text-sm';
+      }
+
+      try {
+        if (document.fullscreenElement || document['webkitFullscreenElement']) {
+          if (document.exitFullscreen) {
+            await document.exitFullscreen().catch(() => {});
+          } else if (document['webkitExitFullscreen']) {
+            await document['webkitExitFullscreen']().catch(() => {});
+          }
+        }
+      } catch (e) {}
+
+      if (screen.orientation && screen.orientation['unlock']) {
+        try {
+          screen.orientation['unlock']();
+        } catch (e) {}
+      }
+
+      showPlayerOverlay(true);
+    }
+
+    function togglePlayerLandscapeFullscreen() {
+      const modal = DOM.playerModal || document.getElementById('player-modal');
+      const wrapper = document.querySelector('.player-video-wrapper');
+      const isCurrentlyFullscreen = Boolean(
+        state.isPlayerRotatedFullscreen ||
+        (modal && (modal.classList.contains('fullscreen') || modal.classList.contains('player-in-fullscreen-mode'))) ||
+        (wrapper && (wrapper.classList.contains('fullscreen') || wrapper.classList.contains('player-fullscreen-landscape-90'))) ||
+        document.fullscreenElement || document['webkitFullscreenElement']
+      );
+
+      if (!isCurrentlyFullscreen) {
+        enterPlayerLandscapeFullscreen();
+      } else {
+        exitPlayerLandscapeFullscreen();
+      }
+    }
+
+    // Expose helpers globally
+    window.enterPlayerLandscapeFullscreen = enterPlayerLandscapeFullscreen;
+    window.exitPlayerLandscapeFullscreen = exitPlayerLandscapeFullscreen;
+    window.togglePlayerLandscapeFullscreen = togglePlayerLandscapeFullscreen;
+
+    if (DOM.btnPlayerFullscreen) {
+      DOM.btnPlayerFullscreen.addEventListener('click', (e) => {
+        e.stopPropagation();
+        togglePlayerLandscapeFullscreen();
+      });
+    }
+
+    // Window Resize & Orientation Change dynamic adjustment
+    window.addEventListener('resize', () => {
+      if (state.isPlayerRotatedFullscreen) {
+        updateRotatedFullscreenLayout();
+      }
+    });
+
+    window.addEventListener('orientationchange', () => {
+      if (state.isPlayerRotatedFullscreen) {
+        setTimeout(updateRotatedFullscreenLayout, 100);
+      }
+    });
+
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', () => {
+        if (state.isPlayerRotatedFullscreen) {
+          updateRotatedFullscreenLayout();
+        }
+      });
+    }
+
+    // Synchronize state if user exits via browser native gestures or ESC key
+    const onFullscreenStateChange = () => {
+      const isNativeFs = Boolean(document.fullscreenElement || document['webkitFullscreenElement']);
+      if (!isNativeFs && !state.isPlayerRotatedFullscreen) {
+        exitPlayerLandscapeFullscreen();
+      }
+    };
+
+    document.addEventListener('fullscreenchange', onFullscreenStateChange);
+    document.addEventListener('webkitfullscreenchange', onFullscreenStateChange);
 
     // 11. Stream Settings Sheet
     if (DOM.btnPlayerSettings) {
@@ -8108,24 +8235,19 @@
     // Settings Modal Save
     const btnSaveSettings = document.getElementById('btn-save-settings');
     if (btnSaveSettings) {
-      // Clean up removed tokens from localStorage
-      localStorage.removeItem('highfy_sm_token');
-      localStorage.removeItem('sportmonks_token');
-      localStorage.removeItem('highfy_cricket_key');
+      // Clean up removed tokens and legacy keys from localStorage
+      ['highfy_sm_token', 'sportmonks_token', 'highfy_cricket_key', 'highfy_football_key', 'highfy_rapidapi_key'].forEach(k => {
+        try { localStorage.removeItem(k); } catch (e) {}
+      });
 
       // Pre-fill inputs with stored values or config
-      // Auto-cleanup non-working / expired Football API key from localStorage
-      if (localStorage.getItem('highfy_football_key') === '2464b54f5baeb75a64d3951eabc62d28') {
-        localStorage.removeItem('highfy_football_key');
-      }
-
-      const rapidapiInput = document.getElementById('setting-rapidapi-key');
+      const workerUrlInput = document.getElementById('setting-worker-url');
       const wweInput = document.getElementById('setting-wwe-url');
       const channelsUrlInput = document.getElementById('setting-channels-json-url');
       const matchesUrlInput = document.getElementById('setting-matches-json-url');
 
-      if (rapidapiInput) {
-        rapidapiInput.value = localStorage.getItem('highfy_rapidapi_key') || window.CONFIG?.RAPIDAPI_KEY || '';
+      if (workerUrlInput) {
+        workerUrlInput.value = localStorage.getItem('highfy_worker_url') || window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || '';
       }
       if (wweInput) {
         wweInput.value = localStorage.getItem('highfy_wwe_url') || window.CONFIG?.WWE_API_URL || '';
@@ -8145,125 +8267,57 @@
         settingAutoMatchNotifsInput.checked = state.autoMatchNotifications !== false;
       }
 
-      // Toggle token visibility
-      document.querySelectorAll('.toggle-token-vis').forEach(btn => {
-        btn.addEventListener('click', (e) => {
+      // Cloudflare Worker Connection Test handler
+      const btnTestWorker = document.getElementById('btn-test-worker');
+      const workerTestResultEl = document.getElementById('worker-test-result');
+      if (btnTestWorker) {
+        btnTestWorker.addEventListener('click', async (e) => {
           e.preventDefault();
-          const targetId = btn.getAttribute('data-target');
-          const targetInput = document.getElementById(targetId);
-          const icon = btn.querySelector('i');
-          if (targetInput) {
-            if (targetInput.type === 'password') {
-              targetInput.type = 'text';
-              if (icon) {
-                icon.classList.remove('fa-eye');
-                icon.classList.add('fa-eye-slash');
-              }
-            } else {
-              targetInput.type = 'password';
-              if (icon) {
-                icon.classList.remove('fa-eye-slash');
-                icon.classList.add('fa-eye');
-              }
-            }
-          }
-        });
-      });
+          const customUrl = workerUrlInput ? workerUrlInput.value.trim() : '';
+          const targetBase = customUrl || window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || window.CONFIG?.API_BASE_URL || '';
 
-      // RapidAPI Key Test button handler
-      const btnTestRapidApi = document.getElementById('btn-test-rapidapi');
-      const rapidApiTestResultEl = document.getElementById('rapidapi-test-result');
-      if (btnTestRapidApi && rapidapiInput) {
-        btnTestRapidApi.addEventListener('click', async (e) => {
-          e.preventDefault();
-          const keyVal = rapidapiInput.value.trim();
-          if (!keyVal) {
-            if (rapidApiTestResultEl) {
-              rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-amber-500/10 border-amber-500/30 text-amber-300 block';
-              rapidApiTestResultEl.innerHTML = '<i class="fa-solid fa-triangle-exclamation mr-1.5"></i>Please enter a RapidAPI key first.';
-            }
-            return;
-          }
-
-          btnTestRapidApi.disabled = true;
-          const origText = btnTestRapidApi.textContent;
-          btnTestRapidApi.textContent = 'Testing...';
-          if (rapidApiTestResultEl) {
-            rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-sky-500/10 border-sky-500/30 text-sky-300 block';
-            rapidApiTestResultEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>Validating RapidAPI key...';
+          btnTestWorker.disabled = true;
+          const origText = btnTestWorker.textContent;
+          btnTestWorker.textContent = 'Testing...';
+          if (workerTestResultEl) {
+            workerTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-sky-500/10 border-sky-500/30 text-sky-300 block';
+            workerTestResultEl.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-1.5"></i>Checking Cloudflare Worker API connection...';
           }
 
           try {
-            let res = { valid: false, message: 'Could not connect' };
-            const cricData = await fetch(`/api/cricket/test?key=${encodeURIComponent(keyVal)}&host=cricbuzz-cricket2.p.rapidapi.com`).then(r => r.json()).catch(() => null);
-
-            if (cricData && cricData.valid) {
-              res = {
-                valid: true,
-                message: 'RapidAPI key is verified & active!'
-              };
+            const res = await fetch(`${targetBase}/api/health`, { signal: AbortSignal.timeout(6000) });
+            if (res.ok) {
+              const data = await res.json();
+              if (workerTestResultEl) {
+                workerTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-emerald-500/10 border-emerald-500/30 text-emerald-300 block';
+                workerTestResultEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1.5"></i>Connected! Cloudflare Worker proxy is active & verified secure.`;
+              }
             } else {
-              res = {
-                valid: false,
-                message: cricData?.message || 'Invalid or inactive RapidAPI key'
-              };
-            }
-
-            if (rapidApiTestResultEl) {
-              if (res.valid) {
-                rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-emerald-500/10 border-emerald-500/30 text-emerald-300 block';
-                rapidApiTestResultEl.innerHTML = `<i class="fa-solid fa-circle-check mr-1.5"></i>${res.message || 'RapidAPI key is valid & active!'}`;
-              } else {
-                rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-rose-500/10 border-rose-500/30 text-rose-300 block';
-                rapidApiTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>${res.message || 'Invalid or inactive RapidAPI key'}`;
+              if (workerTestResultEl) {
+                workerTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-rose-500/10 border-rose-500/30 text-rose-300 block';
+                workerTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>Worker returned HTTP ${res.status}`;
               }
             }
           } catch (err) {
-            if (rapidApiTestResultEl) {
-              rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-rose-500/10 border-rose-500/30 text-rose-300 block';
-              rapidApiTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>Connection failed: ${err.message}`;
+            if (workerTestResultEl) {
+              workerTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-rose-500/10 border-rose-500/30 text-rose-300 block';
+              workerTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>Connection failed: ${err.message}`;
             }
           } finally {
-            btnTestRapidApi.disabled = false;
-            btnTestRapidApi.textContent = origText;
+            btnTestWorker.disabled = false;
+            btnTestWorker.textContent = origText;
           }
-        });
-      }
-
-      // Clear RapidAPI key button handler
-      const btnClearRapidApi = document.getElementById('btn-clear-rapidapi');
-      if (btnClearRapidApi && rapidapiInput) {
-        btnClearRapidApi.addEventListener('click', (e) => {
-          e.preventDefault();
-          rapidapiInput.value = '';
-          try {
-            localStorage.removeItem('highfy_rapidapi_key');
-          } catch (err) {}
-          if (window.CONFIG) {
-            window.CONFIG.RAPIDAPI_KEY = '';
-            window.CONFIG.CRICKET_API_KEY = '';
-          }
-          if (window.cricketEngine && typeof window.cricketEngine.clearKey === 'function') {
-            window.cricketEngine.clearKey();
-          }
-          if (rapidApiTestResultEl) {
-            rapidApiTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-slate-800/60 border-slate-700 text-slate-300 block';
-            rapidApiTestResultEl.innerHTML = '<i class="fa-solid fa-trash-can mr-1.5 text-rose-400"></i>RapidAPI key has been deleted.';
-          }
-          showToast('RapidAPI key removed');
-          loadSportsEvents(false, true);
         });
       }
 
       btnSaveSettings.addEventListener('click', async () => {
-        if (rapidapiInput) {
-          const rapVal = rapidapiInput.value.trim();
-          localStorage.setItem('highfy_rapidapi_key', rapVal);
+        if (workerUrlInput) {
+          const wUrl = workerUrlInput.value.trim().replace(/\/+$/, '');
+          localStorage.setItem('highfy_worker_url', wUrl);
           if (window.CONFIG) {
-            window.CONFIG.RAPIDAPI_KEY = rapVal;
-            window.CONFIG.CRICKET_API_KEY = rapVal;
+            window.CONFIG.CLOUDFLARE_WORKER_BASE_URL = wUrl;
+            if (wUrl) window.CONFIG.API_BASE_URL = wUrl;
           }
-          if (window.cricketEngine) window.cricketEngine.saveKey(rapVal);
         }
         if (wweInput) {
           const wweVal = wweInput.value.trim();

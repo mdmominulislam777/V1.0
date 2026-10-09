@@ -172,23 +172,9 @@ class CricketEngine {
   }
 
   /**
-   * Get active RapidAPI Key
+   * Third-party Cricket credentials are strictly managed server-side via Cloudflare Worker secrets
+   * and proxied through /api/cricket/matches. Zero secrets in frontend/APK.
    */
-  getRapidApiKey() {
-    const localKey = localStorage.getItem('highfy_rapidapi_key');
-    if (localKey && localKey.trim()) return localKey.trim();
-    const configKey = window.CONFIG?.RAPIDAPI_KEY;
-    if (configKey && configKey.trim()) return configKey.trim();
-    return '';
-  }
-
-  /**
-   * CricketData.org / CricAPI Key is strictly managed server-side via Cloudflare Worker secret CRICKETDATA_API_KEY
-   * and proxied through /api/cricket/matches. Never stored or exposed in frontend/APK.
-   */
-  getCricketDataKey() {
-    return '';
-  }
 
   /**
    * Status Normalization for Cricket
@@ -721,161 +707,11 @@ class CricketEngine {
   }
 
   /**
-   * Direct fetch from Cricbuzz RapidAPI with multi-tier fallback (Direct -> CORS Proxies -> TheSportsDB)
+   * Direct fetch from Cricbuzz RapidAPI permanently disabled per architecture.
+   * All queries route strictly through Cloudflare Worker API.
    */
-  async fetchDirectCricbuzzMatches(rapidKey) {
-    // Cricbuzz API permanently disabled per user request
-    return { success: false, data: [], message: 'Cricbuzz API disabled per user request' };
-    const endpoints = ['live', 'upcoming', 'recent'];
-
-    const fetchEndpoint = async (ep) => {
-      const targetUrl = `https://${host}/matches/v1/${ep}`;
-      const headers = {
-        'x-rapidapi-key': key,
-        'x-rapidapi-host': host
-      };
-
-      // Tier 1: Direct browser fetch to RapidAPI (Fastest, works on GitHub Pages & Android WebView)
-      try {
-        const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-        const timer = controller ? setTimeout(() => controller.abort(), 6000) : null;
-        const res = await fetch(targetUrl, { headers, signal: controller?.signal });
-        if (timer) clearTimeout(timer);
-        if (res.ok) {
-          return await res.json();
-        }
-      } catch (err) {
-        console.warn(`[CricketEngine] Direct fetch for ${ep} failed:`, err.message);
-      }
-
-      // Tier 2: Public CORS Proxy fallback (for restricted networks / adblockers)
-      const corsProxies = [
-        `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`,
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`
-      ];
-
-      for (const proxyUrl of corsProxies) {
-        try {
-          const controller = typeof AbortController !== 'undefined' ? new AbortController() : null;
-          const timer = controller ? setTimeout(() => controller.abort(), 5000) : null;
-          const pRes = await fetch(proxyUrl, { headers, signal: controller?.signal });
-          if (timer) clearTimeout(timer);
-          if (pRes.ok) {
-            return await pRes.json();
-          }
-        } catch (e) {}
-      }
-
-      return null;
-    };
-
-    try {
-      const results = await Promise.allSettled(endpoints.map(ep => fetchEndpoint(ep)));
-      const datasets = results
-        .filter(r => r.status === 'fulfilled' && r.value)
-        .map(r => r.value);
-
-      if (datasets.length > 0) {
-        const parsedMatches = this.parseCricbuzzDatasets(datasets);
-        if (parsedMatches.length > 0) {
-          console.log(`[CricketEngine] Successfully extracted ${parsedMatches.length} Cricbuzz matches on client!`);
-          return { success: true, data: parsedMatches, source: 'Cricbuzz RapidAPI' };
-        }
-      }
-    } catch (e) {
-      console.warn('[CricketEngine] Direct Cricbuzz error:', e);
-    }
-
-    // Tier 3: TheSportsDB Cricket endpoint fallback
-    try {
-      const todayStr = new Intl.DateTimeFormat('en-CA', {
-        timeZone: window.CONFIG?.TIMEZONE || 'Asia/Dhaka',
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-      }).format(new Date());
-
-      const tsdbRes = await fetch(`https://www.thesportsdb.com/api/v1/json/3/eventsday.php?d=${todayStr}&s=Cricket`);
-      if (tsdbRes.ok) {
-        const tsdbJson = await tsdbRes.json();
-        if (tsdbJson && Array.isArray(tsdbJson.events) && tsdbJson.events.length > 0) {
-          const tsdbMatches = tsdbJson.events.map(ev => ({
-            id: `cr-tsdb-${ev.idEvent}`,
-            matchId: ev.idEvent,
-            sport: 'cricket',
-            sportName: 'Cricket',
-            sportIcon: 'fa-baseball-bat-ball',
-            title: ev.strEvent || `${ev.strHomeTeam} vs ${ev.strAwayTeam}`,
-            name: ev.strEvent || `${ev.strHomeTeam} vs ${ev.strAwayTeam}`,
-            league: ev.strLeague || 'Cricket',
-            status: (ev.strStatus === 'Match Finished' || ev.strStatus === 'FT') ? 'finished' : (ev.strStatus?.toLowerCase().includes('live') ? 'live' : 'upcoming'),
-            statusText: ev.strStatus || 'Scheduled',
-            team1: { name: ev.strHomeTeam || 'Team 1', logo: ev.strThumb || '', score: ev.intHomeScore || '' },
-            team2: { name: ev.strAwayTeam || 'Team 2', logo: ev.strThumb || '', score: ev.intAwayScore || '' },
-            homeTeam: { name: ev.strHomeTeam || 'Team 1', logo: ev.strThumb || '', score: ev.intHomeScore || '' },
-            awayTeam: { name: ev.strAwayTeam || 'Team 2', logo: ev.strThumb || '', score: ev.intAwayScore || '' },
-            broadcaster: ev.strTVStation || null,
-            source: 'TheSportsDB',
-            streams: []
-          }));
-          return { success: true, data: tsdbMatches, source: 'TheSportsDB' };
-        }
-      }
-    } catch (tsdbErr) {}
-
-    // Tier 4: ESPN Cricket Scoreboard fallback (Always live and free)
-    try {
-      const espnRes = await fetch('https://site.api.espn.com/apis/site/v2/sports/cricket/scoreboard');
-      if (espnRes.ok) {
-        const espnJson = await espnRes.json();
-        const events = Array.isArray(espnJson.events) ? espnJson.events : [];
-        if (events.length > 0) {
-          const espnMatches = [];
-          for (const ev of events) {
-            const comp = ev.competitions && ev.competitions[0];
-            if (!comp) continue;
-            const competitors = comp.competitors || [];
-            const t1 = competitors[0] || {};
-            const t2 = competitors[1] || {};
-            const title = `${t1.team?.displayName || 'Team 1'} vs ${t2.team?.displayName || 'Team 2'}`;
-            const state = ev.status?.type?.state || 'pre';
-            const status = state === 'in' ? 'live' : (state === 'post' ? 'finished' : 'upcoming');
-            espnMatches.push({
-              id: `cr-espn-${ev.id}`,
-              matchId: ev.id,
-              sport: 'cricket',
-              sportName: 'Cricket',
-              sportIcon: 'fa-baseball-bat-ball',
-              title,
-              name: title,
-              league: comp.notes?.[0]?.headline || ev.season?.name || 'International Cricket',
-              status,
-              statusText: ev.status?.type?.shortDetail || (status === 'live' ? 'LIVE' : 'Scheduled'),
-              team1: { name: t1.team?.displayName || 'Team 1', logo: t1.team?.logo || '', score: t1.score || '' },
-              team2: { name: t2.team?.displayName || 'Team 2', logo: t2.team?.logo || '', score: t2.score || '' },
-              homeTeam: { name: t1.team?.displayName || 'Team 1', logo: t1.team?.logo || '', score: t1.score || '' },
-              awayTeam: { name: t2.team?.displayName || 'Team 2', logo: t2.team?.logo || '', score: t2.score || '' },
-              broadcaster: comp.broadcasts?.[0]?.names?.[0] || null,
-              source: 'ESPN-Fallback',
-              streams: []
-            });
-          }
-          if (espnMatches.length > 0) {
-            return { success: true, data: espnMatches, source: 'ESPN-Fallback' };
-          }
-        }
-      }
-    } catch (_) {}
-
-    // Tier 5: Bundled window.EVENTS_DATA Cricket Matches
-    if (typeof window !== 'undefined' && Array.isArray(window.EVENTS_DATA) && window.EVENTS_DATA.length > 0) {
-      const bundledCricket = window.EVENTS_DATA.filter(e => e && String(e.sport || '').toLowerCase() === 'cricket');
-      if (bundledCricket.length > 0) {
-        return { success: true, data: bundledCricket, source: 'Bundled Seed' };
-      }
-    }
-
-    return { error: 'no_matches', message: 'No live cricket matches at this time.' };
+  async fetchDirectCricbuzzMatches() {
+    return { success: false, data: [], message: 'Direct third-party API access disabled. All queries routed via Cloudflare Worker.' };
   }
 
   /**
@@ -1520,15 +1356,11 @@ class CricketEngine {
   async getTeamPlayers(teamId) {
     if (!teamId) return [];
     try {
-      const apiBase = window.CONFIG?.API_BASE_URL || '';
-      const rapidKey = this.getRapidApiKey();
-      const query = rapidKey ? `?teamid=${encodeURIComponent(teamId)}&rapidapikey=${encodeURIComponent(rapidKey)}` : `?teamid=${encodeURIComponent(teamId)}`;
-      const res = await fetch(`${apiBase}/api/cricket/players${query}`, {
-        headers: rapidKey ? { 'x-rapidapi-key': rapidKey } : {}
-      });
+      const apiBase = window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || window.CONFIG?.API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/cricket/players?teamid=${encodeURIComponent(teamId)}`);
       if (res.ok) {
         const json = await res.json();
-        return Array.isArray(json.response) ? json.response : [];
+        return Array.isArray(json.response) ? json.response : (Array.isArray(json.data) ? json.data : []);
       }
     } catch (e) {
       console.warn('[CricketEngine] Failed to fetch team players:', e);
@@ -1537,19 +1369,15 @@ class CricketEngine {
   }
 
   /**
-   * Fetch Cricket Teams list
+   * Fetch Cricket Teams list via Cloudflare Worker proxy
    */
   async getTeams() {
     try {
-      const apiBase = window.CONFIG?.API_BASE_URL || '';
-      const rapidKey = this.getRapidApiKey();
-      const query = rapidKey ? `?rapidapikey=${encodeURIComponent(rapidKey)}` : '';
-      const res = await fetch(`${apiBase}/api/cricket/teams${query}`, {
-        headers: rapidKey ? { 'x-rapidapi-key': rapidKey } : {}
-      });
+      const apiBase = window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || window.CONFIG?.API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/cricket/teams`);
       if (res.ok) {
         const json = await res.json();
-        return Array.isArray(json.response) ? json.response : [];
+        return Array.isArray(json.response) ? json.response : (Array.isArray(json.data) ? json.data : []);
       }
     } catch (e) {
       console.warn('[CricketEngine] Failed to fetch teams:', e);
@@ -1630,30 +1458,17 @@ class CricketEngine {
   }
 
   /**
-   * Test RapidAPI Cricket Key validity
+   * Test Cloudflare Worker API Backend connectivity
    */
-  async testApiKey(key, host = 'cricbuzz-cricket2.p.rapidapi.com') {
-    if (!key) return { valid: false, message: 'Please enter a RapidAPI key' };
+  async testBackend(host) {
     try {
-      const apiBase = window.CONFIG?.API_BASE_URL || '';
-      const res = await fetch(`${apiBase}/api/cricket/test?key=${encodeURIComponent(key)}&host=${encodeURIComponent(host)}`);
+      const apiBase = window.CONFIG?.CLOUDFLARE_WORKER_BASE_URL || window.CONFIG?.API_BASE_URL || '';
+      const res = await fetch(`${apiBase}/api/health`);
       if (res.ok) {
-        return await res.json();
+        const data = await res.json();
+        return { valid: true, message: 'Cloudflare Worker backend is online & verified operational!' };
       }
-    } catch (e) {}
-
-    // Direct browser test for GitHub Pages / static hosting:
-    try {
-      const directRes = await fetch(`https://${host}/matches/v1/live`, {
-        headers: {
-          'x-rapidapi-key': key,
-          'x-rapidapi-host': host
-        }
-      });
-      if (directRes.ok) {
-        return { valid: true, message: 'RapidAPI Cricket key is active & verified!' };
-      }
-      return { valid: false, message: `RapidAPI returned status HTTP ${directRes.status}` };
+      return { valid: false, message: `Backend returned status HTTP ${res.status}` };
     } catch (e) {
       return { valid: false, message: e.message || 'Connection failed' };
     }
