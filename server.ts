@@ -6423,6 +6423,65 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
     }
   });
 
+  // App Icon Direct Uploader & Persistence Endpoint
+  app.post("/api/upload-app-icon", express.json({ limit: "15mb" }), async (req, res) => {
+    try {
+      const { imageData, imageUrl } = req.body;
+      if (!imageData && !imageUrl) {
+        return res.status(400).json({ error: "No image data or image URL provided." });
+      }
+
+      let buffer: Buffer;
+      if (imageData && typeof imageData === "string") {
+        const base64Data = imageData.includes("base64,") ? imageData.split("base64,")[1] : imageData;
+        buffer = Buffer.from(base64Data, "base64");
+      } else if (imageUrl && typeof imageUrl === "string") {
+        const fetchRes = await fetch(imageUrl);
+        if (!fetchRes.ok) {
+          return res.status(400).json({ error: `Failed to fetch image from URL: ${fetchRes.statusText}` });
+        }
+        const arrayBuffer = await fetchRes.arrayBuffer();
+        buffer = Buffer.from(arrayBuffer);
+      } else {
+        return res.status(400).json({ error: "Invalid payload format." });
+      }
+
+      if (!buffer || buffer.length === 0) {
+        return res.status(400).json({ error: "Empty image buffer." });
+      }
+
+      // Write to project root and public & android paths
+      const targetPaths = [
+        path.join(process.cwd(), "highfy_logo1.png"),
+        path.join(process.cwd(), "public", "highfy_logo1.png"),
+        path.join(process.cwd(), "android", "app", "src", "main", "assets", "highfy_logo1.png"),
+      ];
+
+      let savedCount = 0;
+      for (const p of targetPaths) {
+        try {
+          const dir = path.dirname(p);
+          if (fs.existsSync(dir)) {
+            fs.writeFileSync(p, buffer);
+            savedCount++;
+          }
+        } catch (err) {
+          console.warn(`[HighFy TV] Could not write to ${p}:`, err);
+        }
+      }
+
+      return res.json({
+        success: true,
+        message: "App icon saved successfully",
+        savedTargets: savedCount,
+        timestamp: Date.now()
+      });
+    } catch (err: any) {
+      console.error("[HighFy TV] App icon upload error:", err);
+      return res.status(500).json({ error: err.message || "Failed to save app icon" });
+    }
+  });
+
   // Backend Health check (Does not expose internal keys or secrets)
   app.get("/api/health", (_req, res) => {
     const isBlockedNow = cricketDataCache.blockedUntil > Date.now();

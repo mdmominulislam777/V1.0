@@ -127,6 +127,7 @@
     customCategoryLogos: safeJsonParse('highfy_custom_category_logos', {}),
     customSportsCategoryLogos: safeJsonParse('highfy_custom_sports_category_logos', {}),
     customCategoryColors: safeJsonParse('highfy_custom_category_colors', {}),
+    customAppIcon: localStorage.getItem('highfy_custom_app_icon') || '',
     customSplashLogo: localStorage.getItem('highfy_custom_splash_logo') || '',
     customDrawerLogo: localStorage.getItem('highfy_custom_drawer_logo') || '',
     customChannelUrls: safeJsonParse('highfy_custom_channel_urls', {}),
@@ -610,21 +611,41 @@
   function applyCustomAppBranding() {
     const splashImg = document.getElementById('cricfy-splash-logo-img');
     const drawerImg = document.getElementById('drawer-header-logo-img');
+    const effectiveSplash = state.customSplashLogo || './assets/splash-screen-logo/splash_logo.png';
+    const effectiveDrawer = state.customDrawerLogo || './assets/drawer-menu-logo/drawer_logo.png';
+    const effectiveAppIcon = state.customAppIcon || './assets/app-icon/app_icon.png';
 
     if (splashImg) {
-      if (state.customSplashLogo) {
-        splashImg.src = state.customSplashLogo;
-      } else {
-        splashImg.src = './highfy_logo1.png';
-      }
+      splashImg.src = effectiveSplash;
     }
 
     if (drawerImg) {
-      if (state.customDrawerLogo) {
-        drawerImg.src = state.customDrawerLogo;
-      } else {
-        drawerImg.src = './highfy_logo1.png';
+      drawerImg.src = effectiveDrawer;
+    }
+
+    // Dynamic browser favicon & apple-touch-icon sync
+    try {
+      let favEl = document.querySelector('link[rel="icon"]');
+      if (!favEl) {
+        favEl = document.createElement('link');
+        favEl.rel = 'icon';
+        document.head.appendChild(favEl);
       }
+      favEl.href = effectiveAppIcon;
+
+      let appleEl = document.querySelector('link[rel="apple-touch-icon"]');
+      if (!appleEl) {
+        appleEl = document.createElement('link');
+        appleEl.rel = 'apple-touch-icon';
+        document.head.appendChild(appleEl);
+      }
+      appleEl.href = effectiveAppIcon;
+    } catch (e) {}
+
+    // About modal branding logo sync
+    const aboutImg = document.querySelector('#modal-about img');
+    if (aboutImg) {
+      aboutImg.src = effectiveDrawer;
     }
 
     const watermarkImg = document.getElementById('player-watermark-logo');
@@ -643,13 +664,13 @@
     const badgeSplashStatus = document.getElementById('badge-loading-img-status');
 
     if (adminSplashPreview) {
-      adminSplashPreview.src = state.customSplashLogo || './highfy_logo1.png';
+      adminSplashPreview.src = state.customSplashLogo || state.customAppIcon || './highfy_logo1.png';
     }
     if (adminSplashInput && !adminSplashInput.matches(':focus')) {
       adminSplashInput.value = state.customSplashLogo || '';
     }
     if (badgeSplashStatus) {
-      if (state.customSplashLogo) {
+      if (state.customSplashLogo || state.customAppIcon) {
         badgeSplashStatus.textContent = 'Custom';
         badgeSplashStatus.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
       } else {
@@ -663,13 +684,13 @@
     const badgeDrawerStatus = document.getElementById('badge-drawer-img-status');
 
     if (adminDrawerPreview) {
-      adminDrawerPreview.src = state.customDrawerLogo || './highfy_logo1.png';
+      adminDrawerPreview.src = state.customDrawerLogo || state.customAppIcon || './highfy_logo1.png';
     }
     if (adminDrawerInput && !adminDrawerInput.matches(':focus')) {
       adminDrawerInput.value = state.customDrawerLogo || '';
     }
     if (badgeDrawerStatus) {
-      if (state.customDrawerLogo) {
+      if (state.customDrawerLogo || state.customAppIcon) {
         badgeDrawerStatus.textContent = 'Custom';
         badgeDrawerStatus.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
       } else {
@@ -8030,6 +8051,9 @@
       });
     }
 
+    // App Drawer Control Handlers
+    window.closeDrawer = closeDrawer;
+
     const drawerClearData = document.getElementById('drawer-clear-data');
     if (drawerClearData) {
       drawerClearData.addEventListener('click', () => {
@@ -8197,6 +8221,7 @@
     // Dismiss modals when clicking on background backdrop
     document.querySelectorAll('.custom-modal-backdrop').forEach(backdrop => {
       backdrop.addEventListener('click', (e) => {
+        if (window.lastModalOpenTime && Date.now() - window.lastModalOpenTime < 280) return;
         if (e.target === backdrop) {
           closeModal(backdrop.id);
         }
@@ -9322,6 +9347,7 @@
         const customCatLogos = Object.keys(state.customCategoryLogos || {});
         const customSportsCatLogos = Object.keys(state.customSportsCategoryLogos || {});
         let totalImages = customChLogos.length + customCatLogos.length + customSportsCatLogos.length;
+        if (state.customAppIcon) totalImages++;
         if (state.customSplashLogo) totalImages++;
         if (state.customDrawerLogo) totalImages++;
 
@@ -9337,6 +9363,24 @@
         }
 
         let html = '';
+
+        // Master App Icon
+        if (state.customAppIcon) {
+          html += `
+            <div class="p-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between gap-2">
+              <div class="flex items-center gap-2 min-w-0 flex-1">
+                <img src="${state.customAppIcon}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_logo1.png'" />
+                <div class="min-w-0">
+                  <p class="font-bold text-white text-[11px] truncate">অ্যাপ আইকন (App Icon)</p>
+                  <p class="text-[9.5px] text-amber-400">মাস্টার অ্যাপ ব্র্যান্ডিং</p>
+                </div>
+              </div>
+              <button type="button" class="btn-admin-delete-custom-logo py-1 px-2 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 text-[10.5px] font-bold transition" data-type="appicon" title="মুছে ফেলুন">
+                <i class="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
+          `;
+        }
 
         // Splash screen logo
         if (state.customSplashLogo) {
@@ -9440,7 +9484,13 @@
           btn.onclick = () => {
             const type = btn.getAttribute('data-type');
             const id = btn.getAttribute('data-id');
-            if (type === 'splash') {
+            if (type === 'appicon') {
+              state.customAppIcon = '';
+              localStorage.removeItem('highfy_custom_app_icon');
+              applyCustomAppBranding();
+              renderAdminCustomLogos();
+              showToast('অ্যাপ আইকন ডিফল্টে রিস্টোর করা হয়েছে');
+            } else if (type === 'splash') {
               state.customSplashLogo = '';
               localStorage.removeItem('highfy_custom_splash_logo');
               if (adminSplashInput) adminSplashInput.value = '';
@@ -11951,6 +12001,7 @@
   }
 
   function openModal(modalId) {
+    window.lastModalOpenTime = Date.now();
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.classList.add('active');
