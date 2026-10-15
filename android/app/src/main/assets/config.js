@@ -59,14 +59,40 @@
     // Application Info
     appName: "HIGHFY TV",
     version: "4.2",
-    announcement: "HIGHFY TV Sports — Real Live Football, Cricket & WWE Scores, Fixtures & Channels!",
+    announcement: "HIGHFY TV Sports — Real Live Football, Cricket, WWE & AEW Scores, Fixtures & Channels!",
     telegramUrl: "https://t.me/highfytv",
     websiteUrl: "https://highfytv.com",
-    contactEmail: "support@highfytv.com"
+    contactEmail: "support@highfytv.com",
+
+    // Sports Allowlist: strictly Cricket, Football, WWE, AEW
+    ALLOWED_SPORTS: ['cricket', 'football', 'wwe', 'aew'],
+    SPORT_ALIASES: {
+      'soccer': 'football',
+      'football': 'football',
+      'cricket': 'cricket',
+      'wwe': 'wwe',
+      'wrestling': 'wwe',
+      'professional wrestling': 'wwe',
+      'fighting': 'wwe',
+      'aew': 'aew'
+    }
   };
+
+  function normalizeSport(sport) {
+    if (!sport || typeof sport !== 'string') return null;
+    const s = sport.trim().toLowerCase();
+    return CONFIG.SPORT_ALIASES[s] || null;
+  }
+
+  function isAllowedSport(sport) {
+    return normalizeSport(sport) !== null;
+  }
 
   // Expose globally
   window.CONFIG = CONFIG;
   window.HIGHFY_CONFIG = CONFIG;
+  window.ALLOWED_SPORTS = CONFIG.ALLOWED_SPORTS;
+  window.normalizeSport = normalizeSport;
+  window.isAllowedSport = isAllowedSport;
   window.resolveSecureToken = resolveToken;
 })();

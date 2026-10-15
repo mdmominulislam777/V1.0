@@ -247,3 +247,45 @@ Play Stream via HLS.js / Fast Edge Proxy
 - **No Credentials in Frontend / JSON**: No API keys or tokens are stored in client-accessible JSON files.
 - **Proxy Protection**: CORS-restricted or hotlink-protected streams are safely routed through `/api/stream-proxy`.
 - **Validation Gates**: Every push is blocked if `scripts/validator.py` encounters invalid URLs, broken IDs, or malformed schemas.
+
+---
+
+## 13. Manual Channel Sources & Verification (`data/manual_channels.json`)
+
+When upstream providers (TheSportsDB or Cricket APIs) have no broadcast listings for a match, HighFy TV falls back to verified manual entries in `data/manual_channels.json`. Manual entries **never** override a non-empty provider result.
+
+### How to Add a Manual Entry:
+Add an entry object to the `entries` array in `data/manual_channels.json`:
+
+```json
+{
+  "matchKey": {
+    "sport": "Basketball",
+    "league": "NBL",
+    "homeTeam": "Adelaide 36ers",
+    "awayTeam": "Melbourne United",
+    "kickoffUtc": "2026-10-12T10:00:00Z"
+  },
+  "channels": [
+    {
+      "channelName": "ESPN Australia",
+      "country": "Australia",
+      "logoUrl": "https://r2.thesportsdb.com/images/media/channel/logo/espn.png"
+    }
+  ],
+  "source": {
+    "url": "https://nbl.com.au/watch/schedule",
+    "name": "NBL Official Broadcast Guide"
+  },
+  "verifiedBy": "editor-name",
+  "status": "verified"
+}
+```
+
+### Strict Requirements:
+1. **Real Source URL Mandatory**: Every entry **must** contain a valid, accessible `source.url` linking directly to an official fixture guide, broadcaster schedule, or federation website. Fictional, empty, or placeholder URLs are rejected at server startup.
+2. **Non-Empty Channels**: `channels` must contain at least one valid channel with `channelName`.
+3. **Status Check**: Only entries with `status: "verified"` will match and be displayed. Entries with `status: "pending"` or any other value are safely ignored.
+4. **Time & Team Matching**: Matches use the exact same ±15 minute UTC window and team normalization (suffix removal, Levenshtein similarity ≥ 0.85).
+5. **No Invented Channels**: Never add fabricated or unverified channel names. Invalid entries are logged and skipped on server startup without crashing.
+

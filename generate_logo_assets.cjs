@@ -1,127 +1,127 @@
 const sharp = require('sharp');
 const fs = require('fs');
-
-const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000" fill="none">
-  <!-- Color Definitions -->
-  <defs>
-    <style>
-      .blue-fill { fill: #3884ff; }
-      .blue-stroke { stroke: #3884ff; stroke-linecap: round; stroke-linejoin: round; }
-    </style>
-  </defs>
-
-  <!-- Group for Logo Elements -->
-  <g id="highfy-tv-logo">
-    <!-- Top Antennae -->
-    <!-- Left Antenna Rod & Ball -->
-    <line x1="365" y1="310" x2="235" y2="160" stroke="#3884ff" stroke-width="26" stroke-linecap="round" />
-    <circle cx="225" cy="150" r="32" fill="#3884ff" />
-
-    <!-- Right Antenna Rod & Ball -->
-    <line x1="425" y1="310" x2="585" y2="140" stroke="#3884ff" stroke-width="26" stroke-linecap="round" />
-    <circle cx="595" cy="130" r="32" fill="#3884ff" />
-
-    <!-- Antenna Base Dome -->
-    <path d="M 300 325 C 310 275 480 275 490 325 Z" fill="#3884ff" />
-
-    <!-- Bottom TV Feet / Legs -->
-    <!-- Left Leg -->
-    <path d="M 230 755 L 160 840 C 153 848 142 842 147 832 L 205 750 Z" fill="#3884ff" />
-    <line x1="215" y1="755" x2="160" y2="838" stroke="#3884ff" stroke-width="32" stroke-linecap="round" />
-
-    <!-- Right Leg -->
-    <path d="M 480 755 L 585 840 C 592 848 603 842 598 832 L 505 750 Z" fill="#3884ff" />
-    <line x1="495" y1="755" x2="585" y2="838" stroke="#3884ff" stroke-width="32" stroke-linecap="round" />
-
-    <!-- TV Outer Body Frame -->
-    <rect x="95" y="315" width="550" height="440" rx="90" ry="90" stroke="#3884ff" stroke-width="48" fill="none" stroke-linejoin="round" />
-
-    <!-- Play Button ▶ Inside TV -->
-    <path d="M 255 435 C 255 425 268 418 278 424 L 420 522 C 430 529 430 545 420 552 L 278 650 C 268 656 255 649 255 639 Z" fill="#3884ff" />
-
-    <!-- Speed / Motion Swooshes blasting to the soccer ball -->
-    <!-- Top sharp swoosh over the ball -->
-    <path d="M 685 375 C 750 375 830 395 860 425 C 805 405 730 405 675 425 C 735 400 810 405 850 430 C 800 415 720 415 660 435 C 715 415 780 420 815 440 C 740 425 665 445 615 470 C 700 430 790 445 840 480 C 755 450 645 475 570 515 Z" fill="#3884ff" />
-
-    <!-- Dynamic Stream Swooshes (4 Main energy bands) -->
-    <!-- Band 1: Upper-Mid Trail -->
-    <path d="M 490 525 C 600 500 700 455 765 420 C 690 460 590 515 480 545 Z" fill="#3884ff" />
-
-    <!-- Band 2: Center-Top Trail -->
-    <path d="M 405 590 C 530 565 650 510 740 445 C 645 520 520 580 390 610 Z" fill="#3884ff" />
-
-    <!-- Band 3: Center-Bottom Trail -->
-    <path d="M 330 655 C 470 635 600 575 710 485 C 590 585 450 650 315 670 Z" fill="#3884ff" />
-
-    <!-- Band 4: Lower Broad Trail -->
-    <path d="M 305 662 C 450 660 620 630 760 550 C 620 645 440 685 295 665 Z" fill="#3884ff" />
-
-    <!-- Under-ball wrap swoosh -->
-    <path d="M 525 685 C 650 710 770 690 855 640 C 780 685 660 700 535 675 Z" fill="#3884ff" />
-    <path d="M 640 710 C 720 720 800 705 865 660 C 795 700 715 710 635 698 Z" fill="#3884ff" />
-
-    <!-- Soccer Ball Outer Circle -->
-    <circle cx="820" cy="535" r="140" stroke="#3884ff" stroke-width="18" fill="none" />
-
-    <!-- Soccer Ball Pattern & Pentagons -->
-    <!-- Center Pentagon -->
-    <polygon points="820,490 858,518 843,563 797,563 782,518" fill="#3884ff" />
-
-    <!-- Radial lines & outer pentagons/hexagons -->
-    <!-- Top line & patch -->
-    <line x1="820" y1="490" x2="820" y2="435" stroke="#3884ff" stroke-width="14" stroke-linecap="round" />
-    <polygon points="820,395 795,435 845,435" fill="#3884ff" />
-
-    <!-- Top-Right line & patch -->
-    <line x1="858" y1="518" x2="905" y2="500" stroke="#3884ff" stroke-width="14" stroke-linecap="round" />
-    <polygon points="905,500 950,515 930,465 890,465" fill="#3884ff" />
-
-    <!-- Bottom-Right line & patch -->
-    <line x1="843" y1="563" x2="875" y2="610" stroke="#3884ff" stroke-width="14" stroke-linecap="round" />
-    <polygon points="875,610 905,655 945,615 925,580" fill="#3884ff" />
-
-    <!-- Bottom-Left line & patch -->
-    <line x1="797" y1="563" x2="765" y2="610" stroke="#3884ff" stroke-width="14" stroke-linecap="round" />
-    <polygon points="765,610 735,655 695,615 715,580" fill="#3884ff" />
-
-    <!-- Top-Left line & patch -->
-    <line x1="782" y1="518" x2="735" y2="500" stroke="#3884ff" stroke-width="14" stroke-linecap="round" />
-    <polygon points="735,500 690,515 710,465 750,465" fill="#3884ff" />
-
-    <!-- Connecting outer border lines for classic soccer ball hexagons -->
-    <line x1="795" y1="435" x2="750" y2="465" stroke="#3884ff" stroke-width="12" />
-    <line x1="845" y1="435" x2="890" y2="465" stroke="#3884ff" stroke-width="12" />
-    <line x1="950" y1="515" x2="925" y2="580" stroke="#3884ff" stroke-width="12" />
-    <line x1="905" y1="655" x2="735" y2="655" stroke="#3884ff" stroke-width="12" />
-    <line x1="695" y1="615" x2="690" y2="515" stroke="#3884ff" stroke-width="12" />
-  </g>
-</svg>`;
+const path = require('path');
 
 async function run() {
-  fs.writeFileSync('public/highfy_logo_official.svg', svg);
-  fs.writeFileSync('public/assets/images/highfy_logo_official.svg', svg);
+  const transparentSource = 'src/assets/images/highfy_tv_logo_transparent.png';
+  const cleanSource = 'src/assets/images/highfy_tv_logo_clean.png';
 
-  const pngBuffer = await sharp(Buffer.from(svg))
-    .resize(1024, 1024)
-    .png()
+  if (!fs.existsSync(transparentSource) || !fs.existsSync(cleanSource)) {
+    console.error('Source logos not found!');
+    return;
+  }
+
+  console.log('[Logo Generator] Generating official high-res assets...');
+
+  // 1. Transparent PNG (1024x1024)
+  const transparent1024 = await sharp(transparentSource)
+    .resize(1024, 1024, { fit: 'contain', background: { r: 0, g: 0, b: 0, alpha: 0 } })
+    .png({ quality: 100 })
     .toBuffer();
 
-  const targets = [
+  // 2. Dark Background App Icon (1024x1024)
+  const appIcon1024 = await sharp(cleanSource)
+    .resize(1024, 1024, { fit: 'contain', background: { r: 9, g: 13, b: 22, alpha: 1 } })
+    .png({ quality: 100 })
+    .toBuffer();
+
+  // 3. Transparent Targets (Splash screen, drawer menu, brand logos)
+  const transparentTargets = [
+    'assets/splash-screen-logo/splash_logo.png',
+    'public/assets/splash-screen-logo/splash_logo.png',
+    'src/assets/splash-screen-logo/splash_logo.png',
+    'assets/drawer-menu-logo/drawer_logo.png',
+    'public/assets/drawer-menu-logo/drawer_logo.png',
+    'src/assets/drawer-menu-logo/drawer_logo.png',
     'public/highfy_logo.png',
+    'public/highfy_logo1.png',
+    'public/highfy_logo_official.png',
     'public/highfy_logo_transparent.png',
-    'public/highfy_clean_badge.png',
-    'public/highfy_3d_logo.png',
-    'public/assets/images/highfy_logo_transparent.png',
     'public/assets/images/highfy_logo.png',
-    'src/assets/images/highfy_logo_transparent.png',
+    'public/assets/images/highfy_logo1.png',
+    'public/assets/images/highfy_logo_transparent.png',
     'src/assets/images/highfy_logo.png',
-    'src/assets/images/highfy_clean_badge.png'
+    'src/assets/images/highfy_logo1.png',
+    'src/assets/images/highfy_logo_transparent.png',
+    'highfy_logo1.png',
+    'highfy_logo_official.png',
+    'android/app/src/main/assets/highfy_logo1.png',
+    'android/app/src/main/assets/highfy_logo.png',
+    'android/app/src/main/assets/highfy_logo_official.png',
+    'android/app/src/main/assets/highfy_logo_transparent.png',
+    'android/app/src/main/assets/assets/splash-screen-logo/splash_logo.png',
+    'android/app/src/main/assets/assets/drawer-menu-logo/drawer_logo.png'
   ];
 
-  for (const t of targets) {
-    fs.writeFileSync(t, pngBuffer);
-    console.log('Written to', t);
+  for (const target of transparentTargets) {
+    const dir = path.dirname(target);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(target, transparent1024);
+    console.log('✓ Updated transparent target:', target);
   }
+
+  // 4. App Icon Targets (App Icon & Favicons)
+  const appIconTargets = [
+    'assets/app-icon/app_icon.png',
+    'public/assets/app-icon/app_icon.png',
+    'src/assets/app-icon/app_icon.png',
+    'android/app/src/main/assets/assets/app-icon/app_icon.png'
+  ];
+
+  for (const target of appIconTargets) {
+    const dir = path.dirname(target);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(target, appIcon1024);
+    console.log('✓ Updated app icon target:', target);
+  }
+
+  // 5. Android Mipmap Launcher Icons
+  const mipmapSizes = [
+    { dir: 'android/app/src/main/res/mipmap-mdpi', size: 48 },
+    { dir: 'android/app/src/main/res/mipmap-hdpi', size: 72 },
+    { dir: 'android/app/src/main/res/mipmap-xhdpi', size: 96 },
+    { dir: 'android/app/src/main/res/mipmap-xxhdpi', size: 144 },
+    { dir: 'android/app/src/main/res/mipmap-xxxhdpi', size: 192 }
+  ];
+
+  for (const m of mipmapSizes) {
+    if (!fs.existsSync(m.dir)) fs.mkdirSync(m.dir, { recursive: true });
+
+    await sharp(cleanSource)
+      .resize(m.size, m.size, { fit: 'contain', background: { r: 9, g: 13, b: 22, alpha: 1 } })
+      .png()
+      .toFile(m.dir + '/ic_launcher.png');
+
+    await sharp(cleanSource)
+      .resize(m.size, m.size, { fit: 'contain', background: { r: 9, g: 13, b: 22, alpha: 1 } })
+      .png()
+      .toFile(m.dir + '/ic_launcher_round.png');
+
+    console.log(`✓ Generated Android launcher icon (${m.size}x${m.size}): ${m.dir}`);
+  }
+
+  // 6. Android TV Leanback Banner (320x180)
+  const bannerDir = 'android/app/src/main/res/drawable';
+  if (!fs.existsSync(bannerDir)) fs.mkdirSync(bannerDir, { recursive: true });
+
+  const logoBanner = await sharp(cleanSource)
+    .resize(140, 140, { fit: 'contain', background: { r: 9, g: 13, b: 22, alpha: 1 } })
+    .toBuffer();
+
+  await sharp({
+    create: {
+      width: 320,
+      height: 180,
+      channels: 4,
+      background: { r: 9, g: 13, b: 22, alpha: 1 }
+    }
+  })
+  .composite([{ input: logoBanner, gravity: 'center' }])
+  .png()
+  .toFile(bannerDir + '/banner.png');
+
+  console.log('✓ Generated Android TV banner: ' + bannerDir + '/banner.png');
+  console.log('✨ All HighFy TV logo assets synchronized successfully!');
 }
 
 run().catch(console.error);

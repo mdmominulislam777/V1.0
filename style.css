@@ -314,11 +314,11 @@ body #app {
 }
 
 .brand-badge-cyan {
-  color: #00e5ff;
+  color: #ffffff;
   font-weight: 900;
   margin-left: 2px;
   letter-spacing: 0.5px;
-  text-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+  text-shadow: none;
 }
 
 /* ==========================================================================
@@ -1494,7 +1494,8 @@ body .sports-view-sticky-header {
   overflow-y: visible;
   display: flex;
   align-items: flex-start;
-  gap: 12px;
+  justify-content: space-around;
+  gap: clamp(8px, 2.5vw, 20px);
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
 }
@@ -3818,12 +3819,12 @@ body .sports-card-badge,
 }
 
 /* ==========================================================================
-   10. Category Grid & Cards (Exact 2-Column Horizontal Model from Screenshot)
+   10. Category Grid & Cards (Square with 3 items per row)
    ========================================================================== */
 .categories-grid {
   padding: 0 8px 24px 8px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -3832,35 +3833,36 @@ body .sports-card-badge,
 @media (min-width: 768px) {
   .categories-grid {
     padding: 0 12px 28px 12px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
   }
 }
 
 @media (min-width: 1024px) {
   .categories-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 12px;
   }
 }
 
-/* Category Card (Horizontal Pill Layout matching Screenshot) */
+/* Category Card (Square Vertical Layout with 3 items per row) */
 .category-card {
   background: #ffffff;
   border: 1.5px solid var(--border-card, #dbe5f0);
   border-radius: 14px;
-  padding: 4px 10px;
+  padding: 6px 4px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  text-align: left;
-  gap: 10px;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  height: 56px;
-  min-height: 56px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  min-height: unset;
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3893,12 +3895,12 @@ body .category-card:hover,
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7), 0 0 12px rgba(56, 189, 248, 0.2);
 }
 
-/* Category Logo Container - Prominent, Large & Clean (Matching Red Marked Circle) */
+/* Category Logo Container - Prominent, Doubled Size & Clean */
 .category-logo-raised {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  width: 92px;
+  height: 92px;
+  min-width: 92px;
+  min-height: 92px;
   border-radius: 50%;
   position: relative;
   display: flex;
@@ -3909,20 +3911,16 @@ body .category-card:hover,
   box-shadow: none;
   flex-shrink: 0;
   overflow: hidden;
+  margin-top: 2px;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 640px) {
-  .category-card {
-    height: 60px;
-    min-height: 60px;
-    padding: 5px 12px;
-  }
   .category-logo-raised {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px;
+    width: 108px;
+    height: 108px;
+    min-width: 108px;
+    min-height: 108px;
   }
 }
 
@@ -3946,12 +3944,12 @@ body .category-card:hover .category-logo-raised,
   box-shadow: none;
 }
 
-/* Real High-Resolution Category Logo Image inside Container */
+/* Real High-Resolution Category Logo Image inside Container (Doubled) */
 .category-logo-img {
-  width: 46px;
-  height: 46px;
-  max-width: 46px;
-  max-height: 46px;
+  width: 82px;
+  height: 82px;
+  max-width: 82px;
+  max-height: 82px;
   border-radius: 50%;
   object-fit: contain;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
@@ -3960,10 +3958,10 @@ body .category-card:hover .category-logo-raised,
 
 @media (min-width: 640px) {
   .category-logo-img {
-    width: 48px;
-    height: 48px;
-    max-width: 48px;
-    max-height: 48px;
+    width: 98px;
+    height: 98px;
+    max-width: 98px;
+    max-height: 98px;
   }
 }
 
@@ -3973,7 +3971,7 @@ body .category-logo-img,
 }
 
 .category-logo-icon {
-  font-size: 22px;
+  font-size: 28px;
   color: var(--accent-cyan, #0284c7);
   filter: none;
 }
@@ -3985,20 +3983,21 @@ body .category-logo-icon,
 }
 
 .category-info {
-  width: auto;
-  flex: 1;
+  width: 100%;
+  flex: 0 0 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
+  margin-bottom: 2px;
 }
 
 .category-name {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-primary, #0f172a);
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -4009,7 +4008,7 @@ body .category-logo-icon,
 
 @media (min-width: 640px) {
   .category-name {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -4067,10 +4066,12 @@ body .category-name,
   letter-spacing: -0.2px;
 }
 
-.player-video-wrapper {
+.player-video-wrapper,
+#player-video-box {
   position: relative;
   width: 100%;
-  background: #000000;
+  background: #000000 !important;
+  background-color: #000000 !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4082,21 +4083,38 @@ body .category-name,
 }
 
 @media (min-width: 840px) {
-  .player-video-wrapper {
+  .player-video-wrapper,
+  #player-video-box {
     max-height: 65vh;
   }
 }
 
 .player-video-element,
-#hls-video-element {
+#hls-video-element,
+video#hls-video-element {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  background: #000000;
+  background: #000000 !important;
+  background-color: #000000 !important;
+  color: transparent !important;
   filter: none !important;
   -webkit-filter: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
+}
+
+video#hls-video-element::-webkit-media-controls {
+  display: none !important;
+}
+
+video#hls-video-element::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+
+video#hls-video-element::-webkit-media-controls-enclosure {
+  display: none !important;
 }
 
 /* ==========================================================================
@@ -6604,6 +6622,139 @@ video::-webkit-media-controls-enclosure {
   background: rgba(255, 255, 255, 0.08);
   color: #f1f5f9;
   border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ==========================================================================
+   LIVE EVENT CARD CHANNEL BROADCAST CHIPS & ANDROID TV D-PAD FOCUS
+   ========================================================================== */
+.playz-card-channels-wrap {
+  width: 100%;
+  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 8px 12px 10px 12px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  min-height: 38px;
+}
+
+.channel-chips-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.channel-chips-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+}
+
+.channel-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #e2e8f0;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: transform 0.18s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+  text-decoration: none;
+}
+
+.channel-chip:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.channel-chip:focus,
+.channel-chip:focus-visible,
+.channel-chip.tv-focused {
+  background: rgba(239, 68, 68, 0.25) !important;
+  border-color: #ef4444 !important;
+  color: #ffffff !important;
+  transform: scale(1.06) !important;
+  outline: 2px solid #ef4444 !important;
+  outline-offset: 1px !important;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.5) !important;
+  z-index: 10;
+}
+
+.channel-chip-logo {
+  width: 14px;
+  height: 14px;
+  object-fit: contain;
+  border-radius: 3px;
+  display: block;
+}
+
+.channel-chip-icon {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.channel-chip-name {
+  white-space: nowrap;
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channel-chip-more {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.09);
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.channel-chip-more:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+}
+
+.channel-info-coming-soon {
+  display: none !important;
+}
+
+.playz-card-channels-wrap:empty,
+.channel-chips-container:empty,
+.playz-card-channels-wrap:has(.channel-chips-container:empty) {
+  display: none !important;
+}
+
+/* Android TV D-Pad Focus Styles for Event Cards */
+.highfy-tv-mode .event-card-wrapper:focus,
+.highfy-tv-mode .event-card-wrapper.tv-focused,
+.highfy-tv-mode .event-card:focus,
+.highfy-tv-mode .event-card.tv-focused {
+  outline: 2.5px solid #ef4444 !important;
+  outline-offset: 2px !important;
+  transform: scale(1.02) !important;
+  box-shadow: 0 10px 28px rgba(239, 68, 68, 0.35) !important;
+  z-index: 5;
+}
+
+@media (min-width: 1280px) {
+  /* TV / Big Screen (1920x1080 landscape) presentation */
+  .channel-chip {
+    font-size: 12px;
+    padding: 5px 12px;
+  }
+  .channel-chip-name {
+    max-width: 180px;
+  }
+  .channel-info-coming-soon {
+    font-size: 12px;
+  }
 }
 
 

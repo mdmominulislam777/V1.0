@@ -3,6 +3,7 @@ package com.highfy.tv;
 import android.app.Activity;
 import android.app.UiModeManager;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,6 +78,12 @@ public class MainActivity extends Activity {
         });
 
         webView.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public Bitmap getDefaultVideoPoster() {
+                // Prevent Android WebView from displaying the default white/grey box with play icon
+                return Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888);
+            }
+
             @Override
             public void onPermissionRequest(final PermissionRequest request) {
                 request.grant(request.getResources());

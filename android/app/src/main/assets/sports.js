@@ -2161,6 +2161,13 @@ class SportsCoordinator {
   }
 
   curateEvents(rawEvents) {
+    const isAllowedSportFilter = (s) => {
+      if (!s) return false;
+      const norm = String(s).toLowerCase().trim();
+      return norm === 'cricket' || norm === 'football' || norm === 'soccer' || norm === 'wwe' || norm === 'wrestling' || norm === 'aew';
+    };
+    rawEvents = (rawEvents || []).filter(ev => isAllowedSportFilter(ev?.sport) || isAllowedSportFilter(ev?.sportName));
+
     const now = Date.now();
     const tz = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
     // Maximum 14 days ahead for cricket/special matches, 7 days for football, 30 days for tennis/basketball/rugby
@@ -2758,12 +2765,23 @@ class SportsCoordinator {
    * Filter Events by Sport and Status
    */
   getFilteredEvents({ sport = 'all', status = 'all', searchQuery = '' } = {}) {
-    let list = this.events;
+    const isAllowedSportFilter = (s) => {
+      if (!s) return false;
+      const norm = String(s).toLowerCase().trim();
+      return norm === 'cricket' || norm === 'football' || norm === 'soccer' || norm === 'wwe' || norm === 'wrestling' || norm === 'aew';
+    };
+    let list = (this.events || []).filter(e => isAllowedSportFilter(e?.sport) || isAllowedSportFilter(e?.sportName));
 
-    // 1. Sport Filter (All, Football, Cricket, WWE)
+    // 1. Sport Filter (All, Football, Cricket, WWE, AEW)
     if (sport && sport.toLowerCase() !== 'all') {
-      const sp = sport.toLowerCase();
-      list = list.filter(e => (e.sport || '').toLowerCase() === sp);
+      const sp = sport.toLowerCase().trim();
+      if (sp === 'football' || sp === 'soccer') {
+        list = list.filter(e => (e.sport || '').toLowerCase() === 'football' || (e.sport || '').toLowerCase() === 'soccer');
+      } else if (sp === 'wwe' || sp === 'wrestling') {
+        list = list.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling');
+      } else {
+        list = list.filter(e => (e.sport || '').toLowerCase() === sp);
+      }
     }
 
     // 2. Status Filter (ALL, TODAY, LIVE, UPCOMING, FINISHED, FAVORITES)

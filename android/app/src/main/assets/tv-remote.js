@@ -169,6 +169,8 @@
         '.event-card-wrapper',
         '.event-card',
         '.playz-card',
+        '.channel-chip',
+        '.channel-chip-more',
         '.multiple-link-server-btn',
         '.category-tab:not([disabled])',
         '.channel-card:not([disabled])',

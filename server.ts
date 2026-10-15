@@ -30,6 +30,11 @@ import("./sportsApi/channelResolver.js")
   })
   .catch(() => {});
 
+// Multi-Sport Channel Resolution Service Layer
+import { defaultChannelService } from "./src/services/channelService";
+import { loadAndValidateManualChannels } from "./src/services/manualChannelSource";
+import { isAllowedSport, normalizeSport } from "./src/config/sports";
+
 const RAPIDAPI_KEY = (process.env.RAPIDAPI_KEY || "").trim();
 const DEFAULT_CRICKET_HOST = "cricbuzz-cricket2.p.rapidapi.com";
 
@@ -5522,7 +5527,9 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
           if (!item) continue;
           const t1 = item.team1?.name || "";
           const t2 = item.team2?.name || "";
-          const sport = (item.sport || "football").toLowerCase();
+          const rawSport = (item.sport || "football").toLowerCase();
+          const sport = normalizeSport(rawSport);
+          if (!sport) continue;
           const league = item.league || item.tournament || "International";
           const title = item.title || (t1 && t2 ? `${t1} vs ${t2}` : "Sports Event");
           const date = item.date || "";
@@ -5577,7 +5584,9 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
           if (!item) continue;
           const t1 = item.team1?.name || "";
           const t2 = item.team2?.name || "";
-          const sport = (item.sport || "football").toLowerCase();
+          const rawSport = (item.sport || "football").toLowerCase();
+          const sport = normalizeSport(rawSport);
+          if (!sport) continue;
           const league = item.league || item.tournament || "Live Sports";
           const title = item.title || (t1 && t2 ? `${t1} vs ${t2}` : "Sports Event");
           const date = item.date || "";
@@ -5632,7 +5641,9 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
           if (!item) continue;
           const t1 = item.team1?.name || item.strHomeTeam || item.homeTeam?.name || "";
           const t2 = item.team2?.name || item.strAwayTeam || item.awayTeam?.name || "";
-          const sport = (item.sport || item.strSport || "football").toLowerCase();
+          const rawSport = (item.sport || item.strSport || "football").toLowerCase();
+          const sport = normalizeSport(rawSport);
+          if (!sport) continue;
           const league = item.league || item.strLeague || "International";
           const title = item.title || item.strEvent || (t1 && t2 ? `${t1} vs ${t2}` : "Sports Event");
           const date = item.date || item.dateEvent || "";
@@ -5696,11 +5707,12 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
   app.get("/api/events", async (req, res) => {
     try {
       const allEvents = await getUnifiedServerEvents();
-      let filtered = [...allEvents];
+      let filtered = allEvents.filter(e => isAllowedSport(e.sport));
 
       if (typeof req.query.sport === "string" && req.query.sport.trim()) {
         const sp = req.query.sport.trim().toLowerCase();
-        filtered = filtered.filter(e => e.sport.toLowerCase() === sp);
+        const normSp = normalizeSport(sp) || sp;
+        filtered = filtered.filter(e => e.sport.toLowerCase() === normSp);
       }
 
       if (typeof req.query.status === "string" && req.query.status.trim()) {
@@ -5835,6 +5847,72 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
       });
     } catch (err: any) {
       return res.status(500).json({ status: "error", message: err.message });
+    }
+  });
+
+  // Dedicated Rate Limiter for Multi-Sport Channel Resolution
+  const channelsApiLimiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    max: 120, // 120 requests per minute per IP
+    standardHeaders: true,
+    legacyHeaders: false,
+    message: {
+      status: "error",
+      error: "Too many channel requests, please try again shortly.",
+      channels: []
+    }
+  });
+
+  // Dedicated Multi-Sport Channels Resolution Endpoint
+  app.get("/api/channels", channelsApiLimiter, async (req, res) => {
+    try {
+      const rawFixtureId = req.query.fixtureId || req.query.id;
+      const internalEventId = String(rawFixtureId || '').trim();
+      const sport = String(req.query.sport || '').trim();
+      const dateUtc = req.query.date ? String(req.query.date).trim() : undefined;
+      const kickoffUtc = req.query.kickoff ? String(req.query.kickoff).trim() : undefined;
+      const homeTeam = req.query.home ? String(req.query.home).trim() : undefined;
+      const awayTeam = req.query.away ? String(req.query.away).trim() : undefined;
+      const league = req.query.league ? String(req.query.league).trim() : undefined;
+
+      const channels = await defaultChannelService.getChannelsForEvent({
+        internalEventId,
+        sport,
+        dateUtc,
+        kickoffUtc,
+        homeTeam,
+        awayTeam,
+        league
+      });
+
+      return res.json({
+        status: "success",
+        fixtureId: internalEventId,
+        sport,
+        total: channels.length,
+        channels
+      });
+    } catch (err: any) {
+      console.error("[/api/channels] Error:", err.message);
+      return res.status(500).json({ status: "error", message: "Failed to resolve channels", channels: [] });
+    }
+  });
+
+  // ESPN Scoreboard Backend Proxy (Shields client from direct external API calls)
+  app.get("/api/cricket/espn/scoreboard", async (req, res) => {
+    try {
+      const dates = String(req.query.dates || '').trim();
+      if (!/^\d{8}$/.test(dates)) {
+        return res.status(400).json({ status: "error", message: "Invalid dates parameter" });
+      }
+      const response = await fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${dates}`, {
+        headers: { "User-Agent": "HighFyTV/1.0" }
+      });
+      if (!response.ok) return res.status(response.status).json(null);
+      const data = await response.json();
+      return res.json(data);
+    } catch (err: any) {
+      return res.status(500).json(null);
     }
   });
 
@@ -6622,6 +6700,13 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
     app.get("*all", (_req, res) => {
       res.sendFile(path.join(distPath, "index.html"));
     });
+  }
+
+  // Validate manual channel entries on server startup
+  try {
+    loadAndValidateManualChannels();
+  } catch (err: any) {
+    console.error("[ManualChannels] Error initializing manual channel source:", err.message);
   }
 
   app.listen(PORT, "0.0.0.0", () => {

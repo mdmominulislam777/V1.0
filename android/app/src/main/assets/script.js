@@ -7,6 +7,9 @@
 (() => {
   'use strict';
 
+  // Pitch-black SVG poster preventing any browser, webview, or Android engine from rendering a white placeholder/poster
+  const BLACK_VIDEO_POSTER = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23000000'/%3E%3C/svg%3E";
+
   // Safe Storage Utilities to prevent QuotaExceededError and handle corrupt items
   function safeJsonParse(key, fallback) {
     try {
@@ -515,6 +518,9 @@
       drawerOverlay: document.getElementById('drawer-overlay'),
       refreshIcon: document.getElementById('refresh-icon')
     };
+    if (DOM.videoElement) {
+      DOM.videoElement.poster = BLACK_VIDEO_POSTER;
+    }
     return DOM;
   }
 
@@ -611,67 +617,42 @@
   function applyCustomAppBranding() {
     const splashImg = document.getElementById('cricfy-splash-logo-img');
     const drawerImg = document.getElementById('drawer-header-logo-img');
-    const effectiveSplash = state.customSplashLogo || state.customAppIcon || '';
-    const effectiveDrawer = state.customDrawerLogo || state.customAppIcon || '';
-    const effectiveAppIcon = state.customAppIcon || state.customSplashLogo || state.customDrawerLogo || '';
+    const buster = '?v=20261011_02';
+    const effectiveSplash = state.customSplashLogo || ('./assets/splash-screen-logo/splash_logo.png' + buster);
+    const effectiveDrawer = state.customDrawerLogo || ('./assets/drawer-menu-logo/drawer_logo.png' + buster);
+    const effectiveAppIcon = state.customAppIcon || ('./assets/app-icon/app_icon.png' + buster);
 
     if (splashImg) {
-      if (effectiveSplash) {
-        splashImg.src = effectiveSplash;
-      } else {
-        splashImg.src = './highfy_logo1.png';
-      }
+      splashImg.src = effectiveSplash;
     }
 
     if (drawerImg) {
-      if (effectiveDrawer) {
-        drawerImg.src = effectiveDrawer;
-      } else {
-        drawerImg.src = './highfy_logo1.png';
-      }
+      drawerImg.src = effectiveDrawer;
     }
 
     // Dynamic browser favicon & apple-touch-icon sync
-    if (effectiveAppIcon) {
-      try {
-        let favEl = document.querySelector('link[rel="icon"]');
-        if (!favEl) {
-          favEl = document.createElement('link');
-          favEl.rel = 'icon';
-          document.head.appendChild(favEl);
-        }
-        favEl.href = effectiveAppIcon;
+    try {
+      let favEl = document.querySelector('link[rel="icon"]');
+      if (!favEl) {
+        favEl = document.createElement('link');
+        favEl.rel = 'icon';
+        document.head.appendChild(favEl);
+      }
+      favEl.href = effectiveAppIcon;
 
-        let appleEl = document.querySelector('link[rel="apple-touch-icon"]');
-        if (!appleEl) {
-          appleEl = document.createElement('link');
-          appleEl.rel = 'apple-touch-icon';
-          document.head.appendChild(appleEl);
-        }
-        appleEl.href = effectiveAppIcon;
-      } catch (e) {}
-    }
+      let appleEl = document.querySelector('link[rel="apple-touch-icon"]');
+      if (!appleEl) {
+        appleEl = document.createElement('link');
+        appleEl.rel = 'apple-touch-icon';
+        document.head.appendChild(appleEl);
+      }
+      appleEl.href = effectiveAppIcon;
+    } catch (e) {}
 
     // About modal branding logo sync
     const aboutImg = document.querySelector('#modal-about img');
-    if (aboutImg && effectiveAppIcon) {
-      aboutImg.src = effectiveAppIcon;
-    }
-
-    // Sync preview in App Icon Modal
-    const appIconModalPreview = document.getElementById('app-icon-modal-preview-img');
-    const badgeAppIconStatus = document.getElementById('badge-app-icon-status');
-    if (appIconModalPreview) {
-      appIconModalPreview.src = effectiveAppIcon || './highfy_logo1.png';
-    }
-    if (badgeAppIconStatus) {
-      if (state.customAppIcon) {
-        badgeAppIconStatus.textContent = 'Custom';
-        badgeAppIconStatus.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-amber-500/20 text-amber-300 border border-amber-500/30';
-      } else {
-        badgeAppIconStatus.textContent = 'Default';
-        badgeAppIconStatus.className = 'text-[10px] px-2 py-0.5 rounded-full font-bold bg-slate-800 text-slate-400';
-      }
+    if (aboutImg) {
+      aboutImg.src = effectiveDrawer;
     }
 
     const watermarkImg = document.getElementById('player-watermark-logo');
@@ -690,7 +671,7 @@
     const badgeSplashStatus = document.getElementById('badge-loading-img-status');
 
     if (adminSplashPreview) {
-      adminSplashPreview.src = state.customSplashLogo || state.customAppIcon || './highfy_logo1.png';
+      adminSplashPreview.src = state.customSplashLogo || state.customAppIcon || ('./assets/splash-screen-logo/splash_logo.png' + buster);
     }
     if (adminSplashInput && !adminSplashInput.matches(':focus')) {
       adminSplashInput.value = state.customSplashLogo || '';
@@ -710,7 +691,7 @@
     const badgeDrawerStatus = document.getElementById('badge-drawer-img-status');
 
     if (adminDrawerPreview) {
-      adminDrawerPreview.src = state.customDrawerLogo || state.customAppIcon || './highfy_logo1.png';
+      adminDrawerPreview.src = state.customDrawerLogo || state.customAppIcon || ('./assets/drawer-menu-logo/drawer_logo.png' + buster);
     }
     if (adminDrawerInput && !adminDrawerInput.matches(':focus')) {
       adminDrawerInput.value = state.customDrawerLogo || '';
@@ -1240,43 +1221,39 @@
       return true;
     });
 
+    // Filter out non-allowed sports from list completely:
+    list = list.filter(e => {
+      const sp = (e.sport || e.sportName || '').toLowerCase().trim();
+      return sp === 'cricket' || sp === 'football' || sp === 'soccer' || sp === 'wwe' || sp === 'wrestling' || sp === 'aew';
+    });
+
     // Count by individual sport for top circular badges (active matches within 3-day horizon)
     const activeList = list.filter(e => !isAppEventFinished(e) && isWithin3Days(e));
     const totalAllEvents = activeList.length;
-    const totalFootball = activeList.filter(e => (e.sport || '').toLowerCase() === 'football').length;
+    const totalFootball = activeList.filter(e => (e.sport || '').toLowerCase() === 'football' || (e.sport || '').toLowerCase() === 'soccer').length;
     const totalCricket = activeList.filter(e => (e.sport || '').toLowerCase() === 'cricket').length;
-    const totalBaseball = activeList.filter(e => (e.sport || '').toLowerCase() === 'baseball').length;
-    const totalBasketball = activeList.filter(e => (e.sport || '').toLowerCase() === 'basketball').length;
-    const totalTennis = activeList.filter(e => (e.sport || '').toLowerCase() === 'tennis').length;
     const totalWWE = activeList.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling').length;
-    const totalVolleyball = activeList.filter(e => (e.sport || '').toLowerCase() === 'volleyball').length;
-    const totalRugby = activeList.filter(e => (e.sport || '').toLowerCase() === 'rugby').length;
+    const totalAEW = activeList.filter(e => (e.sport || '').toLowerCase() === 'aew').length;
 
     const bAll = document.getElementById('scBadgeAll');
     const bFoot = document.getElementById('scBadgeFootball');
     const bCric = document.getElementById('scBadgeCricket');
-    const bBase = document.getElementById('scBadgeBaseball');
-    const bBasket = document.getElementById('scBadgeBasketball');
-    const bTennis = document.getElementById('scBadgeTennis');
     const bWwe = document.getElementById('scBadgeWWE');
-    const bVolley = document.getElementById('scBadgeVolleyball');
-    const bRugby = document.getElementById('scBadgeRugby');
+    const bAew = document.getElementById('scBadgeAEW');
 
     if (bAll) bAll.textContent = String(totalAllEvents);
     if (bFoot) bFoot.textContent = String(totalFootball);
     if (bCric) bCric.textContent = String(totalCricket);
-    if (bBase) bBase.textContent = String(totalBaseball);
-    if (bBasket) bBasket.textContent = String(totalBasketball);
-    if (bTennis) bTennis.textContent = String(totalTennis);
     if (bWwe) bWwe.textContent = String(totalWWE);
-    if (bVolley) bVolley.textContent = String(totalVolleyball);
-    if (bRugby) bRugby.textContent = String(totalRugby);
+    if (bAew) bAew.textContent = String(totalAEW);
 
     // Filter by selectedSport for accurate header counters
     if (state.selectedSport && state.selectedSport !== 'All') {
       const sp = state.selectedSport.toLowerCase();
       if (sp === 'wwe' || sp === 'wrestling') {
         list = list.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling');
+      } else if (sp === 'football' || sp === 'soccer') {
+        list = list.filter(e => (e.sport || '').toLowerCase() === 'football' || (e.sport || '').toLowerCase() === 'soccer');
       } else {
         list = list.filter(e => (e.sport || '').toLowerCase() === sp);
       }
@@ -1301,12 +1278,8 @@
       let title = 'Live Sports Center';
       if (state.selectedSport === 'Football') { icon = 'fa-futbol'; title = 'Football Matches'; }
       else if (state.selectedSport === 'Cricket') { icon = 'fa-baseball-bat-ball'; title = 'Cricket Matches'; }
-      else if (state.selectedSport === 'Baseball') { icon = 'fa-baseball'; title = 'Baseball Games (MLB)'; }
-      else if (state.selectedSport === 'Basketball') { icon = 'fa-basketball'; title = 'Basketball Games (NBA/EuroLeague)'; }
-      else if (state.selectedSport === 'Tennis') { icon = 'fa-table-tennis-paddle-ball'; title = 'Tennis Matches (Grand Slam / ATP / WTA)'; }
       else if (state.selectedSport === 'WWE') { icon = 'fa-hand-fist'; title = 'WWE / Wrestling Events'; }
-      else if (state.selectedSport === 'Volleyball') { icon = 'fa-volleyball'; title = 'Volleyball Matches'; }
-      else if (state.selectedSport === 'Rugby') { icon = 'fa-football'; title = 'Rugby Matches'; }
+      else if (state.selectedSport === 'AEW') { icon = 'fa-trophy'; title = 'AEW Wrestling Events'; }
 
       DOM.activeSportTitle.innerHTML = `<i class="fa-solid ${icon}"></i> ${title}`;
     }
@@ -2395,6 +2368,21 @@
 
           </div>
 
+          <!-- Channel Broadcast Chips Section (Loaded Asynchronously) -->
+          <div 
+            class="playz-card-channels-wrap" 
+            data-event-id="${escapeHtml(event.id)}"
+            data-sport="${escapeHtml(event.sport || '')}"
+            data-league="${escapeHtml(event.tournament || event.league || '')}"
+            data-kickoff="${escapeHtml(event.kickoffUtc || event.isoDate || (evTs ? new Date(evTs).toISOString() : ''))}"
+            data-date="${escapeHtml(event.date || '')}"
+            data-home="${escapeHtml(t1Name)}"
+            data-away="${escapeHtml(t2Name)}"
+            style="display: none;"
+          >
+            <div class="channel-chips-container" id="channel-chips-${escapeHtml(event.id)}"></div>
+          </div>
+
         </div>
       </div>
     `;
@@ -2512,7 +2500,7 @@
     // Attach card click listener: 2-step playback flow (Click card -> Open channel popup -> Select channel -> Play)
     DOM.eventsFeed.querySelectorAll('.event-card-wrapper').forEach(card => {
       card.addEventListener('click', (e) => {
-        if (e.target.closest('.event-fav-btn, .event-fav-star-btn, .card-fav-star-btn, .btn-play-event-stream')) {
+        if (e.target.closest('.event-fav-btn, .event-fav-star-btn, .card-fav-star-btn, .btn-play-event-stream, .channel-chip')) {
           return;
         }
         e.stopPropagation();
@@ -2526,8 +2514,155 @@
       });
     });
 
+    // Asynchronously resolve broadcast channels for visible cards without blocking render
+    triggerAsynchronousChannelResolution();
+
     // Start Stable Countdown Ticker
     startCountdownTimer();
+  }
+
+  // Client-Side In-Memory Cache for Match Event Channels
+  const eventChannelsClientCache = new Map();
+
+  /**
+   * Asynchronously resolve broadcast channels for all visible cards in feed
+   */
+  function triggerAsynchronousChannelResolution() {
+    if (!DOM.eventsFeed) return;
+    const containers = DOM.eventsFeed.querySelectorAll('.playz-card-channels-wrap');
+    if (!containers || containers.length === 0) return;
+
+    containers.forEach(wrap => {
+      const eventId = wrap.getAttribute('data-event-id');
+      const sport = wrap.getAttribute('data-sport') || '';
+      const league = wrap.getAttribute('data-league') || '';
+      const kickoff = wrap.getAttribute('data-kickoff') || '';
+      const date = wrap.getAttribute('data-date') || '';
+      const home = wrap.getAttribute('data-home') || '';
+      const away = wrap.getAttribute('data-away') || '';
+
+      const chipBox = wrap.querySelector('.channel-chips-container');
+      if (!chipBox) return;
+
+      // 1. If already cached in memory, render immediately
+      if (eventChannelsClientCache.has(eventId)) {
+        renderChannelChips(chipBox, eventChannelsClientCache.get(eventId));
+        return;
+      }
+
+      // 2. Fetch asynchronously from server endpoint GET /api/channels
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
+      const params = new URLSearchParams();
+      if (eventId) params.set('fixtureId', eventId);
+      if (sport) params.set('sport', sport);
+      if (date) params.set('date', date);
+      if (kickoff) params.set('kickoff', kickoff);
+      if (home) params.set('home', home);
+      if (away) params.set('away', away);
+      if (league) params.set('league', league);
+
+      fetch(`${apiBase}/api/channels?${params.toString()}`)
+        .then(res => (res.ok ? res.json() : null))
+        .then(json => {
+          const channels = Array.isArray(json?.channels) ? json.channels : [];
+          eventChannelsClientCache.set(eventId, channels);
+          renderChannelChips(chipBox, channels);
+        })
+        .catch(() => {
+          eventChannelsClientCache.set(eventId, []);
+          renderChannelChips(chipBox, []);
+        });
+    });
+  }
+
+  /**
+   * Render channel chips: max 3 chips, then "+N more".
+   * If none: display "Channel info coming soon".
+   */
+  function renderChannelChips(container, channels) {
+    if (!container) return;
+    if (!channels || channels.length === 0) {
+      container.innerHTML = '';
+      if (container.parentElement) {
+        container.parentElement.style.display = 'none';
+      }
+      return;
+    }
+    if (container.parentElement) {
+      container.parentElement.style.display = '';
+    }
+
+    const maxVisible = 3;
+    const visibleChips = channels.slice(0, maxVisible);
+    const overflowCount = channels.length - maxVisible;
+
+    let html = '<div class="channel-chips-row">';
+    for (const ch of visibleChips) {
+      const titleAttr = `${escapeHtml(ch.channelName)}${ch.country ? ' (' + escapeHtml(ch.country) + ')' : ''}`;
+      html += `
+        <button 
+          type="button" 
+          class="channel-chip tv-focusable" 
+          tabindex="0" 
+          title="${titleAttr}" 
+          data-channel-name="${escapeHtml(ch.channelName)}"
+        >
+          ${ch.logoUrl ? `<img src="${escapeHtml(ch.logoUrl)}" alt="" class="channel-chip-logo" onerror="this.style.display='none'" />` : '<i class="fa-solid fa-tv channel-chip-icon"></i>'}
+          <span class="channel-chip-name">${escapeHtml(ch.channelName)}</span>
+        </button>
+      `;
+    }
+
+    if (overflowCount > 0) {
+      const moreTitles = channels.slice(maxVisible).map(c => c.channelName).join(', ');
+      html += `
+        <button 
+          type="button" 
+          class="channel-chip channel-chip-more tv-focusable" 
+          tabindex="0" 
+          title="${overflowCount} more channels: ${escapeHtml(moreTitles)}"
+        >
+          +${overflowCount} more
+        </button>
+      `;
+    }
+
+    html += '</div>';
+
+    // Check if any channel has a sourceUrl (e.g. manual verified channel) and render small Source link under the channel chips
+    const sourceChan = channels.find(c => c.sourceUrl);
+    if (sourceChan && sourceChan.sourceUrl) {
+      html += `
+        <div class="channel-source-link-container" style="margin-top: 4px; padding-left: 2px;">
+          <a href="${escapeHtml(sourceChan.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="manual-channel-source-link" style="font-size: 10.5px; color: #94a3b8; text-decoration: underline; display: inline-flex; align-items: center; gap: 3px;">
+            <i class="fa-solid fa-external-link-alt" style="font-size: 9px;"></i> Source
+          </a>
+        </div>
+      `;
+    }
+
+    container.innerHTML = html;
+
+    // Attach click listener to channel chips
+    container.querySelectorAll('.channel-chip').forEach(chip => {
+      chip.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const chName = chip.getAttribute('data-channel-name');
+        if (chName) {
+          const allChannels = state.channels || [];
+          const matchedCh = allChannels.find(c => c.name && c.name.toLowerCase().includes(chName.toLowerCase()));
+          if (matchedCh && matchedCh.streamUrl) {
+            playChannel(matchedCh);
+          } else {
+            const searchInput = document.getElementById('input-search-channels');
+            if (searchInput) {
+              searchInput.value = chName;
+              handleSearch(chName);
+            }
+          }
+        }
+      });
+    });
   }
 
   /**
@@ -6481,6 +6616,7 @@
     DOM.videoElement.setAttribute('playsinline', 'true');
     DOM.videoElement.setAttribute('webkit-playsinline', 'true');
     DOM.videoElement.preload = 'auto';
+    DOM.videoElement.poster = BLACK_VIDEO_POSTER;
     DOM.videoElement.oncontextmenu = (e) => { e.preventDefault(); return false; };
 
     if (streamLoadWatchdog) {
@@ -6865,6 +7001,9 @@
       clearTimeout(streamLoadWatchdog);
       streamLoadWatchdog = null;
     }
+    if (DOM.videoElement) {
+      DOM.videoElement.poster = BLACK_VIDEO_POSTER;
+    }
     if (DOM.playerSpinner) DOM.playerSpinner.style.display = 'none';
     if (DOM.playerWatermark) DOM.playerWatermark.classList.remove('visible');
     if (DOM.playerError) {
@@ -6920,6 +7059,7 @@
       DOM.videoElement.ontimeupdate = null;
       DOM.videoElement.onwaiting = null;
       DOM.videoElement.removeAttribute('src');
+      DOM.videoElement.poster = BLACK_VIDEO_POSTER;
       DOM.videoElement.load();
     }
     if (DOM.playerModal) {
@@ -8077,137 +8217,8 @@
       });
     }
 
-    // App Icon Upload & Branding Modal Handlers
-    const drawerAppIcon = document.getElementById('drawer-app-icon');
-    if (drawerAppIcon) {
-      drawerAppIcon.addEventListener('click', () => {
-        closeDrawer();
-        openModal('modal-app-icon');
-        applyCustomAppBranding();
-      });
-    }
-
-    const btnSettingsAppIcon = document.getElementById('btn-settings-open-app-icon');
-    if (btnSettingsAppIcon) {
-      btnSettingsAppIcon.addEventListener('click', () => {
-        closeModal('modal-settings');
-        openModal('modal-app-icon');
-        applyCustomAppBranding();
-      });
-    }
-
-    const btnAdminOpenAppIcon = document.getElementById('btn-admin-open-app-icon-modal');
-    if (btnAdminOpenAppIcon) {
-      btnAdminOpenAppIcon.addEventListener('click', () => {
-        closeModal('modal-stream-source');
-        openModal('modal-app-icon');
-        applyCustomAppBranding();
-      });
-    }
-
-    const appIconFileInput = document.getElementById('app-icon-file-input');
-    const appIconUrlInput = document.getElementById('app-icon-url-input');
-    const btnAppIconPreviewUrl = document.getElementById('btn-app-icon-preview-url');
-    const appIconModalPreview = document.getElementById('app-icon-modal-preview-img');
-    const btnSaveAppIcon = document.getElementById('btn-save-app-icon');
-    const btnResetAppIcon = document.getElementById('btn-reset-app-icon');
-    const targetSplash = document.getElementById('app-icon-target-splash');
-    const targetDrawer = document.getElementById('app-icon-target-drawer');
-    const targetFavicon = document.getElementById('app-icon-target-favicon');
-
-    if (appIconFileInput) {
-      appIconFileInput.addEventListener('change', (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (file) {
-          if (file.size > 8 * 1024 * 1024) {
-            showToast('⚠️ ইমেজের সাইজ সর্বোচ্চ 8MB হতে পারে');
-            return;
-          }
-          showToast('ছবি অপ্টিমাইজ করা হচ্ছে...');
-          compressImageToDataUrl(file, 400, 0.9, (dataUrl) => {
-            if (appIconUrlInput) appIconUrlInput.value = dataUrl;
-            if (appIconModalPreview) appIconModalPreview.src = dataUrl;
-            showToast('ছবি প্রস্তুত! "সেভ ও প্রয়োগ করুন" বাটনে চাপুন');
-          });
-        }
-      });
-    }
-
-    if (btnAppIconPreviewUrl && appIconUrlInput && appIconModalPreview) {
-      btnAppIconPreviewUrl.addEventListener('click', () => {
-        const url = appIconUrlInput.value.trim();
-        if (url) {
-          appIconModalPreview.src = url;
-          showToast('প্রিভিউ লোড করা হয়েছে');
-        } else {
-          showToast('অনুগ্রহ করে একটি ইমেজ URL দিন');
-        }
-      });
-    }
-
-    if (btnSaveAppIcon) {
-      btnSaveAppIcon.addEventListener('click', () => {
-        const urlVal = appIconUrlInput?.value?.trim();
-        const previewSrc = appIconModalPreview?.src;
-        const finalVal = urlVal || (previewSrc && !previewSrc.includes('highfy_logo1.png') ? previewSrc : '');
-
-        if (!finalVal) {
-          showToast('⚠️ অনুগ্রহ করে কোনো ছবি নির্বাচন করুন বা URL দিন');
-          return;
-        }
-
-        const commitAppIconSave = (savedIcon) => {
-          state.customAppIcon = savedIcon;
-          safeSetLocalStorage('highfy_custom_app_icon', savedIcon);
-
-          if (!targetSplash || targetSplash.checked) {
-            state.customSplashLogo = savedIcon;
-            safeSetLocalStorage('highfy_custom_splash_logo', savedIcon);
-          }
-          if (!targetDrawer || targetDrawer.checked) {
-            state.customDrawerLogo = savedIcon;
-            safeSetLocalStorage('highfy_custom_drawer_logo', savedIcon);
-          }
-
-          applyCustomAppBranding();
-
-          // Sync to server disk storage in background
-          fetch('/api/upload-app-icon', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ imageData: savedIcon })
-          }).catch(() => {});
-
-          closeModal('modal-app-icon');
-          showToast('✅ অ্যাপ আইকন সফলভাবে আপলোড ও সেভ করা হয়েছে!');
-        };
-
-        if (finalVal.startsWith('data:image/') && finalVal.length > 50000) {
-          compressImageToDataUrl(finalVal, 400, 0.9, commitAppIconSave);
-        } else {
-          commitAppIconSave(finalVal);
-        }
-      });
-    }
-
-    if (btnResetAppIcon) {
-      btnResetAppIcon.addEventListener('click', () => {
-        state.customAppIcon = '';
-        localStorage.removeItem('highfy_custom_app_icon');
-        if (!targetSplash || targetSplash.checked) {
-          state.customSplashLogo = '';
-          localStorage.removeItem('highfy_custom_splash_logo');
-        }
-        if (!targetDrawer || targetDrawer.checked) {
-          state.customDrawerLogo = '';
-          localStorage.removeItem('highfy_custom_drawer_logo');
-        }
-        if (appIconUrlInput) appIconUrlInput.value = '';
-        if (appIconModalPreview) appIconModalPreview.src = './highfy_logo1.png';
-        applyCustomAppBranding();
-        showToast('ডিফল্ট অ্যাপ আইকন রিস্টোর করা হয়েছে');
-      });
-    }
+    // App Drawer Control Handlers
+    window.closeDrawer = closeDrawer;
 
     const drawerClearData = document.getElementById('drawer-clear-data');
     if (drawerClearData) {
@@ -8376,6 +8387,7 @@
     // Dismiss modals when clicking on background backdrop
     document.querySelectorAll('.custom-modal-backdrop').forEach(backdrop => {
       backdrop.addEventListener('click', (e) => {
+        if (window.lastModalOpenTime && Date.now() - window.lastModalOpenTime < 280) return;
         if (e.target === backdrop) {
           closeModal(backdrop.id);
         }
@@ -12155,6 +12167,7 @@
   }
 
   function openModal(modalId) {
+    window.lastModalOpenTime = Date.now();
     const modal = document.getElementById(modalId);
     if (modal) {
       modal.classList.add('active');

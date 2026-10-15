@@ -313,9 +313,10 @@ class CricketEngine {
         if (!espnDates.includes(dStr)) espnDates.push(dStr);
       }
 
+      const apiBase = window.CONFIG?.API_BASE_URL || '';
       const espnResponses = await Promise.all(
         espnDates.map(d =>
-          fetch(`https://site.web.api.espn.com/apis/v2/scoreboard/header?sport=cricket&dates=${d}`)
+          fetch(`${apiBase}/api/cricket/espn/scoreboard?dates=${d}`)
             .then(r => (r.ok ? r.json() : null))
             .catch(() => null)
         )

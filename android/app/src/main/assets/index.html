@@ -21,8 +21,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="./highfy_logo1.png" />
-  <link rel="apple-touch-icon" href="./highfy_logo1.png" />
+  <link rel="icon" type="image/png" href="./assets/app-icon/app_icon.png?v=20261011_02" />
+  <link rel="shortcut icon" type="image/png" href="./assets/app-icon/app_icon.png?v=20261011_02" />
+  <link rel="apple-touch-icon" href="./assets/app-icon/app_icon.png?v=20261011_02" />
 
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -242,11 +243,11 @@
           <div class="sportzfy-app-card-inner">
             <img 
               id="cricfy-splash-logo-img"
-              src="./highfy_logo1.png" 
+              src="./assets/splash-screen-logo/splash_logo.png?v=20261011_02" 
               alt="HighFy TV" 
               class="sportzfy-logo-img"
               referrerpolicy="no-referrer"
-              onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
+              onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/splash-screen-logo/splash_logo.png?v=20261011_02';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/assets/splash-screen-logo/splash_logo.png';}"
             />
           </div>
         </div>
@@ -332,69 +333,42 @@
       <!-- Sticky Controls Wrapper (Sports Shortcuts & Status Filter Pills) -->
       <div class="events-sticky-header-wrapper">
         <!-- Sports Shortcut Row (Scrollable Circular Badges with Count Pills) -->
+        <!-- Sports Shortcut Row (Scrollable Circular Badges with Count Pills - Strictly Football, Cricket, WWE, AEW) -->
         <div class="sports-shortcuts-container no-scrollbar" id="sports-shortcuts-row">
-          <div class="sport-shortcut-item active" data-sport="All">
+          <div class="sport-shortcut-item active tv-focusable" tabindex="0" data-sport="All">
             <div class="sport-shortcut-circle">
               <i class="fa-solid fa-border-all"></i>
               <span class="sport-count-badge" id="scBadgeAll">0</span>
             </div>
             <span class="sport-shortcut-label">All</span>
           </div>
-          <div class="sport-shortcut-item" data-sport="Football">
+          <div class="sport-shortcut-item tv-focusable" tabindex="0" data-sport="Football">
             <div class="sport-shortcut-circle">
               <i class="fa-solid fa-futbol"></i>
               <span class="sport-count-badge" id="scBadgeFootball">0</span>
             </div>
             <span class="sport-shortcut-label">Football</span>
           </div>
-          <div class="sport-shortcut-item" data-sport="Cricket">
+          <div class="sport-shortcut-item tv-focusable" tabindex="0" data-sport="Cricket">
             <div class="sport-shortcut-circle">
               <i class="fa-solid fa-baseball-bat-ball"></i>
               <span class="sport-count-badge" id="scBadgeCricket">0</span>
             </div>
             <span class="sport-shortcut-label">Cricket</span>
           </div>
-          <div class="sport-shortcut-item" data-sport="Baseball">
-            <div class="sport-shortcut-circle">
-              <i class="fa-solid fa-baseball"></i>
-              <span class="sport-count-badge" id="scBadgeBaseball">0</span>
-            </div>
-            <span class="sport-shortcut-label">Baseball</span>
-          </div>
-          <div class="sport-shortcut-item" data-sport="Basketball">
-            <div class="sport-shortcut-circle">
-              <i class="fa-solid fa-basketball"></i>
-              <span class="sport-count-badge" id="scBadgeBasketball">0</span>
-            </div>
-            <span class="sport-shortcut-label">Basketball</span>
-          </div>
-          <div class="sport-shortcut-item" data-sport="Tennis">
-            <div class="sport-shortcut-circle">
-              <i class="fa-solid fa-table-tennis-paddle-ball"></i>
-              <span class="sport-count-badge" id="scBadgeTennis">0</span>
-            </div>
-            <span class="sport-shortcut-label">Tennis</span>
-          </div>
-          <div class="sport-shortcut-item" data-sport="WWE">
+          <div class="sport-shortcut-item tv-focusable" tabindex="0" data-sport="WWE">
             <div class="sport-shortcut-circle">
               <i class="fa-solid fa-hand-fist"></i>
               <span class="sport-count-badge" id="scBadgeWWE">0</span>
             </div>
             <span class="sport-shortcut-label">WWE</span>
           </div>
-          <div class="sport-shortcut-item" data-sport="Volleyball">
+          <div class="sport-shortcut-item tv-focusable" tabindex="0" data-sport="AEW">
             <div class="sport-shortcut-circle">
-              <i class="fa-solid fa-volleyball"></i>
-              <span class="sport-count-badge" id="scBadgeVolleyball">0</span>
+              <i class="fa-solid fa-trophy"></i>
+              <span class="sport-count-badge" id="scBadgeAEW">0</span>
             </div>
-            <span class="sport-shortcut-label">Volleyball</span>
-          </div>
-          <div class="sport-shortcut-item" data-sport="Rugby">
-            <div class="sport-shortcut-circle">
-              <i class="fa-solid fa-football"></i>
-              <span class="sport-count-badge" id="scBadgeRugby">0</span>
-            </div>
-            <span class="sport-shortcut-label">Rugby</span>
+            <span class="sport-shortcut-label">AEW</span>
           </div>
         </div>
 
@@ -576,6 +550,7 @@
       <video 
         id="hls-video-element" 
         class="player-video-element" 
+        poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 9'%3E%3Crect width='16' height='9' fill='%23000000'/%3E%3C/svg%3E"
         preload="auto" 
         playsinline 
         webkit-playsinline 
@@ -836,11 +811,11 @@
       <div class="drawer-big-logo-frame">
         <img 
           id="drawer-header-logo-img"
-          src="./highfy_logo1.png" 
+          src="./assets/drawer-menu-logo/drawer_logo.png?v=20261011_02" 
           alt="HighFy TV Logo" 
           class="drawer-big-logo-img" 
           referrerpolicy="no-referrer"
-          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/images/highfy_logo1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/highfy_logo1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/assets/images/highfy_logo1.png';}"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/drawer-menu-logo/drawer_logo.png?v=20261011_02';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/assets/drawer-menu-logo/drawer_logo.png';}"
         />
       </div>
       <h3 class="drawer-app-title">HighFy TV</h3>
@@ -926,14 +901,6 @@
 
       <!-- Section 3: APP CONTROL -->
       <div class="drawer-section-title">APP CONTROL</div>
-
-      <div class="drawer-item" id="drawer-app-icon">
-        <div class="drawer-item-left">
-          <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i>
-          <span>Upload App Icon</span>
-        </div>
-        <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">Upload</span>
-      </div>
 
       <div class="drawer-item btn-open-settings-modal" id="drawer-settings">
         <div class="drawer-item-left">
@@ -1159,13 +1126,8 @@
             <option value="ALL">All (সব খেলা)</option>
             <option value="Football">Football</option>
             <option value="Cricket">Cricket</option>
-            <option value="Baseball">Baseball</option>
-            <option value="Basketball">Basketball</option>
-            <option value="Tennis">Tennis</option>
-            <option value="Volleyball">Volleyball</option>
-            <option value="Rugby">Rugby</option>
             <option value="WWE">WWE</option>
-            <option value="Other">Other Sports</option>
+            <option value="AEW">AEW</option>
           </select>
         </div>
 
@@ -1311,22 +1273,6 @@
           <i class="fa-solid fa-image mr-1"></i> চ্যানেল এবং ক্যাটাগরির ছবি ও লোগো পরিবর্তন বা মুছে ফেলুন:
         </div>
 
-        <!-- Section 0: Primary App Icon & Branding -->
-        <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between gap-2">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 font-bold text-base flex-shrink-0">
-              <i class="fa-solid fa-cloud-arrow-up"></i>
-            </div>
-            <div class="min-w-0">
-              <h4 class="text-xs font-bold text-white truncate">অ্যাপ আইকন (App Icon) ম্যানেজার</h4>
-              <p class="text-[10.5px] text-slate-300 mt-0.5">ডিভাইস বা URL থেকে সরাসরি অ্যাপ আইকন আপলোড করুন</p>
-            </div>
-          </div>
-          <button type="button" id="btn-admin-open-app-icon-modal" class="px-3 py-1.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-[11px] flex items-center gap-1.5 transition flex-shrink-0 cursor-pointer">
-            <i class="fa-solid fa-cloud-arrow-up"></i> আপলোড
-          </button>
-        </div>
-
         <!-- Section A: Channel Logo & Image Controls -->
         <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col gap-2.5">
           <div class="flex items-center justify-between gap-2">
@@ -1357,14 +1303,7 @@
                 <img id="admin-preview-channel-img" src="./assets/category-logos/sports-channels.png" alt="Preview" class="w-full h-full object-contain" />
               </div>
               <div class="flex-1 min-w-0 flex flex-col gap-1.5">
-                <div class="flex items-center gap-1.5">
-                  <input type="url" id="admin-inline-channel-img-url" class="modal-input text-xs flex-1" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
-                  <label for="admin-inline-channel-file-input" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-bold cursor-pointer transition border border-slate-700 flex items-center gap-1 flex-shrink-0" title="ডিভাইস থেকে ছবি আপলোড করুন">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <span>আপলোড</span>
-                  </label>
-                  <input type="file" id="admin-inline-channel-file-input" accept="image/*" class="hidden" />
-                </div>
+                <input type="url" id="admin-inline-channel-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
                 <div class="flex items-center gap-2">
                   <button type="button" id="btn-admin-save-inline-channel-img" class="flex-1 py-1 px-2.5 rounded-lg bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-[11px] flex items-center justify-center gap-1 transition">
                     <i class="fa-solid fa-check"></i> সেভ করুন
@@ -1408,14 +1347,7 @@
                 <img id="admin-preview-category-img" src="./assets/category-logos/sports-channels.png" alt="Preview" class="w-full h-full object-contain" />
               </div>
               <div class="flex-1 min-w-0 flex flex-col gap-1.5">
-                <div class="flex items-center gap-1.5">
-                  <input type="url" id="admin-inline-category-img-url" class="modal-input text-xs flex-1" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
-                  <label for="admin-inline-category-file-input" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-purple-400 text-xs font-bold cursor-pointer transition border border-slate-700 flex items-center gap-1 flex-shrink-0" title="ডিভাইস থেকে ছবি আপলোড করুন">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <span>আপলোড</span>
-                  </label>
-                  <input type="file" id="admin-inline-category-file-input" accept="image/*" class="hidden" />
-                </div>
+                <input type="url" id="admin-inline-category-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
                 <div class="flex items-center gap-2">
                   <button type="button" id="btn-admin-save-inline-category-img" class="flex-1 py-1 px-2.5 rounded-lg bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-500 text-white font-extrabold text-[11px] flex items-center justify-center gap-1 transition">
                     <i class="fa-solid fa-check"></i> সেভ করুন
@@ -1457,14 +1389,7 @@
                 <img id="admin-preview-sports-category-img" src="./assets/category-logos/sports-channels.png" alt="Preview" class="w-full h-full object-contain" />
               </div>
               <div class="flex-1 min-w-0 flex flex-col gap-1.5">
-                <div class="flex items-center gap-1.5">
-                  <input type="url" id="admin-inline-sports-category-img-url" class="modal-input text-xs flex-1" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
-                  <label for="admin-inline-sports-category-file-input" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-bold cursor-pointer transition border border-slate-700 flex items-center gap-1 flex-shrink-0" title="ডিভাইস থেকে ছবি আপলোড করুন">
-                    <i class="fa-solid fa-cloud-arrow-up"></i>
-                    <span>আপলোড</span>
-                  </label>
-                  <input type="file" id="admin-inline-sports-category-file-input" accept="image/*" class="hidden" />
-                </div>
+                <input type="url" id="admin-inline-sports-category-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
                 <div class="flex items-center gap-2">
                   <button type="button" id="btn-admin-save-inline-sports-category-img" class="flex-1 py-1 px-2.5 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 font-extrabold text-[11px] flex items-center justify-center gap-1 transition">
                     <i class="fa-solid fa-check"></i> সেভ করুন
@@ -1493,17 +1418,10 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-splash-img" src="./highfy_logo1.png" alt="Splash Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-splash-img" src="./assets/splash-screen-logo/splash_logo.png?v=20261011_02" alt="Splash Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
-              <div class="flex items-center gap-1.5">
-                <input type="url" id="admin-splash-img-url" class="modal-input text-xs flex-1" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
-                <label for="admin-splash-file-input" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-sky-400 text-xs font-bold cursor-pointer transition border border-slate-700 flex items-center gap-1 flex-shrink-0" title="ডিভাইস থেকে ছবি আপলোড করুন">
-                  <i class="fa-solid fa-cloud-arrow-up"></i>
-                  <span>আপলোড</span>
-                </label>
-                <input type="file" id="admin-splash-file-input" accept="image/*" class="hidden" />
-              </div>
+              <input type="url" id="admin-splash-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
               <div class="flex items-center gap-2">
                 <button type="button" id="btn-admin-save-splash-img" class="flex-1 py-1 px-2.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-[11px] flex items-center justify-center gap-1 transition">
                   <i class="fa-solid fa-check"></i> সেভ করুন
@@ -1533,17 +1451,10 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-drawer-img" src="./highfy_logo1.png" alt="Drawer Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-drawer-img" src="./assets/drawer-menu-logo/drawer_logo.png?v=20261011_02" alt="Drawer Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
-              <div class="flex items-center gap-1.5">
-                <input type="url" id="admin-drawer-img-url" class="modal-input text-xs flex-1" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
-                <label for="admin-drawer-file-input" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-emerald-400 text-xs font-bold cursor-pointer transition border border-slate-700 flex items-center gap-1 flex-shrink-0" title="ডিভাইস থেকে ছবি আপলোড করুন">
-                  <i class="fa-solid fa-cloud-arrow-up"></i>
-                  <span>আপলোড</span>
-                </label>
-                <input type="file" id="admin-drawer-file-input" accept="image/*" class="hidden" />
-              </div>
+              <input type="url" id="admin-drawer-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
               <div class="flex items-center gap-2">
                 <button type="button" id="btn-admin-save-drawer-img" class="flex-1 py-1 px-2.5 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-[11px] flex items-center justify-center gap-1 transition">
                   <i class="fa-solid fa-check"></i> সেভ করুন
@@ -1680,15 +1591,6 @@
         <p class="text-[10px] text-slate-400 mt-1">উইকিমিডিয়া, ইমেজইউআর বা যেকোনো ওয়েব ইমেজ লিংক পেস্ট করলে স্বয়ংক্রিয়ভাবে সেট হয়ে যাবে।</p>
       </div>
 
-      <!-- Or Upload Real Image from Device -->
-      <div class="modal-input-group mb-3">
-        <label class="modal-label flex items-center justify-between">
-          <span>📁 অথবা ডিভাইস থেকে ইমেজ ফাইল আপলোড করুন</span>
-          <span class="text-[10px] text-sky-400">Local Image</span>
-        </label>
-        <input type="file" id="logo-editor-file-input" accept="image/*" class="block w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-sky-500/20 file:text-sky-300 hover:file:bg-sky-500/30 cursor-pointer bg-slate-900 border border-slate-700/60 rounded-xl p-1" />
-      </div>
-
       <!-- Quick Preset High-Res Channels Logos -->
       <div class="mb-3">
         <label class="modal-label text-[11px] mb-1.5 block">⚡ জনপ্রিয় রিয়াল লোগো প্রিসেট (Quick Real Logos):</label>
@@ -1753,15 +1655,6 @@
         </label>
         <input type="url" id="cat-logo-editor-url-input" class="modal-input text-xs" placeholder="https://domain.com/category-logo.svg" />
         <p class="text-[10px] text-slate-400 mt-1">যেকোনো ওয়েব ইমেজ বা উইকিমিডিয়া SVG/PNG লিংক পেস্ট করুন।</p>
-      </div>
-
-      <!-- Upload Local Image from Device -->
-      <div class="modal-input-group mb-3">
-        <label class="modal-label flex items-center justify-between">
-          <span>📁 অথবা ডিভাইস থেকে ইমেজ ফাইল আপলোড করুন</span>
-          <span class="text-[10px] text-sky-400">Device File</span>
-        </label>
-        <input type="file" id="cat-logo-editor-file-input" accept="image/*" class="block w-full text-xs text-slate-400 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-sky-500/20 file:text-sky-300 hover:file:bg-sky-500/30 cursor-pointer bg-slate-900 border border-slate-700/60 rounded-xl p-1" />
       </div>
 
       <!-- Quick Preset HD Icons & Logos -->
@@ -1889,18 +1782,6 @@
       <div class="flex items-center justify-between py-2 border-t border-slate-800">
         <div>
           <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
-            <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> Upload App Icon
-          </span>
-          <p class="text-[10px] text-slate-400">Upload or change app icon from device or URL.</p>
-        </div>
-        <button type="button" id="btn-settings-open-app-icon" class="py-1 px-3 rounded-lg bg-amber-500/20 text-amber-400 text-[11px] font-bold border border-amber-500/30 hover:bg-amber-500 hover:text-slate-900 transition cursor-pointer">
-          Upload Icon
-        </button>
-      </div>
-
-      <div class="flex items-center justify-between py-2 border-t border-slate-800">
-        <div>
-          <span class="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
             <i class="fa-solid fa-user-shield text-amber-400"></i> Admin Management Panel
           </span>
           <p class="text-[10px] text-slate-400">Manage channels, events, and custom images.</p>
@@ -1912,107 +1793,6 @@
       <button id="btn-save-settings" class="btn-primary mt-2">
         <i class="fa-solid fa-check"></i> Save Settings
       </button>
-    </div>
-  </div>
-
-  <!-- ======================================================================
-       17.5. App Icon Upload & Branding Modal (Universal App Icon Manager)
-       ====================================================================== -->
-  <div id="modal-app-icon" class="custom-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="app-icon-modal-title">
-    <div class="custom-modal-card" style="max-width: 440px; max-height: 88vh; overflow-y: auto;">
-      <div class="modal-header-row mb-2 flex items-center justify-between">
-        <h3 class="modal-title font-extrabold text-base text-slate-900 dark:text-white flex items-center gap-2" id="app-icon-modal-title">
-          <i class="fa-solid fa-cloud-arrow-up text-amber-400"></i> Upload App Icon
-        </h3>
-        <button class="modal-close-btn" data-close-modal="modal-app-icon" aria-label="Close modal"><i class="fa-solid fa-xmark"></i></button>
-      </div>
-
-      <div class="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-300 text-xs flex items-center justify-between mb-3">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-circle-info text-sm text-amber-400"></i>
-          <span>অ্যাপ আইকন ও ব্র্যান্ড লোগো পরিবর্তন ও আপলোড</span>
-        </div>
-        <span id="badge-app-icon-status" class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-bold">Default</span>
-      </div>
-
-      <!-- Icon Preview Stage -->
-      <div class="flex flex-col items-center justify-center p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 mb-3 text-center">
-        <div class="relative w-24 h-24 rounded-2xl bg-slate-900 border-2 border-amber-500/50 shadow-lg shadow-amber-500/10 flex items-center justify-center p-2 mb-2 group overflow-hidden">
-          <img 
-            id="app-icon-modal-preview-img" 
-            src="./highfy_logo1.png" 
-            alt="App Icon Preview" 
-            class="w-full h-full object-contain transition-transform duration-200 group-hover:scale-105" 
-          />
-        </div>
-        <span class="text-xs font-bold text-slate-200">বর্তমান অ্যাপ আইকন প্রিভিউ</span>
-        <span class="text-[10.5px] text-slate-400 mt-0.5">স্প্ল্যাশ লোডিং স্ক্রিন, স্লাইড মেনু ও ব্রাউজার ট্যাবে এই আইকনটি প্রদর্শিত হবে</span>
-      </div>
-
-      <!-- Upload Options -->
-      <div class="space-y-3">
-        <!-- Direct File Upload from Device -->
-        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
-          <label class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <i class="fa-solid fa-hard-drive text-sky-400"></i> ১. আপনার ডিভাইস থেকে ছবি বেছে নিন:
-          </label>
-          <div class="flex items-center gap-2">
-            <label for="app-icon-file-input" class="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md shadow-amber-500/20 transition">
-              <i class="fa-solid fa-cloud-arrow-up text-sm"></i>
-              <span>গ্যালারি / ডিভাইস থেকে ছবি সিলেক্ট করুন</span>
-            </label>
-            <input type="file" id="app-icon-file-input" accept="image/png, image/jpeg, image/webp, image/svg+xml, image/gif" class="hidden" />
-          </div>
-          <p class="text-[10px] text-slate-400">সমর্থিত ফরম্যাট: PNG, JPG, WEBP, SVG (স্বচ্ছ ব্যাকগ্রাউন্ড সহ স্কয়ার সাইজ সবচেয়ে সুন্দর দেখায়)</p>
-        </div>
-
-        <!-- Or Paste Image URL -->
-        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
-          <label class="text-xs font-bold text-slate-200 flex items-center gap-1.5">
-            <i class="fa-solid fa-link text-emerald-400"></i> ২. অথবা অনলাইন ইমেজ লিংক (URL) দিন:
-          </label>
-          <div class="flex items-center gap-1.5">
-            <input 
-              type="url" 
-              id="app-icon-url-input" 
-              class="modal-input text-xs flex-1" 
-              placeholder="https://example.com/my-icon.png" 
-            />
-            <button type="button" id="btn-app-icon-preview-url" class="py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition border border-slate-700 cursor-pointer">
-              প্রিভিউ
-            </button>
-          </div>
-        </div>
-
-        <!-- Target Placement Options -->
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 space-y-1.5">
-          <span class="text-[11px] font-bold text-slate-300 block mb-1">কোথায় প্রয়োগ করতে চান:</span>
-          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
-            <input type="checkbox" id="app-icon-target-splash" class="w-4 h-4 accent-amber-500" checked />
-            <span>স্প্ল্যাশ / লোডিং পেজ (Splash Page Center Card)</span>
-          </label>
-          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
-            <input type="checkbox" id="app-icon-target-drawer" class="w-4 h-4 accent-amber-500" checked />
-            <span>স্লাইড মেনু (Side Drawer Brand Logo)</span>
-          </label>
-          <label class="flex items-center gap-2 text-xs text-slate-300 cursor-pointer">
-            <input type="checkbox" id="app-icon-target-favicon" class="w-4 h-4 accent-amber-500" checked />
-            <span>ব্রাউজার ট্যাব ফেভিকন ও শর্টকাট আইকন (Favicon & PWA)</span>
-          </label>
-        </div>
-
-        <!-- Action Buttons -->
-        <div class="flex items-center gap-2 pt-1">
-          <button type="button" id="btn-save-app-icon" class="flex-1 py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20 transition cursor-pointer">
-            <i class="fa-solid fa-floppy-disk"></i>
-            <span>সেভ ও প্রয়োগ করুন</span>
-          </button>
-          <button type="button" id="btn-reset-app-icon" class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-rose-500/20 text-slate-300 hover:text-rose-400 text-xs font-bold transition flex items-center justify-center gap-1.5 border border-slate-700 cursor-pointer" title="ডিফল্ট লোগোতে ফিরে যান">
-            <i class="fa-solid fa-rotate-left"></i>
-            <span>রিসেট</span>
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 
@@ -2042,7 +1822,7 @@
       </div>
       <div class="flex flex-col items-center text-center gap-2 py-3 border-b border-slate-200 dark:border-slate-800">
         <div class="w-24 h-24 overflow-hidden flex items-center justify-center">
-          <img src="./highfy_logo1.png" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
+          <img src="./assets/drawer-menu-logo/drawer_logo.png?v=20261011_02" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
         </div>
         <h4 class="text-base font-extrabold text-slate-800 dark:text-white">HighFy TV</h4>
         <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">Version: 1.0</span>
@@ -2387,6 +2167,6 @@
   <script src="./wwe.js?v=20261002_1100"></script>
   <script src="./sports.js?v=20261002_1100"></script>
   <script src="./tv-remote.js?v=20261002_1100"></script>
-  <script src="./script.js?v=20261002_1100" defer></script>
+  <script src="./script.js?v=20261011_0428" defer></script>
 </body>
 </html>

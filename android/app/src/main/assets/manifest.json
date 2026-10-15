@@ -13,19 +13,19 @@
   "categories": ["sports", "entertainment"],
   "icons": [
     {
-      "src": "/highfy_logo1.png",
+      "src": "/assets/app-icon/app_icon.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/highfy_logo1.png",
+      "src": "/assets/app-icon/app_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/highfy_logo1.png",
+      "src": "/assets/app-icon/app_icon.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
