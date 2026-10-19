@@ -1,12 +1,21 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-10-12T02:49:08.703Z
+ * Generated at: 2026-10-18T11:21:08.208Z
  */
 
 (() => {
   'use strict';
 
   window.CATEGORIES_DATA = [
+  {
+    "id": "sports",
+    "name": "Sports",
+    "icon": "fa-futbol",
+    "logo": "./assets/category-logos/t-sports.png",
+    "ringColor": "#0284c7",
+    "glowColor": "rgba(2, 132, 199, 0.4)",
+    "description": "T Sports, Sony Sports, Star Sports, Willow, TNT Sports, BeIN Sports & more"
+  },
   {
     "id": "bangla",
     "name": "Bangla",
@@ -241,11 +250,41 @@
     "stream_url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
     "streams": [
       {
-        "name": "Tapmad Sports HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Tapmad Sports HD",
+        "serverLabel": "HD",
         "channelName": "Tapmad Sports HD",
         "url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
+      }
+    ],
+    "backupUrls": []
+  },
+  {
+    "id": "ch-fancode-live",
+    "name": "FanCode Live HD",
+    "category": "Sports",
+    "categories": [
+      "LiveTV",
+      "Sports"
+    ],
+    "sports": [
+      "Cricket",
+      "Football",
+      "Baseball"
+    ],
+    "priority": 1,
+    "active": true,
+    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/FanCode_logo.svg/320px-FanCode_logo.svg.png",
+    "streamUrl": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+    "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+    "stream_url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+    "streams": [
+      {
+        "name": "FanCode Live HD",
+        "serverLabel": "HD",
+        "channelName": "FanCode Live HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -267,140 +306,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-13/images_8b38d691dfaf072e6c964dea814a44ba_playmist_t_sports_hd400x400.jpg",
-    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
-    "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
-    "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
+    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
+    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
+    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
     "streams": [
       {
-        "name": "T Sports HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "T Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "T Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "T Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "T Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "T Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "T Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "T Sports HD (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "T Sports HD",
-        "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
+        "name": "T Sports HD",
+        "serverLabel": "HD",
         "channelName": "T Sports HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "T Sports HD (Server 9 HD)",
-        "serverLabel": "Server 9 HD",
-        "channelName": "T Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 10 HD)",
-        "serverLabel": "Server 10 HD",
-        "channelName": "T Sports HD",
-        "url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 11 HD)",
-        "serverLabel": "Server 11 HD",
-        "channelName": "T Sports HD",
-        "url": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 12 HD)",
-        "serverLabel": "Server 12 HD",
-        "channelName": "T Sports HD",
-        "url": "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 13 HD)",
-        "serverLabel": "Server 13 HD",
-        "channelName": "T Sports HD",
-        "url": "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 14 HD)",
-        "serverLabel": "Server 14 HD",
-        "channelName": "T Sports HD",
-        "url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "T Sports HD (Server 15 HD)",
-        "serverLabel": "Server 15 HD",
-        "channelName": "T Sports HD",
-        "url": "http://stream.mcquack.net/72/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "T Sports HD (Server 16 HD)",
-        "serverLabel": "Server 16 HD",
-        "channelName": "T Sports HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
-        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-      "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-      "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-      "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-      "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-      "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-      "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-      "http://stream.mcquack.net/72/index.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-star-sports-1-hd",
@@ -420,36 +338,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/star-sports-1-in.png",
-    "streamUrl": "https://starsportshindiii.pages.dev/index.m3u8",
-    "url": "https://starsportshindiii.pages.dev/index.m3u8",
-    "stream_url": "https://starsportshindiii.pages.dev/index.m3u8",
+    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1984/index.m3u8",
+    "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1984/index.m3u8",
+    "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1984/index.m3u8",
     "streams": [
       {
-        "name": "Star Sports 1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Sports 1 HD",
+        "serverLabel": "HD",
         "channelName": "Star Sports 1 HD",
-        "url": "https://starsportshindiii.pages.dev/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Sports 1 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Star Sports 1 HD",
-        "url": "http://41.205.93.154/STARSPORTS1/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Sports 1 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Star Sports 1 HD",
-        "url": "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1404528.ts",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1984/index.m3u8",
         "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://41.205.93.154/STARSPORTS1/index.m3u8",
-      "http://steveit4.net:80/live/3D458C361A77/80DD123017CE/1404528.ts"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-star-sports-1-hindi",
@@ -467,16 +368,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/star-sports-1-hindi-in.png",
-    "streamUrl": "https://starsportshindiii.pages.dev/index.m3u8",
-    "url": "https://starsportshindiii.pages.dev/index.m3u8",
-    "stream_url": "https://starsportshindiii.pages.dev/index.m3u8",
+    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1985/index.m3u8",
+    "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1985/index.m3u8",
+    "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1985/index.m3u8",
     "streams": [
       {
-        "name": "Star Sports 1 Hindi HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Sports 1 Hindi HD",
+        "serverLabel": "HD",
         "channelName": "Star Sports 1 Hindi HD",
-        "url": "https://starsportshindiii.pages.dev/index.m3u8",
-        "quality": "720p HD"
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/1985/index.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -503,65 +404,10 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1984",
     "streams": [
       {
-        "name": "Star Sports 2 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Sports 2 HD",
+        "serverLabel": "HD",
         "channelName": "Star Sports 2 HD",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1984",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Sports 2 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Star Sports 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1985",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Sports 2 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Star Sports 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2852",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Sports 2 HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Star Sports 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2853",
-        "quality": "720p HD"
-      }
-    ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1985",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2852",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2853"
-    ]
-  },
-  {
-    "id": "ch-star-sports-3",
-    "name": "Star Sports 3 HD",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports",
-      "Star Sports"
-    ],
-    "sports": [
-      "Cricket",
-      "Football"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/star-sports-3-in.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "Star Sports 3 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Star Sports 3 HD",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
       }
     ],
@@ -588,8 +434,8 @@
     "stream_url": "http://103.114.11.37:8081/WWE-24/7/index.m3u8",
     "streams": [
       {
-        "name": "WWE 24/7 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "WWE 24/7 HD",
+        "serverLabel": "HD",
         "channelName": "WWE 24/7 HD",
         "url": "http://103.114.11.37:8081/WWE-24/7/index.m3u8",
         "quality": "1080p FHD"
@@ -620,31 +466,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D162",
     "streams": [
       {
-        "name": "Sony Sports Ten 1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony Sports Ten 1 HD",
+        "serverLabel": "HD",
         "channelName": "Sony Sports Ten 1 HD",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D162",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 1 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony Sports Ten 1 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D514",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 1 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony Sports Ten 1 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3510",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D514",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3510"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-sports-ten-2-hd",
@@ -663,60 +492,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/sony-ten-2-in.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
+    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
+    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
+    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
     "streams": [
       {
-        "name": "Sony Sports Ten 2 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Sony Sports Ten 2 HD",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Sony Sports Ten 2 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony Sports Ten 2 HD",
-        "url": "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 2 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
+        "name": "Sony Sports Ten 2 HD",
+        "serverLabel": "HD",
         "channelName": "Sony Sports Ten 2 HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Sony Sports Ten 2 HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Sony Sports Ten 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D523",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 2 HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Sony Sports Ten 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D891",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 2 HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Sony Sports Ten 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3511",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "https://stream.ottplus.live/live/ten_2_hd_abr/live/ten_2_hd_720/chunks.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98862.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D523",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D891",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3511"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-sports-ten-3",
@@ -741,103 +529,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98863.ts",
     "streams": [
       {
-        "name": "Sony Sports Ten 3 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony Sports Ten 3 HD",
+        "serverLabel": "HD",
         "channelName": "Sony Sports Ten 3 HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98863.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Sony Sports Ten 3 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony Sports Ten 3 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D524",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 3 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony Sports Ten 3 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D892",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 3 HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Sony Sports Ten 3 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3512",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D524",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D892",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3512"
-    ]
-  },
-  {
-    "id": "ch-sony-sports-ten-4",
-    "name": "Sony Sports Ten 4 HD",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports",
-      "Sony Sports",
-      "WWE"
-    ],
-    "sports": [
-      "Cricket",
-      "WWE"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/sony-ten-4-in.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "Sony Sports Ten 4 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Sony Sports Ten 4 HD",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Sony Sports Ten 4 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony Sports Ten 4 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1774",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 4 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony Sports Ten 4 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1775",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 4 HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Sony Sports Ten 4 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3513",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 4 HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Sony Sports Ten 4 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3514",
-        "quality": "720p HD"
-      }
-    ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1774",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1775",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3513",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3514"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-sports-ten-5-hd",
@@ -862,31 +561,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D155",
     "streams": [
       {
-        "name": "Sony Sports Ten 5 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony Sports Ten 5 HD",
+        "serverLabel": "HD",
         "channelName": "Sony Sports Ten 5 HD",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D155",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 5 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony Sports Ten 5 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D525",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Sports Ten 5 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony Sports Ten 5 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3515",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D525",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3515"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ten-sports-hd",
@@ -904,100 +586,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://jiotv.catchup.cdn.jio.com/dare_images/images/Ten_HD.png",
-    "streamUrl": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-    "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-    "stream_url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
+    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
+    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
+    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
     "streams": [
       {
-        "name": "Ten Sports HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Ten Sports HD",
-        "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ten Sports HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "Ten Sports HD",
+        "serverLabel": "HD",
         "channelName": "Ten Sports HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Ten Sports HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Ten Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Ten Sports HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Ten Sports HD",
-        "url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ten Sports HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Ten Sports HD",
-        "url": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ten Sports HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Ten Sports HD",
-        "url": "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ten Sports HD (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "Ten Sports HD",
-        "url": "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ten Sports HD (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
-        "channelName": "Ten Sports HD",
-        "url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Ten Sports HD (Server 9 HD)",
-        "serverLabel": "Server 9 HD",
-        "channelName": "Ten Sports HD",
-        "url": "http://stream.mcquack.net/72/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ten Sports HD (Server 10 HD)",
-        "serverLabel": "Server 10 HD",
-        "channelName": "Ten Sports HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Ten Sports HD (Server 11 HD)",
-        "serverLabel": "Server 11 HD",
-        "channelName": "Ten Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-      "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-      "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-      "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-      "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-      "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-      "http://stream.mcquack.net/72/index.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ptv-sports-hd",
@@ -1016,100 +617,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/PTV_Sports_Logo.svg/250px-PTV_Sports_Logo.svg.png",
-    "streamUrl": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-    "url": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-    "stream_url": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
+    "streamUrl": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
+    "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
+    "stream_url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
     "streams": [
       {
-        "name": "PTV Sports HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "PTV Sports HD",
+        "serverLabel": "HD",
         "channelName": "PTV Sports HD",
-        "url": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "PTV Sports HD",
-        "url": "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "PTV Sports HD",
-        "url": "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "PTV Sports HD",
-        "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "PTV Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "PTV Sports HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "PTV Sports HD",
-        "url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "PTV Sports HD",
-        "url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "PTV Sports HD (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
-        "channelName": "PTV Sports HD",
-        "url": "http://stream.mcquack.net/72/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 9 HD)",
-        "serverLabel": "Server 9 HD",
-        "channelName": "PTV Sports HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "PTV Sports HD (Server 10 HD)",
-        "serverLabel": "Server 10 HD",
-        "channelName": "PTV Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "PTV Sports HD (Server 11 HD)",
-        "serverLabel": "Server 11 HD",
-        "channelName": "PTV Sports HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
+        "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
         "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-      "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-      "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-      "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-      "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-      "http://stream.mcquack.net/72/index.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-willow-hd",
@@ -1125,28 +645,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/1/10/Willow_Cricket_logo.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
+    "streamUrl": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+    "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+    "stream_url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
     "streams": [
       {
-        "name": "Willow HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Willow HD",
+        "serverLabel": "HD",
         "channelName": "Willow HD",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Willow HD",
-        "url": "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "https://warm-caverns-48629-92fab798385f.herokuapp.com/https://d36r8jifhgsk5j.cloudfront.net/Willow_TV540p.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-willow-xtra",
@@ -1162,15 +673,15 @@
     "priority": 2,
     "active": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/1/10/Willow_Cricket_logo.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
+    "streamUrl": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
+    "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
+    "stream_url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
     "streams": [
       {
-        "name": "Willow Xtra (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Willow Xtra",
+        "serverLabel": "HD",
         "channelName": "Willow Xtra",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
+        "url": "https://tvsen7.aynascope.net/zY3hJ7pQ2vM5gD8s/index.m3u8",
         "quality": "1080p FHD"
       }
     ],
@@ -1197,39 +708,10 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "beIN Sports 1 HD",
+        "serverLabel": "HD",
         "channelName": "beIN Sports 1 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6123/index.m3u8",
-        "quality": "720p HD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-bein-sports-2",
-    "name": "beIN Sports 2 HD",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports",
-      "beIN Sports"
-    ],
-    "sports": [
-      "Football"
-    ],
-    "priority": 1,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/world-middle-east/bein-sports/bein-sports-2-mea.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "beIN Sports 2 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "beIN Sports 2 HD",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
       }
     ],
@@ -1255,11 +737,11 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6124/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 3 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "beIN Sports 3 HD",
+        "serverLabel": "HD",
         "channelName": "beIN Sports 3 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6124/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1284,11 +766,11 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6125/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 4 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "beIN Sports 4 HD",
+        "serverLabel": "HD",
         "channelName": "beIN Sports 4 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6125/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1313,11 +795,11 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6126/index.m3u8",
     "streams": [
       {
-        "name": "beIN Sports 5 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "beIN Sports 5 HD",
+        "serverLabel": "HD",
         "channelName": "beIN Sports 5 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6126/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1338,28 +820,19 @@
     "priority": 2,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/bein-sports-xtra-us.png",
-    "streamUrl": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
-    "url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
-    "stream_url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
+    "streamUrl": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
+    "url": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
+    "stream_url": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
     "streams": [
       {
-        "name": "beIN Sports XTRA (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "beIN Sports XTRA",
-        "url": "https://amg01334-beinsportsllc-beinxtra-localnow-kcy6r.amagi.tv/playlistR1080p.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "beIN Sports XTRA (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "beIN Sports XTRA",
+        "serverLabel": "HD",
         "channelName": "beIN Sports XTRA",
         "url": "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://bein-esp-xumo.amagi.tv/playlistR720P.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sky-sports-epl",
@@ -1376,16 +849,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-premier-league-uk.png",
-    "streamUrl": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7342/index.m3u8",
-    "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7342/index.m3u8",
-    "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7342/index.m3u8",
+    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
+    "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
+    "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Premier League HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sports Premier League HD",
+        "serverLabel": "HD",
         "channelName": "Sky Sports Premier League HD",
-        "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7342/index.m3u8",
-        "quality": "720p HD"
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9334/index.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1405,16 +878,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-football-uk.png",
-    "streamUrl": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7344/index.m3u8",
-    "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7344/index.m3u8",
-    "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7344/index.m3u8",
+    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
+    "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
+    "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Football HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sports Football HD",
+        "serverLabel": "HD",
         "channelName": "Sky Sports Football HD",
-        "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7344/index.m3u8",
-        "quality": "720p HD"
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9289/index.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1434,16 +907,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/sky-sports-cricket-uk.png",
-    "streamUrl": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7345/index.m3u8",
-    "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7345/index.m3u8",
-    "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7345/index.m3u8",
+    "streamUrl": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+    "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+    "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Cricket HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sports Cricket HD",
+        "serverLabel": "HD",
         "channelName": "Sky Sports Cricket HD",
-        "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7345/index.m3u8",
-        "quality": "720p HD"
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1469,11 +942,11 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports F1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sports F1 HD",
+        "serverLabel": "HD",
         "channelName": "Sky Sports F1 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/7342/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1499,11 +972,11 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7341/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sports Racing HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sports Racing HD",
+        "serverLabel": "HD",
         "channelName": "Sky Sports Racing HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7341/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1530,11 +1003,11 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7346/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sport Top Event (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sport Top Event",
+        "serverLabel": "HD",
         "channelName": "Sky Sport Top Event",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7346/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1559,11 +1032,11 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7347/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sport Bundesliga (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sport Bundesliga",
+        "serverLabel": "HD",
         "channelName": "Sky Sport Bundesliga",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7347/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1589,11 +1062,11 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7348/index.m3u8",
     "streams": [
       {
-        "name": "Sky Sport Uno (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sky Sport Uno",
+        "serverLabel": "HD",
         "channelName": "Sky Sport Uno",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/7348/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1620,23 +1093,14 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 1 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "TNT Sports 1",
+        "serverLabel": "HD",
         "channelName": "TNT Sports 1",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "TNT Sports 1 (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "TNT Sports 1",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-tnt-sports-2",
@@ -1659,23 +1123,14 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 2 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "TNT Sports 2",
+        "serverLabel": "HD",
         "channelName": "TNT Sports 2",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "TNT Sports 2 (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "TNT Sports 2",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-tnt-sports-3",
@@ -1698,23 +1153,14 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 3 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "TNT Sports 3",
+        "serverLabel": "HD",
         "channelName": "TNT Sports 3",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "TNT Sports 3 (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "TNT Sports 3",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-tnt-sports-4",
@@ -1737,23 +1183,14 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
     "streams": [
       {
-        "name": "TNT Sports 4 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "TNT Sports 4",
+        "serverLabel": "HD",
         "channelName": "TNT Sports 4",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "TNT Sports 4 (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "TNT Sports 4",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-eurosport-1",
@@ -1771,44 +1208,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-kingdom/eurosport-1-uk.png",
-    "streamUrl": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
-    "url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
-    "stream_url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
+    "streamUrl": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
+    "url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
+    "stream_url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
     "streams": [
       {
-        "name": "Eurosport 1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Eurosport 1 HD",
-        "url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Eurosport 1 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "Eurosport 1 HD",
+        "serverLabel": "HD",
         "channelName": "Eurosport 1 HD",
         "url": "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Eurosport 1 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Eurosport 1 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D875",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Eurosport 1 HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Eurosport 1 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1294",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://151.80.18.177:86/Eurosport_HD/index.m3u8",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D875",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1294"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-eurosport-2",
@@ -1831,31 +1243,14 @@
     "stream_url": "http://151.80.18.177:86/Eurosport_2_HD/index.m3u8",
     "streams": [
       {
-        "name": "Eurosport 2 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Eurosport 2 HD",
+        "serverLabel": "HD",
         "channelName": "Eurosport 2 HD",
         "url": "http://151.80.18.177:86/Eurosport_2_HD/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Eurosport 2 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Eurosport 2 HD",
-        "url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Eurosport 2 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Eurosport 2 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1294",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1294"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-dazn-1",
@@ -1878,23 +1273,14 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2531/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DAZN 1 HD",
+        "serverLabel": "HD",
         "channelName": "DAZN 1 HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2531/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DAZN 1 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "DAZN 1 HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2531/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2531/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-dazn-2",
@@ -1917,23 +1303,14 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2532/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 2 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DAZN 2 HD",
+        "serverLabel": "HD",
         "channelName": "DAZN 2 HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2532/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DAZN 2 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "DAZN 2 HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2532/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2532/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-dazn-3",
@@ -1956,11 +1333,11 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2533/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 3 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DAZN 3 HD",
+        "serverLabel": "HD",
         "channelName": "DAZN 3 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2533/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -1985,23 +1362,14 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2534/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 4 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DAZN 4 HD",
+        "serverLabel": "HD",
         "channelName": "DAZN 4 HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2534/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DAZN 4 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "DAZN 4 HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2534/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2534/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-dazn-5",
@@ -2023,11 +1391,11 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
     "streams": [
       {
-        "name": "DAZN 5 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DAZN 5 HD",
+        "serverLabel": "HD",
         "channelName": "DAZN 5 HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2535/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -2053,68 +1421,10 @@
     "stream_url": "http://31.43.191.125:8080/live/20102023/123456789/243.ts",
     "streams": [
       {
-        "name": "DAZN LaLiga HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DAZN LaLiga HD",
+        "serverLabel": "HD",
         "channelName": "DAZN LaLiga HD",
         "url": "http://31.43.191.125:8080/live/20102023/123456789/243.ts",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-supersport-grandstand",
-    "name": "SuperSport Grandstand",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Cricket",
-      "Football",
-      "Rugby"
-    ],
-    "priority": 1,
-    "active": true,
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/SuperSport_logo.svg/250px-SuperSport_logo.svg.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "SuperSport Grandstand (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "SuperSport Grandstand",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-supersport-tennis",
-    "name": "SuperSport Tennis",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Tennis"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/SuperSport_logo.svg/250px-SuperSport_logo.svg.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "SuperSport Tennis (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "SuperSport Tennis",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
       }
     ],
@@ -2142,23 +1452,14 @@
     "stream_url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
     "streams": [
       {
-        "name": "DD Sports (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DD Sports",
+        "serverLabel": "HD",
         "channelName": "DD Sports",
         "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DD Sports (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "DD Sports",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D204",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D204"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ziggo-sport-1",
@@ -2180,71 +1481,14 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2560/index.m3u8",
     "streams": [
       {
-        "name": "Ziggo Sport 1 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Ziggo Sport 1",
+        "serverLabel": "HD",
         "channelName": "Ziggo Sport 1",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2560/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2560/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2561/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXSYCA/2559/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport 1 (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
-        "channelName": "Ziggo Sport 1",
-        "url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2560/index.m3u8",
-      "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2561/index.m3u8",
-      "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXSYCA/2559/index.m3u8",
-      "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
-      "http://212.102.38.45/live/test_sport_2/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ziggo-sport-2",
@@ -2266,31 +1510,14 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
     "streams": [
       {
-        "name": "Ziggo Sport Select HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Ziggo Sport Select HD",
+        "serverLabel": "HD",
         "channelName": "Ziggo Sport Select HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2561/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport Select HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Ziggo Sport Select HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2561/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport Select HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Ziggo Sport Select HD",
-        "url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2561/index.m3u8",
-      "http://212.102.38.45/live/test_sport_2/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ziggo-sport-3",
@@ -2311,23 +1538,14 @@
     "stream_url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
     "streams": [
       {
-        "name": "Ziggo Sport Voetbal HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Ziggo Sport Voetbal HD",
+        "serverLabel": "HD",
         "channelName": "Ziggo Sport Voetbal HD",
         "url": "http://ytoxw6un.ottclub.xyz/iptv/KCUHA6DGYYVA8ZZFUPQV3KZH/2559/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Ziggo Sport Voetbal HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Ziggo Sport Voetbal HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXSYCA/2559/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXSYCA/2559/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-go3-sport-1-hd",
@@ -2349,23 +1567,14 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18000/index.m3u8",
     "streams": [
       {
-        "name": "Go3 Sport 1 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Go3 Sport 1 HD",
+        "serverLabel": "HD",
         "channelName": "Go3 Sport 1 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18000/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Go3 Sport 1 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Go3 Sport 1 HD",
-        "url": "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://212.102.38.45/live/test_sport1_25p/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-go3-sport-2-hd",
@@ -2387,23 +1596,14 @@
     "stream_url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18012/index.m3u8",
     "streams": [
       {
-        "name": "Go3 Sport 2 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Go3 Sport 2 HD",
+        "serverLabel": "HD",
         "channelName": "Go3 Sport 2 HD",
         "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/18012/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Go3 Sport 2 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Go3 Sport 2 HD",
-        "url": "http://212.102.38.45/live/test_sport_2/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://212.102.38.45/live/test_sport_2/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ufc-tv",
@@ -2426,11 +1626,11 @@
     "stream_url": "https://linear-893.frequency.stream/mt/plex/893/hls/master/playlist_640x360.m3u8",
     "streams": [
       {
-        "name": "UFC TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "UFC TV",
+        "serverLabel": "HD",
         "channelName": "UFC TV",
         "url": "https://linear-893.frequency.stream/mt/plex/893/hls/master/playlist_640x360.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -2454,8 +1654,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/2494.ts",
     "streams": [
       {
-        "name": "Astro Cricket HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Astro Cricket HD",
+        "serverLabel": "HD",
         "channelName": "Astro Cricket HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/2494.ts",
         "quality": "1080p FHD"
@@ -2482,11 +1682,11 @@
     "stream_url": "https://mvg-mv-xumo.otteravision.com/mvg/mv/mv.m3u8",
     "streams": [
       {
-        "name": "Motor Vision (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Motor Vision",
+        "serverLabel": "HD",
         "channelName": "Motor Vision",
         "url": "https://mvg-mv-xumo.otteravision.com/mvg/mv/mv.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -2506,384 +1706,19 @@
     "priority": 2,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/pakistan/a-sports-pk.png",
-    "streamUrl": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-    "url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-    "stream_url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
+    "streamUrl": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
+    "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
+    "stream_url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
     "streams": [
       {
-        "name": "Sports HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Sports HD",
-        "url": "https://serieAleague.akamaized.net/hls/live/2107107/Tapmad-KjL52/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Sports HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Sports HD (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
+        "name": "Sports HD",
+        "serverLabel": "HD",
         "channelName": "Sports HD",
         "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 9 HD)",
-        "serverLabel": "Server 9 HD",
-        "channelName": "Sports HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Sports HD (Server 10 HD)",
-        "serverLabel": "Server 10 HD",
-        "channelName": "Sports HD",
-        "url": "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 11 HD)",
-        "serverLabel": "Server 11 HD",
-        "channelName": "Sports HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Sports HD (Server 12 HD)",
-        "serverLabel": "Server 12 HD",
-        "channelName": "Sports HD",
-        "url": "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 13 HD)",
-        "serverLabel": "Server 13 HD",
-        "channelName": "Sports HD",
-        "url": "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 14 HD)",
-        "serverLabel": "Server 14 HD",
-        "channelName": "Sports HD",
-        "url": "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sports HD (Server 15 HD)",
-        "serverLabel": "Server 15 HD",
-        "channelName": "Sports HD",
-        "url": "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Sports HD (Server 16 HD)",
-        "serverLabel": "Server 16 HD",
-        "channelName": "Sports HD",
-        "url": "http://stream.mcquack.net/72/index.m3u8",
-        "quality": "720p HD"
-      }
-    ],
-    "backupUrls": [
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2505/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/2506/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/19054/index.m3u8",
-      "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/6564/index.m3u8",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/index.m3u8",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLm/tracks-v1a1/mono.ts.m3u8",
-      "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/18452.ts",
-      "https://tvsen5.aynaott.com/TnMn5kZz8aLmjkl/index.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98.ts",
-      "https://tvsen5.aynaott.com/Ptvsports/index.m3u8",
-      "http://125.209.88.166:45793/BRN/PTVSports.stream/playlist.m3u8",
-      "http://tvsen5.aynascope.net/Ptvsports/index.m3u8",
-      "https://s2.bufaloweb.com/bufalo9/tracks-v4a1/mono.ts.m3u8",
-      "http://stream.mcquack.net/72/index.m3u8"
-    ]
-  },
-  {
-    "id": "ch-stan-sport",
-    "name": "Stan Sport",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Football",
-      "Rugby",
-      "Tennis"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/stan-sport-au.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "Stan Sport (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Stan Sport",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
-  },
-  {
-    "id": "ch-tsn",
-    "name": "TSN",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Football",
-      "Hockey",
-      "Basketball"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/tsn1-ca.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "TSN (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "TSN",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-fs1",
-    "name": "FS1",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Baseball",
-      "Football",
-      "Motorsport"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/fox-sports-1-us.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "FS1 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "FS1",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-espn2",
-    "name": "ESPN2",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Basketball",
-      "Football",
-      "Tennis"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/espn-2-us.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "ESPN2 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "ESPN2",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-sportsnet-one",
-    "name": "Sportsnet ONE",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Hockey",
-      "Baseball"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/canada/sportsnet-one-ca.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "Sportsnet ONE (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Sportsnet ONE",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-mlb-network",
-    "name": "MLB Network",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Baseball"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/mlb-network-us.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "MLB Network (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "MLB Network",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-nhl-network",
-    "name": "NHL Network",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports"
-    ],
-    "sports": [
-      "Hockey"
-    ],
-    "priority": 2,
-    "active": true,
-    "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/nhl-network-us.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "NHL Network (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "NHL Network",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      }
-    ],
-    "backupUrls": []
-  },
-  {
-    "id": "ch-gtv",
-    "name": "GTV HD",
-    "category": "Sports",
-    "categories": [
-      "LiveTV",
-      "Sports",
-      "Bangla"
-    ],
-    "sports": [
-      "Cricket",
-      "Football"
-    ],
-    "priority": 1,
-    "active": true,
-    "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/GTV_Bangladesh_Logo.svg/250px-GTV_Bangladesh_Logo.svg.png",
-    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-    "streams": [
-      {
-        "name": "GTV HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "GTV HD",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209592/tracks-v1a1/mono.ts.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "GTV HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "GTV HD",
-        "url": "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/playlist.m3u8",
-        "quality": "720p HD"
-      }
-    ],
-    "backupUrls": [
-      "https://app.ncare.live/c3VydmVyX8RpbEU9Mi8xNy8yMDE0GIDU6RgzQ6NTAgdEoaeFzbF92YWxIZTO0U0ezN1IzMyfvcGVMZEJCTEFWeVN3PTOmdFsaWRtaW51aiPhnPTI2/gazibdz.stream/live-orgin/gazibdz.stream/playlist.m3u8"
-    ]
   },
   {
     "id": "ch-bahrain-sports-1",
@@ -2905,11 +1740,11 @@
     "stream_url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8",
     "streams": [
       {
-        "name": "Bahrain Sports 1 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Bahrain Sports 1",
+        "serverLabel": "HD",
         "channelName": "Bahrain Sports 1",
         "url": "https://5c7b683162943.streamlock.net/live/ngrp:sportsone_all/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -2933,11 +1768,11 @@
     "stream_url": "https://4397879b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWRlX0ZJRkFQbHVzR2VybWFuX0hMUw/playlist.m3u8",
     "streams": [
       {
-        "name": "FIFA+ (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "FIFA+",
+        "serverLabel": "HD",
         "channelName": "FIFA+",
         "url": "https://4397879b.wurl.com/master/f36d25e7e52f1ba8d7e56eb859c636563214f541/UmFrdXRlblRWLWRlX0ZJRkFQbHVzR2VybWFuX0hMUw/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -2962,11 +1797,11 @@
     "stream_url": "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8",
     "streams": [
       {
-        "name": "KTV Sport Plus (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "KTV Sport Plus",
+        "serverLabel": "HD",
         "channelName": "KTV Sport Plus",
         "url": "https://kwtsplta.cdn.mangomolo.com/spl/smil:spl.stream.smil/chunklist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -2988,11 +1823,11 @@
     "stream_url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
     "streams": [
       {
-        "name": "BTV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "BTV",
+        "serverLabel": "HD",
         "channelName": "BTV",
         "url": "https://tvsen6.aynaott.com/TjGR1GcxKetHNVcMVxbq/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3014,11 +1849,11 @@
     "stream_url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
     "streams": [
       {
-        "name": "NTV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "NTV",
+        "serverLabel": "HD",
         "channelName": "NTV",
         "url": "https://tvsen5.aynaott.com/xV4jEKf3D9zc/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3040,11 +1875,11 @@
     "stream_url": "https://tvsen5.aynaott.com/ba47dHpDk3Se/index.m3u8",
     "streams": [
       {
-        "name": "RTV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "RTV",
+        "serverLabel": "HD",
         "channelName": "RTV",
         "url": "https://tvsen5.aynaott.com/ba47dHpDk3Se/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3066,11 +1901,11 @@
     "stream_url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
     "streams": [
       {
-        "name": "Channel i (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Channel i",
+        "serverLabel": "HD",
         "channelName": "Channel i",
         "url": "https://tvsen6.aynaott.com/FNHpYvGZ7FkCE10PwTHm/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3092,11 +1927,11 @@
     "stream_url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8",
     "streams": [
       {
-        "name": "Maasranga TV HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Maasranga TV HD",
+        "serverLabel": "HD",
         "channelName": "Maasranga TV HD",
         "url": "https://mtv.sunplex.live/MAASRANGA/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3113,36 +1948,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://web.aynaott.com/storage/019dd92f-107c-7056-9e79-e5233f6e51d9/uploads/images/2026-07-16/images_ec0b7593c72635fe66b8d2524a87ad95_playmist_deepto400x400.jpg",
-    "streamUrl": "https://tvsen5.aynaott.com/tK2BNdfsdfsdf/index.m3u8",
-    "url": "https://tvsen5.aynaott.com/tK2BNdfsdfsdf/index.m3u8",
-    "stream_url": "https://tvsen5.aynaott.com/tK2BNdfsdfsdf/index.m3u8",
+    "streamUrl": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
+    "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
+    "stream_url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
     "streams": [
       {
-        "name": "Deepto TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Deepto TV",
-        "url": "https://tvsen5.aynaott.com/tK2BNdfsdfsdf/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Deepto TV (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "Deepto TV",
+        "serverLabel": "HD",
         "channelName": "Deepto TV",
         "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Deepto TV (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Deepto TV",
-        "url": "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://byphdgllyk.gpcdn.net/hls/deeptotv/0_1/index.m3u8",
-      "https://byphdgllyk.gpcdn.net/hls/deeptotv/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-banglavision",
@@ -3161,11 +1979,11 @@
     "stream_url": "https://tvsen5.aynaott.com/tgUzpPc9r6xw/index.m3u8",
     "streams": [
       {
-        "name": "BanglaVision (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "BanglaVision",
+        "serverLabel": "HD",
         "channelName": "BanglaVision",
         "url": "https://tvsen5.aynaott.com/tgUzpPc9r6xw/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3187,11 +2005,11 @@
     "stream_url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
     "streams": [
       {
-        "name": "ATN Bangla (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "ATN Bangla",
+        "serverLabel": "HD",
         "channelName": "ATN Bangla",
         "url": "https://tvsen5.aynaott.com/P3y2URgG7LDe/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3214,11 +2032,11 @@
     "stream_url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8",
     "streams": [
       {
-        "name": "ATN News (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "ATN News",
+        "serverLabel": "HD",
         "channelName": "ATN News",
         "url": "https://tvsen6.aynaott.com/da6WMXAk/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3241,11 +2059,11 @@
     "stream_url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
     "streams": [
       {
-        "name": "Somoy TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Somoy TV",
+        "serverLabel": "HD",
         "channelName": "Somoy TV",
         "url": "https://tvsen6.aynaott.com/4XcqdovJzbbC9WdJA9gk/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3268,11 +2086,11 @@
     "stream_url": "https://tvsen6.aynaott.com/KGdZEdA7qQ43dmPkgk1j/index.m3u8",
     "streams": [
       {
-        "name": "Jamuna TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Jamuna TV",
+        "serverLabel": "HD",
         "channelName": "Jamuna TV",
         "url": "https://tvsen6.aynaott.com/KGdZEdA7qQ43dmPkgk1j/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3295,11 +2113,11 @@
     "stream_url": "https://stream.ottplus.live/live/channel_24_abr/index.m3u8",
     "streams": [
       {
-        "name": "Channel 24 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Channel 24",
+        "serverLabel": "HD",
         "channelName": "Channel 24",
         "url": "https://stream.ottplus.live/live/channel_24_abr/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3322,11 +2140,11 @@
     "stream_url": "https://tvsen6.aynaott.com/pF66Tkz0qFwP2aMMqHyt/index.m3u8",
     "streams": [
       {
-        "name": "DBC News (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DBC News",
+        "serverLabel": "HD",
         "channelName": "DBC News",
         "url": "https://tvsen6.aynaott.com/pF66Tkz0qFwP2aMMqHyt/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3349,11 +2167,11 @@
     "stream_url": "https://tvsen6.aynaott.com/EWDrV5QskgarZEUBb3pU/index.m3u8",
     "streams": [
       {
-        "name": "Ekattor TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Ekattor TV",
+        "serverLabel": "HD",
         "channelName": "Ekattor TV",
         "url": "https://tvsen6.aynaott.com/EWDrV5QskgarZEUBb3pU/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3370,28 +2188,19 @@
     "priority": 2,
     "active": true,
     "logo": "https://upload.wikimedia.org/wikipedia/commons/f/f2/Boishakhi_Tv_Logo.png",
-    "streamUrl": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
-    "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
-    "stream_url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
+    "streamUrl": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
+    "url": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
+    "stream_url": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
     "streams": [
       {
-        "name": "Boishakhi TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Boishakhi TV",
-        "url": "https://tvsen6.aynaott.com/1d3uG9VCgrR9DRtWZM57/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Boishakhi TV (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "Boishakhi TV",
+        "serverLabel": "HD",
         "channelName": "Boishakhi TV",
         "url": "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://boishakhi.sonarbanglatv.com/boishakhi/boishakhitv/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-desh-tv",
@@ -3410,11 +2219,11 @@
     "stream_url": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
     "streams": [
       {
-        "name": "Desh TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Desh TV",
+        "serverLabel": "HD",
         "channelName": "Desh TV",
         "url": "https://tvsen6.aynaott.com/ryFkXfd1a4CQ7mMdc820/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3437,11 +2246,11 @@
     "stream_url": "https://tvsen6.aynaott.com/fbgZV3X17hwWcyfZ4pdb/index.m3u8",
     "streams": [
       {
-        "name": "Ekhon TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Ekhon TV",
+        "serverLabel": "HD",
         "channelName": "Ekhon TV",
         "url": "https://tvsen6.aynaott.com/fbgZV3X17hwWcyfZ4pdb/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3464,8 +2273,8 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/198.ts",
     "streams": [
       {
-        "name": "Star Jalsha HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Jalsha HD",
+        "serverLabel": "HD",
         "channelName": "Star Jalsha HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/198.ts",
         "quality": "1080p FHD"
@@ -3491,39 +2300,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23305.ts",
     "streams": [
       {
-        "name": "Zee Bangla HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Zee Bangla HD",
+        "serverLabel": "HD",
         "channelName": "Zee Bangla HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23305.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Zee Bangla HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Zee Bangla HD",
-        "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72135.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Zee Bangla HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Zee Bangla HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D625",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Zee Bangla HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Zee Bangla HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3476",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://flowutc.com:80/live/34FQ94W/64CW3PG/72135.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D625",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3476"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-colors-bangla-hd",
@@ -3543,47 +2327,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
     "streams": [
       {
-        "name": "Colors Bangla HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Colors Bangla HD",
+        "serverLabel": "HD",
         "channelName": "Colors Bangla HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Colors Bangla HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Colors Bangla HD",
-        "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72156.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Colors Bangla HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Colors Bangla HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D756",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors Bangla HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Colors Bangla HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1369",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors Bangla HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Colors Bangla HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1657",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://flowutc.com:80/live/34FQ94W/64CW3PG/72156.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D756",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1369",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1657"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-aath",
@@ -3598,16 +2349,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/sony-aath-in.png",
-    "streamUrl": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D697",
-    "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D697",
-    "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D697",
+    "streamUrl": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
+    "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
+    "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
     "streams": [
       {
-        "name": "Sony Aath (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony Aath",
+        "serverLabel": "HD",
         "channelName": "Sony Aath",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D697",
-        "quality": "720p HD"
+        "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/index.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3630,23 +2381,14 @@
     "stream_url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index_3.m3u8",
     "streams": [
       {
-        "name": "DD Bangla (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "DD Bangla",
+        "serverLabel": "HD",
         "channelName": "DD Bangla",
         "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/7ff57cc9046b4c188b51a0d506f36e7f/index_3.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DD Bangla (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "DD Bangla",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D690",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D690"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-bbc-news",
@@ -3665,23 +2407,14 @@
     "stream_url": "https://tvsen1.aynaott.com/shn6jGTk/index.m3u8",
     "streams": [
       {
-        "name": "BBC News (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "BBC News",
+        "serverLabel": "HD",
         "channelName": "BBC News",
         "url": "https://tvsen1.aynaott.com/shn6jGTk/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "BBC News (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "BBC News",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1431",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1431"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-cnn-us",
@@ -3695,44 +2428,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/united-states/cnn-us.png",
-    "streamUrl": "https://tvsen6.aynaott.com/cnn/index.m3u8",
-    "url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
-    "stream_url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
+    "streamUrl": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
+    "url": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
+    "stream_url": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
     "streams": [
       {
-        "name": "CNN International (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "CNN International",
-        "url": "https://tvsen6.aynaott.com/cnn/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "CNN International (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "CNN International",
+        "serverLabel": "HD",
         "channelName": "CNN International",
         "url": "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "CNN International (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "CNN International",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D193",
-        "quality": "720p HD"
-      },
-      {
-        "name": "CNN International (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "CNN International",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D492",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://turnerlive.warnermediacdn.com/hls/live/586495/cnngo/cnn_slate/VIDEO_0_3564000.m3u8",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D193",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D492"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-al-jazeera",
@@ -3751,23 +2459,14 @@
     "stream_url": "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8",
     "streams": [
       {
-        "name": "Al Jazeera English (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Al Jazeera English",
+        "serverLabel": "HD",
         "channelName": "Al Jazeera English",
         "url": "https://live-hls-apps-aje-fa.getaj.net/AJE/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Al Jazeera English (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Al Jazeera English",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D494",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D494"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-dw-news",
@@ -3781,36 +2480,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/germany/dw-de.png",
-    "streamUrl": "https://tvsen6.aynaott.com/Qq3s5WR2/index.m3u8",
-    "url": "https://tvsen6.aynaott.com/Qq3s5WR2/index.m3u8",
-    "stream_url": "https://tvsen6.aynaott.com/Qq3s5WR2/index.m3u8",
+    "streamUrl": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
+    "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
+    "stream_url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
     "streams": [
       {
-        "name": "DW News (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "DW News",
-        "url": "https://tvsen6.aynaott.com/Qq3s5WR2/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DW News (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "DW News",
+        "serverLabel": "HD",
         "channelName": "DW News",
         "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "DW News (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "DW News",
-        "url": "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/stream02/streamPlaylist.m3u8",
-      "https://dwamdstream102.akamaized.net/hls/live/2015525/dwstream102/index.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ndtv-english",
@@ -3830,31 +2512,14 @@
     "stream_url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8",
     "streams": [
       {
-        "name": "NDTV 24x7 (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "NDTV 24x7",
+        "serverLabel": "HD",
         "channelName": "NDTV 24x7",
         "url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678/ndtv24x7/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "NDTV 24x7 (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "NDTV 24x7",
-        "url": "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678-b/ndtv24x7/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "NDTV 24x7 (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "NDTV 24x7",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D255",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://ndtv24x7elemarchana.akamaized.net/hls/live/2003678-b/ndtv24x7/master.m3u8",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D255"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-ndtv-hindi",
@@ -3874,23 +2539,14 @@
     "stream_url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
     "streams": [
       {
-        "name": "NDTV India (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "NDTV India",
+        "serverLabel": "HD",
         "channelName": "NDTV India",
         "url": "https://ndtvindiaelemarchana.akamaized.net/hls/live/2003679/ndtvindia/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "NDTV India (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "NDTV India",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D258",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D258"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-aaj-tak",
@@ -3910,11 +2566,11 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D173",
     "streams": [
       {
-        "name": "Aaj Tak HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Aaj Tak HD",
+        "serverLabel": "HD",
         "channelName": "Aaj Tak HD",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D173",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3937,23 +2593,14 @@
     "stream_url": "https://feeds.intoday.in/hltapps/api/master.m3u8",
     "streams": [
       {
-        "name": "India Today (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "India Today",
+        "serverLabel": "HD",
         "channelName": "India Today",
         "url": "https://feeds.intoday.in/hltapps/api/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "India Today (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "India Today",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D493",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D493"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-trt-world",
@@ -3972,11 +2619,11 @@
     "stream_url": "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
     "streams": [
       {
-        "name": "TRT World (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "TRT World",
+        "serverLabel": "HD",
         "channelName": "TRT World",
         "url": "https://tv-trtworld.medya.trt.com.tr/master.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -3998,31 +2645,14 @@
     "stream_url": "https://live.france24.com/hls/live/2037179/F24_FR_HI_HLS/master_5000.m3u8",
     "streams": [
       {
-        "name": "France 24 English (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "France 24 English",
+        "serverLabel": "HD",
         "channelName": "France 24 English",
         "url": "https://live.france24.com/hls/live/2037179/F24_FR_HI_HLS/master_5000.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "France 24 English (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "France 24 English",
-        "url": "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_2300.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "France 24 English (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "France 24 English",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D501",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://live.france24.com/hls/live/2037218-b/F24_EN_HI_HLS/master_2300.m3u8",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D501"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-cartoon-network",
@@ -4041,39 +2671,14 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209624/index.m3u8",
     "streams": [
       {
-        "name": "Cartoon Network (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Cartoon Network",
+        "serverLabel": "HD",
         "channelName": "Cartoon Network",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209624/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Cartoon Network (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Cartoon Network",
-        "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/117177.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Cartoon Network (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Cartoon Network",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D816",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Cartoon Network (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Cartoon Network",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1079",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/117177.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D816",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1079"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-nickelodeon",
@@ -4092,39 +2697,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1341",
     "streams": [
       {
-        "name": "Nickelodeon (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Nickelodeon",
+        "serverLabel": "HD",
         "channelName": "Nickelodeon",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1341",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Nickelodeon (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Nickelodeon",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D544",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Nickelodeon (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Nickelodeon",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D545",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Nickelodeon (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Nickelodeon",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1226",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D544",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D545",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1226"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-disney-channel",
@@ -4138,16 +2718,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/disney-channel-au.png",
-    "streamUrl": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1373",
-    "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1373",
-    "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1373",
+    "streamUrl": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/19741.ts",
+    "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/19741.ts",
+    "stream_url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/19741.ts",
     "streams": [
       {
-        "name": "Disney Channel (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Disney Channel",
+        "serverLabel": "HD",
         "channelName": "Disney Channel",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1373",
-        "quality": "720p HD"
+        "url": "http://rgkkw.live:80/live/1Aoen7elp5/IgMJ60tmAa/19741.ts",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -4169,11 +2749,11 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D559",
     "streams": [
       {
-        "name": "Pogo (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Pogo",
+        "serverLabel": "HD",
         "channelName": "Pogo",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D559",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -4195,23 +2775,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3424",
     "streams": [
       {
-        "name": "Sony YAY! (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony YAY!",
+        "serverLabel": "HD",
         "channelName": "Sony YAY!",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3424",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony YAY! (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony YAY!",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D872",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D872"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-duronto-tv",
@@ -4231,23 +2802,14 @@
     "stream_url": "https://tvsen6.aynaott.com/6xyZ3N4oHv2KBJdB6W4p/index.m3u8",
     "streams": [
       {
-        "name": "Duronto TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Duronto TV",
+        "serverLabel": "HD",
         "channelName": "Duronto TV",
         "url": "https://tvsen6.aynaott.com/6xyZ3N4oHv2KBJdB6W4p/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Duronto TV (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Duronto TV",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/433.ts",
         "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/433.ts"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-discovery-kids",
@@ -4266,11 +2828,11 @@
     "stream_url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
     "streams": [
       {
-        "name": "Discovery Kids (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Discovery Kids",
+        "serverLabel": "HD",
         "channelName": "Discovery Kids",
         "url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -4292,11 +2854,11 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8",
     "streams": [
       {
-        "name": "BBC Cbeebies (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "BBC Cbeebies",
+        "serverLabel": "HD",
         "channelName": "BBC Cbeebies",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -4318,23 +2880,14 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Tom & Jerry TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Tom & Jerry TV",
+        "serverLabel": "HD",
         "channelName": "Tom & Jerry TV",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Tom & Jerry TV (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Tom & Jerry TV",
-        "url": "https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "https://live20.bozztv.com/giatvplayout7/giatv-208314/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-motu-patlu",
@@ -4353,8 +2906,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Motu Patlu TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Motu Patlu TV",
+        "serverLabel": "HD",
         "channelName": "Motu Patlu TV",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209622/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -4380,8 +2933,8 @@
     "stream_url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/tracks-v1a1/mono.ts.m3u8",
     "streams": [
       {
-        "name": "Gopal Bhar TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Gopal Bhar TV",
+        "serverLabel": "HD",
         "channelName": "Gopal Bhar TV",
         "url": "https://live20.bozztv.com/giatvplayout7/giatv-209611/tracks-v1a1/mono.ts.m3u8",
         "quality": "1080p FHD"
@@ -4402,116 +2955,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/discovery-channel-au.png",
-    "streamUrl": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
-    "url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
-    "stream_url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
+    "streamUrl": "http://202.70.146.135:8000/play/a05z/index.m3u8",
+    "url": "http://202.70.146.135:8000/play/a05z/index.m3u8",
+    "stream_url": "http://202.70.146.135:8000/play/a05z/index.m3u8",
     "streams": [
       {
-        "name": "Discovery Channel HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "https://stream.ottplus.live/live/discovery_kids_abr/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "https://tvsen5.aynaott.com/discoveryfamily/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
+        "name": "Discovery Channel HD",
+        "serverLabel": "HD",
         "channelName": "Discovery Channel HD",
         "url": "http://202.70.146.135:8000/play/a05z/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98872.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23790.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3428",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 9 HD)",
-        "serverLabel": "Server 9 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D242",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 10 HD)",
-        "serverLabel": "Server 10 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D463",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 11 HD)",
-        "serverLabel": "Server 11 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D541",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 12 HD)",
-        "serverLabel": "Server 12 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D568",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Discovery Channel HD (Server 13 HD)",
-        "serverLabel": "Server 13 HD",
-        "channelName": "Discovery Channel HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D575",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "https://tvsen5.aynaott.com/discoveryfamily/index.m3u8",
-      "http://202.70.146.135:8000/play/a05z/index.m3u8",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98872.ts",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23790.ts",
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3428",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D242",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D463",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D541",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D568",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D575"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-national-geographic-hd",
@@ -4526,36 +2982,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/national-geographic-au.png",
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
-    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
-    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
+    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
+    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
+    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
     "streams": [
       {
-        "name": "National Geographic HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "National Geographic HD",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98874.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "National Geographic HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "National Geographic HD",
+        "serverLabel": "HD",
         "channelName": "National Geographic HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "National Geographic HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "National Geographic HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1335",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/7342.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1335"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-nat-geo-wild",
@@ -4575,11 +3014,11 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1332",
     "streams": [
       {
-        "name": "Nat Geo Wild (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Nat Geo Wild",
+        "serverLabel": "HD",
         "channelName": "Nat Geo Wild",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1332",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -4597,44 +3036,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/australia/animal-planet-au.png",
-    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/5249.ts",
-    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/5249.ts",
-    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/5249.ts",
+    "streamUrl": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
+    "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
+    "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
     "streams": [
       {
-        "name": "Animal Planet (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Animal Planet",
-        "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/5249.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Animal Planet (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
+        "name": "Animal Planet",
+        "serverLabel": "HD",
         "channelName": "Animal Planet",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Animal Planet (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Animal Planet",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D286",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Animal Planet (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Animal Planet",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D566",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/98873.ts",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D286",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D566"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-history-tv18-hd",
@@ -4653,31 +3067,14 @@
     "stream_url": "https://n18syndication.akamaized.net/bpk-tv/History_TV18_Hindi_NW18_MOB/output01/master.m3u8",
     "streams": [
       {
-        "name": "History TV18 HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "History TV18 HD",
+        "serverLabel": "HD",
         "channelName": "History TV18 HD",
         "url": "https://n18syndication.akamaized.net/bpk-tv/History_TV18_Hindi_NW18_MOB/output01/master.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "History TV18 HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "History TV18 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D146",
-        "quality": "720p HD"
-      },
-      {
-        "name": "History TV18 HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "History TV18 HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D578",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D146",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D578"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-bbc-earth",
@@ -4696,23 +3093,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D821",
     "streams": [
       {
-        "name": "Sony BBC Earth (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony BBC Earth",
+        "serverLabel": "HD",
         "channelName": "Sony BBC Earth",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D821",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony BBC Earth (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony BBC Earth",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D823",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D823"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-discovery-science-hindi",
@@ -4732,23 +3120,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
     "streams": [
       {
-        "name": "Discovery Science (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Discovery Science",
+        "serverLabel": "HD",
         "channelName": "Discovery Science",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/4745.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Discovery Science (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Discovery Science",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D568",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D568"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-discovery-turbo",
@@ -4768,23 +3147,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
     "streams": [
       {
-        "name": "Discovery Turbo (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Discovery Turbo",
+        "serverLabel": "HD",
         "channelName": "Discovery Turbo",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23917.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Discovery Turbo (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Discovery Turbo",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D541",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D541"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-travel-xp",
@@ -4798,28 +3168,19 @@
     "priority": 2,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/travel-xp-in.png",
-    "streamUrl": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
-    "url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
-    "stream_url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
+    "streamUrl": "https://27c980761ff9437d929e64647afe183a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-eu_TravelXP/playlist.m3u8",
+    "url": "https://27c980761ff9437d929e64647afe183a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-eu_TravelXP/playlist.m3u8",
+    "stream_url": "https://27c980761ff9437d929e64647afe183a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-eu_TravelXP/playlist.m3u8",
     "streams": [
       {
-        "name": "Travel XP (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Travel XP",
+        "serverLabel": "HD",
         "channelName": "Travel XP",
-        "url": "https://travelxp-travelxp-1-eu.rakuten.wurl.tv/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Travel XP (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Travel XP",
-        "url": "https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8",
-        "quality": "720p HD"
+        "url": "https://27c980761ff9437d929e64647afe183a.mediatailor.us-east-1.amazonaws.com/v1/master/44f73ba4d03e9607dcd9bebdcb8494d86964f1d8/RakutenTV-eu_TravelXP/playlist.m3u8",
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://travelxp-travelxp-1-nz.samsung.wurl.tv/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-star-plus-hd",
@@ -4834,16 +3195,16 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/star-plus-in.png",
-    "streamUrl": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1132",
-    "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1132",
-    "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1132",
+    "streamUrl": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1019856.ts",
+    "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1019856.ts",
+    "stream_url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1019856.ts",
     "streams": [
       {
-        "name": "Star Plus HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Plus HD",
+        "serverLabel": "HD",
         "channelName": "Star Plus HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1132",
-        "quality": "720p HD"
+        "url": "http://cccoooeee.com:80/live/2AVDHSB/DP3YEBK/1019856.ts",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -4866,31 +3227,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D291",
     "streams": [
       {
-        "name": "Sony Entertainment Television (SET) (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony Entertainment Television (SET)",
+        "serverLabel": "HD",
         "channelName": "Sony Entertainment Television (SET)",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D291",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Entertainment Television (SET) (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony Entertainment Television (SET)",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1396",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony Entertainment Television (SET) (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony Entertainment Television (SET)",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3509",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1396",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3509"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-sab-hd",
@@ -4910,31 +3254,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/145.ts",
     "streams": [
       {
-        "name": "Sony SAB HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony SAB HD",
+        "serverLabel": "HD",
         "channelName": "Sony SAB HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/145.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Sony SAB HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony SAB HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D154",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony SAB HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony SAB HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D471",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D154",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D471"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-colors-hd",
@@ -4954,119 +3281,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
     "streams": [
       {
-        "name": "Colors HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Colors HD",
+        "serverLabel": "HD",
         "channelName": "Colors HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23306.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Colors HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Colors HD",
-        "url": "http://flowutc.com:80/live/34FQ94W/64CW3PG/72156.ts",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Colors HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Colors HD",
-        "url": "https://livecdn.live247stream.com/joomusic/tv/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Colors HD",
-        "url": "http://202.70.146.135:8000/play/a058/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D756",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1369",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 7 HD)",
-        "serverLabel": "Server 7 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1657",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 8 HD)",
-        "serverLabel": "Server 8 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D144",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 9 HD)",
-        "serverLabel": "Server 9 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D279",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 10 HD)",
-        "serverLabel": "Server 10 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1368",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 11 HD)",
-        "serverLabel": "Server 11 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D482",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 12 HD)",
-        "serverLabel": "Server 12 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1450",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 13 HD)",
-        "serverLabel": "Server 13 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1477",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors HD (Server 14 HD)",
-        "serverLabel": "Server 14 HD",
-        "channelName": "Colors HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1763",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "http://flowutc.com:80/live/34FQ94W/64CW3PG/72156.ts",
-      "https://livecdn.live247stream.com/joomusic/tv/playlist.m3u8",
-      "http://202.70.146.135:8000/play/a058/index.m3u8",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D756",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1369",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1657",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D144",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D279",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1368",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D482",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1450",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1477",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1763"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-star-gold-hd",
@@ -5086,55 +3308,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/210.ts",
     "streams": [
       {
-        "name": "Star Gold HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Gold HD",
+        "serverLabel": "HD",
         "channelName": "Star Gold HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/210.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Star Gold HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Star Gold HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D156",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Gold HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Star Gold HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1113",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Gold HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Star Gold HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3096",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Gold HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Star Gold HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3097",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Gold HD (Server 6 HD)",
-        "serverLabel": "Server 6 HD",
-        "channelName": "Star Gold HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3098",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D156",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1113",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3096",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3097",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3098"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-sony-max-hd",
@@ -5154,47 +3335,14 @@
     "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D289",
     "streams": [
       {
-        "name": "Sony MAX HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Sony MAX HD",
+        "serverLabel": "HD",
         "channelName": "Sony MAX HD",
         "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D289",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony MAX HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Sony MAX HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D476",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony MAX HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Sony MAX HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D483",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony MAX HD (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Sony MAX HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2834",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Sony MAX HD (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Sony MAX HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3418",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D476",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D483",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2834",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D3418"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-colors-cineplex",
@@ -5214,47 +3362,14 @@
     "stream_url": "http://202.70.146.135:8000/play/a058/index.m3u8",
     "streams": [
       {
-        "name": "Colors Cineplex (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Colors Cineplex",
+        "serverLabel": "HD",
         "channelName": "Colors Cineplex",
         "url": "http://202.70.146.135:8000/play/a058/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors Cineplex (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Colors Cineplex",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D482",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors Cineplex (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Colors Cineplex",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1450",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors Cineplex (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Colors Cineplex",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1477",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Colors Cineplex (Server 5 HD)",
-        "serverLabel": "Server 5 HD",
-        "channelName": "Colors Cineplex",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1763",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D482",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1450",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1477",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1763"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-star-movies-hd",
@@ -5273,31 +3388,14 @@
     "stream_url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23270.ts",
     "streams": [
       {
-        "name": "Star Movies HD (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Star Movies HD",
+        "serverLabel": "HD",
         "channelName": "Star Movies HD",
         "url": "http://rgkkw.live:8080/live/4dfoydR2gZ/clever3still/23270.ts",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "Star Movies HD (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Star Movies HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1104",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Star Movies HD (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Star Movies HD",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1110",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1104",
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1110"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-b4u-movies",
@@ -5316,23 +3414,14 @@
     "stream_url": "https://amg00877-b4unew-amg00877c2-xiaomi-in-5489.playouts.now.amagi.tv/playlist.m3u8",
     "streams": [
       {
-        "name": "B4U Movies (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "B4U Movies",
+        "serverLabel": "HD",
         "channelName": "B4U Movies",
         "url": "https://amg00877-b4unew-amg00877c2-xiaomi-in-5489.playouts.now.amagi.tv/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "B4U Movies (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "B4U Movies",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D182",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D182"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-mtv",
@@ -5346,28 +3435,19 @@
     "priority": 1,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/mtv-beats-in.png",
-    "streamUrl": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D248",
-    "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D248",
-    "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D248",
+    "streamUrl": "https://tvsen6.aynaott.com/mtv/index.m3u8",
+    "url": "https://tvsen6.aynaott.com/mtv/index.m3u8",
+    "stream_url": "https://tvsen6.aynaott.com/mtv/index.m3u8",
     "streams": [
       {
-        "name": "MTV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "MTV",
+        "serverLabel": "HD",
         "channelName": "MTV",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D248",
-        "quality": "720p HD"
-      },
-      {
-        "name": "MTV (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "MTV",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1145",
-        "quality": "720p HD"
+        "url": "https://tvsen6.aynaott.com/mtv/index.m3u8",
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D1145"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-9xm",
@@ -5386,23 +3466,14 @@
     "stream_url": "https://wiselp.wiseplayout.com/9XM/HD1080/HD1080.m3u8",
     "streams": [
       {
-        "name": "9XM (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "9XM",
+        "serverLabel": "HD",
         "channelName": "9XM",
         "url": "https://wiselp.wiseplayout.com/9XM/HD1080/HD1080.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "9XM (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "9XM",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D587",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D587"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-9x-jalwa",
@@ -5416,16 +3487,16 @@
     "priority": 2,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/9x-jalwa-in.png",
-    "streamUrl": "https://tvsen6.aynaott.com/CiPT1VTG8bVekeAZiibd/index.m3u8",
-    "url": "https://tvsen6.aynaott.com/CiPT1VTG8bVekeAZiibd/index.m3u8",
-    "stream_url": "https://tvsen6.aynaott.com/CiPT1VTG8bVekeAZiibd/index.m3u8",
+    "streamUrl": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
+    "url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
+    "stream_url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
     "streams": [
       {
-        "name": "9X Jalwa (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "9X Jalwa",
+        "serverLabel": "HD",
         "channelName": "9X Jalwa",
-        "url": "https://tvsen6.aynaott.com/CiPT1VTG8bVekeAZiibd/index.m3u8",
-        "quality": "720p HD"
+        "url": "https://wiselp.wiseplayout.com/9X_Jalwa/master.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -5447,11 +3518,11 @@
     "stream_url": "https://tvsen6.aynaott.com/sMqhLN6n/index.m3u8",
     "streams": [
       {
-        "name": "9X Tashan (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "9X Tashan",
+        "serverLabel": "HD",
         "channelName": "9X Tashan",
         "url": "https://tvsen6.aynaott.com/sMqhLN6n/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -5468,16 +3539,16 @@
     "priority": 2,
     "active": true,
     "logo": "https://raw.githubusercontent.com/tv-logo/tv-logos/main/countries/india/zoom-in.png",
-    "streamUrl": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D592",
-    "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D592",
-    "stream_url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D592",
+    "streamUrl": "https://live.zoomnews.info/live/Zoom_playlist.m3u8",
+    "url": "https://live.zoomnews.info/live/Zoom_playlist.m3u8",
+    "stream_url": "https://live.zoomnews.info/live/Zoom_playlist.m3u8",
     "streams": [
       {
-        "name": "Zoom TV (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Zoom TV",
+        "serverLabel": "HD",
         "channelName": "Zoom TV",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D592",
-        "quality": "720p HD"
+        "url": "https://live.zoomnews.info/live/Zoom_playlist.m3u8",
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -5499,23 +3570,14 @@
     "stream_url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8",
     "streams": [
       {
-        "name": "YRF Music (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "YRF Music",
+        "serverLabel": "HD",
         "channelName": "YRF Music",
         "url": "https://cdn-uw2-prod.tsv2.amagi.tv/linear/amg01412-xiaomiasia-yrfmusic-xiaomi/playlist.m3u8",
         "quality": "1080p FHD"
-      },
-      {
-        "name": "YRF Music (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "YRF Music",
-        "url": "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2753",
-        "quality": "720p HD"
       }
     ],
-    "backupUrls": [
-      "/api/stream-proxy?url=https%3A%2F%2Fhey-lookme.shop%2Flive.php%3Fid%3D2753"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-live-quran-tv",
@@ -5534,39 +3596,14 @@
     "stream_url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/playlist.m3u8",
     "streams": [
       {
-        "name": "Live Quran TV (Makkah Live) (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Live Quran TV (Makkah Live)",
+        "serverLabel": "HD",
         "channelName": "Live Quran TV (Makkah Live)",
         "url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Live Quran TV (Makkah Live) (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "Live Quran TV (Makkah Live)",
-        "url": "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/sharjahtvquranpublish/shqurantv_source/chunks.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Live Quran TV (Makkah Live) (Server 3 HD)",
-        "serverLabel": "Server 3 HD",
-        "channelName": "Live Quran TV (Makkah Live)",
-        "url": "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Live Quran TV (Makkah Live) (Server 4 HD)",
-        "serverLabel": "Server 4 HD",
-        "channelName": "Live Quran TV (Makkah Live)",
-        "url": "http://m.live.net.sa:1935/live/quran/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "https://live.kwikmotion.com/sharjahtvquranlive/shqurantv.smil/sharjahtvquranpublish/shqurantv_source/chunks.m3u8",
-      "https://shd-gcp-live.edgenextcdn.net/live/bitmovin-saudi-tv/2ad66056b51fd8c1b624854623112e43/index.m3u8",
-      "http://m.live.net.sa:1935/live/quran/playlist.m3u8"
-    ]
+    "backupUrls": []
   },
   {
     "id": "ch-madani-tv",
@@ -5585,11 +3622,11 @@
     "stream_url": "https://streaming.madanichannel.tv/static/streaming-playlists/hls/d3e49b76-ac06-4689-a641-9200445b647f/master.m3u8",
     "streams": [
       {
-        "name": "Madani Tv (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Madani Tv",
+        "serverLabel": "HD",
         "channelName": "Madani Tv",
         "url": "https://streaming.madanichannel.tv/static/streaming-playlists/hls/d3e49b76-ac06-4689-a641-9200445b647f/master.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -5611,11 +3648,11 @@
     "stream_url": "https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8?sid=s7AaNdTzDE2912wNcPLejQ",
     "streams": [
       {
-        "name": "Peace Tv Bangla (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Peace Tv Bangla",
+        "serverLabel": "HD",
         "channelName": "Peace Tv Bangla",
         "url": "https://dzkyvlfyge.erbvr.com/PeaceTvBangla/tracks-v3a1/mono.m3u8?sid=s7AaNdTzDE2912wNcPLejQ",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -5637,11 +3674,11 @@
     "stream_url": "https://dzkyvlfyge.erbvr.com/PeaceTvEnglish/index.m3u8",
     "streams": [
       {
-        "name": "Peace Tv English (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "Peace Tv English",
+        "serverLabel": "HD",
         "channelName": "Peace Tv English",
         "url": "https://dzkyvlfyge.erbvr.com/PeaceTvEnglish/index.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
     "backupUrls": []
@@ -5663,23 +3700,14 @@
     "stream_url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainquran_all/playlist.m3u8",
     "streams": [
       {
-        "name": "BAHRAIN QURAN (Server 1 HD)",
-        "serverLabel": "Server 1 HD",
+        "name": "BAHRAIN QURAN",
+        "serverLabel": "HD",
         "channelName": "BAHRAIN QURAN",
         "url": "https://5c7b683162943.streamlock.net/live/ngrp:bahrainquran_all/playlist.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "BAHRAIN QURAN (Server 2 HD)",
-        "serverLabel": "Server 2 HD",
-        "channelName": "BAHRAIN QURAN",
-        "url": "http://m.live.net.sa:1935/live/quran/playlist.m3u8",
-        "quality": "720p HD"
+        "quality": "1080p FHD"
       }
     ],
-    "backupUrls": [
-      "http://m.live.net.sa:1935/live/quran/playlist.m3u8"
-    ]
+    "backupUrls": []
   }
 ];
 
@@ -5731,6 +3759,1251 @@
 ];
 
   window.EVENTS_DATA = [
+  {
+    "id": "willow-B0HFWWJWH6",
+    "idEvent": "willow-B0HFWWJWH6",
+    "rawId": "B0HFWWJWH6",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "South Africa vs Australia",
+    "name": "South Africa vs Australia",
+    "league": "Australia tour of South Africa 2026",
+    "tournament": "Australia tour of South Africa 2026",
+    "matchDesc": "Australia tour of South Africa 2026 - 2nd Test - South Africa vs Australia",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "startTime": "2026-10-18T08:05:00.000Z",
+    "endTime": "2026-10-18T14:05:00.000Z",
+    "timestamp": 1792310700000,
+    "date": "2026-10-18",
+    "matchTime": "1:30 PM BDT",
+    "timeOrTimer": "LIVE",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.df9be69a-7bd6-4883-a021-b7e4801a1573/3/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.df9be69a-7bd6-4883-a021-b7e4801a1573/3/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMQL4NJS",
+    "idEvent": "willow-B0HMQL4NJS",
+    "rawId": "B0HMQL4NJS",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs Sri Lanka",
+    "name": "Pakistan vs Sri Lanka",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 1st Match - Pakistan vs Sri Lanka",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-18T09:00:00.000Z",
+    "endTime": "2026-10-18T15:00:00.000Z",
+    "timestamp": 1792314000000,
+    "date": "2026-10-18",
+    "matchTime": "Live at 3 PM BDT",
+    "timeOrTimer": "Live at 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ff2ab606-8760-414e-8ecf-129071962621/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ff2ab606-8760-414e-8ecf-129071962621/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HLWVSMP1",
+    "idEvent": "willow-B0HLWVSMP1",
+    "rawId": "B0HLWVSMP1",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 2nd T20I - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-18T13:30:00.000Z",
+    "endTime": "2026-10-18T19:30:00.000Z",
+    "timestamp": 1792330200000,
+    "date": "2026-10-18",
+    "matchTime": "Live at 7:30 PM BDT",
+    "timeOrTimer": "Live at 7:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ce490310-1690-4efb-8183-aed9c087d64c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ce490310-1690-4efb-8183-aed9c087d64c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HN5C4CSG",
+    "idEvent": "willow-B0HN5C4CSG",
+    "rawId": "B0HN5C4CSG",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Afghanistan vs Zimbabwe",
+    "name": "Afghanistan vs Zimbabwe",
+    "league": "ODI Tri-Nation Series in UAE 2026",
+    "tournament": "ODI Tri-Nation Series in UAE 2026",
+    "matchDesc": "ODI Tri-Nation Series in UAE 2026 - 2nd Match - Afghanistan vs Zimbabwe",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-19T12:00:00.000Z",
+    "endTime": "2026-10-19T18:00:00.000Z",
+    "timestamp": 1792411200000,
+    "date": "2026-10-19",
+    "matchTime": "Tomorrow 6 PM BDT",
+    "timeOrTimer": "Tomorrow 6 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.5efef589-1f64-4d38-aa3b-301bc9215d8f/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.5efef589-1f64-4d38-aa3b-301bc9215d8f/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0GLKK9LBV",
+    "idEvent": "willow-B0GLKK9LBV",
+    "rawId": "B0GLKK9LBV",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs England",
+    "name": "Pakistan vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 2nd Match - Pakistan vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-20T09:00:00.000Z",
+    "endTime": "2026-10-20T15:00:00.000Z",
+    "timestamp": 1792486800000,
+    "date": "2026-10-20",
+    "matchTime": "Tue, Oct 20 3 PM BDT",
+    "timeOrTimer": "Tue, Oct 20 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.abf1e0e9-9f21-4e46-a441-e074eaf2d220/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.abf1e0e9-9f21-4e46-a441-e074eaf2d220/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HKMGSFBW",
+    "idEvent": "willow-B0HKMGSFBW",
+    "rawId": "B0HKMGSFBW",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 3rd T20I - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-18T13:30:00.000Z",
+    "endTime": "2026-10-18T19:30:00.000Z",
+    "timestamp": 1792330200000,
+    "date": "2026-10-18",
+    "matchTime": "Tue, Oct 20 7:30 PM BDT",
+    "timeOrTimer": "Tue, Oct 20 7:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6b4fa639-76c1-4aff-bf00-aa2a560eb3a2/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6b4fa639-76c1-4aff-bf00-aa2a560eb3a2/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HN5PJ2BX",
+    "idEvent": "willow-B0HN5PJ2BX",
+    "rawId": "B0HN5PJ2BX",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Afghanistan vs Bangladesh",
+    "name": "Afghanistan vs Bangladesh",
+    "league": "ODI Tri-Nation Series in UAE 2026",
+    "tournament": "ODI Tri-Nation Series in UAE 2026",
+    "matchDesc": "ODI Tri-Nation Series in UAE 2026 - 3rd Match - Afghanistan vs Bangladesh",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-21T12:00:00.000Z",
+    "endTime": "2026-10-21T18:00:00.000Z",
+    "timestamp": 1792584000000,
+    "date": "2026-10-21",
+    "matchTime": "Wed, Oct 21 6 PM BDT",
+    "timeOrTimer": "Wed, Oct 21 6 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.db5ea85c-7e9a-438e-85d9-349683aeca3b/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.db5ea85c-7e9a-438e-85d9-349683aeca3b/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Bangladesh",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Bangladesh",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMLGQPBV",
+    "idEvent": "willow-B0HMLGQPBV",
+    "rawId": "B0HMLGQPBV",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Sri Lanka vs England",
+    "name": "Sri Lanka vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 3rd Match - Sri Lanka vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-22T09:00:00.000Z",
+    "endTime": "2026-10-22T15:00:00.000Z",
+    "timestamp": 1792659600000,
+    "date": "2026-10-22",
+    "matchTime": "Thu, Oct 22 3 PM BDT",
+    "timeOrTimer": "Thu, Oct 22 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.343f357f-7382-4a16-88df-1c4941942e53/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.343f357f-7382-4a16-88df-1c4941942e53/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HL5YN53G",
+    "idEvent": "willow-B0HL5YN53G",
+    "rawId": "B0HL5YN53G",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 1st ODI - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-23T08:30:00.000Z",
+    "endTime": "2026-10-23T14:30:00.000Z",
+    "timestamp": 1792744200000,
+    "date": "2026-10-23",
+    "matchTime": "Fri, Oct 23 2:30 PM BDT",
+    "timeOrTimer": "Fri, Oct 23 2:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1e5b6fd4-25b7-4e3a-be5b-aa3786467831/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1e5b6fd4-25b7-4e3a-be5b-aa3786467831/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMLP8D75",
+    "idEvent": "willow-B0HMLP8D75",
+    "rawId": "B0HMLP8D75",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 2nd ODI - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-25T09:00:00.000Z",
+    "endTime": "2026-10-25T15:00:00.000Z",
+    "timestamp": 1792918800000,
+    "date": "2026-10-25",
+    "matchTime": "Sun, Oct 25 2:30 PM BDT",
+    "timeOrTimer": "Sun, Oct 25 2:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.9ce2fde4-1fb3-475d-8568-fc7d05c9b0e7/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.9ce2fde4-1fb3-475d-8568-fc7d05c9b0e7/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMG5YWFC",
+    "idEvent": "willow-B0HMG5YWFC",
+    "rawId": "B0HMG5YWFC",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs England",
+    "name": "Pakistan vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 4th Match - Pakistan vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-25T09:00:00.000Z",
+    "endTime": "2026-10-25T15:00:00.000Z",
+    "timestamp": 1792918800000,
+    "date": "2026-10-25",
+    "matchTime": "Sun, Oct 25 3 PM BDT",
+    "timeOrTimer": "Sun, Oct 25 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6e464c74-5145-4aa7-ab93-bf7dc4a472f7/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6e464c74-5145-4aa7-ab93-bf7dc4a472f7/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HKDPRJRS",
+    "idEvent": "willow-B0HKDPRJRS",
+    "rawId": "B0HKDPRJRS",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "South Africa vs Australia",
+    "name": "South Africa vs Australia",
+    "league": "Australia tour of South Africa 2026",
+    "tournament": "Australia tour of South Africa 2026",
+    "matchDesc": "Australia tour of South Africa 2026 - 3rd Test - South Africa vs Australia",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-27T07:30:00.000Z",
+    "endTime": "2026-10-27T13:30:00.000Z",
+    "timestamp": 1793086200000,
+    "date": "2026-10-27",
+    "matchTime": "Tue, Oct 27 1:30 PM BDT",
+    "timeOrTimer": "Tue, Oct 27 1:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.20a790a3-51e9-4ec1-9a8b-cb632845af2d/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.20a790a3-51e9-4ec1-9a8b-cb632845af2d/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HN2PT7BB",
+    "idEvent": "willow-B0HN2PT7BB",
+    "rawId": "B0HN2PT7BB",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs Sri Lanka",
+    "name": "Pakistan vs Sri Lanka",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 5th Match - Pakistan vs Sri Lanka",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-27T07:30:00.000Z",
+    "endTime": "2026-10-27T13:30:00.000Z",
+    "timestamp": 1793086200000,
+    "date": "2026-10-27",
+    "matchTime": "Tue, Oct 27 3 PM BDT",
+    "timeOrTimer": "Tue, Oct 27 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1751377a-8a97-41ca-8cfe-a48a200fae9c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1751377a-8a97-41ca-8cfe-a48a200fae9c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMGDLS21",
+    "idEvent": "willow-B0HMGDLS21",
+    "rawId": "B0HMGDLS21",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 3rd ODI - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-28T08:30:00.000Z",
+    "endTime": "2026-10-28T14:30:00.000Z",
+    "timestamp": 1793176200000,
+    "date": "2026-10-28",
+    "matchTime": "Wed, Oct 28 2:30 PM BDT",
+    "timeOrTimer": "Wed, Oct 28 2:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.e1dcd31f-dfe8-44de-84bd-ed233da230f6/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.e1dcd31f-dfe8-44de-84bd-ed233da230f6/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HG6HPFD3",
+    "idEvent": "willow-B0HG6HPFD3",
+    "rawId": "B0HG6HPFD3",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Sri Lanka vs England",
+    "name": "Sri Lanka vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 6th Match - Sri Lanka vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-29T09:00:00.000Z",
+    "endTime": "2026-10-29T15:00:00.000Z",
+    "timestamp": 1793264400000,
+    "date": "2026-10-29",
+    "matchTime": "Thu, Oct 29 3 PM BDT",
+    "timeOrTimer": "Thu, Oct 29 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.84dc9ca5-fdc8-46c9-bc90-b6008efe1e58/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.84dc9ca5-fdc8-46c9-bc90-b6008efe1e58/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
   {
     "id": "tsdb-2494052",
     "idEvent": "2494052",
@@ -6624,62 +5897,6 @@
     "broadcasters": [],
     "strTVStation": "",
     "subText": "Can-Am • Scheduled",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2605413",
-    "idEvent": "2605413",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Þróttur Reykjavik vs Fylkir",
-    "name": "Þróttur Reykjavik vs Fylkir",
-    "league": "Icelandic 1 deild karla",
-    "tournament": "Icelandic 1 deild karla",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/tzjamk1614355569.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-09-19T16:15:00.000Z",
-    "endTime": "2026-09-19T18:45:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1789834500000,
-    "date": "2026-09-19",
-    "matchTime": "Sat, Sep 19, 10:15 PM BST",
-    "timeOrTimer": "1 - 0",
-    "venue": "Eimskipsvöllurinn, Iceland",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "140787",
-      "name": "Þróttur Reykjavik",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/fbfc171614288098.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "137968",
-      "name": "Fylkir",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/59d3pj1579111376.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "140787",
-      "name": "Þróttur Reykjavik",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/fbfc171614288098.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "137968",
-      "name": "Fylkir",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/59d3pj1579111376.png",
-      "score": "0"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "Icelandic 1 deild karla • Sat, Sep 19, 10:15 PM BST",
     "source": "TheSportsDB (Free)",
     "streams": []
   },
@@ -7931,174 +7148,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2432603",
-    "idEvent": "2432603",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Hamilton Tiger-Cats vs Edmonton Elks",
-    "name": "Hamilton Tiger-Cats vs Edmonton Elks",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791586800000,
-    "date": "2026-10-10",
-    "matchTime": "Tonight, 05:00 AM BST",
-    "timeOrTimer": "Tonight, 05:00 AM BST",
-    "venue": "Hamilton Stadium, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135002",
-      "name": "Hamilton Tiger-Cats",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qtwsuq1424727420.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135008",
-      "name": "Edmonton Elks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5icq721630952022.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135002",
-      "name": "Hamilton Tiger-Cats",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qtwsuq1424727420.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135008",
-      "name": "Edmonton Elks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5icq721630952022.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Tonight, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475438",
-    "idEvent": "2475438",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Dallas Cowboys vs Tampa Bay Buccaneers",
-    "name": "Dallas Cowboys vs Tampa Bay Buccaneers",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-09T00:15:00.000Z",
-    "endTime": "2026-10-09T02:45:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791504900000,
-    "date": "2026-10-09",
-    "matchTime": "Today, 06:15 AM BST",
-    "timeOrTimer": "16 - 24",
-    "venue": "AT&T Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134934",
-      "name": "Dallas Cowboys",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/76ew3c1784718447.png",
-      "score": "16"
-    },
-    "team2": {
-      "id": "134945",
-      "name": "Tampa Bay Buccaneers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2dfpdl1537820969.png",
-      "score": "24"
-    },
-    "homeTeam": {
-      "id": "134934",
-      "name": "Dallas Cowboys",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/76ew3c1784718447.png",
-      "score": "16"
-    },
-    "awayTeam": {
-      "id": "134945",
-      "name": "Tampa Bay Buccaneers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2dfpdl1537820969.png",
-      "score": "24"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Today, 06:15 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498956",
-    "idEvent": "2498956",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Louisville vs Florida State",
-    "name": "Louisville vs Florida State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791586800000,
-    "date": "2026-10-10",
-    "matchTime": "Tonight, 05:00 AM BST",
-    "timeOrTimer": "Tonight, 05:00 AM BST",
-    "venue": "L&N Federal Credit Union Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136908",
-      "name": "Louisville",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/eb6qjl1564336166.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "136889",
-      "name": "Florida State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e5uzkd1642618216.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "136908",
-      "name": "Louisville",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/eb6qjl1564336166.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "136889",
-      "name": "Florida State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e5uzkd1642618216.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Tonight, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2397369",
     "idEvent": "2397369",
     "sport": "football",
@@ -8769,174 +7818,6 @@
     "broadcasters": [],
     "strTVStation": "",
     "subText": "French Pro D2 • Today, 11:30 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2432604",
-    "idEvent": "2432604",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "BC Lions vs Ottawa Redblacks",
-    "name": "BC Lions vs Ottawa Redblacks",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-10T02:00:00.000Z",
-    "endTime": "2026-10-10T04:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791597600000,
-    "date": "2026-10-10",
-    "matchTime": "Tomorrow, 08:00 AM BST",
-    "timeOrTimer": "Tomorrow, 08:00 AM BST",
-    "venue": "BC Place, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135006",
-      "name": "BC Lions",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ysxssy1424732039.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135004",
-      "name": "Ottawa Redblacks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8wjz71546002654.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135006",
-      "name": "BC Lions",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ysxssy1424732039.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135004",
-      "name": "Ottawa Redblacks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8wjz71546002654.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Tomorrow, 08:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2432605",
-    "idEvent": "2432605",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Winnipeg Blue Bombers vs Calgary Stampeders",
-    "name": "Winnipeg Blue Bombers vs Calgary Stampeders",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-10T23:00:00.000Z",
-    "endTime": "2026-10-11T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791673200000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 05:00 AM BST",
-    "timeOrTimer": "Sun, Oct 11, 05:00 AM BST",
-    "venue": "Princess Auto Stadium, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135010",
-      "name": "Winnipeg Blue Bombers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/4bo4wj1561667273.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135007",
-      "name": "Calgary Stampeders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/lksemj1565196917.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135010",
-      "name": "Winnipeg Blue Bombers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/4bo4wj1561667273.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135007",
-      "name": "Calgary Stampeders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/lksemj1565196917.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Sun, Oct 11, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498957",
-    "idEvent": "2498957",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Alabama vs Georgia",
-    "name": "Alabama vs Georgia",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-10T23:30:00.000Z",
-    "endTime": "2026-10-11T02:00:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791675000000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 05:30 AM BST",
-    "timeOrTimer": "Sun, Oct 11, 05:30 AM BST",
-    "venue": "Bryant Denny Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136168",
-      "name": "Alabama",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9phwqo1564335442.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "137104",
-      "name": "Georgia",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/so7nct1641185101.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "136168",
-      "name": "Alabama",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9phwqo1564335442.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "137104",
-      "name": "Georgia",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/so7nct1641185101.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Sun, Oct 11, 05:30 AM BST",
     "source": "TheSportsDB (Free)",
     "streams": []
   },
@@ -9613,174 +8494,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2475439",
-    "idEvent": "2475439",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Jacksonville Jaguars vs Philadelphia Eagles",
-    "name": "Jacksonville Jaguars vs Philadelphia Eagles",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "The Jacksonville Jaguars and Philadelphia Eagles meet at Tottenham Hotspur Stadium in one of the marquee games of the 2026 NFL International Series. Jacksonville return to their established second home in London after winning the AFC South with a 13-4 record last season, while Philadelphia arrive as another 2025 division champion and one of the NFC’s most recognizable contenders. The matchup brings together two high-profile quarterbacks in Trevor Lawrence and Jalen Hurts, with Saquon Barkley and Jacksonville’s developing offensive core providing additional star power. Philadelphia have won both of their previous regular-season games outside the United States, including a 24-18 victory over Jacksonville at Wembley in 2018, while the Jaguars possess unrivalled experience playing in London. With both teams carrying playoff expectations and an international spotlight on Tottenham Hotspur Stadium, the Week 5 matchup represents one of the most significant games on the 2026 London schedule.",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-11T13:30:00.000Z",
-    "endTime": "2026-10-11T16:00:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791725400000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 07:30 PM BST",
-    "timeOrTimer": "Sun, Oct 11, 07:30 PM BST",
-    "venue": "Tottenham Hotspur Stadium, United Kingdom",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134928",
-      "name": "Jacksonville Jaguars",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/0mrsd41546427902.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134936",
-      "name": "Philadelphia Eagles",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/pnpybf1515852421.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134928",
-      "name": "Jacksonville Jaguars",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/0mrsd41546427902.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134936",
-      "name": "Philadelphia Eagles",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/pnpybf1515852421.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Sun, Oct 11, 07:30 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475440",
-    "idEvent": "2475440",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Tennessee Titans vs Houston Texans",
-    "name": "Tennessee Titans vs Houston Texans",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-11T17:00:00.000Z",
-    "endTime": "2026-10-11T19:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791738000000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 11:00 PM BST",
-    "timeOrTimer": "Sun, Oct 11, 11:00 PM BST",
-    "venue": "Nissan Stadium Nashville, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134929",
-      "name": "Tennessee Titans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3td0f41779180767.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134926",
-      "name": "Houston Texans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o71ce41784719551.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134929",
-      "name": "Tennessee Titans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3td0f41779180767.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134926",
-      "name": "Houston Texans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o71ce41784719551.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Sun, Oct 11, 11:00 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475441",
-    "idEvent": "2475441",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Miami Dolphins vs Cincinnati Bengals",
-    "name": "Miami Dolphins vs Cincinnati Bengals",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-11T17:00:00.000Z",
-    "endTime": "2026-10-11T19:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791738000000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 11:00 PM BST",
-    "timeOrTimer": "Sun, Oct 11, 11:00 PM BST",
-    "venue": "Hard Rock Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134919",
-      "name": "Miami Dolphins",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e803xt1784722221.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134923",
-      "name": "Cincinnati Bengals",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/h1ce8y1784717263.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134919",
-      "name": "Miami Dolphins",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e803xt1784722221.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134923",
-      "name": "Cincinnati Bengals",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/h1ce8y1784717263.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Sun, Oct 11, 11:00 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2397372",
     "idEvent": "2397372",
     "sport": "football",
@@ -10397,118 +9110,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2432606",
-    "idEvent": "2432606",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Montreal Alouettes vs Saskatchewan Roughriders",
-    "name": "Montreal Alouettes vs Saskatchewan Roughriders",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-12T17:00:00.000Z",
-    "endTime": "2026-10-12T19:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791824400000,
-    "date": "2026-10-12",
-    "matchTime": "Mon, Oct 12, 11:00 PM BST",
-    "timeOrTimer": "Mon, Oct 12, 11:00 PM BST",
-    "venue": "Percival Molson Memorial Stadium, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135003",
-      "name": "Montreal Alouettes",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/a6pbbp1628555426.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135009",
-      "name": "Saskatchewan Roughriders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xrdull1630952245.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135003",
-      "name": "Montreal Alouettes",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/a6pbbp1628555426.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135009",
-      "name": "Saskatchewan Roughriders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xrdull1630952245.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Mon, Oct 12, 11:00 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475451",
-    "idEvent": "2475451",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Atlanta Falcons vs Baltimore Ravens",
-    "name": "Atlanta Falcons vs Baltimore Ravens",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-12T00:20:00.000Z",
-    "endTime": "2026-10-12T02:50:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791764400000,
-    "date": "2026-10-12",
-    "matchTime": "Mon, Oct 12, 06:20 AM BST",
-    "timeOrTimer": "Mon, Oct 12, 06:20 AM BST",
-    "venue": "Mercedes-Benz Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134942",
-      "name": "Atlanta Falcons",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9ucfd41784714178.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134922",
-      "name": "Baltimore Ravens",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/einz3p1546172463.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134942",
-      "name": "Atlanta Falcons",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9ucfd41784714178.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134922",
-      "name": "Baltimore Ravens",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/einz3p1546172463.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Mon, Oct 12, 06:20 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2400494",
     "idEvent": "2400494",
     "sport": "baseball",
@@ -11014,230 +9615,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2498951",
-    "idEvent": "2498951",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "FIU vs New Mexico State",
-    "name": "FIU vs New Mexico State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T00:04:00.000Z",
-    "endTime": "2026-10-08T02:34:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791417840000,
-    "date": "2026-10-08",
-    "matchTime": "Yesterday, 06:04 AM BST",
-    "timeOrTimer": "22 - 3",
-    "venue": "Pitbull Stadium, United States",
-    "isHot": false,
-    "videoUrl": "https://www.youtube.com/watch?v=bWbbUMGCgfA",
-    "team1": {
-      "id": "136886",
-      "name": "FIU",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/cdys521564335854.png",
-      "score": "22"
-    },
-    "team2": {
-      "id": "136927",
-      "name": "New Mexico State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8qb1s1564336377.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "136886",
-      "name": "FIU",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/cdys521564335854.png",
-      "score": "22"
-    },
-    "awayTeam": {
-      "id": "136927",
-      "name": "New Mexico State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8qb1s1564336377.png",
-      "score": "3"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Yesterday, 06:04 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498952",
-    "idEvent": "2498952",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Liberty vs Sam Houston State",
-    "name": "Liberty vs Sam Houston State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791500400000,
-    "date": "2026-10-09",
-    "matchTime": "Last Night, 05:00 AM BST",
-    "timeOrTimer": "35 - 3",
-    "venue": "Arthur L Williams Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136904",
-      "name": "Liberty",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/z26guc1564336125.png",
-      "score": "35"
-    },
-    "team2": {
-      "id": "137072",
-      "name": "Sam Houston State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/24i8ua1642638402.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "136904",
-      "name": "Liberty",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/z26guc1564336125.png",
-      "score": "35"
-    },
-    "awayTeam": {
-      "id": "137072",
-      "name": "Sam Houston State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/24i8ua1642638402.png",
-      "score": "3"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Last Night, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498953",
-    "idEvent": "2498953",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Western Kentucky vs Missouri State",
-    "name": "Western Kentucky vs Missouri State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791500400000,
-    "date": "2026-10-09",
-    "matchTime": "Last Night, 05:00 AM BST",
-    "timeOrTimer": "34 - 13",
-    "venue": "Houchens Industries-L.T. Smith Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136977",
-      "name": "Western Kentucky",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o96a831564337158.png",
-      "score": "34"
-    },
-    "team2": {
-      "id": "137044",
-      "name": "Missouri State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/outdlf1564357157.png",
-      "score": "13"
-    },
-    "homeTeam": {
-      "id": "136977",
-      "name": "Western Kentucky",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o96a831564337158.png",
-      "score": "34"
-    },
-    "awayTeam": {
-      "id": "137044",
-      "name": "Missouri State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/outdlf1564357157.png",
-      "score": "13"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Last Night, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2397681",
-    "idEvent": "2397681",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Corpus Christi FC vs Fort Wayne FC",
-    "name": "Corpus Christi FC vs Fort Wayne FC",
-    "league": "American USL League One",
-    "tournament": "American USL League One",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/wupe6s1625336127.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T00:30:00.000Z",
-    "endTime": "2026-10-08T03:00:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791419400000,
-    "date": "2026-10-08",
-    "matchTime": "Yesterday, 06:30 AM BST",
-    "timeOrTimer": "1 - 3",
-    "venue": ", United States",
-    "isHot": false,
-    "videoUrl": "https://www.youtube.com/watch?v=VCwEZpxf1ck",
-    "team1": {
-      "id": "142174",
-      "name": "Corpus Christi FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/986sog1655993103.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "142230",
-      "name": "Fort Wayne FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/swe0q71765557912.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "142174",
-      "name": "Corpus Christi FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/986sog1655993103.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "142230",
-      "name": "Fort Wayne FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/swe0q71765557912.png",
-      "score": "3"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "American USL League One • Yesterday, 06:30 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2398471",
     "idEvent": "2398471",
     "sport": "football",
@@ -11739,110 +10116,6 @@
     "strTVStation": "",
     "subText": "French Pro D2 • Last Night, 01:00 AM BST",
     "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401925167",
-    "idEvent": "401925167",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "India vs Russia",
-    "name": "India vs Russia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Kishore Bharati Krirangan",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791462600000,
-    "startTime": "2026-10-08T12:30:00.000Z",
-    "endTime": "2026-10-08T15:00:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "06:30 PM",
-    "timeOrTimer": "0 - 4",
-    "team1": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": "0"
-    },
-    "team2": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": "4"
-    },
-    "homeTeam": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": "0"
-    },
-    "awayTeam": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": "4"
-    },
-    "score": "0 - 4",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886349",
-    "idEvent": "401886349",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Alebrijes de Oaxaca vs Correcaminos UAT",
-    "name": "Alebrijes de Oaxaca vs Correcaminos UAT",
-    "league": "Mexican Liga de Expansión MX",
-    "tournament": "Mexican Liga de Expansión MX",
-    "matchDesc": "Liga de Expansión MX",
-    "venue": "Estadio Tecnólogico de Oaxaca",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791507600000,
-    "startTime": "2026-10-09T01:00:00.000Z",
-    "endTime": "2026-10-09T03:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "2 - 1",
-    "team1": {
-      "id": "17233",
-      "name": "Alebrijes de Oaxaca",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17233.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "8931",
-      "name": "Correcaminos UAT",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8931.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "17233",
-      "name": "Alebrijes de Oaxaca",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17233.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "8931",
-      "name": "Correcaminos UAT",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8931.png",
-      "score": "1"
-    },
-    "score": "2 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
     "streams": []
   },
   {
@@ -12366,162 +10639,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401907899",
-    "idEvent": "401907899",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Always Ready vs Nacional Potosí",
-    "name": "Always Ready vs Nacional Potosí",
-    "league": "Copa Bolivia",
-    "tournament": "Copa Bolivia",
-    "matchDesc": "Copa Bolivia, Group B",
-    "venue": "Municipal Villa Ingenio",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791486000000,
-    "startTime": "2026-10-08T19:00:00.000Z",
-    "endTime": "2026-10-08T21:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "2 - 3",
-    "team1": {
-      "id": "19425",
-      "name": "Always Ready",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19425.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "10311",
-      "name": "Nacional Potosí",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10311.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "19425",
-      "name": "Always Ready",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19425.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "10311",
-      "name": "Nacional Potosí",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10311.png",
-      "score": "3"
-    },
-    "score": "2 - 3",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401907799",
-    "idEvent": "401907799",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Blooming vs Bolívar",
-    "name": "Blooming vs Bolívar",
-    "league": "Copa Bolivia",
-    "tournament": "Copa Bolivia",
-    "matchDesc": "Copa Bolivia, Group A",
-    "venue": "Estadio Ramón Tahuichi",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791504000000,
-    "startTime": "2026-10-09T00:00:00.000Z",
-    "endTime": "2026-10-09T02:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "6047",
-      "name": "Blooming",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6047.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "2681",
-      "name": "Bolívar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2681.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "6047",
-      "name": "Blooming",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6047.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "2681",
-      "name": "Bolívar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2681.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401879561",
-    "idEvent": "401879561",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Antigua GFC vs Municipal",
-    "name": "Antigua GFC vs Municipal",
-    "league": "Guatemalan Liga Nacional",
-    "tournament": "Guatemalan Liga Nacional",
-    "matchDesc": "Guatemalan Liga Nacional",
-    "venue": "Estadio Pensativo",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791507600000,
-    "startTime": "2026-10-09T01:00:00.000Z",
-    "endTime": "2026-10-09T03:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "7253",
-      "name": "Antigua GFC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7253.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "7258",
-      "name": "Municipal",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7258.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "7253",
-      "name": "Antigua GFC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7253.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "7258",
-      "name": "Municipal",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7258.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401899718",
     "idEvent": "401899718",
     "sport": "football",
@@ -12567,994 +10684,6 @@
       "score": "1"
     },
     "score": "2 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898895",
-    "idEvent": "401898895",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Long Island University vs Central Connecticut",
-    "name": "Long Island University vs Central Connecticut",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "LIU Soccer Park",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791478800000,
-    "startTime": "2026-10-08T17:00:00.000Z",
-    "endTime": "2026-10-08T19:30:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "11:00 PM",
-    "timeOrTimer": "3 - 1",
-    "team1": {
-      "id": "5594",
-      "name": "Long Island University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2341.png",
-      "score": "3"
-    },
-    "team2": {
-      "id": "5847",
-      "name": "Central Connecticut",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2115.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "5594",
-      "name": "Long Island University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2341.png",
-      "score": "3"
-    },
-    "awayTeam": {
-      "id": "5847",
-      "name": "Central Connecticut",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2115.png",
-      "score": "1"
-    },
-    "score": "3 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898741",
-    "idEvent": "401898741",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Stonehill vs Chicago State",
-    "name": "Stonehill vs Chicago State",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Skyhawk Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791486000000,
-    "startTime": "2026-10-08T19:00:00.000Z",
-    "endTime": "2026-10-08T21:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "6 - 1",
-    "team1": {
-      "id": "21976",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "6"
-    },
-    "team2": {
-      "id": "21165",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "21976",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "6"
-    },
-    "awayTeam": {
-      "id": "21165",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "score": "6 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898526",
-    "idEvent": "401898526",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Western Illinois vs Eastern Illinois",
-    "name": "Western Illinois vs Eastern Illinois",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "John MacKenzie Alumni Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791493200000,
-    "startTime": "2026-10-08T21:00:00.000Z",
-    "endTime": "2026-10-08T23:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "4 - 1",
-    "team1": {
-      "id": "5736",
-      "name": "Western Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png",
-      "score": "4"
-    },
-    "team2": {
-      "id": "5731",
-      "name": "Eastern Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2197.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "5736",
-      "name": "Western Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png",
-      "score": "4"
-    },
-    "awayTeam": {
-      "id": "5731",
-      "name": "Eastern Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2197.png",
-      "score": "1"
-    },
-    "score": "4 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898573",
-    "idEvent": "401898573",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Incarnate Word vs SIU Edwardsville",
-    "name": "Incarnate Word vs SIU Edwardsville",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Gayle and Tom Benson Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791495000000,
-    "startTime": "2026-10-08T21:30:00.000Z",
-    "endTime": "2026-10-09T00:00:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "03:30 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "18032",
-      "name": "Incarnate Word",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2916.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "17412",
-      "name": "SIU Edwardsville",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2565.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "18032",
-      "name": "Incarnate Word",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2916.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "17412",
-      "name": "SIU Edwardsville",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2565.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401892376",
-    "idEvent": "401892376",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "William & Mary vs Howard",
-    "name": "William & Mary vs Howard",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Martin Family Stadium at Albert-",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791496800000,
-    "startTime": "2026-10-08T22:00:00.000Z",
-    "endTime": "2026-10-09T00:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "04:00 AM",
-    "timeOrTimer": "4 - 0",
-    "team1": {
-      "id": "5637",
-      "name": "William & Mary",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2729.png",
-      "score": "4"
-    },
-    "team2": {
-      "id": "17393",
-      "name": "Howard",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/47.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "5637",
-      "name": "William & Mary",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2729.png",
-      "score": "4"
-    },
-    "awayTeam": {
-      "id": "17393",
-      "name": "Howard",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/47.png",
-      "score": "0"
-    },
-    "score": "4 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898587",
-    "idEvent": "401898587",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Lindenwood vs UT Rio Grande Valley",
-    "name": "Lindenwood vs UT Rio Grande Valley",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Hunter Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791504000000,
-    "startTime": "2026-10-09T00:00:00.000Z",
-    "endTime": "2026-10-09T02:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "3 - 1",
-    "team1": {
-      "id": "21653",
-      "name": "Lindenwood",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2815.png",
-      "score": "3"
-    },
-    "team2": {
-      "id": "18023",
-      "name": "UT Rio Grande Valley",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/292.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "21653",
-      "name": "Lindenwood",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2815.png",
-      "score": "3"
-    },
-    "awayTeam": {
-      "id": "18023",
-      "name": "UT Rio Grande Valley",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/292.png",
-      "score": "1"
-    },
-    "score": "3 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898560",
-    "idEvent": "401898560",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Houston Christian vs Southern Indiana",
-    "name": "Houston Christian vs Southern Indiana",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Sorrels Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791505800000,
-    "startTime": "2026-10-09T00:30:00.000Z",
-    "endTime": "2026-10-09T03:00:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "06:30 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "17392",
-      "name": "Houston Christian",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "21712",
-      "name": "Southern Indiana",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "17392",
-      "name": "Houston Christian",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "21712",
-      "name": "Southern Indiana",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401883771",
-    "idEvent": "401883771",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Michigan State vs Minnesota",
-    "name": "Michigan State vs Minnesota",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "DeMartin Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "4 - 0",
-    "team1": {
-      "id": "20425",
-      "name": "Michigan State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png",
-      "score": "4"
-    },
-    "team2": {
-      "id": "20542",
-      "name": "Minnesota",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/135.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20425",
-      "name": "Michigan State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png",
-      "score": "4"
-    },
-    "awayTeam": {
-      "id": "20542",
-      "name": "Minnesota",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/135.png",
-      "score": "0"
-    },
-    "score": "4 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401883592",
-    "idEvent": "401883592",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Florida vs Alabama",
-    "name": "Florida vs Alabama",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Donald R. Dizney Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "1 - 0",
-    "team1": {
-      "id": "20499",
-      "name": "Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "20524",
-      "name": "Alabama",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20499",
-      "name": "Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "20524",
-      "name": "Alabama",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
-      "score": "0"
-    },
-    "score": "1 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401901458",
-    "idEvent": "401901458",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Notre Dame vs Virginia",
-    "name": "Notre Dame vs Virginia",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Alumni Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "1 - 0",
-    "team1": {
-      "id": "20328",
-      "name": "Notre Dame",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "20336",
-      "name": "Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20328",
-      "name": "Notre Dame",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "20336",
-      "name": "Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png",
-      "score": "0"
-    },
-    "score": "1 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886858",
-    "idEvent": "401886858",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "West Virginia vs BYU",
-    "name": "West Virginia vs BYU",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Dick Dlesk Soccer Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "2 - 0",
-    "team1": {
-      "id": "20382",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20382",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
-      "score": "0"
-    },
-    "score": "2 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401900354",
-    "idEvent": "401900354",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Utah State vs Washington State",
-    "name": "Utah State vs Washington State",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Chuck & Gloria Bell Soccer Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791493200000,
-    "startTime": "2026-10-08T21:00:00.000Z",
-    "endTime": "2026-10-08T23:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "2 - 0",
-    "team1": {
-      "id": "20558",
-      "name": "Utah State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/328.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "20493",
-      "name": "Washington State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20558",
-      "name": "Utah State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/328.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "20493",
-      "name": "Washington State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png",
-      "score": "0"
-    },
-    "score": "2 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401883756",
-    "idEvent": "401883756",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Purdue vs Michigan",
-    "name": "Purdue vs Michigan",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Folk Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "6 - 5",
-    "team1": {
-      "id": "20519",
-      "name": "Purdue",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
-      "score": "6"
-    },
-    "team2": {
-      "id": "20459",
-      "name": "Michigan",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
-      "score": "5"
-    },
-    "homeTeam": {
-      "id": "20519",
-      "name": "Purdue",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
-      "score": "6"
-    },
-    "awayTeam": {
-      "id": "20459",
-      "name": "Michigan",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
-      "score": "5"
-    },
-    "score": "6 - 5",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401900072",
-    "idEvent": "401900072",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Chicago State vs Stonehill",
-    "name": "Chicago State vs Stonehill",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Gwendolyn Brooks College Prep",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791475200000,
-    "startTime": "2026-10-08T16:00:00.000Z",
-    "endTime": "2026-10-08T18:30:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "10:00 PM",
-    "timeOrTimer": "1 - 7",
-    "team1": {
-      "id": "21556",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "126699",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "7"
-    },
-    "homeTeam": {
-      "id": "21556",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "126699",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "7"
-    },
-    "score": "1 - 7",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401885557",
-    "idEvent": "401885557",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "West Florida vs Lipscomb",
-    "name": "West Florida vs Lipscomb",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "UWF Soccer Complex",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791475200000,
-    "startTime": "2026-10-08T16:00:00.000Z",
-    "endTime": "2026-10-08T18:30:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "10:00 PM",
-    "timeOrTimer": "3 - 0",
-    "team1": {
-      "id": "131300",
-      "name": "West Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2697.png",
-      "score": "3"
-    },
-    "team2": {
-      "id": "20594",
-      "name": "Lipscomb",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/288.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "131300",
-      "name": "West Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2697.png",
-      "score": "3"
-    },
-    "awayTeam": {
-      "id": "20594",
-      "name": "Lipscomb",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/288.png",
-      "score": "0"
-    },
-    "score": "3 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401890261",
-    "idEvent": "401890261",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Northern Colorado vs Idaho",
-    "name": "Northern Colorado vs Idaho",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Jackson Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791482400000,
-    "startTime": "2026-10-08T18:00:00.000Z",
-    "endTime": "2026-10-08T20:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "0 - 0",
-    "team1": {
-      "id": "20622",
-      "name": "Northern Colorado",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2458.png",
-      "score": "0"
-    },
-    "team2": {
-      "id": "20553",
-      "name": "Idaho",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/70.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20622",
-      "name": "Northern Colorado",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2458.png",
-      "score": "0"
-    },
-    "awayTeam": {
-      "id": "20553",
-      "name": "Idaho",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/70.png",
-      "score": "0"
-    },
-    "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401889927",
-    "idEvent": "401889927",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "George Washington vs George Mason",
-    "name": "George Washington vs George Mason",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "GW Soccer Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791486000000,
-    "startTime": "2026-10-08T19:00:00.000Z",
-    "endTime": "2026-10-08T21:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "2 - 0",
-    "team1": {
-      "id": "20484",
-      "name": "George Washington",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/45.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "20367",
-      "name": "George Mason",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2244.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20484",
-      "name": "George Washington",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/45.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "20367",
-      "name": "George Mason",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2244.png",
-      "score": "0"
-    },
-    "score": "2 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401900275",
-    "idEvent": "401900275",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Alcorn State vs Arkansas-Pine Bluff",
-    "name": "Alcorn State vs Arkansas-Pine Bluff",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Key City Park",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791489600000,
-    "startTime": "2026-10-08T20:00:00.000Z",
-    "endTime": "2026-10-08T22:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "17 - 0",
-    "team1": {
-      "id": "20596",
-      "name": "Alcorn State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2016.png",
-      "score": "17"
-    },
-    "team2": {
-      "id": "20597",
-      "name": "Arkansas-Pine Bluff",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2029.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20596",
-      "name": "Alcorn State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2016.png",
-      "score": "17"
-    },
-    "awayTeam": {
-      "id": "20597",
-      "name": "Arkansas-Pine Bluff",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2029.png",
-      "score": "0"
-    },
-    "score": "17 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401901503",
-    "idEvent": "401901503",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Eastern Kentucky vs Central Arkansas",
-    "name": "Eastern Kentucky vs Central Arkansas",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "EKU Soccer Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791489600000,
-    "startTime": "2026-10-08T20:00:00.000Z",
-    "endTime": "2026-10-08T22:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "1 - 0",
-    "team1": {
-      "id": "20607",
-      "name": "Eastern Kentucky",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "20564",
-      "name": "Central Arkansas",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20607",
-      "name": "Eastern Kentucky",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "20564",
-      "name": "Central Arkansas",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
-      "score": "0"
-    },
-    "score": "1 - 0",
     "broadcaster": "",
     "broadcasters": [],
     "strTVStation": "",
@@ -14394,630 +11523,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401915884",
-    "idEvent": "401915884",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Andorra vs Faroe Islands",
-    "name": "Andorra vs Faroe Islands",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadi Nacional d'Andorra",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 6:30 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791541800000,
-    "startTime": "2026-10-09T10:30:00.000Z",
-    "endTime": "2026-10-09T13:00:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "04:30 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928210",
-    "idEvent": "401928210",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Montenegro vs Bosnia-Herzegovina",
-    "name": "Montenegro vs Bosnia-Herzegovina",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "DG Arena",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 7:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791543600000,
-    "startTime": "2026-10-09T11:00:00.000Z",
-    "endTime": "2026-10-09T13:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21480",
-      "name": "Montenegro",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mne.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20920",
-      "name": "Bosnia-Herzegovina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bih.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21480",
-      "name": "Montenegro",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mne.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20920",
-      "name": "Bosnia-Herzegovina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bih.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401922349",
-    "idEvent": "401922349",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Moldova vs Georgia",
-    "name": "Moldova vs Georgia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stadionul Zimbru",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 10:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791554400000,
-    "startTime": "2026-10-09T14:00:00.000Z",
-    "endTime": "2026-10-09T16:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "08:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401917872",
-    "idEvent": "401917872",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Malta vs Luxembourg",
-    "name": "Malta vs Luxembourg",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "MFA Centenary Stadium",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 1:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791565200000,
-    "startTime": "2026-10-09T17:00:00.000Z",
-    "endTime": "2026-10-09T19:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "11:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20864",
-      "name": "Malta",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mlt.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20967",
-      "name": "Luxembourg",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lux.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20864",
-      "name": "Malta",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mlt.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20967",
-      "name": "Luxembourg",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lux.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401917870",
-    "idEvent": "401917870",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Haiti vs Japan",
-    "name": "Haiti vs Japan",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Bauer",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2891",
-      "name": "Haiti",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2758",
-      "name": "Japan",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2891",
-      "name": "Haiti",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2758",
-      "name": "Japan",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929555",
-    "idEvent": "401929555",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Malaysia vs Saudi Arabia",
-    "name": "Malaysia vs Saudi Arabia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Aspire Complex",
-    "status": "upcoming",
-    "statusText": "TBD",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "22036",
-      "name": "Malaysia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "team2": {
-      "id": "21932",
-      "name": "Saudi Arabia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "22036",
-      "name": "Malaysia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21932",
-      "name": "Saudi Arabia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401902581",
-    "idEvent": "401902581",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Germany vs Australia",
-    "name": "Germany vs Australia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "BBBank Wildpark",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791570600000,
-    "startTime": "2026-10-09T18:30:00.000Z",
-    "endTime": "2026-10-09T21:00:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2756",
-      "name": "Germany",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2751",
-      "name": "Australia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2756",
-      "name": "Germany",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2751",
-      "name": "Australia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929576",
-    "idEvent": "401929576",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Morocco vs Uzbekistan",
-    "name": "Morocco vs Uzbekistan",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Prince Moulay Al Hassan",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 4:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791576000000,
-    "startTime": "2026-10-09T20:00:00.000Z",
-    "endTime": "2026-10-09T22:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401916334",
-    "idEvent": "401916334",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Peru vs Philippines",
-    "name": "Peru vs Philippines",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "La Videnita",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 4:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791576000000,
-    "startTime": "2026-10-09T20:00:00.000Z",
-    "endTime": "2026-10-09T22:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21130",
-      "name": "Peru",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21130.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "21546",
-      "name": "Philippines",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/phi.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21130",
-      "name": "Peru",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21130.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21546",
-      "name": "Philippines",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/phi.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401902450",
-    "idEvent": "401902450",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Canada vs Denmark",
-    "name": "Canada vs Denmark",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Saputo",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791586800000,
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401916246",
-    "idEvent": "401916246",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Mexico vs Jamaica",
-    "name": "Mexico vs Jamaica",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Victoria",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791594000000,
-    "startTime": "2026-10-10T01:00:00.000Z",
-    "endTime": "2026-10-10T03:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2812",
-      "name": "Mexico",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mex.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2893",
-      "name": "Jamaica",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jam.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2812",
-      "name": "Mexico",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mex.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2893",
-      "name": "Jamaica",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jam.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401919979",
-    "idEvent": "401919979",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "El Salvador vs Paraguay",
-    "name": "El Salvador vs Paraguay",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Cuscatlán",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791595800000,
-    "startTime": "2026-10-10T01:30:00.000Z",
-    "endTime": "2026-10-10T04:00:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401900908",
     "idEvent": "401900908",
     "sport": "football",
@@ -15320,162 +11825,6 @@
       "id": "6870",
       "name": "Kasimpasa",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6870.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886348",
-    "idEvent": "401886348",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Tapatío vs Club Atlético La Paz",
-    "name": "Tapatío vs Club Atlético La Paz",
-    "league": "Mexican Liga de Expansión MX",
-    "tournament": "Mexican Liga de Expansión MX",
-    "matchDesc": "Liga de Expansión MX",
-    "venue": "Estadio Akron",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791586800000,
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20720",
-      "name": "Tapatío",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "team2": {
-      "id": "21533",
-      "name": "Club Atlético La Paz",
-      "logo": "https://a.espncdn.com/guid/c6a0e36d-c3f5-3f04-93d8-1436cb1f6e9c/logos/default.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20720",
-      "name": "Tapatío",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21533",
-      "name": "Club Atlético La Paz",
-      "logo": "https://a.espncdn.com/guid/c6a0e36d-c3f5-3f04-93d8-1436cb1f6e9c/logos/default.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886347",
-    "idEvent": "401886347",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Tepatitlán FC vs Club Atlético Morelia",
-    "name": "Tepatitlán FC vs Club Atlético Morelia",
-    "league": "Mexican Liga de Expansión MX",
-    "tournament": "Mexican Liga de Expansión MX",
-    "matchDesc": "Liga de Expansión MX",
-    "venue": "Estadio Gregorio Tepa Gómez",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791594000000,
-    "startTime": "2026-10-10T01:00:00.000Z",
-    "endTime": "2026-10-10T03:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20721",
-      "name": "Tepatitlán FC",
-      "logo": "https://a.espncdn.com/guid/763ce445-4f2c-3dc4-bb2a-a682c33f108c/logos/default.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "221",
-      "name": "Club Atlético Morelia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/221.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20721",
-      "name": "Tepatitlán FC",
-      "logo": "https://a.espncdn.com/guid/763ce445-4f2c-3dc4-bb2a-a682c33f108c/logos/default.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "221",
-      "name": "Club Atlético Morelia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/221.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929641",
-    "idEvent": "401929641",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Central Coast Mariners vs APIA Leichhardt Tigers FC",
-    "name": "Central Coast Mariners vs APIA Leichhardt Tigers FC",
-    "league": "Club Friendly",
-    "tournament": "Club Friendly",
-    "matchDesc": "Club Friendly",
-    "venue": "Central Coast Stadium",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791594000000,
-    "startTime": "2026-10-10T01:00:00.000Z",
-    "endTime": "2026-10-10T03:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5325",
-      "name": "Central Coast Mariners",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5325.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134009",
-      "name": "APIA Leichhardt Tigers FC",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5325",
-      "name": "Central Coast Mariners",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5325.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134009",
-      "name": "APIA Leichhardt Tigers FC",
-      "logo": "./assets/team-placeholder.svg",
       "score": ""
     },
     "score": "",
@@ -16152,578 +12501,6 @@
       "id": "15515",
       "name": "Shanghai Port",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/15515.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401889256",
-    "idEvent": "401889256",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Sutton United vs Boreham Wood",
-    "name": "Sutton United vs Boreham Wood",
-    "league": "English National League",
-    "tournament": "English National League",
-    "matchDesc": "National League",
-    "venue": "VBS Community Stadium",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:45 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791571500000,
-    "startTime": "2026-10-09T18:45:00.000Z",
-    "endTime": "2026-10-09T21:15:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:45 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "3231",
-      "name": "Sutton United",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3231.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2595",
-      "name": "Boreham Wood",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2595.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "3231",
-      "name": "Sutton United",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3231.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2595",
-      "name": "Boreham Wood",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2595.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875904",
-    "idEvent": "401875904",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Almere City vs FC Eindhoven",
-    "name": "Almere City vs FC Eindhoven",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Yanmar Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5291",
-      "name": "Almere City",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5291.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3732",
-      "name": "FC Eindhoven",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3732.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5291",
-      "name": "Almere City",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5291.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3732",
-      "name": "FC Eindhoven",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3732.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875902",
-    "idEvent": "401875902",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "De Graafschap vs Jong FC Utrecht",
-    "name": "De Graafschap vs Jong FC Utrecht",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "De Vijverberg",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "144",
-      "name": "De Graafschap",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/144.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "18278",
-      "name": "Jong FC Utrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18278.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "144",
-      "name": "De Graafschap",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/144.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "18278",
-      "name": "Jong FC Utrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18278.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875903",
-    "idEvent": "401875903",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "FC Dordrecht vs FC Emmen",
-    "name": "FC Dordrecht vs FC Emmen",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "M-Scores Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "4426",
-      "name": "FC Dordrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4426.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3707",
-      "name": "FC Emmen",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3707.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "4426",
-      "name": "FC Dordrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4426.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3707",
-      "name": "FC Emmen",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3707.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875895",
-    "idEvent": "401875895",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "FC Volendam vs Vitesse",
-    "name": "FC Volendam vs Vitesse",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Kras Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2727",
-      "name": "FC Volendam",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2727.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "154",
-      "name": "Vitesse",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/154.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2727",
-      "name": "FC Volendam",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2727.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "154",
-      "name": "Vitesse",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/154.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875901",
-    "idEvent": "401875901",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Heracles Almelo vs RKC Waalwijk",
-    "name": "Heracles Almelo vs RKC Waalwijk",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Erve Asito",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "3708",
-      "name": "Heracles Almelo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3708.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "155",
-      "name": "RKC Waalwijk",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/155.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "3708",
-      "name": "Heracles Almelo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3708.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "155",
-      "name": "RKC Waalwijk",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/155.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875900",
-    "idEvent": "401875900",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Jong Ajax vs VVV-Venlo",
-    "name": "Jong Ajax vs VVV-Venlo",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Sportpark De Toekomst",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "10597",
-      "name": "Jong Ajax",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10597.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3731",
-      "name": "VVV-Venlo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3731.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "10597",
-      "name": "Jong Ajax",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10597.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3731",
-      "name": "VVV-Venlo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3731.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875899",
-    "idEvent": "401875899",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Jong AZ vs FC Den Bosch",
-    "name": "Jong AZ vs FC Den Bosch",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "AFAS Trainingscomplex",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18748",
-      "name": "Jong AZ",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18748.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "271",
-      "name": "FC Den Bosch",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/271.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18748",
-      "name": "Jong AZ",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18748.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "271",
-      "name": "FC Den Bosch",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/271.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875898",
-    "idEvent": "401875898",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "NAC Breda vs MVV Maastricht",
-    "name": "NAC Breda vs MVV Maastricht",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Rat Verlegh Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "141",
-      "name": "NAC Breda",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/141.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3730",
-      "name": "MVV Maastricht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3730.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "141",
-      "name": "NAC Breda",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/141.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3730",
-      "name": "MVV Maastricht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3730.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875897",
-    "idEvent": "401875897",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Roda JC Kerkrade vs Jong PSV",
-    "name": "Roda JC Kerkrade vs Jong PSV",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Parkstad Limburg Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "149",
-      "name": "Roda JC Kerkrade",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/149.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "9983",
-      "name": "Jong PSV",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9983.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "149",
-      "name": "Roda JC Kerkrade",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/149.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "9983",
-      "name": "Jong PSV",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9983.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875896",
-    "idEvent": "401875896",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "TOP Oss vs Helmond Sport",
-    "name": "TOP Oss vs Helmond Sport",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Frans Heesen Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "3728",
-      "name": "TOP Oss",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3728.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3775",
-      "name": "Helmond Sport",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3775.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "3728",
-      "name": "TOP Oss",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3728.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3775",
-      "name": "Helmond Sport",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3775.png",
       "score": ""
     },
     "score": "",
@@ -19698,370 +15475,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401914253",
-    "idEvent": "401914253",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Liechtenstein vs Gibraltar",
-    "name": "Liechtenstein vs Gibraltar",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Sportplatz Rheinwiese",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 10:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791640800000,
-    "startTime": "2026-10-10T14:00:00.000Z",
-    "endTime": "2026-10-10T16:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "08:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21706",
-      "name": "Liechtenstein",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lie.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "22488",
-      "name": "Gibraltar",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/gib.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21706",
-      "name": "Liechtenstein",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lie.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "22488",
-      "name": "Gibraltar",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/gib.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401916332",
-    "idEvent": "401916332",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Indonesia vs Armenia",
-    "name": "Indonesia vs Armenia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Aqaba Development Stadium",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 11:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791644400000,
-    "startTime": "2026-10-10T15:00:00.000Z",
-    "endTime": "2026-10-10T17:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "09:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "22404",
-      "name": "Indonesia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "team2": {
-      "id": "21478",
-      "name": "Armenia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "22404",
-      "name": "Indonesia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21478",
-      "name": "Armenia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401890785",
-    "idEvent": "401890785",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "United States vs Spain",
-    "name": "United States vs Spain",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Audi Field",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 2:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791657000000,
-    "startTime": "2026-10-10T18:30:00.000Z",
-    "endTime": "2026-10-10T21:00:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "12:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2765",
-      "name": "United States",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "17640",
-      "name": "Spain",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2765",
-      "name": "United States",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "17640",
-      "name": "Spain",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401905174",
-    "idEvent": "401905174",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "France vs Latvia",
-    "name": "France vs Latvia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Francis Le Basser",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 3:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791658800000,
-    "startTime": "2026-10-10T19:00:00.000Z",
-    "endTime": "2026-10-10T21:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2755",
-      "name": "France",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "19156",
-      "name": "Latvia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lva.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2755",
-      "name": "France",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "19156",
-      "name": "Latvia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lva.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401921576",
-    "idEvent": "401921576",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Brazil vs Argentina",
-    "name": "Brazil vs Argentina",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Beira-Rio",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 3:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791660600000,
-    "startTime": "2026-10-10T19:30:00.000Z",
-    "endTime": "2026-10-10T22:00:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "01:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2752",
-      "name": "Brazil",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2750",
-      "name": "Argentina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2752",
-      "name": "Brazil",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2750",
-      "name": "Argentina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401914139",
-    "idEvent": "401914139",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Panama vs New Zealand",
-    "name": "Panama vs New Zealand",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Rommel Fernández Gutiérr",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 5:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791666000000,
-    "startTime": "2026-10-10T21:00:00.000Z",
-    "endTime": "2026-10-10T23:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2895",
-      "name": "Panama",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pan.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "4153",
-      "name": "New Zealand",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/nzl.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2895",
-      "name": "Panama",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pan.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "4153",
-      "name": "New Zealand",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/nzl.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401917206",
-    "idEvent": "401917206",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Venezuela vs Colombia",
-    "name": "Venezuela vs Colombia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Centro Nacional de Alto Rendimie",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 5:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791666000000,
-    "startTime": "2026-10-10T21:00:00.000Z",
-    "endTime": "2026-10-10T23:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20914",
-      "name": "Venezuela",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20914.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "11337",
-      "name": "Colombia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/col.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20914",
-      "name": "Venezuela",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20914.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "11337",
-      "name": "Colombia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/col.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401878627",
     "idEvent": "401878627",
     "sport": "football",
@@ -22142,110 +17555,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401925166",
-    "idEvent": "401925166",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "India vs Russia",
-    "name": "India vs Russia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Kishore Bharati Krirangan",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 8:30 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791721800000,
-    "startTime": "2026-10-11T12:30:00.000Z",
-    "endTime": "2026-10-11T15:00:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "06:30 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928147",
-    "idEvent": "401928147",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Chile vs Bolivia",
-    "name": "Chile vs Bolivia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Municipal de La Florida",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 5:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791752400000,
-    "startTime": "2026-10-11T21:00:00.000Z",
-    "endTime": "2026-10-11T23:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18848",
-      "name": "Chile",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18848.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "18772",
-      "name": "Bolivia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18772.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18848",
-      "name": "Chile",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18848.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "18772",
-      "name": "Bolivia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18772.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401878625",
     "idEvent": "401878625",
     "sport": "football",
@@ -22860,162 +18169,6 @@
       "id": "995",
       "name": "Kocaelispor",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/995.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401842209",
-    "idEvent": "401842209",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "One Knoxville vs Spokane Velocity FC",
-    "name": "One Knoxville vs Spokane Velocity FC",
-    "league": "USL League One",
-    "tournament": "USL League One",
-    "matchDesc": "USL League One",
-    "venue": "Covenant Health Park",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 3:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791745200000,
-    "startTime": "2026-10-11T19:00:00.000Z",
-    "endTime": "2026-10-11T21:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21821",
-      "name": "One Knoxville",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21821.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "22130",
-      "name": "Spokane Velocity FC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22130.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21821",
-      "name": "One Knoxville",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21821.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "22130",
-      "name": "Spokane Velocity FC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22130.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928767",
-    "idEvent": "401928767",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Consadole Sapporo vs ASC HOKKAIDO",
-    "name": "Consadole Sapporo vs ASC HOKKAIDO",
-    "league": "Club Friendly",
-    "tournament": "Club Friendly",
-    "matchDesc": "Club Friendly",
-    "venue": "",
-    "status": "upcoming",
-    "statusText": "Sun, October 10th at 1:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791694800000,
-    "startTime": "2026-10-11T05:00:00.000Z",
-    "endTime": "2026-10-11T07:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "11:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "9249",
-      "name": "Consadole Sapporo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9249.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134006",
-      "name": "ASC HOKKAIDO",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "9249",
-      "name": "Consadole Sapporo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9249.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134006",
-      "name": "ASC HOKKAIDO",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928124",
-    "idEvent": "401928124",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "IK Sirius vs IF Brommapojkarna",
-    "name": "IK Sirius vs IF Brommapojkarna",
-    "league": "Club Friendly",
-    "tournament": "Club Friendly",
-    "matchDesc": "Club Friendly",
-    "venue": "Studenternas IP",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 7:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791716400000,
-    "startTime": "2026-10-11T11:00:00.000Z",
-    "endTime": "2026-10-11T13:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "05:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "8547",
-      "name": "IK Sirius",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8547.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "8221",
-      "name": "IF Brommapojkarna",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8221.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "8547",
-      "name": "IK Sirius",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8547.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "8221",
-      "name": "IF Brommapojkarna",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8221.png",
       "score": ""
     },
     "score": "",
@@ -24794,266 +19947,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401922348",
-    "idEvent": "401922348",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Moldova vs Georgia",
-    "name": "Moldova vs Georgia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stadionul Zimbru",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 10:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791813600000,
-    "startTime": "2026-10-12T14:00:00.000Z",
-    "endTime": "2026-10-12T16:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "08:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401915883",
-    "idEvent": "401915883",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Andorra vs Faroe Islands",
-    "name": "Andorra vs Faroe Islands",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadi Nacional d'Andorra",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 11:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791817200000,
-    "startTime": "2026-10-12T15:00:00.000Z",
-    "endTime": "2026-10-12T17:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "09:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929556",
-    "idEvent": "401929556",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Morocco vs Uzbekistan",
-    "name": "Morocco vs Uzbekistan",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade El Barid",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791828000000,
-    "startTime": "2026-10-12T18:00:00.000Z",
-    "endTime": "2026-10-12T20:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401902579",
-    "idEvent": "401902579",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Canada vs Denmark",
-    "name": "Canada vs Denmark",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "BMO Field",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 3:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791833400000,
-    "startTime": "2026-10-12T19:30:00.000Z",
-    "endTime": "2026-10-12T22:00:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "01:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401919989",
-    "idEvent": "401919989",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "El Salvador vs Paraguay",
-    "name": "El Salvador vs Paraguay",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Cuscatlán",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 10:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791856800000,
-    "startTime": "2026-10-13T02:00:00.000Z",
-    "endTime": "2026-10-13T04:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "08:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401885425",
     "idEvent": "401885425",
     "sport": "football",
@@ -26042,162 +20935,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401844197",
-    "idEvent": "401844197",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Racing (Córdoba) vs Los Andes",
-    "name": "Racing (Córdoba) vs Los Andes",
-    "league": "Argentine Nacional B",
-    "tournament": "Argentine Nacional B",
-    "matchDesc": "Argentine Nacional B",
-    "venue": "Estadio Miguel Sancho",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 4:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791835200000,
-    "startTime": "2026-10-12T20:00:00.000Z",
-    "endTime": "2026-10-12T22:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "19145",
-      "name": "Racing (Córdoba)",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19145.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "13",
-      "name": "Los Andes",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "19145",
-      "name": "Racing (Córdoba)",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19145.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "13",
-      "name": "Los Andes",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401844199",
-    "idEvent": "401844199",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "All Boys vs Godoy Cruz Antonio Tomba",
-    "name": "All Boys vs Godoy Cruz Antonio Tomba",
-    "league": "Argentine Nacional B",
-    "tournament": "Argentine Nacional B",
-    "matchDesc": "Argentine Nacional B",
-    "venue": "Estadio Islas Malvinas",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 6:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791842400000,
-    "startTime": "2026-10-12T22:00:00.000Z",
-    "endTime": "2026-10-13T00:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "04:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "9786",
-      "name": "All Boys",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9786.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "6756",
-      "name": "Godoy Cruz Antonio Tomba",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6756.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "9786",
-      "name": "All Boys",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9786.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "6756",
-      "name": "Godoy Cruz Antonio Tomba",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6756.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401845131",
-    "idEvent": "401845131",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "UAI Urquiza vs Real Pilar",
-    "name": "UAI Urquiza vs Real Pilar",
-    "league": "Argentine Primera B",
-    "tournament": "Argentine Primera B",
-    "matchDesc": "Argentine Primera B",
-    "venue": "El Monumental de Villa Lynch",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791828000000,
-    "startTime": "2026-10-12T18:00:00.000Z",
-    "endTime": "2026-10-12T20:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "17705",
-      "name": "UAI Urquiza",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17705.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "18844",
-      "name": "Real Pilar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18844.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "17705",
-      "name": "UAI Urquiza",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17705.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "18844",
-      "name": "Real Pilar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18844.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401841264",
     "idEvent": "401841264",
     "sport": "football",
@@ -26864,162 +21601,6 @@
       "id": "20774",
       "name": "Mohun Bagan Super Giant",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20774.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898420",
-    "idEvent": "401898420",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "American University vs West Virginia",
-    "name": "American University vs West Virginia",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Reeves Field",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 1:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791824400000,
-    "startTime": "2026-10-12T17:00:00.000Z",
-    "endTime": "2026-10-12T19:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "11:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5730",
-      "name": "American University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/44.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "5658",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5730",
-      "name": "American University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/44.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "5658",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929577",
-    "idEvent": "401929577",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "South Carolina vs Columbia (SC)",
-    "name": "South Carolina vs Columbia (SC)",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Eugene E. Stone III Stadium",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791846000000,
-    "startTime": "2026-10-12T23:00:00.000Z",
-    "endTime": "2026-10-13T01:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5644",
-      "name": "South Carolina",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "132992",
-      "name": "Columbia (SC)",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5644",
-      "name": "South Carolina",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "132992",
-      "name": "Columbia (SC)",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401901156",
-    "idEvent": "401901156",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Cincinnati vs BYU",
-    "name": "Cincinnati vs BYU",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Gettler Stadium",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791846000000,
-    "startTime": "2026-10-12T23:00:00.000Z",
-    "endTime": "2026-10-13T01:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20392",
-      "name": "Cincinnati",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20392",
-      "name": "Cincinnati",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
       "score": ""
     },
     "score": "",
@@ -49661,7 +44242,7 @@
     "status": "live",
     "statusText": "Day 2: 2nd Session - New South Wales trail by 9 runs",
     "statusLabel": "LIVE",
-    "timestamp": 1791502200000,
+    "timestamp": 1792203124859,
     "date": "2026-10-09",
     "matchTime": "Last Night, 05:30 AM BST",
     "timeOrTimer": "LIVE",
@@ -49727,7 +44308,7 @@
     "status": "live",
     "statusText": "Australia A opt to bat",
     "statusLabel": "LIVE",
-    "timestamp": 1791516600000,
+    "timestamp": 1792203124859,
     "date": "2026-10-09",
     "matchTime": "Today, 09:30 AM BST",
     "timeOrTimer": "LIVE",

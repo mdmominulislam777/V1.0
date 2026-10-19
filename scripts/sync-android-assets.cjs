@@ -49,11 +49,7 @@ const coreFiles = [
   'clear-cache.js',
   'security.js',
   'config.js',
-  'highfy_logo1.png',
-  'highfy_watermark1.png',
-  'highfy_logo_official.png',
-  'highfy_logo_transparent.png',
-  'highfy_watermark.png'
+  'highfy_watermark1.png'
 ];
 
 coreFiles.forEach(file => {

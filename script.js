@@ -921,12 +921,17 @@
         }
       }
 
-      // Strictly purge any obsolete Cricbuzz items per user request
+      // Strictly purge obsolete Cricbuzz, marked WWE 24/7 Special, and non-pro football matches per user command
       if (Array.isArray(state.events)) {
         state.events = state.events.filter(e => {
           if (!e || !e.id) return false;
           if (String(e.id).startsWith('cr-cricbuzz-')) return false;
           if (e.source && String(e.source).toLowerCase().includes('cricbuzz')) return false;
+          if (e.id === 'wwe-24-7-live' || e.rawId === 'wwe-24-7-live' || (e.tournament === 'WWE Special' && String(e.title || '').includes('24/7'))) return false;
+          if (window.sportsCoordinator && typeof window.sportsCoordinator.isProfessionalFootball === 'function') {
+            const sp = (e.sport || e.sportName || '').toLowerCase().trim();
+            if ((sp === 'football' || sp === 'soccer') && !window.sportsCoordinator.isProfessionalFootball(e)) return false;
+          }
           return true;
         });
 
@@ -1221,9 +1226,16 @@
       return true;
     });
 
-    // Filter out non-allowed sports from list completely:
+    // Filter out non-allowed sports, marked WWE 24/7 card, and non-pro football completely:
     list = list.filter(e => {
+      if (!e) return false;
+      if (e.id === 'wwe-24-7-live' || e.rawId === 'wwe-24-7-live' || (e.tournament === 'WWE Special' && String(e.title || '').includes('24/7'))) return false;
       const sp = (e.sport || e.sportName || '').toLowerCase().trim();
+      if ((sp === 'football' || sp === 'soccer')) {
+        if (window.sportsCoordinator && typeof window.sportsCoordinator.isProfessionalFootball === 'function') {
+          if (!window.sportsCoordinator.isProfessionalFootball(e)) return false;
+        }
+      }
       return sp === 'cricket' || sp === 'football' || sp === 'soccer' || sp === 'wwe' || sp === 'wrestling' || sp === 'aew';
     });
 
@@ -1259,10 +1271,17 @@
       }
     }
 
+    const nowMs = Date.now();
     const allCount = list.filter(e => !isAppEventFinished(e) && isWithin7Days(e)).length;
     const todayCount = list.filter(e => !isAppEventFinished(e) && isTodayEv(e)).length;
     const finishedCount = list.filter(e => isAppEventFinished(e)).length;
-    const liveCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'live').length;
+    const liveCount = list.filter(e => {
+      if (isAppEventFinished(e)) return false;
+      if ((e.status || '').toLowerCase() !== 'live') return false;
+      const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+      if (ts > nowMs + 5 * 60 * 1000 && !e.team1?.score && !e.team2?.score) return false;
+      return true;
+    }).length;
     const upcomingCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming' && isWithin7Days(e)).length;
     const favCount = list.filter(e => !isAppEventFinished(e) && state.eventFavorites.includes(e.id)).length;
 
@@ -2402,6 +2421,18 @@
       searchQuery: state.searchQuery
     }) : (state.events || []);
 
+    filtered = filtered.filter(ev => {
+      if (!ev || !ev.id) return false;
+      if (ev.id === 'wwe-24-7-live' || ev.rawId === 'wwe-24-7-live' || (ev.tournament === 'WWE Special' && String(ev.title || '').includes('24/7'))) return false;
+      const sp = (ev.sport || ev.sportName || '').toLowerCase().trim();
+      if ((sp === 'football' || sp === 'soccer')) {
+        if (window.sportsCoordinator && typeof window.sportsCoordinator.isProfessionalFootball === 'function') {
+          if (!window.sportsCoordinator.isProfessionalFootball(ev)) return false;
+        }
+      }
+      return true;
+    });
+
     if (state.selectedFilter === 'FINISHED') {
       const nowMs = Date.now();
       filtered = filtered.filter(ev => {
@@ -2410,7 +2441,16 @@
         return !ts || (nowMs - ts <= 24 * 3600 * 1000);
       });
     } else if (state.selectedFilter === 'LIVE') {
-      filtered = filtered.filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'live');
+      const nowMs = Date.now();
+      filtered = filtered.filter(ev => {
+        if (isAppEventFinished(ev)) return false;
+        const status = (ev.status || '').toLowerCase();
+        if (status !== 'live') return false;
+        const ts = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
+        // If match starts in the future (more than 5 mins ahead) and has no live score, it is not live yet
+        if (ts > nowMs + 5 * 60 * 1000 && !ev.team1?.score && !ev.team2?.score) return false;
+        return true;
+      });
     } else if (state.selectedFilter === 'UPCOMING') {
       filtered = filtered
         .filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'upcoming' && isWithin3Days(ev))
@@ -2925,31 +2965,23 @@
     }
 
     if (hasVerifiedChannels) {
-      // Flatten all verified channels and their servers to render a clean flat list of PlayZ-style links (matching screenshot)
+      // Group and render clean verified channels without artificial Server 1, Server 2, Server 3 clutter
       const flatStreams = [];
+      const seenChannels = new Set();
+
       verifiedPlayableChannels.forEach((bcast, bIdx) => {
         const cleanChName = (bcast.name || '').toUpperCase().trim();
+        if (seenChannels.has(cleanChName)) return;
+        seenChannels.add(cleanChName);
+
         const bcastServers = bcast.servers || [];
+        const primaryServer = bcastServers[0];
+        if (!primaryServer || !primaryServer.url) return;
 
-        bcastServers.forEach((srv, sIdx) => {
-          let btnLabel = cleanChName;
-          const cleanSrvLabel = (srv.serverLabel || srv.name || '').toUpperCase().trim();
-
-          // Formulate standard labels matching the PlayZ TV screenshot
-          if (cleanSrvLabel && !cleanSrvLabel.includes('SERVER') && !cleanSrvLabel.includes('HD') && !cleanSrvLabel.includes('FHD') && !cleanSrvLabel.includes('1080') && !cleanSrvLabel.includes('1080P')) {
-            btnLabel = `${cleanChName} - ${cleanSrvLabel}`;
-          } else if (bcastServers.length > 1) {
-            btnLabel = `${cleanChName} - SERVER ${sIdx + 1}`;
-          }
-
-          // Clean server label rendering without artificial AQ/IN tags
-
-
-          flatStreams.push({
-            bIdx,
-            sIdx,
-            btnLabel
-          });
+        flatStreams.push({
+          bIdx,
+          sIdx: 0,
+          btnLabel: cleanChName
         });
       });
 
@@ -2982,12 +3014,29 @@
             return;
           }
 
-          closeModal('modal-select-server');
-          showToast(`Connecting to ${chosenBcast.name}...`, 'info');
+          // Build complete list of all verified channel streams from this popup
+          const allPopupStreams = [];
+          let selectedGlobalIdx = 0;
+
+          verifiedPlayableChannels.forEach((bcast, idx) => {
+            const chServer = bcast.servers?.[0];
+            if (chServer && chServer.url) {
+              const streamItem = {
+                ...chServer,
+                name: bcast.name,
+                channelName: bcast.name,
+                serverLabel: bcast.name
+              };
+              if (idx === bIdx) {
+                selectedGlobalIdx = allPopupStreams.length;
+              }
+              allPopupStreams.push(streamItem);
+            }
+          });
 
           playMedia({
             title: title,
-            streams: chosenBcast.servers,
+            streams: allPopupStreams.length > 0 ? allPopupStreams : chosenBcast.servers,
             id: item.id,
             team1: item.team1 || { name: t1Name },
             team2: item.team2 || { name: t2Name },
@@ -2997,7 +3046,7 @@
             tournament: tourn,
             broadcaster: chosenBcast.name,
             status: item.status || 'live',
-            activeStreamIndex: sIdx
+            activeStreamIndex: selectedGlobalIdx
           });
         });
       });
@@ -4716,6 +4765,20 @@
       filterKey: 'Fox Sports',
       logo: './assets/category-logos/fox-sports.png',
       ringColor: '#3b82f6'
+    },
+    {
+      id: 'tapmad',
+      name: 'Tapmad Sports',
+      filterKey: 'Tapmad',
+      logo: 'https://www.tapmad.com/images/tapmad_logo.png',
+      ringColor: '#ec4899'
+    },
+    {
+      id: 'fancode',
+      name: 'FanCode',
+      filterKey: 'FanCode',
+      logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/FanCode_logo.svg/320px-FanCode_logo.svg.png',
+      ringColor: '#f97316'
     }
   ];
 
@@ -5658,7 +5721,12 @@
       card.onclick = (e) => {
         e.preventDefault();
         const catName = card.getAttribute('data-category-name');
-        openCategoryDetail(catName);
+        if (catName && catName.toLowerCase() === 'sports') {
+          switchView('view-sports');
+          if (typeof renderChannels === 'function') renderChannels();
+        } else {
+          openCategoryDetail(catName);
+        }
       };
     });
   }
@@ -5990,6 +6058,79 @@
 
     DOM.favoritesGrid.innerHTML = favChannels.map(ch => createChannelCardHtml(ch)).join('');
     attachChannelClickEvents(DOM.favoritesGrid);
+  }
+
+  /**
+   * Render Match Highlights Grid
+   */
+  function renderHighlights() {
+    const highlightsGrid = document.getElementById('highlightsGrid');
+    const highlightsCount = document.getElementById('highlights-total-count');
+    if (!highlightsGrid) return;
+
+    // Collect all events or matches that have highlight video urls or videoUrl
+    const eventsList = state.events || [];
+    const highlights = eventsList.filter(ev => {
+      const url = ev.highlightVideo || ev.videoUrl || (ev.streams && ev.streams.find(s => s.url)?.url);
+      return url && typeof url === 'string' && url.trim().startsWith('http');
+    });
+
+    if (highlightsCount) highlightsCount.textContent = `${highlights.length} Videos`;
+
+    if (highlights.length === 0) {
+      highlightsGrid.innerHTML = `
+        <div class="col-span-full text-center py-16">
+          <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/25 flex items-center justify-center mx-auto mb-3 text-rose-400 text-2xl">
+            <i class="fa-solid fa-clapperboard"></i>
+          </div>
+          <h3 class="text-sm font-bold text-slate-200 mb-1">No Highlights Available Yet</h3>
+          <p class="text-xs text-slate-400 max-w-xs mx-auto">Match highlights and replays from TheSportsDB will appear here automatically once live games conclude.</p>
+        </div>
+      `;
+      return;
+    }
+
+    highlightsGrid.innerHTML = highlights.map(ev => {
+      const hUrl = ev.highlightVideo || ev.videoUrl || (ev.streams && ev.streams[0]?.url);
+      const title = escapeHtml(ev.title || `${ev.homeTeam?.name || 'Home'} vs ${ev.awayTeam?.name || 'Away'}`);
+      const league = escapeHtml(ev.league || ev.tournament || 'Match Replay');
+      const sport = escapeHtml(ev.sportName || ev.sport || 'Sports');
+      const timeStr = escapeHtml(ev.matchTime || ev.date || 'Recent');
+      const logo1 = ev.homeTeam?.logo || ev.team1?.logo || './assets/category-logos/ayna.png';
+      const logo2 = ev.awayTeam?.logo || ev.team2?.logo || './assets/category-logos/ayna.png';
+
+      return `
+        <div class="group relative rounded-2xl bg-[#0f172a] border border-slate-800/80 hover:border-sky-500/50 shadow-xl overflow-hidden transition-all duration-300 flex flex-col">
+          <div class="relative w-full aspect-video bg-slate-950 flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent z-10"></div>
+            <div class="flex items-center gap-4 z-0 opacity-40 group-hover:scale-105 transition-transform duration-500">
+              <img src="${escapeHtml(logo1)}" class="w-12 h-12 object-contain" alt="" onerror="this.style.display='none'" />
+              <span class="text-xs font-black text-slate-500">VS</span>
+              <img src="${escapeHtml(logo2)}" class="w-12 h-12 object-contain" alt="" onerror="this.style.display='none'" />
+            </div>
+            <button class="absolute z-20 w-12 h-12 rounded-full bg-rose-600 hover:bg-rose-500 text-white flex items-center justify-center shadow-lg shadow-rose-600/40 transform group-hover:scale-110 transition duration-300" onclick="if(typeof playMedia === 'function') playMedia({ title: '${title} (Highlights)', streams: [{ name: 'Highlight HD', url: '${hUrl}', quality: '1080p HD' }], id: '${ev.id}', logo: '${logo1}' });">
+              <i class="fa-solid fa-play ml-0.5"></i>
+            </button>
+            <span class="absolute top-2.5 left-2.5 z-20 px-2 py-0.5 rounded-full bg-rose-500 text-[10px] font-extrabold text-white uppercase tracking-wider shadow">Highlights</span>
+          </div>
+          <div class="p-3.5 flex flex-col flex-1 justify-between">
+            <div>
+              <div class="flex items-center justify-between text-[11px] text-sky-400 font-bold mb-1">
+                <span>${league}</span>
+                <span class="text-slate-400">${sport}</span>
+              </div>
+              <h4 class="text-xs font-extrabold text-white line-clamp-2 leading-snug mb-1.5">${title}</h4>
+            </div>
+            <div class="flex items-center justify-between pt-2 border-t border-slate-800 text-[11px] text-slate-400">
+              <span><i class="fa-regular fa-clock mr-1"></i> ${timeStr}</span>
+              <button class="px-3 py-1 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 text-sky-400 font-bold transition flex items-center gap-1.5" onclick="if(typeof playMedia === 'function') playMedia({ title: '${title} (Highlights)', streams: [{ name: 'Highlight HD', url: '${hUrl}', quality: '1080p HD' }], id: '${ev.id}', logo: '${logo1}' });">
+                <i class="fa-solid fa-circle-play"></i> Watch Now
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
 
   /**
@@ -7142,12 +7283,18 @@
   function setupPlayerControls() {
     refreshDOM();
 
-    // 1. Video Container Tap/Click Overlay Toggle
+    // 1. Video Container Tap/Click Overlay Toggle (Prevent native video pause on touch)
     const videoWrapper = document.querySelector('.player-video-wrapper');
     if (videoWrapper) {
+      let lastTapTime = 0;
       videoWrapper.addEventListener('click', (e) => {
         // Prevent toggle if clicking directly on an active button or slider
         if (e.target.closest('button') || e.target.closest('input')) return;
+        e.preventDefault();
+        e.stopPropagation();
+        const now = Date.now();
+        if (now - lastTapTime < 300) return; // Prevent double tap glitches
+        lastTapTime = now;
         togglePlayerOverlay();
       });
 
@@ -7156,11 +7303,20 @@
           showPlayerOverlay(true);
         }
       });
-      videoWrapper.addEventListener('touchstart', () => {
+      videoWrapper.addEventListener('touchstart', (e) => {
+        if (e.target.closest('button') || e.target.closest('input')) return;
         if (!isScreenLocked && DOM.playerControlsOverlay?.classList.contains('active')) {
           showPlayerOverlay(true);
         }
       }, { passive: true });
+    }
+
+    if (DOM.videoElement) {
+      DOM.videoElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        togglePlayerOverlay();
+      });
     }
 
     // 2. Play / Pause Action
@@ -7812,14 +7968,34 @@
       headerBrand.addEventListener('click', () => switchView('view-events'));
     }
 
+    const btnHeaderMenuDots = document.getElementById('btn-header-menu-dots');
+    const headerDropdownMenu = document.getElementById('header-dropdown-menu');
+    if (btnHeaderMenuDots && headerDropdownMenu) {
+      btnHeaderMenuDots.addEventListener('click', (e) => {
+        e.stopPropagation();
+        headerDropdownMenu.classList.toggle('hidden');
+      });
+      document.addEventListener('click', (e) => {
+        if (!headerDropdownMenu.contains(e.target) && !btnHeaderMenuDots.contains(e.target)) {
+          headerDropdownMenu.classList.add('hidden');
+        }
+      });
+    }
+
     const btnHeaderFavs = document.getElementById('btn-header-favs');
     if (btnHeaderFavs) {
-      btnHeaderFavs.addEventListener('click', () => switchView('view-favorites'));
+      btnHeaderFavs.addEventListener('click', () => {
+        if (headerDropdownMenu) headerDropdownMenu.classList.add('hidden');
+        switchView('view-favorites');
+      });
     }
 
     const btnHeaderRefresh = document.getElementById('btn-header-refresh');
     if (btnHeaderRefresh) {
-      btnHeaderRefresh.addEventListener('click', () => loadSportsEvents(true));
+      btnHeaderRefresh.addEventListener('click', () => {
+        if (headerDropdownMenu) headerDropdownMenu.classList.add('hidden');
+        loadSportsEvents(true);
+      });
     }
 
     // Back Buttons
@@ -7928,6 +8104,8 @@
       renderCategories();
     } else if (viewId === 'view-favorites') {
       renderFavorites();
+    } else if (viewId === 'view-highlights') {
+      renderHighlights();
     } else if (viewId === 'view-events') {
       renderEvents();
     }
@@ -9385,7 +9563,7 @@
       if (adminSplashInput && adminSplashPreview) {
         adminSplashInput.addEventListener('input', () => {
           const val = adminSplashInput.value.trim();
-          adminSplashPreview.src = val || state.customSplashLogo || '/highfy_logo_official.png';
+          adminSplashPreview.src = val || state.customSplashLogo || '/highfy_watermark1.png';
         });
       }
 
@@ -9450,7 +9628,7 @@
       if (adminDrawerInput && adminDrawerPreview) {
         adminDrawerInput.addEventListener('input', () => {
           const val = adminDrawerInput.value.trim();
-          adminDrawerPreview.src = val || state.customDrawerLogo || '/highfy_logo_official.png';
+          adminDrawerPreview.src = val || state.customDrawerLogo || '/highfy_watermark1.png';
         });
       }
 
@@ -9535,7 +9713,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customAppIcon}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_logo1.png'" />
+                <img src="${state.customAppIcon}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_watermark1.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">অ্যাপ আইকন (App Icon)</p>
                   <p class="text-[9.5px] text-amber-400">মাস্টার অ্যাপ ব্র্যান্ডিং</p>
@@ -9553,7 +9731,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-amber-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customSplashLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_logo1.png'" />
+                <img src="${state.customSplashLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_watermark1.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">লোডিং পেজ (Splash) ইমেজ</p>
                   <p class="text-[9.5px] text-amber-400">অ্যাপ স্প্ল্যাশ লোগো</p>
@@ -9571,7 +9749,7 @@
           html += `
             <div class="p-1.5 rounded-xl bg-slate-900/90 border border-emerald-500/40 flex items-center justify-between gap-2">
               <div class="flex items-center gap-2 min-w-0 flex-1">
-                <img src="${state.customDrawerLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_logo1.png'" />
+                <img src="${state.customDrawerLogo}" class="w-6 h-6 object-contain rounded bg-slate-800 p-0.5" onerror="this.src='./highfy_watermark1.png'" />
                 <div class="min-w-0">
                   <p class="font-bold text-white text-[11px] truncate">স্লাইড মেনু (Drawer) ইমেজ</p>
                   <p class="text-[9.5px] text-emerald-400">মেনু হেডার লোগো</p>

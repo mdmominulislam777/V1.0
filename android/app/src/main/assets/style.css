@@ -314,11 +314,11 @@ body #app {
 }
 
 .brand-badge-cyan {
-  color: #00e5ff;
+  color: #ffffff;
   font-weight: 900;
   margin-left: 2px;
   letter-spacing: 0.5px;
-  text-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+  text-shadow: none;
 }
 
 /* ==========================================================================
@@ -333,16 +333,16 @@ body #app {
   z-index: 12;
   background: linear-gradient(
     180deg,
-    rgba(0, 0, 0, 0.82) 0%,
-    rgba(0, 0, 0, 0.2) 28%,
-    rgba(0, 0, 0, 0.2) 72%,
-    rgba(0, 0, 0, 0.92) 100%
+    rgba(3, 7, 18, 0.88) 0%,
+    rgba(3, 7, 18, 0.15) 30%,
+    rgba(3, 7, 18, 0.15) 70%,
+    rgba(3, 7, 18, 0.94) 100%
   );
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1), backdrop-filter 0.3s ease;
   padding: 0;
   box-sizing: border-box;
 }
@@ -350,49 +350,53 @@ body #app {
 .player-controls-overlay.active {
   opacity: 1;
   pointer-events: auto;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 
-/* 1. Top Bar Over Video: [←] [Title] [🔊] [★] [🔒] */
+/* 1. Top Bar Over Video */
 .player-overlay-top {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 10px 14px;
-  gap: 10px;
+  padding: 12px 18px;
+  gap: 12px;
   width: 100%;
   box-sizing: border-box;
+  background: linear-gradient(180deg, rgba(3, 7, 18, 0.8) 0%, rgba(3, 7, 18, 0) 100%);
 }
 
 .player-overlay-btn {
-  width: 36px;
-  height: 36px;
-  min-width: 36px;
-  min-height: 36px;
+  width: 38px;
+  height: 38px;
+  min-width: 38px;
+  min-height: 38px;
   border-radius: 50%;
-  background: rgba(15, 23, 42, 0.55);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
   color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
   flex-shrink: 0;
 }
 
 .player-overlay-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: scale(1.08);
+  background: rgba(56, 189, 248, 0.25);
+  border-color: rgba(56, 189, 248, 0.6);
+  transform: translateY(-2px) scale(1.06);
   color: #38bdf8;
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.3);
 }
 
 .player-overlay-btn:active {
-  transform: scale(0.95);
+  transform: scale(0.94);
 }
 
 .player-overlay-title {
@@ -428,66 +432,67 @@ body #app {
 }
 
 .player-circle-btn-main {
-  width: 58px;
-  height: 58px;
-  min-width: 58px;
-  min-height: 58px;
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
   border-radius: 50%;
-  background: #ffffff;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
   border: none;
-  color: #0f172a;
-  font-size: 22px;
+  color: #030712;
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.65), 0 0 14px rgba(255, 255, 255, 0.35);
-  transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7), 0 0 24px rgba(56, 189, 248, 0.4);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, box-shadow 0.25s ease;
 }
 
 .player-circle-btn-main:hover {
-  transform: scale(1.1);
-  background: #f8fafc;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.8), 0 0 20px rgba(255, 255, 255, 0.6);
+  transform: scale(1.12);
+  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.85), 0 0 32px rgba(56, 189, 248, 0.7);
 }
 
 .player-circle-btn-main:active {
-  transform: scale(0.92);
+  transform: scale(0.95);
 }
 
 .player-circle-btn-main i {
-  color: #0b1322;
+  color: #030712;
 }
 
 .player-circle-btn-sub {
-  width: 44px;
-  height: 44px;
-  min-width: 44px;
-  min-height: 44px;
+  width: 46px;
+  height: 46px;
+  min-width: 46px;
+  min-height: 46px;
   border-radius: 50%;
-  background: rgba(15, 23, 42, 0.65);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.28);
   color: #ffffff;
   font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.4);
-  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .player-circle-btn-sub:hover {
-  background: rgba(255, 255, 255, 0.25);
-  border-color: rgba(255, 255, 255, 0.45);
+  background: rgba(56, 189, 248, 0.25);
+  border-color: rgba(56, 189, 248, 0.6);
   transform: scale(1.1);
   color: #38bdf8;
+  box-shadow: 0 6px 20px rgba(56, 189, 248, 0.35);
 }
 
 .player-circle-btn-sub:active {
-  transform: scale(0.92);
+  transform: scale(0.95);
 }
 
 /* 3. Bottom Timeline Scrubber & Quick Actions */
@@ -3819,12 +3824,12 @@ body .sports-card-badge,
 }
 
 /* ==========================================================================
-   10. Category Grid & Cards (Exact 2-Column Horizontal Model from Screenshot)
+   10. Category Grid & Cards (Square with 3 items per row)
    ========================================================================== */
 .categories-grid {
   padding: 0 8px 24px 8px;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 8px;
   width: 100%;
   box-sizing: border-box;
@@ -3833,35 +3838,36 @@ body .sports-card-badge,
 @media (min-width: 768px) {
   .categories-grid {
     padding: 0 12px 28px 12px;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 10px;
   }
 }
 
 @media (min-width: 1024px) {
   .categories-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 12px;
   }
 }
 
-/* Category Card (Horizontal Pill Layout matching Screenshot) */
+/* Category Card (Square Vertical Layout with 3 items per row) */
 .category-card {
   background: #ffffff;
   border: 1.5px solid var(--border-card, #dbe5f0);
   border-radius: 14px;
-  padding: 4px 10px;
+  padding: 6px 4px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  text-align: left;
-  gap: 10px;
+  justify-content: center;
+  gap: 6px;
+  text-align: center;
   cursor: pointer;
   position: relative;
   overflow: hidden;
-  height: 56px;
-  min-height: 56px;
+  aspect-ratio: 1 / 1;
+  height: auto;
+  min-height: unset;
   width: 100%;
   box-sizing: border-box;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -3894,12 +3900,12 @@ body .category-card:hover,
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.7), 0 0 12px rgba(56, 189, 248, 0.2);
 }
 
-/* Category Logo Container - Prominent, Large & Clean (Matching Red Marked Circle) */
+/* Category Logo Container - Prominent, Doubled Size & Clean */
 .category-logo-raised {
-  width: 48px;
-  height: 48px;
-  min-width: 48px;
-  min-height: 48px;
+  width: 92px;
+  height: 92px;
+  min-width: 92px;
+  min-height: 92px;
   border-radius: 50%;
   position: relative;
   display: flex;
@@ -3910,20 +3916,16 @@ body .category-card:hover,
   box-shadow: none;
   flex-shrink: 0;
   overflow: hidden;
+  margin-top: 2px;
   transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (min-width: 640px) {
-  .category-card {
-    height: 60px;
-    min-height: 60px;
-    padding: 5px 12px;
-  }
   .category-logo-raised {
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px;
+    width: 108px;
+    height: 108px;
+    min-width: 108px;
+    min-height: 108px;
   }
 }
 
@@ -3947,12 +3949,12 @@ body .category-card:hover .category-logo-raised,
   box-shadow: none;
 }
 
-/* Real High-Resolution Category Logo Image inside Container */
+/* Real High-Resolution Category Logo Image inside Container (Doubled) */
 .category-logo-img {
-  width: 46px;
-  height: 46px;
-  max-width: 46px;
-  max-height: 46px;
+  width: 82px;
+  height: 82px;
+  max-width: 82px;
+  max-height: 82px;
   border-radius: 50%;
   object-fit: contain;
   filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
@@ -3961,10 +3963,10 @@ body .category-card:hover .category-logo-raised,
 
 @media (min-width: 640px) {
   .category-logo-img {
-    width: 48px;
-    height: 48px;
-    max-width: 48px;
-    max-height: 48px;
+    width: 98px;
+    height: 98px;
+    max-width: 98px;
+    max-height: 98px;
   }
 }
 
@@ -3974,7 +3976,7 @@ body .category-logo-img,
 }
 
 .category-logo-icon {
-  font-size: 22px;
+  font-size: 28px;
   color: var(--accent-cyan, #0284c7);
   filter: none;
 }
@@ -3986,20 +3988,21 @@ body .category-logo-icon,
 }
 
 .category-info {
-  width: auto;
-  flex: 1;
+  width: 100%;
+  flex: 0 0 auto;
   min-width: 0;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   justify-content: center;
+  margin-bottom: 2px;
 }
 
 .category-name {
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 700;
   color: var(--text-primary, #0f172a);
-  text-align: left;
+  text-align: center;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -4010,7 +4013,7 @@ body .category-logo-icon,
 
 @media (min-width: 640px) {
   .category-name {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
@@ -5095,15 +5098,15 @@ body .drawer-header-brand {
   height: 94px;
   min-width: 94px;
   min-height: 94px;
-  border-radius: 0;
+  border-radius: 20px;
   padding: 0;
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  background: #060911;
+  border: 1.5px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.75), inset 0 1px 2px rgba(255, 255, 255, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
   position: relative;
   transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -5126,12 +5129,12 @@ body .drawer-big-logo-frame:hover {
 .drawer-big-logo-img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 0 !important;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  border-radius: 18px !important;
   display: block;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.6))
-          drop-shadow(0 0 10px rgba(59, 130, 246, 0.35))
-          drop-shadow(0 0 12px rgba(239, 68, 68, 0.25));
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6));
 }
 
 .drawer-big-logo {

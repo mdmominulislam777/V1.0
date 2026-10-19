@@ -37,10 +37,8 @@
 
   const CONFIG = {
     // Cloudflare Worker API Architecture
-    CLOUDFLARE_WORKER_BASE_URL: env.CLOUDFLARE_WORKER_BASE_URL || "",
-    API_BASE_URL: env.API_BASE_URL || env.CLOUDFLARE_WORKER_BASE_URL || (isNativeOrFileOrigin
-      ? 'https://ais-pre-4n6xu2ltg6dzfgsxbb5usk-847516639097.asia-east1.run.app'
-      : ''),
+    CLOUDFLARE_WORKER_BASE_URL: env.CLOUDFLARE_WORKER_BASE_URL || "https://highfy-tv.mdmominulislam5600.workers.dev",
+    API_BASE_URL: env.API_BASE_URL || (isNativeOrFileOrigin ? 'https://highfy-tv.mdmominulislam5600.workers.dev' : ''),
 
     // Auto-refresh intervals in milliseconds (rate-limit conscious)
     CRICKET_REFRESH: 60000,   // 60 seconds

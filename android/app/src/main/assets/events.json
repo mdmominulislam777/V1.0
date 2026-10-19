@@ -1,5 +1,1250 @@
 [
   {
+    "id": "willow-B0HFWWJWH6",
+    "idEvent": "willow-B0HFWWJWH6",
+    "rawId": "B0HFWWJWH6",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "South Africa vs Australia",
+    "name": "South Africa vs Australia",
+    "league": "Australia tour of South Africa 2026",
+    "tournament": "Australia tour of South Africa 2026",
+    "matchDesc": "Australia tour of South Africa 2026 - 2nd Test - South Africa vs Australia",
+    "status": "live",
+    "statusText": "LIVE",
+    "statusLabel": "LIVE",
+    "startTime": "2026-10-18T08:05:00.000Z",
+    "endTime": "2026-10-18T14:05:00.000Z",
+    "timestamp": 1792310700000,
+    "date": "2026-10-18",
+    "matchTime": "1:30 PM BDT",
+    "timeOrTimer": "LIVE",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.df9be69a-7bd6-4883-a021-b7e4801a1573/3/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.df9be69a-7bd6-4883-a021-b7e4801a1573/3/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMQL4NJS",
+    "idEvent": "willow-B0HMQL4NJS",
+    "rawId": "B0HMQL4NJS",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs Sri Lanka",
+    "name": "Pakistan vs Sri Lanka",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 1st Match - Pakistan vs Sri Lanka",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-18T09:00:00.000Z",
+    "endTime": "2026-10-18T15:00:00.000Z",
+    "timestamp": 1792314000000,
+    "date": "2026-10-18",
+    "matchTime": "Live at 3 PM BDT",
+    "timeOrTimer": "Live at 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ff2ab606-8760-414e-8ecf-129071962621/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ff2ab606-8760-414e-8ecf-129071962621/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HLWVSMP1",
+    "idEvent": "willow-B0HLWVSMP1",
+    "rawId": "B0HLWVSMP1",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 2nd T20I - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-18T13:30:00.000Z",
+    "endTime": "2026-10-18T19:30:00.000Z",
+    "timestamp": 1792330200000,
+    "date": "2026-10-18",
+    "matchTime": "Live at 7:30 PM BDT",
+    "timeOrTimer": "Live at 7:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ce490310-1690-4efb-8183-aed9c087d64c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.ce490310-1690-4efb-8183-aed9c087d64c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HN5C4CSG",
+    "idEvent": "willow-B0HN5C4CSG",
+    "rawId": "B0HN5C4CSG",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Afghanistan vs Zimbabwe",
+    "name": "Afghanistan vs Zimbabwe",
+    "league": "ODI Tri-Nation Series in UAE 2026",
+    "tournament": "ODI Tri-Nation Series in UAE 2026",
+    "matchDesc": "ODI Tri-Nation Series in UAE 2026 - 2nd Match - Afghanistan vs Zimbabwe",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-19T12:00:00.000Z",
+    "endTime": "2026-10-19T18:00:00.000Z",
+    "timestamp": 1792411200000,
+    "date": "2026-10-19",
+    "matchTime": "Tomorrow 6 PM BDT",
+    "timeOrTimer": "Tomorrow 6 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.5efef589-1f64-4d38-aa3b-301bc9215d8f/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.5efef589-1f64-4d38-aa3b-301bc9215d8f/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0GLKK9LBV",
+    "idEvent": "willow-B0GLKK9LBV",
+    "rawId": "B0GLKK9LBV",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs England",
+    "name": "Pakistan vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 2nd Match - Pakistan vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-20T09:00:00.000Z",
+    "endTime": "2026-10-20T15:00:00.000Z",
+    "timestamp": 1792486800000,
+    "date": "2026-10-20",
+    "matchTime": "Tue, Oct 20 3 PM BDT",
+    "timeOrTimer": "Tue, Oct 20 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.abf1e0e9-9f21-4e46-a441-e074eaf2d220/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.abf1e0e9-9f21-4e46-a441-e074eaf2d220/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HKMGSFBW",
+    "idEvent": "willow-B0HKMGSFBW",
+    "rawId": "B0HKMGSFBW",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 3rd T20I - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-18T13:30:00.000Z",
+    "endTime": "2026-10-18T19:30:00.000Z",
+    "timestamp": 1792330200000,
+    "date": "2026-10-18",
+    "matchTime": "Tue, Oct 20 7:30 PM BDT",
+    "timeOrTimer": "Tue, Oct 20 7:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6b4fa639-76c1-4aff-bf00-aa2a560eb3a2/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6b4fa639-76c1-4aff-bf00-aa2a560eb3a2/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HN5PJ2BX",
+    "idEvent": "willow-B0HN5PJ2BX",
+    "rawId": "B0HN5PJ2BX",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Afghanistan vs Bangladesh",
+    "name": "Afghanistan vs Bangladesh",
+    "league": "ODI Tri-Nation Series in UAE 2026",
+    "tournament": "ODI Tri-Nation Series in UAE 2026",
+    "matchDesc": "ODI Tri-Nation Series in UAE 2026 - 3rd Match - Afghanistan vs Bangladesh",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-21T12:00:00.000Z",
+    "endTime": "2026-10-21T18:00:00.000Z",
+    "timestamp": 1792584000000,
+    "date": "2026-10-21",
+    "matchTime": "Wed, Oct 21 6 PM BDT",
+    "timeOrTimer": "Wed, Oct 21 6 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.db5ea85c-7e9a-438e-85d9-349683aeca3b/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.db5ea85c-7e9a-438e-85d9-349683aeca3b/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Bangladesh",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Afghanistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Bangladesh",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMLGQPBV",
+    "idEvent": "willow-B0HMLGQPBV",
+    "rawId": "B0HMLGQPBV",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Sri Lanka vs England",
+    "name": "Sri Lanka vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 3rd Match - Sri Lanka vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-22T09:00:00.000Z",
+    "endTime": "2026-10-22T15:00:00.000Z",
+    "timestamp": 1792659600000,
+    "date": "2026-10-22",
+    "matchTime": "Thu, Oct 22 3 PM BDT",
+    "timeOrTimer": "Thu, Oct 22 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.343f357f-7382-4a16-88df-1c4941942e53/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.343f357f-7382-4a16-88df-1c4941942e53/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HL5YN53G",
+    "idEvent": "willow-B0HL5YN53G",
+    "rawId": "B0HL5YN53G",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 1st ODI - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-23T08:30:00.000Z",
+    "endTime": "2026-10-23T14:30:00.000Z",
+    "timestamp": 1792744200000,
+    "date": "2026-10-23",
+    "matchTime": "Fri, Oct 23 2:30 PM BDT",
+    "timeOrTimer": "Fri, Oct 23 2:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1e5b6fd4-25b7-4e3a-be5b-aa3786467831/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1e5b6fd4-25b7-4e3a-be5b-aa3786467831/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMLP8D75",
+    "idEvent": "willow-B0HMLP8D75",
+    "rawId": "B0HMLP8D75",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 2nd ODI - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-25T09:00:00.000Z",
+    "endTime": "2026-10-25T15:00:00.000Z",
+    "timestamp": 1792918800000,
+    "date": "2026-10-25",
+    "matchTime": "Sun, Oct 25 2:30 PM BDT",
+    "timeOrTimer": "Sun, Oct 25 2:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.9ce2fde4-1fb3-475d-8568-fc7d05c9b0e7/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.9ce2fde4-1fb3-475d-8568-fc7d05c9b0e7/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMG5YWFC",
+    "idEvent": "willow-B0HMG5YWFC",
+    "rawId": "B0HMG5YWFC",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs England",
+    "name": "Pakistan vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 4th Match - Pakistan vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-25T09:00:00.000Z",
+    "endTime": "2026-10-25T15:00:00.000Z",
+    "timestamp": 1792918800000,
+    "date": "2026-10-25",
+    "matchTime": "Sun, Oct 25 3 PM BDT",
+    "timeOrTimer": "Sun, Oct 25 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6e464c74-5145-4aa7-ab93-bf7dc4a472f7/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.6e464c74-5145-4aa7-ab93-bf7dc4a472f7/1/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HKDPRJRS",
+    "idEvent": "willow-B0HKDPRJRS",
+    "rawId": "B0HKDPRJRS",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "South Africa vs Australia",
+    "name": "South Africa vs Australia",
+    "league": "Australia tour of South Africa 2026",
+    "tournament": "Australia tour of South Africa 2026",
+    "matchDesc": "Australia tour of South Africa 2026 - 3rd Test - South Africa vs Australia",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-27T07:30:00.000Z",
+    "endTime": "2026-10-27T13:30:00.000Z",
+    "timestamp": 1793086200000,
+    "date": "2026-10-27",
+    "matchTime": "Tue, Oct 27 1:30 PM BDT",
+    "timeOrTimer": "Tue, Oct 27 1:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.20a790a3-51e9-4ec1-9a8b-cb632845af2d/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.20a790a3-51e9-4ec1-9a8b-cb632845af2d/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "South Africa",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Australia",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HN2PT7BB",
+    "idEvent": "willow-B0HN2PT7BB",
+    "rawId": "B0HN2PT7BB",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Pakistan vs Sri Lanka",
+    "name": "Pakistan vs Sri Lanka",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 5th Match - Pakistan vs Sri Lanka",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-27T07:30:00.000Z",
+    "endTime": "2026-10-27T13:30:00.000Z",
+    "timestamp": 1793086200000,
+    "date": "2026-10-27",
+    "matchTime": "Tue, Oct 27 3 PM BDT",
+    "timeOrTimer": "Tue, Oct 27 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1751377a-8a97-41ca-8cfe-a48a200fae9c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.1751377a-8a97-41ca-8cfe-a48a200fae9c/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Pakistan",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HMGDLS21",
+    "idEvent": "willow-B0HMGDLS21",
+    "rawId": "B0HMGDLS21",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "India Women vs Zimbabwe Women",
+    "name": "India Women vs Zimbabwe Women",
+    "league": "Zimbabwe Women tour of India 2026",
+    "tournament": "Zimbabwe Women tour of India 2026",
+    "matchDesc": "Zimbabwe Women tour of India 2026 - 3rd ODI - India Women vs Zimbabwe Women",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-28T08:30:00.000Z",
+    "endTime": "2026-10-28T14:30:00.000Z",
+    "timestamp": 1793176200000,
+    "date": "2026-10-28",
+    "matchTime": "Wed, Oct 28 2:30 PM BDT",
+    "timeOrTimer": "Wed, Oct 28 2:30 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.e1dcd31f-dfe8-44de-84bd-ed233da230f6/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.e1dcd31f-dfe8-44de-84bd-ed233da230f6/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "India Women",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "Zimbabwe Women",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
+    "id": "willow-B0HG6HPFD3",
+    "idEvent": "willow-B0HG6HPFD3",
+    "rawId": "B0HG6HPFD3",
+    "sport": "cricket",
+    "sportName": "Cricket",
+    "sportIcon": "fa-baseball-bat-ball",
+    "title": "Sri Lanka vs England",
+    "name": "Sri Lanka vs England",
+    "league": "Pakistan ODI Tri-Series 2026",
+    "tournament": "Pakistan ODI Tri-Series 2026",
+    "matchDesc": "Pakistan ODI Tri-Series 2026 - 6th Match - Sri Lanka vs England",
+    "status": "upcoming",
+    "statusText": "Scheduled",
+    "statusLabel": "Upcoming",
+    "startTime": "2026-10-29T09:00:00.000Z",
+    "endTime": "2026-10-29T15:00:00.000Z",
+    "timestamp": 1793264400000,
+    "date": "2026-10-29",
+    "matchTime": "Thu, Oct 29 3 PM BDT",
+    "timeOrTimer": "Thu, Oct 29 3 PM BDT",
+    "cover_image": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.84dc9ca5-fdc8-46c9-bc90-b6008efe1e58/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "thumbnail": "https://m.media-amazon.com/images/S/le-target-images-prod/amzn1.dv.gti.84dc9ca5-fdc8-46c9-bc90-b6008efe1e58/2/BOXART-16X9/en-US._UR1920,1080_.jpeg",
+    "isHot": true,
+    "team1": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "team2": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "homeTeam": {
+      "name": "Sri Lanka",
+      "logo": "",
+      "score": ""
+    },
+    "awayTeam": {
+      "name": "England",
+      "logo": "",
+      "score": ""
+    },
+    "broadcaster": "Willow HD",
+    "broadcasters": [
+      "Willow HD",
+      "Willow Xtra"
+    ],
+    "strTVStation": "Willow HD",
+    "channelId": "ch-willow-hd",
+    "channels": [
+      "ch-willow-hd",
+      "ch-willow-xtra"
+    ],
+    "hasStream": true,
+    "verificationSource": "Willow Cricket Event Feed",
+    "verificationDetail": "Verified Live Broadcaster",
+    "source": "Willow Cricket",
+    "streams": [
+      {
+        "name": "Willow Cricket HD (Server 1)",
+        "serverLabel": "Server 1 HD",
+        "channelName": "Willow HD",
+        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+        "quality": "1080p FHD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 2 Sky)",
+        "serverLabel": "Server 2 (Sky Cricket)",
+        "channelName": "Willow HD",
+        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
+        "quality": "720p HD"
+      },
+      {
+        "name": "Willow Cricket HD (Server 3 DD Sports)",
+        "serverLabel": "Server 3 (DD Sports)",
+        "channelName": "Willow HD",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "quality": "720p HD"
+      }
+    ]
+  },
+  {
     "id": "tsdb-2494052",
     "idEvent": "2494052",
     "sport": "football",
@@ -892,62 +2137,6 @@
     "broadcasters": [],
     "strTVStation": "",
     "subText": "Can-Am • Scheduled",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2605413",
-    "idEvent": "2605413",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Þróttur Reykjavik vs Fylkir",
-    "name": "Þróttur Reykjavik vs Fylkir",
-    "league": "Icelandic 1 deild karla",
-    "tournament": "Icelandic 1 deild karla",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/tzjamk1614355569.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-09-19T16:15:00.000Z",
-    "endTime": "2026-09-19T18:45:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1789834500000,
-    "date": "2026-09-19",
-    "matchTime": "Sat, Sep 19, 10:15 PM BST",
-    "timeOrTimer": "1 - 0",
-    "venue": "Eimskipsvöllurinn, Iceland",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "140787",
-      "name": "Þróttur Reykjavik",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/fbfc171614288098.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "137968",
-      "name": "Fylkir",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/59d3pj1579111376.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "140787",
-      "name": "Þróttur Reykjavik",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/fbfc171614288098.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "137968",
-      "name": "Fylkir",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/59d3pj1579111376.png",
-      "score": "0"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "Icelandic 1 deild karla • Sat, Sep 19, 10:15 PM BST",
     "source": "TheSportsDB (Free)",
     "streams": []
   },
@@ -2199,174 +3388,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2432603",
-    "idEvent": "2432603",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Hamilton Tiger-Cats vs Edmonton Elks",
-    "name": "Hamilton Tiger-Cats vs Edmonton Elks",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791586800000,
-    "date": "2026-10-10",
-    "matchTime": "Tonight, 05:00 AM BST",
-    "timeOrTimer": "Tonight, 05:00 AM BST",
-    "venue": "Hamilton Stadium, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135002",
-      "name": "Hamilton Tiger-Cats",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qtwsuq1424727420.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135008",
-      "name": "Edmonton Elks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5icq721630952022.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135002",
-      "name": "Hamilton Tiger-Cats",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/qtwsuq1424727420.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135008",
-      "name": "Edmonton Elks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/5icq721630952022.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Tonight, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475438",
-    "idEvent": "2475438",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Dallas Cowboys vs Tampa Bay Buccaneers",
-    "name": "Dallas Cowboys vs Tampa Bay Buccaneers",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-09T00:15:00.000Z",
-    "endTime": "2026-10-09T02:45:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791504900000,
-    "date": "2026-10-09",
-    "matchTime": "Today, 06:15 AM BST",
-    "timeOrTimer": "16 - 24",
-    "venue": "AT&T Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134934",
-      "name": "Dallas Cowboys",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/76ew3c1784718447.png",
-      "score": "16"
-    },
-    "team2": {
-      "id": "134945",
-      "name": "Tampa Bay Buccaneers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2dfpdl1537820969.png",
-      "score": "24"
-    },
-    "homeTeam": {
-      "id": "134934",
-      "name": "Dallas Cowboys",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/76ew3c1784718447.png",
-      "score": "16"
-    },
-    "awayTeam": {
-      "id": "134945",
-      "name": "Tampa Bay Buccaneers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/2dfpdl1537820969.png",
-      "score": "24"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Today, 06:15 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498956",
-    "idEvent": "2498956",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Louisville vs Florida State",
-    "name": "Louisville vs Florida State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791586800000,
-    "date": "2026-10-10",
-    "matchTime": "Tonight, 05:00 AM BST",
-    "timeOrTimer": "Tonight, 05:00 AM BST",
-    "venue": "L&N Federal Credit Union Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136908",
-      "name": "Louisville",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/eb6qjl1564336166.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "136889",
-      "name": "Florida State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e5uzkd1642618216.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "136908",
-      "name": "Louisville",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/eb6qjl1564336166.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "136889",
-      "name": "Florida State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e5uzkd1642618216.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Tonight, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2397369",
     "idEvent": "2397369",
     "sport": "football",
@@ -3037,174 +4058,6 @@
     "broadcasters": [],
     "strTVStation": "",
     "subText": "French Pro D2 • Today, 11:30 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2432604",
-    "idEvent": "2432604",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "BC Lions vs Ottawa Redblacks",
-    "name": "BC Lions vs Ottawa Redblacks",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-10T02:00:00.000Z",
-    "endTime": "2026-10-10T04:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791597600000,
-    "date": "2026-10-10",
-    "matchTime": "Tomorrow, 08:00 AM BST",
-    "timeOrTimer": "Tomorrow, 08:00 AM BST",
-    "venue": "BC Place, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135006",
-      "name": "BC Lions",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ysxssy1424732039.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135004",
-      "name": "Ottawa Redblacks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8wjz71546002654.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135006",
-      "name": "BC Lions",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/ysxssy1424732039.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135004",
-      "name": "Ottawa Redblacks",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8wjz71546002654.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Tomorrow, 08:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2432605",
-    "idEvent": "2432605",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Winnipeg Blue Bombers vs Calgary Stampeders",
-    "name": "Winnipeg Blue Bombers vs Calgary Stampeders",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-10T23:00:00.000Z",
-    "endTime": "2026-10-11T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791673200000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 05:00 AM BST",
-    "timeOrTimer": "Sun, Oct 11, 05:00 AM BST",
-    "venue": "Princess Auto Stadium, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135010",
-      "name": "Winnipeg Blue Bombers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/4bo4wj1561667273.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135007",
-      "name": "Calgary Stampeders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/lksemj1565196917.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135010",
-      "name": "Winnipeg Blue Bombers",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/4bo4wj1561667273.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135007",
-      "name": "Calgary Stampeders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/lksemj1565196917.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Sun, Oct 11, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498957",
-    "idEvent": "2498957",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Alabama vs Georgia",
-    "name": "Alabama vs Georgia",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-10T23:30:00.000Z",
-    "endTime": "2026-10-11T02:00:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791675000000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 05:30 AM BST",
-    "timeOrTimer": "Sun, Oct 11, 05:30 AM BST",
-    "venue": "Bryant Denny Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136168",
-      "name": "Alabama",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9phwqo1564335442.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "137104",
-      "name": "Georgia",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/so7nct1641185101.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "136168",
-      "name": "Alabama",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9phwqo1564335442.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "137104",
-      "name": "Georgia",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/so7nct1641185101.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Sun, Oct 11, 05:30 AM BST",
     "source": "TheSportsDB (Free)",
     "streams": []
   },
@@ -3881,174 +4734,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2475439",
-    "idEvent": "2475439",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Jacksonville Jaguars vs Philadelphia Eagles",
-    "name": "Jacksonville Jaguars vs Philadelphia Eagles",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "The Jacksonville Jaguars and Philadelphia Eagles meet at Tottenham Hotspur Stadium in one of the marquee games of the 2026 NFL International Series. Jacksonville return to their established second home in London after winning the AFC South with a 13-4 record last season, while Philadelphia arrive as another 2025 division champion and one of the NFC’s most recognizable contenders. The matchup brings together two high-profile quarterbacks in Trevor Lawrence and Jalen Hurts, with Saquon Barkley and Jacksonville’s developing offensive core providing additional star power. Philadelphia have won both of their previous regular-season games outside the United States, including a 24-18 victory over Jacksonville at Wembley in 2018, while the Jaguars possess unrivalled experience playing in London. With both teams carrying playoff expectations and an international spotlight on Tottenham Hotspur Stadium, the Week 5 matchup represents one of the most significant games on the 2026 London schedule.",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-11T13:30:00.000Z",
-    "endTime": "2026-10-11T16:00:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791725400000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 07:30 PM BST",
-    "timeOrTimer": "Sun, Oct 11, 07:30 PM BST",
-    "venue": "Tottenham Hotspur Stadium, United Kingdom",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134928",
-      "name": "Jacksonville Jaguars",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/0mrsd41546427902.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134936",
-      "name": "Philadelphia Eagles",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/pnpybf1515852421.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134928",
-      "name": "Jacksonville Jaguars",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/0mrsd41546427902.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134936",
-      "name": "Philadelphia Eagles",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/pnpybf1515852421.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Sun, Oct 11, 07:30 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475440",
-    "idEvent": "2475440",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Tennessee Titans vs Houston Texans",
-    "name": "Tennessee Titans vs Houston Texans",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-11T17:00:00.000Z",
-    "endTime": "2026-10-11T19:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791738000000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 11:00 PM BST",
-    "timeOrTimer": "Sun, Oct 11, 11:00 PM BST",
-    "venue": "Nissan Stadium Nashville, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134929",
-      "name": "Tennessee Titans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3td0f41779180767.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134926",
-      "name": "Houston Texans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o71ce41784719551.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134929",
-      "name": "Tennessee Titans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/3td0f41779180767.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134926",
-      "name": "Houston Texans",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o71ce41784719551.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Sun, Oct 11, 11:00 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475441",
-    "idEvent": "2475441",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Miami Dolphins vs Cincinnati Bengals",
-    "name": "Miami Dolphins vs Cincinnati Bengals",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-11T17:00:00.000Z",
-    "endTime": "2026-10-11T19:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791738000000,
-    "date": "2026-10-11",
-    "matchTime": "Sun, Oct 11, 11:00 PM BST",
-    "timeOrTimer": "Sun, Oct 11, 11:00 PM BST",
-    "venue": "Hard Rock Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134919",
-      "name": "Miami Dolphins",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e803xt1784722221.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134923",
-      "name": "Cincinnati Bengals",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/h1ce8y1784717263.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134919",
-      "name": "Miami Dolphins",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/e803xt1784722221.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134923",
-      "name": "Cincinnati Bengals",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/h1ce8y1784717263.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Sun, Oct 11, 11:00 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2397372",
     "idEvent": "2397372",
     "sport": "football",
@@ -4665,118 +5350,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2432606",
-    "idEvent": "2432606",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Montreal Alouettes vs Saskatchewan Roughriders",
-    "name": "Montreal Alouettes vs Saskatchewan Roughriders",
-    "league": "CFL",
-    "tournament": "CFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/ffypv51488739128.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-12T17:00:00.000Z",
-    "endTime": "2026-10-12T19:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791824400000,
-    "date": "2026-10-12",
-    "matchTime": "Mon, Oct 12, 11:00 PM BST",
-    "timeOrTimer": "Mon, Oct 12, 11:00 PM BST",
-    "venue": "Percival Molson Memorial Stadium, Canada",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "135003",
-      "name": "Montreal Alouettes",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/a6pbbp1628555426.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "135009",
-      "name": "Saskatchewan Roughriders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xrdull1630952245.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "135003",
-      "name": "Montreal Alouettes",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/a6pbbp1628555426.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "135009",
-      "name": "Saskatchewan Roughriders",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/xrdull1630952245.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "CFL • Mon, Oct 12, 11:00 PM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2475451",
-    "idEvent": "2475451",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Atlanta Falcons vs Baltimore Ravens",
-    "name": "Atlanta Falcons vs Baltimore Ravens",
-    "league": "NFL",
-    "tournament": "NFL",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/g85fqz1662057187.png",
-    "matchDesc": "",
-    "status": "upcoming",
-    "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
-    "startTime": "2026-10-12T00:20:00.000Z",
-    "endTime": "2026-10-12T02:50:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791764400000,
-    "date": "2026-10-12",
-    "matchTime": "Mon, Oct 12, 06:20 AM BST",
-    "timeOrTimer": "Mon, Oct 12, 06:20 AM BST",
-    "venue": "Mercedes-Benz Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "134942",
-      "name": "Atlanta Falcons",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9ucfd41784714178.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134922",
-      "name": "Baltimore Ravens",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/einz3p1546172463.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "134942",
-      "name": "Atlanta Falcons",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/9ucfd41784714178.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134922",
-      "name": "Baltimore Ravens",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/einz3p1546172463.png",
-      "score": ""
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NFL • Mon, Oct 12, 06:20 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2400494",
     "idEvent": "2400494",
     "sport": "baseball",
@@ -5282,230 +5855,6 @@
     "streams": []
   },
   {
-    "id": "tsdb-2498951",
-    "idEvent": "2498951",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "FIU vs New Mexico State",
-    "name": "FIU vs New Mexico State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T00:04:00.000Z",
-    "endTime": "2026-10-08T02:34:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791417840000,
-    "date": "2026-10-08",
-    "matchTime": "Yesterday, 06:04 AM BST",
-    "timeOrTimer": "22 - 3",
-    "venue": "Pitbull Stadium, United States",
-    "isHot": false,
-    "videoUrl": "https://www.youtube.com/watch?v=bWbbUMGCgfA",
-    "team1": {
-      "id": "136886",
-      "name": "FIU",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/cdys521564335854.png",
-      "score": "22"
-    },
-    "team2": {
-      "id": "136927",
-      "name": "New Mexico State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8qb1s1564336377.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "136886",
-      "name": "FIU",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/cdys521564335854.png",
-      "score": "22"
-    },
-    "awayTeam": {
-      "id": "136927",
-      "name": "New Mexico State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/k8qb1s1564336377.png",
-      "score": "3"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Yesterday, 06:04 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498952",
-    "idEvent": "2498952",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Liberty vs Sam Houston State",
-    "name": "Liberty vs Sam Houston State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791500400000,
-    "date": "2026-10-09",
-    "matchTime": "Last Night, 05:00 AM BST",
-    "timeOrTimer": "35 - 3",
-    "venue": "Arthur L Williams Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136904",
-      "name": "Liberty",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/z26guc1564336125.png",
-      "score": "35"
-    },
-    "team2": {
-      "id": "137072",
-      "name": "Sam Houston State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/24i8ua1642638402.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "136904",
-      "name": "Liberty",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/z26guc1564336125.png",
-      "score": "35"
-    },
-    "awayTeam": {
-      "id": "137072",
-      "name": "Sam Houston State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/24i8ua1642638402.png",
-      "score": "3"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Last Night, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2498953",
-    "idEvent": "2498953",
-    "sport": "football",
-    "sportName": "American Football",
-    "sportIcon": "fa-trophy",
-    "title": "Western Kentucky vs Missouri State",
-    "name": "Western Kentucky vs Missouri State",
-    "league": "NCAA Division 1 Football",
-    "tournament": "NCAA Division 1 Football",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/hm3cyr1758455622.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791500400000,
-    "date": "2026-10-09",
-    "matchTime": "Last Night, 05:00 AM BST",
-    "timeOrTimer": "34 - 13",
-    "venue": "Houchens Industries-L.T. Smith Stadium, United States",
-    "isHot": false,
-    "videoUrl": null,
-    "team1": {
-      "id": "136977",
-      "name": "Western Kentucky",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o96a831564337158.png",
-      "score": "34"
-    },
-    "team2": {
-      "id": "137044",
-      "name": "Missouri State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/outdlf1564357157.png",
-      "score": "13"
-    },
-    "homeTeam": {
-      "id": "136977",
-      "name": "Western Kentucky",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/o96a831564337158.png",
-      "score": "34"
-    },
-    "awayTeam": {
-      "id": "137044",
-      "name": "Missouri State",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/outdlf1564357157.png",
-      "score": "13"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "NCAA Division 1 Football • Last Night, 05:00 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "tsdb-2397681",
-    "idEvent": "2397681",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Corpus Christi FC vs Fort Wayne FC",
-    "name": "Corpus Christi FC vs Fort Wayne FC",
-    "league": "American USL League One",
-    "tournament": "American USL League One",
-    "leagueBadge": "https://r2.thesportsdb.com/images/media/league/badge/wupe6s1625336127.png",
-    "matchDesc": "",
-    "status": "finished",
-    "statusText": "Full Time",
-    "statusLabel": "FT",
-    "startTime": "2026-10-08T00:30:00.000Z",
-    "endTime": "2026-10-08T03:00:00.000Z",
-    "authoritativeEndTime": null,
-    "timestamp": 1791419400000,
-    "date": "2026-10-08",
-    "matchTime": "Yesterday, 06:30 AM BST",
-    "timeOrTimer": "1 - 3",
-    "venue": ", United States",
-    "isHot": false,
-    "videoUrl": "https://www.youtube.com/watch?v=VCwEZpxf1ck",
-    "team1": {
-      "id": "142174",
-      "name": "Corpus Christi FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/986sog1655993103.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "142230",
-      "name": "Fort Wayne FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/swe0q71765557912.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "142174",
-      "name": "Corpus Christi FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/986sog1655993103.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "142230",
-      "name": "Fort Wayne FC",
-      "logo": "https://r2.thesportsdb.com/images/media/team/badge/swe0q71765557912.png",
-      "score": "3"
-    },
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "subText": "American USL League One • Yesterday, 06:30 AM BST",
-    "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
     "id": "tsdb-2398471",
     "idEvent": "2398471",
     "sport": "football",
@@ -6007,110 +6356,6 @@
     "strTVStation": "",
     "subText": "French Pro D2 • Last Night, 01:00 AM BST",
     "source": "TheSportsDB (Free)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401925167",
-    "idEvent": "401925167",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "India vs Russia",
-    "name": "India vs Russia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Kishore Bharati Krirangan",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791462600000,
-    "startTime": "2026-10-08T12:30:00.000Z",
-    "endTime": "2026-10-08T15:00:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "06:30 PM",
-    "timeOrTimer": "0 - 4",
-    "team1": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": "0"
-    },
-    "team2": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": "4"
-    },
-    "homeTeam": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": "0"
-    },
-    "awayTeam": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": "4"
-    },
-    "score": "0 - 4",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886349",
-    "idEvent": "401886349",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Alebrijes de Oaxaca vs Correcaminos UAT",
-    "name": "Alebrijes de Oaxaca vs Correcaminos UAT",
-    "league": "Mexican Liga de Expansión MX",
-    "tournament": "Mexican Liga de Expansión MX",
-    "matchDesc": "Liga de Expansión MX",
-    "venue": "Estadio Tecnólogico de Oaxaca",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791507600000,
-    "startTime": "2026-10-09T01:00:00.000Z",
-    "endTime": "2026-10-09T03:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "2 - 1",
-    "team1": {
-      "id": "17233",
-      "name": "Alebrijes de Oaxaca",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17233.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "8931",
-      "name": "Correcaminos UAT",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8931.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "17233",
-      "name": "Alebrijes de Oaxaca",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17233.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "8931",
-      "name": "Correcaminos UAT",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8931.png",
-      "score": "1"
-    },
-    "score": "2 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
     "streams": []
   },
   {
@@ -6634,162 +6879,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401907899",
-    "idEvent": "401907899",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Always Ready vs Nacional Potosí",
-    "name": "Always Ready vs Nacional Potosí",
-    "league": "Copa Bolivia",
-    "tournament": "Copa Bolivia",
-    "matchDesc": "Copa Bolivia, Group B",
-    "venue": "Municipal Villa Ingenio",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791486000000,
-    "startTime": "2026-10-08T19:00:00.000Z",
-    "endTime": "2026-10-08T21:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "2 - 3",
-    "team1": {
-      "id": "19425",
-      "name": "Always Ready",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19425.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "10311",
-      "name": "Nacional Potosí",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10311.png",
-      "score": "3"
-    },
-    "homeTeam": {
-      "id": "19425",
-      "name": "Always Ready",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19425.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "10311",
-      "name": "Nacional Potosí",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10311.png",
-      "score": "3"
-    },
-    "score": "2 - 3",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401907799",
-    "idEvent": "401907799",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Blooming vs Bolívar",
-    "name": "Blooming vs Bolívar",
-    "league": "Copa Bolivia",
-    "tournament": "Copa Bolivia",
-    "matchDesc": "Copa Bolivia, Group A",
-    "venue": "Estadio Ramón Tahuichi",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791504000000,
-    "startTime": "2026-10-09T00:00:00.000Z",
-    "endTime": "2026-10-09T02:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "6047",
-      "name": "Blooming",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6047.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "2681",
-      "name": "Bolívar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2681.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "6047",
-      "name": "Blooming",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6047.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "2681",
-      "name": "Bolívar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2681.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401879561",
-    "idEvent": "401879561",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Antigua GFC vs Municipal",
-    "name": "Antigua GFC vs Municipal",
-    "league": "Guatemalan Liga Nacional",
-    "tournament": "Guatemalan Liga Nacional",
-    "matchDesc": "Guatemalan Liga Nacional",
-    "venue": "Estadio Pensativo",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791507600000,
-    "startTime": "2026-10-09T01:00:00.000Z",
-    "endTime": "2026-10-09T03:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "7253",
-      "name": "Antigua GFC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7253.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "7258",
-      "name": "Municipal",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7258.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "7253",
-      "name": "Antigua GFC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7253.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "7258",
-      "name": "Municipal",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/7258.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401899718",
     "idEvent": "401899718",
     "sport": "football",
@@ -6835,994 +6924,6 @@
       "score": "1"
     },
     "score": "2 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898895",
-    "idEvent": "401898895",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Long Island University vs Central Connecticut",
-    "name": "Long Island University vs Central Connecticut",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "LIU Soccer Park",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791478800000,
-    "startTime": "2026-10-08T17:00:00.000Z",
-    "endTime": "2026-10-08T19:30:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "11:00 PM",
-    "timeOrTimer": "3 - 1",
-    "team1": {
-      "id": "5594",
-      "name": "Long Island University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2341.png",
-      "score": "3"
-    },
-    "team2": {
-      "id": "5847",
-      "name": "Central Connecticut",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2115.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "5594",
-      "name": "Long Island University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2341.png",
-      "score": "3"
-    },
-    "awayTeam": {
-      "id": "5847",
-      "name": "Central Connecticut",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2115.png",
-      "score": "1"
-    },
-    "score": "3 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898741",
-    "idEvent": "401898741",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Stonehill vs Chicago State",
-    "name": "Stonehill vs Chicago State",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Skyhawk Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791486000000,
-    "startTime": "2026-10-08T19:00:00.000Z",
-    "endTime": "2026-10-08T21:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "6 - 1",
-    "team1": {
-      "id": "21976",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "6"
-    },
-    "team2": {
-      "id": "21165",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "21976",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "6"
-    },
-    "awayTeam": {
-      "id": "21165",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "score": "6 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898526",
-    "idEvent": "401898526",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Western Illinois vs Eastern Illinois",
-    "name": "Western Illinois vs Eastern Illinois",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "John MacKenzie Alumni Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791493200000,
-    "startTime": "2026-10-08T21:00:00.000Z",
-    "endTime": "2026-10-08T23:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "4 - 1",
-    "team1": {
-      "id": "5736",
-      "name": "Western Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png",
-      "score": "4"
-    },
-    "team2": {
-      "id": "5731",
-      "name": "Eastern Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2197.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "5736",
-      "name": "Western Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2710.png",
-      "score": "4"
-    },
-    "awayTeam": {
-      "id": "5731",
-      "name": "Eastern Illinois",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2197.png",
-      "score": "1"
-    },
-    "score": "4 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898573",
-    "idEvent": "401898573",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Incarnate Word vs SIU Edwardsville",
-    "name": "Incarnate Word vs SIU Edwardsville",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Gayle and Tom Benson Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791495000000,
-    "startTime": "2026-10-08T21:30:00.000Z",
-    "endTime": "2026-10-09T00:00:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "03:30 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "18032",
-      "name": "Incarnate Word",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2916.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "17412",
-      "name": "SIU Edwardsville",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2565.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "18032",
-      "name": "Incarnate Word",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2916.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "17412",
-      "name": "SIU Edwardsville",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2565.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401892376",
-    "idEvent": "401892376",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "William & Mary vs Howard",
-    "name": "William & Mary vs Howard",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Martin Family Stadium at Albert-",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791496800000,
-    "startTime": "2026-10-08T22:00:00.000Z",
-    "endTime": "2026-10-09T00:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "04:00 AM",
-    "timeOrTimer": "4 - 0",
-    "team1": {
-      "id": "5637",
-      "name": "William & Mary",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2729.png",
-      "score": "4"
-    },
-    "team2": {
-      "id": "17393",
-      "name": "Howard",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/47.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "5637",
-      "name": "William & Mary",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2729.png",
-      "score": "4"
-    },
-    "awayTeam": {
-      "id": "17393",
-      "name": "Howard",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/47.png",
-      "score": "0"
-    },
-    "score": "4 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898587",
-    "idEvent": "401898587",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Lindenwood vs UT Rio Grande Valley",
-    "name": "Lindenwood vs UT Rio Grande Valley",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Hunter Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791504000000,
-    "startTime": "2026-10-09T00:00:00.000Z",
-    "endTime": "2026-10-09T02:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "06:00 AM",
-    "timeOrTimer": "3 - 1",
-    "team1": {
-      "id": "21653",
-      "name": "Lindenwood",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2815.png",
-      "score": "3"
-    },
-    "team2": {
-      "id": "18023",
-      "name": "UT Rio Grande Valley",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/292.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "21653",
-      "name": "Lindenwood",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2815.png",
-      "score": "3"
-    },
-    "awayTeam": {
-      "id": "18023",
-      "name": "UT Rio Grande Valley",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/292.png",
-      "score": "1"
-    },
-    "score": "3 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898560",
-    "idEvent": "401898560",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Houston Christian vs Southern Indiana",
-    "name": "Houston Christian vs Southern Indiana",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Sorrels Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791505800000,
-    "startTime": "2026-10-09T00:30:00.000Z",
-    "endTime": "2026-10-09T03:00:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "06:30 AM",
-    "timeOrTimer": "1 - 1",
-    "team1": {
-      "id": "17392",
-      "name": "Houston Christian",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "21712",
-      "name": "Southern Indiana",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png",
-      "score": "1"
-    },
-    "homeTeam": {
-      "id": "17392",
-      "name": "Houston Christian",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2277.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "21712",
-      "name": "Southern Indiana",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/88.png",
-      "score": "1"
-    },
-    "score": "1 - 1",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401883771",
-    "idEvent": "401883771",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Michigan State vs Minnesota",
-    "name": "Michigan State vs Minnesota",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "DeMartin Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "4 - 0",
-    "team1": {
-      "id": "20425",
-      "name": "Michigan State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png",
-      "score": "4"
-    },
-    "team2": {
-      "id": "20542",
-      "name": "Minnesota",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/135.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20425",
-      "name": "Michigan State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/127.png",
-      "score": "4"
-    },
-    "awayTeam": {
-      "id": "20542",
-      "name": "Minnesota",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/135.png",
-      "score": "0"
-    },
-    "score": "4 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401883592",
-    "idEvent": "401883592",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Florida vs Alabama",
-    "name": "Florida vs Alabama",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Donald R. Dizney Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "1 - 0",
-    "team1": {
-      "id": "20499",
-      "name": "Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "20524",
-      "name": "Alabama",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20499",
-      "name": "Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/57.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "20524",
-      "name": "Alabama",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/333.png",
-      "score": "0"
-    },
-    "score": "1 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401901458",
-    "idEvent": "401901458",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Notre Dame vs Virginia",
-    "name": "Notre Dame vs Virginia",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Alumni Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "1 - 0",
-    "team1": {
-      "id": "20328",
-      "name": "Notre Dame",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "20336",
-      "name": "Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20328",
-      "name": "Notre Dame",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/87.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "20336",
-      "name": "Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/258.png",
-      "score": "0"
-    },
-    "score": "1 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886858",
-    "idEvent": "401886858",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "West Virginia vs BYU",
-    "name": "West Virginia vs BYU",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Dick Dlesk Soccer Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "2 - 0",
-    "team1": {
-      "id": "20382",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20382",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
-      "score": "0"
-    },
-    "score": "2 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401900354",
-    "idEvent": "401900354",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Utah State vs Washington State",
-    "name": "Utah State vs Washington State",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Chuck & Gloria Bell Soccer Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791493200000,
-    "startTime": "2026-10-08T21:00:00.000Z",
-    "endTime": "2026-10-08T23:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "2 - 0",
-    "team1": {
-      "id": "20558",
-      "name": "Utah State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/328.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "20493",
-      "name": "Washington State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20558",
-      "name": "Utah State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/328.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "20493",
-      "name": "Washington State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/265.png",
-      "score": "0"
-    },
-    "score": "2 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401883756",
-    "idEvent": "401883756",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Purdue vs Michigan",
-    "name": "Purdue vs Michigan",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Folk Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791500400000,
-    "startTime": "2026-10-08T23:00:00.000Z",
-    "endTime": "2026-10-09T01:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "6 - 5",
-    "team1": {
-      "id": "20519",
-      "name": "Purdue",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
-      "score": "6"
-    },
-    "team2": {
-      "id": "20459",
-      "name": "Michigan",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
-      "score": "5"
-    },
-    "homeTeam": {
-      "id": "20519",
-      "name": "Purdue",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2509.png",
-      "score": "6"
-    },
-    "awayTeam": {
-      "id": "20459",
-      "name": "Michigan",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/130.png",
-      "score": "5"
-    },
-    "score": "6 - 5",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401900072",
-    "idEvent": "401900072",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Chicago State vs Stonehill",
-    "name": "Chicago State vs Stonehill",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Gwendolyn Brooks College Prep",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791475200000,
-    "startTime": "2026-10-08T16:00:00.000Z",
-    "endTime": "2026-10-08T18:30:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "10:00 PM",
-    "timeOrTimer": "1 - 7",
-    "team1": {
-      "id": "21556",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "126699",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "7"
-    },
-    "homeTeam": {
-      "id": "21556",
-      "name": "Chicago State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2130.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "126699",
-      "name": "Stonehill",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/284.png",
-      "score": "7"
-    },
-    "score": "1 - 7",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401885557",
-    "idEvent": "401885557",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "West Florida vs Lipscomb",
-    "name": "West Florida vs Lipscomb",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "UWF Soccer Complex",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791475200000,
-    "startTime": "2026-10-08T16:00:00.000Z",
-    "endTime": "2026-10-08T18:30:00.000Z",
-    "date": "2026-10-08",
-    "matchTime": "10:00 PM",
-    "timeOrTimer": "3 - 0",
-    "team1": {
-      "id": "131300",
-      "name": "West Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2697.png",
-      "score": "3"
-    },
-    "team2": {
-      "id": "20594",
-      "name": "Lipscomb",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/288.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "131300",
-      "name": "West Florida",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2697.png",
-      "score": "3"
-    },
-    "awayTeam": {
-      "id": "20594",
-      "name": "Lipscomb",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/288.png",
-      "score": "0"
-    },
-    "score": "3 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401890261",
-    "idEvent": "401890261",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Northern Colorado vs Idaho",
-    "name": "Northern Colorado vs Idaho",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Jackson Stadium",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791482400000,
-    "startTime": "2026-10-08T18:00:00.000Z",
-    "endTime": "2026-10-08T20:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "0 - 0",
-    "team1": {
-      "id": "20622",
-      "name": "Northern Colorado",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2458.png",
-      "score": "0"
-    },
-    "team2": {
-      "id": "20553",
-      "name": "Idaho",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/70.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20622",
-      "name": "Northern Colorado",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2458.png",
-      "score": "0"
-    },
-    "awayTeam": {
-      "id": "20553",
-      "name": "Idaho",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/70.png",
-      "score": "0"
-    },
-    "score": "0 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401889927",
-    "idEvent": "401889927",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "George Washington vs George Mason",
-    "name": "George Washington vs George Mason",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "GW Soccer Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791486000000,
-    "startTime": "2026-10-08T19:00:00.000Z",
-    "endTime": "2026-10-08T21:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "2 - 0",
-    "team1": {
-      "id": "20484",
-      "name": "George Washington",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/45.png",
-      "score": "2"
-    },
-    "team2": {
-      "id": "20367",
-      "name": "George Mason",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2244.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20484",
-      "name": "George Washington",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/45.png",
-      "score": "2"
-    },
-    "awayTeam": {
-      "id": "20367",
-      "name": "George Mason",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2244.png",
-      "score": "0"
-    },
-    "score": "2 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401900275",
-    "idEvent": "401900275",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Alcorn State vs Arkansas-Pine Bluff",
-    "name": "Alcorn State vs Arkansas-Pine Bluff",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Key City Park",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791489600000,
-    "startTime": "2026-10-08T20:00:00.000Z",
-    "endTime": "2026-10-08T22:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "17 - 0",
-    "team1": {
-      "id": "20596",
-      "name": "Alcorn State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2016.png",
-      "score": "17"
-    },
-    "team2": {
-      "id": "20597",
-      "name": "Arkansas-Pine Bluff",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2029.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20596",
-      "name": "Alcorn State",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2016.png",
-      "score": "17"
-    },
-    "awayTeam": {
-      "id": "20597",
-      "name": "Arkansas-Pine Bluff",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2029.png",
-      "score": "0"
-    },
-    "score": "17 - 0",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401901503",
-    "idEvent": "401901503",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Eastern Kentucky vs Central Arkansas",
-    "name": "Eastern Kentucky vs Central Arkansas",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "EKU Soccer Field",
-    "status": "finished",
-    "statusText": "FT",
-    "statusLabel": "FT",
-    "timestamp": 1791489600000,
-    "startTime": "2026-10-08T20:00:00.000Z",
-    "endTime": "2026-10-08T22:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "1 - 0",
-    "team1": {
-      "id": "20607",
-      "name": "Eastern Kentucky",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png",
-      "score": "1"
-    },
-    "team2": {
-      "id": "20564",
-      "name": "Central Arkansas",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
-      "score": "0"
-    },
-    "homeTeam": {
-      "id": "20607",
-      "name": "Eastern Kentucky",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2198.png",
-      "score": "1"
-    },
-    "awayTeam": {
-      "id": "20564",
-      "name": "Central Arkansas",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2110.png",
-      "score": "0"
-    },
-    "score": "1 - 0",
     "broadcaster": "",
     "broadcasters": [],
     "strTVStation": "",
@@ -8662,630 +7763,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401915884",
-    "idEvent": "401915884",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Andorra vs Faroe Islands",
-    "name": "Andorra vs Faroe Islands",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadi Nacional d'Andorra",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 6:30 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791541800000,
-    "startTime": "2026-10-09T10:30:00.000Z",
-    "endTime": "2026-10-09T13:00:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "04:30 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928210",
-    "idEvent": "401928210",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Montenegro vs Bosnia-Herzegovina",
-    "name": "Montenegro vs Bosnia-Herzegovina",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "DG Arena",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 7:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791543600000,
-    "startTime": "2026-10-09T11:00:00.000Z",
-    "endTime": "2026-10-09T13:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "05:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21480",
-      "name": "Montenegro",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mne.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20920",
-      "name": "Bosnia-Herzegovina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bih.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21480",
-      "name": "Montenegro",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mne.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20920",
-      "name": "Bosnia-Herzegovina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bih.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401922349",
-    "idEvent": "401922349",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Moldova vs Georgia",
-    "name": "Moldova vs Georgia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stadionul Zimbru",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 10:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791554400000,
-    "startTime": "2026-10-09T14:00:00.000Z",
-    "endTime": "2026-10-09T16:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "08:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401917872",
-    "idEvent": "401917872",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Malta vs Luxembourg",
-    "name": "Malta vs Luxembourg",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "MFA Centenary Stadium",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 1:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791565200000,
-    "startTime": "2026-10-09T17:00:00.000Z",
-    "endTime": "2026-10-09T19:30:00.000Z",
-    "date": "2026-10-09",
-    "matchTime": "11:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20864",
-      "name": "Malta",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mlt.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20967",
-      "name": "Luxembourg",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lux.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20864",
-      "name": "Malta",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mlt.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20967",
-      "name": "Luxembourg",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lux.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401917870",
-    "idEvent": "401917870",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Haiti vs Japan",
-    "name": "Haiti vs Japan",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Bauer",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2891",
-      "name": "Haiti",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2758",
-      "name": "Japan",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2891",
-      "name": "Haiti",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2758",
-      "name": "Japan",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jpn.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929555",
-    "idEvent": "401929555",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Malaysia vs Saudi Arabia",
-    "name": "Malaysia vs Saudi Arabia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Aspire Complex",
-    "status": "upcoming",
-    "statusText": "TBD",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "22036",
-      "name": "Malaysia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "team2": {
-      "id": "21932",
-      "name": "Saudi Arabia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "22036",
-      "name": "Malaysia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21932",
-      "name": "Saudi Arabia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ksa.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401902581",
-    "idEvent": "401902581",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Germany vs Australia",
-    "name": "Germany vs Australia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "BBBank Wildpark",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791570600000,
-    "startTime": "2026-10-09T18:30:00.000Z",
-    "endTime": "2026-10-09T21:00:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2756",
-      "name": "Germany",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2751",
-      "name": "Australia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2756",
-      "name": "Germany",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ger.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2751",
-      "name": "Australia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/aus.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929576",
-    "idEvent": "401929576",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Morocco vs Uzbekistan",
-    "name": "Morocco vs Uzbekistan",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Prince Moulay Al Hassan",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 4:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791576000000,
-    "startTime": "2026-10-09T20:00:00.000Z",
-    "endTime": "2026-10-09T22:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401916334",
-    "idEvent": "401916334",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Peru vs Philippines",
-    "name": "Peru vs Philippines",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "La Videnita",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 4:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791576000000,
-    "startTime": "2026-10-09T20:00:00.000Z",
-    "endTime": "2026-10-09T22:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21130",
-      "name": "Peru",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21130.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "21546",
-      "name": "Philippines",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/phi.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21130",
-      "name": "Peru",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21130.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21546",
-      "name": "Philippines",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/phi.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401902450",
-    "idEvent": "401902450",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Canada vs Denmark",
-    "name": "Canada vs Denmark",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Saputo",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791586800000,
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401916246",
-    "idEvent": "401916246",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Mexico vs Jamaica",
-    "name": "Mexico vs Jamaica",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Victoria",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791594000000,
-    "startTime": "2026-10-10T01:00:00.000Z",
-    "endTime": "2026-10-10T03:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2812",
-      "name": "Mexico",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mex.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2893",
-      "name": "Jamaica",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jam.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2812",
-      "name": "Mexico",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mex.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2893",
-      "name": "Jamaica",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/jam.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401919979",
-    "idEvent": "401919979",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "El Salvador vs Paraguay",
-    "name": "El Salvador vs Paraguay",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Cuscatlán",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791595800000,
-    "startTime": "2026-10-10T01:30:00.000Z",
-    "endTime": "2026-10-10T04:00:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401900908",
     "idEvent": "401900908",
     "sport": "football",
@@ -9588,162 +8065,6 @@
       "id": "6870",
       "name": "Kasimpasa",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6870.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886348",
-    "idEvent": "401886348",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Tapatío vs Club Atlético La Paz",
-    "name": "Tapatío vs Club Atlético La Paz",
-    "league": "Mexican Liga de Expansión MX",
-    "tournament": "Mexican Liga de Expansión MX",
-    "matchDesc": "Liga de Expansión MX",
-    "venue": "Estadio Akron",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791586800000,
-    "startTime": "2026-10-09T23:00:00.000Z",
-    "endTime": "2026-10-10T01:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20720",
-      "name": "Tapatío",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "team2": {
-      "id": "21533",
-      "name": "Club Atlético La Paz",
-      "logo": "https://a.espncdn.com/guid/c6a0e36d-c3f5-3f04-93d8-1436cb1f6e9c/logos/default.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20720",
-      "name": "Tapatío",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21533",
-      "name": "Club Atlético La Paz",
-      "logo": "https://a.espncdn.com/guid/c6a0e36d-c3f5-3f04-93d8-1436cb1f6e9c/logos/default.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401886347",
-    "idEvent": "401886347",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Tepatitlán FC vs Club Atlético Morelia",
-    "name": "Tepatitlán FC vs Club Atlético Morelia",
-    "league": "Mexican Liga de Expansión MX",
-    "tournament": "Mexican Liga de Expansión MX",
-    "matchDesc": "Liga de Expansión MX",
-    "venue": "Estadio Gregorio Tepa Gómez",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791594000000,
-    "startTime": "2026-10-10T01:00:00.000Z",
-    "endTime": "2026-10-10T03:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20721",
-      "name": "Tepatitlán FC",
-      "logo": "https://a.espncdn.com/guid/763ce445-4f2c-3dc4-bb2a-a682c33f108c/logos/default.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "221",
-      "name": "Club Atlético Morelia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/221.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20721",
-      "name": "Tepatitlán FC",
-      "logo": "https://a.espncdn.com/guid/763ce445-4f2c-3dc4-bb2a-a682c33f108c/logos/default.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "221",
-      "name": "Club Atlético Morelia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/221.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929641",
-    "idEvent": "401929641",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Central Coast Mariners vs APIA Leichhardt Tigers FC",
-    "name": "Central Coast Mariners vs APIA Leichhardt Tigers FC",
-    "league": "Club Friendly",
-    "tournament": "Club Friendly",
-    "matchDesc": "Club Friendly",
-    "venue": "Central Coast Stadium",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 9:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791594000000,
-    "startTime": "2026-10-10T01:00:00.000Z",
-    "endTime": "2026-10-10T03:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "07:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5325",
-      "name": "Central Coast Mariners",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5325.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134009",
-      "name": "APIA Leichhardt Tigers FC",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5325",
-      "name": "Central Coast Mariners",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5325.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134009",
-      "name": "APIA Leichhardt Tigers FC",
-      "logo": "./assets/team-placeholder.svg",
       "score": ""
     },
     "score": "",
@@ -10420,578 +8741,6 @@
       "id": "15515",
       "name": "Shanghai Port",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/15515.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401889256",
-    "idEvent": "401889256",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Sutton United vs Boreham Wood",
-    "name": "Sutton United vs Boreham Wood",
-    "league": "English National League",
-    "tournament": "English National League",
-    "matchDesc": "National League",
-    "venue": "VBS Community Stadium",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:45 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791571500000,
-    "startTime": "2026-10-09T18:45:00.000Z",
-    "endTime": "2026-10-09T21:15:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:45 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "3231",
-      "name": "Sutton United",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3231.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2595",
-      "name": "Boreham Wood",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2595.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "3231",
-      "name": "Sutton United",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3231.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2595",
-      "name": "Boreham Wood",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2595.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875904",
-    "idEvent": "401875904",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Almere City vs FC Eindhoven",
-    "name": "Almere City vs FC Eindhoven",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Yanmar Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5291",
-      "name": "Almere City",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5291.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3732",
-      "name": "FC Eindhoven",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3732.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5291",
-      "name": "Almere City",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/5291.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3732",
-      "name": "FC Eindhoven",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3732.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875902",
-    "idEvent": "401875902",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "De Graafschap vs Jong FC Utrecht",
-    "name": "De Graafschap vs Jong FC Utrecht",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "De Vijverberg",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "144",
-      "name": "De Graafschap",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/144.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "18278",
-      "name": "Jong FC Utrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18278.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "144",
-      "name": "De Graafschap",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/144.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "18278",
-      "name": "Jong FC Utrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18278.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875903",
-    "idEvent": "401875903",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "FC Dordrecht vs FC Emmen",
-    "name": "FC Dordrecht vs FC Emmen",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "M-Scores Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "4426",
-      "name": "FC Dordrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4426.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3707",
-      "name": "FC Emmen",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3707.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "4426",
-      "name": "FC Dordrecht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/4426.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3707",
-      "name": "FC Emmen",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3707.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875895",
-    "idEvent": "401875895",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "FC Volendam vs Vitesse",
-    "name": "FC Volendam vs Vitesse",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Kras Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2727",
-      "name": "FC Volendam",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2727.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "154",
-      "name": "Vitesse",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/154.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2727",
-      "name": "FC Volendam",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/2727.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "154",
-      "name": "Vitesse",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/154.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875901",
-    "idEvent": "401875901",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Heracles Almelo vs RKC Waalwijk",
-    "name": "Heracles Almelo vs RKC Waalwijk",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Erve Asito",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "3708",
-      "name": "Heracles Almelo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3708.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "155",
-      "name": "RKC Waalwijk",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/155.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "3708",
-      "name": "Heracles Almelo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3708.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "155",
-      "name": "RKC Waalwijk",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/155.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875900",
-    "idEvent": "401875900",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Jong Ajax vs VVV-Venlo",
-    "name": "Jong Ajax vs VVV-Venlo",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Sportpark De Toekomst",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "10597",
-      "name": "Jong Ajax",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10597.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3731",
-      "name": "VVV-Venlo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3731.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "10597",
-      "name": "Jong Ajax",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/10597.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3731",
-      "name": "VVV-Venlo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3731.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875899",
-    "idEvent": "401875899",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Jong AZ vs FC Den Bosch",
-    "name": "Jong AZ vs FC Den Bosch",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "AFAS Trainingscomplex",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18748",
-      "name": "Jong AZ",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18748.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "271",
-      "name": "FC Den Bosch",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/271.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18748",
-      "name": "Jong AZ",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18748.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "271",
-      "name": "FC Den Bosch",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/271.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875898",
-    "idEvent": "401875898",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "NAC Breda vs MVV Maastricht",
-    "name": "NAC Breda vs MVV Maastricht",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Rat Verlegh Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "141",
-      "name": "NAC Breda",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/141.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3730",
-      "name": "MVV Maastricht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3730.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "141",
-      "name": "NAC Breda",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/141.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3730",
-      "name": "MVV Maastricht",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3730.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875897",
-    "idEvent": "401875897",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Roda JC Kerkrade vs Jong PSV",
-    "name": "Roda JC Kerkrade vs Jong PSV",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Parkstad Limburg Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "149",
-      "name": "Roda JC Kerkrade",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/149.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "9983",
-      "name": "Jong PSV",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9983.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "149",
-      "name": "Roda JC Kerkrade",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/149.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "9983",
-      "name": "Jong PSV",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9983.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401875896",
-    "idEvent": "401875896",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "TOP Oss vs Helmond Sport",
-    "name": "TOP Oss vs Helmond Sport",
-    "league": "Dutch Keuken Kampioen Divisie",
-    "tournament": "Dutch Keuken Kampioen Divisie",
-    "matchDesc": "Keuken Kampioen Divisie",
-    "venue": "Frans Heesen Stadion",
-    "status": "upcoming",
-    "statusText": "Fri, October 9th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791568800000,
-    "startTime": "2026-10-09T18:00:00.000Z",
-    "endTime": "2026-10-09T20:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "3728",
-      "name": "TOP Oss",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3728.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "3775",
-      "name": "Helmond Sport",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3775.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "3728",
-      "name": "TOP Oss",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3728.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "3775",
-      "name": "Helmond Sport",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/3775.png",
       "score": ""
     },
     "score": "",
@@ -13966,370 +11715,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401914253",
-    "idEvent": "401914253",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Liechtenstein vs Gibraltar",
-    "name": "Liechtenstein vs Gibraltar",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Sportplatz Rheinwiese",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 10:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791640800000,
-    "startTime": "2026-10-10T14:00:00.000Z",
-    "endTime": "2026-10-10T16:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "08:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21706",
-      "name": "Liechtenstein",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lie.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "22488",
-      "name": "Gibraltar",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/gib.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21706",
-      "name": "Liechtenstein",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lie.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "22488",
-      "name": "Gibraltar",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/gib.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401916332",
-    "idEvent": "401916332",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Indonesia vs Armenia",
-    "name": "Indonesia vs Armenia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Aqaba Development Stadium",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 11:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791644400000,
-    "startTime": "2026-10-10T15:00:00.000Z",
-    "endTime": "2026-10-10T17:30:00.000Z",
-    "date": "2026-10-10",
-    "matchTime": "09:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "22404",
-      "name": "Indonesia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "team2": {
-      "id": "21478",
-      "name": "Armenia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "22404",
-      "name": "Indonesia",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21478",
-      "name": "Armenia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arm.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401890785",
-    "idEvent": "401890785",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "United States vs Spain",
-    "name": "United States vs Spain",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Audi Field",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 2:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791657000000,
-    "startTime": "2026-10-10T18:30:00.000Z",
-    "endTime": "2026-10-10T21:00:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "12:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2765",
-      "name": "United States",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "17640",
-      "name": "Spain",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2765",
-      "name": "United States",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/usa.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "17640",
-      "name": "Spain",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/esp.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401905174",
-    "idEvent": "401905174",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "France vs Latvia",
-    "name": "France vs Latvia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade Francis Le Basser",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 3:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791658800000,
-    "startTime": "2026-10-10T19:00:00.000Z",
-    "endTime": "2026-10-10T21:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2755",
-      "name": "France",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "19156",
-      "name": "Latvia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lva.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2755",
-      "name": "France",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fra.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "19156",
-      "name": "Latvia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/lva.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401921576",
-    "idEvent": "401921576",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Brazil vs Argentina",
-    "name": "Brazil vs Argentina",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Beira-Rio",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 3:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791660600000,
-    "startTime": "2026-10-10T19:30:00.000Z",
-    "endTime": "2026-10-10T22:00:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "01:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2752",
-      "name": "Brazil",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2750",
-      "name": "Argentina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2752",
-      "name": "Brazil",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2750",
-      "name": "Argentina",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/arg.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401914139",
-    "idEvent": "401914139",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Panama vs New Zealand",
-    "name": "Panama vs New Zealand",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Rommel Fernández Gutiérr",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 5:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791666000000,
-    "startTime": "2026-10-10T21:00:00.000Z",
-    "endTime": "2026-10-10T23:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2895",
-      "name": "Panama",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pan.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "4153",
-      "name": "New Zealand",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/nzl.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2895",
-      "name": "Panama",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/pan.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "4153",
-      "name": "New Zealand",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/nzl.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401917206",
-    "idEvent": "401917206",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Venezuela vs Colombia",
-    "name": "Venezuela vs Colombia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Centro Nacional de Alto Rendimie",
-    "status": "upcoming",
-    "statusText": "Sat, October 10th at 5:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791666000000,
-    "startTime": "2026-10-10T21:00:00.000Z",
-    "endTime": "2026-10-10T23:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20914",
-      "name": "Venezuela",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20914.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "11337",
-      "name": "Colombia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/col.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20914",
-      "name": "Venezuela",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20914.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "11337",
-      "name": "Colombia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/col.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401878627",
     "idEvent": "401878627",
     "sport": "football",
@@ -16410,110 +13795,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401925166",
-    "idEvent": "401925166",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "India vs Russia",
-    "name": "India vs Russia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Kishore Bharati Krirangan",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 8:30 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791721800000,
-    "startTime": "2026-10-11T12:30:00.000Z",
-    "endTime": "2026-10-11T15:00:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "06:30 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20885",
-      "name": "India",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/ind.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2763",
-      "name": "Russia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rus.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928147",
-    "idEvent": "401928147",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Chile vs Bolivia",
-    "name": "Chile vs Bolivia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Municipal de La Florida",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 5:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791752400000,
-    "startTime": "2026-10-11T21:00:00.000Z",
-    "endTime": "2026-10-11T23:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "03:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18848",
-      "name": "Chile",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18848.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "18772",
-      "name": "Bolivia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18772.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18848",
-      "name": "Chile",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18848.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "18772",
-      "name": "Bolivia",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18772.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401878625",
     "idEvent": "401878625",
     "sport": "football",
@@ -17128,162 +14409,6 @@
       "id": "995",
       "name": "Kocaelispor",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/995.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401842209",
-    "idEvent": "401842209",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "One Knoxville vs Spokane Velocity FC",
-    "name": "One Knoxville vs Spokane Velocity FC",
-    "league": "USL League One",
-    "tournament": "USL League One",
-    "matchDesc": "USL League One",
-    "venue": "Covenant Health Park",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 3:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791745200000,
-    "startTime": "2026-10-11T19:00:00.000Z",
-    "endTime": "2026-10-11T21:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "01:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21821",
-      "name": "One Knoxville",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21821.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "22130",
-      "name": "Spokane Velocity FC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22130.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21821",
-      "name": "One Knoxville",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/21821.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "22130",
-      "name": "Spokane Velocity FC",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/22130.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928767",
-    "idEvent": "401928767",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Consadole Sapporo vs ASC HOKKAIDO",
-    "name": "Consadole Sapporo vs ASC HOKKAIDO",
-    "league": "Club Friendly",
-    "tournament": "Club Friendly",
-    "matchDesc": "Club Friendly",
-    "venue": "",
-    "status": "upcoming",
-    "statusText": "Sun, October 10th at 1:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791694800000,
-    "startTime": "2026-10-11T05:00:00.000Z",
-    "endTime": "2026-10-11T07:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "11:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "9249",
-      "name": "Consadole Sapporo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9249.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "134006",
-      "name": "ASC HOKKAIDO",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "9249",
-      "name": "Consadole Sapporo",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9249.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "134006",
-      "name": "ASC HOKKAIDO",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401928124",
-    "idEvent": "401928124",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "IK Sirius vs IF Brommapojkarna",
-    "name": "IK Sirius vs IF Brommapojkarna",
-    "league": "Club Friendly",
-    "tournament": "Club Friendly",
-    "matchDesc": "Club Friendly",
-    "venue": "Studenternas IP",
-    "status": "upcoming",
-    "statusText": "Sun, October 11th at 7:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791716400000,
-    "startTime": "2026-10-11T11:00:00.000Z",
-    "endTime": "2026-10-11T13:30:00.000Z",
-    "date": "2026-10-11",
-    "matchTime": "05:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "8547",
-      "name": "IK Sirius",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8547.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "8221",
-      "name": "IF Brommapojkarna",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8221.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "8547",
-      "name": "IK Sirius",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8547.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "8221",
-      "name": "IF Brommapojkarna",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/8221.png",
       "score": ""
     },
     "score": "",
@@ -19062,266 +16187,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401922348",
-    "idEvent": "401922348",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Moldova vs Georgia",
-    "name": "Moldova vs Georgia",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stadionul Zimbru",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 10:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791813600000,
-    "startTime": "2026-10-12T14:00:00.000Z",
-    "endTime": "2026-10-12T16:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "08:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21482",
-      "name": "Moldova",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mda.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20971",
-      "name": "Georgia",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/geo.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401915883",
-    "idEvent": "401915883",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Andorra vs Faroe Islands",
-    "name": "Andorra vs Faroe Islands",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadi Nacional d'Andorra",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 11:00 AM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791817200000,
-    "startTime": "2026-10-12T15:00:00.000Z",
-    "endTime": "2026-10-12T17:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "09:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21557",
-      "name": "Andorra",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/and.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "21395",
-      "name": "Faroe Islands",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/fro.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929556",
-    "idEvent": "401929556",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Morocco vs Uzbekistan",
-    "name": "Morocco vs Uzbekistan",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Stade El Barid",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791828000000,
-    "startTime": "2026-10-12T18:00:00.000Z",
-    "endTime": "2026-10-12T20:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "18221",
-      "name": "Morocco",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mor.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20908",
-      "name": "Uzbekistan",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20908.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401902579",
-    "idEvent": "401902579",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Canada vs Denmark",
-    "name": "Canada vs Denmark",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "BMO Field",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 3:30 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791833400000,
-    "startTime": "2026-10-12T19:30:00.000Z",
-    "endTime": "2026-10-12T22:00:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "01:30 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "2753",
-      "name": "Canada",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "2896",
-      "name": "Denmark",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/den.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401919989",
-    "idEvent": "401919989",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "El Salvador vs Paraguay",
-    "name": "El Salvador vs Paraguay",
-    "league": "Women's International Friendly",
-    "tournament": "Women's International Friendly",
-    "matchDesc": "Women's International Friendly",
-    "venue": "Estadio Cuscatlán",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 10:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791856800000,
-    "startTime": "2026-10-13T02:00:00.000Z",
-    "endTime": "2026-10-13T04:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "08:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "21476",
-      "name": "El Salvador",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/slv.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20210",
-      "name": "Paraguay",
-      "logo": "https://a.espncdn.com/i/teamlogos/countries/500/par.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401885425",
     "idEvent": "401885425",
     "sport": "football",
@@ -20310,162 +17175,6 @@
     "streams": []
   },
   {
-    "id": "espn-soccer-401844197",
-    "idEvent": "401844197",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Racing (Córdoba) vs Los Andes",
-    "name": "Racing (Córdoba) vs Los Andes",
-    "league": "Argentine Nacional B",
-    "tournament": "Argentine Nacional B",
-    "matchDesc": "Argentine Nacional B",
-    "venue": "Estadio Miguel Sancho",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 4:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791835200000,
-    "startTime": "2026-10-12T20:00:00.000Z",
-    "endTime": "2026-10-12T22:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "02:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "19145",
-      "name": "Racing (Córdoba)",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19145.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "13",
-      "name": "Los Andes",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "19145",
-      "name": "Racing (Córdoba)",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/19145.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "13",
-      "name": "Los Andes",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/13.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401844199",
-    "idEvent": "401844199",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "All Boys vs Godoy Cruz Antonio Tomba",
-    "name": "All Boys vs Godoy Cruz Antonio Tomba",
-    "league": "Argentine Nacional B",
-    "tournament": "Argentine Nacional B",
-    "matchDesc": "Argentine Nacional B",
-    "venue": "Estadio Islas Malvinas",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 6:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791842400000,
-    "startTime": "2026-10-12T22:00:00.000Z",
-    "endTime": "2026-10-13T00:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "04:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "9786",
-      "name": "All Boys",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9786.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "6756",
-      "name": "Godoy Cruz Antonio Tomba",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6756.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "9786",
-      "name": "All Boys",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/9786.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "6756",
-      "name": "Godoy Cruz Antonio Tomba",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/6756.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401845131",
-    "idEvent": "401845131",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "UAI Urquiza vs Real Pilar",
-    "name": "UAI Urquiza vs Real Pilar",
-    "league": "Argentine Primera B",
-    "tournament": "Argentine Primera B",
-    "matchDesc": "Argentine Primera B",
-    "venue": "El Monumental de Villa Lynch",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 2:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791828000000,
-    "startTime": "2026-10-12T18:00:00.000Z",
-    "endTime": "2026-10-12T20:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "12:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "17705",
-      "name": "UAI Urquiza",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17705.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "18844",
-      "name": "Real Pilar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18844.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "17705",
-      "name": "UAI Urquiza",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/17705.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "18844",
-      "name": "Real Pilar",
-      "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/18844.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
     "id": "espn-soccer-401841264",
     "idEvent": "401841264",
     "sport": "football",
@@ -21132,162 +17841,6 @@
       "id": "20774",
       "name": "Mohun Bagan Super Giant",
       "logo": "https://a.espncdn.com/i/teamlogos/soccer/500/20774.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401898420",
-    "idEvent": "401898420",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "American University vs West Virginia",
-    "name": "American University vs West Virginia",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Reeves Field",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 1:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791824400000,
-    "startTime": "2026-10-12T17:00:00.000Z",
-    "endTime": "2026-10-12T19:30:00.000Z",
-    "date": "2026-10-12",
-    "matchTime": "11:00 PM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5730",
-      "name": "American University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/44.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "5658",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5730",
-      "name": "American University",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/44.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "5658",
-      "name": "West Virginia",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/277.png",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401929577",
-    "idEvent": "401929577",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "South Carolina vs Columbia (SC)",
-    "name": "South Carolina vs Columbia (SC)",
-    "league": "NCAA Men's Soccer",
-    "tournament": "NCAA Men's Soccer",
-    "matchDesc": "NCAAM Soccer",
-    "venue": "Eugene E. Stone III Stadium",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791846000000,
-    "startTime": "2026-10-12T23:00:00.000Z",
-    "endTime": "2026-10-13T01:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "5644",
-      "name": "South Carolina",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "132992",
-      "name": "Columbia (SC)",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "5644",
-      "name": "South Carolina",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2579.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "132992",
-      "name": "Columbia (SC)",
-      "logo": "./assets/team-placeholder.svg",
-      "score": ""
-    },
-    "score": "",
-    "broadcaster": "",
-    "broadcasters": [],
-    "strTVStation": "",
-    "source": "ESPN (Official API)",
-    "streams": []
-  },
-  {
-    "id": "espn-soccer-401901156",
-    "idEvent": "401901156",
-    "sport": "football",
-    "sportName": "Football",
-    "sportIcon": "fa-futbol",
-    "title": "Cincinnati vs BYU",
-    "name": "Cincinnati vs BYU",
-    "league": "NCAA Women's Soccer",
-    "tournament": "NCAA Women's Soccer",
-    "matchDesc": "NCAAW Soccer",
-    "venue": "Gettler Stadium",
-    "status": "upcoming",
-    "statusText": "Mon, October 12th at 7:00 PM EDT",
-    "statusLabel": "Upcoming",
-    "timestamp": 1791846000000,
-    "startTime": "2026-10-12T23:00:00.000Z",
-    "endTime": "2026-10-13T01:30:00.000Z",
-    "date": "2026-10-13",
-    "matchTime": "05:00 AM",
-    "timeOrTimer": "Scheduled",
-    "team1": {
-      "id": "20392",
-      "name": "Cincinnati",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png",
-      "score": ""
-    },
-    "team2": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
-      "score": ""
-    },
-    "homeTeam": {
-      "id": "20392",
-      "name": "Cincinnati",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/2132.png",
-      "score": ""
-    },
-    "awayTeam": {
-      "id": "20516",
-      "name": "BYU",
-      "logo": "https://a.espncdn.com/i/teamlogos/ncaa/500/252.png",
       "score": ""
     },
     "score": "",
@@ -43929,7 +40482,7 @@
     "status": "live",
     "statusText": "Day 2: 2nd Session - New South Wales trail by 9 runs",
     "statusLabel": "LIVE",
-    "timestamp": 1791502200000,
+    "timestamp": 1792203124859,
     "date": "2026-10-09",
     "matchTime": "Last Night, 05:30 AM BST",
     "timeOrTimer": "LIVE",
@@ -43995,7 +40548,7 @@
     "status": "live",
     "statusText": "Australia A opt to bat",
     "statusLabel": "LIVE",
-    "timestamp": 1791516600000,
+    "timestamp": 1792203124859,
     "date": "2026-10-09",
     "matchTime": "Today, 09:30 AM BST",
     "timeOrTimer": "LIVE",

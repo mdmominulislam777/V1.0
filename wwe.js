@@ -293,63 +293,7 @@ class WWEEngine {
 
     const events = [];
 
-    // 1. WWE 24/7 Non-Stop Live Stream Event Card
-    events.push({
-      id: 'wwe-24-7-live',
-      rawId: 'wwe-24-7-live',
-      sport: 'wwe',
-      sportName: 'WWE',
-      sportIcon: 'fa-hand-fist',
-      title: 'WWE 24/7 Non-Stop Live Action',
-      name: 'WWE 24/7 Live Stream',
-      league: 'WWE Network',
-      tournament: 'WWE Special',
-      brandCategory: 'WWE Special',
-      ribbonLabel: 'WWE 24/7',
-      eventName: 'WWE 24/7 Live Stream',
-      eventType: 'WWE Special',
-      status: 'live',
-      statusLabel: 'LIVE',
-      statusText: 'LIVE 24/7',
-      startTime: new Date(now).toISOString(),
-      matchTime: 'Live 24/7 Stream',
-      timestamp: now,
-      venue: 'WWE Worldwide',
-      isHot: true,
-      isSpecial: true,
-      homeTeam: {
-        name: 'WWE Superstars',
-        logo: './assets/wwe-logos/wwe_official.png',
-        score: ''
-      },
-      awayTeam: {
-        name: 'WWE 24/7 HD',
-        logo: './assets/wwe-logos/wwe_official.png',
-        score: ''
-      },
-      team1: {
-        name: 'WWE Superstars',
-        logo: './assets/wwe-logos/wwe_official.png',
-        score: ''
-      },
-      team2: {
-        name: 'WWE 24/7 HD',
-        logo: './assets/wwe-logos/wwe_official.png',
-        score: ''
-      },
-      timeOrTimer: 'LIVE',
-      subText: 'WWE Network • Non-Stop 24/7 HD Stream',
-      broadcaster: 'WWE 24/7 HD',
-      broadcasters: ['WWE 24/7 HD', 'WWE Network'],
-      channelId: 'ch-wwe-24-7',
-      channelName: 'WWE 24/7 HD',
-      channelLogo: './assets/wwe-logos/wwe_official.png',
-      hasStream: true,
-      streams: [wweStream],
-      source: 'Official Schedule'
-    });
-
-    // 2. WWE RAW
+    // 1. WWE RAW
     const rawBc = this.getNextBroadcastTimestamp(2, 6, 3.5); // Tuesday 06:00 AM BST
     events.push({
       id: 'wwe-raw-live',

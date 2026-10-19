@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <linearGradient id="borderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#6366f1" stop-opacity="0.6"/>
+    </linearGradient>
+  </defs>
+  <!-- Background Shield Crest -->
+  <path d="M 50 8 C 74 8, 86 16, 86 36 C 86 64, 62 84, 50 92 C 38 84, 14 64, 14 36 C 14 16, 26 8, 50 8 Z" 
+        fill="url(#shieldGrad)" 
+        stroke="url(#borderGrad)" 
+        stroke-width="3" 
+        stroke-linejoin="round"/>
+  <!-- Inner Shield Subtle Border -->
+  <path d="M 50 14 C 70 14, 80 21, 80 37 C 80 61, 59 78, 50 85 C 41 78, 20 61, 20 37 C 20 21, 30 14, 50 14 Z" 
+        fill="none" 
+        stroke="#ffffff" 
+        stroke-opacity="0.1" 
+        stroke-width="1.5"/>
+  <!-- Central Sports Star / Emblem -->
+  <path d="M 50 32 L 53.5 42.5 L 64.5 42.5 L 55.5 49 L 59 59.5 L 50 53 L 41 59.5 L 44.5 49 L 35.5 42.5 L 46.5 42.5 Z" 
+        fill="#38bdf8" 
+        opacity="0.9"/>
+  <!-- Lower Crest Accent Bars -->
+  <path d="M 38 66 Q 50 72 62 66" fill="none" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 42 72 Q 50 77 58 72" fill="none" stroke="#38bdf8" stroke-opacity="0.3" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

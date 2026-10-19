@@ -4541,6 +4541,9 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
 
     const categoryName = String(item.CategoryName || "").trim();
     const catLower = categoryName.toLowerCase();
+    const videoLower = videoName.toLowerCase();
+    const descLower = String(item.Description || "").toLowerCase();
+    const allText = `${catLower} ${videoLower} ${descLower}`;
     let sport = "football";
     let sportName = "Football";
 
@@ -4550,7 +4553,7 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
     } else if (catLower.includes("nations league") || catLower.includes("uefa") || catLower.includes("football") || catLower.includes("soccer") || catLower.includes("liga") || catLower.includes("premier")) {
       sport = "football";
       sportName = "Football";
-    } else if (catLower.includes("gt world") || catLower.includes("f1") || catLower.includes("grand prix") || catLower.includes("racing") || catLower.includes("motor")) {
+    } else if (allText.includes("aquabike") || allText.includes("watercraft") || catLower.includes("gt world") || catLower.includes("f1") || catLower.includes("grand prix") || catLower.includes("racing") || catLower.includes("motor") || item.NewSportsGenre === "Racing") {
       sport = "motorsport";
       sportName = "Motorsport";
     } else if (catLower.includes("league of nations") || catLower.includes("equestrian") || catLower.includes("longines")) {
@@ -4558,15 +4561,26 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
       sportName = "Equestrian";
     }
 
-    const statusRaw = String(item.Status || "Upcoming").toLowerCase();
-    let status = "upcoming";
-    if (statusRaw.includes("live")) status = "live";
-    else if (statusRaw.includes("finish") || statusRaw.includes("ended") || statusRaw.includes("result")) status = "finished";
-
     let timestamp = 0;
     if (item.EventStartDate) {
       const parsed = Date.parse(item.EventStartDate.endsWith("Z") ? item.EventStartDate : item.EventStartDate.replace(" ", "T") + "+05:00");
       if (!isNaN(parsed)) timestamp = parsed;
+    }
+
+    const now = Date.now();
+    const statusRaw = String(item.Status || "Upcoming").toLowerCase();
+    let status = "upcoming";
+    if (statusRaw.includes("finish") || statusRaw.includes("ended") || statusRaw.includes("result")) {
+      status = "finished";
+    } else if (statusRaw.includes("live")) {
+      // Check if match has actually started: if start time is more than 10 minutes in future, it is UPCOMING!
+      if (timestamp && timestamp > now + (10 * 60 * 1000)) {
+        status = "upcoming";
+      } else {
+        status = "live";
+      }
+    } else {
+      status = "upcoming";
     }
 
     const streams: any[] = [];
@@ -6528,11 +6542,10 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
         return res.status(400).json({ error: "Empty image buffer." });
       }
 
-      // Write to project root and public & android paths
+      // Write to public & android paths
       const targetPaths = [
-        path.join(process.cwd(), "highfy_logo1.png"),
-        path.join(process.cwd(), "public", "highfy_logo1.png"),
-        path.join(process.cwd(), "android", "app", "src", "main", "assets", "highfy_logo1.png"),
+        path.join(process.cwd(), "public", "highfy_watermark1.png"),
+        path.join(process.cwd(), "android", "app", "src", "main", "assets", "highfy_watermark1.png"),
       ];
 
       let savedCount = 0;

@@ -19,8 +19,9 @@
 
   function mapSportCategory(strSport) {
     const s = String(strSport || '').toLowerCase().trim();
+    if (s.includes('american football') || s.includes('nfl') || s.includes('cfl') || s.includes('gridiron')) return 'american-football';
     if (s.includes('cricket')) return 'cricket';
-    if (s.includes('soccer') || s.includes('football')) return 'football';
+    if (s.includes('soccer') || s === 'football' || s.includes('association football')) return 'football';
     if (s.includes('basket')) return 'basketball';
     if (s.includes('tennis')) return 'tennis';
     if (s.includes('rugby')) return 'rugby';
@@ -88,6 +89,8 @@
       away: String(raw.intAwayScore ?? '')
     } : null;
 
+    const highlightUrl = raw.strVideo && typeof raw.strVideo === 'string' && raw.strVideo.trim().startsWith('http') ? raw.strVideo.trim() : null;
+
     return createUnifiedEvent({
       id: `tsdb-${raw.idEvent}`,
       externalId: String(raw.idEvent),
@@ -107,7 +110,9 @@
       broadcasters: bcastResult.broadcasters,
       source: 'TheSportsDB',
       verified: bcastResult.verified,
-      score
+      score,
+      highlightVideo: highlightUrl,
+      videoUrl: highlightUrl
     });
   }
 

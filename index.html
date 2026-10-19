@@ -21,9 +21,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="./assets/app-icon/app_icon.png?v=20261011_02" />
-  <link rel="shortcut icon" type="image/png" href="./assets/app-icon/app_icon.png?v=20261011_02" />
-  <link rel="apple-touch-icon" href="./assets/app-icon/app_icon.png?v=20261011_02" />
+  <link rel="icon" type="image/png" href="./assets/app-icon/app_icon.png?v=20261017_01" />
+  <link rel="shortcut icon" type="image/png" href="./assets/app-icon/app_icon.png?v=20261017_01" />
+  <link rel="apple-touch-icon" href="./assets/app-icon/app_icon.png?v=20261017_01" />
 
   <!-- FontAwesome 6 Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -115,19 +115,19 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      padding: 14px !important;
+      padding: 0 !important;
       box-sizing: border-box !important;
     }
     .sportzfy-logo-img {
       width: 100% !important;
       height: 100% !important;
-      max-width: 82px !important;
-      max-height: 82px !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
       aspect-ratio: 1 / 1 !important;
-      object-fit: contain !important;
+      object-fit: cover !important;
       display: block !important;
       filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.6)) !important;
-      border-radius: 12px !important;
+      border-radius: 20px !important;
     }
     .sportzfy-brand-text-wrap {
       margin-top: 18px !important;
@@ -243,11 +243,11 @@
           <div class="sportzfy-app-card-inner">
             <img 
               id="cricfy-splash-logo-img"
-              src="./assets/splash-screen-logo/splash_logo.png?v=20261011_02" 
+              src="./assets/splash-screen-logo/splash_logo.png?v=20261017_01" 
               alt="HighFy TV" 
               class="sportzfy-logo-img"
               referrerpolicy="no-referrer"
-              onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/splash-screen-logo/splash_logo.png?v=20261011_02';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/assets/splash-screen-logo/splash_logo.png';}"
+              onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/splash-screen-logo/splash_logo.png?v=20261017_01';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/assets/splash-screen-logo/splash_logo.png';}"
             />
           </div>
         </div>
@@ -290,20 +290,26 @@
         </div>
       </div>
 
-      <div class="header-actions">
+      <div class="header-actions relative">
         <button id="btn-header-notice" class="btn-header-icon relative z-10 cursor-pointer" title="Notifications" aria-label="Notifications" onclick="if(typeof openModal === 'function'){ openModal('modal-notice'); } else { const m = document.getElementById('modal-notice'); if(m){ m.classList.add('active'); m.style.display = 'flex'; m.style.visibility = 'visible'; m.style.opacity = '1'; m.style.pointerEvents = 'auto'; if(window.combineAndRenderNotifications) window.combineAndRenderNotifications(); } }">
           <i class="fa-solid fa-bell pointer-events-none"></i>
           <span id="header-notif-badge" class="absolute top-[6px] right-[6px] w-[14px] h-[14px] rounded-full bg-rose-600 text-[8px] font-bold text-white flex items-center justify-center hidden border border-[#0f172a] pointer-events-none" style="display: none;">0</span>
         </button>
-        <button id="btn-header-favs" class="btn-header-icon" title="Favorites">
-          <i class="fa-solid fa-star"></i>
-        </button>
-        <button id="btn-header-refresh" class="btn-header-icon" title="Refresh">
-          <i class="fa-solid fa-arrows-rotate" id="refresh-icon"></i>
-        </button>
         <button id="btn-header-search" class="btn-header-icon" title="Search">
           <i class="fa-solid fa-magnifying-glass"></i>
         </button>
+        <button id="btn-header-menu-dots" class="btn-header-icon relative" title="More Options">
+          <i class="fa-solid fa-ellipsis-vertical"></i>
+        </button>
+        <!-- Header Dropdown Menu for Three Dots -->
+        <div id="header-dropdown-menu" class="hidden absolute right-0 top-12 w-44 rounded-xl bg-slate-900 border border-slate-700/80 shadow-2xl shadow-black/80 z-50 py-1.5 flex flex-col">
+          <button id="btn-header-favs" class="w-full text-left px-3.5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-slate-800/80 hover:text-amber-400 flex items-center gap-2.5 transition">
+            <i class="fa-solid fa-star text-amber-400 w-4"></i> My Favorites
+          </button>
+          <button id="btn-header-refresh" class="w-full text-left px-3.5 py-2.5 text-xs font-semibold text-slate-200 hover:bg-slate-800/80 hover:text-sky-400 flex items-center gap-2.5 transition border-t border-slate-800/80">
+            <i class="fa-solid fa-arrows-rotate text-sky-400 w-4" id="refresh-icon"></i> Refresh Events
+          </button>
+        </div>
       </div>
     </header>
 
@@ -442,6 +448,22 @@
     </main>
 
     <!-- ======================================================================
+         VIEW 3.5: MATCH HIGHLIGHTS & REPLAYS
+         ====================================================================== -->
+    <main id="view-highlights" class="app-view">
+      <div class="section-header-row">
+        <h2 class="section-title">
+          <i class="fa-solid fa-clapperboard text-rose-400"></i> Match Highlights &amp; Replays
+        </h2>
+        <span class="section-badge-count" id="highlights-total-count">0 Videos</span>
+      </div>
+
+      <div id="highlightsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5 pb-20">
+        <!-- Highlight videos rendered here -->
+      </div>
+    </main>
+
+    <!-- ======================================================================
          VIEW 4: CATEGORY DETAIL CHANNELS
          ====================================================================== -->
     <main id="view-category-detail" class="app-view">
@@ -525,9 +547,9 @@
         <i class="fa-solid fa-layer-group"></i>
         <span class="nav-tab-label">Category</span>
       </button>
-      <button class="nav-tab-btn bottom-nav-item" data-view="view-sports" data-target="view-sports">
-        <i class="fa-solid fa-futbol"></i>
-        <span class="nav-tab-label">Sports</span>
+      <button class="nav-tab-btn bottom-nav-item" data-view="view-highlights" data-target="view-highlights">
+        <i class="fa-solid fa-clapperboard"></i>
+        <span class="nav-tab-label">Highlights</span>
       </button>
     </nav>
 
@@ -558,17 +580,7 @@
         x-webkit-airplay="allow"
       ></video>
 
-      <!-- Live Video Player Watermark Overlay (Original HighFy TV Watermark Asset) -->
-      <div class="player-watermark" id="player-watermark" aria-hidden="true">
-        <img 
-          id="player-watermark-logo"
-          src="./highfy_watermark1.png" 
-          alt="HighFy TV" 
-          class="player-watermark-img" 
-          loading="eager"
-          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/highfy_watermark1.png';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='./public/assets/images/highfy_watermark1.png';}else if(this.dataset.tried==='2'){this.dataset.tried='3';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/public/highfy_watermark1.png';}" 
-        />
-      </div>
+      <!-- Watermark overlay removed per user request -->
 
       <!-- Loading / Buffering Spinner Overlay (Centered, No Text) -->
       <div id="player-spinner" class="player-buffering-overlay" style="display: none;">
@@ -811,11 +823,11 @@
       <div class="drawer-big-logo-frame">
         <img 
           id="drawer-header-logo-img"
-          src="./assets/drawer-menu-logo/drawer_logo.png?v=20261011_02" 
+          src="./assets/drawer-menu-logo/drawer_logo.png?v=20261017_01" 
           alt="HighFy TV Logo" 
           class="drawer-big-logo-img" 
           referrerpolicy="no-referrer"
-          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/drawer-menu-logo/drawer_logo.png?v=20261011_02';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/assets/drawer-menu-logo/drawer_logo.png';}"
+          onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='./public/assets/drawer-menu-logo/drawer_logo.png?v=20261017_01';}else if(this.dataset.tried==='1'){this.dataset.tried='2';this.src='https://raw.githubusercontent.com/mdmominulislam777/V1.0/main/assets/drawer-menu-logo/drawer_logo.png';}"
         />
       </div>
       <h3 class="drawer-app-title">HighFy TV</h3>
@@ -1418,7 +1430,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-splash-img" src="./assets/splash-screen-logo/splash_logo.png?v=20261011_02" alt="Splash Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-splash-img" src="./assets/splash-screen-logo/splash_logo.png?v=20261017_01" alt="Splash Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <input type="url" id="admin-splash-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
@@ -1451,7 +1463,7 @@
 
           <div class="flex items-center gap-3 bg-slate-950/60 p-2 rounded-xl border border-slate-800/80">
             <div class="w-12 h-12 rounded-xl bg-slate-900 border border-slate-700/80 flex items-center justify-center overflow-hidden flex-shrink-0 p-1">
-              <img id="admin-preview-drawer-img" src="./assets/drawer-menu-logo/drawer_logo.png?v=20261011_02" alt="Drawer Preview" class="w-full h-full object-contain" />
+              <img id="admin-preview-drawer-img" src="./assets/drawer-menu-logo/drawer_logo.png?v=20261017_01" alt="Drawer Preview" class="w-full h-full object-contain" />
             </div>
             <div class="flex-1 min-w-0 flex flex-col gap-1.5">
               <input type="url" id="admin-drawer-img-url" class="modal-input text-xs w-full" placeholder="ইমেজ লিংক (URL) পেস্ট করুন" />
@@ -1709,10 +1721,10 @@
 
       <div class="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs flex items-center justify-between mb-3">
         <div class="flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved text-sm"></i>
-          <span><strong>API Key Security:</strong> Server-Side Proxy Active</span>
+          <i class="fa-solid fa-cloud text-sm text-sky-400"></i>
+          <span><strong>Cloudflare Worker Architecture:</strong> All Sports APIs Unified</span>
         </div>
-        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">SECURED</span>
+        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-bold">ACTIVE</span>
       </div>
       
       <div class="modal-input-group">
@@ -1720,33 +1732,14 @@
           <span>☁️ Cloudflare Worker API URL</span>
           <div class="flex items-center gap-2">
             <button type="button" id="btn-test-worker" class="text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 bg-emerald-500/10 hover:bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30 transition-colors">Test Connection</button>
-            <span class="text-sky-400 text-[10px]">Zero Keys in APK</span>
+            <span class="text-emerald-400 text-[10px]">Zero Keys in App</span>
           </div>
         </label>
         <div class="relative flex items-center">
-          <input type="text" id="setting-worker-url" class="modal-input" placeholder="https://your-worker.workers.dev (Optional custom worker)" />
+          <input type="text" id="setting-worker-url" class="modal-input" placeholder="https://your-worker.workers.dev" />
         </div>
         <div id="worker-test-result" class="hidden text-[11px] mt-1.5 p-2 rounded-lg border font-medium"></div>
-        <p class="text-[10px] text-slate-400 mt-1">Worker proxy routes all sports APIs securely without exposing secrets to frontend or Android app.</p>
-      </div>
-
-      <div class="p-2.5 rounded-xl bg-slate-800/60 border border-slate-700/60 text-xs flex items-center justify-between mb-3">
-        <div class="flex items-center gap-2">
-          <i class="fa-solid fa-trophy text-amber-400 text-sm"></i>
-          <span class="text-slate-200"><strong>TheSportsDB:</strong> Free Multi-Sport Fixtures Active</span>
-        </div>
-        <span class="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold">READY</span>
-      </div>
-
-      <div class="modal-input-group">
-        <label class="modal-label">🤼 WWE Events Data Feed URL</label>
-        <input type="text" id="setting-wwe-url" class="modal-input" placeholder="https://example.com/wwe-events.json" />
-        <p class="text-[10px] text-slate-400 mt-1">Custom JSON feed URL for WWE schedules (Optional).</p>
-      </div>
-
-      <div class="p-2.5 rounded-xl bg-sky-500/10 border border-sky-500/20 text-sky-300 text-[11px] flex items-center gap-2 mb-2">
-        <i class="fa-brands fa-github text-base"></i>
-        <span><strong>GitHub Actions Auto-Sync:</strong> Your API keys can also be saved in GitHub Repository Secrets to keep them 100% private.</span>
+        <p class="text-[10px] text-slate-400 mt-1">সব স্পোর্টস ডেটা ও লাইভ স্কোর এই Cloudflare Worker URL-এর মাধ্যমে নিরাপদে রুট ও প্রক্সি হয়।</p>
       </div>
 
       <div class="flex items-center justify-between py-2 border-t border-slate-800">
@@ -1822,7 +1815,7 @@
       </div>
       <div class="flex flex-col items-center text-center gap-2 py-3 border-b border-slate-200 dark:border-slate-800">
         <div class="w-24 h-24 overflow-hidden flex items-center justify-center">
-          <img src="./assets/drawer-menu-logo/drawer_logo.png?v=20261011_02" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
+          <img src="./assets/drawer-menu-logo/drawer_logo.png?v=20261017_01" alt="HighFy TV Logo" class="w-full h-full object-contain" referrerpolicy="no-referrer" />
         </div>
         <h4 class="text-base font-extrabold text-slate-800 dark:text-white">HighFy TV</h4>
         <span class="text-xs font-bold px-2.5 py-0.5 rounded-full bg-sky-500/15 text-sky-600 dark:text-sky-400 border border-sky-500/25">Version: 1.0</span>

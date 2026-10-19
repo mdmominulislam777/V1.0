@@ -1,5 +1,14 @@
 [
   {
+    "id": "sports",
+    "name": "Sports",
+    "icon": "fa-futbol",
+    "logo": "./assets/category-logos/t-sports.png",
+    "ringColor": "#0284c7",
+    "glowColor": "rgba(2, 132, 199, 0.4)",
+    "description": "T Sports, Sony Sports, Star Sports, Willow, TNT Sports, BeIN Sports & more"
+  },
+  {
     "id": "bangla",
     "name": "Bangla",
     "icon": "fa-tv",

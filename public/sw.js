@@ -4,7 +4,6 @@ const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
-  '/highfy_logo1.png',
   '/highfy_watermark1.png'
 ];
 

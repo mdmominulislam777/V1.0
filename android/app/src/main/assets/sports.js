@@ -1635,23 +1635,9 @@ class SportsCoordinator {
         }
       }
 
-      // 4e. Multi-Tier Fallback: Sport & League Default Fallback (Secondary Fallback)
-      if (verifiedChannelEntries.length === 0 && sport) {
-        const sportFallbackChannels = this.findChannelsBySportFallback(sport, sportsChannels);
-        for (const ch of sportFallbackChannels) {
-          if (!seenChannelIds.has(ch.id) && (ch.active === true || ch.is_active === true)) {
-            seenChannelIds.add(ch.id);
-            verifiedChannelEntries.push({
-              channel: ch,
-              source: `Sport Fallback: ${sport}`,
-              sourceType: 'sport_fallback',
-              sourceField: 'sport_fallback',
-              token: sport,
-              verificationDetail: `Sport default fallback matched active channel ${ch.name} for ${sport}`
-            });
-          }
-        }
-      }
+      // 4e. Sport Fallback DISABLED per Locked Rule 3:
+      // "শুধুমাত্র verified broadcast source থাকলেই channel দেখাবে। শুধু channels.json metadata দিয়ে কখনো connection করা যাবে না"
+      // If no authentic API broadcaster or explicit channelId exists, channel MUST remain null / unavailable.
     }
 
     // -------------------------------------------------------------------------------------
@@ -1692,62 +1678,23 @@ class SportsCoordinator {
     for (const entry of verifiedChannelEntries) {
       const ch = entry.channel;
       const channelServers = [];
-      const pUrl = ch.stream_url || ch.url || ch.streamUrl;
-      const bUrls = Array.isArray(ch.backupUrls) ? ch.backupUrls : (ch.backup_stream_url ? [ch.backup_stream_url] : []);
+      const pUrl = (ch.streams && ch.streams[0] && ch.streams[0].url) || ch.stream_url || ch.url || ch.streamUrl;
       const defaultQuality = ch.streams?.[0]?.quality || (ch.isHD === false ? '720p HD' : '1080p FHD');
 
-      // If channel contains an authentic streams array with specific server names/labels
-      if (Array.isArray(ch.streams) && ch.streams.length > 0) {
-        ch.streams.forEach((cs) => {
-          if (cs && isValidHttpUrl(cs.url)) {
-            const cleanUrl = cs.url.trim();
-            const normUrl = cleanUrl.toLowerCase();
-            if (!seenStreamUrls.has(`${ch.id}::${normUrl}`)) {
-              seenStreamUrls.add(`${ch.id}::${normUrl}`);
-              const sNum = channelServers.length + 1;
-              const qLabel = cs.quality || (sNum === 1 ? defaultQuality : '720p HD');
-              const rawLabel = cs.serverLabel || (sNum === 1 ? `Server 1 — ${qLabel}` : `Server ${sNum} — Backup`);
-              const serverLabel = String(rawLabel).replace(/\(([^()]+)\)/g, '— $1').replace(/\s+/g, ' ').trim();
-              const rawName = cs.name || `${ch.name} (${serverLabel})`;
-              const cleanName = String(rawName).replace(/\(Server\s+(\d+)\s*\(([^()]+)\)\)/gi, '(Server $1 — $2)');
-              const sObj = {
-                name: cleanName,
-                serverLabel: serverLabel,
-                channelName: ch.name,
-                channelId: ch.id,
-                channelLogo: ch.logo,
-                url: cleanUrl,
-                backupUrls: [],
-                quality: qLabel,
-                isHD: cs.isHD !== undefined ? cs.isHD !== false : ch.isHD !== false,
-                category: ch.category || 'Sports',
-                source: entry.source,
-                sourceType: entry.sourceType
-              };
-              channelServers.push(sObj);
-              allStreams.push(sObj);
-            }
-          }
-        });
-      }
-
-      // Primary stream URL
       if (isValidHttpUrl(pUrl)) {
         const cleanPurl = pUrl.trim();
         const normPurl = cleanPurl.toLowerCase();
         if (!seenStreamUrls.has(`${ch.id}::${normPurl}`)) {
           seenStreamUrls.add(`${ch.id}::${normPurl}`);
-          const sNum = channelServers.length + 1;
-          const validBackups = bUrls.filter(isValidHttpUrl).map(u => u.trim());
           const pServer = {
-            name: `${ch.name} (Server ${sNum} — ${defaultQuality})`,
-            serverLabel: `Server ${sNum} — ${defaultQuality}`,
+            name: ch.name,
+            serverLabel: 'HD',
             channelName: ch.name,
             channelId: ch.id,
             channelLogo: ch.logo,
             url: cleanPurl,
-            backupUrls: validBackups,
-            backupUrl: validBackups[0] || cleanPurl,
+            backupUrls: [],
+            backupUrl: cleanPurl,
             quality: defaultQuality,
             isHD: ch.isHD !== false,
             category: ch.category || 'Sports',
@@ -1759,34 +1706,6 @@ class SportsCoordinator {
         }
       }
 
-      // Secondary / Backup stream URLs
-      bUrls.forEach((bUrl) => {
-        if (isValidHttpUrl(bUrl)) {
-          const cleanBurl = bUrl.trim();
-          const normBurl = cleanBurl.toLowerCase();
-          if (!seenStreamUrls.has(`${ch.id}::${normBurl}`)) {
-            seenStreamUrls.add(`${ch.id}::${normBurl}`);
-            const sNum = channelServers.length + 1;
-            const bServer = {
-              name: `${ch.name} (Server ${sNum} — Backup)`,
-              serverLabel: `Server ${sNum} — Backup`,
-              channelName: ch.name,
-              channelId: ch.id,
-              channelLogo: ch.logo,
-              url: cleanBurl,
-              backupUrls: [],
-              quality: '720p HD',
-              isHD: ch.isHD !== false,
-              category: ch.category || 'Sports',
-              source: entry.source,
-              sourceType: entry.sourceType
-            };
-            channelServers.push(bServer);
-            allStreams.push(bServer);
-          }
-        }
-      });
-
       if (channelServers.length > 0) {
         broadcastingChannelDetails.push({
           id: ch.id,
@@ -1795,7 +1714,7 @@ class SportsCoordinator {
           category: ch.category || 'Sports',
           quality: defaultQuality,
           streamUrl: channelServers[0].url,
-          backupUrls: bUrls.filter(isValidHttpUrl).map(u => u.trim()),
+          backupUrls: [],
           source: entry.source,
           sourceType: entry.sourceType,
           sourceField: entry.sourceField,
@@ -2160,13 +2079,68 @@ class SportsCoordinator {
     return false;
   }
 
+  /**
+   * Strictly verify if a football/soccer event is a professional match.
+   * Excludes American football (NFL, CFL), college soccer/football (NCAA), and lower amateur tiers.
+   */
+  isProfessionalFootball(e) {
+    if (!e) return false;
+    const sport = (e.sport || e.sportName || '').toLowerCase().trim();
+    if (sport !== 'football' && sport !== 'soccer') return true;
+
+    const text = [e.league, e.tournament, e.title, e.name, e.seriesName, e.matchDesc, e.venue].filter(Boolean).join(' ').toLowerCase();
+
+    // Strictly exclude American football, college soccer, youth, and non-pro leagues
+    const NON_PRO_EXCLUDE_KEYWORDS = [
+      'ncaa', 'college', 'nfl', 'cfl', 'u19', 'u20', 'u21', 'u23', 'reserve',
+      'national league', 'keuken kampioen', '1 deild', 'usl league one', 'primera b',
+      'division 1 football', 'american football', 'high school', 'varsity'
+    ];
+
+    for (const exc of NON_PRO_EXCLUDE_KEYWORDS) {
+      if (text.includes(exc)) return false;
+    }
+
+    // Must match verified professional leagues & tournaments
+    const PRO_FOOTBALL_KEYWORDS = [
+      'premier league', 'la liga', 'laliga', 'serie a', 'bundesliga', 'ligue 1',
+      'champions league', 'europa league', 'conference league', 'uefa', 'fifa',
+      'fa cup', 'efl cup', 'carabao cup', 'copa del rey', 'coppa italia', 'dfb-pokal',
+      'coupe de france', 'major league soccer', 'mls', 'liga mx', 'liga bbva mx',
+      'saudi pro league', 'primeira liga', 'eredivisie', 'brasileirao', 'serie b',
+      'championship', 'ligue 2', '2. bundesliga', 'super lig', 'super league',
+      'premiership', 'allsvenskan', 'superliga', 'eliteserien', 'libertadores',
+      'sudamericana', 'nations league', 'world cup', 'euro', 'copa america',
+      'afc champions', 'indian super league', 'pro league', 'nwsl', 'women\'s super league',
+      'copa argentina', 'liga profesional', 'primera division', 'primera división',
+      'colombian primera a', 'peruvian liga 1', 'chilean primera división', 'usl championship'
+    ];
+
+    return PRO_FOOTBALL_KEYWORDS.some(k => text.includes(k));
+  }
+
   curateEvents(rawEvents) {
     const isAllowedSportFilter = (s) => {
       if (!s) return false;
       const norm = String(s).toLowerCase().trim();
       return norm === 'cricket' || norm === 'football' || norm === 'soccer' || norm === 'wwe' || norm === 'wrestling' || norm === 'aew';
     };
-    rawEvents = (rawEvents || []).filter(ev => isAllowedSportFilter(ev?.sport) || isAllowedSportFilter(ev?.sportName));
+    rawEvents = (rawEvents || []).filter(ev => {
+      if (!ev) return false;
+      // 1. Delete marked card: WWE 24/7 Special (wwe-24-7-live)
+      if (ev.id === 'wwe-24-7-live' || ev.rawId === 'wwe-24-7-live' || (ev.tournament === 'WWE Special' && String(ev.title || '').includes('24/7'))) return false;
+
+      // 2. Allowed sports
+      if (!isAllowedSportFilter(ev.sport) && !isAllowedSportFilter(ev.sportName)) return false;
+
+      // 3. Football filter: strictly professional football matches only
+      const sp = (ev.sport || ev.sportName || '').toLowerCase().trim();
+      if ((sp === 'football' || sp === 'soccer') && !this.isProfessionalFootball(ev)) {
+        return false;
+      }
+
+      return true;
+    });
 
     const now = Date.now();
     const tz = window.CONFIG?.TIMEZONE || 'Asia/Dhaka';
@@ -2770,13 +2744,20 @@ class SportsCoordinator {
       const norm = String(s).toLowerCase().trim();
       return norm === 'cricket' || norm === 'football' || norm === 'soccer' || norm === 'wwe' || norm === 'wrestling' || norm === 'aew';
     };
-    let list = (this.events || []).filter(e => isAllowedSportFilter(e?.sport) || isAllowedSportFilter(e?.sportName));
+    let list = (this.events || []).filter(e => {
+      if (!e) return false;
+      if (e.id === 'wwe-24-7-live' || e.rawId === 'wwe-24-7-live' || (e.tournament === 'WWE Special' && String(e.title || '').includes('24/7'))) return false;
+      if (!isAllowedSportFilter(e?.sport) && !isAllowedSportFilter(e?.sportName)) return false;
+      const sp = (e.sport || e.sportName || '').toLowerCase().trim();
+      if ((sp === 'football' || sp === 'soccer') && !this.isProfessionalFootball(e)) return false;
+      return true;
+    });
 
     // 1. Sport Filter (All, Football, Cricket, WWE, AEW)
     if (sport && sport.toLowerCase() !== 'all') {
       const sp = sport.toLowerCase().trim();
       if (sp === 'football' || sp === 'soccer') {
-        list = list.filter(e => (e.sport || '').toLowerCase() === 'football' || (e.sport || '').toLowerCase() === 'soccer');
+        list = list.filter(e => ((e.sport || '').toLowerCase() === 'football' || (e.sport || '').toLowerCase() === 'soccer') && this.isProfessionalFootball(e));
       } else if (sp === 'wwe' || sp === 'wrestling') {
         list = list.filter(e => (e.sport || '').toLowerCase() === 'wwe' || (e.sport || '').toLowerCase() === 'wrestling');
       } else {
@@ -2797,7 +2778,14 @@ class SportsCoordinator {
         return !ts || (nowMs - ts <= 24 * 3600 * 1000);
       });
     } else if (st === 'LIVE') {
-      list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'live');
+      const nowMs = Date.now();
+      list = list.filter(e => {
+        if (this.isEventFinished(e)) return false;
+        if ((e.status || '').toLowerCase() !== 'live') return false;
+        const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
+        if (ts > nowMs + 5 * 60 * 1000 && !e.team1?.score && !e.team2?.score) return false;
+        return true;
+      });
     } else if (st === 'UPCOMING') {
       list = list.filter(e => !this.isEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming' && this.isEventWithin7Days(e));
     } else if (st === 'TODAY') {

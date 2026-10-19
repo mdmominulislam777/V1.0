@@ -167,9 +167,9 @@
     if (primaryUrl && !seenUrls.has(primaryUrl)) {
       seenUrls.add(primaryUrl);
       servers.unshift(createStream({
-        id: `${channel.id}-srv-1`,
-        name: `${channel.name} (Server 1 HD)`,
-        serverLabel: 'SERVER 1 (1080P HD)',
+        id: `${channel.id}-primary`,
+        name: channel.name,
+        serverLabel: 'HD',
         quality: channel.quality || '1080p FHD',
         url: primaryUrl,
         provider: channel.provider || 'HighFy Master',
@@ -179,51 +179,6 @@
         channelName: channel.name,
         channelLogo: channel.logo || channel.image || ''
       }));
-    }
-
-    // 3. Secondary / Alternative servers if configured
-    if (Array.isArray(channel.servers)) {
-      channel.servers.forEach((srv, idx) => {
-        const url = srv?.url || srv?.streamUrl;
-        if (isValidStreamUrl(url) && !seenUrls.has(url.trim())) {
-          seenUrls.add(url.trim());
-          servers.push(createStream({
-            id: srv.id || `${channel.id}-srv-${servers.length + 1}`,
-            name: srv.name || `${channel.name} Server ${servers.length + 1}`,
-            serverLabel: srv.serverLabel || `SERVER ${servers.length + 1}`,
-            quality: srv.quality || '720p HD',
-            url: url.trim(),
-            provider: srv.provider || channel.provider || 'HighFy Backup',
-            verified: true,
-            active: true,
-            channelId: channel.id,
-            channelName: channel.name,
-            channelLogo: channel.logo || channel.image || ''
-          }));
-        }
-      });
-    }
-
-    // 4. Channels with explicit backupUrls array
-    if (Array.isArray(channel.backupUrls)) {
-      channel.backupUrls.forEach((bUrl, idx) => {
-        if (isValidStreamUrl(bUrl) && !seenUrls.has(bUrl.trim())) {
-          seenUrls.add(bUrl.trim());
-          servers.push(createStream({
-            id: `${channel.id}-backup-${idx + 1}`,
-            name: `${channel.name} Server ${servers.length + 1}`,
-            serverLabel: `SERVER ${servers.length + 1} (BACKUP)`,
-            quality: '720p HD',
-            url: bUrl.trim(),
-            provider: channel.provider || 'HighFy Backup',
-            verified: true,
-            active: true,
-            channelId: channel.id,
-            channelName: channel.name,
-            channelLogo: channel.logo || channel.image || ''
-          }));
-        }
-      });
     }
 
     return servers;
