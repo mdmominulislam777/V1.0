@@ -156,9 +156,14 @@ const allSportsApiCache = {
 // ============================================================================
 // HIGHFY TV ANTI-SNIFF & REQABLE SECURITY SYSTEM
 // ============================================================================
+if (process.env.NODE_ENV === "production" && !process.env.STREAM_SECRET) {
+  console.error("[FATAL] STREAM_SECRET environment variable is missing in production mode. Server startup aborted.");
+  process.exit(1);
+}
+const STREAM_SECRET_VAL = process.env.STREAM_SECRET || "highfy-dev-insecure-secret";
 const STREAM_SECURITY_KEY = crypto
   .createHash("sha256")
-  .update(process.env.STREAM_SECRET || "highfy-anti-sniff-stream-guard-2026-secure-token")
+  .update(STREAM_SECRET_VAL)
   .digest();
 
 // AES-256-GCM token encryption with timestamp payload to prevent permanent replay attacks
@@ -6709,8 +6714,15 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
   } else {
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
-    app.use(express.static(process.cwd()));
-    app.get("*all", (_req, res) => {
+    app.use("/data", express.static(path.join(distPath, "data")));
+    app.get("*all", (req, res) => {
+      if (req.path.endsWith(".json")) {
+        const rootJsonPath = path.join(process.cwd(), req.path.replace(/^\//, ""));
+        if (fs.existsSync(rootJsonPath)) {
+          return res.sendFile(rootJsonPath);
+        }
+        return res.status(404).json({ error: `Not found: ${req.path}` });
+      }
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

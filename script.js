@@ -779,7 +779,6 @@
    * Application Initialization
    */
   async function initApp() {
-    console.log('[HighFy] App initializing (v4.3)...');
     sanitizeStorageQuota();
     applyCustomAppBranding();
     updatePreloader(20, 'Initializing HighFy Engine...');
@@ -871,7 +870,6 @@
     }
 
     try {
-      console.log('[HighFy] Fetching events via sportsCoordinator...');
       if (window.sportsCoordinator) {
         // Enforce 6s race timeout to prevent slow network from freezing UI
         const fetchPromise = window.sportsCoordinator.fetchAllEvents(shouldForceRefresh);
@@ -900,7 +898,6 @@
           if (window.sportsCoordinator) {
             window.sportsCoordinator.events = window.EVENTS_DATA;
           }
-          console.log(`[HighFy] Successfully loaded ${state.events.length} fallback events from bundled data`);
         } else {
           try {
             let fallbackRes = await fetch('./data/sports-events.json?v=' + Date.now());
@@ -4150,7 +4147,6 @@
     if (window.CHANNELS_DATA && Array.isArray(window.CHANNELS_DATA) && window.CHANNELS_DATA.length > 0) {
       state.channels = window.CHANNELS_DATA;
       loaded = true;
-      console.log(`[HighFy] Successfully loaded ${state.channels.length} channels from bundled data`);
     }
 
     // 2. Try remote dynamic JSON if configured and forced
@@ -4164,7 +4160,6 @@
           if (Array.isArray(data) && data.length > 0) {
             state.channels = data;
             loaded = true;
-            console.log(`[HighFy] Successfully loaded ${data.length} channels from Remote URL:`, remoteUrl);
           }
         }
       } catch (remoteErr) {
@@ -4247,7 +4242,6 @@
       const res = await fetch('./data/epg.json?v=' + Date.now());
       if (res.ok) {
         state.epgData = await res.json();
-        console.log('[HighFy EPG] Loaded verified EPG schedule with', state.epgData?.channels?.length || 0, 'channels');
       }
     } catch (e) {
       console.warn('[HighFy EPG] Error loading epg.json:', e);
@@ -5245,7 +5239,6 @@
   async function loadCategories() {
     if (window.CATEGORIES_DATA && Array.isArray(window.CATEGORIES_DATA) && window.CATEGORIES_DATA.length > 0) {
       state.categories = window.CATEGORIES_DATA;
-      console.log(`[HighFy] Successfully loaded ${state.categories.length} categories from bundled data`);
       if (DOM.categoriesCount) DOM.categoriesCount.textContent = `${state.categories.length} Categories`;
       renderCategories();
       return;
@@ -6917,7 +6910,6 @@
             const json = await res.json();
             if (json.token) {
               currentToken = json.token;
-              console.log('[HighFy Player] Stream auth token silently renewed in background without video drop');
             }
           }
         } catch (e) {
@@ -6935,7 +6927,6 @@
         playPromise.catch(err => {
           console.warn('[HighFy Fast Player] Autoplay with audio restricted, starting muted for instant play:', err);
           DOM.videoElement.muted = true;
-          DOM.videoElement.play().catch(e => console.log('[HighFy] Video play error:', e));
         });
       }
     };
@@ -6962,7 +6953,6 @@
     // 1. Direct MPEG-TS Stream Playback via mpegts.js (Ultra Fast Config)
     if (isDirectTsStream && isMpegtsSupported) {
       try {
-        console.log('[HighFy Player] Initializing mpegts.js for TS stream:', finalStreamUrl);
         const mpegtsPlayer = window.mpegts.createPlayer({
           type: 'mse',
           isLive: true,
@@ -6988,7 +6978,6 @@
 
         mpegtsPlayer.play().then(triggerInstantPlay).catch(() => {
           DOM.videoElement.muted = true;
-          mpegtsPlayer.play().catch(e => console.log('[HighFy] mpegts play fallback:', e));
         });
 
         state.mpegtsInstance = mpegtsPlayer;
@@ -7048,7 +7037,6 @@
         if (hls && typeof hls.liveSyncPosition === 'number' && hls.liveSyncPosition > 0 && DOM.videoElement) {
           const drift = hls.liveSyncPosition - DOM.videoElement.currentTime;
           if (drift > 6 && !DOM.videoElement.paused) {
-            console.log(`[HighFy Player] Catching up to live edge (drift: ${drift.toFixed(1)}s)...`);
             DOM.videoElement.currentTime = hls.liveSyncPosition - 1;
           }
         }
@@ -7057,7 +7045,6 @@
       hls.on(window.Hls.Events.ERROR, (event, data) => {
         if (!data.fatal) {
           if (data.details === 'bufferStalledError') {
-            console.log('[HighFy Player] Buffer stall, instant nudge...');
             if (!state.isUserPaused && DOM.videoElement && DOM.videoElement.paused) {
               DOM.videoElement.play().catch(() => {});
             }
@@ -7125,7 +7112,6 @@
         if (p !== undefined) {
           p.catch(() => {
             DOM.videoElement.muted = true;
-            DOM.videoElement.play().catch(e => console.log('[HighFy] Autoplay muted fallback:', e));
           });
         }
       }, { once: true });
@@ -11703,7 +11689,6 @@
   async function loadBaseNotifications() {
     if (window.NOTIFICATIONS_DATA && Array.isArray(window.NOTIFICATIONS_DATA) && window.NOTIFICATIONS_DATA.length > 0) {
       state.notifications = window.NOTIFICATIONS_DATA;
-      console.log(`[HighFy] Successfully loaded ${state.notifications.length} notifications from bundled data`);
       return;
     }
 
@@ -12420,7 +12405,6 @@
     state.autoRefreshTimer = setInterval(() => {
       // Only refresh if tab is actively visible to the user
       if (document.visibilityState === 'visible') {
-        console.log('[HighFy] Auto-refreshing real live sports data...');
         loadSportsEvents(false);
       }
     }, intervalMs);

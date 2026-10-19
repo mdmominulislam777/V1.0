@@ -28,12 +28,27 @@ const jsonFiles = [
 
 jsonFiles.forEach(file => {
   const src = path.join(rootDir, file);
-  const dest = path.join(assetsDir, file);
+  const destAsset = path.join(assetsDir, file);
   if (fs.existsSync(src)) {
-    fs.copyFileSync(src, dest);
-    console.log(`[SyncAndroidAssets] Copied ${file}`);
+    fs.copyFileSync(src, destAsset);
+    console.log(`[SyncAndroidAssets] Copied ${file} to assets`);
+    if (fs.existsSync(distDir)) {
+      fs.copyFileSync(src, path.join(distDir, file));
+      console.log(`[SyncAndroidAssets] Copied ${file} to dist`);
+    }
   }
 });
+
+// Copy data/ directory to dist/data and assets/data
+const dataSrc = path.join(rootDir, 'data');
+if (fs.existsSync(dataSrc)) {
+  if (fs.existsSync(distDir)) {
+    copyFolderRecursive(dataSrc, path.join(distDir, 'data'));
+    console.log('[SyncAndroidAssets] Copied data/ to dist/data');
+  }
+  copyFolderRecursive(dataSrc, path.join(assetsDir, 'data'));
+  console.log('[SyncAndroidAssets] Copied data/ to assets/data');
+}
 
 // 3. Essential runtime script and style files
 const coreFiles = [

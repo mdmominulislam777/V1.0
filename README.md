@@ -1,88 +1,65 @@
-# HighFy TV — Production-Ready Auto-Update Data System
+# HighFy TV — Production-Ready Sports Streaming & TV Platform
 
-Automated, GitHub Actions-driven sports event synchronization, broadcaster verification, EPG generation, and channel management system for **HighFy TV** (Android Mobile & Android TV).
+HighFy TV is a production-ready, mobile-first sports streaming and live TV web/Android application with real-time broadcast matching, multi-server HLS playback, and offline data bundling.
 
 ---
 
 ## 1. Repository Structure
 
 ```
-HighFy-TV-Data/
+HighFy-TV/
 │
 ├── .github/
-│   └── workflows/
-│       └── auto-update.yml       # Scheduled GitHub Actions workflow (runs every 30m)
+│   └── workflows/                # Deployment and APK build pipelines
 │
 ├── data/
 │   ├── channels.json             # Normalized verified channels and authorized sources
 │   ├── sports-events.json        # Normalized sports events with verification metadata
-│   └── epg.json                  # Program guide generated from verified match schedules
+│   ├── epg.json                  # Program guide generated from verified match schedules
+│   └── manual_channels.json      # Verified fallback broadcast contracts
+│
+├── public/                       # Static assets and production data files (auto-copied to dist/)
+│   ├── channels.json
+│   ├── events.json
+│   ├── categories.json
+│   ├── notifications.json
+│   ├── version.json
+│   └── data/                     # Data directory mirrored for production HTTP access
 │
 ├── scripts/
-│   ├── update.py                 # Main orchestrator script with failure protection
-│   ├── sports_api.py             # Unified client for CricketData, TheSportsDB, AllSports
-│   ├── broadcaster.py            # Broadcaster extraction & deterministic catalog matcher
-│   └── validator.py              # Strict schema, timestamp, and security validator
+│   ├── generate_bundled_data.cjs # Bundles local data assets and copies JSON files to public/ & dist/
+│   └── sync-android-assets.cjs   # Synchronizes dist and assets to android/app/src/main/assets
 │
-├── logos/
-│   └── channels/                 # Verified high-resolution channel logos
-│
-├── README.md                     # Technical architecture and developer guide
-└── requirements.txt              # Python runtime dependencies
+├── server.ts                     # Secure Express backend with anti-sniff protection and API proxies
+├── script.js                     # Core frontend application controller (HLS player, UI, tabs)
+├── style.css                     # Mobile-first stylesheet with Tailwind CSS & custom design
+├── index.html                    # HighFy TV SPA entry point
+└── README.md                     # Technical architecture and developer guide
 ```
 
 ---
 
-## 2. Required GitHub Secrets
+## 2. Environment Configuration
 
-Configure these environment variables in your GitHub Repository under **Settings → Secrets and variables → Actions**:
+Configure these environment variables in your `.env` or deployment environment:
 
 | Secret Name | Description | Default / Fallback |
 | :--- | :--- | :--- |
+| `STREAM_SECRET` | Mandatory secret for production anti-sniff token generation | Required in production |
 | `CRICKETDATA_API_KEY` | CricketData.org / CricAPI API key | Read from env |
 | `THESPORTSDB_API_KEY` | TheSportsDB API key | Defaults to `"3"` (Free Tier) |
 | `ALLSPORTS_API_KEY` | All Sports API key (Livescore & Fixtures) | Optional / Configured |
 
-*Note: Never hardcode API keys in any JSON file, script, or commit.*
+*Note: Never commit secrets to source control.*
 
 ---
 
-## 3. How to Run Locally
+## 3. Data Architecture & Build Workflow
 
-### Prerequisites
-- Python 3.10+ (Python 3.12 recommended)
-- `pip`
-
-### Step 1: Install Dependencies
-```bash
-pip install -r requirements.txt
-```
-
-### Step 2: Set Environment Variables (Optional)
-```bash
-export CRICKETDATA_API_KEY="your_cricketdata_key"
-export THESPORTSDB_API_KEY="your_thesportsdb_key"
-export ALLSPORTS_API_KEY="your_allsports_key"
-```
-
-### Step 3: Run Update Orchestrator
-```bash
-python scripts/update.py
-```
-
-### Step 4: Run Data Validator Independently
-```bash
-python scripts/validator.py
-```
-
----
-
-## 4. How GitHub Actions Works
-
-1. **Schedule**: The workflow `.github/workflows/auto-update.yml` triggers automatically every 30 minutes via cron (`*/30 * * * *`), or manually via `workflow_dispatch`.
-2. **Fetch**: `scripts/update.py` queries configured APIs, maps broadcasters against `data/channels.json`, and generates `sports-events.json` and `epg.json`.
-3. **Validate**: `scripts/validator.py` ensures 100% data integrity, rejecting malformed URLs, broken references, duplicate IDs, or invalid statuses.
-4. **Commit & Push**: If changes exist and validation passes, updates are committed with `"Auto update sports data"` and pushed directly to the repository.
+HighFy TV uses a resilient dual-layer data architecture:
+1. **Dynamic Real-Time API Engine**: Live sports fixtures and broadcast details are resolved dynamically via server-side APIs (`/api/events`, `/api/fixture/broadcaster`, etc.) with in-memory caching to protect API quotas.
+2. **Bundled & Static Fallback**: During build, `scripts/generate_bundled_data.cjs` bundles local datasets into `bundled_data.js` and mirrors all JSON files into `public/` and `dist/`, ensuring zero runtime downtime even during network interruptions.
+3. **Android Asset Sync**: `scripts/sync-android-assets.cjs` mirrors all compiled production assets directly into `android/app/src/main/assets` for Android APK builds.
 
 ---
 
@@ -288,4 +265,14 @@ Add an entry object to the `entries` array in `data/manual_channels.json`:
 3. **Status Check**: Only entries with `status: "verified"` will match and be displayed. Entries with `status: "pending"` or any other value are safely ignored.
 4. **Time & Team Matching**: Matches use the exact same ±15 minute UTC window and team normalization (suffix removal, Levenshtein similarity ≥ 0.85).
 5. **No Invented Channels**: Never add fabricated or unverified channel names. Invalid entries are logged and skipped on server startup without crashing.
+
+---
+
+## 14. Android Versioning Rules (`version.json` & `public/version.json`)
+
+To ensure smooth OTA updates and proper Android app packaging:
+1. **Always Synchronize**: Both `version.json` (at project root) and `public/version.json` must have identical values.
+2. **Version Code Increment**: Whenever releasing a new APK build, increment `versionCode` by `+1` (integer) in both files.
+3. **Semantic Versioning**: Update `version` and `versionName` (e.g. `"1.0.1"`, `"1.1.0"`) according to semantic versioning guidelines.
+4. **Consistency Check**: The build pipeline and Android asset sync verify that both files match before building.
 
