@@ -6746,6 +6746,13 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
         }
         return res.status(404).json({ error: `Not found: ${req.path}` });
       }
+
+      // Reject requests for source files, server scripts, or other file extensions not in dist
+      const ext = path.extname(req.path).toLowerCase();
+      if (ext && ext !== ".html") {
+        return res.status(404).send("Not Found");
+      }
+
       res.sendFile(path.join(distPath, "index.html"));
     });
   }

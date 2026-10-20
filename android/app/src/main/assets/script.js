@@ -4100,8 +4100,8 @@
             aiContainer.innerHTML = `
               <div class="p-3 text-center bg-rose-500/10 border border-rose-500/20 rounded-xl">
                 <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg mb-1.5 block"></i>
-                <div class="text-xs font-bold text-rose-400">${errorMsg}</div>
-                <div class="text-[10px] text-slate-400 mt-1">${descMsg}</div>
+                <div class="text-xs font-bold text-rose-400">${escapeHtml(errorMsg)}</div>
+                <div class="text-[10px] text-slate-400 mt-1">${escapeHtml(descMsg)}</div>
                 <button id="btn-retry-ai-analysis" class="mt-2.5 mx-auto py-1.5 px-3 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 hover:text-rose-200 text-[10px] font-bold border border-rose-500/30 transition flex items-center gap-1">
                   <i class="fa-solid fa-rotate-left"></i> Retry Analysis
                 </button>
@@ -8656,7 +8656,7 @@
           } catch (err) {
             if (workerTestResultEl) {
               workerTestResultEl.className = 'text-[11px] mt-1.5 p-2 rounded-lg border font-medium bg-rose-500/10 border-rose-500/30 text-rose-300 block';
-              workerTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>Connection failed: ${err.message}`;
+              workerTestResultEl.innerHTML = `<i class="fa-solid fa-circle-xmark mr-1.5"></i>Connection failed: ${escapeHtml(err.message)}`;
             }
           } finally {
             btnTestWorker.disabled = false;

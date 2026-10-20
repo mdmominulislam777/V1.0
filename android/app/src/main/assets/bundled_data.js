@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-10-19T12:08:28.066Z
+ * Generated at: 2026-10-20T07:20:51.574Z
  */
 
 (() => {
@@ -4020,7 +4020,7 @@
     "league": "ODI Tri-Nation Series in UAE 2026",
     "tournament": "ODI Tri-Nation Series in UAE 2026",
     "matchDesc": "ODI Tri-Nation Series in UAE 2026 - 2nd Match - Afghanistan vs Zimbabwe",
-    "status": "UPCOMING",
+    "status": "FINISHED",
     "statusText": "Scheduled",
     "statusLabel": "Upcoming",
     "startTime": "2026-10-19T12:00:00.000Z",
