@@ -3719,10 +3719,10 @@
             const progLeague = (prog.league || '').toLowerCase();
             const progEid = String(prog.eventId || '');
 
-            return (progEid && progEid === evId) ||
-              (t1 && t2 && progTitle.includes(t1) && progTitle.includes(t2)) ||
-              (evTitle && (progTitle.includes(evTitle) || evTitle.includes(progTitle))) ||
-              (evLeague && progLeague && (progLeague.includes(evLeague) || evLeague.includes(progLeague)));
+            return Boolean(
+              (progEid && progEid === evId) ||
+              (t1 && t2 && progTitle.includes(t1) && progTitle.includes(t2))
+            );
           });
 
           if (matchedPrograms.length > 0) {
@@ -4273,10 +4273,10 @@
             const progLeague = (prog.league || '').toLowerCase();
             const progEid = String(prog.eventId || '');
 
-            const isMatch = (progEid && progEid === evId) ||
-              (t1 && t2 && progTitle.includes(t1) && progTitle.includes(t2)) ||
-              (evTitle && (progTitle.includes(evTitle) || evTitle.includes(progTitle))) ||
-              (evLeague && progLeague && (progLeague.includes(evLeague) || evLeague.includes(progLeague)));
+            const isMatch = Boolean(
+              (progEid && progEid === evId) ||
+              (t1 && t2 && progTitle.includes(t1) && progTitle.includes(t2))
+            );
 
             if (isMatch) {
               matchedChannelIds.add(epgCh.channelId);
@@ -4309,54 +4309,6 @@
           }
         }
       });
-    }
-
-    // 2. Check tournament verified broadcast contracts if still empty
-    if (matched.length === 0) {
-      const VERIFIED_TOURNAMENTS = {
-        'asian games': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-3-hd', 'ch-t-sports-hd', 'ch-ayna-019de785-39bc-7bd5-b9e5-bab23ceba9ea'],
-        'icc': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-t-sports-hd', 'ch-willow-cricket'],
-        'ipl': ['ch-star-sports-1-hd', 'ch-star-sports-1-hindi', 'ch-willow-cricket'],
-        'bpl': ['ch-t-sports-hd', 'ch-gazi-tv'],
-        'premier league': ['ch-star-sports-select-1-hd', 'ch-sky-sports-premier-league'],
-        'champions league': ['ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-2-hd'],
-        'wwe': ['ch-wwe-24-7', 'ch-sony-sports-ten-1-hd', 'ch-sony-sports-ten-3-hd']
-      };
-
-      for (const [key, cids] of Object.entries(VERIFIED_TOURNAMENTS)) {
-        if (evLeague.includes(key) || evTitle.includes(key)) {
-          cids.forEach(cid => {
-            const targetCh = chMap.get(cid);
-            if (targetCh && !matchedChannelIds.has(cid)) {
-              matchedChannelIds.add(cid);
-              const pUrl = targetCh.stream_url || targetCh.url || targetCh.streamUrl;
-              const bUrls = targetCh.backupUrls || (targetCh.backup_stream_url ? [targetCh.backup_stream_url] : []);
-              const chLogo = getSafeLogoUrl(targetCh.logo, targetCh.name, targetCh.id);
-              const chStreams = targetCh.servers && targetCh.servers.length > 0 ? targetCh.servers : [
-                { name: `${targetCh.name} (Server 1 HD)`, serverLabel: 'SERVER 1 (1080P HD)', channelName: targetCh.name, channelLogo: chLogo, quality: '1080p FHD', url: pUrl },
-                ...bUrls.map((u, i) => ({ name: `${targetCh.name} (Server ${i + 2} Backup)`, serverLabel: `SERVER ${i + 2} (BACKUP)`, channelName: targetCh.name, channelLogo: chLogo, quality: '720p HD', url: u }))
-              ].filter(s => s && s.url);
-
-              matched.push({
-                eventId: event.id,
-                name: targetCh.name,
-                logo: chLogo,
-                country: targetCh.country || null,
-                type: 'TV',
-                source: 'epg_verified',
-                sourcePath: 'epg.tournament.verified',
-                channelId: targetCh.id,
-                discovered: true,
-                authorizationStatus: 'authorized',
-                playbackStatus: chStreams.length > 0 ? 'playable' : 'unavailable',
-                epgBadge: '✓ EPG Verified Schedule',
-                servers: chStreams
-              });
-            }
-          });
-          break;
-        }
-      }
     }
 
     return matched;
