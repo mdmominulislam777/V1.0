@@ -6715,10 +6715,33 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
     const distPath = path.join(process.cwd(), "dist");
     app.use(express.static(distPath));
     app.use("/data", express.static(path.join(distPath, "data")));
+    const ALLOWED_JSON_PATHS = new Set([
+      "events.json",
+      "channels.json",
+      "categories.json",
+      "notifications.json",
+      "version.json",
+      "data/channels.json",
+      "data/epg.json",
+      "data/sports-events.json",
+      "data/manual_channels.json"
+    ]);
+
     app.get("*all", (req, res) => {
       if (req.path.endsWith(".json")) {
-        const rootJsonPath = path.join(process.cwd(), req.path.replace(/^\//, ""));
+        // Normalize path and strip leading slashes to prevent directory traversal
+        const cleanPath = path.normalize(req.path.replace(/^\/+/, "")).replace(/^(\.\.[\/\\])+/, "");
+        if (!ALLOWED_JSON_PATHS.has(cleanPath)) {
+          return res.status(404).json({ error: `Not found: ${req.path}` });
+        }
+        const distJsonPath = path.join(distPath, cleanPath);
+        if (fs.existsSync(distJsonPath)) {
+          res.setHeader("Content-Type", "application/json");
+          return res.sendFile(distJsonPath);
+        }
+        const rootJsonPath = path.join(process.cwd(), cleanPath);
         if (fs.existsSync(rootJsonPath)) {
+          res.setHeader("Content-Type", "application/json");
           return res.sendFile(rootJsonPath);
         }
         return res.status(404).json({ error: `Not found: ${req.path}` });

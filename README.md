@@ -63,6 +63,17 @@ HighFy TV uses a resilient dual-layer data architecture:
 
 ---
 
+## 4. Removal of Legacy Auto-Update Workflow
+
+The legacy GitHub Actions workflow (`.github/workflows/auto-update.yml`) and its external Python scripts (`update.py` and `validator.py`) with a 30-minute cron have been permanently removed.
+
+**Architectural Rationale:**
+- **Elimination of Python Dependency**: The repository is now 100% unified under a modern Node.js, TypeScript, and Vite ecosystem without needing external Python interpreters.
+- **Real-Time vs. Batch Polling**: A 30-minute cron job is too slow for live sports updates. HighFy TV now fetches and caches live fixtures in real-time through the Express backend service layer with intelligent quota-protection TTLs.
+- **Repository Cleanliness**: Eliminates continuous automated git commits to the repository tree, preventing merge conflicts and unnecessary repository bloat.
+
+---
+
 ## 5. JSON Schemas
 
 ### `data/sports-events.json`
@@ -188,7 +199,7 @@ HighFy TV uses a resilient dual-layer data architecture:
 
 ## 10. Failure Handling & Protection
 
-- **Transient Outage Defense**: If external APIs return temporary network errors or 0 events while a previous valid dataset exists (e.g. 178 events), `update.py` preserves the previous dataset and logs:
+- **Transient Outage Defense**: If external APIs return temporary network errors or 0 events while a previous valid dataset exists (e.g. 178 events), the backend data layer preserves the previous valid dataset and logs:
   ```
   API FAILURE: Keeping previous valid dataset
   ```
