@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-10-20T07:32:40.744Z
+ * Generated at: 2026-10-22T15:09:46.458Z
  */
 
 (() => {

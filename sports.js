@@ -368,63 +368,7 @@ class SportsCoordinator {
     return scoredChannels.map(sc => sc.channel);
   }
 
-  /**
-   * Sport & League Default Fallback (Secondary Fallback):
-   * If API provides NO broadcaster name or broadcaster search returns 0 channels,
-   * query channels.json for all verified, active channels tagged with that specific sport.
-   */
-  findChannelsBySportFallback(sportName, sportsChannels) {
-    if (!sportName || !Array.isArray(sportsChannels)) return [];
-    const sNorm = normalizeString(sportName);
-    if (!sNorm) return [];
 
-    const activeChannels = sportsChannels.filter(c => {
-      if (!c) return false;
-      const isActive = c.active === true || c.is_active === true || (c.active !== false && c.is_active !== false);
-      const isLive = c.isLive !== false && c.is_live !== false;
-      const hasStream = Boolean(c.streamUrl || c.stream_url || c.url || (Array.isArray(c.streams) && c.streams.length > 0));
-      return isActive && isLive && hasStream;
-    });
-
-    const matched = activeChannels.filter(c => {
-      const chSports = Array.isArray(c.sports) ? c.sports.map(s => normalizeString(String(s))) : [];
-      const chCat = normalizeString(c.category || '');
-      const chCats = Array.isArray(c.categories) ? c.categories.map(x => normalizeString(String(x))) : [];
-      const chName = normalizeString(c.name || '');
-
-      if (sNorm === 'cricket') {
-        return chSports.includes('cricket') || chCats.includes('cricket') ||
-          chName.includes('cricket') || chName.includes('willow') || chName.includes('t sports') ||
-          chName.includes('tsports') || chName.includes('ptv sports') || chName.includes('star sports') ||
-          chName.includes('gazi') || chName.includes('gtv') || chName.includes('a sports') || chName.includes('ten sports');
-      } else if (sNorm === 'football' || sNorm === 'soccer') {
-        return chSports.includes('football') || chSports.includes('soccer') || chCats.includes('football') ||
-          chName.includes('football') || chName.includes('premier league') || chName.includes('la liga') ||
-          chName.includes('bein sports') || chName.includes('sky sports') || chName.includes('tnt sports') ||
-          chName.includes('sony sports') || chName.includes('dazn');
-      } else if (sNorm === 'basketball' || sNorm === 'nba') {
-        return chSports.includes('basketball') || chSports.includes('nba') || chCats.includes('basketball') ||
-          chName.includes('nba') || chName.includes('espn') || chName.includes('tnt sports');
-      } else if (sNorm === 'tennis') {
-        return chSports.includes('tennis') || chCats.includes('tennis') || chName.includes('tennis') ||
-          chName.includes('eurosport') || chName.includes('sony sports') || chName.includes('bein sports');
-      } else if (sNorm === 'wwe' || sNorm === 'combat' || sNorm === 'ufc' || sNorm === 'boxing') {
-        return chSports.some(s => s.includes('wwe') || s.includes('combat') || s.includes('ufc')) ||
-          chName.includes('wwe') || chName.includes('ufc') || chName.includes('sony ten') || chName.includes('tnt');
-      } else if (sNorm === 'motorsport' || sNorm === 'f1' || sNorm === 'racing') {
-        return chSports.some(s => s.includes('motor') || s.includes('f1') || s.includes('racing')) ||
-          chName.includes('f1') || chName.includes('sky sports f1') || chName.includes('motorsport');
-      }
-
-      return chSports.some(s => s.includes(sNorm) || sNorm.includes(s)) ||
-        chCats.some(ct => ct.includes(sNorm) || sNorm.includes(ct)) ||
-        chCat.includes(sNorm) ||
-        chName.includes(sNorm);
-    });
-
-    matched.sort((a, b) => (a.priority || 99) - (b.priority || 99));
-    return matched;
-  }
 
   /**
    * Resolve authentic Fixture Broadcaster directly from API if missing

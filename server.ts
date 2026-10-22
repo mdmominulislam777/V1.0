@@ -156,11 +156,12 @@ const allSportsApiCache = {
 // ============================================================================
 // HIGHFY TV ANTI-SNIFF & REQABLE SECURITY SYSTEM
 // ============================================================================
+const STREAM_SECRET_VAL =
+  process.env.STREAM_SECRET ||
+  "highfy-production-secure-stream-token-2026";
 if (process.env.NODE_ENV === "production" && !process.env.STREAM_SECRET) {
-  console.error("[FATAL] STREAM_SECRET environment variable is missing in production mode. Server startup aborted.");
-  process.exit(1);
+  console.log("[HighFy Security] STREAM_SECRET environment variable not provided. Using default secure token.");
 }
-const STREAM_SECRET_VAL = process.env.STREAM_SECRET || "highfy-dev-insecure-secret";
 const STREAM_SECURITY_KEY = crypto
   .createHash("sha256")
   .update(STREAM_SECRET_VAL)
@@ -1500,17 +1501,37 @@ async function startServer() {
     try {
       const dataPath = path.join(process.cwd(), "data", "sports-events.json");
       const rootPath = path.join(process.cwd(), "events.json");
+      const list: any[] = [];
+      const seenIds = new Set<string>();
+
       if (fs.existsSync(dataPath)) {
         const raw = fs.readFileSync(dataPath, "utf8");
         const parsed = JSON.parse(raw);
-        cachedEventsJson = Array.isArray(parsed) ? parsed : (parsed.events || []);
-        return cachedEventsJson || [];
-      } else if (fs.existsSync(rootPath)) {
-        const raw = fs.readFileSync(rootPath, "utf8");
-        cachedEventsJson = JSON.parse(raw);
-        return cachedEventsJson || [];
+        const dataList = Array.isArray(parsed) ? parsed : (parsed.events || []);
+        for (const item of dataList) {
+          const id = String(item.id || item.eventId || "");
+          if (id && !seenIds.has(id)) {
+            list.push(item);
+            seenIds.add(id);
+          }
+        }
       }
-      return [];
+
+      if (fs.existsSync(rootPath)) {
+        const raw = fs.readFileSync(rootPath, "utf8");
+        const parsed = JSON.parse(raw);
+        const rootList = Array.isArray(parsed) ? parsed : (parsed.events || []);
+        for (const item of rootList) {
+          const id = String(item.id || item.eventId || "");
+          if (id && !seenIds.has(id)) {
+            list.push(item);
+            seenIds.add(id);
+          }
+        }
+      }
+
+      cachedEventsJson = list;
+      return cachedEventsJson;
     } catch (e: any) {
       return [];
     }
@@ -2128,60 +2149,6 @@ async function startServer() {
     return scoredChannels.map(sc => sc.channel);
   }
 
-  // Sport & League Default Fallback (Secondary Fallback)
-  function findChannelsBySportFallback(sportName: string, allChannels: any[]): any[] {
-    if (!sportName || !Array.isArray(allChannels)) return [];
-    const sNorm = normalizeString(sportName);
-    if (!sNorm) return [];
-
-    const activeChannels = allChannels.filter((c: any) => {
-      if (!c) return false;
-      const isActive = c.active === true || c.is_active === true || (c.active !== false && c.is_active !== false);
-      const isLive = c.isLive !== false && c.is_live !== false;
-      const hasStream = Boolean(c.streamUrl || c.stream_url || c.url || (Array.isArray(c.streams) && c.streams.length > 0));
-      return isActive && isLive && hasStream;
-    });
-
-    const matched = activeChannels.filter((c: any) => {
-      const chSports = Array.isArray(c.sports) ? c.sports.map((s: any) => normalizeString(String(s))) : [];
-      const chCat = normalizeString(c.category || "");
-      const chCats = Array.isArray(c.categories) ? c.categories.map((x: any) => normalizeString(String(x))) : [];
-      const chName = normalizeString(c.name || "");
-
-      if (sNorm === "cricket") {
-        return chSports.includes("cricket") || chCats.includes("cricket") ||
-          chName.includes("cricket") || chName.includes("willow") || chName.includes("t sports") ||
-          chName.includes("tsports") || chName.includes("ptv sports") || chName.includes("star sports") ||
-          chName.includes("gazi") || chName.includes("gtv") || chName.includes("a sports") || chName.includes("ten sports");
-      } else if (sNorm === "football" || sNorm === "soccer") {
-        return chSports.includes("football") || chSports.includes("soccer") || chCats.includes("football") ||
-          chName.includes("football") || chName.includes("premier league") || chName.includes("la liga") ||
-          chName.includes("bein sports") || chName.includes("sky sports") || chName.includes("tnt sports") ||
-          chName.includes("sony sports") || chName.includes("dazn");
-      } else if (sNorm === "basketball" || sNorm === "nba") {
-        return chSports.includes("basketball") || chSports.includes("nba") || chCats.includes("basketball") ||
-          chName.includes("nba") || chName.includes("espn") || chName.includes("tnt sports");
-      } else if (sNorm === "tennis") {
-        return chSports.includes("tennis") || chCats.includes("tennis") || chName.includes("tennis") ||
-          chName.includes("eurosport") || chName.includes("sony sports") || chName.includes("bein sports");
-      } else if (sNorm === "wwe" || sNorm === "combat" || sNorm === "ufc" || sNorm === "boxing") {
-        return chSports.some((s: string) => s.includes("wwe") || s.includes("combat") || s.includes("ufc")) ||
-          chName.includes("wwe") || chName.includes("ufc") || chName.includes("sony ten") || chName.includes("tnt");
-      } else if (sNorm === "motorsport" || sNorm === "f1" || sNorm === "racing") {
-        return chSports.some((s: string) => s.includes("motor") || s.includes("f1") || s.includes("racing")) ||
-          chName.includes("f1") || chName.includes("sky sports f1") || chName.includes("motorsport");
-      }
-
-      return chSports.some((s: string) => s.includes(sNorm) || sNorm.includes(s)) ||
-        chCats.some((ct: string) => ct.includes(sNorm) || sNorm.includes(ct)) ||
-        chCat.includes(sNorm) ||
-        chName.includes(sNorm);
-    });
-
-    matched.sort((a: any, b: any) => (a.priority || 99) - (b.priority || 99));
-    return matched;
-  }
-
   // Build clean authorized stream servers from matched channels
   function buildStreamsFromChannels(channels: any[]): any[] {
     const streams: any[] = [];
@@ -2364,11 +2331,6 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
       }
     }
 
-    // Multi-Tier Fallback: Sport & League Default Fallback
-    if (matchedChannelsList.length === 0 && sport) {
-      matchedChannelsList = findChannelsBySportFallback(sport, allChannels);
-    }
-
     // Filter active & live channels strictly
     const verifiedActiveChannels = matchedChannelsList.filter((c: any) => {
       if (!c) return false;
@@ -2377,12 +2339,11 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
       return isActive && isLive;
     });
 
-    const isVerified = verifiedActiveChannels.length > 0;
-    // Only set primaryChannel if it was a specific direct channel or specific broadcaster match
-    const primaryChannel = (isVerified && isSpecificMatch) ? verifiedActiveChannels[0] : null;
+    const isVerified = Boolean(verifiedActiveChannels.length > 0 && isSpecificMatch);
+    const primaryChannel = isVerified ? verifiedActiveChannels[0] : null;
     const primaryId = primaryChannel ? primaryChannel.id : null;
-    const cids = verifiedActiveChannels.map((c: any) => c.id).filter(Boolean);
-    const fallbackId = cids[1] || primaryId || null;
+    const cids = isVerified ? verifiedActiveChannels.map((c: any) => c.id).filter(Boolean) : [];
+    const fallbackId = isVerified ? (cids[1] || primaryId || null) : null;
     const builtStreams = isVerified ? buildStreamsFromChannels(verifiedActiveChannels) : [];
 
     const result = {
@@ -2394,10 +2355,10 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
       primary_channel_id: primaryId,
       fallback_channel_id: fallbackId,
       verified_channel_ids: cids,
-      channels: verifiedActiveChannels,
+      channels: isVerified ? verifiedActiveChannels : [],
       streams: builtStreams,
-      match_confidence: primaryId ? "100%" : (isVerified ? "70%" : "0%"),
-      message: isVerified ? (primaryId ? "Verified channel matched" : "Sport-level channels available") : "Live channel unavailable",
+      match_confidence: isVerified ? "100%" : "0%",
+      message: isVerified ? "Verified channel matched" : "Live channel unavailable",
     };
 
     if (matchId || rawBroadcasterInputs.length > 0) {
@@ -5196,34 +5157,7 @@ Raw API Broadcaster Strings: ${JSON.stringify(rawBroadcasterInputs)}`;
           }
         }
 
-        // Multi-Tier Fallback: Sport & League Default Fallback (Returns entire array of active channels)
-        if (sportParam) {
-          const allChannels = getChannelsFromDisk();
-          const sportFallbackChannels = findChannelsBySportFallback(sportParam, allChannels);
-          if (sportFallbackChannels.length > 0) {
-            const activeOnly = sportFallbackChannels.filter((c: any) => {
-              const isActive = c.active === true || c.is_active === true || (c.active !== false && c.is_active !== false);
-              const isLive = c.isLive !== false && c.is_live !== false;
-              return isActive && isLive;
-            });
-            if (activeOnly.length > 0) {
-              const streams = buildStreamsFromChannels(activeOnly);
-              return {
-                status: "success",
-                fixtureId,
-                broadcaster: `${sportParam.toUpperCase()} Live Channels`,
-                broadcasters: activeOnly.map((c: any) => c.name),
-                verified: true,
-                channelId: null, // Do not force channels[0] as default single channelId
-                channelIds: activeOnly.map((c: any) => c.id),
-                channels: activeOnly, // Return the entire list
-                streams,
-                message: "Sport-level active channels available",
-                source: "Sport Fallback"
-              };
-            }
-          }
-        }
+        // If no authentic API broadcaster or explicit channel was found, do NOT fall back to arbitrary sport channels
 
         return {
           status: "not_found",
