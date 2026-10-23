@@ -287,3 +287,17 @@ To ensure smooth OTA updates and proper Android app packaging:
 3. **Semantic Versioning**: Update `version` and `versionName` (e.g. `"1.0.1"`, `"1.1.0"`) according to semantic versioning guidelines.
 4. **Consistency Check**: The build pipeline and Android asset sync verify that both files match before building.
 
+---
+
+## 15. Canonical Package Manager & CI/CD Pipeline
+
+HighFy TV uses **npm** (`npm`) as its canonical package manager with `package-lock.json`.
+- **Install Dependencies**: `npm ci` (deterministic CI/CD installations) or `npm install`
+- **Unit Testing**: `npm test` (executes `tests/channel-matching.test.ts` via `tsx`)
+- **Type Checking / Linting**: `npm run lint` (`tsc --noEmit`)
+- **Production Web & Android Build**: `npm run build`
+- **Start Production Server**: `npm start` (`node dist/server.cjs`)
+
+The deployment workflows in `.github/workflows/deploy.yml` and `.github/workflows/build-apk.yml` are synchronized with `package-lock.json` and execute `npm ci` for automated builds.
+
+
