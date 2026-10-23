@@ -1112,6 +1112,58 @@
     return false;
   }
 
+  function getComputedEventStatus(ev) {
+    if (!ev) return 'upcoming';
+    if (isAppEventFinished(ev)) return 'finished';
+
+    let rawTs = (ev.timestamp && typeof ev.timestamp === 'number') ? ev.timestamp : 0;
+    if (!rawTs && (ev.startTime || ev.date)) {
+      let s = String(ev.startTime || ev.date).trim();
+      if (!s.includes('T') && /^\d{4}-\d{2}-\d{2}$/.test(s)) {
+        s = `${s}T12:00:00Z`;
+      } else if (!s.endsWith('Z') && !/[+-]\d{2}:?\d{2}$/.test(s)) {
+        s = s.replace(' ', 'T') + 'Z';
+      }
+      const parsed = Date.parse(s);
+      if (!isNaN(parsed)) rawTs = parsed;
+    }
+
+    if (rawTs) {
+      const now = Date.now();
+      const ts = rawTs < 10000000000 ? rawTs * 1000 : rawTs;
+      const elapsed = now - ts;
+      const sp = String(ev.sport || ev.sportName || '').toLowerCase().trim();
+
+      let maxDurationMs = 3 * 3600 * 1000;
+      if (sp === 'football' || sp === 'soccer') {
+        maxDurationMs = 150 * 60 * 1000; // 2.5 hours
+      } else if (sp === 'cricket') {
+        const fmt = String(ev.matchFormat || ev.matchType || ev.tournament || '').toUpperCase();
+        maxDurationMs = fmt.includes('T20') || fmt.includes('T10') ? (4.5 * 3600 * 1000) : (8.5 * 3600 * 1000);
+      } else if (sp === 'tennis' || sp === 'baseball') {
+        maxDurationMs = 4 * 3600 * 1000;
+      }
+
+      if (elapsed > maxDurationMs) {
+        return 'finished';
+      } else if (elapsed >= 0) {
+        return 'live';
+      } else if (elapsed < 0) {
+        const fileSt = String(ev.status || '').toLowerCase().trim();
+        if ((fileSt === 'live' || (ev.time && ev.time.toLowerCase().includes('live'))) && (ev.team1?.score || ev.team2?.score)) {
+          return 'live';
+        }
+        return 'upcoming';
+      }
+    }
+
+    const fileSt = String(ev.status || '').toLowerCase().trim();
+    if (fileSt === 'live' || (ev.time && ev.time.toLowerCase().includes('live'))) return 'live';
+    if (fileSt === 'finished' || fileSt === 'ft') return 'finished';
+    return 'upcoming';
+  }
+  window.getComputedEventStatus = getComputedEventStatus;
+
   function isTodayEv(ev) {
     if (!ev) return false;
     const coordinator = window.sportsCoordinator;
@@ -1268,19 +1320,12 @@
       }
     }
 
-    const nowMs = Date.now();
-    const allCount = list.filter(e => !isAppEventFinished(e) && isWithin7Days(e)).length;
-    const todayCount = list.filter(e => !isAppEventFinished(e) && isTodayEv(e)).length;
-    const finishedCount = list.filter(e => isAppEventFinished(e)).length;
-    const liveCount = list.filter(e => {
-      if (isAppEventFinished(e)) return false;
-      if ((e.status || '').toLowerCase() !== 'live') return false;
-      const ts = e.timestamp ? (e.timestamp < 10000000000 ? e.timestamp * 1000 : e.timestamp) : 0;
-      if (ts > nowMs + 5 * 60 * 1000 && !e.team1?.score && !e.team2?.score) return false;
-      return true;
-    }).length;
-    const upcomingCount = list.filter(e => !isAppEventFinished(e) && (e.status || '').toLowerCase() === 'upcoming' && isWithin7Days(e)).length;
-    const favCount = list.filter(e => !isAppEventFinished(e) && state.eventFavorites.includes(e.id)).length;
+    const allCount = list.filter(e => getComputedEventStatus(e) !== 'finished' && isWithin7Days(e)).length;
+    const todayCount = list.filter(e => getComputedEventStatus(e) !== 'finished' && isTodayEv(e)).length;
+    const finishedCount = list.filter(e => getComputedEventStatus(e) === 'finished').length;
+    const liveCount = list.filter(e => getComputedEventStatus(e) === 'live').length;
+    const upcomingCount = list.filter(e => getComputedEventStatus(e) === 'upcoming' && isWithin7Days(e)).length;
+    const favCount = list.filter(e => getComputedEventStatus(e) !== 'finished' && state.eventFavorites.includes(e.id)).length;
 
     if (DOM.cntAll) DOM.cntAll.textContent = `(${allCount})`;
     if (DOM.cntToday) DOM.cntToday.textContent = `(${todayCount})`;
@@ -1890,18 +1935,10 @@
       }
     }
 
-    const isFinished = isAppEventFinished(event);
-    const statusLower = (event.status || 'upcoming').toLowerCase();
-
-    // Check if event has active verified channels/streams (Rule 9)
-    const hasStream = event.hasStream && Array.isArray(event.broadcastingChannelDetails) && event.broadcastingChannelDetails.length > 0;
-    const primaryCh = hasStream ? event.broadcastingChannelDetails[0] : null;
-    const primaryChLogo = primaryCh ? primaryCh.logo : '';
-    const primaryChName = primaryCh ? primaryCh.name : '';
-    const rawCardTs = event.timestamp ? (event.timestamp < 10000000000 ? event.timestamp * 1000 : event.timestamp) : 0;
-    const isFutureMatch = rawCardTs > (Date.now() + 5 * 60 * 1000) && !event.team1?.score && !event.team2?.score;
-    const isLive = !isFinished && !isFutureMatch && (statusLower === 'live' || (event.time && event.time.toLowerCase().includes('live')));
-    const isUpcoming = !isLive && !isFinished;
+    const computedStatus = getComputedEventStatus(event);
+    const isFinished = computedStatus === 'finished';
+    const isLive = computedStatus === 'live';
+    const isUpcoming = computedStatus === 'upcoming';
     const isFav = state.eventFavorites.includes(event.id);
 
     // Clean Tournament / Series Title for Display
@@ -2433,32 +2470,23 @@
     if (state.selectedFilter === 'FINISHED') {
       const nowMs = Date.now();
       filtered = filtered.filter(ev => {
-        if (!isAppEventFinished(ev)) return false;
+        if (getComputedEventStatus(ev) !== 'finished') return false;
         const ts = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
         return !ts || (nowMs - ts <= 24 * 3600 * 1000);
       });
     } else if (state.selectedFilter === 'LIVE') {
-      const nowMs = Date.now();
-      filtered = filtered.filter(ev => {
-        if (isAppEventFinished(ev)) return false;
-        const status = (ev.status || '').toLowerCase();
-        if (status !== 'live') return false;
-        const ts = ev.timestamp ? (ev.timestamp < 10000000000 ? ev.timestamp * 1000 : ev.timestamp) : 0;
-        // If match starts in the future (more than 5 mins ahead) and has no live score, it is not live yet
-        if (ts > nowMs + 5 * 60 * 1000 && !ev.team1?.score && !ev.team2?.score) return false;
-        return true;
-      });
+      filtered = filtered.filter(ev => getComputedEventStatus(ev) === 'live');
     } else if (state.selectedFilter === 'UPCOMING') {
       filtered = filtered
-        .filter(ev => !isAppEventFinished(ev) && (ev.status || '').toLowerCase() === 'upcoming' && isWithin3Days(ev))
+        .filter(ev => getComputedEventStatus(ev) === 'upcoming' && isWithin3Days(ev))
         .sort((a, b) => (a.timestamp || Number.MAX_SAFE_INTEGER) - (b.timestamp || Number.MAX_SAFE_INTEGER));
     } else if (state.selectedFilter === 'TODAY') {
-      filtered = filtered.filter(ev => !isAppEventFinished(ev) && isTodayEv(ev));
+      filtered = filtered.filter(ev => getComputedEventStatus(ev) !== 'finished' && isTodayEv(ev));
     } else if (state.selectedFilter === 'FAVORITES') {
-      filtered = filtered.filter(ev => !isAppEventFinished(ev) && state.eventFavorites.includes(ev.id));
+      filtered = filtered.filter(ev => getComputedEventStatus(ev) !== 'finished' && state.eventFavorites.includes(ev.id));
     } else {
       // Default / 'ALL' tab: strictly active matches within the 3-day horizon, excluding finished games
-      filtered = filtered.filter(ev => !isAppEventFinished(ev) && isWithin3Days(ev));
+      filtered = filtered.filter(ev => getComputedEventStatus(ev) !== 'finished' && isWithin3Days(ev));
     }
 
     // Strictly deduplicate filtered events by canonical match fingerprint

@@ -156,12 +156,12 @@ const allSportsApiCache = {
 // ============================================================================
 // HIGHFY TV ANTI-SNIFF & REQABLE SECURITY SYSTEM
 // ============================================================================
-const STREAM_SECRET_VAL =
-  process.env.STREAM_SECRET ||
-  "highfy-production-secure-stream-token-2026";
 if (process.env.NODE_ENV === "production" && !process.env.STREAM_SECRET) {
-  console.log("[HighFy Security] STREAM_SECRET environment variable not provided. Using default secure token.");
+  console.error("[FATAL] STREAM_SECRET environment variable is missing in production mode. Server startup aborted.");
+  process.exit(1);
 }
+const STREAM_SECRET_VAL =
+  process.env.STREAM_SECRET || crypto.randomBytes(32).toString("hex");
 const STREAM_SECURITY_KEY = crypto
   .createHash("sha256")
   .update(STREAM_SECRET_VAL)
@@ -2084,11 +2084,21 @@ async function startServer() {
     return banned.some(b => n.includes(b));
   }
 
-  // Smart Broadcaster Search in channels.json with fuzzy keyword matching
+  function normalizeNameToken(name: string): string {
+    if (!name || typeof name !== "string") return "";
+    return name
+      .toLowerCase()
+      .replace(/[\s\-_.]+/g, " ")
+      .replace(/\b(hd|sd|fhd|4k|live|stream|channel|tv|network)\b/gi, "")
+      .replace(/[^a-z0-9]/g, "")
+      .trim();
+  }
+
+  // Strict Broadcaster Search: Exact full name or explicit catalog alias only (NO partial keyword matching)
   function findChannelsByBroadcasterSearch(broadcasterText: string, allChannels: any[], sportHint?: string): any[] {
     if (!broadcasterText || typeof broadcasterText !== "string" || broadcasterText.trim().length < 3 || !Array.isArray(allChannels) || allChannels.length === 0) return [];
     const rawLower = broadcasterText.trim().toLowerCase();
-    const invalidTokens = ["null", "undefined", "none", "tbd", "unknown", "n/a", "na", "live", "stream", "match", "sports", "tv"];
+    const invalidTokens = ["null", "undefined", "none", "tbd", "unknown", "n/a", "na", "live", "stream", "match", "sports", "tv", "sports hd", "sport hd"];
     if (invalidTokens.includes(rawLower)) return [];
 
     if (isBannedNetworkOrOttName(broadcasterText) || isBannedNetworkOrOttName(rawLower)) return [];
@@ -2097,8 +2107,19 @@ async function startServer() {
     if (!normBcast || normBcast.length < 3 || invalidTokens.includes(normBcast)) return [];
     if (isBannedNetworkOrOttName(normBcast)) return [];
 
-    const bcastKeywords = normBcast.split(" ").filter(w => w.length >= 3 && !["the", "and", "live", "network", "tv", "hd", "channel", "sports"].includes(w));
-    if (bcastKeywords.length === 0 && normBcast.length < 4) return [];
+    const cleanToken = normalizeNameToken(broadcasterText);
+    if (!cleanToken || cleanToken === "sports" || cleanToken === "sport" || cleanToken === "tv" || cleanToken === "live") {
+      return [];
+    }
+
+    // 1. Check deterministic channel resolver aliases if available
+    const resolver = channelResolverModule || (globalThis as any).HighFyChannelResolver;
+    if (resolver && typeof resolver.findDeterministicChannels === "function") {
+      const detMatches = resolver.findDeterministicChannels(cleanToken, allChannels, sportHint);
+      if (Array.isArray(detMatches) && detMatches.length > 0) {
+        return detMatches;
+      }
+    }
 
     const activeChannels = allChannels.filter((c: any) => {
       if (!c) return false;
@@ -2108,45 +2129,33 @@ async function startServer() {
       return isActive && isLive && hasStream;
     });
 
-    const scoredChannels: { channel: any; score: number }[] = [];
-
+    // 2. Strict Exact Name or Exact Clean Token Match Only (No partial keyword matching)
+    const matched: any[] = [];
     for (const ch of activeChannels) {
       const chNameNorm = normalizeString(ch.name || ch.title || "");
       const chIdNorm = normalizeString(ch.id || "");
-      const chTags = Array.isArray(ch.tags) ? ch.tags.map((t: any) => normalizeString(String(t))) : [];
-      const chSports = Array.isArray(ch.sports) ? ch.sports.map((s: any) => normalizeString(String(s))) : [];
+      const chToken = normalizeNameToken(ch.name || "");
+      const chIdToken = normalizeNameToken(ch.id || "");
 
-      let score = 0;
+      const isExactMatch =
+        chNameNorm === normBcast ||
+        chIdNorm === normBcast ||
+        (cleanToken.length >= 4 && (chToken === cleanToken || chIdToken === cleanToken));
 
-      if (chNameNorm === normBcast || chIdNorm === normBcast) {
-        score += 100;
-      } else if ((chNameNorm.length >= 4 && normBcast.includes(chNameNorm)) || (normBcast.length >= 4 && chNameNorm.includes(normBcast))) {
-        score += 70;
-      }
-
-      let matchedKeywords = 0;
-      for (const kw of bcastKeywords) {
-        if (chNameNorm.includes(kw) || chIdNorm.includes(kw) || chTags.some((t: string) => t.includes(kw))) {
-          matchedKeywords++;
-          score += 25;
+      if (isExactMatch) {
+        if (sportHint) {
+          const sNorm = normalizeString(sportHint);
+          const chSports = Array.isArray(ch.sports) ? ch.sports.map((s: any) => normalizeString(String(s))) : [];
+          if (chSports.length > 0 && !chSports.some((s: string) => s.includes(sNorm) || sNorm.includes(s))) {
+            continue; // Sport isolation guard
+          }
         }
-      }
-
-      if (sportHint) {
-        const sNorm = normalizeString(sportHint);
-        if (chSports.some((s: string) => s.includes(sNorm) || sNorm.includes(s)) || (ch.category && normalizeString(ch.category).includes(sNorm))) {
-          score += 10;
-        }
-      }
-
-      // Must have matched specific non-stopword keywords or exact name match
-      if ((score >= 60 && (matchedKeywords > 0 || chNameNorm === normBcast || chIdNorm === normBcast)) || (bcastKeywords.length > 0 && matchedKeywords === bcastKeywords.length)) {
-        scoredChannels.push({ channel: ch, score });
+        matched.push(ch);
       }
     }
 
-    scoredChannels.sort((a, b) => b.score - a.score || (a.channel.priority || 99) - (b.channel.priority || 99));
-    return scoredChannels.map(sc => sc.channel);
+    matched.sort((a, b) => (a.priority || 99) - (b.priority || 99));
+    return matched;
   }
 
   // Build clean authorized stream servers from matched channels

@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-10-22T15:09:46.458Z
+ * Generated at: 2026-10-22T16:04:42.930Z
  */
 
 (() => {
@@ -4103,9 +4103,9 @@
     "league": "Pakistan ODI Tri-Series 2026",
     "tournament": "Pakistan ODI Tri-Series 2026",
     "matchDesc": "Pakistan ODI Tri-Series 2026 - 2nd Match - Pakistan vs England",
-    "status": "UPCOMING",
+    "status": "FINISHED",
     "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
+    "statusLabel": "Finished",
     "startTime": "2026-10-20T09:00:00.000Z",
     "endTime": "2026-10-20T15:00:00.000Z",
     "timestamp": 1792486800000,
@@ -4186,9 +4186,9 @@
     "league": "ODI Tri-Nation Series in UAE 2026",
     "tournament": "ODI Tri-Nation Series in UAE 2026",
     "matchDesc": "ODI Tri-Nation Series in UAE 2026 - 3rd Match - Afghanistan vs Bangladesh",
-    "status": "UPCOMING",
+    "status": "FINISHED",
     "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
+    "statusLabel": "Finished",
     "startTime": "2026-10-21T12:00:00.000Z",
     "endTime": "2026-10-21T18:00:00.000Z",
     "timestamp": 1792584000000,

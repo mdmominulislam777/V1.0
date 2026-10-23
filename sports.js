@@ -307,7 +307,7 @@ class SportsCoordinator {
   findChannelsByBroadcasterSearch(broadcasterText, sportsChannels, eventSport) {
     if (!broadcasterText || typeof broadcasterText !== 'string' || broadcasterText.trim().length < 3 || !Array.isArray(sportsChannels) || sportsChannels.length === 0) return [];
     const rawLower = broadcasterText.trim().toLowerCase();
-    const invalidTokens = ['null', 'undefined', 'none', 'tbd', 'unknown', 'n/a', 'na', 'live', 'stream', 'match', 'sports', 'tv'];
+    const invalidTokens = ['null', 'undefined', 'none', 'tbd', 'unknown', 'n/a', 'na', 'live', 'stream', 'match', 'sports', 'tv', 'sports hd', 'sport hd'];
     if (invalidTokens.includes(rawLower)) return [];
 
     if (this.isBannedNetworkOrOttName(broadcasterText) || this.isBannedNetworkOrOttName(rawLower)) return [];
@@ -316,8 +316,29 @@ class SportsCoordinator {
     if (!normBcast || normBcast.length < 3 || invalidTokens.includes(normBcast)) return [];
     if (this.isBannedNetworkOrOttName(normBcast)) return [];
 
-    const bcastKeywords = normBcast.split(' ').filter(w => w.length >= 3 && !['the', 'and', 'live', 'network', 'tv', 'hd', 'channel', 'sports'].includes(w));
-    if (bcastKeywords.length === 0 && normBcast.length < 4) return [];
+    const normalizeToken = (name) => {
+      if (!name || typeof name !== 'string') return '';
+      return name
+        .toLowerCase()
+        .replace(/[\s\-_.]+/g, ' ')
+        .replace(/\b(hd|sd|fhd|4k|live|stream|channel|tv|network)\b/gi, '')
+        .replace(/[^a-z0-9]/g, '')
+        .trim();
+    };
+
+    const cleanToken = normalizeToken(broadcasterText);
+    if (!cleanToken || cleanToken === 'sports' || cleanToken === 'sport' || cleanToken === 'tv' || cleanToken === 'live') {
+      return [];
+    }
+
+    // 1. Check deterministic channel resolver aliases if available
+    const resolver = window.HighFyChannelResolver || (typeof globalThis !== 'undefined' ? globalThis.HighFyChannelResolver : null);
+    if (resolver && typeof resolver.findDeterministicChannels === 'function') {
+      const detMatches = resolver.findDeterministicChannels(cleanToken, sportsChannels, eventSport);
+      if (Array.isArray(detMatches) && detMatches.length > 0) {
+        return detMatches;
+      }
+    }
 
     const activeChannels = sportsChannels.filter(c => {
       if (!c) return false;
@@ -327,45 +348,33 @@ class SportsCoordinator {
       return isActive && isLive && hasStream;
     });
 
-    const scoredChannels = [];
-
+    // 2. Strict Exact Full Name or Exact Clean Token Match Only (No partial keyword matching)
+    const matched = [];
     for (const ch of activeChannels) {
       const chNameNorm = normalizeString(ch.name || ch.title || '');
       const chIdNorm = normalizeString(ch.id || '');
-      const chTags = Array.isArray(ch.tags) ? ch.tags.map(t => normalizeString(String(t))) : [];
-      const chSports = Array.isArray(ch.sports) ? ch.sports.map(s => normalizeString(String(s))) : [];
+      const chToken = normalizeToken(ch.name || '');
+      const chIdToken = normalizeToken(ch.id || '');
 
-      let score = 0;
+      const isExactMatch =
+        chNameNorm === normBcast ||
+        chIdNorm === normBcast ||
+        (cleanToken.length >= 4 && (chToken === cleanToken || chIdToken === cleanToken));
 
-      if (chNameNorm === normBcast || chIdNorm === normBcast) {
-        score += 100;
-      } else if ((chNameNorm.length >= 4 && normBcast.includes(chNameNorm)) || (normBcast.length >= 4 && chNameNorm.includes(normBcast))) {
-        score += 70;
-      }
-
-      let matchedKeywords = 0;
-      for (const kw of bcastKeywords) {
-        if (chNameNorm.includes(kw) || chIdNorm.includes(kw) || chTags.some(t => t.includes(kw))) {
-          matchedKeywords++;
-          score += 25;
+      if (isExactMatch) {
+        if (eventSport) {
+          const sNorm = normalizeString(eventSport);
+          const chSports = Array.isArray(ch.sports) ? ch.sports.map(s => normalizeString(String(s))) : [];
+          if (chSports.length > 0 && !chSports.some(s => s.includes(sNorm) || sNorm.includes(s))) {
+            continue; // Sport isolation guard
+          }
         }
-      }
-
-      if (eventSport) {
-        const sNorm = normalizeString(eventSport);
-        if (chSports.some(s => s.includes(sNorm) || sNorm.includes(s)) || (ch.category && normalizeString(ch.category).includes(sNorm))) {
-          score += 10;
-        }
-      }
-
-      // Must have matched specific non-stopword keywords or exact name match
-      if ((score >= 60 && (matchedKeywords > 0 || chNameNorm === normBcast || chIdNorm === normBcast)) || (bcastKeywords.length > 0 && matchedKeywords === bcastKeywords.length)) {
-        scoredChannels.push({ channel: ch, score });
+        matched.push(ch);
       }
     }
 
-    scoredChannels.sort((a, b) => b.score - a.score || (a.channel.priority || 99) - (b.channel.priority || 99));
-    return scoredChannels.map(sc => sc.channel);
+    matched.sort((a, b) => (a.priority || 99) - (b.priority || 99));
+    return matched;
   }
 
 
