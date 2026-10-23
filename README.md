@@ -292,12 +292,14 @@ To ensure smooth OTA updates and proper Android app packaging:
 ## 15. Canonical Package Manager & CI/CD Pipeline
 
 HighFy TV uses **npm** (`npm`) as its canonical package manager with `package-lock.json`.
-- **Install Dependencies**: `npm ci` (deterministic CI/CD installations) or `npm install`
+- **Install Dependencies**: `npm ci` (deterministic installations) or `npm install`
 - **Unit Testing**: `npm test` (executes `tests/channel-matching.test.ts` via `tsx`)
 - **Type Checking / Linting**: `npm run lint` (`tsc --noEmit`)
 - **Production Web & Android Build**: `npm run build`
 - **Start Production Server**: `npm start` (`node dist/server.cjs`)
 
-The deployment workflows in `.github/workflows/deploy.yml` and `.github/workflows/build-apk.yml` are synchronized with `package-lock.json` and execute `npm ci` for automated builds.
+### Workflow Dependency Usage:
+- **`build-apk.yml`**: Uses `npm ci` (with `package-lock.json`) to install dependencies, compile web assets via `npm run build`, and synchronize assets to the Android bundle.
+- **`deploy.yml`**: Deploys the static web client directly to GitHub Pages after injecting secrets into `config.js` without running dependency installation.
 
 
