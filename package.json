@@ -11,6 +11,7 @@
     "clean": "rm -rf dist server.js",
     "sync:android": "node scripts/generate_bundled_data.cjs && node scripts/sync-android-assets.cjs",
     "lint": "tsc --noEmit",
+    "test": "tsx tests/channel-matching.test.ts",
     "test:load:health": "k6 run -e BASE_URL=${BASE_URL:-http://localhost:3000} tests/load/health.js",
     "test:load:integrity": "k6 run -e BASE_URL=${BASE_URL:-http://localhost:3000} tests/load/broadcaster-integrity.js",
     "test:load:production": "k6 run -e BASE_URL=${BASE_URL:-http://localhost:3000} tests/load/production-load.js"

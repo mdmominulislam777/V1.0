@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-10-22T16:04:42.930Z
+ * Generated at: 2026-10-23T09:01:11.893Z
  */
 
 (() => {
@@ -4269,9 +4269,9 @@
     "league": "Pakistan ODI Tri-Series 2026",
     "tournament": "Pakistan ODI Tri-Series 2026",
     "matchDesc": "Pakistan ODI Tri-Series 2026 - 3rd Match - Sri Lanka vs England",
-    "status": "UPCOMING",
+    "status": "FINISHED",
     "statusText": "Scheduled",
-    "statusLabel": "Upcoming",
+    "statusLabel": "Finished",
     "startTime": "2026-10-22T09:00:00.000Z",
     "endTime": "2026-10-22T15:00:00.000Z",
     "timestamp": 1792659600000,
