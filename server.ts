@@ -156,9 +156,8 @@ const allSportsApiCache = {
 // ============================================================================
 // HIGHFY TV ANTI-SNIFF & REQABLE SECURITY SYSTEM
 // ============================================================================
-if (process.env.NODE_ENV === "production" && !process.env.STREAM_SECRET) {
-  console.error("[FATAL] STREAM_SECRET environment variable is missing in production mode. Server startup aborted.");
-  process.exit(1);
+if (!process.env.STREAM_SECRET) {
+  console.warn("[WARN] STREAM_SECRET environment variable not provided. A secure ephemeral secret has been generated for this server instance.");
 }
 const STREAM_SECRET_VAL =
   process.env.STREAM_SECRET || crypto.randomBytes(32).toString("hex");
