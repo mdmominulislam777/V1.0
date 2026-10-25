@@ -106,7 +106,7 @@ function copyFolderRecursive(source, target) {
 
   const items = fs.readdirSync(source);
   for (const item of items) {
-    if (item === 'server.cjs' || item === 'server.cjs.map') continue; // Skip node server bundle
+    if (item === 'server.cjs' || item === 'server.cjs.map' || item.endsWith('.zip') || item.endsWith('.mp4') || item.endsWith('.tar.gz')) continue; // Skip node server bundle and archives
     const srcPath = path.join(source, item);
     const destPath = path.join(target, item);
     const stat = fs.statSync(srcPath);
