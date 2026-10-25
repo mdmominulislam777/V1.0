@@ -1,0 +1,51 @@
+{
+  "id": "live-test-event-20261025",
+  "idEvent": "live-test-event-20261025",
+  "title": "India vs New Zealand (Test Match - Day 2)",
+  "name": "India vs New Zealand (Test Match - Day 2)",
+  "sport": "cricket",
+  "sportName": "Cricket",
+  "sportIcon": "fa-baseball-bat-ball",
+  "league": "India vs New Zealand Test Series 2026",
+  "tournament": "India vs New Zealand Test Series 2026",
+  "date": "2026-10-25",
+  "startTime": "2026-10-25T04:00:00.000Z",
+  "status": "LIVE",
+  "statusLabel": "LIVE",
+  "statusText": "In Progress",
+  "timestamp": 1792881600000,
+  "matchTime": "Sun, Oct 25 10:00 AM BDT",
+  "timeOrTimer": "LIVE NOW",
+  "isHot": true,
+  "team1": {
+    "name": "India",
+    "logo": "https://r2.thesportsdb.com/images/media/team/badge/z3v04c1534005829.png",
+    "score": "285/4 (78.2 ov)"
+  },
+  "team2": {
+    "name": "New Zealand",
+    "logo": "https://r2.thesportsdb.com/images/media/team/badge/uwtvsy1424683525.png",
+    "score": "259"
+  },
+  "broadcaster": "Willow HD",
+  "broadcasters": [
+    "Willow HD"
+  ],
+  "channelId": "ch-willow-hd",
+  "channels": [
+    "ch-willow-hd"
+  ],
+  "hasStream": true,
+  "verificationSource": "Willow Cricket Event Feed",
+  "verificationDetail": "Verified Live Broadcaster (Dedicated Test Event)",
+  "source": "Willow Cricket Live",
+  "streams": [
+    {
+      "name": "Willow HD (Server 1)",
+      "serverLabel": "Server 1 HD",
+      "channelName": "Willow HD",
+      "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
+      "quality": "1080p FHD"
+    }
+  ]
+}
