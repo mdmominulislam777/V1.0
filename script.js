@@ -6043,9 +6043,11 @@
 
     // Collect all events or matches that have highlight video urls or videoUrl
     const eventsList = state.events || [];
+    // Strict verification: only events with direct, playable highlight video streams (m3u8, mp4)
+    // Never fall back to live streams (ev.streams) or unplayable watch URLs as highlights.
     const highlights = eventsList.filter(ev => {
-      const url = ev.highlightVideo || ev.videoUrl || (ev.streams && ev.streams.find(s => s.url)?.url);
-      return url && typeof url === 'string' && url.trim().startsWith('http');
+      const url = ev.highlightVideo;
+      return url && typeof url === 'string' && (url.includes('.m3u8') || url.includes('.mp4'));
     });
 
     if (highlightsCount) highlightsCount.textContent = `${highlights.length} Videos`;
@@ -6056,15 +6058,15 @@
           <div class="w-16 h-16 rounded-2xl bg-rose-500/10 border border-rose-500/25 flex items-center justify-center mx-auto mb-3 text-rose-400 text-2xl">
             <i class="fa-solid fa-clapperboard"></i>
           </div>
-          <h3 class="text-sm font-bold text-slate-200 mb-1">No Highlights Available Yet</h3>
-          <p class="text-xs text-slate-400 max-w-xs mx-auto">Match highlights and replays from TheSportsDB will appear here automatically once live games conclude.</p>
+          <h3 class="text-sm font-bold text-slate-200 mb-1">Highlights Unavailable</h3>
+          <p class="text-xs text-slate-400 max-w-xs mx-auto">No verified highlight video streams are currently available. In accordance with strict data integrity, unverified replays and live streams are not shown here.</p>
         </div>
       `;
       return;
     }
 
     highlightsGrid.innerHTML = highlights.map(ev => {
-      const hUrl = ev.highlightVideo || ev.videoUrl || (ev.streams && ev.streams[0]?.url);
+      const hUrl = ev.highlightVideo;
       const title = escapeHtml(ev.title || `${ev.homeTeam?.name || 'Home'} vs ${ev.awayTeam?.name || 'Away'}`);
       const league = escapeHtml(ev.league || ev.tournament || 'Match Replay');
       const sport = escapeHtml(ev.sportName || ev.sport || 'Sports');
