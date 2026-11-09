@@ -1396,6 +1396,21 @@ class SportsCoordinator {
     const tourn = (event.tournament || event.league || event.seriesName || '').toLowerCase();
     const title = (event.title || '').toLowerCase();
     const eventId = String(event.id || event.rawId || event.idEvent || '');
+
+    // Strict Locked Rule for Cricket: Willow or unverified matches without live provider verification must return no streams
+    if (sport === 'cricket' && (eventId.startsWith('willow-') || (!eventId.startsWith('cr-') && !event.source))) {
+      return {
+        hasStream: false,
+        streams: [],
+        broadcastChannels: [],
+        broadcastingChannelDetails: [],
+        channelId: null,
+        verificationSource: 'unverified',
+        sourceField: null,
+        verificationDetail: 'Live channel unavailable'
+      };
+    }
+
     const sportsChannels = this.getAllSportsChannels();
 
     const verifiedChannelEntries = [];

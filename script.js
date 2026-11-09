@@ -1910,6 +1910,7 @@
     if (!event) return '';
 
     // Auto-pull & bind sports TV channels for this match if not yet bound
+    const isCricketSport = (event.sport || event.sportName || '').toLowerCase() === 'cricket';
     if (!event.broadcastingChannelDetails || event.broadcastingChannelDetails.length === 0 || !event.streams || event.streams.length === 0) {
       if (window.sportsCoordinator) {
         const matchInfo = window.sportsCoordinator.matchLiveStream(event);
@@ -1932,6 +1933,19 @@
           event.broadcastingChannelDetails = [];
           event.channelId = null;
         }
+      }
+    }
+
+    // Strict Rule: Unverified cricket matches MUST have channelId = null, hasStream = false, streams = []
+    if (isCricketSport) {
+      const isUnverifiedWillow = String(event.id || '').startsWith('willow-');
+      const isApiVerified = event.verified === true && (event.verificationSource === 'direct_api' || String(event.source || '').toLowerCase().includes('cricketdata'));
+      if (isUnverifiedWillow || !isApiVerified || !event.hasStream || !event.streams || event.streams.length === 0) {
+        event.hasStream = false;
+        event.streams = [];
+        event.broadcastChannels = [];
+        event.broadcastingChannelDetails = [];
+        event.channelId = null;
       }
     }
 
@@ -2611,7 +2625,7 @@
 
       // 1. If already cached in memory, render immediately
       if (eventChannelsClientCache.has(eventId)) {
-        renderChannelChips(chipBox, eventChannelsClientCache.get(eventId));
+        renderChannelChips(chipBox, eventChannelsClientCache.get(eventId), sport);
         return;
       }
 
@@ -2631,25 +2645,38 @@
         .then(json => {
           const channels = Array.isArray(json?.channels) ? json.channels : [];
           eventChannelsClientCache.set(eventId, channels);
-          renderChannelChips(chipBox, channels);
+          renderChannelChips(chipBox, channels, sport);
         })
         .catch(() => {
           eventChannelsClientCache.set(eventId, []);
-          renderChannelChips(chipBox, []);
+          renderChannelChips(chipBox, [], sport);
         });
     });
   }
 
   /**
    * Render channel chips: max 3 chips, then "+N more".
-   * If none: display "Channel info coming soon".
+   * If none: for cricket display "Live channel unavailable", else hide.
    */
-  function renderChannelChips(container, channels) {
+  function renderChannelChips(container, channels, sport = '') {
     if (!container) return;
     if (!channels || channels.length === 0) {
-      container.innerHTML = '';
-      if (container.parentElement) {
-        container.parentElement.style.display = 'none';
+      if (String(sport || '').toLowerCase() === 'cricket') {
+        container.innerHTML = `
+          <div class="channel-chips-row">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-bold text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-full" style="line-height: 1.3;">
+              <i class="fa-solid fa-tv text-[10px]"></i> Live channel unavailable
+            </span>
+          </div>
+        `;
+        if (container.parentElement) {
+          container.parentElement.style.display = '';
+        }
+      } else {
+        container.innerHTML = '';
+        if (container.parentElement) {
+          container.parentElement.style.display = 'none';
+        }
       }
       return;
     }
@@ -3449,7 +3476,7 @@
       `;
     }
 
-    // Watch Live Button
+    // Watch Live Button (or Live channel unavailable fallback)
     let watchButtonHtml = '';
     if (Array.isArray(match.streams) && match.streams.length > 0) {
       watchButtonHtml = `
@@ -3457,6 +3484,14 @@
           <button class="btn-watch-stream btn-primary btn-play-md-stream" id="btn-md-play-stream" data-event-id="${escapeHtml(match.id)}">
             <i class="fa-solid fa-play"></i> Watch Live Stream (${match.streams.length} Stream${match.streams.length > 1 ? 's' : ''})
           </button>
+        </div>
+      `;
+    } else {
+      watchButtonHtml = `
+        <div class="md-hero-watch-row">
+          <div class="channel-unavailable-pill" style="display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:9999px;background:rgba(244,63,94,0.1);border:1px solid rgba(244,63,94,0.25);color:#fb7185;font-size:12px;font-weight:700;">
+            <i class="fa-solid fa-tv"></i> Live channel unavailable
+          </div>
         </div>
       `;
     }
@@ -5664,18 +5699,25 @@
       const ringColor = (customColor && customColor.ringColor) || cat.ringColor || '#38bdf8';
       const glowColor = (customColor && customColor.glowColor) || cat.glowColor || 'rgba(56, 189, 248, 0.35)';
       
+      const catInitials = ((cat.name || 'TV').replace(/[^a-zA-Z0-9]/g, '').slice(0, 2) || 'TV').toUpperCase();
+      const monogramSvg = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96"><defs><radialGradient id="g_${escapeHtml(cat.id || catInitials)}" cx="35%" cy="30%" r="70%"><stop offset="0%" stop-color="${escapeHtml(ringColor)}" stop-opacity="0.45"/><stop offset="100%" stop-color="#0b1120" stop-opacity="0.95"/></radialGradient></defs><rect width="96" height="96" rx="48" fill="url(#g_${escapeHtml(cat.id || catInitials)})"/><circle cx="48" cy="48" r="44" fill="none" stroke="${escapeHtml(ringColor)}" stroke-width="2.5" stroke-opacity="0.8"/><text x="50%" y="54%" font-size="28" font-weight="900" fill="#ffffff" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" letter-spacing="1">${escapeHtml(catInitials)}</text></svg>`)}`;
+
+      const hasLocalFile = (cat.id === 'sports' || cat.id === 'ayna');
       let logoHtml = '';
-      if (effectiveLogo) {
+
+      if ((hasLocalFile || customLogo || (effectiveLogo && /^https?:\/\//i.test(effectiveLogo))) && effectiveLogo) {
         let logoSrc = effectiveLogo;
         if (/^https?:\/\//i.test(logoSrc)) {
           const apiBase = window.CONFIG?.API_BASE_URL || '';
-          logoSrc = `${apiBase}/api/logo-proxy?url=${encodeURIComponent(logoSrc)}`;
+          logoSrc = `${apiBase}/api/logo-proxy?url=${encodeURIComponent(logoSrc)}&name=${encodeURIComponent(cat.name)}`;
         }
-        const localFallback = `./assets/category-logos/${escapeHtml(cat.id || 'ayna')}.png`;
-        logoHtml = `<img src="${escapeHtml(logoSrc)}" alt="${escapeHtml(cat.name)}" class="category-logo-img" onerror="if(!this.dataset.fallbackTried){this.dataset.fallbackTried='1';this.src='${localFallback}';}else{this.style.display='none';if(this.nextElementSibling)this.nextElementSibling.style.display='inline-block';}">
+        logoHtml = `<img src="${escapeHtml(logoSrc)}" alt="${escapeHtml(cat.name)}" class="category-logo-img" onerror="this.onerror=null;this.src='${monogramSvg}';" />
                     <i class="fa-solid ${escapeHtml(cat.icon || 'fa-tv')} category-logo-icon" style="display:none;"></i>`;
       } else {
-        logoHtml = `<i class="fa-solid ${escapeHtml(cat.icon || 'fa-tv')} category-logo-icon"></i>`;
+        logoHtml = `<div class="category-monogram-badge" style="width:100%;height:100%;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(circle at 35% 30%, ${escapeHtml(glowColor)}, rgba(11,17,32,0.95));border:2px solid ${escapeHtml(ringColor)};box-shadow:0 0 14px ${escapeHtml(glowColor)};">
+          <i class="fa-solid ${escapeHtml(cat.icon || 'fa-tv')} category-logo-icon" style="font-size:26px;color:#ffffff;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.6));margin-bottom:2px;"></i>
+          <span style="font-size:10px;font-weight:900;letter-spacing:0.5px;color:${escapeHtml(ringColor)};text-transform:uppercase;line-height:1;">${escapeHtml(catInitials)}</span>
+        </div>`;
       }
 
       return `
@@ -6225,7 +6267,7 @@
       const trimmed = resolvedUrl.trim();
       if (/^https?:\/\//i.test(trimmed)) {
         const apiBase = window.CONFIG?.API_BASE_URL || '';
-        return `${apiBase}/api/logo-proxy?url=${encodeURIComponent(trimmed)}`;
+        return `${apiBase}/api/logo-proxy?url=${encodeURIComponent(trimmed)}&name=${encodeURIComponent(cleanDisplayName || name || 'TV')}`;
       }
       return trimmed;
     }

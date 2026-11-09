@@ -1530,6 +1530,23 @@ async function startServer() {
         }
       }
 
+      // Enforce: unverified cricket matches without live verified provider broadcast data MUST have channelId = null, hasStream = false, streams = []
+      for (const item of list) {
+        const sp = String(item.sport || item.sportName || "").toLowerCase();
+        if (sp === "cricket") {
+          const hasVerifiedLiveSource = item.verified === true && item.verificationSource === "direct_api";
+          if (!hasVerifiedLiveSource && String(item.id || "").startsWith("willow-")) {
+            item.channelId = null;
+            item.hasStream = false;
+            item.streams = [];
+            item.channels = [];
+            item.broadcaster = null;
+            item.broadcasters = [];
+            item.strTVStation = null;
+          }
+        }
+      }
+
       cachedEventsJson = list;
       return cachedEventsJson;
     } catch (e: any) {
@@ -6577,28 +6594,75 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
     });
   });
 
+  // Helper to generate high-resolution branded SVG monogram on logo proxy fallback
+  function generateLogoMonogramSvg(title: string): string {
+    const clean = title.replace(/\b(https?|upload|wikimedia|wikipedia|commons|thumb|px|logo|svg|png|jpg|jpeg|ch|channel|hd|fhd|tv|official)\b/gi, " ")
+      .replace(/[^a-zA-Z0-9\s]/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .toUpperCase();
+    const words = clean.split(" ").filter(Boolean);
+    let letters = "TV";
+    if (words.length >= 2) {
+      letters = (words[0][0] + words[1][0]).toUpperCase();
+    } else if (words.length === 1 && words[0].length >= 2) {
+      letters = words[0].slice(0, 2).toUpperCase();
+    } else if (words.length === 1 && words[0].length === 1) {
+      letters = words[0].toUpperCase();
+    }
+    return `<svg xmlns="http://www.w3.org/2000/svg" width="96" height="96" viewBox="0 0 96 96">
+  <defs>
+    <radialGradient id="mono-grad" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0b1120"/>
+    </radialGradient>
+  </defs>
+  <rect width="96" height="96" rx="48" fill="url(#mono-grad)"/>
+  <circle cx="48" cy="48" r="44" fill="none" stroke="#38bdf8" stroke-width="2.5" stroke-opacity="0.6"/>
+  <text x="50%" y="54%" font-size="30" font-weight="900" fill="#38bdf8" text-anchor="middle" dominant-baseline="middle" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" letter-spacing="1">${letters}</text>
+</svg>`;
+  }
+
   // Centralized production-safe channel/category logo proxy to bypass CORS/hotlinking restrictions in APK
   app.get("/api/logo-proxy", async (req, res) => {
-    try {
-      const imageUrl = req.query.url;
-      if (typeof imageUrl !== "string" || !imageUrl.trim()) {
-        return res.status(400).send("Missing logo URL");
-      }
-      
-      const targetUrl = decodeURIComponent(imageUrl).trim();
-      if (!/^https?:\/\//i.test(targetUrl)) {
-        return res.status(400).send("Invalid logo URL protocol");
-      }
+    const imageUrl = req.query.url;
+    const nameParam = String(req.query.name || "").trim();
+    if (typeof imageUrl !== "string" || !imageUrl.trim()) {
+      res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      return res.status(200).send(generateLogoMonogramSvg(nameParam || "TV"));
+    }
+    
+    let targetUrl = decodeURIComponent(imageUrl).trim();
+    if (!/^https?:\/\//i.test(targetUrl)) {
+      res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      return res.status(200).send(generateLogoMonogramSvg(nameParam || "TV"));
+    }
 
+    // Resolve Wikimedia 320px thumbnail restriction (rewrite to supported step e.g. 330px)
+    if (targetUrl.includes("upload.wikimedia.org") && targetUrl.includes("/320px-")) {
+      targetUrl = targetUrl.replace(/\/320px-/g, "/330px-");
+    }
+
+    try {
       const response = await fetch(targetUrl, {
         headers: {
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+          "User-Agent": "HighFyTV/1.0 (https://highfy.tv; support@highfy.tv)",
           "Referer": "https://www.google.com/"
-        }
+        },
+        signal: AbortSignal.timeout(6000)
       });
 
       if (!response.ok) {
-        return res.status(response.status).send(`Failed to fetch logo: ${response.statusText}`);
+        // Return clean branded SVG monogram with HTTP 200 instead of 400/500 error to eliminate empty circles
+        const fallbackTitle = nameParam || targetUrl.split("/").pop() || "TV";
+        res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+        res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        return res.status(200).send(generateLogoMonogramSvg(fallbackTitle));
       }
 
       const contentType = response.headers.get("content-type") || "image/png";
@@ -6610,10 +6674,19 @@ Ensure the tone is exciting, authoritative, emoji-rich, and written in fluent, e
         const reader = Readable.from(response.body as any);
         reader.pipe(res);
       } else {
-        res.status(500).send("Empty response body from target server");
+        const fallbackTitle = nameParam || targetUrl.split("/").pop() || "TV";
+        res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+        res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+        res.setHeader("Access-Control-Allow-Origin", "*");
+        res.status(200).send(generateLogoMonogramSvg(fallbackTitle));
       }
-    } catch (err: any) {
-      res.status(500).send(`Logo proxy error: ${err.message}`);
+    } catch {
+      // In case of timeout or network error, return branded SVG monogram
+      const fallbackTitle = nameParam || targetUrl.split("/").pop() || "TV";
+      res.setHeader("Content-Type", "image/svg+xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=86400, s-maxage=86400");
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.status(200).send(generateLogoMonogramSvg(fallbackTitle));
     }
   });
 

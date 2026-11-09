@@ -1,6 +1,6 @@
 /**
  * HIGHFY TV - Bundled Local Data Assets (Auto-generated)
- * Generated at: 2026-10-25T11:27:32.985Z
+ * Generated at: 2026-10-27T03:23:08.775Z
  */
 
 (() => {
@@ -3803,44 +3803,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HMQL4NJS",
@@ -3886,44 +3850,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HLWVSMP1",
@@ -3969,44 +3897,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HN5C4CSG",
@@ -4052,44 +3944,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0GLKK9LBV",
@@ -4135,44 +3991,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HN5PJ2BX",
@@ -4218,44 +4038,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HMLGQPBV",
@@ -4301,44 +4085,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HL5YN53G",
@@ -4384,44 +4132,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HMLP8D75",
@@ -4467,44 +4179,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HMG5YWFC",
@@ -4550,44 +4226,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HKDPRJRS",
@@ -4633,44 +4273,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HN2PT7BB",
@@ -4716,44 +4320,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HMGDLS21",
@@ -4799,44 +4367,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "willow-B0HG6HPFD3",
@@ -4882,44 +4414,8 @@
       "logo": "",
       "score": ""
     },
-    "broadcaster": "Willow HD",
-    "broadcasters": [
-      "Willow HD",
-      "Willow Xtra"
-    ],
-    "strTVStation": "Willow HD",
-    "channelId": "ch-willow-hd",
-    "channels": [
-      "ch-willow-hd",
-      "ch-willow-xtra"
-    ],
-    "hasStream": true,
-    "verificationSource": "Willow Cricket Event Feed",
-    "verificationDetail": "Verified Live Broadcaster",
-    "source": "Willow Cricket",
-    "streams": [
-      {
-        "name": "Willow Cricket HD (Server 1)",
-        "serverLabel": "Server 1 HD",
-        "channelName": "Willow HD",
-        "url": "https://linear-108.frequency.stream/mt/studio/108/hls/master/playlist.m3u8",
-        "quality": "1080p FHD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 2 Sky)",
-        "serverLabel": "Server 2 (Sky Cricket)",
-        "channelName": "Willow HD",
-        "url": "http://6zirt9yx.otttv.pw/iptv/HEGN4VXXQQSYCA/9258/index.m3u8",
-        "quality": "720p HD"
-      },
-      {
-        "name": "Willow Cricket HD (Server 3 DD Sports)",
-        "serverLabel": "Server 3 (DD Sports)",
-        "channelName": "Willow HD",
-        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
-        "quality": "720p HD"
-      }
-    ]
+    "hasStream": false,
+    "streams": []
   },
   {
     "id": "tsdb-2494052",

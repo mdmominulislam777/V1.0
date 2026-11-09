@@ -598,6 +598,8 @@
     getChannelStreamUrl,
     getChannelServers,
     resolveDiscoveredBroadcasters,
-    resolveEventChannels
+    resolveEventChannels,
+    findDeterministicChannels,
+    EXPLICIT_CATALOG_ALIASES
   };
 });
